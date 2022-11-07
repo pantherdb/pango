@@ -1,0 +1,22 @@
+@import "src/@panther/scss/panther";
+@import "src/@panther.common/scss/panther.common";
+
+:host {
+  footer {
+    padding: 30px 8px;
+    background-color: $panther-primary-color;
+    color: #f7f7f7;
+
+    .panther-image-logo {
+      width: 100%;
+    }
+
+    a {
+      color: #ffffff;
+
+      &:hover {
+        color: #dddddd;
+      }
+    }
+  }
+}

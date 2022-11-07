@@ -1,0 +1,45 @@
+@import "src/@panther/scss/panther";
+@import "src/@panther.common/scss/panther.common";
+
+:host {
+  panther-footer {
+  }
+
+  .panther-sm-container {
+    width: 800px;
+  }
+
+  .panther-section {
+    padding: 40px 10px;
+
+    .panther-heading {
+      margin: 0 auto;
+      width: 800px;
+
+      h3 {
+        font-size: 28px;
+      }
+    }
+
+    h1 {
+      font-size: 40px;
+    }
+
+    h2 {
+      font-size: 30px;
+    }
+
+    &.section-1 {
+      background-color: #fff;
+    }
+
+    &.section-2 {
+      background-color: rgba($panther-primary-color, 0.1);
+    }
+  }
+
+  p {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}

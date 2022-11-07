@@ -1,0 +1,158 @@
+@use "@angular/material" as mat;
+@import "src/@panther/scss/panther";
+@import "src/@panther.common/scss/panther.common";
+
+$primary: map-get($theme, primary);
+$accent: map-get($theme, accent);
+
+:host {
+  @include deep-width(100%);
+  height: 100%;
+
+  display: block;
+  background-color: white;
+  @include mat.elevation(4);
+
+  .panther-cam-progress {
+    position: absolute;
+    top: 0;
+    height: 5px;
+    right: 0;
+    left: 0;
+    z-index: 1000;
+  }
+
+  .panther-drawer {
+    width: 100%;
+
+    .panther-drawer-body {
+      padding: 24px 24px 100px 0;
+      min-height: calc(100% - 30px);
+    }
+  }
+
+  .panther-tree-container {
+    position: relative;
+    padding: 12px 8px;
+    @include deep-width(100%);
+    .panther-cell-label {
+      position: relative;
+      @include deep-width(100%);
+      @include deep-height(20px);
+      padding: 4px 10px 4px 5px;
+      font-size: 10px;
+      color: map-get($primary, default);
+      border-bottom: $panther-primary-color-light solid 1px;
+      .panther-edit-button {
+      }
+    }
+
+    .panther-tree {
+      @include deep-width(100%);
+      @include deep-height(100%);
+
+      .node-content-wrapper {
+        padding: 0 !important;
+      }
+
+      /*   &::before {
+        content: "";
+        position: absolute;
+        border-left: 1px solid $panther-tree-line-color;
+        height: 100%;
+        top: 0;
+        left: 55px;
+      } */
+    }
+
+    .panther-tree-node {
+      font-size: 12px;
+      color: #000;
+
+      .panther-node-expander-button {
+        @include deep-width(20px);
+        @include deep-height(20px);
+        line-height: 14px;
+        background-color: #ffffff;
+      }
+
+      .panther-expander-placeholder {
+        @include deep-width(20px);
+        @include deep-height(20px);
+      }
+
+      .panther-icon-button {
+        @include deep-height(25px);
+        @include deep-width(25px);
+        line-height: 25px;
+        color: #aaa;
+      }
+
+      .panther-tree-icon {
+        color: #000;
+        font-size: 14px;
+      }
+
+      .panther-term-row {
+        padding: 5px;
+
+        border-bottom: #6f919b solid 1px;
+
+        .panther-title {
+          // font-weight: bold;
+          font-size: 12px;
+          padding-right: 8px;
+          overflow-wrap: break-word;
+          word-wrap: break-word;
+          hyphens: auto;
+        }
+
+        .panther-subtitle {
+          font-size: 10px;
+          color: #777;
+        }
+
+        .panther-badge {
+          padding: 0 5px;
+          margin: 2px 5px;
+          // background-color: #91b995;
+          color: #777;
+          border-radius: 6px;
+          font-size: 10px;
+          font-weight: bold;
+          border: #000 solid 1px;
+          border-top: none;
+          border-bottom: none;
+        }
+
+        button,
+        .panther-icon {
+          color: #777;
+          font-size: 16px;
+        }
+      }
+
+      .panther-category-row {
+        //padding-right: 50px;
+        .panther-title {
+          // font-weight: bold;
+          font-size: 12px;
+          //margin-bottom: 5px;
+          // word-break: break-all;
+        }
+      }
+
+      &:hover {
+        background-color: rgba(#000000, 0.1);
+      }
+    }
+
+    &.panther-selected {
+      background-color: rgba(#6f919b, 0.3);
+    }
+  }
+
+  .panther-body {
+    padding: 0 14px 14px 14px;
+  }
+}

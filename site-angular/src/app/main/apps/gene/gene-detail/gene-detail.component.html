@@ -1,0 +1,42 @@
+<div fxLayout="column" fxLayoutAlign="start stretch" class="panther-drawer w-100-p h-100-p">
+  <div class="panther-drawer-header" fxLayout="row" fxLayoutAlign="start center">
+    <span class="panther-drawer-header-title">
+      Selected Row</span>
+    <span fxFlex></span>
+    <button mat-stroked-button (click)="close()" class="panther-rounded-button panther-sm" color="primary"
+      aria-label="Close dialog">
+      <mat-icon>close</mat-icon> Close
+    </button>
+  </div>
+  <div class="panther-drawer-body" fxLayout="row" fxLayoutAlign="start start" pantherPerfectScrollbar>
+    <div class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+      <div class="panther-gene-detail-row" *ngFor="let row of rows" fxLayout="column" fxLayoutAlign="start stretch">
+        <div class="panther-title">
+          <div class="">
+            {{row.name}}
+          </div>
+        </div>
+        <div class="panther-description">
+          <div fxLayout="column" fxLayoutAlign="start stretch">
+            <div *ngFor="let item of row.values" class="panther-item">
+              <a *ngIf="item.url" (click)="$event.stopPropagation()" href="{{item.url}}" target="_blank">
+                {{item.label}}
+              </a>
+              <span *ngIf="!item.url">
+                {{item.label}}
+              </span>
+            </div>
+
+            <div *ngIf="row.values?.length===0" class="panther-no-info">
+              value not available
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="start center" class="panther-drawer-footer panther-submit-row">
+    <span fxFlex></span>
+    <button (click)='close()' type="button" mat-raised-button color="" class="mr-8">Close</button>
+  </div>
+</div>

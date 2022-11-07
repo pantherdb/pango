@@ -1,0 +1,188 @@
+[
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000005189|UniProtKB=Q96IC2",
+        "term": "GO:0004527",
+        "slim_terms": [
+            "GO:0016787"
+        ],
+        "qualifiers": [],
+        "reference": "PMID:1",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000100101|UniProtKB=V9GYY5",
+        "term": "GO:0003723",
+        "slim_terms": [
+            "GO:0003723"
+        ],
+        "qualifiers": [],
+        "reference": "PMID:2",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000125695|UniProtKB=J3QR89",
+        "term": "GO:0005509",
+        "slim_terms": [],
+        "qualifiers": [],
+        "reference": "PMID:4",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000142539|UniProtKB=M0R3H8",
+        "term": "GO:0000981",
+        "slim_terms": [],
+        "qualifiers": [],
+        "reference": "PMID:5",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000167524|UniProtKB=E9PPC7",
+        "term": "GO:0004672",
+        "slim_terms": [
+            "GO:0140096",
+            "GO:0016740"
+        ],
+        "qualifiers": [],
+        "reference": "PMID:6",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000173366|UniProtKB=H0Y858",
+        "term": "GO:0000030",
+        "slim_terms": [
+            "GO:0060089"
+        ],
+        "qualifiers": [],
+        "reference": "PMID:7",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000179859|UniProtKB=A6NIN4",
+        "term": "GO:0061630",
+        "slim_terms": [
+            "GO:0016740",
+            "GO:0140096"
+        ],
+        "qualifiers": [],
+        "reference": "PMID:8",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000180042|UniProtKB=A0A286YEU6",
+        "term": "GO:0004984",
+        "slim_terms": [
+            "GO:0060089"
+        ],
+        "qualifiers": [],
+        "reference": "PMID:9",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000180042|UniProtKB=A0A286YEU6",
+        "term": "GO:0005549",
+        "slim_terms": [],
+        "qualifiers": [],
+        "reference": "PMID:10",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000188897|UniProtKB=M0QZD8",
+        "term": "GO:0005319",
+        "slim_terms": [
+            "GO:0005215"
+        ],
+        "qualifiers": [],
+        "reference": "PMID:11",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000211974|UniProtKB=A0A0C4DH43",
+        "term": "GO:0034987",
+        "slim_terms": [],
+        "qualifiers": [],
+        "reference": "PMID:12",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000211974|UniProtKB=A0A0C4DH43",
+        "term": "GO:0003823",
+        "slim_terms": [],
+        "qualifiers": [],
+        "reference": "PMID:13",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000229674|UniProtKB=A0A3B3IU63",
+        "term": "GO:0003677",
+        "slim_terms": [
+            "GO:0003677"
+        ],
+        "qualifiers": [],
+        "reference": "PMID:14",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000231021|UniProtKB=X5D2U9",
+        "term": "GO:0023026",
+        "slim_terms": [],
+        "qualifiers": [],
+        "reference": "PMID:15",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000231767|UniProtKB=A0A2R8Y422",
+        "term": "GO:0031625",
+        "slim_terms": [],
+        "qualifiers": [],
+        "reference": "PMID:16",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000231767|UniProtKB=A0A2R8Y422",
+        "term": "GO:0031386",
+        "slim_terms": [
+            "GO:0031386"
+        ],
+        "qualifiers": [],
+        "reference": "PMID:17",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000233087|UniProtKB=Q53S08",
+        "term": "GO:0003924",
+        "slim_terms": [
+            "GO:0003924"
+        ],
+        "qualifiers": [],
+        "reference": "PMID:18",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000233757|UniProtKB=A0A087WUV0",
+        "term": "GO:0000981",
+        "slim_terms": [],
+        "qualifiers": [],
+        "reference": "PMID:19",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000233757|UniProtKB=A0A087WUV0",
+        "term": "GO:0000978",
+        "slim_terms": [
+            "GO:0003677"
+        ],
+        "qualifiers": [],
+        "reference": "PMID:20",
+        "group": "UniProtKB"
+    },
+    {
+        "gene": "HUMAN|Ensembl=ENSG00000233757|UniProtKB=A0A087WUV0",
+        "term": "GO:0005125",
+        "slim_terms": [
+            "GO:0048018"
+        ],
+        "qualifiers": [],
+        "reference": "PMID:21",
+        "group": "UniProtKB"
+    }
+]

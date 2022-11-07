@@ -1,0 +1,104 @@
+<div *ngIf="genePage" fxLayout="column" fxLayoutAlign="start stretch" class="panther-drawer h-100-p">
+  <div class="panther-drawer-header" fxLayout="row" fxLayoutAlign="start center">
+    <span class="panther-drawer-header-title">
+      Search Summary</span>
+    <span fxFlex></span>
+    <button mat-stroked-button (click)="close()" class="panther-rounded-button panther-sm" color="primary"
+      aria-label="Close dialog">
+      <mat-icon>close</mat-icon> CLOSE
+    </button>
+  </div>
+  <div class="panther-drawer-body" pantherPerfectScrollbar>
+
+    <div class="panther-tree-container">
+      <div class="panther-tree">
+        <div class="panther-pos-summary-bar" fxLayout="column" fxLayoutAlign="start start">
+          <strong class="mb-12">Pos Range</strong>
+          <div fxLayout="row" fxLayoutAlign="start space-between">
+            <div class="py-8 mr-16"><strong>From:</strong> {{genePage.posMin}}</div>
+            <div class="py-8"><strong>To:</strong> {{genePage.posMax}}</div>
+          </div>
+
+        </div>
+        <div *ngFor="let item of treeNodes" class="w-100-p panther-tree-node" fxLayout="column"
+          fxLayoutAlign="start center">
+          <div class="panther-term-row panther-category-row w-100-p" fxFlex="" fxLayout="row"
+            fxLayoutAlign="start center">
+            <div class="panther-title">
+              {{item.label}}
+            </div>
+            <span fxFlex=""></span>
+            <div class="panther-aspect-badge" (click)="openSearch(item)" fxLayout="row" fxLayoutAlign="center center">
+              {{item.count}}
+            </div>
+            <button mat-icon-button color="" class="panther-rounded-button panther-sm" (click)="addExistFilter(item)"
+              matTooltip="Filter" [matTooltipPosition]="'after'" [matTooltipShowDelay]="1500">
+              <fa-icon [icon]="['fas', 'filter']"></fa-icon>
+            </button>
+            <button mat-icon-button color="" class="panther-rounded-button  panther-sm" (click)="getStats(item.name)"
+              matTooltip="Stats" [matTooltipPosition]="'after'" [matTooltipShowDelay]="1500">
+              <fa-icon [icon]="['fas', 'chart-bar']"></fa-icon>
+            </button>
+          </div>
+        </div>
+        <!--
+        <tree-root #tree (initialized)="onTreeLoad()" [nodes]="treeNodes" [options]="treeOptions">
+          <ng-template #treeNodeWrapperTemplate let-node let-index="index">
+            <div class="node-wrapper panther-tree-node" fxLayout="row" fxLayoutAlign="start center"
+              [style.padding-left]="node.getNodePadding()">
+              <button mat-icon-button class="panther-node-expander-button" color="primary" (click)="node.toggleExpanded()"
+                *ngIf="node.hasChildren">
+                <fa-icon *ngIf="node?.isCollapsed" [icon]="['fas', 'caret-right']"></fa-icon>
+                <fa-icon *ngIf="node?.isExpanded" [icon]="['fas', 'caret-down']"></fa-icon>
+              </button>
+              <div class="panther-expander-placeholder" *ngIf="!node.hasChildren">
+              </div>
+              <div class="node-content-wrapper" fxFlex="" fxLayout="row" fxLayoutAlign="start center"
+                [class.node-content-wrapper-active]="node.isActive"
+                [class.node-content-wrapper-focused]="node.isFocused" (click)="node.mouseAction('click', $event)"
+                (dblclick)="node.mouseAction('dblClick', $event)"
+                (contextmenu)="node.mouseAction('contextMenu', $event)" (treeDrop)="node.onDrop($event)"
+                [treeAllowDrop]="node.allowDrop" [treeDrag]="node" [treeDragEnabled]="node.allowDrag()">
+                <div *ngIf="node.data.isCategory" class="panther-term-row panther-category-row" fxFlex="" fxLayout="row"
+                  fxLayoutAlign="start center">
+                  <div class="panther-title">
+                    {{node.data.label}}
+                  </div>
+                  <span fxFlex=""></span>
+                  <div class="panther-aspect-badge" (click)="openSearch(node.data)" fxLayout="row"
+                    fxLayoutAlign="center center">
+                    {{node.data.count}}
+                  </div>
+                  <button mat-icon-button color="" class="panther-rounded-button" (click)="addExistFilter(node.data.name)"
+                    matTooltip="Filter" [matTooltipPosition]="'after'" [matTooltipShowDelay]="1500">
+                    <fa-icon [icon]="['fas', 'filter']"></fa-icon>
+                  </button>
+                  <button mat-icon-button color="" class="panther-rounded-button" (click)="getStats(node.data.name)"
+                    matTooltip="Filter" [matTooltipPosition]="'after'" [matTooltipShowDelay]="1500">
+                    <fa-icon [icon]="['fas', 'chart-bar']"></fa-icon>
+                  </button>
+                </div>
+                <div *ngIf="!node.data.isCategory" class="panther-term-row" fxFlex="" fxLayout="row"
+                  fxLayoutAlign="start center">
+                  <ng-container [ngSwitch]="node.data.entityType">
+                    <ng-container *ngSwitchDefault>
+                      <div class="panther-title">
+                        {{node.data.label}}
+                      </div>
+                      <span fxFlex=""></span>
+                      <div class="panther-badge" (click)="addExistFilter(node.data.name)" fxLayout="row"
+                        fxLayoutAlign="center center">
+                        {{node.data.count}}
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </tree-root>
+        -->
+      </div>
+    </div>
+  </div>
+</div>

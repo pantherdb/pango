@@ -1,0 +1,42 @@
+@import "src/@panther/scss/panther";
+@import "src/@panther.common/scss/panther.common";
+
+$primary: map-get($theme, primary);
+$accent: map-get($theme, accent);
+
+:host {
+  .panther-drawer {
+    @include deep-width(500px !important);
+  }
+
+  .panther-gene-detail-row {
+    padding: 5px 10px;
+    border-bottom: #888 solid 1px;
+    font-size: 12px;
+
+    .panther-no-info {
+      padding: 10px 10px;
+      font-size: 10px;
+    }
+
+    .panther-title {
+      color: #999;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 12px 0;
+    }
+
+    .panther-description {
+      word-break: break-all;
+    }
+
+    .panther-item {
+      padding: 4px 0;
+      border-bottom: #ccc solid 1px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,106 @@
+.mat-button {
+  min-width: 20px !important;
+}
+
+.mat-tab-body-wrapper {
+  flex-grow: 1;
+}
+
+.mat-tab-body {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.mat-tab-body-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.mat-dialog-container {
+  padding: 0 !important;
+}
+
+.mat-dialog-content {
+  margin: 0 !important;
+}
+
+.mat-icon-button {
+  .mat-button-ripple {
+    border-radius: 50%;
+  }
+}
+
+.mat-form-field-wrapper {
+  font-size: 16px;
+}
+
+.mat-checkbox {
+  font-size: 16px;
+}
+
+.mat-radio-button {
+  font-size: 16px;
+}
+
+.mat-pseudo-checkbox-checked:after {
+  width: 14px !important;
+  height: 7px !important;
+}
+
+.mat-form-field-underline {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.mat-form-field {
+  &.mat-form-field-type-mat-select {
+    .mat-form-field-infix {
+      display: inline-flex;
+      width: auto;
+
+      .mat-select-trigger {
+        display: inline-flex;
+        align-items: center;
+        width: 100%;
+
+        .mat-select-value {
+          display: flex;
+          max-width: none;
+          margin-right: 8px;
+        }
+
+        .mat-select-arrow-wrapper {
+          display: inline-flex;
+        }
+      }
+    }
+  }
+}
+
+mat-horizontal-stepper,
+mat-vertical-stepper {
+  mat-step-header {
+    mat-icon {
+      height: 16px !important;
+      width: 16px !important;
+      min-width: 0 !important;
+      min-height: 0 !important;
+      color: inherit !important;
+    }
+  }
+}
+
+mat-vertical-stepper {
+  padding: 16px 0;
+}
+
+mat-chip {
+  mat-icon {
+    min-width: 0 !important;
+    min-height: 0 !important;
+  }
+}
+
+.mat-card-image {
+  max-width: none !important;
+}

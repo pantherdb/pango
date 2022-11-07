@@ -1,0 +1,68 @@
+<form [formGroup]="fieldsFilterForm" novalidate class="pl-8 pr-8 w-100-p" fxLayout="column"
+  fxLayoutAlign="start stretch" autocomplete="off">
+  <div formArrayName="fieldsFormArray" class="panther-form-secion w-100-p" fxLayout="column"
+    fxLayoutAlign="start stretch" pantherPerfectScrollbar>
+    <div class="panther-with-group" *ngFor="let comp of fieldsFilterForm.get('fieldsFormArray')?.controls; let i=index">
+      <div [formGroupName]="i">
+        <div formArrayName="fieldFiltersArray">
+          <div *ngFor="let project of comp.get('fieldFiltersArray').controls; let j=index">
+            <div fxLayout="row" fxLayoutAlign="start center" [formGroupName]="j">
+              <mat-form-field appearance="outline" fxFlex="" class="panther-sm w-100-p">
+                <input matInput formControlName="fieldName" type="text" placeholder="Field" autocomplete="off"
+                  [matAutocomplete]="fieldAuto">
+              </mat-form-field>
+              <mat-form-field appearance="outline" fxFlex="50" class="panther-sm w-100-p">
+                <input matInput formControlName="fieldValue" type="text" placeholder="Value" autocomplete="off"
+                  [matAutocomplete]="fieldValueAuto" required>
+              </mat-form-field>
+              <button mat-icon-button (click)="addField(comp.controls.fieldFiltersArray)">
+                <mat-icon>add</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deleteProject(comp.controls.fieldFiltersArray, j)">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div class="p-16" *ngIf="comp.get('fieldFiltersArray').controls.length===0">
+            <a (click)="addField(comp.controls.fieldFiltersArray)">
+              Add Fields
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-autocomplete #fieldAuto="matAutocomplete" (optionSelected)="selected($event)" [displayWith]="fieldDisplayFn"
+      class="panther-term-autocomplete">
+      <mat-option class="panther-term-autocomplete" *ngFor="let item of filteredFields | async" [value]="item">
+        <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+          <div class="panther-term-label">
+            {{ item.label }}
+          </div>
+          <span fxFlex></span>
+        </div>
+      </mat-option>
+    </mat-autocomplete>
+    <mat-autocomplete #fieldValueAuto="matAutocomplete" (optionSelected)="selected($event)"
+      [displayWith]="fieldValueDisplayFn" class="panther-term-autocomplete">
+      <mat-option class="panther-term-autocomplete" *ngFor="let item of filteredFieldValues | async" [value]="item">
+        <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+          <div class="panther-term-label">
+            {{ item.key }}
+          </div>
+          <span fxFlex></span>
+          <div class="panther-term-id">
+            {{ item.docCount }}
+          </div>
+        </div>
+      </mat-option>
+    </mat-autocomplete>
+    <button mat-button (click)="addNewFieldFilterGroup()">Add 'And' Group</button><br><br>
+
+    <!--   <pre>{{fieldsFilterForm.value | json}}</pre> -->
+  </div>
+  <div class="w-100-p" fxLayout="row" fxLayoutAlign="end center">
+    <button mat-icon-button color="primary" (click)="save()">
+      Ok
+    </button>
+  </div>
+</form>

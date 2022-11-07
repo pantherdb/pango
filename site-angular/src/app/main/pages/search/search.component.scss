@@ -1,0 +1,32 @@
+@import "src/@panther/scss/panther";
+@import "src/@panther.common/scss/panther.common";
+
+:host {
+  width: 100%;
+
+  .panther-left-drawer {
+    width: 500px;
+    border-right: #111 solid 1px;
+
+    .phtr-menu-section {
+      width: 100%;
+    }
+  }
+
+  panther-search-form {
+    @include deep-width(600px !important);
+  }
+
+  panther-gene-detail {
+    @include deep-width(500px !important);
+  }
+  panther-gene-summary,
+  panther-gene-stats {
+    @include deep-width(600px !important);
+  }
+}
+
+.panther-search-form {
+  padding: 15px;
+  @include deep-width(500px);
+}

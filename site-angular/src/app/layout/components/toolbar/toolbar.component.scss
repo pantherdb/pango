@@ -1,0 +1,98 @@
+@import "src/@panther/scss/panther";
+
+:host {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  z-index: 4;
+
+  a {
+    color: #222;
+  }
+
+  .panther-logo-filler {
+    @include deep-width(50px);
+
+    img {
+      height: 30px;
+    }
+  }
+
+  .mat-toolbar {
+    padding-right: 10px;
+    background-color: #fff;
+    @include deep-height(50px);
+    color: inherit;
+    position: relative;
+
+    .panther-query-buttons {
+      padding: 8px;
+      width: 290px;
+
+      button,
+      a {
+        text-decoration: none;
+        color: map-get($primary, default);
+        //@include mat-elevation(4);
+        font-size: 12px;
+        border: map-get($primary, default) solid 1px;
+
+        &.panther-l {
+          // background-color: transparent;
+        }
+      }
+    }
+
+    mat-toolbar-row {
+      @include deep-height(40px);
+
+      &.panther-subtoolbar {
+        button {
+          margin-right: 8px;
+          height: 30px;
+          line-height: 30px;
+          padding-left: 8px;
+          padding-right: 8px;
+          font-size: 12px;
+        }
+      }
+    }
+
+    .loading-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+    }
+  }
+
+  .panther-logo {
+    //@include deep-width(130px);
+    .panther-main-logo,
+    .panther-sub-logo {
+      cursor: pointer;
+      font-size: 20px;
+      text-decoration: none !important;
+      text-align: left;
+      color: #555;
+
+      &:hover {
+        color: #000000;
+      }
+    }
+
+    .panther-main-logo {
+      margin-right: 4px;
+      font-weight: bold;
+    }
+
+    .panther-sub-logo {
+      font-weight: normal;
+    }
+  }
+
+  .panther-search-bar {
+    max-width: 600px !important;
+  }
+}

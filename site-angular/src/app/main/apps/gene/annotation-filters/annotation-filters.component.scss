@@ -1,0 +1,32 @@
+@import "src/@panther/scss/panther";
+@import "src/@panther.common/scss/panther.common";
+
+:host {
+  padding-top: 8px;
+  width: 100%;
+
+  .panther-form-secion {
+    .panther-with-group {
+      border: #74725c solid 1px;
+      margin-bottom: 16px;
+    }
+  }
+
+  .panther-article-info {
+    padding: 12px 5px;
+
+    .panther-article-title {
+      font-size: 12px;
+      max-height: 60px;
+      overflow: hidden;
+    }
+
+    .panther-article-author {
+      max-height: 60px;
+      overflow: hidden;
+    }
+
+    .panther-article-date {
+    }
+  }
+}

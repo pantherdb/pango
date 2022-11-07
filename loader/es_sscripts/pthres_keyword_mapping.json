@@ -1,0 +1,13 @@
+{
+    "properties": {
+        "keyword": {
+            "type": "string"
+        },
+        "list_rowuid": {
+            "type": "long"
+        },
+        "list_type_sid": {
+            "type": "long"
+        }
+    }
+}

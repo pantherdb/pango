@@ -1,0 +1,37 @@
+<div fxLayout="column" fxLayoutAlign="start stretch" class="panther-drawer h-100-p">
+  <div class="panther-drawer-header" fxLayout="row" fxLayoutAlign="start center">
+    <span class="panther-drawer-header-title">
+      Results Details & Stats</span>
+    <span fxFlex></span>
+    <button mat-stroked-button (click)="close()" class="panther-rounded-button panther-sm" color="primary"
+      aria-label="Close dialog">
+      <mat-icon>close</mat-icon> CLOSE
+    </button>
+  </div>
+  <div class="panther-select-bar" fxLayout="row" fxLayoutAlign="start center">
+    <!--     <mat-form-field appearance="fill" class="w-100-p">
+      <mat-label>Select Annotation</mat-label>
+      <mat-select [(value)]="selectedField" (selectionChange)="selectField($event)">
+        <mat-option *ngFor="let annotation of annotations" [value]="annotation.name">
+          {{annotation.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+  </div>
+  <div class="panther-tab-bar" fxLayout="row" fxLayoutAlign="start center">
+    <button mat-button *ngFor="let statsType of statsTypes" color="" class="panther-tab-button"
+      [ngClass]="{'panther-active': selectedStatsType === statsType.name}" (click)="selectStatsType(statsType.name)"
+      matTooltip="{{statsType.tooltip}}" [matTooltipPosition]="'after'" [matTooltipShowDelay]="1500">
+      {{statsType.label}}
+    </button>
+  </div>
+  <div class="panther-drawer-body" pantherPerfectScrollbar>
+    <ng-container *ngIf="annotationStats">
+      <div [ngSwitch]="selectedStatsType">
+        <panther-general-stats *ngSwitchCase="StatsType.GENERAL"></panther-general-stats>
+        <panther-position-stats *ngSwitchCase="StatsType.POSITION"></panther-position-stats>
+      </div>
+    </ng-container>
+
+  </div>
+</div>

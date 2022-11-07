@@ -1,0 +1,18 @@
+<div class="w-100-p" fxLayout="row" fxLayoutAlign="start start">
+  <mat-drawer-container class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start start" autosize>
+
+    <mat-drawer #leftDrawer class="panther-right-drawer" pantherPerfectScrollbar mode="side" position="start"
+      opened="true">
+      <div class="h-100-p" [ngSwitch]="pantherMenuService.selectedLeftPanel">
+        <panther-gene-detail [panelDrawer]="rightDrawer" *ngSwitchCase="LeftPanel.geneDetail"> </panther-gene-detail>
+        <panther-gene-summary [panelDrawer]="rightDrawer" *ngSwitchCase="LeftPanel.geneSummary">
+        </panther-gene-summary>
+        <panther-gene-stats [panelDrawer]="rightDrawer" *ngSwitchCase="LeftPanel.geneStats"> </panther-gene-stats>
+        <panther-search-form [panelDrawer]="rightDrawer" *ngSwitchCase="LeftPanel.geneSearch"> </panther-search-form>
+      </div>
+    </mat-drawer>
+    <mat-drawer-content class="w-100-p">
+      <panther-gene-table class="w-100-p h-100-p"></panther-gene-table>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

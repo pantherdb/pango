@@ -1,0 +1,29 @@
+{
+  "properties": {
+    "gene": {
+      "type": "text",
+      "analyzer": "autocomplete",
+      "search_analyzer": "standard",
+      "fields": {
+        "keyword": {
+          "type": "keyword",
+          "ignore_above": 256
+        }
+      }
+    },
+    "reference": {
+      "type": "text",
+      "analyzer": "autocomplete",
+      "search_analyzer": "standard",
+      "fields": {
+        "keyword": {
+          "type": "keyword",
+          "ignore_above": 256
+        }
+      }
+    },
+    "name_suggest": {
+      "type": "completion"
+    }
+  }
+}

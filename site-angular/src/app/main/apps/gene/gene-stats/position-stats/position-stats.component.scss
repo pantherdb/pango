@@ -1,0 +1,5 @@
+@import "src/@panther/scss/panther";
+@import "src/@panther.common/scss/panther.common";
+
+$primary: map-get($theme, primary);
+$accent: map-get($theme, accent);

@@ -1,0 +1,12 @@
+<mat-toolbar class="mat-elevation-z1" fxLayout="row" fxLayoutAlign="start center">
+  <mat-progress-bar *ngIf="showLoadingBar" class="loading-bar" color="accent" mode="indeterminate"></mat-progress-bar>
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <div class="panther-logo" fxLayout="row" fxLayoutAlign="start">
+      <a class="panther-main-logo" [routerLink]="['/']">
+        Panther
+      </a> <!-- <small>(development site)</small> -->
+    </div>
+  </div>
+  <span fxFlex=""></span>
+  <a mat-button [routerLink]="['/about']">About</a>
+</mat-toolbar>

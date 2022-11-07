@@ -1,0 +1,34 @@
+<!-- <div class="panther-table-form panther-form-section" fxLayout="column" fxLayoutAlign="start stretch">
+  <div class="panther-section-header" fxLayout="row" fxLayoutAlign="start center">
+    <div class="panther-section-heading">
+      Number of terms
+    </div>
+    <span fxFlex></span>
+  </div>
+  <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+    <ngx-charts-bar-vertical-stacked [results]="stats.exists" [view]="existsOptions.view"
+      [scheme]="existsOptions.colorScheme" [gradient]="existsOptions.gradient" [xAxis]="existsOptions.showXAxis"
+      [yAxis]="existsOptions.showYAxis" [legend]="existsOptions.legend" [showXAxisLabel]="existsOptions.showXAxisLabel"
+      [showYAxisLabel]="existsOptions.showYAxisLabel" [xAxisLabel]="existsOptions.xAxisLabel"
+      [yAxisLabel]="existsOptions.yAxisLabel" [animations]="existsOptions.animations"
+      [customColors]="existsOptions.customColors">
+    </ngx-charts-bar-vertical-stacked>
+  </div>
+</div>-->
+
+<div class="panther-table-form panther-form-section" fxLayout="column" fxLayoutAlign="start stretch">
+  <div class="panther-section-header" fxLayout="row" fxLayoutAlign="start center">
+    <div class="panther-section-heading">
+      Chromosome Position Histogram
+    </div>
+    <span fxFlex></span>
+  </div>
+  <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+    <ngx-charts-line-chart [results]="stats.posHistogramLine" [view]="posHistogramLineOptions.view"
+      [legend]="posHistogramLineOptions.legend" [showXAxisLabel]="posHistogramLineOptions.showXAxisLabel"
+      [showYAxisLabel]="posHistogramLineOptions.showYAxisLabel" [xAxis]="posHistogramLineOptions.xAxis"
+      [yAxis]="posHistogramLineOptions.yAxis" [xAxisLabel]="posHistogramLineOptions.xAxisLabel"
+      [yAxisLabel]="posHistogramLineOptions.yAxisLabel" [timeline]="posHistogramLineOptions.timeline">
+    </ngx-charts-line-chart>
+  </div>
+</div>
