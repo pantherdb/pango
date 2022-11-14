@@ -2,9 +2,12 @@
   <mat-progress-bar *ngIf="showLoadingBar" class="loading-bar" color="accent" mode="indeterminate"></mat-progress-bar>
   <div fxLayout="row" fxLayoutAlign="start center">
     <div class="panther-logo" fxLayout="row" fxLayoutAlign="start">
-      <a class="panther-main-logo" [routerLink]="['/']">
-        Panther
+      <a class="panther-main-logo" href="http://www.pantherdb.org/">
+        <strong>PANTHER</strong>
       </a> <!-- <small>(development site)</small> -->
+      <a class="panther-main-logo" [routerLink]="['/']">
+        Human Functionome
+      </a>
     </div>
   </div>
   <span fxFlex=""></span>

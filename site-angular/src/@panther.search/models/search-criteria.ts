@@ -1,6 +1,11 @@
 
 export enum SearchFilterType {
-    fields = 'fields',
+    TERMS = 'terms',
+    GENES = 'genes',
+    ASPECTS = 'aspects',
+    QUALIFIERS = 'qualifiers',
+    REFERENCES = 'references',
+    WITHGENES = 'withgenes'
 };
 
 export class GeneFieldGroup {
@@ -8,7 +13,12 @@ export class GeneFieldGroup {
 }
 
 export class SearchCriteria {
-    fields: any[] = [];
+    terms: any[] = [];
+    genes: any[] = [];
+    aspects: any[] = [];
+    qualifiers: any[] = [];
+    withgenes: any[] = [];
+    references: any[] = [];
     fieldValues: any[] = [];
 
     filtersCount = 0;
@@ -19,11 +29,12 @@ export class SearchCriteria {
     updateFiltersCount() {
         const self = this;
 
-        self.filtersCount = self.fields.length;
+        self.filtersCount = self.terms.length;
     }
 
     clearSearch() {
-        this.fields = [];
+        this.terms = [];
+        this.genes = []
     }
 
 

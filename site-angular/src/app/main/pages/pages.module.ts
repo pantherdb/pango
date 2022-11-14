@@ -3,13 +3,20 @@ import { RouterModule } from '@angular/router';
 import { PantherSharedModule } from '@panther/shared.module';
 import { AppsModule } from './../apps/apps.module';
 import { AboutComponent } from './about/about.component';
-import { SearchComponent } from './search/search.component';
 import { PantherFooterModule } from 'app/layout/components/footer/footer.module';
 import { ContactComponent } from './contact/contact.component';
 import { PantherConfirmDialogModule } from '@panther/components/confirm-dialog/confirm-dialog.module';
+import { GeneComponent } from './gene/gene.component';
+import { HomeComponent } from './home/home.component';
 
 const routes = [{
-  path: '', component: SearchComponent
+  path: '',
+  title: 'Home: Annotations',
+  component: HomeComponent
+}, {
+  path: 'gene/:gene',
+  title: 'Gene Page',
+  component: GeneComponent
 }, {
   path: 'contact', component: ContactComponent
 }, {
@@ -18,9 +25,10 @@ const routes = [{
 
 @NgModule({
   declarations: [
-    SearchComponent,
+    HomeComponent,
     AboutComponent,
     ContactComponent,
+    GeneComponent,
   ],
   imports: [
     RouterModule.forChild(routes),

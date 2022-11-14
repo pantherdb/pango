@@ -1,0 +1,247 @@
+<form fxLayout="column" fxLayoutAlign="start stretch" name="filterForm" [formGroup]="filterForm"
+  class="panther-drawer h-100-p">
+  <div class="panther-drawer-body panther-filter-form" pantherPerfectScrollbar>
+    <div class="panther-table-form panther-form-section" fxLayout="column" fxLayoutAlign="start stretch">
+
+      <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+        <h2 class="text-center">Filter By</h2>
+        <div class="panther-alert alert-info text-center" fxLayout="column" fxLayoutAlign="start stretch">
+          Select from the dropdown and press enter
+        </div>
+        <button class="panther-rounded-button panther-xs" (click)="clear()" color="accent" type="button"
+          mat-button>Clear
+          Filters</button>
+
+        <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="panther-activity-term-row" fxLayout="column">
+            <mat-form-field appearance="outline" class="panther-sm panther-white w-100-p">
+              <mat-label>Filter by Term</mat-label>
+              <mat-chip-list #termChipList>
+                <mat-chip class="panther-form-chip" *ngFor="let term of annotationService.searchCriteria.terms"
+                  [selectable]="true" [removable]="true" (removed)="remove(term, SearchFilterType.TERMS)" fxLayout="row"
+                  fxLayoutAlign="start center" matTooltip="Term: {{term.term.id}} ({{term.term.label}})"
+                  [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
+                  <div fxFlex="" class="panther-chip-label">
+                    {{term.term.label}}
+                  </div>
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input #termsInput formControlName="terms" placeholder="Add Term Filter" [matAutocomplete]="termAuto"
+                  [matChipInputFor]="termChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="false">
+              </mat-chip-list>
+              <mat-autocomplete #termAuto="matAutocomplete" (optionSelected)="selected($event, SearchFilterType.TERMS)"
+                [displayWith]="termDisplayFn" class="panther-term-autocomplete">
+                <mat-option class="panther-term-autocomplete" *ngFor="let item of terms$ | async" [value]="item">
+                  <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                    <div class="panther-term-label">
+                      {{ item.term.label }}
+                    </div>
+                    <span fxFlex></span>
+                    <div class="panther-term-id">
+                      ({{ item.count }})
+                    </div>
+                  </div>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div *ngIf="options && !options.hideGeneSearch" class="panther-section-body" fxLayout="column"
+          fxLayoutAlign="start stretch">
+          <div class="panther-activity-term-row" fxLayout="column">
+            <mat-form-field appearance="outline" class="panther-sm panther-white w-100-p">
+              <mat-label>Filter by Gene</mat-label>
+              <mat-chip-list #geneChipList>
+                <mat-chip class="panther-form-chip" *ngFor="let gene of annotationService.searchCriteria.genes"
+                  [selectable]="true" [removable]="true" (removed)="remove(gene, SearchFilterType.GENES)" fxLayout="row"
+                  fxLayoutAlign="start center" matTooltip="gene: {{gene.gene}} ({{gene.geneName}})"
+                  [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
+                  <div fxFlex="" class="panther-chip-label">
+                    {{gene.geneSymbol}}
+                  </div>
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input #genesInput formControlName="genes" placeholder="Add gene Filter" [matAutocomplete]="geneAuto"
+                  [matChipInputFor]="geneChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="false">
+              </mat-chip-list>
+              <mat-autocomplete #geneAuto="matAutocomplete" (optionSelected)="selected($event, SearchFilterType.GENES)"
+                [displayWith]="geneDisplayFn" class="panther-gene-autocomplete">
+                <mat-option class="panther-term-autocomplete" *ngFor="let item of genes$ | async" [value]="item">
+                  <div class="w-100-p" fxLayout="column" fxLayoutAlign="start start">
+                    <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                      <div class="panther-gene-label">
+                        {{ item.gene }}
+                      </div>
+                      <span fxFlex></span>
+                      <div class="panther-gene-id">
+                        ({{ item.geneSymbol }})
+                      </div>
+                    </div>
+                    <div class="panther-gene-description w-100-p">
+                      ({{ item.geneName }})
+                    </div>
+                  </div>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="panther-activity-term-row" fxLayout="column">
+            <mat-form-field appearance="outline" class="panther-sm panther-white w-100-p">
+              <mat-label>Filter by With Gene</mat-label>
+              <mat-chip-list #withgeneChipList>
+                <mat-chip class="panther-form-chip" *ngFor="let withgene of annotationService.searchCriteria.withgenes"
+                  [selectable]="true" [removable]="true" (removed)="remove(withgene, SearchFilterType.WITHGENES)"
+                  fxLayout="row" fxLayoutAlign="start center"
+                  matTooltip="withgene: {{withgene.withgene}} ({{withgene.withgeneName}})"
+                  [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
+                  <div fxFlex="" class="panther-chip-label">
+                    {{withgene.WITHGENESymbol}}
+                  </div>
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input #withgenesInput formControlName="withgenes" placeholder="Add withgene Filter"
+                  [matAutocomplete]="withgeneAuto" [matChipInputFor]="withgeneChipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
+              </mat-chip-list>
+              <mat-autocomplete #withgeneAuto="matAutocomplete"
+                (optionSelected)="selected($event, SearchFilterType.WITHGENES)" [displayWith]="withgeneDisplayFn"
+                class="panther-term-autocomplete">
+                <mat-option class="panther-term-autocomplete" *ngFor="let item of withgenes$ | async" [value]="item">
+                  <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                    <div class="panther-term-label">
+                      {{ item.withgene }}
+                    </div>
+                    <span fxFlex></span>
+                    <div class="panther-term-id">
+                      ({{ item.count }})
+                    </div>
+                  </div>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="panther-activity-term-row" fxLayout="column">
+            <mat-form-field appearance="outline" class="panther-sm panther-white w-100-p">
+              <mat-label>Filter by Aspect</mat-label>
+              <mat-chip-list #aspectChipList>
+                <mat-chip class="panther-form-chip" *ngFor="let aspect of annotationService.searchCriteria.aspects"
+                  [selectable]="true" [removable]="true" (removed)="remove(aspect, SearchFilterType.ASPECTS)"
+                  fxLayout="row" fxLayoutAlign="start center" matTooltip="aspect: {{aspect.term.aspect}})"
+                  [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
+                  <div fxFlex="" class="panther-chip-label">
+                    {{aspect.term.aspect}}
+                  </div>
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input #aspectsInput formControlName="aspects" placeholder="Add aspect Filter"
+                  [matAutocomplete]="aspectAuto" [matChipInputFor]="aspectChipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
+              </mat-chip-list>
+              <mat-autocomplete #aspectAuto="matAutocomplete"
+                (optionSelected)="selected($event, SearchFilterType.ASPECTS)" [displayWith]="aspectDisplayFn"
+                class="panther-term-autocomplete">
+                <mat-option class="panther-term-autocomplete" *ngFor="let item of aspects$ | async" [value]="item">
+                  <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                    <div class="panther-term-label">
+                      {{ item.term.aspect }}
+                    </div>
+                    <span fxFlex></span>
+                    <div class="panther-term-id">
+                      ({{ item.count }})
+                    </div>
+                  </div>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="panther-activity-term-row" fxLayout="column">
+            <mat-form-field appearance="outline" class="panther-sm panther-white w-100-p">
+              <mat-label>Filter by Qualifier</mat-label>
+              <mat-chip-list #qualifierChipList>
+                <mat-chip class="panther-form-chip"
+                  *ngFor="let qualifier of annotationService.searchCriteria.qualifiers" [selectable]="true"
+                  [removable]="true" (removed)="remove(qualifier, SearchFilterType.QUALIFIERS)" fxLayout="row"
+                  fxLayoutAlign="start center" matTooltip="qualifier: {{qualifier.qualifier}}"
+                  [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
+                  <div fxFlex="" class="panther-chip-label">
+                    {{qualifier.qualifier}}
+                  </div>
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input #qualifiersInput formControlName="qualifiers" placeholder="Add qualifier Filter"
+                  [matAutocomplete]="qualifierAuto" [matChipInputFor]="qualifierChipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
+              </mat-chip-list>
+              <mat-autocomplete #qualifierAuto="matAutocomplete"
+                (optionSelected)="selected($event, SearchFilterType.QUALIFIERS)" [displayWith]="qualifierDisplayFn"
+                class="panther-term-autocomplete">
+                <mat-option class="panther-term-autocomplete" *ngFor="let item of qualifiers$ | async" [value]="item">
+                  <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                    <div class="panther-term-label">
+                      {{ item.qualifier }}
+                    </div>
+                    <span fxFlex></span>
+                    <div class="panther-term-id">
+                      ({{ item.count }})
+                    </div>
+                  </div>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="panther-activity-term-row" fxLayout="column">
+            <mat-form-field appearance="outline" class="panther-sm panther-white w-100-p">
+              <mat-label>Filter by Reference</mat-label>
+              <mat-chip-list #referenceChipList>
+                <mat-chip class="panther-form-chip"
+                  *ngFor="let reference of annotationService.searchCriteria.references" [selectable]="true"
+                  [removable]="true" (removed)="remove(reference, SearchFilterType.REFERENCES)" fxLayout="row"
+                  fxLayoutAlign="start center"
+                  matTooltip="reference: {{reference.reference}} ({{reference.referenceName}})"
+                  [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
+                  <div fxFlex="" class="panther-chip-label">
+                    {{reference.referenceSymbol}}
+                  </div>
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input #referencesInput formControlName="references" placeholder="Add reference Filter"
+                  [matAutocomplete]="referenceAuto" [matChipInputFor]="referenceChipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
+              </mat-chip-list>
+              <mat-autocomplete #referenceAuto="matAutocomplete"
+                (optionSelected)="selected($event, SearchFilterType.REFERENCES)" [displayWith]="referenceDisplayFn"
+                class="panther-term-autocomplete">
+                <mat-option class="panther-term-autocomplete" *ngFor="let item of references$ | async" [value]="item">
+                  <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                    <div class="panther-term-label">
+                      {{ item.reference }}
+                    </div>
+                    <span fxFlex></span>
+                    <div class="panther-term-id">
+                      ({{ item.count }})
+                    </div>
+                  </div>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

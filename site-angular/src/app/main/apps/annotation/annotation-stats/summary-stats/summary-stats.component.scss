@@ -1,0 +1,66 @@
+@import "src/@panther/scss/panther";
+@import "src/@panther.common/scss/panther.common";
+
+$primary: map-get($theme, primary);
+$accent: map-get($theme, accent);
+
+.panther-aspect-stats {
+  @include deep-width(250px);
+}
+
+.panther-term-stats {
+  @include deep-width(300px);
+}
+
+.panther-total-stats {
+  @include deep-height(120px);
+  .panther-stat-number {
+    font-size: 42px;
+    line-height: 24px;
+    color: map-get($mat-blue-grey, 500);
+    small {
+      font-weight: normal;
+      color: #555;
+      font-size: 12px;
+    }
+  }
+}
+
+.panther-stats-section {
+  @include mat-elevation(5);
+  margin: 12px;
+  background-color: #fff;
+  overflow: hidden;
+
+  .panther-section-header {
+    height: 30px;
+    background-color: #fff;
+
+    .panther-section-heading {
+      padding-left: 12px;
+      font-size: 12px;
+      line-height: 30px;
+      color: #555;
+    }
+  }
+
+  .panther-section-body {
+    padding: 4px 8px;
+  }
+}
+
+.panther-stat-color {
+  width: 10px;
+  height: 10px;
+}
+
+.panther-stat-heading {
+  font-size: 10px;
+}
+.panther-stat-description {
+  font-size: 10px;
+}
+.panther-stat-number {
+  font-size: 10px;
+  font-weight: bold;
+}

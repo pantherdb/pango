@@ -1,0 +1,46 @@
+@import "src/@panther/scss/panther";
+@import "src/@panther.common/scss/panther.common";
+
+:host {
+  width: 100%;
+
+  .panther-left-drawer {
+    width: 500px;
+    border-right: #111 solid 1px;
+
+    .panther-menu-section {
+      width: 100%;
+    }
+  }
+
+  panther-summary-stats {
+    display: block;
+    //@include deep-height(300px !important);
+  }
+
+  panther-search-form {
+    @include deep-width(300px !important);
+  }
+
+  panther-annotation-detail {
+    @include deep-width(500px !important);
+  }
+  panther-annotation-summary,
+  panther-annotation-stats {
+    @include deep-width(600px !important);
+  }
+}
+
+.panther-section-body {
+  background-color: $panther-background;
+}
+
+.panther-middle-panel {
+  min-height: 500px;
+  border-bottom: 200px;
+}
+
+.panther-search-form {
+  padding: 15px;
+  @include deep-width(500px);
+}

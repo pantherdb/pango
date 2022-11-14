@@ -1,0 +1,825 @@
+{
+  "header": {
+    "type": "esummary",
+    "version": "0.3"
+  },
+  "result": {
+    "uids": [
+      "16963016",
+      "9614171",
+      "17239249",
+      "17255932",
+      "15199138",
+      "12829713"
+    ],
+    "16963016": {
+      "uid": "16963016",
+      "pubdate": "2006 Dec 15",
+      "epubdate": "2006 Aug 9",
+      "source": "Dev Biol",
+      "authors": [
+        {
+          "name": "Brown KE",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Baonza A",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Freeman M",
+          "authtype": "Author",
+          "clusterid": ""
+        }
+      ],
+      "lastauthor": "Freeman M",
+      "title": "Epithelial cell adhesion in the developing Drosophila retina is regulated by Atonal and the EGF receptor pathway.",
+      "sorttitle": "epithelial cell adhesion in the developing drosophila retina is regulated by atonal and the egf receptor pathway",
+      "volume": "300",
+      "issue": "2",
+      "pages": "710-21",
+      "lang": [
+        "eng"
+      ],
+      "nlmuniqueid": "0372762",
+      "issn": "0012-1606",
+      "essn": "1095-564X",
+      "pubtype": [
+        "Journal Article"
+      ],
+      "recordstatus": "PubMed - indexed for MEDLINE",
+      "pubstatus": "256",
+      "articleids": [
+        {
+          "idtype": "pubmed",
+          "idtypen": 1,
+          "value": "16963016"
+        },
+        {
+          "idtype": "pii",
+          "idtypen": 4,
+          "value": "S0012-1606(06)01072-4"
+        },
+        {
+          "idtype": "doi",
+          "idtypen": 3,
+          "value": "10.1016/j.ydbio.2006.08.003"
+        },
+        {
+          "idtype": "rid",
+          "idtypen": 8,
+          "value": "16963016"
+        },
+        {
+          "idtype": "eid",
+          "idtypen": 8,
+          "value": "16963016"
+        }
+      ],
+      "history": [
+        {
+          "pubstatus": "received",
+          "date": "2006/03/24 00:00"
+        },
+        {
+          "pubstatus": "revised",
+          "date": "2006/07/31 00:00"
+        },
+        {
+          "pubstatus": "accepted",
+          "date": "2006/08/01 00:00"
+        },
+        {
+          "pubstatus": "pubmed",
+          "date": "2006/09/12 09:00"
+        },
+        {
+          "pubstatus": "medline",
+          "date": "2007/02/08 09:00"
+        },
+        {
+          "pubstatus": "entrez",
+          "date": "2006/09/12 09:00"
+        }
+      ],
+      "references": [],
+      "attributes": [
+        "Has Abstract"
+      ],
+      "pmcrefcount": 21,
+      "fulljournalname": "Developmental biology",
+      "elocationid": "",
+      "doctype": "citation",
+      "srccontriblist": [],
+      "booktitle": "",
+      "medium": "",
+      "edition": "",
+      "publisherlocation": "",
+      "publishername": "",
+      "srcdate": "",
+      "reportnumber": "",
+      "availablefromurl": "",
+      "locationlabel": "",
+      "doccontriblist": [],
+      "docdate": "",
+      "bookname": "",
+      "chapter": "",
+      "sortpubdate": "2006/12/15 00:00",
+      "sortfirstauthor": "Brown KE",
+      "vernaculartitle": ""
+    },
+    "9614171": {
+      "uid": "9614171",
+      "pubdate": "1998 Jun",
+      "epubdate": "",
+      "source": "Mol Biol Cell",
+      "authors": [
+        {
+          "name": "Saifee O",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Wei L",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Nonet ML",
+          "authtype": "Author",
+          "clusterid": ""
+        }
+      ],
+      "lastauthor": "Nonet ML",
+      "title": "The Caenorhabditis elegans unc-64 locus encodes a syntaxin that interacts genetically with synaptobrevin.",
+      "sorttitle": "caenorhabditis elegans unc 64 locus encodes a syntaxin that interacts genetically with synaptobrevin",
+      "volume": "9",
+      "issue": "6",
+      "pages": "1235-52",
+      "lang": [
+        "eng"
+      ],
+      "nlmuniqueid": "9201390",
+      "issn": "1059-1524",
+      "essn": "1939-4586",
+      "pubtype": [
+        "Journal Article"
+      ],
+      "recordstatus": "PubMed - indexed for MEDLINE",
+      "pubstatus": "4",
+      "articleids": [
+        {
+          "idtype": "pubmed",
+          "idtypen": 1,
+          "value": "9614171"
+        },
+        {
+          "idtype": "pmc",
+          "idtypen": 8,
+          "value": "PMC25346"
+        },
+        {
+          "idtype": "doi",
+          "idtypen": 3,
+          "value": "10.1091/mbc.9.6.1235"
+        },
+        {
+          "idtype": "rid",
+          "idtypen": 8,
+          "value": "9614171"
+        },
+        {
+          "idtype": "eid",
+          "idtypen": 8,
+          "value": "9614171"
+        },
+        {
+          "idtype": "pmcid",
+          "idtypen": 5,
+          "value": "pmc-id: PMC25346;"
+        }
+      ],
+      "history": [
+        {
+          "pubstatus": "pubmed",
+          "date": "1998/06/17 00:00"
+        },
+        {
+          "pubstatus": "medline",
+          "date": "1998/06/17 00:01"
+        },
+        {
+          "pubstatus": "entrez",
+          "date": "1998/06/17 00:00"
+        }
+      ],
+      "references": [],
+      "attributes": [
+        "Has Abstract"
+      ],
+      "pmcrefcount": 107,
+      "fulljournalname": "Molecular biology of the cell",
+      "elocationid": "",
+      "doctype": "citation",
+      "srccontriblist": [],
+      "booktitle": "",
+      "medium": "",
+      "edition": "",
+      "publisherlocation": "",
+      "publishername": "",
+      "srcdate": "",
+      "reportnumber": "",
+      "availablefromurl": "",
+      "locationlabel": "",
+      "doccontriblist": [],
+      "docdate": "",
+      "bookname": "",
+      "chapter": "",
+      "sortpubdate": "1998/06/01 00:00",
+      "sortfirstauthor": "Saifee O",
+      "vernaculartitle": ""
+    },
+    "17239249": {
+      "uid": "17239249",
+      "pubdate": "2007 Jan 19",
+      "epubdate": "2007 Jan 19",
+      "source": "Neural Dev",
+      "authors": [
+        {
+          "name": "Eng SR",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Dykes IM",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Lanier J",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Fedtsova N",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Turner EE",
+          "authtype": "Author",
+          "clusterid": ""
+        }
+      ],
+      "lastauthor": "Turner EE",
+      "title": "POU-domain factor Brn3a regulates both distinct and common programs of gene expression in the spinal and trigeminal sensory ganglia.",
+      "sorttitle": "pou domain factor brn3a regulates both distinct and common programs of gene expression in the spinal and trigeminal sensory ganglia",
+      "volume": "2",
+      "issue": "",
+      "pages": "3",
+      "lang": [
+        "eng"
+      ],
+      "nlmuniqueid": "101286574",
+      "issn": "",
+      "essn": "1749-8104",
+      "pubtype": [
+        "Journal Article"
+      ],
+      "recordstatus": "PubMed - indexed for MEDLINE",
+      "pubstatus": "3",
+      "articleids": [
+        {
+          "idtype": "pubmed",
+          "idtypen": 1,
+          "value": "17239249"
+        },
+        {
+          "idtype": "pii",
+          "idtypen": 4,
+          "value": "1749-8104-2-3"
+        },
+        {
+          "idtype": "doi",
+          "idtypen": 3,
+          "value": "10.1186/1749-8104-2-3"
+        },
+        {
+          "idtype": "pmc",
+          "idtypen": 8,
+          "value": "PMC1796875"
+        },
+        {
+          "idtype": "rid",
+          "idtypen": 8,
+          "value": "17239249"
+        },
+        {
+          "idtype": "eid",
+          "idtypen": 8,
+          "value": "17239249"
+        },
+        {
+          "idtype": "pmcid",
+          "idtypen": 5,
+          "value": "pmc-id: PMC1796875;"
+        }
+      ],
+      "history": [
+        {
+          "pubstatus": "received",
+          "date": "2006/11/04 00:00"
+        },
+        {
+          "pubstatus": "accepted",
+          "date": "2007/01/19 00:00"
+        },
+        {
+          "pubstatus": "pubmed",
+          "date": "2007/01/24 09:00"
+        },
+        {
+          "pubstatus": "medline",
+          "date": "2008/12/17 09:00"
+        },
+        {
+          "pubstatus": "entrez",
+          "date": "2007/01/24 09:00"
+        }
+      ],
+      "references": [],
+      "attributes": [
+        "Has Abstract"
+      ],
+      "pmcrefcount": 27,
+      "fulljournalname": "Neural development",
+      "elocationid": "",
+      "doctype": "citation",
+      "srccontriblist": [],
+      "booktitle": "",
+      "medium": "",
+      "edition": "",
+      "publisherlocation": "",
+      "publishername": "",
+      "srcdate": "",
+      "reportnumber": "",
+      "availablefromurl": "",
+      "locationlabel": "",
+      "doccontriblist": [],
+      "docdate": "",
+      "bookname": "",
+      "chapter": "",
+      "sortpubdate": "2007/01/19 00:00",
+      "sortfirstauthor": "Eng SR",
+      "vernaculartitle": ""
+    },
+    "17255932": {
+      "uid": "17255932",
+      "pubdate": "2007 Feb 7",
+      "epubdate": "2007 Jan 25",
+      "source": "EMBO J",
+      "authors": [
+        {
+          "name": "Matsuki Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Ohmura-Hoshino M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Goto E",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Aoki M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Mito-Yoshida M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Uematsu M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Hasegawa T",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Koseki H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Ohara O",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Nakayama M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Toyooka K",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Matsuoka K",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Hotta H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yamamoto A",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Ishido S",
+          "authtype": "Author",
+          "clusterid": ""
+        }
+      ],
+      "lastauthor": "Ishido S",
+      "title": "Novel regulation of MHC class II function in B cells.",
+      "sorttitle": "novel regulation of mhc class ii function in b cells",
+      "volume": "26",
+      "issue": "3",
+      "pages": "846-54",
+      "lang": [
+        "eng"
+      ],
+      "nlmuniqueid": "8208664",
+      "issn": "0261-4189",
+      "essn": "1460-2075",
+      "pubtype": [
+        "Journal Article"
+      ],
+      "recordstatus": "PubMed - indexed for MEDLINE",
+      "pubstatus": "256",
+      "articleids": [
+        {
+          "idtype": "pubmed",
+          "idtypen": 1,
+          "value": "17255932"
+        },
+        {
+          "idtype": "pii",
+          "idtypen": 4,
+          "value": "7601556"
+        },
+        {
+          "idtype": "doi",
+          "idtypen": 3,
+          "value": "10.1038/sj.emboj.7601556"
+        },
+        {
+          "idtype": "pmc",
+          "idtypen": 8,
+          "value": "PMC1794403"
+        },
+        {
+          "idtype": "rid",
+          "idtypen": 8,
+          "value": "17255932"
+        },
+        {
+          "idtype": "eid",
+          "idtypen": 8,
+          "value": "17255932"
+        },
+        {
+          "idtype": "pmcid",
+          "idtypen": 5,
+          "value": "pmc-id: PMC1794403;"
+        }
+      ],
+      "history": [
+        {
+          "pubstatus": "received",
+          "date": "2006/08/21 00:00"
+        },
+        {
+          "pubstatus": "accepted",
+          "date": "2006/12/20 00:00"
+        },
+        {
+          "pubstatus": "pubmed",
+          "date": "2007/01/27 09:00"
+        },
+        {
+          "pubstatus": "medline",
+          "date": "2007/03/23 09:00"
+        },
+        {
+          "pubstatus": "entrez",
+          "date": "2007/01/27 09:00"
+        }
+      ],
+      "references": [],
+      "attributes": [
+        "Has Abstract"
+      ],
+      "pmcrefcount": 97,
+      "fulljournalname": "The EMBO journal",
+      "elocationid": "",
+      "doctype": "citation",
+      "srccontriblist": [],
+      "booktitle": "",
+      "medium": "",
+      "edition": "",
+      "publisherlocation": "",
+      "publishername": "",
+      "srcdate": "",
+      "reportnumber": "",
+      "availablefromurl": "",
+      "locationlabel": "",
+      "doccontriblist": [],
+      "docdate": "",
+      "bookname": "",
+      "chapter": "",
+      "sortpubdate": "2007/02/07 00:00",
+      "sortfirstauthor": "Matsuki Y",
+      "vernaculartitle": ""
+    },
+    "15199138": {
+      "uid": "15199138",
+      "pubdate": "2004 Jul",
+      "epubdate": "",
+      "source": "Mol Cell Biol",
+      "authors": [
+        {
+          "name": "Sitz JH",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Tigges M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Baumgärtel K",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Khaspekov LG",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Lutz B",
+          "authtype": "Author",
+          "clusterid": ""
+        }
+      ],
+      "lastauthor": "Lutz B",
+      "title": "Dyrk1A potentiates steroid hormone-induced transcription via the chromatin remodeling factor Arip4.",
+      "sorttitle": "dyrk1a potentiates steroid hormone induced transcription via the chromatin remodeling factor arip4",
+      "volume": "24",
+      "issue": "13",
+      "pages": "5821-34",
+      "lang": [
+        "eng"
+      ],
+      "nlmuniqueid": "8109087",
+      "issn": "0270-7306",
+      "essn": "1098-5549",
+      "pubtype": [
+        "Journal Article"
+      ],
+      "recordstatus": "PubMed - indexed for MEDLINE",
+      "pubstatus": "4",
+      "articleids": [
+        {
+          "idtype": "pubmed",
+          "idtypen": 1,
+          "value": "15199138"
+        },
+        {
+          "idtype": "doi",
+          "idtypen": 3,
+          "value": "10.1128/MCB.24.13.5821-5834.2004"
+        },
+        {
+          "idtype": "pii",
+          "idtypen": 4,
+          "value": "24/13/5821"
+        },
+        {
+          "idtype": "pmc",
+          "idtypen": 8,
+          "value": "PMC480880"
+        },
+        {
+          "idtype": "rid",
+          "idtypen": 8,
+          "value": "15199138"
+        },
+        {
+          "idtype": "eid",
+          "idtypen": 8,
+          "value": "15199138"
+        },
+        {
+          "idtype": "pmcid",
+          "idtypen": 5,
+          "value": "pmc-id: PMC480880;"
+        }
+      ],
+      "history": [
+        {
+          "pubstatus": "pubmed",
+          "date": "2004/06/17 05:00"
+        },
+        {
+          "pubstatus": "medline",
+          "date": "2004/08/05 05:00"
+        },
+        {
+          "pubstatus": "entrez",
+          "date": "2004/06/17 05:00"
+        }
+      ],
+      "references": [],
+      "attributes": [
+        "Has Abstract"
+      ],
+      "pmcrefcount": 23,
+      "fulljournalname": "Molecular and cellular biology",
+      "elocationid": "",
+      "doctype": "citation",
+      "srccontriblist": [],
+      "booktitle": "",
+      "medium": "",
+      "edition": "",
+      "publisherlocation": "",
+      "publishername": "",
+      "srcdate": "",
+      "reportnumber": "",
+      "availablefromurl": "",
+      "locationlabel": "",
+      "doccontriblist": [],
+      "docdate": "",
+      "bookname": "",
+      "chapter": "",
+      "sortpubdate": "2004/07/01 00:00",
+      "sortfirstauthor": "Sitz JH",
+      "vernaculartitle": ""
+    },
+    "12829713": {
+      "uid": "12829713",
+      "pubdate": "2003 Sep 26",
+      "epubdate": "2003 Jun 26",
+      "source": "J Biol Chem",
+      "authors": [
+        {
+          "name": "DeSousa D",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Mukhopadhyay M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Pelka P",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Zhao X",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Dey BK",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Robert V",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Pélisson A",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Bucheton A",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Campos AR",
+          "authtype": "Author",
+          "clusterid": ""
+        }
+      ],
+      "lastauthor": "Campos AR",
+      "title": "A novel double-stranded RNA-binding protein, disco interacting protein 1 (DIP1), contributes to cell fate decisions during Drosophila development.",
+      "sorttitle": "novel double stranded rna binding protein disco interacting protein 1 dip1 contributes to cell fate decisions during drosophila development",
+      "volume": "278",
+      "issue": "39",
+      "pages": "38040-50",
+      "lang": [
+        "eng"
+      ],
+      "nlmuniqueid": "2985121R",
+      "issn": "0021-9258",
+      "essn": "1083-351X",
+      "pubtype": [
+        "Journal Article"
+      ],
+      "recordstatus": "PubMed - indexed for MEDLINE",
+      "pubstatus": "256",
+      "articleids": [
+        {
+          "idtype": "pubmed",
+          "idtypen": 1,
+          "value": "12829713"
+        },
+        {
+          "idtype": "doi",
+          "idtypen": 3,
+          "value": "10.1074/jbc.M303512200"
+        },
+        {
+          "idtype": "pii",
+          "idtypen": 4,
+          "value": "S0021-9258(20)83375-4"
+        },
+        {
+          "idtype": "rid",
+          "idtypen": 8,
+          "value": "12829713"
+        },
+        {
+          "idtype": "eid",
+          "idtypen": 8,
+          "value": "12829713"
+        }
+      ],
+      "history": [
+        {
+          "pubstatus": "pubmed",
+          "date": "2003/06/28 05:00"
+        },
+        {
+          "pubstatus": "medline",
+          "date": "2003/12/03 05:00"
+        },
+        {
+          "pubstatus": "entrez",
+          "date": "2003/06/28 05:00"
+        }
+      ],
+      "references": [],
+      "attributes": [
+        "Has Abstract"
+      ],
+      "pmcrefcount": 8,
+      "fulljournalname": "The Journal of biological chemistry",
+      "elocationid": "",
+      "doctype": "citation",
+      "srccontriblist": [],
+      "booktitle": "",
+      "medium": "",
+      "edition": "",
+      "publisherlocation": "",
+      "publishername": "",
+      "srcdate": "",
+      "reportnumber": "",
+      "availablefromurl": "",
+      "locationlabel": "",
+      "doccontriblist": [],
+      "docdate": "",
+      "bookname": "",
+      "chapter": "",
+      "sortpubdate": "2003/09/26 00:00",
+      "sortfirstauthor": "DeSousa D",
+      "vernaculartitle": ""
+    }
+  }
+}

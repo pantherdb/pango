@@ -1,25 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { GeneTableComponent } from './gene/gene-table/gene-table.component';
-import { GeneDetailComponent } from './gene/gene-detail/gene-detail.component';
-import { GeneSummaryComponent } from './gene/gene-summary/gene-summary.component';
-import { GeneralStatsComponent } from './gene/gene-stats/general-stats/general-stats.component';
-import { GeneStatsComponent } from './gene/gene-stats/gene-stats.component';
+import { AnnotationTableComponent } from './annotation/annotation-table/annotation-table.component';
+import { AnnotationDetailComponent } from './annotation/annotation-detail/annotation-detail.component';
+import { AnnotationSummaryComponent } from './annotation/annotation-summary/annotation-summary.component';
+import { GeneralStatsComponent } from './annotation/annotation-stats/general-stats/general-stats.component';
+import { AnnotationStatsComponent } from './annotation/annotation-stats/annotation-stats.component';
 import { PantherSharedModule } from '@panther/shared.module';
 import { PantherConfirmDialogModule } from '@panther/components/confirm-dialog/confirm-dialog.module';
-import { PositionStatsComponent } from './gene/gene-stats/position-stats/position-stats.component';
-import { SearchFormComponent } from './gene/search-form/search-form.component';
-import { AnnotationFiltersComponent } from './gene/annotation-filters/annotation-filters.component';
+import { PositionStatsComponent } from './annotation/annotation-stats/position-stats/position-stats.component';
+import { SearchFormComponent } from './annotation/search-form/search-form.component';
+import { AnnotationFiltersComponent } from './annotation/annotation-filters/annotation-filters.component';
+import { SummaryStatsComponent } from './annotation/annotation-stats/summary-stats/summary-stats.component';
+import { AnnotationTableLongComponent } from './annotation/annotation-table-long/annotation-table-long.component';
 
 const routes = [];
 
 @NgModule({
     declarations: [
-        GeneTableComponent,
-        GeneDetailComponent,
-        GeneSummaryComponent,
-        GeneStatsComponent,
+        AnnotationTableComponent,
+        AnnotationTableLongComponent,
+        AnnotationDetailComponent,
+        AnnotationSummaryComponent,
+        SummaryStatsComponent,
+        AnnotationStatsComponent,
         GeneralStatsComponent,
         PositionStatsComponent,
         SearchFormComponent,
@@ -32,10 +36,12 @@ const routes = [];
         PantherConfirmDialogModule,
     ],
     exports: [
-        GeneTableComponent,
-        GeneDetailComponent,
-        GeneSummaryComponent,
-        GeneStatsComponent,
+        AnnotationTableComponent,
+        AnnotationTableLongComponent,
+        AnnotationDetailComponent,
+        AnnotationSummaryComponent,
+        AnnotationStatsComponent,
+        SummaryStatsComponent,
         GeneralStatsComponent,
         PositionStatsComponent,
         SearchFormComponent,

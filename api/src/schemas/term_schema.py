@@ -1,7 +1,7 @@
 import strawberry
 from pydantic import typing
 from strawberry.types import Info
-from src.resolvers.term_resolver import get_terms
+from src.resolvers.term_resolver import get_term, get_terms
 
 from src.models.term_model import Term
 
@@ -12,7 +12,6 @@ class TermQuery:
     async def terms(self, info:Info) -> typing.List[Term]:
         """ Get all terms """
 
-        print (info)
         terms =  await get_terms()
 
         return terms

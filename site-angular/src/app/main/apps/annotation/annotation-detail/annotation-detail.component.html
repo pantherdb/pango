@@ -1,0 +1,127 @@
+<div fxLayout="column" fxLayoutAlign="start stretch" class="panther-drawer w-100-p h-100-p">
+  <div class="panther-drawer-header" fxLayout="row" fxLayoutAlign="start center">
+    <span class="panther-drawer-header-title">
+      Selected Annotation</span>
+    <span fxFlex></span>
+    <button mat-stroked-button (click)="close()" class="panther-rounded-button panther-sm" color="primary"
+      aria-label="Close dialog">
+      <mat-icon>close</mat-icon> Close
+    </button>
+  </div>
+  <div class="panther-drawer-body" fxLayout="row" fxLayoutAlign="start start" pantherPerfectScrollbar>
+    <div *ngIf="annotation" class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+      <div class="panther-annotation-detail-row" fxLayout="column" fxLayoutAlign="start stretch">
+        <div class="panther-title">
+          <div class="">
+            Gene
+          </div>
+        </div>
+        <div class="panther-description">
+          <div fxLayout="column" fxLayoutAlign="start stretch">
+            <div class="panther-item">
+              <div class="w-100-p panther-cell-title">
+                <a (click)="$event.stopPropagation()" [routerLink]="'/gene/'+ annotation.gene" target="_blank">
+                  {{ annotation.gene}}
+                </a>
+              </div>
+              <div class="w-100-p panther-cell-description">{{ annotation.geneSymbol}}</div>
+              <div class="w-100-p panther-cell-description-2">{{ annotation.geneName}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panther-annotation-detail-row" fxLayout="column" fxLayoutAlign="start stretch">
+        <div class="panther-qualifier-cell">
+          <div class="panther-title">
+            Qualifier
+          </div>
+        </div>
+        <div class="panther-description">
+          {{ annotation.qualifier}}
+        </div>
+      </div>
+      <div class="panther-annotation-detail-row" fxLayout="column" fxLayoutAlign="start stretch">
+        <div class="panther-term-cell">
+          <div class="panther-title">
+            Term
+          </div>
+        </div>
+        <div class="panther-description">
+          <div class="w-100-p panther-cell-title" fxLayout="row" fxLayoutAlign="start center">
+            {{ annotation.term.id}}
+            <mat-chip class="noc-chip-xs ml-8 noc-aspect {{aspectMap[annotation.term.aspect]?.shorthand}}"
+              fxLayout="column" fxLayoutAlign="center center">
+              <span>{{aspectMap[annotation.term.aspect]?.shorthand}}</span>
+            </mat-chip>
+          </div>
+          <div class="w-100-p panther-cell-description"> {{ annotation.term?.label}}</div>
+        </div>
+      </div>
+      <div class="panther-annotation-detail-row" fxLayout="column" fxLayoutAlign="start stretch">
+        <div class="panther-slim-terms-cell">
+          <div class="panther-title">
+            Slim Terms
+          </div>
+        </div>
+        <div class="panther-description">
+          <div class="panther-cell-section w-100-p" *ngFor="let item of  annotation.slimTerms">
+            <div class="w-100-p panther-cell-title" fxLayout="row" fxLayoutAlign="start center">
+              {{item.id}}
+              <mat-chip class="noc-chip-xs ml-8 noc-aspect {{aspectMap[item.aspect]?.shorthand}}" fxLayout="column"
+                fxLayoutAlign="center center">
+                <span>{{aspectMap[item.aspect]?.shorthand}}</span>
+              </mat-chip>
+            </div>
+            <div class="w-100-p panther-cell-description">
+              {{item.label}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panther-annotation-detail-row" fxLayout="column" fxLayoutAlign="start stretch">
+        <div class="panther-group-cell">
+          <div class="panther-title">
+            Group
+          </div>
+        </div>
+        <div class="panther-description">
+          {{ annotation.group}}
+        </div>
+      </div>
+      <div class="panther-annotation-detail-row" fxLayout="column" fxLayoutAlign="start stretch">
+        <div class="panther-evidence-cell" fxLayout="row" fxLayoutAlign="start center">
+          <div class="panther-title">
+            Evidence ({{annotation.evidence?.length}})
+          </div>
+          <span fxFlex=""></span>
+
+        </div>
+        <div class="panther-description">
+          <div class="panther-cell-section" *ngFor="let item of  annotation.evidence">
+            {{item.withGeneId?.gene}} ({{item.withGeneId?.geneSymbol}})<br>
+            ({{item.withGeneId?.geneName}})
+            <div class="panther-cell-inner-section" *ngFor="let reference of item.references">
+              <div class="w-100-p panther-cell-title" fxLayout="row" fxLayoutAlign="start center">
+                {{reference.pmid}}
+              </div>
+              <div class="w-100-p panther-cell-description">
+                {{reference.title}}
+              </div>
+              <div class="w-100-p panther-cell-description-2">
+                {{reference.date}}
+              </div>
+              <div *ngFor="let author of reference.authors" class="w-100-p panther-cell-description">
+                {{author}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="start center" class="panther-drawer-footer panther-submit-row">
+    <span fxFlex></span>
+    <button (click)='close()' type="button" mat-raised-button color="" class="mr-8">Close</button>
+  </div>
+</div>

@@ -8,7 +8,7 @@ import { LeftPanel, MiddlePanel, RightPanel } from '@panther.common/models/menu-
 })
 export class PantherMenuService {
 
-  selectedLeftPanel: LeftPanel = LeftPanel.geneStats;
+  selectedLeftPanel: LeftPanel = LeftPanel.annotationSearch;
   selectedMiddlePanel: MiddlePanel;
   selectedRightPanel: RightPanel
 

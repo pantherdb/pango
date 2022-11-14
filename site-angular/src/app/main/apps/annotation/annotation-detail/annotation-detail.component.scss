@@ -1,0 +1,86 @@
+@import "src/@panther/scss/panther";
+@import "src/@panther.common/scss/panther.common";
+
+$primary: map-get($theme, primary);
+$accent: map-get($theme, accent);
+
+:host {
+  .panther-drawer {
+    @include deep-width(500px !important);
+  }
+
+  .panther-annotation-detail-row {
+    padding: 5px 10px;
+    border-bottom: #888 solid 1px;
+    font-size: 12px;
+
+    .panther-no-info {
+      padding: 10px 10px;
+      font-size: 10px;
+    }
+
+    .panther-cell-section {
+      //border-bottom: #aaa solid 1px;
+      padding: 5px 0;
+    }
+
+    .panther-cell-inner-section {
+      padding-left: 30px;
+    }
+
+    .panther-title {
+      color: #999;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 12px 0;
+    }
+
+    .panther-description {
+      word-break: break-all;
+    }
+
+    .panther-item {
+      padding: 4px 0;
+      border-bottom: #ccc solid 1px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .panther-cell-title {
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .panther-cell-description {
+      font-size: 12px;
+    }
+    .panther-cell-description-2 {
+      font-size: 14px;
+    }
+
+    mat-chip {
+      text-align: center;
+      @include deep-height(22px);
+      @include deep-width(22px);
+      font-size: 10px;
+      font-weight: bold;
+      padding: 2px;
+      &.MF {
+        border: $panther-mf solid 1px;
+        color: darken($panther-mf, 10%);
+      }
+
+      &.BP {
+        border: $panther-bp solid 1px;
+        color: darken($panther-bp, 10%);
+      }
+
+      &.CC {
+        border: $panther-cc solid 1px;
+        color: darken($panther-cc, 10%);
+      }
+    }
+  }
+}

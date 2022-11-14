@@ -1,0 +1,63 @@
+@import "src/@panther/scss/panther";
+@import "src/@panther.common/scss/panther.common";
+
+$panther-background: map-get($mat-blue-grey, 50);
+
+:host {
+  width: 100%;
+
+  .panther-left-drawer {
+    width: 500px;
+    border-right: #111 solid 1px;
+
+    .panther-menu-section {
+      width: 100%;
+    }
+  }
+
+  panther-summary-stats {
+    display: block;
+    //@include deep-height(300px !important);
+  }
+
+  panther-search-form {
+    @include deep-width(300px !important);
+  }
+
+  panther-annotation-detail {
+    @include deep-width(500px !important);
+  }
+  panther-annotation-summary,
+  panther-annotation-stats {
+    @include deep-width(600px !important);
+  }
+}
+
+.panther-section-body {
+  background-color: $panther-background;
+}
+
+.panther-middle-panel {
+  min-height: 500px;
+  border-bottom: 200px;
+}
+
+.panther-search-form {
+  padding: 15px;
+  @include deep-width(500px);
+}
+
+.panther-gene-summary {
+  padding: 12px;
+  .panther-cell-title {
+    font-size: 16px;
+  }
+
+  .panther-cell-description {
+    color: #777;
+    font-weight: bold;
+  }
+  .panther-cell-description-2 {
+    font-size: 14px;
+  }
+}

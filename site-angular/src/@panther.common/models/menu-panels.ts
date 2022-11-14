@@ -1,18 +1,18 @@
 export enum LeftPanel {
-    geneDetail = 'geneDetail',
-    geneTable = 'geneTable',
-    geneSummary = 'geneSummary',
-    geneStats = 'geneStats',
-    geneSearch = 'geneSearch',
+    annotationDetail = 'annotationDetail',
+    annotationTable = 'annotationTable',
+    annotationSummary = 'annotationSummary',
+    annotationStats = 'annotationStats',
+    annotationSearch = 'annotationSearch',
 };
 
 export enum MiddlePanel {
 };
 
 export enum RightPanel {
-    geneDetail = 'geneDetail',
-    geneTable = 'geneTable',
-    geneSummary = 'geneSummary',
-    geneStats = 'geneStats',
-    geneSearch = 'geneSearch',
+    annotationDetail = 'annotationDetail',
+    annotationTable = 'annotationTable',
+    annotationSummary = 'annotationSummary',
+    annotationStats = 'annotationStats',
+    annotationSearch = 'annotationSearch',
 }

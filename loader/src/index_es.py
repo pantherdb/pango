@@ -41,14 +41,14 @@ def parse_arguments():
 
 
 def load_json(j_file):
-    start_time = time.time()
+    start_time = time.time()    
     
-    print("- %s seconds ---" % (time.time() - start_time))
-    with open(j_file, 'r') as open_file:
+    with open(j_file, 'r', encoding="utf8") as open_file:
         parser = ijson.parse(open_file)
         for value in ijson.items(parser, 'item'):
             yield value
 
+    print("- %s seconds ---" % (time.time() - start_time))
 
 def bulk_load(j_file, index_name):
 
@@ -61,4 +61,4 @@ if __name__ == "__main__":
     main()
 
 
-# python3 -m src.index_es -a ./data/annotations.json -t ./data/clean-terms.json
+# python3 -m src.index_es -a downloads/human_iba_annotations_clean.json -t data//clean-terms.json

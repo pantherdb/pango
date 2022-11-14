@@ -1,5 +1,5 @@
 import strawberry
-from pydantic import Field, typing
+from pydantic import  typing
 
 @strawberry.type
 class Term:

@@ -1,0 +1,35 @@
+<div class="w-100-p" fxLayout="row" fxLayoutAlign="start start">
+  <mat-drawer-container class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start start" autosize>
+
+    <mat-drawer #leftDrawer class="panther-right-drawer" pantherPerfectScrollbar mode="side" position="start"
+      opened="true">
+      <div class="h-100-p" [ngSwitch]="pantherMenuService.selectedLeftPanel">
+        <panther-annotation-detail [panelDrawer]="rightDrawer" *ngSwitchCase="LeftPanel.annotationDetail">
+        </panther-annotation-detail>
+        <panther-annotation-summary [panelDrawer]="rightDrawer" *ngSwitchCase="LeftPanel.annotationSummary">
+        </panther-annotation-summary>
+        <panther-annotation-stats [panelDrawer]="rightDrawer" *ngSwitchCase="LeftPanel.annotationStats">
+        </panther-annotation-stats>
+        <panther-search-form [panelDrawer]="rightDrawer" *ngSwitchCase="LeftPanel.annotationSearch">
+        </panther-search-form>
+      </div>
+    </mat-drawer>
+    <mat-drawer-content #scrollbarRef class="panther-section-body w-100-p" [perfectScrollbar]="scrollbarConfig">
+      <div class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+        <panther-summary-stats></panther-summary-stats>
+        <panther-annotation-table class="w-100-p"></panther-annotation-table>
+      </div>
+      <div class="w-100-p">
+        <panther-footer></panther-footer>
+      </div>
+    </mat-drawer-content>
+    <mat-drawer #rightDrawer class="panther-right-drawer" pantherPerfectScrollbar mode="over" position="end">
+      <div class="h-100-p" [ngSwitch]="pantherMenuService.selectedRightPanel">
+        <panther-annotation-detail [panelDrawer]="rightDrawer" *ngSwitchCase="RightPanel.annotationDetail">
+        </panther-annotation-detail>
+      </div>
+    </mat-drawer>
+
+
+  </mat-drawer-container>
+</div>

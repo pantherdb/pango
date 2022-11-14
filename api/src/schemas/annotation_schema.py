@@ -1,29 +1,28 @@
 import strawberry
 from pydantic import typing
 from strawberry.types import Info
-from src.resolvers.annotation_resolver import get_annotations, get_annotations_stats
-from src.models.annotation_model import Annotation, AnnotationStats
+from src.resolvers.autocomplete_resolver import get_autocomplete
+from src.resolvers.annotation_resolver import get_annotations, get_annotations_count, get_annotations_stats
+from src.models.annotation_model import Annotation, AnnotationFilterArgs, AnnotationStats, AutocompleteType, ResultCount
 from src.utils import get_selected_fields
 
 @strawberry.type
 class AnnotationQuery:
 
     @strawberry.field
-    async def annotations(self, info:Info) -> typing.List[Annotation]:
-        """ Get all annotations """
-
-        print("---", get_selected_fields(info))
-        annotations =  await get_annotations()
-
-        return annotations
+    async def annotations(self, info:Info, filter_args:typing.Optional[AnnotationFilterArgs]=None) -> typing.List[Annotation]:
+        return await get_annotations(filter_args)
 
     @strawberry.field
-    async def stats(self, info:Info) -> AnnotationStats:
-        """ Get all annotations """
+    async def annotations_count(self, info:Info, filter_args:typing.Optional[AnnotationFilterArgs]=None) -> ResultCount:
+        return await get_annotations_count(filter_args)     
 
-        print("---", get_selected_fields(info))
-        aggregations = await get_annotations_stats()
+    @strawberry.field
+    async def stats(self, info:Info, filter_args:typing.Optional[AnnotationFilterArgs]=None) -> AnnotationStats:
+        return await get_annotations_stats(filter_args)       
 
-        return aggregations
+    @strawberry.field
+    async def autocomplete(self, info:Info, autocomplete_type: AutocompleteType, keyword:str) -> typing.List[Annotation]:
+        return await get_autocomplete(autocomplete_type, keyword)
  
  

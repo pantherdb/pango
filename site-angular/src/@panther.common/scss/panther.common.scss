@@ -1,14 +1,15 @@
 @use "@angular/material" as mat;
+$primary: map-get($theme, primary);
+$accent: map-get($theme, accent);
+//$panther-background: map-get($mat-blue, 400);
+$panther-background: map-get($mat-blue-grey, 100);
 $panther-toolbar-color: #e7ecf4;
 $panther-primary-color: #183153; //#515E7B; #437A9B;
 $panther-primary-color-accent: #8b9dc3;
-$panther-primary-color-lighter: #eadfee;
-$panther-primary-color-light: rgba(#9479b8, 0.3);
+$panther-primary-color-lighter: #f2cf9d;
+$panther-primary-color-light: rgba(#c597a3, 0.3);
 $panther-primary-color-text: #4a8bfc;
 $panther-primary-color-2: #484f61;
-
-$primary: map-get($theme, primary);
-$accent: map-get($theme, accent);
 
 .panther-disabled {
   pointer-events: none;
