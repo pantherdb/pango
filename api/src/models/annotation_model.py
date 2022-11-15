@@ -91,9 +91,11 @@ class AnnotationStats:
 
 @strawberry.input
 class AnnotationFilterArgs:
-    termIds: typing.Optional[typing.List[str]] = strawberry.UNSET
-    geneIds: typing.Optional[typing.List[str]] = strawberry.UNSET,
-    aspectIds: typing.Optional[typing.List[str]] = strawberry.UNSET,
-    relationIds: typing.Optional[typing.List[str]] = strawberry.UNSET,
-    withGeneIds: typing.Optional[typing.List[str]] = strawberry.UNSET,
-    referenceIds: typing.Optional[typing.List[str]] = strawberry.UNSET
+    term_ids: typing.Optional[typing.List[str]] = strawberry.UNSET
+    slim_term_ids: typing.Optional[typing.List[str]] = strawberry.UNSET
+    evidence_type_ids: typing.Optional[typing.List[str]] = strawberry.UNSET
+    gene_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
+    aspect_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
+    relation_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
+    with_gene_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
+    reference_ids: typing.Optional[typing.List[str]] = strawberry.UNSET

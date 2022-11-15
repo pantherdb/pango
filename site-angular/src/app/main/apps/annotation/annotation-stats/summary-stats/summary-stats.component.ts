@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { getColor } from '@panther.common/data/panther-colors';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AnnotationStats, aspectMap, Bucket } from '../../models/annotation';
+import { AnnotationStats, aspectMap, Bucket, evidenceTypeMap } from '../../models/annotation';
 import { AnnotationPage } from '../../models/page';
 import { AnnotationService } from '../../services/annotation.service';
 
@@ -63,8 +63,15 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
     }
   });
 
+  customEvidenceColors = Object.keys(evidenceTypeMap).map((evidenceType) => {
+    return {
+      name: evidenceTypeMap[evidenceType].id,
+      value: evidenceTypeMap[evidenceType].color,
+    }
+  });
 
-  relationPieOptions = {
+
+  evidenceTypePieOptions = {
     view: [100, 100],
     gradient: true,
     legend: false,
@@ -80,13 +87,11 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
         getColor('teal', 500),
         getColor('orange', 500),
       ]
-
     },
-
   }
 
   termFrequencyBarOptions = {
-    view: [400, 350],
+    view: [350, 350],
     showXAxis: true,
     showYAxis: true,
     gradient: true,
@@ -105,14 +110,14 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
   }
 
   slimTermFrequencyBarOptions = {
-    view: [400, 350],
+    view: [350, 350],
     showXAxis: true,
     showYAxis: true,
     gradient: true,
     legend: false,
     showXAxisLabel: false,
     maxYAxisTickLength: 30,
-    yAxisLabel: 'Terms',
+    yAxisLabel: 'Slim Terms',
     showYAxisLabel: true,
     xAxisLabel: 'Count',
     colorScheme: {
@@ -126,7 +131,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
   stats = {
     termFrequencyBar: [],
     aspectPie: [],
-    relationPie: [],
+    evidenceTypePie: [],
     termsBar: [],
     slimTermFrequencyBar: []
   }
@@ -176,7 +181,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
     }
 
     if (this.annotationStats.evidenceTypeFrequency?.buckets) {
-      this.stats.relationPie = this.annotationService.buildAnnotationBar(this.annotationStats.evidenceTypeFrequency.buckets)
+      this.stats.evidenceTypePie = this.annotationService.buildAnnotationBar(this.annotationStats.evidenceTypeFrequency.buckets)
     }
 
     if (this.annotationStats.slimTermFrequency?.buckets) {

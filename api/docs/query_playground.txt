@@ -1,0 +1,503 @@
+POST panther-annotations/_search
+{
+  "size": 2, 
+  "query": { "match_all": {} }
+}
+
+POST panther-annotations/_search
+{
+  "size": 20, 
+  "query": { 
+        "terms": {
+          "gene.keyword": ["UniProtKB:Q8WYL5"]
+        }
+  }
+}
+
+POST panther-annotations/_search?filter_path=took,hits.hits._score,hits.hits
+{
+  "_source": ["gene", "term.aspect", "term.label"], 
+  "size": 20, 
+  
+  "query":{
+   "bool":{
+      "filter":[
+         {
+            "terms":{
+               "term.aspect.keyword":[
+                  "molecular function"
+               ]
+            }
+         }
+      ],
+      "must":[
+         {
+            "match":{
+               "gene":{
+                  "operator":"and",
+                  "query":"U"
+               }
+            }
+         }
+      ]
+   }
+}
+}
+
+
+POST panther-annotations/_search
+{
+  "_source": ["gene", "term.aspect", "term.label"], 
+  "size": 20, 
+  "query": { 
+    "bool": { 
+      "must": [
+        {"match": {
+              "term.aspect": {
+                  "query": "mol",
+                  "operator": "and"
+              }
+          }
+      }],
+         
+      "filter": [
+        {
+          "terms": {
+            "gene.keyword": ["UniProtKB:Q8WYL5"]
+          }
+        }
+        ]
+      } 
+  }
+}
+
+POST panther-annotations/_search
+{
+  "_source": ["gene", "term.label", "slim_terms.label", "slim_terms.id"], 
+  "size": 20, 
+  "query": { 
+    "bool": {  
+      "filter": [ 
+        {
+          "nested": {
+            "path":"slim_terms",
+            "query": {
+              "terms": {
+                "gene.keyword": ["UniProtKB:Q8WYL5"]
+              }
+            }
+          }
+        },
+        {
+          "terms": {
+           "gene.keyword": ["UniProtKB:Q8WYL5"]
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+POST panther-annotations/_search
+{
+  "size": 0, 
+    "query": {
+      "nested": {
+        "path":"slim_terms",
+        "query": {
+        "match": {
+            "slim_terms.label": {
+                "query": "li",
+                "operator": "and"
+            }
+          }
+        }
+      }
+    },
+  "aggs" : {
+        "slim_term_frequency": {
+             "nested": {
+        "path": "slim_terms"
+      },
+      "aggs": {
+           "distinct_slim_term_frequency": {
+              "terms": {
+                 "field": "slim_terms.label.keyword",
+                 "order":{"_count":"desc"},
+                 "size": 20
+              },
+             "aggs": {
+                "docs": {
+                  "top_hits": {
+                    "_source":   { 
+                    "includes": ["slim_terms.id", "slim_terms.label"]
+                    },
+                    "size": 1
+                  }
+                }
+             }
+          }
+        }
+    }
+}
+}
+
+POST panther-annotations/_search
+{
+  "size": 0, 
+    "query": {
+      "nested": {
+        "path":"evidence.references",
+        "query": {
+        "match": {
+            "evidence.references.pmid": {
+                "query": "PMID:30590701",
+                "operator": "and"
+            }
+        }
+        }
+      }
+    },
+  "aggs" : {
+        "distinct_ref": {
+             "nested": {
+        "path": "evidence.references"
+      },
+      "aggs": {
+          "docs": {
+          "top_hits": {
+            "_source":   { 
+            "includes": ["evidence.references.title", "evidence.references.pmid"]
+            }
+          }
+        }
+        }
+    }
+}
+}
+
+POST panther-annotations/_search
+{
+  "size": 0, 
+   "query": { "match_all": {} },
+  "aggs" : {
+        "reference_frequency": {
+             "nested": {
+        "path": "evidence.references"
+      },
+      "aggs": {
+          "docs": {
+          "top_hits": {
+            "_source":   { 
+            "includes": ["evidence.references.title", "evidence.references.pmid"]
+            }
+          }
+        },
+        "distinct_reference_frequency": {
+          "terms": {
+            "field": "evidence.references.pmid.keyword",
+             "order":{"_count":"desc"},
+             "size": 20
+          }
+        }
+        }
+    }
+}
+}
+
+
+POST panther-annotations/_search
+{
+  "size": 0, 
+  "query": { "match_all": {} },
+  "aggs" : {
+        "terms_frequency": {
+          "terms": {
+            "field": "term.id.keyword",
+             "order":{"_count":"desc"},
+             "size": 20
+          }
+        },
+        "aspect_frequency": {
+          "terms": {
+            "field": "aspect.keyword",
+             "order":{"_count":"desc"}
+          }
+        }
+    }
+}
+
+POST panther-annotations/_search
+{
+  "_source": ["evidence.references.pmid"], 
+  "size": 20,
+    "query": {
+      "nested": {
+        "path":"evidence.references",
+        "query": {
+        "match": {
+            "evidence.references.pmid": {
+                "query": "PMID:30590701",
+                "operator": "and"
+            }
+        }
+        }
+      }
+    },
+    "inner_hits": {
+           "sort": {
+                  "evidence.references.pmid": {
+                    "order": "asc"
+                  }
+                },
+                "size": 1
+          }
+}
+
+
+POST pthres-terms-keyword/_search
+{
+  "query": { "prefix": { "label.keyword": "bond" } }
+}
+
+POST panther-annotations/_search
+{
+ "query": {
+    "term": {
+      "term.id.keyword": {
+        "value": "GO:0005546",
+        "boost": 1.0
+      }
+    }
+  }
+}
+
+POST pthres-categories-keyword/_search
+{
+   "query" : {
+      "term" : {
+         "category_acc.keyword": "GO:0005546"
+      }
+   }
+}
+
+POST pthres-terms-keyword/_search
+{
+  "query": {
+     "terms": {
+      "id": ["GO:000830", "GO:0005546", "GO:0005524"],
+      "boost": 1.0
+    }
+  }
+}
+
+POST pthres-terms-keyword/_count
+{
+  "query": {
+    "match": {
+      "label": {
+        "query": "bin",
+        "operator": "and",
+        "fuzziness": 2,
+        "max_expansions": 10
+      }
+    }
+  }
+}
+
+GET pthres-terms-keyword/_analyze
+{
+  "tokenizer": "edge_ngram",
+  "text": ["Los Angeles","Love","Paris","Pain"]
+}
+
+
+
+GET _analyze
+{
+  "text": ["Average Joe"]
+}
+
+
+
+
+POST pthres-terms-keyword/_search
+{
+  "suggest": {
+    "my-suggest-1" : {
+      "text" : "bindi",
+      "term" : {
+        "field" : "label"
+      }
+    },
+    "my-suggest-2" : {
+      "text" : "kmichy",
+      "term" : {
+        "field" : "id"
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+GET /pthres-keyword/_search
+{
+    "query": {
+        "multi_match" : {
+          "fields":  [ "keyword" ],
+            "query" : "RECEPTOR CL",
+            "fuzziness": 1
+        }
+    }
+}
+
+GET /pthres-genes-keyword/_search?q='binding'
+
+
+GET /pthres-genes-keyword/_search
+{
+    "query": {
+        "multi_match" : {
+          "fields":  [ "keyword" ],
+            "query" : "RECEPTOR CLUSTERING",
+            "fuzziness": 1
+        }
+    }
+}
+
+GET /pthres-genes-keyword/_count
+{
+    "query": {
+        "multi_match" : {
+          "fields":  [ "keyword" ],
+            "query" : "RECEPTOR CL",
+            "fuzziness": 1
+        }
+    }
+}
+
+
+
+GET /pthres-genes-keyword/_search
+{
+  "query": {
+    "match_all": {
+      "query": "binding"
+    }
+  }
+}
+
+
+
+GET /pthres-keyword/_search
+{
+    "query": {
+        "multi_match" : {
+          "fields":  [ "keyword" ],
+            "query" : "RECEPTOR CL",
+            "fuzziness": 1
+        }
+    }
+}
+
+
+
+
+
+
+
+GET /tcards/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+
+GET /places/_search
+{
+    "query": {
+        "multi_match" : {
+          "fields":  [ "city", "country" ],
+            "query" : "Pari",
+            "fuzziness": 1
+        }
+    }
+}
+
+Delete /tcards
+
+GET /cards/_search
+{
+  "query": {
+     "bool": { 
+      "must":
+        { "match": { "title":  "S"  }}
+      ,
+      "filter": 
+        { "term":  { "category": "question" }
+    }
+  }
+}
+}
+
+GET /cards/_search
+{
+  "query": {
+  
+     "bool": {
+            "should": [
+                {
+                    "multi_match": {
+                        "query": "skill",
+                        "type": "phrase",
+                        "fields": [
+                            "title",
+                            "category"
+                        ],
+                        "boost": 10
+                    }
+                },
+                {
+                    "multi_match": {
+                        "query": "skill",
+                        "type": "most_fields",
+                        "fields": [
+                            "title",
+                            "category"
+                        ],
+                        "fuzziness":"AUTO"
+                    }
+                }
+            ],
+             "filter": 
+          {
+            "terms": { "category": [ "goal","question"] }
+          }
+        
+        }
+  }
+}
+
+GET /cards/_search
+{
+  "query": {
+        "match_phrase_prefix" : {
+          "title": {
+            "query" : "cloud communicatin",
+            "slop": 3,
+                 "max_expansions": 10
+            }
+        }
+    },
+    "_source": ["title", "category", "cardId"]
+}
+
+GET /tcards/_count

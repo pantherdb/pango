@@ -18,9 +18,9 @@
     <mat-drawer-content #scrollbarRef class="panther-section-body w-100-p" [perfectScrollbar]="scrollbarConfig">
       <div class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
         <div class="panther-gene-summary w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
-          <div fxLayout="row" fxLayoutAlign="start center">
+          <div fxLayout="column" fxLayoutAlign="start center">
             <div fxLayout="row" fxLayoutAlign="start center">
-              <div class="w-100-p panther-cell-title">
+              <div class="w-100-p panther-cell-title mr-8">
                 {{gene.gene}}
               </div>
               <div class="w-100-p panther-cell-description">{{gene.geneSymbol}}</div>
@@ -42,7 +42,5 @@
         </panther-annotation-detail>
       </div>
     </mat-drawer>
-
-
   </mat-drawer-container>
 </div>

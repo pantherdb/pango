@@ -24,6 +24,25 @@ export const aspectMap = {
 
 }
 
+export const evidenceTypeMap = {
+    'direct': {
+        id: 'direct',
+        label: 'direct',
+        color: getColor('green', 500)
+    },
+    'homology': {
+        id: 'homology',
+        label: 'homology',
+        color: getColor('red', 500)
+    },
+}
+
+
+
+
+
+
+
 
 export enum AutocompleteType {
     TERM = 'term',
@@ -31,7 +50,9 @@ export enum AutocompleteType {
     WITHGENE = "withgene",
     REFERENCE = "reference",
     ASPECT = "aspect",
-    RELATION = "relation"
+    RELATION = "relation",
+    SLIM_TERM = "slim_term",
+    EVIDENCE_TYPE = "evidence_type"
 }
 
 export class AutocompleteFilterArgs {
@@ -93,6 +114,8 @@ export class AutocompleteFilterArgs {
 
 export class FilterArgs {
     termIds: string[] = [];
+    slimTermIds: string[] = [];
+    evidenceTypeIds: string[] = [];
     geneIds: string[] = [];
     aspectIds: string[] = [];
     relationIds: string[] = [];
@@ -129,6 +152,7 @@ export class Annotation {
     geneName: string;
     term: Term;
     slimTerms: Term[];
+    evidenceType: string;
     evidence: Evidence[] = [];
     relation: string;
     group: string;

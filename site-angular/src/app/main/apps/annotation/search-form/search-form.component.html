@@ -15,6 +15,43 @@
         <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="panther-activity-term-row" fxLayout="column">
             <mat-form-field appearance="outline" class="panther-sm panther-white w-100-p">
+              <mat-label>Filter by Aspect</mat-label>
+              <mat-chip-list #aspectChipList>
+                <mat-chip class="panther-form-chip" *ngFor="let aspect of annotationService.searchCriteria.aspects"
+                  [selectable]="true" [removable]="true" (removed)="remove(aspect, SearchFilterType.ASPECTS)"
+                  fxLayout="row" fxLayoutAlign="start center" matTooltip="aspect: {{aspect.term.aspect}})"
+                  [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
+                  <div fxFlex="" class="panther-chip-label">
+                    {{aspect.term.aspect}}
+                  </div>
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input #searchInput formControlName="aspects" placeholder="Add aspect Filter"
+                  [matAutocomplete]="aspectAuto" [matChipInputFor]="aspectChipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
+              </mat-chip-list>
+              <mat-autocomplete #aspectAuto="matAutocomplete"
+                (optionSelected)="selected($event, SearchFilterType.ASPECTS)" [displayWith]="aspectDisplayFn"
+                class="panther-term-autocomplete">
+                <mat-option class="panther-term-autocomplete" *ngFor="let item of aspects$ | async" [value]="item">
+                  <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                    <div class="panther-term-label">
+                      {{ item.term.aspect }}
+                    </div>
+                    <span fxFlex></span>
+                    <div class="panther-term-id">
+                      ({{ item.count }})
+                    </div>
+                  </div>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="panther-activity-term-row" fxLayout="column">
+            <mat-form-field appearance="outline" class="panther-sm panther-white w-100-p">
               <mat-label>Filter by Term</mat-label>
               <mat-chip-list #termChipList>
                 <mat-chip class="panther-form-chip" *ngFor="let term of annotationService.searchCriteria.terms"
@@ -26,7 +63,7 @@
                   </div>
                   <mat-icon matChipRemove>cancel</mat-icon>
                 </mat-chip>
-                <input #termsInput formControlName="terms" placeholder="Add Term Filter" [matAutocomplete]="termAuto"
+                <input #searchInput formControlName="terms" placeholder="Add Term Filter" [matAutocomplete]="termAuto"
                   [matChipInputFor]="termChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                   [matChipInputAddOnBlur]="false">
               </mat-chip-list>
@@ -92,6 +129,43 @@
         <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="panther-activity-term-row" fxLayout="column">
             <mat-form-field appearance="outline" class="panther-sm panther-white w-100-p">
+              <mat-label>Filter by Aspect</mat-label>
+              <mat-chip-list #slimTermChipList>
+                <mat-chip class="panther-form-chip" *ngFor="let slimTerm of annotationService.searchCriteria.slimTerms"
+                  [selectable]="true" [removable]="true" (removed)="remove(slimTerm, SearchFilterType.SLIM_TERMS)"
+                  fxLayout="row" fxLayoutAlign="start center" matTooltip="slimTerm: {{slimTerm.term.slimTerm}})"
+                  [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
+                  <div fxFlex="" class="panther-chip-label">
+                    {{slimTerm.term.slimTerm}}
+                  </div>
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input #searchInput formControlName="slimTerms" placeholder="Add slimTerm Filter"
+                  [matAutocomplete]="slimTermAuto" [matChipInputFor]="slimTermChipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
+              </mat-chip-list>
+              <mat-autocomplete #slimTermAuto="matAutocomplete"
+                (optionSelected)="selected($event, SearchFilterType.SLIM_TERMS)" [displayWith]="slimTermDisplayFn"
+                class="panther-term-autocomplete">
+                <mat-option class="panther-term-autocomplete" *ngFor="let item of slimTerms$ | async" [value]="item">
+                  <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                    <div class="panther-term-label">
+                      {{ item.term.slimTerm }}
+                    </div>
+                    <span fxFlex></span>
+                    <div class="panther-term-id">
+                      ({{ item.count }})
+                    </div>
+                  </div>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!--   <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="panther-activity-term-row" fxLayout="column">
+            <mat-form-field appearance="outline" class="panther-sm panther-white w-100-p">
               <mat-label>Filter by With Gene</mat-label>
               <mat-chip-list #withgeneChipList>
                 <mat-chip class="panther-form-chip" *ngFor="let withgene of annotationService.searchCriteria.withgenes"
@@ -104,7 +178,7 @@
                   </div>
                   <mat-icon matChipRemove>cancel</mat-icon>
                 </mat-chip>
-                <input #withgenesInput formControlName="withgenes" placeholder="Add withgene Filter"
+                <input #searchInput  formControlName="withgenes" placeholder="Add withgene Filter"
                   [matAutocomplete]="withgeneAuto" [matChipInputFor]="withgeneChipList"
                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
               </mat-chip-list>
@@ -125,44 +199,9 @@
               </mat-autocomplete>
             </mat-form-field>
           </div>
-        </div>
+        </div> -->
 
-        <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
-          <div class="panther-activity-term-row" fxLayout="column">
-            <mat-form-field appearance="outline" class="panther-sm panther-white w-100-p">
-              <mat-label>Filter by Aspect</mat-label>
-              <mat-chip-list #aspectChipList>
-                <mat-chip class="panther-form-chip" *ngFor="let aspect of annotationService.searchCriteria.aspects"
-                  [selectable]="true" [removable]="true" (removed)="remove(aspect, SearchFilterType.ASPECTS)"
-                  fxLayout="row" fxLayoutAlign="start center" matTooltip="aspect: {{aspect.term.aspect}})"
-                  [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
-                  <div fxFlex="" class="panther-chip-label">
-                    {{aspect.term.aspect}}
-                  </div>
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-                <input #aspectsInput formControlName="aspects" placeholder="Add aspect Filter"
-                  [matAutocomplete]="aspectAuto" [matChipInputFor]="aspectChipList"
-                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
-              </mat-chip-list>
-              <mat-autocomplete #aspectAuto="matAutocomplete"
-                (optionSelected)="selected($event, SearchFilterType.ASPECTS)" [displayWith]="aspectDisplayFn"
-                class="panther-term-autocomplete">
-                <mat-option class="panther-term-autocomplete" *ngFor="let item of aspects$ | async" [value]="item">
-                  <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
-                    <div class="panther-term-label">
-                      {{ item.term.aspect }}
-                    </div>
-                    <span fxFlex></span>
-                    <div class="panther-term-id">
-                      ({{ item.count }})
-                    </div>
-                  </div>
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </div>
-        </div>
+
 
         <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="panther-activity-term-row" fxLayout="column">
@@ -178,7 +217,7 @@
                   </div>
                   <mat-icon matChipRemove>cancel</mat-icon>
                 </mat-chip>
-                <input #relationsInput formControlName="relations" placeholder="Add relation Filter"
+                <input #searchInput formControlName="relations" placeholder="Add relation Filter"
                   [matAutocomplete]="relationAuto" [matChipInputFor]="relationChipList"
                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
               </mat-chip-list>
@@ -201,7 +240,7 @@
           </div>
         </div>
 
-        <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+        <!--   <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="panther-activity-term-row" fxLayout="column">
             <mat-form-field appearance="outline" class="panther-sm panther-white w-100-p">
               <mat-label>Filter by Reference</mat-label>
@@ -217,7 +256,7 @@
                   </div>
                   <mat-icon matChipRemove>cancel</mat-icon>
                 </mat-chip>
-                <input #referencesInput formControlName="references" placeholder="Add reference Filter"
+                <input #searchInput  formControlName="references" placeholder="Add reference Filter"
                   [matAutocomplete]="referenceAuto" [matChipInputFor]="referenceChipList"
                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
               </mat-chip-list>
@@ -238,7 +277,7 @@
               </mat-autocomplete>
             </mat-form-field>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

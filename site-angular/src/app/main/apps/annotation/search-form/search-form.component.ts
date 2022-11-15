@@ -34,6 +34,8 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   columns: any[] = []
 
   terms$: Observable<Annotation[]>;
+  slimTerms$: Observable<Annotation[]>;
+  evidenceTypes$: Observable<Annotation[]>;
   genes$: Observable<Annotation[]>;
   aspects$: Observable<Annotation[]>;
   relations$: Observable<Annotation[]>;
@@ -55,6 +57,8 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const termsFilter = new AutocompleteFilterArgs(AutocompleteType.TERM)
+    const evidenceTypesFilter = new AutocompleteFilterArgs(AutocompleteType.EVIDENCE_TYPE)
+    const slimTermsFilter = new AutocompleteFilterArgs(AutocompleteType.SLIM_TERM)
     const genesFilter = new AutocompleteFilterArgs(AutocompleteType.GENE)
     const aspectsFilter = new AutocompleteFilterArgs(AutocompleteType.ASPECT)
     const relationsFilter = new AutocompleteFilterArgs(AutocompleteType.RELATION)
@@ -66,6 +70,13 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       debounceTime(1000),
       filter((name) => !!name),
       switchMap(name => this.annotationService.getAutocompleteQuery(termsFilter, name))
+    );
+
+    this.slimTerms$ = this.filterForm.get('slimTerms')!.valueChanges.pipe(
+      distinctUntilChanged(),
+      debounceTime(1000),
+      filter((name) => !!name),
+      switchMap(name => this.annotationService.getAutocompleteQuery(slimTermsFilter, name))
     );
 
     this.genes$ = this.filterForm.get('genes')!.valueChanges.pipe(
@@ -80,6 +91,13 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       debounceTime(1000),
       filter((name) => !!name),
       switchMap(name => this.annotationService.getAutocompleteQuery(aspectsFilter, name))
+    );
+
+    this.evidenceTypes$ = this.filterForm.get('evidenceTypes')!.valueChanges.pipe(
+      distinctUntilChanged(),
+      debounceTime(1000),
+      filter((name) => !!name),
+      switchMap(name => this.annotationService.getAutocompleteQuery(evidenceTypesFilter, name))
     );
 
     this.relations$ = this.filterForm.get('relations')!.valueChanges.pipe(
@@ -112,7 +130,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   createFilterForm() {
     return new FormGroup({
       terms: new FormControl(),
+      slimTerms: new FormControl(),
       genes: new FormControl(),
+      evidenceTypes: new FormControl(),
       aspects: new FormControl(),
       relations: new FormControl(),
       withgenes: new FormControl(),
@@ -129,7 +149,15 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     return term ? term.term.label : undefined;
   }
 
+  slimTermDisplayFn(term: Annotation): string | undefined {
+    return term ? term.slimTerms[0].label : undefined;
+  }
+
   aspectDisplayFn(gene: Annotation): string | undefined {
+    return gene ? gene.term.aspect : undefined;
+  }
+
+  evidenceTypeDisplayFn(gene: Annotation): string | undefined {
     return gene ? gene.term.aspect : undefined;
   }
 

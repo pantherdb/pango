@@ -39,11 +39,11 @@
         </div>
       </div>
       <div class="panther-section-body" fxLayout="row" fxLayoutAlign="start center">
-        <ngx-charts-pie-chart [results]="stats.relationPie" [view]="relationPieOptions.view"
-          [scheme]="relationPieOptions.colorScheme" [gradient]="relationPieOptions.gradient"
-          [legend]="relationPieOptions.legend" [maxLabelLength]="relationPieOptions.maxLabelLength"
-          [labels]="relationPieOptions.showLabels" [doughnut]="relationPieOptions.isDoughnut"
-          [customColors]="customColors">
+        <ngx-charts-pie-chart [results]="stats.evidenceTypePie" [view]="evidenceTypePieOptions.view"
+          [scheme]="evidenceTypePieOptions.colorScheme" [gradient]="evidenceTypePieOptions.gradient"
+          [legend]="evidenceTypePieOptions.legend" [maxLabelLength]="evidenceTypePieOptions.maxLabelLength"
+          [labels]="evidenceTypePieOptions.showLabels" [doughnut]="evidenceTypePieOptions.isDoughnut"
+          [customColors]="customEvidenceColors">
         </ngx-charts-pie-chart>
 
         <div class="panther-stat" fxLayout="column" fxLayoutAlign="start stretch">

@@ -1,11 +1,13 @@
 
 export enum SearchFilterType {
     TERMS = 'terms',
+    SLIM_TERMS = "slimTerms",
     GENES = 'genes',
     ASPECTS = 'aspects',
     RELATIONS = 'relations',
     REFERENCES = 'references',
-    WITHGENES = 'withgenes'
+    WITHGENES = 'withgenes',
+    EVIDENCE_TYPES = "evidenceTypes"
 };
 
 export class GeneFieldGroup {
@@ -14,7 +16,9 @@ export class GeneFieldGroup {
 
 export class SearchCriteria {
     terms: any[] = [];
+    slimTerms: any[] = [];
     genes: any[] = [];
+    evidenceTypes: any[] = [];
     aspects: any[] = [];
     relations: any[] = [];
     withgenes: any[] = [];

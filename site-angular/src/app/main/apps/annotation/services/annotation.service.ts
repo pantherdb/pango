@@ -289,6 +289,14 @@ export class AnnotationService {
             query.filterArgs.termIds.push(annotation.term.id);
         });
 
+        this.searchCriteria.evidenceTypes.forEach((annotation: Annotation) => {
+            query.filterArgs.evidenceTypeIds.push(annotation.evidenceType);
+        });
+
+        this.searchCriteria.slimTerms.forEach((annotation: Annotation) => {
+            query.filterArgs.slimTermIds.push(annotation.term.id);
+        });
+
         this.searchCriteria.genes.forEach((annotation: Annotation) => {
             query.filterArgs.geneIds.push(annotation.gene);
         });
