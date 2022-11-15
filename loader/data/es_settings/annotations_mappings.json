@@ -33,7 +33,7 @@
         }
       }
     },
-    "qualifier": {
+    "relation": {
       "type": "text",
       "analyzer": "autocomplete",
       "search_analyzer": "standard",

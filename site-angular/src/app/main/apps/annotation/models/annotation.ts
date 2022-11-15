@@ -31,7 +31,7 @@ export enum AutocompleteType {
     WITHGENE = "withgene",
     REFERENCE = "reference",
     ASPECT = "aspect",
-    QUALIFIER = "qualifier"
+    RELATION = "relation"
 }
 
 export class AutocompleteFilterArgs {
@@ -63,9 +63,9 @@ export class AutocompleteFilterArgs {
                         aspect
                     }
                 `
-            case AutocompleteType.QUALIFIER:
+            case AutocompleteType.RELATION:
                 return `
-                    qualifier
+                    relation
                 `
             case AutocompleteType.REFERENCE:
                 return `
@@ -95,7 +95,7 @@ export class FilterArgs {
     termIds: string[] = [];
     geneIds: string[] = [];
     aspectIds: string[] = [];
-    qualifierIds: string[] = [];
+    relationIds: string[] = [];
     withGeneIds: string[] = [];
     referenceIds: string[] = [];
 }
@@ -130,7 +130,7 @@ export class Annotation {
     term: Term;
     slimTerms: Term[];
     evidence: Evidence[] = [];
-    qualifier: string;
+    relation: string;
     group: string;
 }
 
@@ -146,6 +146,6 @@ export class Frequency {
 export class AnnotationStats {
     termFrequency: Frequency;
     aspectFrequency: Frequency;
-    qualifierFrequency: Frequency;
-    referencesFrequency: Frequency;
+    evidenceTypeFrequency: Frequency;
+    slimTermFrequency: Frequency;
 }

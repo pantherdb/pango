@@ -12,7 +12,13 @@ class AutocompleteType(Enum):
     withgene = "withgene"
     reference = "reference"
     aspect = "aspect"
-    qualifier = "qualifier"
+    relation = "relation"
+
+@strawberry.type
+class Entity :
+    id: str
+    label: str
+
 
 @strawberry.type
 class Reference :
@@ -47,7 +53,8 @@ class Annotation:
     gene_name:str
     term: Term
     slim_terms: typing.List[Term]
-    qualifier: str
+    relation: str
+    evidence_type:str
     evidence: typing.List[Evidence] 
     group: typing.Optional[str] = ""
 
@@ -68,6 +75,8 @@ class Annotation:
 class Bucket:
     key: str
     doc_count: int
+    meta: typing.Optional[Entity] = None
+
 
 @strawberry.type
 class Frequency:
@@ -77,14 +86,14 @@ class Frequency:
 class AnnotationStats:
     term_frequency: Frequency 
     aspect_frequency: Frequency 
-    qualifier_frequency: Frequency
-    references_frequency: Frequency
+    evidence_type_frequency: Frequency
+    slim_term_frequency: Frequency
 
 @strawberry.input
 class AnnotationFilterArgs:
     termIds: typing.Optional[typing.List[str]] = strawberry.UNSET
     geneIds: typing.Optional[typing.List[str]] = strawberry.UNSET,
     aspectIds: typing.Optional[typing.List[str]] = strawberry.UNSET,
-    qualifierIds: typing.Optional[typing.List[str]] = strawberry.UNSET,
+    relationIds: typing.Optional[typing.List[str]] = strawberry.UNSET,
     withGeneIds: typing.Optional[typing.List[str]] = strawberry.UNSET,
     referenceIds: typing.Optional[typing.List[str]] = strawberry.UNSET

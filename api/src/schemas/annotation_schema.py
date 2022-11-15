@@ -22,7 +22,7 @@ class AnnotationQuery:
         return await get_annotations_stats(filter_args)       
 
     @strawberry.field
-    async def autocomplete(self, info:Info, autocomplete_type: AutocompleteType, keyword:str) -> typing.List[Annotation]:
-        return await get_autocomplete(autocomplete_type, keyword)
+    async def autocomplete(self, info:Info, autocomplete_type: AutocompleteType,  keyword:str, filter_args:typing.Optional[AnnotationFilterArgs]=None,) -> typing.List[Annotation]:
+        return await get_autocomplete(autocomplete_type, keyword, filter_args)
  
  

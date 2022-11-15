@@ -39,7 +39,7 @@
                     </div>
                     <span fxFlex></span>
                     <div class="panther-term-id">
-                      ({{ item.count }})
+                      ({{ item.term.id }})
                     </div>
                   </div>
                 </mat-option>
@@ -47,7 +47,6 @@
             </mat-form-field>
           </div>
         </div>
-
         <div *ngIf="options && !options.hideGeneSearch" class="panther-section-body" fxLayout="column"
           fxLayoutAlign="start stretch">
           <div class="panther-activity-term-row" fxLayout="column">
@@ -168,29 +167,28 @@
         <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="panther-activity-term-row" fxLayout="column">
             <mat-form-field appearance="outline" class="panther-sm panther-white w-100-p">
-              <mat-label>Filter by Qualifier</mat-label>
-              <mat-chip-list #qualifierChipList>
-                <mat-chip class="panther-form-chip"
-                  *ngFor="let qualifier of annotationService.searchCriteria.qualifiers" [selectable]="true"
-                  [removable]="true" (removed)="remove(qualifier, SearchFilterType.QUALIFIERS)" fxLayout="row"
-                  fxLayoutAlign="start center" matTooltip="qualifier: {{qualifier.qualifier}}"
+              <mat-label>Filter by Relation</mat-label>
+              <mat-chip-list #relationChipList>
+                <mat-chip class="panther-form-chip" *ngFor="let relation of annotationService.searchCriteria.relations"
+                  [selectable]="true" [removable]="true" (removed)="remove(relation, SearchFilterType.RELATIONS)"
+                  fxLayout="row" fxLayoutAlign="start center" matTooltip="relation: {{relation.relation}}"
                   [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
                   <div fxFlex="" class="panther-chip-label">
-                    {{qualifier.qualifier}}
+                    {{relation.relation}}
                   </div>
                   <mat-icon matChipRemove>cancel</mat-icon>
                 </mat-chip>
-                <input #qualifiersInput formControlName="qualifiers" placeholder="Add qualifier Filter"
-                  [matAutocomplete]="qualifierAuto" [matChipInputFor]="qualifierChipList"
+                <input #relationsInput formControlName="relations" placeholder="Add relation Filter"
+                  [matAutocomplete]="relationAuto" [matChipInputFor]="relationChipList"
                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
               </mat-chip-list>
-              <mat-autocomplete #qualifierAuto="matAutocomplete"
-                (optionSelected)="selected($event, SearchFilterType.QUALIFIERS)" [displayWith]="qualifierDisplayFn"
+              <mat-autocomplete #relationAuto="matAutocomplete"
+                (optionSelected)="selected($event, SearchFilterType.RELATIONS)" [displayWith]="relationDisplayFn"
                 class="panther-term-autocomplete">
-                <mat-option class="panther-term-autocomplete" *ngFor="let item of qualifiers$ | async" [value]="item">
+                <mat-option class="panther-term-autocomplete" *ngFor="let item of relations$ | async" [value]="item">
                   <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
                     <div class="panther-term-label">
-                      {{ item.qualifier }}
+                      {{ item.relation }}
                     </div>
                     <span fxFlex></span>
                     <div class="panther-term-id">

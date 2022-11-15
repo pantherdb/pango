@@ -39,18 +39,18 @@
         </div>
       </div>
       <div class="panther-section-body" fxLayout="row" fxLayoutAlign="start center">
-        <ngx-charts-pie-chart [results]="stats.qualifierPie" [view]="qualifierPieOptions.view"
-          [scheme]="qualifierPieOptions.colorScheme" [gradient]="qualifierPieOptions.gradient"
-          [legend]="qualifierPieOptions.legend" [maxLabelLength]="qualifierPieOptions.maxLabelLength"
-          [labels]="qualifierPieOptions.showLabels" [doughnut]="qualifierPieOptions.isDoughnut"
+        <ngx-charts-pie-chart [results]="stats.relationPie" [view]="relationPieOptions.view"
+          [scheme]="relationPieOptions.colorScheme" [gradient]="relationPieOptions.gradient"
+          [legend]="relationPieOptions.legend" [maxLabelLength]="relationPieOptions.maxLabelLength"
+          [labels]="relationPieOptions.showLabels" [doughnut]="relationPieOptions.isDoughnut"
           [customColors]="customColors">
         </ngx-charts-pie-chart>
 
         <div class="panther-stat" fxLayout="column" fxLayoutAlign="start stretch">
-          <div class="panther-stat-heading mb-12" class="h6"> Annotations By qualifier</div>
-          <div *ngFor="let item of this.annotationStats?.qualifierFrequency.buckets" fxLayout="row"
+          <div class="panther-stat-heading mb-12" class="h6"> Annotations By relation</div>
+          <div *ngFor="let item of this.annotationStats?.evidenceTypeFrequency.buckets" fxLayout="row"
             fxLayoutAlign="start center">
-            <!-- <div class="panther-stat-color mr-8" [style]="{'backgroundColor':qualifierMap[item.key].color}">
+            <!-- <div class="panther-stat-color mr-8" [style]="{'backgroundColor':relationMap[item.key].color}">
 
           </div> -->
             <div class="panther-stat-description mr-8">
@@ -82,8 +82,8 @@
       </ngx-charts-bar-horizontal>
     </div>
   </div>
-
-  <div class="panther-stats-section  panther-referencess-stats h-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+  <div class="panther-stats-section  panther-referencess-stats h-100-p" fxFlex="" fxLayout="column"
+    fxLayoutAlign="start stretch">
     <div class="panther-section-header" fxLayout="row" fxLayoutAlign="start center">
       <div class="panther-section-heading">
         Reference Distribution (first 20)
@@ -91,13 +91,13 @@
       <span fxFlex></span>
     </div>
     <div class="panther-section-body h-100-p" fxLayout="column" fxLayoutAlign="start stretch">
-      <ngx-charts-bar-horizontal [results]="stats.referencesFrequencyBar" [view]="referencesFrequencyBarOptions.view"
-        [scheme]="referencesFrequencyBarOptions.colorScheme" [gradient]="referencesFrequencyBarOptions.gradient"
-        [xAxis]="referencesFrequencyBarOptions.showXAxis" [yAxis]="referencesFrequencyBarOptions.showYAxis"
-        [legend]="referencesFrequencyBarOptions.legend" [showXAxisLabel]="referencesFrequencyBarOptions.showXAxisLabel"
-        [maxYAxisTickLength]="referencesFrequencyBarOptions.maxYAxisTickLength"
-        [showYAxisLabel]="referencesFrequencyBarOptions.showYAxisLabel"
-        [yAxisLabel]="referencesFrequencyBarOptions.yAxisLabel" [xAxisLabel]="referencesFrequencyBarOptions.xAxisLabel">
+      <ngx-charts-bar-horizontal [results]="stats.slimTermFrequencyBar" [view]="slimTermFrequencyBarOptions.view"
+        [scheme]="slimTermFrequencyBarOptions.colorScheme" [gradient]="slimTermFrequencyBarOptions.gradient"
+        [xAxis]="slimTermFrequencyBarOptions.showXAxis" [yAxis]="slimTermFrequencyBarOptions.showYAxis"
+        [legend]="slimTermFrequencyBarOptions.legend" [showXAxisLabel]="slimTermFrequencyBarOptions.showXAxisLabel"
+        [maxYAxisTickLength]="slimTermFrequencyBarOptions.maxYAxisTickLength"
+        [showYAxisLabel]="slimTermFrequencyBarOptions.showYAxisLabel"
+        [yAxisLabel]="slimTermFrequencyBarOptions.yAxisLabel" [xAxisLabel]="slimTermFrequencyBarOptions.xAxisLabel">
       </ngx-charts-bar-horizontal>
     </div>
   </div>

@@ -1,26 +1,28 @@
 # import load_env
 # import asyncio
+import pprint
+from src.resolvers.annotation_resolver import get_annotations_query
 from src.models.annotation_model import Annotation, AnnotationFilterArgs, AutocompleteType
 from src.config.settings import settings
 from src.config.es import  es
 
-async def get_autocomplete(autocomplete_type: AutocompleteType, keyword:str):
+async def get_autocomplete(autocomplete_type: AutocompleteType, keyword:str, filter_args:AnnotationFilterArgs):
     query = {}
     collapse = {}
     if autocomplete_type.value == AutocompleteType.gene.value:
-        query, collapse = await get_gene_autocomplete_query(keyword)
+        query, collapse = await get_gene_autocomplete_query(keyword, filter_args)
     elif autocomplete_type.value == AutocompleteType.term.value:
-        query, collapse = await get_term_autocomplete_query(keyword)
+        query, collapse = await get_term_autocomplete_query(keyword, filter_args)
     elif autocomplete_type.value == AutocompleteType.aspect.value:
-        query, collapse = await get_aspect_autocomplete_query(keyword)
-    elif autocomplete_type.value == AutocompleteType.qualifier.value:
-        query, collapse = await get_qualifier_autocomplete_query(keyword)
+        query, collapse = await get_aspect_autocomplete_query(keyword, filter_args)
+    elif autocomplete_type.value == AutocompleteType.relation.value:
+        query, collapse = await get_relation_autocomplete_query(keyword, filter_args)
     elif autocomplete_type.value == AutocompleteType.reference.value:
-        query, collapse = await get_reference_autocomplete_query(keyword)
+        query, collapse = await get_reference_autocomplete_query(keyword, filter_args)
     elif autocomplete_type.value == AutocompleteType.withgene.value:
-        query, collapse = await get_withgene_autocomplete_query(keyword)
+        query, collapse = await get_withgene_autocomplete_query(keyword, filter_args)
 
-
+    pprint.pprint (query)
     resp = await es.search(
         index = settings.PANTHER_ANNOTATIONS_INDEX,
         filter_path ='took,hits.hits._score,**hits.hits._source**',
@@ -28,80 +30,79 @@ async def get_autocomplete(autocomplete_type: AutocompleteType, keyword:str):
         collapse = collapse,
         size=20,
     )
-
-    results = [Annotation(**hit['_source']) for hit in resp['hits']['hits']]
+ 
+    results = [Annotation(**hit['_source']) for hit in resp.get('hits', {}).get('hits', [])]
         
-    return results  
+    return results 
 
-  
-    filters = list()
 
-    if filter_args != None:
-      if filter_args.termIds != None and len(filter_args.termIds)>0:
-            filters.append(  
-              {           
-                "terms": {
-                  "term.id.keyword": filter_args.termIds
-                }
-              }
-          )   
-         
-      if filter_args.geneIds != None and len(filter_args.geneIds)>0:
-            filters.append(  
-              {           
-                "terms": {
-                  "gene.keyword": filter_args.geneIds
-                }
-              }
-          )   
-
-    query = {  
-      "bool": {  
-        "filter": filters
-      }
-    }
+async def get_aspect_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
     
-    return  query    
-
-async def get_aspect_autocomplete_query(keyword:str):
+    must_query = await get_annotations_query(filter_args)
     query = {
-          "match": {
-              "term.aspect": {
+       "bool": {
+         "must": [ 
+            {     
+              "match": {
+                "term.aspect": {
                   "query": keyword,
                   "operator": "and"
+                }
               }
-          }
-      }
+            }
+         ],
+         "filter":must_query["bool"]["filter"]
+       }
+    } 
     collapse ={
         "field": "term.aspect.keyword"
     }
 
     return query, collapse
 
-async def get_qualifier_autocomplete_query(keyword:str):
+
+async def get_relation_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
+    
+    must_query = await get_annotations_query(filter_args)
     query = {
-          "match": {
-              "qualifier": {
+       "bool": {
+         "must": [ 
+            {     
+              "match": {
+                "relation": {
                   "query": keyword,
                   "operator": "and"
+                }
               }
-          }
-      }
+            }
+         ],
+         "filter":must_query["bool"]["filter"]
+       }
+    }
     collapse ={
-        "field": "qualifier.keyword"
+        "field": "relation.keyword"
     }
 
     return query, collapse
 
-async def get_gene_autocomplete_query(keyword:str):
+    
+async def get_gene_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
+    must_query = await get_annotations_query(filter_args)
     query = {
-          "match": {
-              "gene": {
+       "bool": {
+         "must": [ 
+            {     
+              "match": {
+                "gene": {
                   "query": keyword,
                   "operator": "and"
+                }
               }
-          }
-      }
+            }
+         ],
+         "filter":must_query["bool"]["filter"]
+       }
+    }
     collapse ={
         "field": "gene.keyword"
     }
@@ -109,30 +110,49 @@ async def get_gene_autocomplete_query(keyword:str):
     return query, collapse
 
 
-async def get_term_autocomplete_query(keyword:str):
+async def get_term_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
+  
+    must_query = await get_annotations_query(filter_args)
     query = {
-          "match": {
-              "term.label": {
+       "bool": {
+         "must": [ 
+            {     
+              "match": {
+                "term.label": {
                   "query": keyword,
                   "operator": "and"
+                }
               }
-          }
-      }
+            }
+         ],
+         "filter":must_query["bool"]["filter"]
+       }
+    }
     collapse ={
         "field": "term.id.keyword"
     }
 
     return query, collapse
 
-async def get_reference_autocomplete_query(keyword:str):
+
+async def get_reference_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
+
+    must_query = await get_annotations_query(filter_args)
     query = {
-          "match": {
-              "evidence.references.label": {
-                  "query": keyword,
-                  "operator": "and"
-              }
-          }
-      }
+       "bool": {
+         "must": [ 
+            {     
+              "match": {
+                  "evidence.references.label": {
+                    "query": keyword,
+                    "operator": "and"
+                  }
+                }
+            }
+         ],
+         "filter":must_query["bool"]["filter"]
+       }
+    }
     collapse ={
         "field": "references.id.keyword"
     }
@@ -140,15 +160,24 @@ async def get_reference_autocomplete_query(keyword:str):
     return query, collapse
 
 
-async def get_withgene_autocomplete_query(keyword:str):
+async def get_withgene_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
+  
+    must_query = await get_annotations_query(filter_args)
     query = {
-          "match": {
-              "evidence.with_gene_id.gene": {
-                  "query": keyword,
-                  "operator": "and"
-              }
-          }
-      }
+       "bool": {
+         "must": [ 
+            {     
+              "match": {
+                 "evidence.with_gene_id.gene": {
+                      "query": keyword,
+                      "operator": "and"
+                  }
+                }
+            }
+         ],
+         "filter":must_query["bool"]["filter"]
+       }
+    }
     collapse ={
         "field": "evidence.with_gene_id.gene.keyword"
     }

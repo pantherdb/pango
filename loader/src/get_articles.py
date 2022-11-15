@@ -45,7 +45,7 @@ def load_pmids(fp: path, out_fp: path):
     [res.append(x.replace('PMID:', '')) for x in pmids if x not in res]
 
     end = len(res)
-    step = 250
+    step = 100
     count = 1
     for i in range(0, end, step):
         x = i

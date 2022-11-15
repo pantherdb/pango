@@ -64,7 +64,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
   });
 
 
-  qualifierPieOptions = {
+  relationPieOptions = {
     view: [100, 100],
     gradient: true,
     legend: false,
@@ -104,7 +104,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
     },
   }
 
-  referencesFrequencyBarOptions = {
+  slimTermFrequencyBarOptions = {
     view: [400, 350],
     showXAxis: true,
     showYAxis: true,
@@ -117,7 +117,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
     xAxisLabel: 'Count',
     colorScheme: {
       domain: [
-        getColor('cyan', 800),
+        getColor('orange', 800),
       ]
 
     },
@@ -126,9 +126,9 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
   stats = {
     termFrequencyBar: [],
     aspectPie: [],
-    qualifierPie: [],
+    relationPie: [],
     termsBar: [],
-    referencesFrequencyBar: []
+    slimTermFrequencyBar: []
   }
 
   private _unsubscribeAll: Subject<any>;
@@ -175,12 +175,12 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
       this.stats.aspectPie = this.annotationService.buildAspectChart(this.annotationStats.aspectFrequency.buckets)
     }
 
-    if (this.annotationStats.qualifierFrequency?.buckets) {
-      this.stats.qualifierPie = this.annotationService.buildAnnotationBar(this.annotationStats.qualifierFrequency.buckets)
+    if (this.annotationStats.evidenceTypeFrequency?.buckets) {
+      this.stats.relationPie = this.annotationService.buildAnnotationBar(this.annotationStats.evidenceTypeFrequency.buckets)
     }
 
-    if (this.annotationStats.referencesFrequency?.buckets) {
-      this.stats.referencesFrequencyBar = this.annotationService.buildAnnotationBar(this.annotationStats.referencesFrequency.buckets)
+    if (this.annotationStats.slimTermFrequency?.buckets) {
+      this.stats.slimTermFrequencyBar = this.annotationService.buildAnnotationBar(this.annotationStats.slimTermFrequency.buckets)
     }
 
   }

@@ -123,7 +123,7 @@ $accent: map-get($theme, accent);
         @include deep-width(150px);
       }
 
-      &.panther-qualifier-cell {
+      &.panther-relation-cell {
         @include deep-width(80px);
       }
 

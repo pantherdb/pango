@@ -71,7 +71,8 @@ export class AnnotationService {
                       id
                       isGoslim
                       label
-                    }  
+                    } 
+                    evidenceType
                     evidence {
                       withGeneId {
                         gene
@@ -85,8 +86,7 @@ export class AnnotationService {
                       }
                     }
                     group
-                    qualifier
-                                     
+                    relation                                     
                   }
             }`
         }
@@ -97,7 +97,6 @@ export class AnnotationService {
                     return annotation
                 }) as Annotation[];
             }));
-
     }
 
 
@@ -127,12 +126,13 @@ export class AnnotationService {
 
         const options = {
             variables: {
+                filterArgs: this.query.filterArgs,
                 autocompleteType: filter.autocompleteType,
                 keyword
 
             },
-            query: `query GetAutocomplete($autocompleteType:AutocompleteType!, $keyword: String!) {
-                autocomplete(autocompleteType:$autocompleteType, keyword:$keyword) {
+            query: `query GetAutocomplete($autocompleteType:AutocompleteType!, $keyword: String!, $filterArgs: AnnotationFilterArgs) {
+                autocomplete(autocompleteType:$autocompleteType, keyword:$keyword, filterArgs:$filterArgs) {
                 ${filter.getAutocompleteFields()}                                                  
                 }
             }`
@@ -168,13 +168,13 @@ export class AnnotationService {
                           key
                         }
                       }
-                      qualifierFrequency {
+                      evidenceTypeFrequency {
                         buckets {
                           docCount
                           key
                         }
                       }
-                      referencesFrequency {
+                      slimTermFrequency {
                         buckets {
                           docCount
                           key
@@ -293,8 +293,8 @@ export class AnnotationService {
             query.filterArgs.geneIds.push(annotation.gene);
         });
 
-        this.searchCriteria.qualifiers.forEach((annotation: Annotation) => {
-            query.filterArgs.qualifierIds.push(annotation.qualifier);
+        this.searchCriteria.relations.forEach((annotation: Annotation) => {
+            query.filterArgs.relationIds.push(annotation.relation);
         });
 
         this.searchCriteria.aspects.forEach((annotation: Annotation) => {
@@ -330,6 +330,8 @@ export class AnnotationService {
                 });
     
                 query.query.bool['must'] = filters */
+
+        this.query = query;
 
         this.getAnnotationsPage(query, 1);
         this.getAnnotationsCount(query)

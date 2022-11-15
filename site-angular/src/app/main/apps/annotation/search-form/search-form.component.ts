@@ -36,7 +36,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   terms$: Observable<Annotation[]>;
   genes$: Observable<Annotation[]>;
   aspects$: Observable<Annotation[]>;
-  qualifiers$: Observable<Annotation[]>;
+  relations$: Observable<Annotation[]>;
   withgenes$: Observable<Annotation[]>;
   references$: Observable<Annotation[]>;
 
@@ -57,7 +57,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     const termsFilter = new AutocompleteFilterArgs(AutocompleteType.TERM)
     const genesFilter = new AutocompleteFilterArgs(AutocompleteType.GENE)
     const aspectsFilter = new AutocompleteFilterArgs(AutocompleteType.ASPECT)
-    const qualifiersFilter = new AutocompleteFilterArgs(AutocompleteType.QUALIFIER)
+    const relationsFilter = new AutocompleteFilterArgs(AutocompleteType.RELATION)
     const withgenesFilter = new AutocompleteFilterArgs(AutocompleteType.WITHGENE)
     const referencesFilter = new AutocompleteFilterArgs(AutocompleteType.REFERENCE)
 
@@ -82,11 +82,11 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       switchMap(name => this.annotationService.getAutocompleteQuery(aspectsFilter, name))
     );
 
-    this.qualifiers$ = this.filterForm.get('qualifiers')!.valueChanges.pipe(
+    this.relations$ = this.filterForm.get('relations')!.valueChanges.pipe(
       distinctUntilChanged(),
       debounceTime(1000),
       filter((name) => !!name),
-      switchMap(name => this.annotationService.getAutocompleteQuery(qualifiersFilter, name))
+      switchMap(name => this.annotationService.getAutocompleteQuery(relationsFilter, name))
     );
 
     this.references$ = this.filterForm.get('references')!.valueChanges.pipe(
@@ -114,7 +114,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       terms: new FormControl(),
       genes: new FormControl(),
       aspects: new FormControl(),
-      qualifiers: new FormControl(),
+      relations: new FormControl(),
       withgenes: new FormControl(),
       references: new FormControl(),
     });
@@ -133,7 +133,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     return gene ? gene.term.aspect : undefined;
   }
 
-  qualifierDisplayFn(gene: Annotation): string | undefined {
+  relationDisplayFn(gene: Annotation): string | undefined {
     return gene ? gene.gene : undefined;
   }
 

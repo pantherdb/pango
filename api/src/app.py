@@ -5,14 +5,12 @@ from strawberry.schema.config import StrawberryConfig
 from strawberry.tools import merge_types
 from src.schemas.annotation_schema import AnnotationQuery
 from fastapi.middleware.cors import CORSMiddleware
-from src.schemas.term_schema import TermQuery
 
-Queries = merge_types("Queries", (TermQuery, AnnotationQuery))
+#Queries = merge_types("Queries", AnnotationQuery))
 
-schema = strawberry.Schema(query=Queries, config=StrawberryConfig(auto_camel_case=True))
+schema = strawberry.Schema(query=AnnotationQuery, config=StrawberryConfig(auto_camel_case=True))
 
-def create_app():
-    
+def create_app():    
 
   app = FastAPI()
 

@@ -40,7 +40,7 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
 
   displayedColumns = [
     'gene',
-    'qualifier',
+    'relation',
     'term',
     'slimTerms',
     'evidence',

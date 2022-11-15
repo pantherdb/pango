@@ -2,7 +2,7 @@
 # import asyncio
 import pprint
 import typing
-from src.models.annotation_model import Annotation, AnnotationFilterArgs, AnnotationStats, Bucket, Frequency, ResultCount
+from src.models.annotation_model import Annotation, AnnotationFilterArgs, AnnotationStats, Bucket, Entity, Frequency, ResultCount
 from src.config.settings import settings
 from src.config.es import  es
 
@@ -16,7 +16,7 @@ async def get_annotations(filter_args:AnnotationFilterArgs, size=20):
           size=size,
     )
 
-    results = [Annotation(**hit['_source']) for hit in resp['hits']['hits']]
+    results = [Annotation(**hit['_source']) for hit in resp.get('hits', {}).get('hits', [])]
         
     return results    
 
@@ -51,34 +51,14 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
              "size": 20
           }
         },
-         "qualifier_frequency": {
+         "evidence_type_frequency": {
           "terms": {
-            "field": "qualifier.keyword",
+            "field": "evidence_type.keyword",
              "order":{"_count":"desc"},
              "size": 20
           }
         },
-        "references_frequency": {
-            "nested": {
-              "path": "evidence.references"
-            },
-            "aggs": {
-               "docs": {
-                  "top_hits": {
-                    "_source":   { 
-                        "includes": ["evidence.references.title", "evidence.references.pmid"]
-                    }
-                  }
-                },
-                "distinct_references_frequency": {
-                  "terms": {
-                    "field": "evidence.references.pmid.keyword",
-                    "order":{"_count":"desc"},
-                    "size": 20
-                  }
-                }
-              }
-           }
+        "slim_term_frequency": get_slim_terms_query()
         
     }
     resp = await es.search(
@@ -92,8 +72,16 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
     stats = dict()
     for k, freqs in resp['aggregations'].items():   
         buckets = None
-        if k=='references_frequency' :
-            buckets = [Bucket(**bucket) for bucket in freqs['distinct_references_frequency']['buckets']]
+        if k=='slim_term_frequency' :
+            buckets = list()
+            for freq_bucket in freqs['distinct_slim_term_frequency']['buckets']:     
+
+              buckets.append(Bucket(
+                key=freq_bucket["key"],
+                doc_count=freq_bucket["doc_count"],
+                meta = get_response_meta(freq_bucket["docs"])
+              ))
+
         else:
              buckets = [Bucket(**bucket) for bucket in freqs['buckets']]
         
@@ -135,11 +123,11 @@ async def get_annotations_query(filter_args:AnnotationFilterArgs):
               }
           )   
 
-      if filter_args.qualifierIds != None and len(filter_args.qualifierIds)>0:
+      if filter_args.relationIds != None and len(filter_args.relationIds)>0:
             filters.append(  
               {           
                 "terms": {
-                  "qualifier.keyword": filter_args.qualifierIds
+                  "relation.keyword": filter_args.relationIds
                 }
               }
           )   
@@ -151,6 +139,43 @@ async def get_annotations_query(filter_args:AnnotationFilterArgs):
     }
     
     return  query    
+
+def get_slim_terms_query():
+    
+      slim_term_frequency = {
+        "nested": {
+           "path": "slim_terms"
+        },
+        "aggs": {
+           "distinct_slim_term_frequency": {
+              "terms": {
+                 "field": "slim_terms.label.keyword",
+                 "order":{"_count":"desc"},
+                 "size": 20
+              },
+              "aggs": {
+                "docs": {
+                  "top_hits": {
+                    "_source":   { 
+                    "includes": ["slim_terms.id", "slim_terms.label"]
+                    },
+                    "size": 1
+                  }
+                }
+             }
+          }
+        }
+      }
+
+      return slim_term_frequency
+
+def get_response_meta(bucket):
+   results = [hit for hit in bucket.get('hits', {}).get('hits', [])]
+
+   if len(results) > 0:
+      return Entity(id=results[0]["_source"]["id"], label=results[0]["_source"]["id"])
+
+   return None
 
 async def main():
     results = await get_annotations()
