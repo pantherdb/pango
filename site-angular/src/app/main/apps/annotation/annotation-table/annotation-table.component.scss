@@ -52,6 +52,10 @@ $accent: map-get($theme, accent);
     @include deep-width(100%);
     @include mat-elevation(5);
 
+    .panther-direct {
+      background-color: #e6faf3;
+    }
+
     .mat-header-cell {
       padding: 0 10px;
       font-size: 10px !important;
@@ -75,7 +79,7 @@ $accent: map-get($theme, accent);
 
       .panther-cell-section {
         //border-bottom: #aaa solid 1px;
-        padding: 5px 0;
+        padding: 0 0 5px 0;
       }
 
       .panther-cell-title {
