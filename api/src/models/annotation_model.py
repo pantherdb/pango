@@ -8,6 +8,8 @@ from src.models.term_model import Term
 @strawberry.enum
 class AutocompleteType(Enum):
     term = 'term'
+    slim_term = 'slim_term'
+    evidence_type='evidence_type'
     gene = 'gene'
     withgene = "withgene"
     reference = "reference"

@@ -78,6 +78,18 @@ export class AutocompleteFilterArgs {
                         label
                     }
                 `
+            case AutocompleteType.SLIM_TERM:
+                return `
+                    slimTerms {
+                        aspect
+                        id
+                        label
+                      } 
+                    `
+            case AutocompleteType.EVIDENCE_TYPE:
+                return `
+                            evidenceType
+                        `
             case AutocompleteType.ASPECT:
                 return `
                     term {

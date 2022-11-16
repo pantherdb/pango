@@ -44,6 +44,17 @@
         }
       }
     },
+    "evidence_type": {
+      "type": "text",
+      "analyzer": "autocomplete",
+      "search_analyzer": "standard",
+      "fields": {
+        "keyword": {
+          "type": "keyword",
+          "ignore_above": 256
+        }
+      }
+    },
     "term": {
       "properties": {
         "id": {

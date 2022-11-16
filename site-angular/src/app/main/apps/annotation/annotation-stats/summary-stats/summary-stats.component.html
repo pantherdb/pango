@@ -19,7 +19,8 @@
         <ngx-charts-pie-chart [results]="stats.aspectPie" [view]="aspectPieOptions.view"
           [scheme]="aspectPieOptions.colorScheme" [gradient]="aspectPieOptions.gradient"
           [legend]="aspectPieOptions.legend" [maxLabelLength]="aspectPieOptions.maxLabelLength"
-          [labels]="aspectPieOptions.showLabels" [doughnut]="aspectPieOptions.isDoughnut" [customColors]="customColors">
+          [labels]="aspectPieOptions.showLabels" [doughnut]="aspectPieOptions.isDoughnut" [customColors]="customColors"
+          (select)="aspectPieOptions.onSelect($event)">
         </ngx-charts-pie-chart>
 
         <div class="panther-stat" fxLayout="column" fxLayoutAlign="start stretch">
@@ -64,6 +65,25 @@
       </div>
     </div>
   </div>
+  <div class="panther-stats-section  panther-referencess-stats h-100-p" fxFlex="" fxLayout="column"
+    fxLayoutAlign="start stretch">
+    <div class="panther-section-header" fxLayout="row" fxLayoutAlign="start center">
+      <div class="panther-section-heading">
+        Slim Terms Distribution (first 20)
+      </div>
+      <span fxFlex></span>
+    </div>
+    <div class="panther-section-body h-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+      <ngx-charts-bar-horizontal [results]="stats.slimTermFrequencyBar" [view]="slimTermFrequencyBarOptions.view"
+        [scheme]="slimTermFrequencyBarOptions.colorScheme" [gradient]="slimTermFrequencyBarOptions.gradient"
+        [xAxis]="slimTermFrequencyBarOptions.showXAxis" [yAxis]="slimTermFrequencyBarOptions.showYAxis"
+        [legend]="slimTermFrequencyBarOptions.legend" [showXAxisLabel]="slimTermFrequencyBarOptions.showXAxisLabel"
+        [maxYAxisTickLength]="slimTermFrequencyBarOptions.maxYAxisTickLength"
+        [showYAxisLabel]="slimTermFrequencyBarOptions.showYAxisLabel"
+        [yAxisLabel]="slimTermFrequencyBarOptions.yAxisLabel" [xAxisLabel]="slimTermFrequencyBarOptions.xAxisLabel">
+      </ngx-charts-bar-horizontal>
+    </div>
+  </div>
   <div class="panther-stats-section  panther-terms-stats h-100-p" fxLayout="column" fxLayoutAlign="start stretch">
     <div class="panther-section-header" fxLayout="row" fxLayoutAlign="start center">
       <div class="panther-section-heading">
@@ -82,23 +102,5 @@
       </ngx-charts-bar-horizontal>
     </div>
   </div>
-  <div class="panther-stats-section  panther-referencess-stats h-100-p" fxFlex="" fxLayout="column"
-    fxLayoutAlign="start stretch">
-    <div class="panther-section-header" fxLayout="row" fxLayoutAlign="start center">
-      <div class="panther-section-heading">
-        Reference Distribution (first 20)
-      </div>
-      <span fxFlex></span>
-    </div>
-    <div class="panther-section-body h-100-p" fxLayout="column" fxLayoutAlign="start stretch">
-      <ngx-charts-bar-horizontal [results]="stats.slimTermFrequencyBar" [view]="slimTermFrequencyBarOptions.view"
-        [scheme]="slimTermFrequencyBarOptions.colorScheme" [gradient]="slimTermFrequencyBarOptions.gradient"
-        [xAxis]="slimTermFrequencyBarOptions.showXAxis" [yAxis]="slimTermFrequencyBarOptions.showYAxis"
-        [legend]="slimTermFrequencyBarOptions.legend" [showXAxisLabel]="slimTermFrequencyBarOptions.showXAxisLabel"
-        [maxYAxisTickLength]="slimTermFrequencyBarOptions.maxYAxisTickLength"
-        [showYAxisLabel]="slimTermFrequencyBarOptions.showYAxisLabel"
-        [yAxisLabel]="slimTermFrequencyBarOptions.yAxisLabel" [xAxisLabel]="slimTermFrequencyBarOptions.xAxisLabel">
-      </ngx-charts-bar-horizontal>
-    </div>
-  </div>
+
 </div>

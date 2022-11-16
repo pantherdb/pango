@@ -36,6 +36,10 @@ export class SearchCriteria {
         self.filtersCount = self.terms.length;
     }
 
+    addAspect() {
+
+    }
+
     clearSearch() {
         this.terms = [];
         this.genes = []

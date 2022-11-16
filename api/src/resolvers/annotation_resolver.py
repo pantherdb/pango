@@ -45,7 +45,7 @@ async def get_annotations_query(filter_args:AnnotationFilterArgs):
                 }
               })   
 
-      if filter_args.term_ids != None and len(filter_args.slim_term_ids)>0:
+      if filter_args.slim_term_ids != None and len(filter_args.slim_term_ids)>0:
             filters.append( 
               {
                "nested": {
@@ -74,11 +74,11 @@ async def get_annotations_query(filter_args:AnnotationFilterArgs):
                 }
               })   
 
-      if filter_args.aspect_ids != None and len(filter_args.evidence_type_ids)>0:
+      if filter_args.evidence_type_ids != None and len(filter_args.evidence_type_ids)>0:
             filters.append(  
               {           
                 "terms": {
-                  "term.aspect.keyword": filter_args.evidence_type_ids
+                  "evidence_type.keyword": filter_args.evidence_type_ids
                 }
               }) 
 

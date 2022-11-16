@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { getColor } from '@panther.common/data/panther-colors';
+import { SearchFilterType } from '@panther.search/models/search-criteria';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AnnotationStats, aspectMap, Bucket, evidenceTypeMap } from '../../models/annotation';
@@ -50,6 +51,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
       ]
 
     },
+    onSelect: this.onSelectAspect
 
   }
 
@@ -168,6 +170,12 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
+  }
+
+  onSelectAspect(event) {
+    //this.annotationService.searchCriteria[SearchFilterType.ASPECTS].push(event.name);
+    //this.annotationService.updateSearch();
+
   }
 
   generateStats() {

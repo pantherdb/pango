@@ -13,6 +13,10 @@ async def get_autocomplete(autocomplete_type: AutocompleteType, keyword:str, fil
         query, collapse = await get_gene_autocomplete_query(keyword, filter_args)
     elif autocomplete_type.value == AutocompleteType.term.value:
         query, collapse = await get_term_autocomplete_query(keyword, filter_args)
+    elif autocomplete_type.value == AutocompleteType.slim_term.value:
+        query, collapse = await get_slim_term_autocomplete_query(keyword, filter_args)
+    elif autocomplete_type.value == AutocompleteType.evidence_type.value:
+        query, collapse = await get_evidence_type_autocomplete_query(keyword, filter_args)
     elif autocomplete_type.value == AutocompleteType.aspect.value:
         query, collapse = await get_aspect_autocomplete_query(keyword, filter_args)
     elif autocomplete_type.value == AutocompleteType.relation.value:
@@ -38,7 +42,7 @@ async def get_autocomplete(autocomplete_type: AutocompleteType, keyword:str, fil
 
 async def get_aspect_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
     
-    must_query = await get_annotations_query(filter_args)
+    filter_query = await get_annotations_query(filter_args)
     query = {
        "bool": {
          "must": [ 
@@ -51,7 +55,7 @@ async def get_aspect_autocomplete_query(keyword:str, filter_args:AnnotationFilte
               }
             }
          ],
-         "filter":must_query["bool"]["filter"]
+         "filter":filter_query["bool"]["filter"]
        }
     } 
     collapse ={
@@ -61,9 +65,34 @@ async def get_aspect_autocomplete_query(keyword:str, filter_args:AnnotationFilte
     return query, collapse
 
 
+async def get_evidence_type_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
+    
+    filter_query = await get_annotations_query(filter_args)
+    query = {
+       "bool": {
+         "must": [ 
+            {     
+              "match": {
+                "evidence_type": {
+                  "query": keyword,
+                  "operator": "and"
+                }
+              }
+            }
+         ],
+         "filter":filter_query["bool"]["filter"]
+       }
+    } 
+    collapse ={
+        "field": "evidence_type.keyword"
+    }
+
+    return query, collapse
+
+
 async def get_relation_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
     
-    must_query = await get_annotations_query(filter_args)
+    filter_query = await get_annotations_query(filter_args)
     query = {
        "bool": {
          "must": [ 
@@ -76,7 +105,7 @@ async def get_relation_autocomplete_query(keyword:str, filter_args:AnnotationFil
               }
             }
          ],
-         "filter":must_query["bool"]["filter"]
+         "filter":filter_query["bool"]["filter"]
        }
     }
     collapse ={
@@ -87,7 +116,7 @@ async def get_relation_autocomplete_query(keyword:str, filter_args:AnnotationFil
 
     
 async def get_gene_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
-    must_query = await get_annotations_query(filter_args)
+    filter_query = await get_annotations_query(filter_args)
     query = {
        "bool": {
          "must": [ 
@@ -100,7 +129,7 @@ async def get_gene_autocomplete_query(keyword:str, filter_args:AnnotationFilterA
               }
             }
          ],
-         "filter":must_query["bool"]["filter"]
+         "filter":filter_query["bool"]["filter"]
        }
     }
     collapse ={
@@ -112,7 +141,7 @@ async def get_gene_autocomplete_query(keyword:str, filter_args:AnnotationFilterA
 
 async def get_term_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
   
-    must_query = await get_annotations_query(filter_args)
+    filter_query = await get_annotations_query(filter_args)
     query = {
        "bool": {
          "must": [ 
@@ -125,7 +154,7 @@ async def get_term_autocomplete_query(keyword:str, filter_args:AnnotationFilterA
               }
             }
          ],
-         "filter":must_query["bool"]["filter"]
+         "filter":filter_query["bool"]["filter"]
        }
     }
     collapse ={
@@ -134,10 +163,39 @@ async def get_term_autocomplete_query(keyword:str, filter_args:AnnotationFilterA
 
     return query, collapse
 
+async def get_slim_term_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
+  
+    filter_query = await get_annotations_query(filter_args)
+    query = {
+       "bool": {
+         "must": [
+           {
+            "nested": {
+              "path":"slim_terms",
+              "query": {
+                "match": {
+                  "slim_term.label": {
+                    "query": keyword,
+                    "operator": "and"
+                  }
+                }
+              }
+            }
+           }
+         ],
+         "filter":filter_query["bool"]["filter"]
+       }
+    }
+    collapse ={
+        "field": "slim_term.id.keyword"
+    }
+
+    return query, collapse
+
 
 async def get_reference_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
 
-    must_query = await get_annotations_query(filter_args)
+    filter_query = await get_annotations_query(filter_args)
     query = {
        "bool": {
          "must": [ 
@@ -150,7 +208,7 @@ async def get_reference_autocomplete_query(keyword:str, filter_args:AnnotationFi
                 }
             }
          ],
-         "filter":must_query["bool"]["filter"]
+         "filter":filter_query["bool"]["filter"]
        }
     }
     collapse ={
@@ -162,7 +220,7 @@ async def get_reference_autocomplete_query(keyword:str, filter_args:AnnotationFi
 
 async def get_withgene_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
   
-    must_query = await get_annotations_query(filter_args)
+    filter_query = await get_annotations_query(filter_args)
     query = {
        "bool": {
          "must": [ 
@@ -175,7 +233,7 @@ async def get_withgene_autocomplete_query(keyword:str, filter_args:AnnotationFil
                 }
             }
          ],
-         "filter":must_query["bool"]["filter"]
+         "filter":filter_query["bool"]["filter"]
        }
     }
     collapse ={

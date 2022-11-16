@@ -158,7 +158,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   evidenceTypeDisplayFn(gene: Annotation): string | undefined {
-    return gene ? gene.term.aspect : undefined;
+    return gene ? gene.evidenceType : undefined;
   }
 
   relationDisplayFn(gene: Annotation): string | undefined {
