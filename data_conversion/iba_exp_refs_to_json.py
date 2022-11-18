@@ -59,7 +59,7 @@ if __name__ == "__main__":
                 "gene_name": gene_name,
                 "term": go_term,
                 "slim_terms": slim_terms,
-                "qualifiers": qualifier,
+                "relation": qualifier,
                 # "references": {},  # Will be handled later
                 "evidence": [],  # Will be handled later
                 "group": group,
@@ -132,7 +132,7 @@ if __name__ == "__main__":
     for gene in annotation_lkp:
         for term in annotation_lkp[gene]:
             for quals, annot in annotation_lkp[gene][term].items():
-                if "NOT" in annot["qualifiers"]:
+                if "NOT" in annot["relation"]:
                     # Do not include negative annotations
                     continue
                 annotations.append(annot)
