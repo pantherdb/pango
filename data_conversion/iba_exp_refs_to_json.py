@@ -51,7 +51,8 @@ if __name__ == "__main__":
             slim_terms = generalize_term(go_term)
             gene_symbol = csv_row[2]
             gene_name = csv_row[9]
-            add_gene_info_to_lkp(gene_id, gene_symbol, gene_name)
+            gene_taxon = csv_row[12]
+            add_gene_info_to_lkp(gene_id, gene_symbol, gene_name, gene_taxon)
             group = csv_row[14]
             new_annot = {
                 "gene": gene_id,
@@ -77,7 +78,8 @@ if __name__ == "__main__":
         with_gene_id = with_from_raw.split("|", maxsplit=1)[1]
         with_gene_symbol = csv_row[18]
         with_gene_name = csv_row[19]
-        add_gene_info_to_lkp(with_gene_id, with_gene_symbol, with_gene_name)
+        with_gene_taxon_id = csv_row[20]
+        add_gene_info_to_lkp(with_gene_id, with_gene_symbol, with_gene_name, with_gene_taxon_id)
         exp_pmids = sorted(csv_row[17].split("|"))
         return with_gene_id, exp_pmids
 
@@ -89,10 +91,13 @@ if __name__ == "__main__":
         # evidence[with_gene_id] = list(set(evidence[with_gene_id]) | set(exp_pmids))
         return evidence
 
-    def add_gene_info_to_lkp(gene_id, gene_sym, gene_name):
+    def add_gene_info_to_lkp(gene_id, gene_sym, gene_name, taxon_id):
+        if "taxon:" in taxon_id:
+            taxon_id = taxon_id.split(":", maxsplit=1)[1]
         gene_info_lkp[gene_id] = {
             "gene_symbol": gene_sym,
             "gene_name": gene_name,
+            "taxon_id": taxon_id,
         }
 
     args = parser.parse_args()
@@ -144,6 +149,7 @@ if __name__ == "__main__":
                 "gene": gene,
                 "gene_symbol": gene_info["gene_symbol"],
                 "gene_name": gene_info["gene_name"],
+                "taxon_id": gene_info["taxon_id"],
             })
         print(json.dumps(gene_infos, indent=4))
     else:
