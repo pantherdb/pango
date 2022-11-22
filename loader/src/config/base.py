@@ -4,7 +4,6 @@ from os.path import isdir, isfile
 
 
 class TableAggType(Enum):
-    TERM = 'term'
     ANNOTATION = 'annotation'
 
 

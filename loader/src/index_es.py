@@ -9,7 +9,6 @@ import logging
 from src.config.base import TableAggType, file_path
 from src.create_index import create_index
 
-annotations_dir = ''
 logging.basicConfig(
     handlers=[logging.FileHandler('logfile.log', 'w', 'utf-8')],
     format='%(levelname)s: %(message)s',
@@ -20,13 +19,10 @@ logging.basicConfig(
 def main():
     parser = parse_arguments()
     ann_file = parser.annotations_file
-    term_file = parser.terms_file
    
     annotations_index = create_index(TableAggType.ANNOTATION.value)
-    terms_index = create_index(TableAggType.TERM.value)
 
     bulk_load(ann_file, annotations_index)    
-    bulk_load(term_file, terms_index)
 
 
 def parse_arguments():
@@ -34,8 +30,6 @@ def parse_arguments():
                                      epilog='It works!')
     parser.add_argument('-a', dest='annotations_file', required=True,
                         type=file_path, help='Annotations Json')
-    parser.add_argument('-t', dest='terms_file', required=True,
-                        type=file_path, help='Cleaned terms file')
 
     return parser.parse_args()
 
@@ -50,6 +44,7 @@ def load_json(j_file):
 
     print("- %s seconds ---" % (time.time() - start_time))
 
+
 def bulk_load(j_file, index_name):
 
     helpers.bulk(es, load_json(j_file), index=index_name,
@@ -61,4 +56,4 @@ if __name__ == "__main__":
     main()
 
 
-# python3 -m src.index_es -a downloads/human_iba_annotations_clean.json -t data//clean-terms.json
+# python3 -m src.index_es -a downloads/human_iba_annotations_clean.json

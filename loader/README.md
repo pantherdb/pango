@@ -1,24 +1,25 @@
-# Sample Elastic search for Pather 
+# Elasticsearch loader for PAN-GO Humana Functionome site
 
 Make sure Docker is installed
 
-## Start Elasticsearch and Kibana using Docker Compose:
+## Start Elasticsearch and Kibana using Docker Compose
 
 ```
-docker-compose up -d
+docker-compose up -d 
 ```
 
-Elasticsearch node will startup and you can reach it at 
-http://localhost:9200/ and kKbana should be running at http://localhost:5601.
+Elasticsearch node will startup and you can reach it at
+http://localhost:9200/ and Kibana should be running at http://localhost:5601.
 
 To shut down Elasticsearch and Kibana run:
 
-```
+```bash
 docker-compose down
 ```
+
 ## Setup
 
-install requiremts.tx
+install requirements.tx
 Add .env as given in shown in .env-example
 
 ```
