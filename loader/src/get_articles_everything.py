@@ -12,13 +12,21 @@ from src.utils import load_json
 
 pubmed_api= 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id='
 
+class Article() :
+  id: str
+  title: str
+  author: str
+  date: str
+
 
 def main():
     parser = parse_arguments()
     annotations_fp =  parser.annotations_fp
-    out_fp =  parser.out_fp
+    out_dir =  parser.out_dir
 
-    get_pubmed_metadata(annotations_fp, out_fp)
+    Path(out_dir).mkdir(parents=True, exist_ok=True)    
+
+    get_pubmed_metadata(annotations_fp, out_dir)
 
 
 def parse_arguments():
@@ -27,7 +35,7 @@ def parse_arguments():
     parser.add_argument('-a', dest='annotations_fp', required=True,
                         type=file_path, help='Annotations Json (dirty one)')
 
-    parser.add_argument('-o', dest='out_fp', required=True,
+    parser.add_argument('-o', dest='out_dir', required=True,
                          help='Metadata')
 
     return parser.parse_args()
@@ -44,35 +52,21 @@ def get_unique_refs(annotations_fp):
             
     return list(refs)
 
-def parse_article(res):      
 
-    article = dict()
-    article['pmid'] = 'PMID:'+res['uid']
-    article['title']= res.get('title', "")
-    article['date'] = res.get('pubdate', None)
-    if res['authors'] !=None and isinstance(res['authors'], list) :
-        article['authors'] = [author['name'] for author in res['authors']]
-   
-    return article
-
-
-def get_pubmed_metadata(annotations_fp: path, out_fp):
+def get_pubmed_metadata(annotations_fp: path, out_dir):
 
     start_time = time.time()
     pmids =[x.replace('PMID:', '') for x in get_unique_refs(annotations_fp)]
     end = len(pmids)
     step = 100
-
-    pubmed_json = list()
+    count = 1
     for i in range(0, end, step):
         x = i
-        time.sleep(4)
+        time.sleep(2)
         response = requests.get(pubmed_api+",".join(pmids[x:x+step]))
-        res = response.json()['result']
-        pubmed_json.extend([parse_article(res[uid]) for uid in res['uids']])
-        
-    write_to_json(pubmed_json, ospath.join(out_fp))
-        
+        pubmed_json = response.json()
+        write_to_json(pubmed_json, ospath.join(out_dir, f"articles-{count}.json"))
+        count+=1
         
     print( f" processed. Total time taken {time.time() - start_time}s")
 
@@ -87,4 +81,4 @@ if __name__ == "__main__":
     main()
 
 
-# python3 -m src.get_articles -a ./downloads/human_iba_annotations.json -o ./downloads/articles2.json
+# python3 -m src.get_articles_everything -a ./downloads/human_iba_annotations.json -o ./downloads/articles/

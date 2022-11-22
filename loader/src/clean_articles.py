@@ -23,7 +23,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description='Loads pmids',
                                      epilog='It works!')
     parser.add_argument('-i', dest='in_dir', required=True,
-                        type=dir_path, help='pmid Ids and labels file')
+                        type=dir_path, help='pmids and labels file')
 
     parser.add_argument('-o', dest='out_fp', required=True,
                          help='Metadata')
