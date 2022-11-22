@@ -22,42 +22,60 @@ docker-compose down
 install requirements.tx
 Add .env as given in shown in .env-example
 
-```
+```bash
 cp .env-example .env
 ```
 
+## Getting Articles Metadata from PubMed
+
+First step is to get the unique PMIDs in the human_iba_annotations.json file and call NCBI eutils api to get the article metadata we need
+
+```JavaScript
+{
+  pmid: string
+  title: string
+  authors: string[]
+}
+```
+
+Note that the NCBI eUtils API has restrictions for frequency and timing of the Requests. More on https://www.ncbi.nlm.nih.gov/books/NBK25497/ . Therefore, this code will take few minutes as it sleeps and sends 100 PMIDs at a time
+
+
+get_articles.py will take 2 arguments
+  -a ANNOTATIONS_FP  human iba annotations.json filepath
+  -o OUT_FP          output filepath articles.json filepath
+
+ex
+
+```bash
+python3 -m src.get_articles -a ./data/test_data/sample_human_iba_annotations.json -o /download/articles.json
+```
+
+## Pre-process Annotations data before indexing to Elasticsearch
+
+This will :
+
+- Replace term ids with term metadata
+- Gene Ids with gene Metadata
+- Pmids with article metadata
+- determine if an annotation wis direct or homology
+- ...
+
+
+python3 -m src.clean_annotations 
+  -a ANNOTATIONS_FP     Annotations Json
+  -t TERMS_FP           Terms Json
+  -art ARTICLES_FP      Articles Json
+  -g GENES_FP           Genes Json
+  -o CLEAN_ANNOTATIONS_FP
+                        Output of Clean Annotation
+
+
 ## Creating Index
 
-An example keyword file will is located in data/keyword_search_list_links.csv
+src/index_es.py will take 1 argument
+  -a ANNOTATIONS_FP  processed human iba annotations.json filepath
 
-To run create-index.py to create index called panther-annotations
-
-## ElasticSearch Wrapper API
-
-You don't wanna expose elasticsearch to the public. The flask api will talk to the es.
-
-run app.py to get the services running
-
-Services will run on http://localhost:5006
-
-Example 
-
-```
-curl -X GET http://localhost:5006/keywords
-```
-
-To get a certain keyword by keyyword_id
-
-```
-curl -X GET http://localhost:5006/keyword?q=157082394
-```
-
-example query is in models/panther_keyword.py
-
-
-## Deleting Index
-
-To start over, use the 
-```
-sh delete-index.sh
+```bash
+python3 -m src.index_es -a $clean_annotations
 ```
