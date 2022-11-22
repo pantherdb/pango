@@ -54,13 +54,17 @@ if __name__ == "__main__":
             gene_taxon = csv_row[12]
             add_gene_info_to_lkp(gene_id, gene_symbol, gene_name, gene_taxon)
             group = csv_row[14]
+            qualifier_val = None  # Default
+            if qualifier in ["contributes_to", "colocalizes_with"]:
+                # value can only be "contributes_to" or "colocalizes_with"
+                qualifier_val = qualifier
             new_annot = {
                 "gene": gene_id,
                 "gene_symbol": gene_symbol,
                 "gene_name": gene_name,
                 "term": go_term,
                 "slim_terms": slim_terms,
-                "relation": qualifier,
+                "qualifier": qualifier_val,
                 # "references": {},  # Will be handled later
                 "evidence": [],  # Will be handled later
                 "group": group,
@@ -137,7 +141,7 @@ if __name__ == "__main__":
     for gene in annotation_lkp:
         for term in annotation_lkp[gene]:
             for quals, annot in annotation_lkp[gene][term].items():
-                if "NOT" in annot["relation"]:
+                if "NOT" in quals:
                     # Do not include negative annotations
                     continue
                 annotations.append(annot)
