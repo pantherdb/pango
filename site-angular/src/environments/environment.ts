@@ -8,7 +8,7 @@ export const environment = {
   amigoTermUrl: "http://amigo.geneontology.org/amigo/term/",
   pubmedUrl: "https://www.ncbi.nlm.nih.gov/pubmed/",
 
-  scardGraphQLUrl: 'http://localhost:5000/graphql'
+  pangoGraphQLUrl: 'http://localhost:5000/graphql'
 };
 
 /*

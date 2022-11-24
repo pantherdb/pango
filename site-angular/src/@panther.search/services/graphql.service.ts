@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ScardGraphQLService {
-  graphQLUrl = environment.scardGraphQLUrl;
+  graphQLUrl = environment.pangoGraphQLUrl;
 
   constructor(private httpClient: HttpClient) {
   }
