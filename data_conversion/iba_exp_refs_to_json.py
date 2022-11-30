@@ -123,15 +123,15 @@ class IbaExpRefCollection:
         with_gene_taxon_id = csv_row[20]
         self.add_gene_info_to_lkp(with_gene_id, with_gene_symbol, with_gene_name, with_gene_taxon_id)
         exp_pmids = sorted(csv_row[17].split("|"))
-        exp_groups = sorted(csv_row[21].split("|"))
-        return with_gene_id, exp_pmids, exp_groups
+        exp_group = csv_row[21]
+        return with_gene_id, exp_pmids, exp_group
 
     def merge_exp_evidence(self, evidence, csv_row):
-        with_gene_id, exp_pmids, exp_groups = self.parse_exp_gene_and_refs_from_row(csv_row)
+        with_gene_id, exp_pmids, exp_group = self.parse_exp_gene_and_refs_from_row(csv_row)
         ev_obj = {
             "with_gene_id": with_gene_id,
             "references": exp_pmids,
-            "groups": exp_groups
+            "group": exp_group
         }
         if ev_obj not in evidence:
             evidence.append(ev_obj)
