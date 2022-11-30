@@ -20,7 +20,7 @@ def test_qualifier():
     test_row = ['UniProtKB', 'Q07001', 'CHRND', 'is_active_in', 'GO:0005887', 'PMID:21873635', 'IBA',
                 'PANTHER:PTN000434994|RGD:2704', 'C', 'Acetylcholine receptor subunit delta',
                 'UniProtKB:Q07001|PTN002498466', 'protein', 'taxon:9606', '20211216', 'GO_Central', '', '',
-                'PMID:25339867|PMID:23175852', 'Glra1', 'Glycine receptor subunit alpha-1', 'taxon:10116']
+                'PMID:25339867|PMID:23175852', 'Glra1', 'Glycine receptor subunit alpha-1', 'taxon:10116', 'RGD']
     collection = IbaExpRefCollection(ont_manager)
     collection.update_annot_from_row(test_row)
     annots = collection.annotation_list()
