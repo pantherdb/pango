@@ -32,4 +32,27 @@ if __name__ == "__main__":
         t["hasOBONamespace"] = t["hasOBONamespace"][0]
         annotated_panther_slim.append(t)
 
+    other_terms = [
+        {
+            "ID": "OTHER:0001",
+            "LABEL": "Other molecular function",
+            "hasOBONamespace": "molecular_function",
+            "is_goslim": True
+        },
+        {
+            "ID": "OTHER:0002",
+            "LABEL": "Other biological process",
+            "hasOBONamespace": "biological_process",
+            "is_goslim": True
+        },
+        {
+            "ID": "OTHER:0003",
+            "LABEL": "Other cellular component",
+            "hasOBONamespace": "cellular_component",
+            "is_goslim": True
+        },
+    ]
+
+    annotated_panther_slim = annotated_panther_slim + other_terms
+
     print(json.dumps(annotated_panther_slim, indent=4))

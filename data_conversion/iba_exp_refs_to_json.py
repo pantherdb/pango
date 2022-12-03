@@ -60,6 +60,14 @@ class OntologyManager:
         else:
             return [goterm]
 
+    def other_term(self, goterm: str):
+        other_lkp = {
+            "molecular_function": "OTHER:0001",
+            "biological_process": "OTHER:0002",
+            "cellular_component": "OTHER:0003",
+        }
+        return other_lkp[self.go_aspects[goterm]]
+
 
 class IbaExpRefCollection:
     def __init__(self, ontology_manager: OntologyManager):
@@ -79,6 +87,9 @@ class IbaExpRefCollection:
         if qualifier not in self.annotation_lkp[gene_id][go_term]:
             # No annot exists so make one
             slim_terms = self.ontology_manager.generalize_term(go_term)
+            if len(slim_terms) == 0:
+                # Fill empty "slim_terms" field with aspect-specific "Other" term
+                slim_terms = [self.ontology_manager.other_term(go_term)]
             gene_symbol = csv_row[2]
             gene_name = csv_row[9]
             gene_taxon = csv_row[12]

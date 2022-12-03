@@ -39,3 +39,9 @@ def test_qualifier():
     collection.update_annot_from_row(test_row)
     annots = collection.annotation_list()
     assert len(annots) == 0
+
+
+def test_other_terms():
+    term_that_has_no_slim_ancestor = "GO:0008134"
+    other_term = ont_manager.other_term(term_that_has_no_slim_ancestor)
+    assert other_term == "OTHER:0001"
