@@ -53,6 +53,27 @@ if __name__ == "__main__":
         },
     ]
 
-    annotated_panther_slim = annotated_panther_slim + other_terms
+    unknown_terms = [
+        {
+            "ID": "UNKNOWN:0001",
+            "LABEL": "Unknown molecular function",
+            "hasOBONamespace": "molecular_function",
+            "is_goslim": False
+        },
+        {
+            "ID": "UNKNOWN:0002",
+            "LABEL": "Unknown biological process",
+            "hasOBONamespace": "biological_process",
+            "is_goslim": False
+        },
+        {
+            "ID": "UNKNOWN:0003",
+            "LABEL": "Unknown cellular component",
+            "hasOBONamespace": "cellular_component",
+            "is_goslim": False
+        },
+    ]
+
+    annotated_panther_slim = annotated_panther_slim + other_terms + unknown_terms
 
     print(json.dumps(annotated_panther_slim, indent=4))
