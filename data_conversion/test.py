@@ -45,3 +45,13 @@ def test_other_terms():
     term_that_has_no_slim_ancestor = "GO:0008134"
     other_term = ont_manager.other_term(term_that_has_no_slim_ancestor)
     assert other_term == "OTHER:0001"
+
+
+def test_filling_in_the_unknowns():
+    iba_gaf = "resources/test/gene_association.paint_human.gaf"
+    gene_dat = "resources/test/gene.dat"
+    iba_collection = IbaExpRefManager.parse(iba_gaf, ont_manager)
+    iba_collection.fill_in_missing_annotations(gene_dat)
+    assert "UNKNOWN:0002" in iba_collection.annotation_lkp["UniProtKB:P28472"]
+    assert "UNKNOWN:0003" in iba_collection.annotation_lkp["UniProtKB:P28472"]
+    assert "UNKNOWN:0001" not in iba_collection.annotation_lkp["UniProtKB:P28472"]

@@ -17,9 +17,22 @@ parser.add_argument('-g', '--gene_info_only', action='store_const', const=True, 
                                                                                      "gene info for annotations. No "
                                                                                      "annotations printed. Includes "
                                                                                      "genes in evidence")
+parser.add_argument('-p', '--gene_dat', help="If supplied, all PANTHER genes will have at least 3 annotations, falling "
+                                             "back on 'UNKNOWN:' aspect term if no annotation")
 
 
 class OntologyManager:
+    OTHER_TERMS = {
+        "molecular_function": "OTHER:0001",
+        "biological_process": "OTHER:0002",
+        "cellular_component": "OTHER:0003",
+    }
+    UNKNOWN_TERMS = {
+        "molecular_function": "UNKNOWN:0001",
+        "biological_process": "UNKNOWN:0002",
+        "cellular_component": "UNKNOWN:0003",
+    }
+
     def __init__(self, goslim_term_list: str, ontology: str, go_aspects: str):
         self.goslim_terms = set()
         with open(goslim_term_list) as gtl:
@@ -61,12 +74,10 @@ class OntologyManager:
             return [goterm]
 
     def other_term(self, goterm: str):
-        other_lkp = {
-            "molecular_function": "OTHER:0001",
-            "biological_process": "OTHER:0002",
-            "cellular_component": "OTHER:0003",
-        }
-        return other_lkp[self.go_aspects[goterm]]
+        return self.OTHER_TERMS[self.go_aspects[goterm]]
+
+    def unknown_term(self, goterm: str):
+        return self.UNKNOWN_TERMS[self.go_aspects[goterm]]
 
 
 class IbaExpRefCollection:
@@ -99,16 +110,10 @@ class IbaExpRefCollection:
             if qualifier in ["contributes_to", "colocalizes_with"]:
                 # value can only be "contributes_to" or "colocalizes_with"
                 qualifier_val = qualifier
-            new_annot = {
-                "gene": gene_id,
-                "gene_symbol": gene_symbol,
-                "gene_name": gene_name,
-                "term": go_term,
-                "slim_terms": slim_terms,
-                "qualifier": qualifier_val,
-                "evidence": [],  # Will be handled later
-                "group": group,
-            }
+            new_annot = self.create_annotation_for_gene(gene_id, gene_symbol, gene_name, go_term)
+            new_annot["slim_terms"] = slim_terms
+            new_annot["qualifier"] = qualifier_val
+            new_annot["group"] = group
             self.annotation_lkp[gene_id][go_term][qualifier] = new_annot
 
         # Merge experimental references
@@ -176,6 +181,47 @@ class IbaExpRefCollection:
     def print_genes_to_json(self):
         print(json.dumps(self.gene_info_list(), indent=4))
 
+    def create_annotation_for_gene(self, gene_id, gene_symbol, gene_name, term):
+        new_annot = {
+            "gene": gene_id,
+            "gene_symbol": gene_symbol,
+            "gene_name": gene_name,
+            "term": term,
+            "slim_terms": [],
+            "qualifier": None,
+            "evidence": [],  # Will be handled later
+            "group": None,
+        }
+        return new_annot
+
+    def fill_in_missing_annotations(self, gene_dat):
+        # Iterate through gene_dat, attempt fetching term for each aspect, if blank add UNKNOWN term
+        with open(gene_dat) as gf:
+            reader = csv.reader(gf, delimiter="\t")
+            for r in reader:
+                long_id = r[0]
+                oscode, mod_id, uniprot_id = long_id.split("|")
+                if oscode != "HUMAN":
+                    continue
+                gene_id = uniprot_id.replace("=", ":")
+                gene_name = r[1]
+                gene_symbol = r[2]
+                if gene_id not in self.annotation_lkp:
+                    self.annotation_lkp[gene_id] = {}
+                has_aspect = {"molecular_function": False, "biological_process": False, "cellular_component": False}
+                for term in self.annotation_lkp[gene_id]:
+                    # get aspect of term
+                    term_aspect = self.ontology_manager.go_aspects[term]
+                    has_aspect[term_aspect] = True
+                for aspect, result in has_aspect.items():
+                    if not result:
+                        unknown_aspect_term = self.ontology_manager.UNKNOWN_TERMS[aspect]
+                        other_aspect_term = self.ontology_manager.OTHER_TERMS[aspect]
+                        new_annot = self.create_annotation_for_gene(gene_id, gene_name, gene_symbol, unknown_aspect_term)
+                        new_annot["slim_terms"] = [other_aspect_term]
+                        new_annot["group"] = "GO_Central"
+                        self.annotation_lkp[gene_id][unknown_aspect_term] = {"": new_annot}
+
 
 class IbaExpRefManager:
     @staticmethod
@@ -197,6 +243,8 @@ if __name__ == "__main__":
                                   args.ontology,
                                   args.go_aspects)
     iba_exp_ref_collection = IbaExpRefManager.parse(args.annot_files, ont_manager)
+    if args.gene_dat:
+        iba_exp_ref_collection.fill_in_missing_annotations(args.gene_dat)
 
     if args.gene_info_only:
         iba_exp_ref_collection.print_genes_to_json()

@@ -11,6 +11,15 @@ SHELL := /bin/bash
 %/resources/gene_association.paint_human.gaf: %/resources/gene_association.paint_human.gaf.gz
 	gunzip $<
 
+.PRECIOUS: %/resources/gene.dat.gz
+%/resources/gene.dat.gz:
+	mkdir -p $*/resources
+	wget http://data.pantherdb.org/PANTHER15.0/globals/gene.dat.gz -O $@
+
+.PRECIOUS: %/resources/gene.dat
+%/resources/gene.dat: %/resources/gene.dat.gz
+	gunzip $<
+
 .PRECIOUS: %/resources/goparentchild.tsv
 %/resources/goparentchild.tsv:
 	mkdir -p $*/resources
@@ -48,12 +57,12 @@ SHELL := /bin/bash
 	$*/bin/robot export --input $< --header "ID" --format tsv --export $@
 
 .PRECIOUS: %/human_iba_annotations.json
-%/human_iba_annotations.json: %/resources/gene_association.paint_human.gaf %/resources/goparentchild.tsv %/goslim_generic.tsv %/resources/go_aspects.tsv
-	python3 iba_exp_refs_to_json.py -f $*/resources/gene_association.paint_human.gaf -o $*/resources/goparentchild.tsv -s $*/goslim_generic.tsv -a $*/resources/go_aspects.tsv > $@
+%/human_iba_annotations.json: %/resources/gene_association.paint_human.gaf %/resources/goparentchild.tsv %/goslim_generic.tsv %/resources/go_aspects.tsv %/resources/gene.dat
+	python3 iba_exp_refs_to_json.py -f $*/resources/gene_association.paint_human.gaf -o $*/resources/goparentchild.tsv -s $*/goslim_generic.tsv -a $*/resources/go_aspects.tsv -p $*/resources/gene.dat > $@
 
 .PRECIOUS: %/human_iba_gene_info.json
-%/human_iba_gene_info.json: %/resources/gene_association.paint_human.gaf %/resources/goparentchild.tsv %/goslim_generic.tsv %/resources/go_aspects.tsv
-	python3 iba_exp_refs_to_json.py -f $*/resources/gene_association.paint_human.gaf -o $*/resources/goparentchild.tsv -s $*/goslim_generic.tsv -a $*/resources/go_aspects.tsv -g > $@
+%/human_iba_gene_info.json: %/resources/gene_association.paint_human.gaf %/resources/goparentchild.tsv %/goslim_generic.tsv %/resources/go_aspects.tsv %/resources/gene.dat
+	python3 iba_exp_refs_to_json.py -f $*/resources/gene_association.paint_human.gaf -o $*/resources/goparentchild.tsv -s $*/goslim_generic.tsv -a $*/resources/go_aspects.tsv -p $*/resources/gene.dat -g > $@
 
 .PRECIOUS: %/taxon_lkp.json
 %/taxon_lkp.json: %/human_iba_gene_info.json %/resources/species_list_15.tsv
