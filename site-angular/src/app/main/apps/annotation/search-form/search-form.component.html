@@ -243,28 +243,29 @@
         <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="panther-activity-term-row" fxLayout="column">
             <mat-form-field appearance="outline" class="panther-sm panther-white w-100-p">
-              <mat-label>Filter by Relation</mat-label>
-              <mat-chip-list #relationChipList>
-                <mat-chip class="panther-form-chip" *ngFor="let relation of annotationService.searchCriteria.relations"
-                  [selectable]="true" [removable]="true" (removed)="remove(relation, SearchFilterType.RELATIONS)"
-                  fxLayout="row" fxLayoutAlign="start center" matTooltip="relation: {{relation.relation}}"
+              <mat-label>Filter by Qualifier</mat-label>
+              <mat-chip-list #qualifierChipList>
+                <mat-chip class="panther-form-chip"
+                  *ngFor="let qualifier of annotationService.searchCriteria.qualifiers" [selectable]="true"
+                  [removable]="true" (removed)="remove(qualifier, SearchFilterType.QUALIFIERS)" fxLayout="row"
+                  fxLayoutAlign="start center" matTooltip="qualifier: {{qualifier.qualifier}}"
                   [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
                   <div fxFlex="" class="panther-chip-label">
-                    {{relation.relation}}
+                    {{qualifier.qualifier}}
                   </div>
                   <mat-icon matChipRemove>cancel</mat-icon>
                 </mat-chip>
-                <input #searchInput formControlName="relations" placeholder="Add relation Filter"
-                  [matAutocomplete]="relationAuto" [matChipInputFor]="relationChipList"
+                <input #searchInput formControlName="qualifiers" placeholder="Add qualifier Filter"
+                  [matAutocomplete]="qualifierAuto" [matChipInputFor]="qualifierChipList"
                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
               </mat-chip-list>
-              <mat-autocomplete #relationAuto="matAutocomplete"
-                (optionSelected)="selected($event, SearchFilterType.RELATIONS)" [displayWith]="relationDisplayFn"
+              <mat-autocomplete #qualifierAuto="matAutocomplete"
+                (optionSelected)="selected($event, SearchFilterType.QUALIFIERS)" [displayWith]="qualifierDisplayFn"
                 class="panther-term-autocomplete">
-                <mat-option class="panther-term-autocomplete" *ngFor="let item of relations$ | async" [value]="item">
+                <mat-option class="panther-term-autocomplete" *ngFor="let item of qualifiers$ | async" [value]="item">
                   <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
                     <div class="panther-term-label">
-                      {{ item.relation }}
+                      {{ item.qualifier }}
                     </div>
                     <span fxFlex></span>
                     <div class="panther-term-id">

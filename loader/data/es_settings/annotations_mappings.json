@@ -33,7 +33,18 @@
         }
       }
     },
-    "relation": {
+    "taxon_label": {
+      "type": "text",
+      "analyzer": "autocomplete",
+      "search_analyzer": "standard",
+      "fields": {
+        "keyword": {
+          "type": "keyword",
+          "ignore_above": 256
+        }
+      }
+    },
+    "qualifier": {
       "type": "text",
       "analyzer": "autocomplete",
       "search_analyzer": "standard",

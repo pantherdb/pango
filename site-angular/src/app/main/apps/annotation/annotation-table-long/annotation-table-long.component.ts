@@ -43,7 +43,7 @@ export class AnnotationTableLongComponent implements OnInit, OnDestroy {
     'geneSymbol',
     'geneName',
     'aspect',
-    'relation',
+    'qualifier',
     'term',
     'slimTerms',
     'evidence',

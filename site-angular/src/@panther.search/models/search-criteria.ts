@@ -4,7 +4,7 @@ export enum SearchFilterType {
     SLIM_TERMS = "slimTerms",
     GENES = 'genes',
     ASPECTS = 'aspects',
-    RELATIONS = 'relations',
+    QUALIFIERS = 'qualifiers',
     REFERENCES = 'references',
     WITHGENES = 'withgenes',
     EVIDENCE_TYPES = "evidenceTypes"
@@ -20,7 +20,7 @@ export class SearchCriteria {
     genes: any[] = [];
     evidenceTypes: any[] = [];
     aspects: any[] = [];
-    relations: any[] = [];
+    qualifiers: any[] = [];
     withgenes: any[] = [];
     references: any[] = [];
     fieldValues: any[] = [];

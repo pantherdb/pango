@@ -23,6 +23,7 @@ def create_app():
       allow_methods=["*"],
       allow_headers=["*"],
   )
+  
   graphql_app = GraphQLRouter(schema)
   app.include_router(graphql_app, prefix="/graphql")
 

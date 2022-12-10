@@ -60,6 +60,10 @@ export class AnnotationService {
                     gene
                     geneName
                     geneSymbol
+                    taxonAbbr
+                    taxonLabel
+                    taxonId
+                    qualifier
                     term {
                       id
                       aspect
@@ -78,6 +82,9 @@ export class AnnotationService {
                         gene
                         geneName
                         geneSymbol
+                        taxonAbbr
+                        taxonLabel
+                        taxonId
                       }
                       references {
                         pmid
@@ -85,8 +92,8 @@ export class AnnotationService {
                         date
                       }
                     }
-                    group
-                    relation                                     
+                    groups
+                                                         
                   }
             }`
         }
@@ -301,8 +308,8 @@ export class AnnotationService {
             query.filterArgs.geneIds.push(annotation.gene);
         });
 
-        this.searchCriteria.relations.forEach((annotation: Annotation) => {
-            query.filterArgs.relationIds.push(annotation.relation);
+        this.searchCriteria.qualifiers.forEach((annotation: Annotation) => {
+            query.filterArgs.qualifierIds.push(annotation.qualifier);
         });
 
         this.searchCriteria.aspects.forEach((annotation: Annotation) => {

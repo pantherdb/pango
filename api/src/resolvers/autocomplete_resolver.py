@@ -19,8 +19,8 @@ async def get_autocomplete(autocomplete_type: AutocompleteType, keyword:str, fil
         query, collapse = await get_evidence_type_autocomplete_query(keyword, filter_args)
     elif autocomplete_type.value == AutocompleteType.aspect.value:
         query, collapse = await get_aspect_autocomplete_query(keyword, filter_args)
-    elif autocomplete_type.value == AutocompleteType.relation.value:
-        query, collapse = await get_relation_autocomplete_query(keyword, filter_args)
+    elif autocomplete_type.value == AutocompleteType.qualifier.value:
+        query, collapse = await get_qualifier_autocomplete_query(keyword, filter_args)
     elif autocomplete_type.value == AutocompleteType.reference.value:
         query, collapse = await get_reference_autocomplete_query(keyword, filter_args)
     elif autocomplete_type.value == AutocompleteType.withgene.value:
@@ -90,7 +90,7 @@ async def get_evidence_type_autocomplete_query(keyword:str, filter_args:Annotati
     return query, collapse
 
 
-async def get_relation_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
+async def get_qualifier_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
     
     filter_query = await get_annotations_query(filter_args)
     query = {
@@ -98,7 +98,7 @@ async def get_relation_autocomplete_query(keyword:str, filter_args:AnnotationFil
          "must": [ 
             {     
               "match": {
-                "relation": {
+                "qualifier": {
                   "query": keyword,
                   "operator": "and"
                 }
@@ -109,7 +109,7 @@ async def get_relation_autocomplete_query(keyword:str, filter_args:AnnotationFil
        }
     }
     collapse ={
-        "field": "relation.keyword"
+        "field": "qualifier.keyword"
     }
 
     return query, collapse

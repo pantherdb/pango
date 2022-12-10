@@ -82,11 +82,11 @@ async def get_annotations_query(filter_args:AnnotationFilterArgs):
                 }
               }) 
 
-      if filter_args.relation_ids != None and len(filter_args.relation_ids)>0:
+      if filter_args.qualifier_ids != None and len(filter_args.qualifier_ids)>0:
             filters.append(  
               {           
                 "terms": {
-                  "relation.keyword": filter_args.relation_ids
+                  "qualifier.keyword": filter_args.qualifier_ids
                 }
               }
           )   

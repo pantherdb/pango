@@ -118,7 +118,7 @@ $accent: map-get($theme, accent);
         }
       }
 
-      &.panther-relation-cell {
+      &.panther-qualifier-cell {
         @include deep-width(100px);
       }
 

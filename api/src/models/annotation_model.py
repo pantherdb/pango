@@ -14,7 +14,7 @@ class AutocompleteType(Enum):
     withgene = "withgene"
     reference = "reference"
     aspect = "aspect"
-    relation = "relation"
+    qualifier = "qualifier"
 
 @strawberry.type
 class Entity :
@@ -51,14 +51,18 @@ class ResultCount:
 @strawberry.type
 class Annotation:
     gene: str
-    gene_symbol:str
-    gene_name:str
+    gene_symbol: str
+    gene_name: str
+    taxon_abbr: str
+    taxon_label: str
+    taxon_id: str
     term: Term
     slim_terms: typing.List[Term]
-    relation: str
+    qualifier: str
     evidence_type:str
     evidence: typing.List[Evidence] 
-    group: typing.Optional[str] = ""
+    groups: typing.List[str]
+    evidence_count: int
 
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
@@ -98,6 +102,6 @@ class AnnotationFilterArgs:
     evidence_type_ids: typing.Optional[typing.List[str]] = strawberry.UNSET
     gene_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
     aspect_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
-    relation_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
+    qualifier_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
     with_gene_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
     reference_ids: typing.Optional[typing.List[str]] = strawberry.UNSET

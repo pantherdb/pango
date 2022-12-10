@@ -40,11 +40,10 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
 
   displayedColumns = [
     'gene',
-    'relation',
     'term',
     'slimTerms',
     'evidence',
-    'group'
+    'summary'
   ];
 
   @Input('maxReferences') maxReferences = 4

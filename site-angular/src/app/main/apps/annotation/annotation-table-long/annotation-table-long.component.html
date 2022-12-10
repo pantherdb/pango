@@ -79,30 +79,30 @@
           {{element.geneName}}
         </td>
       </ng-container>
-      <ng-container matColumnDef="relation">
-        <th mat-header-cell *matHeaderCellDef class="panther-relation-cell">
+      <ng-container matColumnDef="qualifier">
+        <th mat-header-cell *matHeaderCellDef class="panther-qualifier-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
               <div>
-                Relation
+                Qualifier
               </div>
               <a class="panther-count" (click)="addExistFilter(column)">(20)</a>
             </div>
             <button mat-button color=""
               class="panther-rounded-button panther-xs mr-4 panther-half-button panther-r ml-12"
-              (click)="addExistFilter('relation')" matTooltip="Filter" [matTooltipPosition]="'after'"
+              (click)="addExistFilter('qualifier')" matTooltip="Filter" [matTooltipPosition]="'after'"
               [matTooltipShowDelay]="1500">
               <fa-icon [icon]="['fas', 'filter']"></fa-icon>
             </button>
             <button mat-button color="" class="panther-rounded-button  panther-xs mr-4 panther-half-button panther-l"
-              (click)="getStats('relation')" matTooltip="Results Statistics for relation" [matTooltipPosition]="'after'"
-              [matTooltipShowDelay]="1500">
+              (click)="getStats('qualifier')" matTooltip="Results Statistics for qualifier"
+              [matTooltipPosition]="'after'" [matTooltipShowDelay]="1500">
               <fa-icon [icon]="['fas', 'chart-bar']"></fa-icon>
             </button>
           </div>
         </th>
-        <td mat-cell *matCellDef="let element" class="panther-relation-cell">
-          {{element.relation}}
+        <td mat-cell *matCellDef="let element" class="panther-qualifier-cell">
+          {{element.qualifier}}
         </td>
       </ng-container>
       <ng-container matColumnDef="term">

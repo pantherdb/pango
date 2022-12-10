@@ -50,7 +50,7 @@ export enum AutocompleteType {
     WITHGENE = "withgene",
     REFERENCE = "reference",
     ASPECT = "aspect",
-    RELATION = "relation",
+    QUALIFIER = "qualifier",
     SLIM_TERM = "slim_term",
     EVIDENCE_TYPE = "evidence_type"
 }
@@ -96,9 +96,9 @@ export class AutocompleteFilterArgs {
                         aspect
                     }
                 `
-            case AutocompleteType.RELATION:
+            case AutocompleteType.QUALIFIER:
                 return `
-                    relation
+                    qualifier
                 `
             case AutocompleteType.REFERENCE:
                 return `
@@ -130,7 +130,7 @@ export class FilterArgs {
     evidenceTypeIds: string[] = [];
     geneIds: string[] = [];
     aspectIds: string[] = [];
-    relationIds: string[] = [];
+    qualifierIds: string[] = [];
     withGeneIds: string[] = [];
     referenceIds: string[] = [];
 }
@@ -162,12 +162,15 @@ export class Annotation {
     gene: string;
     geneSymbol: string;
     geneName: string;
+    taxonAbbr: string;
+    taxonLabel: string;
+    taxonId: string;
     term: Term;
     slimTerms: Term[];
     evidenceType: string;
     evidence: Evidence[] = [];
-    relation: string;
-    group: string;
+    qualifier: string;
+    groups: string[] = [];
 }
 
 export class Bucket {
