@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4205",
+    "start": "ng serve --port 4207",
     "start:high-memory": "node --max-old-space-size=4048 ./node_modules/@angular/cli/bin/ng serve --port 4205",
     "start-server": "ng serve --host 0.0.0.0 --port 9350 --disable-host-check",
     "build": "ng build --configuration production",

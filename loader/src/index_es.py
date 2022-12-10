@@ -47,9 +47,13 @@ def load_json(j_file):
 
 def bulk_load(j_file, index_name):
 
-    helpers.bulk(es, load_json(j_file), index=index_name,
-                 chunk_size=10000, request_timeout=200)
-
+    try:
+        success, errors =  helpers.bulk(es, load_json(j_file), index=index_name,
+                 chunk_size=5000, request_timeout=200)
+        print(success)
+    
+    except helpers.BulkIndexError as exception:
+        print(exception.errors)
 
 
 if __name__ == "__main__":
