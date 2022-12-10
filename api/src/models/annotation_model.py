@@ -58,7 +58,7 @@ class Annotation:
     taxon_id: str
     term: Term
     slim_terms: typing.List[Term]
-    qualifier: str
+    qualifier: typing.Optional[str]
     evidence_type:str
     evidence: typing.List[Evidence] 
     groups: typing.List[str]
