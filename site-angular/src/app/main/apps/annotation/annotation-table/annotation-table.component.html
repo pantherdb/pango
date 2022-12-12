@@ -55,7 +55,12 @@
                 <fa-icon [icon]="['far', 'check-circle']"></fa-icon>
               </div>
             </div>
-            <div class="w-100-p panther-cell-description">{{element.geneSymbol}}</div>
+            <div class="w-100-p panther-cell-description">
+              {{element.geneSymbol}}
+              (<a (click)="$event.stopPropagation()" [href]="taxonApiUrl+element.taxonId" target="_blank">
+                {{element.taxonAbbr}}
+              </a> )
+            </div>
             <div class="w-100-p panther-cell-description-2">{{element.geneName}}</div>
           </div>
         </td>
@@ -79,7 +84,7 @@
             </mat-chip>
           </div>
           <div class="w-100-p panther-cell-description"> {{element.term?.label}}</div>
-          <div class="w-100-p panther-cell-description-2"> {{element.term?.qualifier}}</div>
+          <div class="w-100-p panther-cell-description-2"> {{element.qualifier}}</div>
         </td>
       </ng-container>
       <ng-container matColumnDef="slimTerms">
@@ -121,6 +126,9 @@
           <ng-container *ngFor="let item of element.evidence; let i=index">
             <div class="panther-cell-section" *ngIf="i<maxEvidences">
               {{item.withGeneId?.gene}} ({{item.withGeneId?.geneSymbol}})
+              (<a (click)="$event.stopPropagation()" [href]="taxonApiUrl+item.withGeneId?.taxonId" target="_blank">
+                {{item.withGeneId?.taxonAbbr}}
+              </a> )
               <ng-container *ngFor="let reference of item.references; let i=index">
                 <div class="panther-cell-inner-section" *ngIf="i<maxReferences">
                   <div class="w-100-p panther-cell-title" fxLayout="row" fxLayoutAlign="start center">
@@ -147,7 +155,7 @@
         </th>
         <td mat-cell *matCellDef="let element" class="panther-summary-cell">
           {{element.groups}}<br>
-          {{element.evidence_count}}
+          {{element.evidenceCount}}
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

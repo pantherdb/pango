@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class ScardGraphQLService {
+export class PantherGraphQLService {
   graphQLUrl = environment.pangoGraphQLUrl;
 
   constructor(private httpClient: HttpClient) {

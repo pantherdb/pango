@@ -9,6 +9,7 @@ import { ColumnValueType } from '@panther.common/models/annotation';
 import { RightPanel } from '@panther.common/models/menu-panels';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { aspectMap } from '../models/annotation';
+import { environment } from 'environments/environment';
 @Component({
   selector: 'panther-annotation-table',
   templateUrl: './annotation-table.component.html',
@@ -30,6 +31,8 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
     color: 'primary',
     mode: 'indeterminate'
   };
+
+  taxonApiUrl = environment.taxonApiUrl
 
   @ViewChild(MatTable) table: MatTable<any>
 

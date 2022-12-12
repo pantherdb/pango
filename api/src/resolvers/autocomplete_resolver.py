@@ -44,8 +44,16 @@ async def get_aspect_autocomplete_query(keyword:str, filter_args:AnnotationFilte
     
     filter_query = await get_annotations_query(filter_args)
     query = {
-       "bool": {
-         "must": [ 
+       "bool": {       
+         "filter":filter_query["bool"]["filter"]
+       }
+    } 
+    collapse ={
+        "field": "term.aspect.keyword"
+    }
+
+    if len(keyword) > 0:
+        query['bool']["must"] = [ 
             {     
               "match": {
                 "term.aspect": {
@@ -54,13 +62,7 @@ async def get_aspect_autocomplete_query(keyword:str, filter_args:AnnotationFilte
                 }
               }
             }
-         ],
-         "filter":filter_query["bool"]["filter"]
-       }
-    } 
-    collapse ={
-        "field": "term.aspect.keyword"
-    }
+         ]
 
     return query, collapse
 
@@ -95,7 +97,12 @@ async def get_qualifier_autocomplete_query(keyword:str, filter_args:AnnotationFi
     filter_query = await get_annotations_query(filter_args)
     query = {
        "bool": {
-         "must": [ 
+         "filter":filter_query["bool"]["filter"]
+       }
+    }
+
+    if len(keyword) > 0:
+       query['bool']["must"] = [ 
             {     
               "match": {
                 "qualifier": {
@@ -104,10 +111,8 @@ async def get_qualifier_autocomplete_query(keyword:str, filter_args:AnnotationFi
                 }
               }
             }
-         ],
-         "filter":filter_query["bool"]["filter"]
-       }
-    }
+         ]
+         
     collapse ={
         "field": "qualifier.keyword"
     }

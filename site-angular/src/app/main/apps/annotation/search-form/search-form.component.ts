@@ -9,7 +9,8 @@ import { Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { AnnotationPage } from '../models/page';
 import { AnnotationService } from '../services/annotation.service';
-import { Annotation, AutocompleteFilterArgs, AutocompleteType } from '../models/annotation';
+import { Annotation, AnnotationStats, AutocompleteFilterArgs, AutocompleteType, Bucket } from '../models/annotation';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'panther-search-form',
@@ -20,6 +21,7 @@ import { Annotation, AutocompleteFilterArgs, AutocompleteType } from '../models/
 export class SearchFormComponent implements OnInit, OnDestroy {
   SearchFilterType = SearchFilterType;
   annotationPage: AnnotationPage
+  annotationStats: AnnotationStats
   @Input('panelDrawer') panelDrawer: MatDrawer;
   @Input('options') options = {
     hideGeneSearch: false
@@ -41,6 +43,41 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   qualifiers$: Observable<Annotation[]>;
   withgenes$: Observable<Annotation[]>;
   references$: Observable<Annotation[]>;
+
+  selection = new SelectionModel<Bucket>(true, []);
+
+
+  task = {
+    name: 'Indeterminate',
+    completed: false,
+    color: 'primary',
+    subtasks: [
+      { name: 'Primary', completed: false, color: 'primary' },
+      { name: 'Accent', completed: false, color: 'accent' },
+      { name: 'Warn', completed: false, color: 'warn' },
+    ],
+  };
+
+  allComplete: boolean = false;
+
+  updateAllComplete() {
+    this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
+  }
+
+  someComplete(): boolean {
+    if (this.task.subtasks == null) {
+      return false;
+    }
+    return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
+  }
+
+  setAll(completed: boolean) {
+    this.allComplete = completed;
+    if (this.task.subtasks == null) {
+      return;
+    }
+    this.task.subtasks.forEach(t => (t.completed = completed));
+  }
 
   private _unsubscribeAll: Subject<any>;
 
@@ -64,6 +101,16 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     const qualifiersFilter = new AutocompleteFilterArgs(AutocompleteType.QUALIFIER)
     const withgenesFilter = new AutocompleteFilterArgs(AutocompleteType.WITHGENE)
     const referencesFilter = new AutocompleteFilterArgs(AutocompleteType.REFERENCE)
+
+
+    this.annotationService.onAnnotationsAggsChanged
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((annotationStats: AnnotationStats) => {
+        if (annotationStats) {
+          this.annotationStats = annotationStats;
+          // this.generateStats()
+        }
+      });
 
     this.terms$ = this.filterForm.get('terms')!.valueChanges.pipe(
       distinctUntilChanged(),
@@ -125,6 +172,31 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
+  }
+
+  toggleSelection(item: Bucket) {
+    this.selection.toggle(item)
+    if (this.selection.isSelected) {
+      this.selection.selected.forEach(selected => {
+        this.annotationService.searchCriteria[SearchFilterType.ASPECTS] = []
+        this.annotationService.searchCriteria[SearchFilterType.ASPECTS].push(selected.key);
+      });
+
+      this.annotationService.updateSearch();
+    }
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.annotationStats.aspectFrequency.buckets.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.annotationStats.aspectFrequency.buckets.forEach(row => this.selection.select(row));
   }
 
   createFilterForm() {

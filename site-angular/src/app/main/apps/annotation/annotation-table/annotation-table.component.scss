@@ -113,6 +113,17 @@ $accent: map-get($theme, accent);
         @include deep-width(300px);
       }
 
+      &.panther-summary-cell {
+        padding-right: 12px;
+        font-size: 12px;
+        @include deep-width(150px);
+
+        .panther-cell-description-2 {
+          font-size: 12px;
+          text-decoration: italics;
+        }
+      }
+
       &.panther-term-cell {
         padding-right: 12px;
         font-size: 12px;

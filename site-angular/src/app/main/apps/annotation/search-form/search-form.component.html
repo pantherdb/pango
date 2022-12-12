@@ -12,42 +12,22 @@
           mat-button>Clear
           Filters</button>
 
+
+
         <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="panther-activity-term-row" fxLayout="column">
-            <mat-form-field appearance="outline" class="panther-sm panther-white w-100-p">
-              <mat-label>Filter by Aspect</mat-label>
-              <mat-chip-list #aspectChipList>
-                <mat-chip class="panther-form-chip" *ngFor="let aspect of annotationService.searchCriteria.aspects"
-                  [selectable]="true" [removable]="true" (removed)="remove(aspect, SearchFilterType.ASPECTS)"
-                  fxLayout="row" fxLayoutAlign="start center" matTooltip="aspect: {{aspect.term.aspect}})"
-                  [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
-                  <div fxFlex="" class="panther-chip-label">
-                    {{aspect.term.aspect}}
-                  </div>
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-                <input #searchInput formControlName="aspects" placeholder="Add aspect Filter"
-                  [matAutocomplete]="aspectAuto" [matChipInputFor]="aspectChipList"
-                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
-              </mat-chip-list>
-              <mat-autocomplete #aspectAuto="matAutocomplete"
-                (optionSelected)="selected($event, SearchFilterType.ASPECTS)" [displayWith]="aspectDisplayFn"
-                class="panther-term-autocomplete">
-                <mat-option class="panther-term-autocomplete" *ngFor="let item of aspects$ | async" [value]="item">
-                  <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
-                    <div class="panther-term-label">
-                      {{ item.term.aspect }}
-                    </div>
-                    <span fxFlex></span>
-                    <div class="panther-term-id">
-                      ({{ item.count }})
-                    </div>
-                  </div>
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
+
+            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"> Aspect
+            </mat-checkbox>
+            <mat-checkbox *ngFor="let item of annotationStats?.aspectFrequency.buckets"
+              (click)="$event.stopPropagation()" (change)="toggleSelection(item)"
+              [checked]="selection.isSelected(item)">{{item.key}} <small>({{item.docCount}})</small>
+            </mat-checkbox>
           </div>
         </div>
+
+
 
         <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="panther-activity-term-row" fxLayout="column">

@@ -6,8 +6,8 @@ import { Client } from 'elasticsearch-browser';
 import { AnnotationPage, Query } from '../models/page';
 import { cloneDeep, find, orderBy, uniqBy } from 'lodash';
 import { SearchCriteria } from '@panther.search/models/search-criteria';
-import { ScardGraphQLService } from '@panther.search/services/graphql.service';
 import { AnnotationCount, AnnotationStats, Bucket, FilterArgs, Annotation, aspectMap, AutocompleteFilterArgs } from '../models/annotation';
+import { AnnotationGraphQLService } from './annotation-graphql.service';
 
 @Injectable({
     providedIn: 'root',
@@ -16,6 +16,7 @@ export class AnnotationService {
     annotationResultsSize = environment.annotationResultsSize;
     onAnnotationsChanged: BehaviorSubject<AnnotationPage>;
     onAutocompleteChanged: BehaviorSubject<AnnotationPage>;
+    onUniqueListChanged: BehaviorSubject<any>;
     onAnnotationsAggsChanged: BehaviorSubject<AnnotationStats>;
     onDistinctAggsChanged: BehaviorSubject<AnnotationStats>;
     onAnnotationChanged: BehaviorSubject<any>;
@@ -28,11 +29,13 @@ export class AnnotationService {
     query: Query = new Query();
 
     private client: Client;
+    uniqueList: Annotation[];
 
     constructor(
         private httpClient: HttpClient,
-        private scardGraphQLService: ScardGraphQLService) {
+        private annotationGraphQLService: AnnotationGraphQLService) {
         this.onAnnotationsChanged = new BehaviorSubject(null);
+        this.onUniqueListChanged = new BehaviorSubject(null);
         this.onAutocompleteChanged = new BehaviorSubject(null);
         this.onAnnotationsAggsChanged = new BehaviorSubject(null);
         this.onDistinctAggsChanged = new BehaviorSubject(null);
@@ -47,156 +50,6 @@ export class AnnotationService {
         return throwError(() => err);
     }
 
-
-    getAnnotationsQuery(query: Query): Observable<any> {
-        const self = this;
-
-        const options = {
-            variables: {
-                filterArgs: query.filterArgs
-            },
-            query: `query GetAnnotations($filterArgs: AnnotationFilterArgs) {
-                annotations(filterArgs:$filterArgs) {
-                    gene
-                    geneName
-                    geneSymbol
-                    taxonAbbr
-                    taxonLabel
-                    taxonId
-                    qualifier
-                    term {
-                      id
-                      aspect
-                      isGoslim
-                      label
-                    } 
-                    slimTerms {
-                      aspect
-                      id
-                      isGoslim
-                      label
-                    } 
-                    evidenceType
-                    evidence {
-                      withGeneId {
-                        gene
-                        geneName
-                        geneSymbol
-                        taxonAbbr
-                        taxonLabel
-                        taxonId
-                      }
-                      references {
-                        pmid
-                        title
-                        date
-                      }
-                    }
-                    groups
-                                                         
-                  }
-            }`
-        }
-
-        return self.scardGraphQLService.query(options).pipe(
-            map((response: any) => {
-                return response.annotations.map(annotation => {
-                    return annotation
-                }) as Annotation[];
-            }));
-    }
-
-
-    getAnnotationsCountQuery(query: Query): Observable<any> {
-        const self = this;
-
-        const options = {
-            variables: {
-                filterArgs: query.filterArgs
-            },
-            query: `query GetAnnotationsCount($filterArgs: AnnotationFilterArgs) {
-                annotationsCount(filterArgs:$filterArgs) {
-                    total                                     
-                  }
-            }`
-        }
-
-        return self.scardGraphQLService.query(options).pipe(
-            map((response: any) => {
-                return response.annotationsCount as AnnotationCount
-            }));
-
-    }
-
-    getAutocompleteQuery(filter: AutocompleteFilterArgs, keyword: string): Observable<Annotation[]> {
-        const self = this;
-
-        const options = {
-            variables: {
-                filterArgs: this.query.filterArgs,
-                autocompleteType: filter.autocompleteType,
-                keyword
-
-            },
-            query: `query GetAutocomplete($autocompleteType:AutocompleteType!, $keyword: String!, $filterArgs: AnnotationFilterArgs) {
-                autocomplete(autocompleteType:$autocompleteType, keyword:$keyword, filterArgs:$filterArgs) {
-                ${filter.getAutocompleteFields()}                                                  
-                }
-            }`
-        }
-
-        return self.scardGraphQLService.query(options).pipe(
-            map((response: any) => {
-                return response.autocomplete.map(annotation => {
-                    return annotation
-                }) as Annotation[];
-            }));
-
-    }
-
-    getAnnotationsAggsQuery(query: Query): Observable<any> {
-        const self = this;
-
-        const options = {
-            variables: {
-                filterArgs: query.filterArgs
-            },
-            query: `query GetAnnotationsStats($filterArgs: AnnotationFilterArgs) {
-                    stats(filterArgs:$filterArgs) {
-                      termFrequency {
-                        buckets {
-                          docCount
-                          key
-                        }
-                      }
-                      aspectFrequency {
-                        buckets {
-                          docCount
-                          key
-                        }
-                      }
-                      evidenceTypeFrequency {
-                        buckets {
-                          docCount
-                          key
-                        }
-                      }
-                      slimTermFrequency {
-                        buckets {
-                          docCount
-                          key
-                        }
-                      }
-                  }
-            }`
-        }
-
-        return self.scardGraphQLService.query(options).pipe(
-            map((response: any) => {
-                return response.stats as AnnotationStats;
-            }));
-
-    }
 
     getAnnotations(page: number): any {
         const self = this;
@@ -216,7 +69,7 @@ export class AnnotationService {
         query.from = (page - 1) * this.annotationResultsSize;
         query.size = this.annotationResultsSize;
         this.query = query;
-        return this.getAnnotationsQuery(query).subscribe(
+        return this.annotationGraphQLService.getAnnotationsQuery(query).subscribe(
             {
                 next: (annotations: Annotation[]) => {
                     const annotationData = annotations
@@ -238,7 +91,7 @@ export class AnnotationService {
     }
 
     getAnnotationsCount(query: Query): any {
-        return this.getAnnotationsCountQuery(query).subscribe(
+        return this.annotationGraphQLService.getAnnotationsCountQuery(query).subscribe(
             {
                 next: (annotationCount: AnnotationCount) => {
                     this.annotationPage.total = annotationCount.total;
@@ -247,9 +100,23 @@ export class AnnotationService {
             });
     }
 
+    getAutocompleteQuery(filter: AutocompleteFilterArgs, keyword: string): Observable<Annotation[]> {
+        return this.annotationGraphQLService.getAutocompleteQuery(this.query, filter, keyword)
+    }
+
+    getUniqueItems(query: Query): any {
+        return this.annotationGraphQLService.getUniqueListGraphQL(query).subscribe(
+            {
+                next: (annotations: Annotation[]) => {
+                    this.uniqueList = annotations;
+                }, error: (err) => {
+                }
+            });
+    }
+
 
     queryAnnotationStats(query: Query): any {
-        return this.getAnnotationsAggsQuery(query).subscribe(
+        return this.annotationGraphQLService.getAnnotationsAggsQuery(query).subscribe(
             {
                 next: (stats) => {
                     const annotationStats = stats as AnnotationStats
@@ -312,8 +179,8 @@ export class AnnotationService {
             query.filterArgs.qualifierIds.push(annotation.qualifier);
         });
 
-        this.searchCriteria.aspects.forEach((annotation: Annotation) => {
-            query.filterArgs.aspectIds.push(annotation.term.aspect);
+        this.searchCriteria.aspects.forEach((aspect: string) => {
+            query.filterArgs.aspectIds.push(aspect);
         });
 
         this.searchCriteria.withgenes.forEach((annotation: Annotation) => {
@@ -351,6 +218,7 @@ export class AnnotationService {
         this.getAnnotationsPage(query, 1);
         this.getAnnotationsCount(query)
         this.queryAnnotationStats(query)
+        this.getUniqueItems(query)
     }
 
     buildSummaryTree(aggs) {

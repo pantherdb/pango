@@ -55,6 +55,10 @@ export enum AutocompleteType {
     EVIDENCE_TYPE = "evidence_type"
 }
 
+export class UniqueAnnotations {
+    aspect: string
+    qualifier: string
+}
 export class AutocompleteFilterArgs {
 
     constructor(autocompleteType = AutocompleteType.TERM) {
