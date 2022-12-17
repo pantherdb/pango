@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { ColumnValueType } from '@panther.common/models/annotation';
+import { pangoData } from '@panther.common/data/config';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Annotation, aspectMap } from '../models/annotation';
+import { Annotation } from '../models/annotation';
 
 
 import { AnnotationService } from '../services/annotation.service';
@@ -14,8 +14,7 @@ import { AnnotationService } from '../services/annotation.service';
   styleUrls: ['./annotation-detail.component.scss']
 })
 export class AnnotationDetailComponent implements OnInit, OnDestroy {
-  ColumnValueType = ColumnValueType
-  aspectMap = aspectMap;
+  aspectMap = pangoData.aspectMap;
 
   @Input('panelDrawer')
   panelDrawer: MatDrawer;

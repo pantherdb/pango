@@ -1,41 +1,6 @@
 import { getColor } from "@panther.common/data/panther-colors";
 import { Gene } from "../../gene/models/gene.model";
 
-export const aspectMap = {
-    'molecular function': {
-        id: 'molecular function',
-        shorthand: 'MF',
-        label: 'Molecular Function',
-        color: getColor('green', 500)
-    },
-    'biological process': {
-        id: 'biological process',
-        shorthand: 'BP',
-        label: 'Biological Process',
-        color: getColor('orange', 500)
-    },
-    'cellular component': {
-        id: 'cellular component',
-        shorthand: 'CC',
-        label: 'Cellular Component',
-        color: getColor('purple', 500)
-    }
-
-
-}
-
-export const evidenceTypeMap = {
-    'direct': {
-        id: 'direct',
-        label: 'direct',
-        color: getColor('green', 500)
-    },
-    'homology': {
-        id: 'homology',
-        label: 'homology',
-        color: getColor('red', 500)
-    },
-}
 
 
 

@@ -6,7 +6,6 @@ import { AnnotationService } from './../services/annotation.service'
 import { AnnotationPage } from '../models/page';
 import { Annotation } from '../models/annotation';
 import { MatPaginator } from '@angular/material/paginator';
-import { ColumnValueType } from '@panther.common/models/annotation';
 import { RightPanel } from '@panther.common/models/menu-panels';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 @Component({
@@ -15,7 +14,6 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./annotation-table-long.component.scss']
 })
 export class AnnotationTableLongComponent implements OnInit, OnDestroy {
-  ColumnValueType = ColumnValueType;
   RightPanel = RightPanel;
   annotationPage: AnnotationPage;
   annotation;

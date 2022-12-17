@@ -6,13 +6,15 @@ import { Client } from 'elasticsearch-browser';
 import { AnnotationPage, Query } from '../models/page';
 import { cloneDeep, find, orderBy, uniqBy } from 'lodash';
 import { SearchCriteria } from '@panther.search/models/search-criteria';
-import { AnnotationCount, AnnotationStats, Bucket, FilterArgs, Annotation, aspectMap, AutocompleteFilterArgs } from '../models/annotation';
+import { AnnotationCount, AnnotationStats, Bucket, FilterArgs, Annotation, AutocompleteFilterArgs } from '../models/annotation';
 import { AnnotationGraphQLService } from './annotation-graphql.service';
+import { pangoData } from '@panther.common/data/config';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AnnotationService {
+    aspectMap = pangoData.aspectMap;
     annotationResultsSize = environment.annotationResultsSize;
     onAnnotationsChanged: BehaviorSubject<AnnotationPage>;
     onAutocompleteChanged: BehaviorSubject<AnnotationPage>;
@@ -250,7 +252,7 @@ export class AnnotationService {
 
         const stats = buckets.map((bucket) => {
             return {
-                name: aspectMap[bucket.key]?.label,
+                name: this.aspectMap[bucket.key]?.label,
                 value: bucket.docCount
             }
         })

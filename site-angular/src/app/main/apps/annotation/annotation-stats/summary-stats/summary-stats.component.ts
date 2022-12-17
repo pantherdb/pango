@@ -1,9 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { pangoData } from '@panther.common/data/config';
 import { getColor } from '@panther.common/data/panther-colors';
 import { SearchFilterType } from '@panther.search/models/search-criteria';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AnnotationStats, aspectMap, Bucket, evidenceTypeMap } from '../../models/annotation';
+import { AnnotationStats } from '../../models/annotation';
 import { AnnotationPage } from '../../models/page';
 import { AnnotationService } from '../../services/annotation.service';
 
@@ -14,7 +15,8 @@ import { AnnotationService } from '../../services/annotation.service';
 })
 export class SummaryStatsComponent implements OnInit, OnDestroy {
 
-  aspectMap = aspectMap
+  aspectMap = pangoData.aspectMap;
+  evidenceTypeMap = pangoData.evidenceTypeMap
   annotationPage: AnnotationPage;
   annotationStats: AnnotationStats;
 
@@ -58,17 +60,17 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
 
 
 
-  customColors = Object.keys(aspectMap).map((aspect) => {
+  customColors = Object.keys(this.aspectMap).map((aspect) => {
     return {
-      name: aspectMap[aspect].label,
-      value: aspectMap[aspect].color,
+      name: this.aspectMap[aspect].label,
+      value: this.aspectMap[aspect].color,
     }
   });
 
-  customEvidenceColors = Object.keys(evidenceTypeMap).map((evidenceType) => {
+  customEvidenceColors = Object.keys(this.evidenceTypeMap).map((evidenceType) => {
     return {
-      name: evidenceTypeMap[evidenceType].id,
-      value: evidenceTypeMap[evidenceType].color,
+      name: this.evidenceTypeMap[evidenceType].id,
+      value: this.evidenceTypeMap[evidenceType].color,
     }
   });
 

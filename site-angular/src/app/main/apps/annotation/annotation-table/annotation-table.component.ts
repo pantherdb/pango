@@ -5,20 +5,18 @@ import { PantherMenuService } from '@panther.common/services/panther-menu.servic
 import { AnnotationService } from './../services/annotation.service'
 import { AnnotationPage } from '../models/page';
 import { MatPaginator } from '@angular/material/paginator';
-import { ColumnValueType } from '@panther.common/models/annotation';
 import { RightPanel } from '@panther.common/models/menu-panels';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { aspectMap } from '../models/annotation';
 import { environment } from 'environments/environment';
+import { pangoData } from '@panther.common/data/config';
 @Component({
   selector: 'panther-annotation-table',
   templateUrl: './annotation-table.component.html',
   styleUrls: ['./annotation-table.component.scss']
 })
 export class AnnotationTableComponent implements OnInit, OnDestroy {
-  ColumnValueType = ColumnValueType;
   RightPanel = RightPanel;
-  aspectMap = aspectMap;
+  aspectMap = pangoData.aspectMap;
   annotationPage: AnnotationPage;
   annotations: any[] = [];
   columns: any[] = [];

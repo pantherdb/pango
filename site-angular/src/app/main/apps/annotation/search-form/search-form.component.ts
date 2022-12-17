@@ -11,6 +11,7 @@ import { AnnotationPage } from '../models/page';
 import { AnnotationService } from '../services/annotation.service';
 import { Annotation, AnnotationStats, AutocompleteFilterArgs, AutocompleteType, Bucket } from '../models/annotation';
 import { SelectionModel } from '@angular/cdk/collections';
+import { PantherDataService } from '@panther.common/services/panther-data.service';
 
 @Component({
   selector: 'panther-search-form',
@@ -29,61 +30,24 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   @ViewChildren('searchInput') searchInput: QueryList<ElementRef>;
   filterForm: FormGroup;
-  selectedOrganism = {};
-  searchFormData: any = [];
+  // searchFormData: any = [];
   separatorKeysCodes: number[] = [ENTER, COMMA];
   annotations: any[] = []
-  columns: any[] = []
+  // columns: any[] = []
 
   terms$: Observable<Annotation[]>;
   slimTerms$: Observable<Annotation[]>;
   evidenceTypes$: Observable<Annotation[]>;
   genes$: Observable<Annotation[]>;
-  aspects$: Observable<Annotation[]>;
-  qualifiers$: Observable<Annotation[]>;
-  withgenes$: Observable<Annotation[]>;
-  references$: Observable<Annotation[]>;
 
   selection = new SelectionModel<Bucket>(true, []);
-
-
-  task = {
-    name: 'Indeterminate',
-    completed: false,
-    color: 'primary',
-    subtasks: [
-      { name: 'Primary', completed: false, color: 'primary' },
-      { name: 'Accent', completed: false, color: 'accent' },
-      { name: 'Warn', completed: false, color: 'warn' },
-    ],
-  };
-
-  allComplete: boolean = false;
-
-  updateAllComplete() {
-    this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
-  }
-
-  someComplete(): boolean {
-    if (this.task.subtasks == null) {
-      return false;
-    }
-    return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
-  }
-
-  setAll(completed: boolean) {
-    this.allComplete = completed;
-    if (this.task.subtasks == null) {
-      return;
-    }
-    this.task.subtasks.forEach(t => (t.completed = completed));
-  }
 
   private _unsubscribeAll: Subject<any>;
 
   constructor(
     private fb: FormBuilder,
     public pantherMenuService: PantherMenuService,
+    public pantherDataService: PantherDataService,
     public annotationService: AnnotationService) {
     this.filterForm = this.createFilterForm();
     this._onValueChanges();
@@ -97,22 +61,19 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     const evidenceTypesFilter = new AutocompleteFilterArgs(AutocompleteType.EVIDENCE_TYPE)
     const slimTermsFilter = new AutocompleteFilterArgs(AutocompleteType.SLIM_TERM)
     const genesFilter = new AutocompleteFilterArgs(AutocompleteType.GENE)
-    const aspectsFilter = new AutocompleteFilterArgs(AutocompleteType.ASPECT)
-    const qualifiersFilter = new AutocompleteFilterArgs(AutocompleteType.QUALIFIER)
-    const withgenesFilter = new AutocompleteFilterArgs(AutocompleteType.WITHGENE)
-    const referencesFilter = new AutocompleteFilterArgs(AutocompleteType.REFERENCE)
 
-
-    this.annotationService.onAnnotationsAggsChanged
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((annotationStats: AnnotationStats) => {
-        if (annotationStats) {
-          this.annotationStats = annotationStats;
-          // this.generateStats()
-        }
-      });
+    this.filterForm.get('aspects')!.valueChanges.pipe(
+      takeUntil(this._unsubscribeAll),
+      distinctUntilChanged(),
+      debounceTime(1000),
+      filter((name) => !!name),
+    ).subscribe((aspect) => {
+      this.annotationService.searchCriteria[SearchFilterType.ASPECTS] = [aspect];
+      this.annotationService.updateSearch();
+    });
 
     this.terms$ = this.filterForm.get('terms')!.valueChanges.pipe(
+      takeUntil(this._unsubscribeAll),
       distinctUntilChanged(),
       debounceTime(1000),
       filter((name) => !!name),
@@ -120,6 +81,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     );
 
     this.slimTerms$ = this.filterForm.get('slimTerms')!.valueChanges.pipe(
+      takeUntil(this._unsubscribeAll),
       distinctUntilChanged(),
       debounceTime(1000),
       filter((name) => !!name),
@@ -127,45 +89,19 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     );
 
     this.genes$ = this.filterForm.get('genes')!.valueChanges.pipe(
+      takeUntil(this._unsubscribeAll),
       distinctUntilChanged(),
       debounceTime(1000),
       filter((name) => !!name),
       switchMap(name => this.annotationService.getAutocompleteQuery(genesFilter, name))
     );
 
-    this.aspects$ = this.filterForm.get('aspects')!.valueChanges.pipe(
-      distinctUntilChanged(),
-      debounceTime(1000),
-      filter((name) => !!name),
-      switchMap(name => this.annotationService.getAutocompleteQuery(aspectsFilter, name))
-    );
-
     this.evidenceTypes$ = this.filterForm.get('evidenceTypes')!.valueChanges.pipe(
+      takeUntil(this._unsubscribeAll),
       distinctUntilChanged(),
       debounceTime(1000),
       filter((name) => !!name),
       switchMap(name => this.annotationService.getAutocompleteQuery(evidenceTypesFilter, name))
-    );
-
-    this.qualifiers$ = this.filterForm.get('qualifiers')!.valueChanges.pipe(
-      distinctUntilChanged(),
-      debounceTime(1000),
-      filter((name) => !!name),
-      switchMap(name => this.annotationService.getAutocompleteQuery(qualifiersFilter, name))
-    );
-
-    this.references$ = this.filterForm.get('references')!.valueChanges.pipe(
-      distinctUntilChanged(),
-      debounceTime(1000),
-      filter((name) => !!name),
-      switchMap(name => this.annotationService.getAutocompleteQuery(referencesFilter, name))
-    );
-
-    this.withgenes$ = this.filterForm.get('withgenes')!.valueChanges.pipe(
-      distinctUntilChanged(),
-      debounceTime(1000),
-      filter((name) => !!name),
-      switchMap(name => this.annotationService.getAutocompleteQuery(withgenesFilter, name))
     );
   }
 
@@ -206,9 +142,6 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       genes: new FormControl(),
       evidenceTypes: new FormControl(),
       aspects: new FormControl(),
-      qualifiers: new FormControl(),
-      withgenes: new FormControl(),
-      references: new FormControl(),
     });
   }
   clear() {
@@ -233,19 +166,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     return gene ? gene.evidenceType : undefined;
   }
 
-  qualifierDisplayFn(gene: Annotation): string | undefined {
-    return gene ? gene.gene : undefined;
-  }
-
   geneDisplayFn(gene: Annotation): string | undefined {
-    return gene ? gene.gene : undefined;
-  }
-
-  referenceDisplayFn(gene: Annotation): string | undefined {
-    return gene ? gene.gene : undefined;
-  }
-
-  withgeneDisplayFn(gene: Annotation): string | undefined {
     return gene ? gene.gene : undefined;
   }
 
