@@ -1,0 +1,252 @@
+@use "@angular/material" as mat;
+.secondary-text,
+.icon,
+i {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.hint-text,
+.disabled-text {
+  color: rgba(0, 0, 0, 0.38);
+}
+
+.divider {
+  color: rgba(0, 0, 0, 0.12);
+}
+
+// Material colors map
+$matColorsMap: (
+  primary: $primary,
+  accent: $accent,
+  warn: $warn,
+  red: mat.$red-palette,
+  pink: mat.$pink-palette,
+  purple: mat.$purple-palette,
+  deep-purple: mat.$deep-purple-palette,
+  indigo: mat.$indigo-palette,
+  blue: mat.$blue-palette,
+  light-blue: mat.$light-blue-palette,
+  cyan: mat.$cyan-palette,
+  teal: mat.$teal-palette,
+  green: mat.$green-palette,
+  light-green: mat.$light-green-palette,
+  lime: mat.$lime-palette,
+  yellow: mat.$yellow-palette,
+  amber: mat.$amber-palette,
+  orange: mat.$orange-palette,
+  deep-orange: mat.$deep-orange-palette,
+  brown: mat.$brown-palette,
+  grey: mat.$grey-palette,
+  blue-grey: mat.$blue-grey-palette,
+  white: $mat-white,
+  black: $mat-black,
+  pango-dark: $mat-pangodark,
+);
+$matColorHues: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, A100, A200, A400,
+  A700;
+
+@mixin generateTextColorLevels($baseTextColor) {
+  @if (rgba(black, 1) ==rgba($baseTextColor, 1)) {
+    i,
+    .icon {
+      color: rgba(0, 0, 0, 0.54);
+    }
+
+    &.secondary-text,
+    .secondary-text {
+      color: rgba(0, 0, 0, 0.54) !important;
+    }
+
+    &.hint-text,
+    .hint-text,
+    &.disabled-text,
+    .disabled-text {
+      color: rgba(0, 0, 0, 0.38) !important;
+    }
+
+    &.divider,
+    .divider {
+      color: rgba(0, 0, 0, 0.12) !important;
+    }
+
+    .mat-ripple-element {
+      background: rgba(0, 0, 0, 0.1);
+    }
+  } @else {
+    i,
+    .icon {
+      color: rgba(255, 255, 255, 1);
+    }
+
+    &.secondary-text,
+    .secondary-text {
+      color: rgba(255, 255, 255, 0.7) !important;
+    }
+
+    &.hint-text,
+    .hint-text,
+    &.disabled-text,
+    .disabled-text {
+      color: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    &.divider,
+    .divider {
+      color: rgba(255, 255, 255, 0.12) !important;
+    }
+
+    .mat-ripple-element {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+@mixin generateMaterialElementColors($contrastColor) {
+  // If the contrast color is white...
+  $pangoForeground: (
+    base: white,
+    text: white,
+    hint-text: rgba(white, 0.5),
+    divider: rgba(white, 0.12),
+  ); // If the contrast color is black...
+
+  @if (rgba(black, 1) ==rgba($contrastColor, 1)) {
+    $pangoForeground: (
+      base: black,
+      hint-text: rgba(black, 0.38),
+      divider: rgba(black, 0.12),
+    );
+  }
+
+  // Native Input
+  input[type="text"] {
+    color: map_get($pangoForeground, base);
+  }
+
+  // Input
+  .mat-form-field-label {
+    color: map_get($pangoForeground, hint-text);
+  }
+
+  .mat-form-field-underline {
+    background-color: map_get($pangoForeground, divider);
+  }
+
+  // Select
+  .mat-select-trigger,
+  .mat-select-arrow {
+    color: map_get($pangoForeground, hint-text);
+  }
+
+  .mat-select-underline {
+    background-color: map_get($pangoForeground, divider);
+  }
+
+  .mat-select-disabled .mat-select-value,
+  .mat-select-arrow,
+  .mat-select-trigger {
+    color: map_get($pangoForeground, hint-text);
+  }
+
+  .mat-select-content,
+  .mat-select-panel-done-animating {
+    background: map_get($background, card);
+  }
+
+  .mat-select-value {
+    color: map_get($pangoForeground, text);
+  }
+}
+
+// Color classes generator mixin
+@mixin generateColorClasses($colorName, $color, $contrastColor, $hue) {
+  .#{"" + $colorName}#{$hue}-bg {
+    background-color: $color !important;
+  }
+
+  .mat-#{"" + $colorName}#{$hue}-bg {
+    background-color: $color !important;
+    color: $contrastColor !important;
+    @include generateTextColorLevels($contrastColor);
+    @include generateMaterialElementColors($contrastColor);
+
+    &[disabled] {
+      background-color: rgba($color, 0.12) !important;
+      color: rgba($contrastColor, 0.26) !important;
+    }
+  }
+
+  .#{"" + $colorName}#{$hue}-fg {
+    color: $color !important;
+    @include generateTextColorLevels($color);
+    @include generateMaterialElementColors($color);
+  }
+
+  .#{"" + $colorName}#{$hue}-border {
+    border-color: $color !important;
+  }
+
+  .#{"" + $colorName}#{$hue}-border-top {
+    border-top-color: $color !important;
+  }
+
+  .#{"" + $colorName}#{$hue}-border-right {
+    border-right-color: $color !important;
+  }
+
+  .#{"" + $colorName}#{$hue}-border-bottom {
+    border-bottom-color: $color !important;
+  }
+
+  .#{"" + $colorName}#{$hue}-border-left {
+    border-left-color: $color !important;
+  }
+}
+
+@mixin generatepangoColorClasses($primary, $accent, $warn) {
+  $colorMap: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  );
+
+  @each $name, $map in $colorMap {
+    @each $hue in $matColorHues {
+      $color: map-get($map, $hue);
+      $contrastColor: map-get(map-get($map, "contrast"), $hue);
+
+      @if ($color !=null and $contrastColor !=null) {
+        @include generateColorClasses(
+          $name,
+          $color,
+          $contrastColor,
+          "-#{$hue}"
+        ); // Run the generator one more time for default values (500)
+
+        @if ($hue==500) {
+          @include generateColorClasses($name, $color, $contrastColor, "");
+        }
+      }
+    }
+  }
+}
+
+@each $colorName, $colorMap in $matColorsMap {
+  @each $hue in $matColorHues {
+    $color: map-get($colorMap, $hue);
+    $contrastColor: map-get(map-get($colorMap, "contrast"), $hue);
+
+    @if ($color !=null and $contrastColor !=null) {
+      @include generateColorClasses(
+        $colorName,
+        $color,
+        $contrastColor,
+        "-#{$hue}"
+      ); // Run the generator one more time for default values (500)
+
+      @if ($hue==500) {
+        @include generateColorClasses($colorName, $color, $contrastColor, "");
+      }
+    }
+  }
+}

@@ -1,20 +1,20 @@
-@import "src/@panther/scss/panther";
-@import "src/@panther.common/scss/panther.common";
+@import "src/@pango/scss/pango";
+@import "src/@pango.common/scss/pango.common";
 
 $primary: map-get($theme, primary);
 $accent: map-get($theme, accent);
 
-.panther-aspect-stats {
+.pango-aspect-stats {
   @include deep-width(250px);
 }
 
-.panther-term-stats {
+.pango-term-stats {
   @include deep-width(300px);
 }
 
-.panther-total-stats {
+.pango-total-stats {
   @include deep-height(120px);
-  .panther-stat-number {
+  .pango-stat-number {
     font-size: 42px;
     line-height: 24px;
     color: map-get($mat-blue-grey, 500);
@@ -26,17 +26,17 @@ $accent: map-get($theme, accent);
   }
 }
 
-.panther-stats-section {
+.pango-stats-section {
   @include mat-elevation(5);
   margin: 12px;
   background-color: #fff;
   overflow: hidden;
 
-  .panther-section-header {
+  .pango-section-header {
     height: 30px;
     background-color: #fff;
 
-    .panther-section-heading {
+    .pango-section-heading {
       padding-left: 12px;
       font-size: 12px;
       line-height: 30px;
@@ -44,23 +44,23 @@ $accent: map-get($theme, accent);
     }
   }
 
-  .panther-section-body {
+  .pango-section-body {
     padding: 4px 8px;
   }
 }
 
-.panther-stat-color {
+.pango-stat-color {
   width: 10px;
   height: 10px;
 }
 
-.panther-stat-heading {
+.pango-stat-heading {
   font-size: 10px;
 }
-.panther-stat-description {
+.pango-stat-description {
   font-size: 10px;
 }
-.panther-stat-number {
+.pango-stat-number {
   font-size: 10px;
   font-weight: bold;
 }

@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { PantherMenuService } from '@panther.common/services/panther-menu.service';
+import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 import { AnnotationService } from './../services/annotation.service'
 import { AnnotationPage } from '../models/page';
 import { Annotation } from '../models/annotation';
 import { MatPaginator } from '@angular/material/paginator';
-import { RightPanel } from '@panther.common/models/menu-panels';
+import { RightPanel } from '@pango.common/models/menu-panels';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 @Component({
-  selector: 'panther-annotation-table-long',
+  selector: 'pango-annotation-table-long',
   templateUrl: './annotation-table-long.component.html',
   styleUrls: ['./annotation-table-long.component.scss']
 })
@@ -51,7 +51,7 @@ export class AnnotationTableLongComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any>;
 
   constructor(
-    public pantherMenuService: PantherMenuService,
+    public pangoMenuService: PangoMenuService,
     public annotationService: AnnotationService
   ) {
     this.loadingIndicator = false;
@@ -91,8 +91,8 @@ export class AnnotationTableLongComponent implements OnInit, OnDestroy {
   }
 
   selectAnnotation() {
-    this.pantherMenuService.selectRightPanel(RightPanel.annotationDetail);
-    this.pantherMenuService.openRightDrawer();
+    this.pangoMenuService.selectRightPanel(RightPanel.annotationDetail);
+    this.pangoMenuService.openRightDrawer();
   }
 
   ngOnDestroy(): void {
@@ -101,23 +101,23 @@ export class AnnotationTableLongComponent implements OnInit, OnDestroy {
   }
 
   openAnnotationSearch() {
-    this.pantherMenuService.selectRightPanel(RightPanel.annotationSearch);
-    this.pantherMenuService.openRightDrawer()
+    this.pangoMenuService.selectRightPanel(RightPanel.annotationSearch);
+    this.pangoMenuService.openRightDrawer()
   }
 
   openAnnotationTable() {
-    this.pantherMenuService.selectRightPanel(RightPanel.annotationTable);
-    this.pantherMenuService.closeRightDrawer()
+    this.pangoMenuService.selectRightPanel(RightPanel.annotationTable);
+    this.pangoMenuService.closeRightDrawer()
   }
 
   openAnnotationSummary() {
-    this.pantherMenuService.selectRightPanel(RightPanel.annotationSummary);
-    this.pantherMenuService.openRightDrawer()
+    this.pangoMenuService.selectRightPanel(RightPanel.annotationSummary);
+    this.pangoMenuService.openRightDrawer()
   }
 
   openAnnotationStats() {
-    this.pantherMenuService.selectRightPanel(RightPanel.annotationStats);
-    this.pantherMenuService.openRightDrawer();
+    this.pangoMenuService.selectRightPanel(RightPanel.annotationStats);
+    this.pangoMenuService.openRightDrawer();
   }
 }
 

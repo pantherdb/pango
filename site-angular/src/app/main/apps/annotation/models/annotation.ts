@@ -1,4 +1,4 @@
-import { getColor } from "@panther.common/data/panther-colors";
+import { getColor } from "@pango.common/data/pango-colors";
 import { Gene } from "../../gene/models/gene.model";
 
 

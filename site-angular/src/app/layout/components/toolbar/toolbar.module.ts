@@ -5,12 +5,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-import { PantherSharedModule } from '@panther/shared.module';
-import { PantherToolbarComponent } from './toolbar.component';
+import { PangoSharedModule } from '@pango/shared.module';
+import { PangoToolbarComponent } from './toolbar.component';
 
 @NgModule({
     declarations: [
-        PantherToolbarComponent
+        PangoToolbarComponent
     ],
     imports: [
         RouterModule,
@@ -19,12 +19,12 @@ import { PantherToolbarComponent } from './toolbar.component';
         MatMenuModule,
         MatProgressBarModule,
         MatToolbarModule,
-        PantherSharedModule,
+        PangoSharedModule,
     ],
     exports: [
-        PantherToolbarComponent
+        PangoToolbarComponent
     ]
 })
 
-export class PantherToolbarModule {
+export class PangoToolbarModule {
 }

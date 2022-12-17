@@ -1,0 +1,34 @@
+@import "src/@pango/scss/pango";
+@import "src/@pango.common/scss/pango.common";
+$primary: map-get($theme, primary);
+$accent: map-get($theme, accent);
+
+:host {
+  @include media-breakpoint("xs") {
+    width: 100%;
+  }
+
+  @include media-breakpoint-up("sm") {
+    width: 600px;
+  }
+
+  .pango-dialog-body {
+    margin: 0;
+    padding: 24px 12px;
+    @include deep-width(100%);
+  }
+
+  .mat-dialog-container {
+    padding: 0;
+  }
+
+  .mat-dialog-content {
+  }
+
+  .dialog-content-wrapper {
+    width: 100%;
+    min-height: 90%;
+    display: flex;
+    flex-direction: column;
+  }
+}

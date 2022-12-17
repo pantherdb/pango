@@ -12,7 +12,7 @@ enum StatsType {
 }
 
 @Component({
-  selector: 'panther-annotation-stats',
+  selector: 'pango-annotation-stats',
   templateUrl: './annotation-stats.component.html',
   styleUrls: ['./annotation-stats.component.scss']
 })

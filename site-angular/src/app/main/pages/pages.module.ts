@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PantherSharedModule } from '@panther/shared.module';
+import { PangoSharedModule } from '@pango/shared.module';
 import { AppsModule } from './../apps/apps.module';
 import { AboutComponent } from './about/about.component';
-import { PantherFooterModule } from 'app/layout/components/footer/footer.module';
+import { PangoFooterModule } from 'app/layout/components/footer/footer.module';
 import { ContactComponent } from './contact/contact.component';
-import { PantherConfirmDialogModule } from '@panther/components/confirm-dialog/confirm-dialog.module';
+import { PangoConfirmDialogModule } from '@pango/components/confirm-dialog/confirm-dialog.module';
 import { GeneComponent } from './gene/gene.component';
 import { HomeComponent } from './home/home.component';
 
@@ -32,9 +32,9 @@ const routes = [{
   ],
   imports: [
     RouterModule.forChild(routes),
-    PantherSharedModule,
-    PantherFooterModule,
-    PantherConfirmDialogModule,
+    PangoSharedModule,
+    PangoFooterModule,
+    PangoConfirmDialogModule,
     AppsModule
   ],
   providers: [

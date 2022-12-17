@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-    selector: 'panther-content',
+    selector: 'pango-content',
     templateUrl: './content.component.html',
     styleUrls: ['./content.component.scss'],
     encapsulation: ViewEncapsulation.None

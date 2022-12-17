@@ -1,0 +1,133 @@
+@use "@angular/material" as mat;
+@import "@angular/material/theming";
+
+// Custom color maps
+$mat-white: (
+  500: white,
+  contrast: (
+    500: $black-87-opacity,
+  ),
+);
+
+$mat-black: (
+  500: black,
+  contrast: (
+    500: white,
+  ),
+);
+
+$mat-pangodark: (
+  50: #e3e6ea,
+  100: #bac1cb,
+  200: #8c98a9,
+  300: #5d6f87,
+  400: #3b506d,
+  500: #183153,
+  600: #152c4c,
+  700: #112542,
+  800: #0e1f39,
+  900: #081329,
+  A100: #6590ff,
+  A200: #326bff,
+  A400: #0047fe,
+  A700: #0040e5,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
+);
+
+$mat-pango-accent: (
+  50: #fdf8e7,
+  100: #f9edc3,
+  200: #f5e19b,
+  300: #f1d572,
+  400: #eecc54,
+  500: #ebc336,
+  600: #e9bd30,
+  700: #e5b529,
+  800: #e2ae22,
+  900: #dda116,
+  A100: #ffffff,
+  A200: #fff3da,
+  A400: #ffe2a7,
+  A700: #ffda8e,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$mat-pangodarker: (
+  50: #e9eeef,
+  100: #c9d5d8,
+  200: #a5b9be,
+  300: #809da4,
+  400: #658891,
+  500: #4a737d,
+  600: #436b75,
+  700: #3a606a,
+  800: #325660,
+  900: #22434d,
+  A100: #92e4ff,
+  A200: #5fd7ff,
+  A400: #2ccaff,
+  A700: #13c4ff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+// Define the Material palettes
+$primary: mat.define-palette($mat-pangodark);
+$accent: mat.define-palette($mat-pango-accent, 600, 400, 700);
+$warn: mat.define-palette(mat.$red-palette);
+
+// Create the Material theme object
+$theme: mat.define-light-theme($primary, $accent, $warn);
+
+// Store the background and foreground colors for easier access
+$background: map-get($theme, background);
+$foreground: map-get($theme, foreground);
+
+// Force the input field font sizes to 16px
+$typography: mat.define-typography-config(
+  $input: mat.define-typography-level(16px, 1.125, 400),
+);

@@ -1,11 +1,11 @@
-<!-- <div class="panther-table-form panther-form-section" fxLayout="column" fxLayoutAlign="start stretch">
-  <div class="panther-section-header" fxLayout="row" fxLayoutAlign="start center">
-    <div class="panther-section-heading">
+<!-- <div class="pango-table-form pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
+  <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
+    <div class="pango-section-heading">
       Number of terms
     </div>
     <span fxFlex></span>
   </div>
-  <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+  <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
     <ngx-charts-bar-vertical-stacked [results]="stats.exists" [view]="existsOptions.view"
       [scheme]="existsOptions.colorScheme" [gradient]="existsOptions.gradient" [xAxis]="existsOptions.showXAxis"
       [yAxis]="existsOptions.showYAxis" [legend]="existsOptions.legend" [showXAxisLabel]="existsOptions.showXAxisLabel"
@@ -15,14 +15,14 @@
     </ngx-charts-bar-vertical-stacked>
   </div>
 </div>-->
-<div class="panther-table-form panther-form-section" fxLayout="column" fxLayoutAlign="start stretch">
-  <div class="panther-section-header" fxLayout="row" fxLayoutAlign="start center">
-    <div class="panther-section-heading">
+<div class="pango-table-form pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
+  <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
+    <div class="pango-section-heading">
       Annotation Values Exist
     </div>
     <span fxFlex></span>
   </div>
-  <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+  <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
     <ngx-charts-pie-chart [results]="stats.existsPie" [view]="existsPieOptions.view"
       [scheme]="existsPieOptions.colorScheme" [gradient]="existsPieOptions.gradient" [legend]="existsPieOptions.legend"
       [maxLabelLength]="existsPieOptions.maxLabelLength" [labels]="existsPieOptions.showLabels"
@@ -32,14 +32,14 @@
 </div>
 
 
-<div class="panther-table-form panther-form-section" fxLayout="column" fxLayoutAlign="start stretch">
-  <div class="panther-section-header" fxLayout="row" fxLayoutAlign="start center">
-    <div class="panther-section-heading">
+<div class="pango-table-form pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
+  <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
+    <div class="pango-section-heading">
       Values Distribution (first 20)
     </div>
     <span fxFlex></span>
   </div>
-  <div class="panther-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+  <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
     <ngx-charts-bar-horizontal [results]="stats.annotationFrequencyBar" [view]="annotationFrequencyBarOptions.view"
       [gradient]="annotationFrequencyBarOptions.gradient" [xAxis]="annotationFrequencyBarOptions.showXAxis"
       [yAxis]="annotationFrequencyBarOptions.showYAxis" [legend]="annotationFrequencyBarOptions.legend"

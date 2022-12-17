@@ -1,21 +1,21 @@
 <div class="w-100-p" fxLayout="row" fxLayoutAlign="start stretch">
   <div class="" fxLayout="column" fxLayoutAlign="start stretch">
-    <div class="panther-stats-section panther-total-stats" fxLayout="column" fxLayoutAlign="start stretch">
-      <div class="panther-section-header" fxLayout="row" fxLayoutAlign="start center">
-        <div class="panther-section-heading">
+    <div class="pango-stats-section pango-total-stats" fxLayout="column" fxLayoutAlign="start stretch">
+      <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
+        <div class="pango-section-heading">
           Annotation Results
         </div>
         <span fxFlex></span>
       </div>
-      <div class="panther-section-body pt-12" fxLayout="row" fxLayoutAlign="start center">
-        <div class="panther-stat-number">
+      <div class="pango-section-body pt-12" fxLayout="row" fxLayoutAlign="start center">
+        <div class="pango-stat-number">
           {{annotationPage?.total ? annotationPage.total: 0}}<br> <small>Annotations</small>
         </div>
       </div>
     </div>
-    <div class="panther-stats-section panther-aspect-stats" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="pango-stats-section pango-aspect-stats" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch">
 
-      <div class="panther-section-body" fxLayout="row" fxLayoutAlign="start center">
+      <div class="pango-section-body" fxLayout="row" fxLayoutAlign="start center">
         <ngx-charts-pie-chart [results]="stats.aspectPie" [view]="aspectPieOptions.view"
           [scheme]="aspectPieOptions.colorScheme" [gradient]="aspectPieOptions.gradient"
           [legend]="aspectPieOptions.legend" [maxLabelLength]="aspectPieOptions.maxLabelLength"
@@ -23,23 +23,23 @@
           (select)="aspectPieOptions.onSelect($event)">
         </ngx-charts-pie-chart>
 
-        <div class="panther-stat" fxLayout="column" fxLayoutAlign="start stretch">
-          <div class="panther-stat-heading mb-12" class="h6"> Annotations By Aspect</div>
+        <div class="pango-stat" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="pango-stat-heading mb-12" class="h6"> Annotations By Aspect</div>
           <div *ngFor="let item of this.annotationStats?.aspectFrequency.buckets" fxLayout="row"
             fxLayoutAlign="start center">
-            <div class="panther-stat-color mr-8" [style]="{'backgroundColor':aspectMap[item.key].color}">
+            <div class="pango-stat-color mr-8" [style]="{'backgroundColor':aspectMap[item.key].color}">
 
             </div>
-            <div class="panther-stat-description mr-8">
+            <div class="pango-stat-description mr-8">
               {{aspectMap[item.key].shorthand}}
             </div>
-            <div class="panther-stat-number">
+            <div class="pango-stat-number">
               {{item.docCount}}
             </div>
           </div>
         </div>
       </div>
-      <div class="panther-section-body" fxLayout="row" fxLayoutAlign="start center">
+      <div class="pango-section-body" fxLayout="row" fxLayoutAlign="start center">
         <ngx-charts-pie-chart [results]="stats.evidenceTypePie" [view]="evidenceTypePieOptions.view"
           [scheme]="evidenceTypePieOptions.colorScheme" [gradient]="evidenceTypePieOptions.gradient"
           [legend]="evidenceTypePieOptions.legend" [maxLabelLength]="evidenceTypePieOptions.maxLabelLength"
@@ -47,17 +47,17 @@
           [customColors]="customEvidenceColors">
         </ngx-charts-pie-chart>
 
-        <div class="panther-stat" fxLayout="column" fxLayoutAlign="start stretch">
-          <div class="panther-stat-heading mb-12" class="h6"> Annotations By Evidence</div>
+        <div class="pango-stat" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="pango-stat-heading mb-12" class="h6"> Annotations By Evidence</div>
           <div *ngFor="let item of this.annotationStats?.evidenceTypeFrequency.buckets" fxLayout="row"
             fxLayoutAlign="start center">
-            <!-- <div class="panther-stat-color mr-8" [style]="{'backgroundColor':qualifierMap[item.key].color}">
+            <!-- <div class="pango-stat-color mr-8" [style]="{'backgroundColor':qualifierMap[item.key].color}">
 
           </div> -->
-            <div class="panther-stat-description mr-8">
+            <div class="pango-stat-description mr-8">
               {{item.key}}
             </div>
-            <div class="panther-stat-number">
+            <div class="pango-stat-number">
               {{item.docCount}}
             </div>
           </div>
@@ -65,15 +65,15 @@
       </div>
     </div>
   </div>
-  <div class="panther-stats-section  panther-referencess-stats h-100-p" fxFlex="" fxLayout="column"
+  <div class="pango-stats-section  pango-referencess-stats h-100-p" fxFlex="" fxLayout="column"
     fxLayoutAlign="start stretch">
-    <div class="panther-section-header" fxLayout="row" fxLayoutAlign="start center">
-      <div class="panther-section-heading">
+    <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
+      <div class="pango-section-heading">
         Slim Terms Distribution (first 20)
       </div>
       <span fxFlex></span>
     </div>
-    <div class="panther-section-body h-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="pango-section-body h-100-p" fxLayout="column" fxLayoutAlign="start stretch">
       <ngx-charts-bar-horizontal [results]="stats.slimTermFrequencyBar" [view]="slimTermFrequencyBarOptions.view"
         [scheme]="slimTermFrequencyBarOptions.colorScheme" [gradient]="slimTermFrequencyBarOptions.gradient"
         [xAxis]="slimTermFrequencyBarOptions.showXAxis" [yAxis]="slimTermFrequencyBarOptions.showYAxis"
@@ -84,14 +84,14 @@
       </ngx-charts-bar-horizontal>
     </div>
   </div>
-  <div class="panther-stats-section  panther-terms-stats h-100-p" fxLayout="column" fxLayoutAlign="start stretch">
-    <div class="panther-section-header" fxLayout="row" fxLayoutAlign="start center">
-      <div class="panther-section-heading">
+  <div class="pango-stats-section  pango-terms-stats h-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
+      <div class="pango-section-heading">
         Terms Distribution (first 20)
       </div>
       <span fxFlex></span>
     </div>
-    <div class="panther-section-body h-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="pango-section-body h-100-p" fxLayout="column" fxLayoutAlign="start stretch">
       <ngx-charts-bar-horizontal [results]="stats.termFrequencyBar" [view]="termFrequencyBarOptions.view"
         [scheme]="termFrequencyBarOptions.colorScheme" [gradient]="termFrequencyBarOptions.gradient"
         [xAxis]="termFrequencyBarOptions.showXAxis" [yAxis]="termFrequencyBarOptions.showYAxis"

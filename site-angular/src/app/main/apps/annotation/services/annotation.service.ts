@@ -5,10 +5,10 @@ import { BehaviorSubject, map, Observable, throwError } from 'rxjs';
 import { Client } from 'elasticsearch-browser';
 import { AnnotationPage, Query } from '../models/page';
 import { cloneDeep, find, orderBy, uniqBy } from 'lodash';
-import { SearchCriteria } from '@panther.search/models/search-criteria';
+import { SearchCriteria } from '@pango.search/models/search-criteria';
 import { AnnotationCount, AnnotationStats, Bucket, FilterArgs, Annotation, AutocompleteFilterArgs } from '../models/annotation';
 import { AnnotationGraphQLService } from './annotation-graphql.service';
-import { pangoData } from '@panther.common/data/config';
+import { pangoData } from '@pango.common/data/config';
 
 @Injectable({
     providedIn: 'root',

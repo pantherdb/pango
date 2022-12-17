@@ -2,7 +2,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { PantherMenuService } from '@panther.common/services/panther-menu.service';
+import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 import { Subject, Observable } from 'rxjs';
 import { startWith, map, takeUntil } from 'rxjs/operators';
 import { AnnotationPage } from '../models/page';
@@ -10,7 +10,7 @@ import { AnnotationService } from '../services/annotation.service';
 import { AnnotationStats, Bucket } from '../models/annotation';
 
 @Component({
-  selector: 'panther-annotation-filters',
+  selector: 'pango-annotation-filters',
   templateUrl: './annotation-filters.component.html',
   styleUrls: ['./annotation-filters.component.scss']
 })
@@ -48,7 +48,7 @@ export class AnnotationFiltersComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    public pantherMenuService: PantherMenuService,
+    public pangoMenuService: PangoMenuService,
     public annotationService: AnnotationService
   ) {
     this._unsubscribeAll = new Subject();
@@ -234,7 +234,7 @@ export class AnnotationFiltersComponent implements OnInit, OnDestroy {
 
     if (canSave) {
     } else {
-      // self.pantherFormDialogService.openActivityErrorsDialog(errors);
+      // self.pangoFormDialogService.openActivityErrorsDialog(errors);
     }
   }
 

@@ -1,0 +1,21 @@
+$pango-border-color: #bbb;
+
+.pango-b {
+  border: 1px solid $pango-border-color !important;
+}
+
+.pango-bl {
+  border-left: 1px solid $pango-border-color !important;
+}
+
+.pango-br {
+  border-right: 1px solid $pango-border-color !important;
+}
+
+.pango-bt {
+  border-top: 1px solid $pango-border-color !important;
+}
+
+.pango-bb {
+  border-bottom: 1px solid $pango-border-color !important;
+}

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDrawer, MatSidenav } from '@angular/material/sidenav';
-import { LeftPanel, MiddlePanel, RightPanel } from '@panther.common/models/menu-panels';
+import { LeftPanel, MiddlePanel, RightPanel } from '@pango.common/models/menu-panels';
 
 
 @Injectable({

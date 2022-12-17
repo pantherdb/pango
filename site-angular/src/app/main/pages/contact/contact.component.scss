@@ -1,18 +1,18 @@
-@import "src/@panther/scss/panther";
-@import "src/@panther.common/scss/panther.common";
+@import "src/@pango/scss/pango";
+@import "src/@pango.common/scss/pango.common";
 
 :host {
-  panther-footer {
+  pango-footer {
     position: absolute;
     right: 0;
     bottom: 0;
     left: 0;
   }
 
-  .panther-section {
+  .pango-section {
     padding: 40px 10px;
 
-    .panther-heading {
+    .pango-heading {
       margin: 0 auto;
       width: 800px;
 
@@ -38,7 +38,7 @@
     }
 
     &.section-2 {
-      background-color: rgba($panther-primary-color, 0.1);
+      background-color: rgba($pango-primary-color, 0.1);
     }
   }
 

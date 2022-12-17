@@ -1,63 +1,63 @@
-@import "src/@panther/scss/panther";
-@import "src/@panther.common/scss/panther.common";
+@import "src/@pango/scss/pango";
+@import "src/@pango.common/scss/pango.common";
 
-$panther-background: map-get($mat-blue-grey, 50);
+$pango-background: map-get($mat-blue-grey, 50);
 
 :host {
   width: 100%;
 
-  .panther-left-drawer {
+  .pango-left-drawer {
     width: 500px;
     border-right: #111 solid 1px;
 
-    .panther-menu-section {
+    .pango-menu-section {
       width: 100%;
     }
   }
 
-  panther-summary-stats {
+  pango-summary-stats {
     display: block;
     //@include deep-height(300px !important);
   }
 
-  panther-search-form {
+  pango-search-form {
     @include deep-width(300px !important);
   }
 
-  panther-annotation-detail {
+  pango-annotation-detail {
     @include deep-width(500px !important);
   }
-  panther-annotation-summary,
-  panther-annotation-stats {
+  pango-annotation-summary,
+  pango-annotation-stats {
     @include deep-width(600px !important);
   }
 }
 
-.panther-section-body {
-  background-color: $panther-background;
+.pango-section-body {
+  background-color: $pango-background;
 }
 
-.panther-middle-panel {
+.pango-middle-panel {
   min-height: 500px;
   border-bottom: 200px;
 }
 
-.panther-search-form {
+.pango-search-form {
   padding: 15px;
   @include deep-width(500px);
 }
 
-.panther-gene-summary {
+.pango-gene-summary {
   padding: 12px;
-  .panther-cell-title {
+  .pango-cell-title {
     font-size: 16px;
   }
 
-  .panther-cell-description {
+  .pango-cell-description {
     color: #777;
     font-weight: bold;
   }
-  .panther-cell-description-2 {
+  .pango-cell-description-2 {
     font-size: 14px;
   }
 }

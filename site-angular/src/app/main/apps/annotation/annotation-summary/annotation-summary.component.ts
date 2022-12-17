@@ -3,13 +3,13 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AnnotationPage } from '../models/page';
 import { AnnotationService } from '../services/annotation.service';
-import { EntityType } from '@panther.common/models/entity-type';
+import { EntityType } from '@pango.common/models/entity-type';
 import { MatDrawer } from '@angular/material/sidenav';
-import { RightPanel } from '@panther.common/models/menu-panels';
-import { PantherMenuService } from '@panther.common/services/panther-menu.service';
+import { RightPanel } from '@pango.common/models/menu-panels';
+import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 
 @Component({
-  selector: 'panther-annotation-summary',
+  selector: 'pango-annotation-summary',
   templateUrl: './annotation-summary.component.html',
   styleUrls: ['./annotation-summary.component.scss']
 })
@@ -30,7 +30,7 @@ export class AnnotationSummaryComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    public pantherMenuService: PantherMenuService,
+    public pangoMenuService: PangoMenuService,
     private annotationService: AnnotationService) {
 
     this._unsubscribeAll = new Subject();
@@ -49,8 +49,8 @@ export class AnnotationSummaryComponent implements OnInit, OnDestroy {
   }
 
   getStats(field) {
-    this.pantherMenuService.selectRightPanel(RightPanel.annotationStats);
-    this.pantherMenuService.openRightDrawer();
+    this.pangoMenuService.selectRightPanel(RightPanel.annotationStats);
+    this.pangoMenuService.openRightDrawer();
   }
 
   close() {

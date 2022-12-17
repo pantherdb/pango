@@ -3,10 +3,10 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { MatDrawer } from '@angular/material/sidenav';
 
-import { PantherMenuService } from '@panther.common/services/panther-menu.service';
-import { LeftPanel, RightPanel } from '@panther.common/models/menu-panels';
+import { PangoMenuService } from '@pango.common/services/pango-menu.service';
+import { LeftPanel, RightPanel } from '@pango.common/models/menu-panels';
 import { AnnotationService } from 'app/main/apps/annotation/services/annotation.service';
-import { SearchCriteria } from '@panther.search/models/search-criteria';
+import { SearchCriteria } from '@pango.search/models/search-criteria';
 import { filter, map } from 'rxjs';
 
 @Component({
@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
     suppressScrollX: true
   }
 
-  constructor(public pantherMenuService: PantherMenuService,
+  constructor(public pangoMenuService: PangoMenuService,
     public annotationService: AnnotationService,
     private route: ActivatedRoute,
     private router: Router) {
@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.annotationService.searchCriteria.clearSearch()
     this.annotationService.updateSearch();
-    this.pantherMenuService.setLeftDrawer(this.leftDrawer);
-    this.pantherMenuService.setRightDrawer(this.rightDrawer);
+    this.pangoMenuService.setLeftDrawer(this.leftDrawer);
+    this.pangoMenuService.setRightDrawer(this.rightDrawer);
   }
 }

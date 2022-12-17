@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { pangoData } from '@panther.common/data/config';
-import { getColor } from '@panther.common/data/panther-colors';
-import { SearchFilterType } from '@panther.search/models/search-criteria';
+import { pangoData } from '@pango.common/data/config';
+import { getColor } from '@pango.common/data/pango-colors';
+import { SearchFilterType } from '@pango.search/models/search-criteria';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AnnotationStats } from '../../models/annotation';
@@ -9,7 +9,7 @@ import { AnnotationPage } from '../../models/page';
 import { AnnotationService } from '../../services/annotation.service';
 
 @Component({
-  selector: 'panther-summary-stats',
+  selector: 'pango-summary-stats',
   templateUrl: './summary-stats.component.html',
   styleUrls: ['./summary-stats.component.scss']
 })

@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-  <title>Panther - Human Functionome</title>
+  <title>Pango - Human Functionome</title>
   <base href="/">
 
   <meta charset="utf-8">
-  <meta name="description" content="PANTHER: Human Functionome">
-  <meta name="keywords" content="Panther Human Functionome, IBA">
+  <meta name="description" content="PANGO: Human Functionome">
+  <meta name="keywords" content="Pango Human Functionome, IBA">
   <meta name="author" content="Tremayne Mushayahama">
   <meta name="version" content="1.0.2">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -18,7 +18,7 @@
 
 
   <style type="text/css">
-    #panther-splash-screen {
+    #pango-splash-screen {
       display: block;
       position: absolute;
       top: 0;
@@ -30,7 +30,7 @@
       pointer-events: none;
     }
 
-    #panther-splash-screen .center {
+    #pango-splash-screen .center {
       display: block;
       width: 100%;
       position: absolute;
@@ -38,16 +38,16 @@
       transform: translateY(-50%);
     }
 
-    #panther-splash-screen .logo {
+    #pango-splash-screen .logo {
       width: 512px !important;
       margin: 0 auto;
     }
 
-    #panther-splash-screen .logo img {
+    #pango-splash-screen .logo img {
       filter: drop-shadow(0px 10px 6px rgba(0, 0, 0, 0.2))
     }
 
-    #panther-splash-screen .spinner-wrapper {
+    #pango-splash-screen .spinner-wrapper {
       display: block;
       position: relative;
       width: 100%;
@@ -55,7 +55,7 @@
       height: 100px;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner {
+    #pango-splash-screen .spinner-wrapper .spinner {
       position: absolute;
       overflow: hidden;
       left: 50%;
@@ -63,14 +63,14 @@
       animation: outer-rotate 2.91667s linear infinite;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner .inner {
+    #pango-splash-screen .spinner-wrapper .spinner .inner {
       width: 100px;
       height: 100px;
       position: relative;
       animation: sporadic-rotate 5.25s cubic-bezier(0.35, 0, 0.25, 1) infinite;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner .inner .gap {
+    #pango-splash-screen .spinner-wrapper .spinner .inner .gap {
       position: absolute;
       left: 49px;
       right: 49px;
@@ -80,8 +80,8 @@
       box-sizing: border-box;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner .inner .left,
-    #panther-splash-screen .spinner-wrapper .spinner .inner .right {
+    #pango-splash-screen .spinner-wrapper .spinner .inner .left,
+    #pango-splash-screen .spinner-wrapper .spinner .inner .right {
       position: absolute;
       top: 0;
       height: 100px;
@@ -89,8 +89,8 @@
       overflow: hidden;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner .inner .left .half-circle,
-    #panther-splash-screen .spinner-wrapper .spinner .inner .right .half-circle {
+    #pango-splash-screen .spinner-wrapper .spinner .inner .left .half-circle,
+    #pango-splash-screen .spinner-wrapper .spinner .inner .right .half-circle {
       position: absolute;
       top: 0;
       width: 100px;
@@ -101,22 +101,22 @@
       border-radius: 50%;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner .inner .left {
+    #pango-splash-screen .spinner-wrapper .spinner .inner .left {
       left: 0;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner .inner .left .half-circle {
+    #pango-splash-screen .spinner-wrapper .spinner .inner .left .half-circle {
       left: 0;
       border-right-color: transparent;
       animation: left-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
       -webkit-animation: left-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner .inner .right {
+    #pango-splash-screen .spinner-wrapper .spinner .inner .right {
       right: 0;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner .inner .right .half-circle {
+    #pango-splash-screen .spinner-wrapper .spinner .inner .right .half-circle {
       right: 0;
       border-left-color: transparent;
       animation: right-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
@@ -194,10 +194,10 @@
 </head>
 
 <body class="">
-  <panther-splash-screen id="panther-splash-screen">
+  <pango-splash-screen id="pango-splash-screen">
     <div class="center">
       <div class="logo">
-        <img src="assets/images/logos/panther-logo.png">
+        <img src="assets/images/logos/pango-logo.png">
       </div>
       <div class="spinner-wrapper">
         <div class="spinner">
@@ -213,8 +213,8 @@
         </div>
       </div>
     </div>
-  </panther-splash-screen>
-  <panther-root></panther-root>
+  </pango-splash-screen>
+  <pango-root></pango-root>
 </body>
 
 </html>

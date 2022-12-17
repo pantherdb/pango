@@ -3,18 +3,18 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDrawer } from '@angular/material/sidenav';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { PantherMenuService } from '@panther.common/services/panther-menu.service';
-import { SearchFilterType } from '@panther.search/models/search-criteria';
+import { PangoMenuService } from '@pango.common/services/pango-menu.service';
+import { SearchFilterType } from '@pango.search/models/search-criteria';
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { AnnotationPage } from '../models/page';
 import { AnnotationService } from '../services/annotation.service';
 import { Annotation, AnnotationStats, AutocompleteFilterArgs, AutocompleteType, Bucket } from '../models/annotation';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PantherDataService } from '@panther.common/services/panther-data.service';
+import { PangoDataService } from '@pango.common/services/pango-data.service';
 
 @Component({
-  selector: 'panther-search-form',
+  selector: 'pango-search-form',
   templateUrl: './search-form.component.html',
   styleUrls: ['./search-form.component.scss'],
 })
@@ -46,8 +46,8 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    public pantherMenuService: PantherMenuService,
-    public pantherDataService: PantherDataService,
+    public pangoMenuService: PangoMenuService,
+    public pangoDataService: PangoDataService,
     public annotationService: AnnotationService) {
     this.filterForm = this.createFilterForm();
     this._onValueChanges();

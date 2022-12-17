@@ -1,4 +1,4 @@
-@import "src/@panther/scss/panther";
+@import "src/@pango/scss/pango";
 
 :host {
   position: relative;
@@ -10,7 +10,7 @@
     color: #222;
   }
 
-  .panther-logo-filler {
+  .pango-logo-filler {
     @include deep-width(50px);
 
     img {
@@ -25,7 +25,7 @@
     color: inherit;
     position: relative;
 
-    .panther-query-buttons {
+    .pango-query-buttons {
       padding: 8px;
       width: 290px;
 
@@ -37,7 +37,7 @@
         font-size: 12px;
         border: map-get($primary, default) solid 1px;
 
-        &.panther-l {
+        &.pango-l {
           // background-color: transparent;
         }
       }
@@ -46,7 +46,7 @@
     mat-toolbar-row {
       @include deep-height(40px);
 
-      &.panther-subtoolbar {
+      &.pango-subtoolbar {
         button {
           margin-right: 8px;
           height: 30px;
@@ -67,10 +67,10 @@
     }
   }
 
-  .panther-logo {
+  .pango-logo {
     //@include deep-width(130px);
-    .panther-main-logo,
-    .panther-sub-logo {
+    .pango-main-logo,
+    .pango-sub-logo {
       cursor: pointer;
       font-size: 20px;
       text-decoration: none !important;
@@ -82,17 +82,17 @@
       }
     }
 
-    .panther-main-logo {
+    .pango-main-logo {
       margin-right: 4px;
       font-weight: bold;
     }
 
-    .panther-sub-logo {
+    .pango-sub-logo {
       font-weight: normal;
     }
   }
 
-  .panther-search-bar {
+  .pango-search-bar {
     max-width: 600px !important;
   }
 }

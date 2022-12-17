@@ -3,11 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { PantherModule } from '@panther/panther.module';
-import { PantherProgressBarModule } from '@panther/components';
+import { PangoModule } from '@pango/pango.module';
+import { PangoProgressBarModule } from '@pango/components';
 
-import { PantherSharedModule } from '@panther/shared.module';
-import { pantherConfig } from './panther-config';
+import { PangoSharedModule } from '@pango/shared.module';
+import { pangoConfig } from './pango-config';
 import { AppComponent } from './app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 
@@ -64,15 +64,15 @@ const appRoutes: Routes = [
         HttpClientJsonpModule,
         RouterModule.forRoot(appRoutes),
 
-        // Panther Main and Shared modules
-        PantherModule.forRoot(pantherConfig),
-        PantherSharedModule,
+        // Pango Main and Shared modules
+        PangoModule.forRoot(pangoConfig),
+        PangoSharedModule,
         LayoutModule,
         RouterModule,
         MatSidenavModule,
-        PantherProgressBarModule,
+        PangoProgressBarModule,
 
-        //Panther App
+        //Pango App
         PagesModule,
         AppsModule
     ],

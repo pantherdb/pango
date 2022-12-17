@@ -6,8 +6,8 @@ import { AnnotationDetailComponent } from './annotation/annotation-detail/annota
 import { AnnotationSummaryComponent } from './annotation/annotation-summary/annotation-summary.component';
 import { GeneralStatsComponent } from './annotation/annotation-stats/general-stats/general-stats.component';
 import { AnnotationStatsComponent } from './annotation/annotation-stats/annotation-stats.component';
-import { PantherSharedModule } from '@panther/shared.module';
-import { PantherConfirmDialogModule } from '@panther/components/confirm-dialog/confirm-dialog.module';
+import { PangoSharedModule } from '@pango/shared.module';
+import { PangoConfirmDialogModule } from '@pango/components/confirm-dialog/confirm-dialog.module';
 import { PositionStatsComponent } from './annotation/annotation-stats/position-stats/position-stats.component';
 import { SearchFormComponent } from './annotation/search-form/search-form.component';
 import { AnnotationFiltersComponent } from './annotation/annotation-filters/annotation-filters.component';
@@ -32,8 +32,8 @@ const routes = [];
     imports: [
         RouterModule.forChild(routes),
         NgxChartsModule,
-        PantherSharedModule,
-        PantherConfirmDialogModule,
+        PangoSharedModule,
+        PangoConfirmDialogModule,
     ],
     exports: [
         AnnotationTableComponent,

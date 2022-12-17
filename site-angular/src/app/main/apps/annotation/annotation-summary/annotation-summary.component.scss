@@ -1,6 +1,6 @@
 @use "@angular/material" as mat;
-@import "src/@panther/scss/panther";
-@import "src/@panther.common/scss/panther.common";
+@import "src/@pango/scss/pango";
+@import "src/@pango.common/scss/pango.common";
 
 $primary: map-get($theme, primary);
 $accent: map-get($theme, accent);
@@ -13,7 +13,7 @@ $accent: map-get($theme, accent);
   background-color: white;
   @include mat.elevation(4);
 
-  .panther-cam-progress {
+  .pango-cam-progress {
     position: absolute;
     top: 0;
     height: 5px;
@@ -22,32 +22,32 @@ $accent: map-get($theme, accent);
     z-index: 1000;
   }
 
-  .panther-drawer {
+  .pango-drawer {
     width: 100%;
 
-    .panther-drawer-body {
+    .pango-drawer-body {
       padding: 24px 24px 100px 0;
       min-height: calc(100% - 30px);
     }
   }
 
-  .panther-tree-container {
+  .pango-tree-container {
     position: relative;
     padding: 12px 8px;
     @include deep-width(100%);
-    .panther-cell-label {
+    .pango-cell-label {
       position: relative;
       @include deep-width(100%);
       @include deep-height(20px);
       padding: 4px 10px 4px 5px;
       font-size: 10px;
       color: map-get($primary, default);
-      border-bottom: $panther-primary-color-light solid 1px;
-      .panther-edit-button {
+      border-bottom: $pango-primary-color-light solid 1px;
+      .pango-edit-button {
       }
     }
 
-    .panther-tree {
+    .pango-tree {
       @include deep-width(100%);
       @include deep-height(100%);
 
@@ -58,47 +58,47 @@ $accent: map-get($theme, accent);
       /*   &::before {
         content: "";
         position: absolute;
-        border-left: 1px solid $panther-tree-line-color;
+        border-left: 1px solid $pango-tree-line-color;
         height: 100%;
         top: 0;
         left: 55px;
       } */
     }
 
-    .panther-tree-node {
+    .pango-tree-node {
       font-size: 12px;
       color: #000;
 
-      .panther-node-expander-button {
+      .pango-node-expander-button {
         @include deep-width(20px);
         @include deep-height(20px);
         line-height: 14px;
         background-color: #ffffff;
       }
 
-      .panther-expander-placeholder {
+      .pango-expander-placeholder {
         @include deep-width(20px);
         @include deep-height(20px);
       }
 
-      .panther-icon-button {
+      .pango-icon-button {
         @include deep-height(25px);
         @include deep-width(25px);
         line-height: 25px;
         color: #aaa;
       }
 
-      .panther-tree-icon {
+      .pango-tree-icon {
         color: #000;
         font-size: 14px;
       }
 
-      .panther-term-row {
+      .pango-term-row {
         padding: 5px;
 
         border-bottom: #6f919b solid 1px;
 
-        .panther-title {
+        .pango-title {
           // font-weight: bold;
           font-size: 12px;
           padding-right: 8px;
@@ -107,12 +107,12 @@ $accent: map-get($theme, accent);
           hyphens: auto;
         }
 
-        .panther-subtitle {
+        .pango-subtitle {
           font-size: 10px;
           color: #777;
         }
 
-        .panther-badge {
+        .pango-badge {
           padding: 0 5px;
           margin: 2px 5px;
           // background-color: #91b995;
@@ -126,15 +126,15 @@ $accent: map-get($theme, accent);
         }
 
         button,
-        .panther-icon {
+        .pango-icon {
           color: #777;
           font-size: 16px;
         }
       }
 
-      .panther-category-row {
+      .pango-category-row {
         //padding-right: 50px;
-        .panther-title {
+        .pango-title {
           // font-weight: bold;
           font-size: 12px;
           //margin-bottom: 5px;
@@ -147,12 +147,12 @@ $accent: map-get($theme, accent);
       }
     }
 
-    &.panther-selected {
+    &.pango-selected {
       background-color: rgba(#6f919b, 0.3);
     }
   }
 
-  .panther-body {
+  .pango-body {
     padding: 0 14px 14px 14px;
   }
 }

@@ -3,7 +3,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
-import { PantherSharedModule } from '@panther/shared.module';
+import { PangoSharedModule } from '@pango/shared.module';
 
 import { QuickPanelComponent } from 'app/layout/components/quick-panel/quick-panel.component';
 
@@ -16,7 +16,7 @@ import { QuickPanelComponent } from 'app/layout/components/quick-panel/quick-pan
         MatListModule,
         MatSlideToggleModule,
 
-        PantherSharedModule,
+        PangoSharedModule,
     ],
     exports: [
         QuickPanelComponent

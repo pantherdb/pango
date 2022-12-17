@@ -1,160 +1,160 @@
 <div *ngIf="annotationPage" class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start start">
-  <!--  <div class="panther-sidemenu" fxLayout="column" fxLayoutAlign="start center">
-    <div class="panther-sidemenu-header" fxLayout="row" fxLayoutAlign="center center">
+  <!--  <div class="pango-sidemenu" fxLayout="column" fxLayoutAlign="start center">
+    <div class="pango-sidemenu-header" fxLayout="row" fxLayoutAlign="center center">
       Tools
     </div>
-    <button mat-icon-button color="" class="panther-rounded-button"
-      [ngClass]="{'panther-active': pantherMenuService.selectedRightPanel === RightPanel.annotationSearch}"
+    <button mat-icon-button color="" class="pango-rounded-button"
+      [ngClass]="{'pango-active': pangoMenuService.selectedRightPanel === RightPanel.annotationSearch}"
       (click)="openAnnotationSearch()" matTooltip="Search and Filter" [matTooltipPosition]="'after'"
       [matTooltipShowDelay]="1500">
       <fa-icon [icon]="['fas', 'filter']"></fa-icon>
-      <div class="panther-label">
+      <div class="pango-label">
         Filter
       </div>
     </button>
-    <button mat-icon-button color="" class="panther-rounded-button"
-      [ngClass]="{'panther-active': pantherMenuService.selectedRightPanel === RightPanel.annotationSummary}"
+    <button mat-icon-button color="" class="pango-rounded-button"
+      [ngClass]="{'pango-active': pangoMenuService.selectedRightPanel === RightPanel.annotationSummary}"
       (click)="openAnnotationSummary()" matTooltip="annotations summary" [matTooltipPosition]="'after'"
       [matTooltipShowDelay]="1500">
       <fa-icon [icon]="['fas', 'list']"></fa-icon>
-      <div class="panther-label">
+      <div class="pango-label">
         Summary
       </div>
     </button>
-    <button mat-icon-button color="" class="panther-rounded-button"
-      [ngClass]="{'panther-active': pantherMenuService.selectedRightPanel === RightPanel.annotationStats}"
+    <button mat-icon-button color="" class="pango-rounded-button"
+      [ngClass]="{'pango-active': pangoMenuService.selectedRightPanel === RightPanel.annotationStats}"
       (click)="openAnnotationStats()" matTooltip="Results Statistics" [matTooltipPosition]="'after'"
       [matTooltipShowDelay]="1500">
       <fa-icon [icon]="['fas', 'chart-bar']"></fa-icon>
-      <div class="panther-label">
+      <div class="pango-label">
         Stats
       </div>
     </button>
   </div> -->
   <div class="w-100-p h-100-p " fxLayout="column" fxLayoutAlign="start streych">
 
-    <table fxFlex="1 1 auto" mat-table [dataSource]="dataSource" class="panther-gene-table">
+    <table fxFlex="1 1 auto" mat-table [dataSource]="dataSource" class="pango-gene-table">
       <ng-container matColumnDef="gene">
-        <th mat-header-cell *matHeaderCellDef class="panther-gene-cell">
+        <th mat-header-cell *matHeaderCellDef class="pango-gene-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
               <div>
                 gene
               </div>
-              <a class="panther-count" (click)="addExistFilter(column)">(20)</a>
+              <a class="pango-count" (click)="addExistFilter(column)">(20)</a>
             </div>
           </div>
         </th>
-        <td mat-cell *matCellDef="let element" class="panther-gene-cell">
+        <td mat-cell *matCellDef="let element" class="pango-gene-cell">
           {{element.gene}}
         </td>
       </ng-container>
       <ng-container matColumnDef="geneSymbol">
-        <th mat-header-cell *matHeaderCellDef class="panther-annotation-symbol-cell">
+        <th mat-header-cell *matHeaderCellDef class="pango-annotation-symbol-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
               <div>
                 Annotation Symbol
               </div>
-              <a class="panther-count" (click)="addExistFilter(column)">(20)</a>
+              <a class="pango-count" (click)="addExistFilter(column)">(20)</a>
             </div>
           </div>
         </th>
-        <td mat-cell *matCellDef="let element" class="panther-annotation-symbol-cell">
+        <td mat-cell *matCellDef="let element" class="pango-annotation-symbol-cell">
           {{element.geneSymbol}}
         </td>
       </ng-container>
       <ng-container matColumnDef="geneName">
-        <th mat-header-cell *matHeaderCellDef class="panther-annotation-name-cell">
+        <th mat-header-cell *matHeaderCellDef class="pango-annotation-name-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
               <div>
                 Annotation Name
               </div>
-              <a class="panther-count" (click)="addExistFilter(column)">(20)</a>
+              <a class="pango-count" (click)="addExistFilter(column)">(20)</a>
             </div>
           </div>
         </th>
-        <td mat-cell *matCellDef="let element" class="panther-annotation-name-cell">
+        <td mat-cell *matCellDef="let element" class="pango-annotation-name-cell">
           {{element.geneName}}
         </td>
       </ng-container>
       <ng-container matColumnDef="qualifier">
-        <th mat-header-cell *matHeaderCellDef class="panther-qualifier-cell">
+        <th mat-header-cell *matHeaderCellDef class="pango-qualifier-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
               <div>
                 Qualifier
               </div>
-              <a class="panther-count" (click)="addExistFilter(column)">(20)</a>
+              <a class="pango-count" (click)="addExistFilter(column)">(20)</a>
             </div>
             <button mat-button color=""
-              class="panther-rounded-button panther-xs mr-4 panther-half-button panther-r ml-12"
+              class="pango-rounded-button pango-xs mr-4 pango-half-button pango-r ml-12"
               (click)="addExistFilter('qualifier')" matTooltip="Filter" [matTooltipPosition]="'after'"
               [matTooltipShowDelay]="1500">
               <fa-icon [icon]="['fas', 'filter']"></fa-icon>
             </button>
-            <button mat-button color="" class="panther-rounded-button  panther-xs mr-4 panther-half-button panther-l"
+            <button mat-button color="" class="pango-rounded-button  pango-xs mr-4 pango-half-button pango-l"
               (click)="getStats('qualifier')" matTooltip="Results Statistics for qualifier"
               [matTooltipPosition]="'after'" [matTooltipShowDelay]="1500">
               <fa-icon [icon]="['fas', 'chart-bar']"></fa-icon>
             </button>
           </div>
         </th>
-        <td mat-cell *matCellDef="let element" class="panther-qualifier-cell">
+        <td mat-cell *matCellDef="let element" class="pango-qualifier-cell">
           {{element.qualifier}}
         </td>
       </ng-container>
       <ng-container matColumnDef="term">
-        <th mat-header-cell *matHeaderCellDef class="panther-term-cell">
+        <th mat-header-cell *matHeaderCellDef class="pango-term-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
               <div>
                 Term
               </div>
-              <a class="panther-count" (click)="addExistFilter(column)">(20)</a>
+              <a class="pango-count" (click)="addExistFilter(column)">(20)</a>
             </div>
             <button mat-button color=""
-              class="panther-rounded-button panther-xs mr-4 panther-half-button panther-r ml-12"
+              class="pango-rounded-button pango-xs mr-4 pango-half-button pango-r ml-12"
               (click)="addExistFilter('term')" matTooltip="Filter" [matTooltipPosition]="'after'"
               [matTooltipShowDelay]="1500">
               <fa-icon [icon]="['fas', 'filter']"></fa-icon>
             </button>
-            <button mat-button color="" class="panther-rounded-button  panther-xs mr-4 panther-half-button panther-l"
+            <button mat-button color="" class="pango-rounded-button  pango-xs mr-4 pango-half-button pango-l"
               (click)="getStats('term')" matTooltip="Results Statistics for term" [matTooltipPosition]="'after'"
               [matTooltipShowDelay]="1500">
               <fa-icon [icon]="['fas', 'chart-bar']"></fa-icon>
             </button>
           </div>
         </th>
-        <td mat-cell *matCellDef="let element" class="panther-term-cell">
+        <td mat-cell *matCellDef="let element" class="pango-term-cell">
           ({{element.term?.id}})
           {{element.term?.label}}
         </td>
       </ng-container>
       <ng-container matColumnDef="slimTerms">
-        <th mat-header-cell *matHeaderCellDef class="panther-slim-terms-cell">
+        <th mat-header-cell *matHeaderCellDef class="pango-slim-terms-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
               <div>
                 Slim Terms
               </div>
-              <a class="panther-count" (click)="addExistFilter(column)">(20)</a>
+              <a class="pango-count" (click)="addExistFilter(column)">(20)</a>
             </div>
             <button mat-button color=""
-              class="panther-rounded-button panther-xs mr-4 panther-half-button panther-r ml-12"
+              class="pango-rounded-button pango-xs mr-4 pango-half-button pango-r ml-12"
               (click)="addExistFilter('term')" matTooltip="Filter" [matTooltipPosition]="'after'"
               [matTooltipShowDelay]="1500">
               <fa-icon [icon]="['fas', 'filter']"></fa-icon>
             </button>
-            <button mat-button color="" class="panther-rounded-button  panther-xs mr-4 panther-half-button panther-l"
+            <button mat-button color="" class="pango-rounded-button  pango-xs mr-4 pango-half-button pango-l"
               (click)="getStats('term')" matTooltip="Results Statistics for term" [matTooltipPosition]="'after'"
               [matTooltipShowDelay]="1500">
               <fa-icon [icon]="['fas', 'chart-bar']"></fa-icon>
             </button>
           </div>
         </th>
-        <td mat-cell *matCellDef="let element" class="panther-slim-terms-cell">
+        <td mat-cell *matCellDef="let element" class="pango-slim-terms-cell">
           <div *ngFor="let item of element.slimTerms">
             ({{item.id}})
             {{item.label}}
@@ -162,54 +162,54 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="aspect">
-        <th mat-header-cell *matHeaderCellDef class="panther-aspect-cell">
+        <th mat-header-cell *matHeaderCellDef class="pango-aspect-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
               <div>
                 Aspect
               </div>
-              <a class="panther-count" (click)="addExistFilter(column)">(20)</a>
+              <a class="pango-count" (click)="addExistFilter(column)">(20)</a>
             </div>
             <button mat-button color=""
-              class="panther-rounded-button panther-xs mr-4 panther-half-button panther-r ml-12"
+              class="pango-rounded-button pango-xs mr-4 pango-half-button pango-r ml-12"
               (click)="addExistFilter('aspect')" matTooltip="Filter" [matTooltipPosition]="'after'"
               [matTooltipShowDelay]="1500">
               <fa-icon [icon]="['fas', 'filter']"></fa-icon>
             </button>
-            <button mat-button color="" class="panther-rounded-button  panther-xs mr-4 panther-half-button panther-l"
+            <button mat-button color="" class="pango-rounded-button  pango-xs mr-4 pango-half-button pango-l"
               (click)="getStats('aspect')" matTooltip="Results Statistics for aspect" [matTooltipPosition]="'after'"
               [matTooltipShowDelay]="1500">
               <fa-icon [icon]="['fas', 'chart-bar']"></fa-icon>
             </button>
           </div>
         </th>
-        <td mat-cell *matCellDef="let element" class="panther-aspect-cell">
+        <td mat-cell *matCellDef="let element" class="pango-aspect-cell">
           {{element.aspect}}
         </td>
       </ng-container>
       <ng-container matColumnDef="evidence">
-        <th mat-header-cell *matHeaderCellDef class="panther-evidence-cell">
+        <th mat-header-cell *matHeaderCellDef class="pango-evidence-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
               <div>
                 Evidence
               </div>
-              <a class="panther-count" (click)="addExistFilter(column)">(20)</a>
+              <a class="pango-count" (click)="addExistFilter(column)">(20)</a>
             </div>
             <button mat-button color=""
-              class="panther-rounded-button panther-xs mr-4 panther-half-button panther-r ml-12"
+              class="pango-rounded-button pango-xs mr-4 pango-half-button pango-r ml-12"
               (click)="addExistFilter('evidence')" matTooltip="Filter" [matTooltipPosition]="'after'"
               [matTooltipShowDelay]="1500">
               <fa-icon [icon]="['fas', 'filter']"></fa-icon>
             </button>
-            <button mat-button color="" class="panther-rounded-button  panther-xs mr-4 panther-half-button panther-l"
+            <button mat-button color="" class="pango-rounded-button  pango-xs mr-4 pango-half-button pango-l"
               (click)="getStats('evidence')" matTooltip="Results Statistics for evidence" [matTooltipPosition]="'after'"
               [matTooltipShowDelay]="1500">
               <fa-icon [icon]="['fas', 'chart-bar']"></fa-icon>
             </button>
           </div>
         </th>
-        <td mat-cell *matCellDef="let element" class="panther-evidence-cell">
+        <td mat-cell *matCellDef="let element" class="pango-evidence-cell">
           <div *ngFor="let item of element.evidence">
             ({{item.withGeneId}})
             <div *ngFor="let reference of item.references">
@@ -219,50 +219,50 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="group">
-        <th mat-header-cell *matHeaderCellDef class="panther-group-cell">
+        <th mat-header-cell *matHeaderCellDef class="pango-group-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
               <div>
                 Aspect
               </div>
-              <a class="panther-count" (click)="addExistFilter(column)">(20)</a>
+              <a class="pango-count" (click)="addExistFilter(column)">(20)</a>
             </div>
             <button mat-button color=""
-              class="panther-rounded-button panther-xs mr-4 panther-half-button panther-r ml-12"
+              class="pango-rounded-button pango-xs mr-4 pango-half-button pango-r ml-12"
               (click)="addExistFilter('group')" matTooltip="Filter" [matTooltipPosition]="'after'"
               [matTooltipShowDelay]="1500">
               <fa-icon [icon]="['fas', 'filter']"></fa-icon>
             </button>
-            <button mat-button color="" class="panther-rounded-button  panther-xs mr-4 panther-half-button panther-l"
+            <button mat-button color="" class="pango-rounded-button  pango-xs mr-4 pango-half-button pango-l"
               (click)="getStats('group')" matTooltip="Results Statistics for group" [matTooltipPosition]="'after'"
               [matTooltipShowDelay]="1500">
               <fa-icon [icon]="['fas', 'chart-bar']"></fa-icon>
             </button>
           </div>
         </th>
-        <td mat-cell *matCellDef="let element" class="panther-group-cell">
+        <td mat-cell *matCellDef="let element" class="pango-group-cell">
           {{element.group}}
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'panther-row-selected': false}"
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'pango-row-selected': false}"
         (click)="selectAnnotation(row)"></tr>
     </table>
-    <mat-paginator *ngIf="annotationPage?.total>0" class="panther-paginator panther-drawer-footer" #paginator
+    <mat-paginator *ngIf="annotationPage?.total>0" class="pango-paginator pango-drawer-footer" #paginator
       [length]="annotationPage.total" [pageIndex]="annotationPage.pageNumber" [pageSize]="annotationPage.size"
       (page)="pageEvent = $event; setPage($event)">
     </mat-paginator>
   </div>
 
 </div>
-<div *ngIf="annotationService.loading" class="panther-loading-container" fxLayout="column"
+<div *ngIf="annotationService.loading" class="pango-loading-container" fxLayout="column"
   fxLayoutAlign="center center">
   <mat-progress-spinner class="example-margin" [color]="loadingSpinner.color" [mode]="loadingSpinner.mode">
   </mat-progress-spinner>
 </div>
 
 <div *ngIf="!annotationPage" class="w-100-p h-100-p" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch">
-  <div class="panther-no-info">
+  <div class="pango-no-info">
     No Results
   </div>
 </div>

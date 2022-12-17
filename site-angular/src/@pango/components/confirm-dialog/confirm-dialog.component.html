@@ -1,0 +1,27 @@
+<div class="dialog-content-wrapper pango-dialog" fxLayout="column" fxLayoutAlign="start stretch">
+  <div class="m-0 pango-dialog-header" fxLayout="row" fxLayoutAlign="start center">
+    <span class="pango-dialog-header-title">
+      {{title}}</span>
+    <span fxFlex></span>
+    <button mat-stroked-button (click)="cancel()" class="pango-rounded-button pango-sm" aria-label="Close dialog">
+      <mat-icon>close</mat-icon> Close
+    </button>
+  </div>
+  <div mat-dialog-content class="pango-dialog-body">
+    {{message}}
+  </div>
+  <div *ngIf="!readonlyDialog" mat-dialog-actions class="m-0 p-16 pango-dialog-footer" fxLayout="row"
+    fxLayoutAlign="space-between center">
+    <span fxFlex></span>
+    <button (click)='cancel()' type="button" mat-raised-button color="" class="mr-8">
+      {{cancelLabel}}</button>
+    <button (click)="confirm()" type="button" mat-raised-button color="primary">
+      {{confirmLabel}}
+    </button>
+  </div>
+  <div *ngIf="readonlyDialog" mat-dialog-actions class="m-0 p-16 pango-dialog-footer" fxLayout="row"
+    fxLayoutAlign="space-between center">
+    <span fxFlex></span>
+    <button (click)='cancel()' type="button" mat-raised-button color="" class="">Close</button>
+  </div>
+</div>

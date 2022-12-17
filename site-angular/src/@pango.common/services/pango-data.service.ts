@@ -1,0 +1,45 @@
+import { Injectable } from '@angular/core';
+import { pangoData } from '@pango.common/data/config';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PangoDataService {
+  aspectMap = pangoData.aspectMap;
+  evidenceTypeMap = pangoData.evidenceTypeMap
+
+  constructor() {
+
+  }
+
+  get aspectOption() {
+    const options = [
+      {
+        id: 'all',
+        label: 'All',
+      },
+      this.aspectMap['molecular function'],
+      this.aspectMap['biological process'],
+      this.aspectMap['cellular component']
+    ];
+
+    return {
+      options: options,
+      selected: options[0]
+    };
+  }
+
+  get evidenceTypeOption() {
+    const options = [
+      this.evidenceTypeMap.direct,
+      this.evidenceTypeMap.homology
+    ];
+
+    return {
+      options: options,
+      selected: options[0]
+    };
+  }
+
+
+}

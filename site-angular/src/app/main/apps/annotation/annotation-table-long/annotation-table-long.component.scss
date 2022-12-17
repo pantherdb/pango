@@ -1,12 +1,12 @@
 @use "@angular/material" as mat;
-@import "src/@panther/scss/panther";
-@import "src/@panther.common/scss/panther.common";
+@import "src/@pango/scss/pango";
+@import "src/@pango.common/scss/pango.common";
 
 $primary: map-get($theme, primary);
 $accent: map-get($theme, accent);
 
 :host {
-  .panther-sidemenu {
+  .pango-sidemenu {
     padding: 0;
     @include deep-height(100%);
     @include deep-width(60px);
@@ -14,7 +14,7 @@ $accent: map-get($theme, accent);
     border-right: #999 solid 1px;
     background-color: #55407a;
 
-    .panther-sidemenu-header {
+    .pango-sidemenu-header {
       width: 100%;
       padding: 0 5px;
       margin-bottom: 20px;
@@ -24,7 +24,7 @@ $accent: map-get($theme, accent);
       color: #fff;
     }
 
-    .panther-label {
+    .pango-label {
       text-transform: uppercase;
       font-size: 8px;
       font-weight: bold;
@@ -40,7 +40,7 @@ $accent: map-get($theme, accent);
       // color: rgba(map-get($primary, default), 0.5);
       color: #ddd;
 
-      &.panther-active {
+      &.pango-active {
         font-size: 28px;
         color: map-get($primary, default);
         color: #fff;
@@ -48,7 +48,7 @@ $accent: map-get($theme, accent);
     }
   }
 
-  .panther-annotation-table {
+  .pango-annotation-table {
     @include deep-width(100%);
     .mat-header-cell {
       padding: 0 10px;
@@ -60,7 +60,7 @@ $accent: map-get($theme, accent);
     .mat-header-row {
       background-color: #fff;
       @include deep-height(30px);
-      border-bottom: $panther-primary-color-light solid 1px;
+      border-bottom: $pango-primary-color-light solid 1px;
       z-index: 10;
     }
 
@@ -70,29 +70,29 @@ $accent: map-get($theme, accent);
       // align-items: center;
       padding: 8px;
       font-size: 10px;
-      &.panther-annotation-cell {
+      &.pango-annotation-cell {
         @include deep-width(150px);
       }
 
-      &.panther-annotation-symbol-cell {
+      &.pango-annotation-symbol-cell {
         @include deep-width(60px);
       }
 
-      &.panther-annotation-name-cell {
+      &.pango-annotation-name-cell {
         @include deep-width(300px);
       }
 
-      &.panther-term-cell {
+      &.pango-term-cell {
         padding-right: 12px;
         font-size: 12px;
         @include deep-width(200px);
       }
 
-      &.panther-slim-terms-cell {
+      &.pango-slim-terms-cell {
         @include deep-width(400px);
       }
 
-      &.panther-aspect-cell {
+      &.pango-aspect-cell {
         @include deep-width(150px);
 
         mat-chip {
@@ -102,35 +102,35 @@ $accent: map-get($theme, accent);
           font-weight: bold;
           padding: 2px;
           &.F {
-            border: $panther-mf solid 1px;
-            color: darken($panther-mf, 10%);
+            border: $pango-mf solid 1px;
+            color: darken($pango-mf, 10%);
           }
 
           &.P {
-            border: $panther-bp solid 1px;
-            color: darken($panther-bp, 10%);
+            border: $pango-bp solid 1px;
+            color: darken($pango-bp, 10%);
           }
 
           &.C {
-            border: $panther-cc solid 1px;
-            color: darken($panther-cc, 10%);
+            border: $pango-cc solid 1px;
+            color: darken($pango-cc, 10%);
           }
         }
       }
 
-      &.panther-qualifier-cell {
+      &.pango-qualifier-cell {
         @include deep-width(100px);
       }
 
-      &.panther-group-cell {
+      &.pango-group-cell {
         @include deep-width(150px);
       }
 
-      &.panther-evidence-cell {
+      &.pango-evidence-cell {
         @include deep-width(300px);
       }
 
-      &.panther-reference-cell {
+      &.pango-reference-cell {
         @include deep-width(100px);
       }
     }
@@ -140,15 +140,15 @@ $accent: map-get($theme, accent);
     }
   }
 
-  .panther-table-menu-row {
+  .pango-table-menu-row {
     height: 60px;
   }
 
-  .panther-drawer {
+  .pango-drawer {
     @include deep-width(calc(100% - 61px));
   }
 
-  .panther-drawer-body {
+  .pango-drawer-body {
     @include deep-height(calc(100% - 90px));
     overflow: auto;
   }
@@ -174,7 +174,7 @@ $accent: map-get($theme, accent);
     font-weight: bold;
     border-right: #aaa solid 1px;
 
-    .panther-rounded-button {
+    .pango-rounded-button {
       padding: 0px 8px;
       font-size: 10px;
       color: rgba(#0000ee, 0.6);
@@ -186,7 +186,7 @@ $accent: map-get($theme, accent);
       }
     }
 
-    .panther-count {
+    .pango-count {
       font-weight: normal;
       cursor: pointer;
     }
@@ -200,9 +200,9 @@ $accent: map-get($theme, accent);
     position: -webkit-sticky;
     top: 0;
     z-index: 1;
-    background-color: $panther-primary-color-light; // font-size: 3px !important;
+    background-color: $pango-primary-color-light; // font-size: 3px !important;
     white-space: nowrap;
-    .panther-action-button {
+    .pango-action-button {
       padding: 0 !important;
       @include deep-height(35px!important);
       @include deep-width(35px!important);
@@ -210,7 +210,7 @@ $accent: map-get($theme, accent);
     }
   }
 
-  .panther-loading-container {
+  .pango-loading-container {
     background-color: rgba(#555, 0.4);
     position: absolute;
     top: 0;
@@ -220,7 +220,7 @@ $accent: map-get($theme, accent);
     z-index: 1000;
   }
 
-  .panther-form-section {
+  .pango-form-section {
     width: 100%;
     background-color: #fff;
 
@@ -228,24 +228,24 @@ $accent: map-get($theme, accent);
       display: none;
     }
 
-    .panther-section-header {
+    .pango-section-header {
       height: 30px;
-      background-color: $panther-primary-color-light;
+      background-color: $pango-primary-color-light;
 
-      .panther-section-heading {
+      .pango-section-heading {
         padding-left: 8px;
         font-size: 12px;
         line-height: 40px;
         color: #555;
       }
 
-      .panther-action-button {
+      .pango-action-button {
         margin: 0px;
         height: 40px; // line-height: 36px;
       }
     }
 
-    .panther-section-body {
+    .pango-section-body {
       padding: 5px 5px;
     }
   }

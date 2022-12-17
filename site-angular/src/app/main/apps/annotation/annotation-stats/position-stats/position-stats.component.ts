@@ -1,12 +1,12 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { getColor } from '@panther.common/data/panther-colors';
+import { getColor } from '@pango.common/data/pango-colors';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AnnotationStats } from '../../models/annotation';
 import { AnnotationService } from '../../services/annotation.service';
 
 @Component({
-  selector: 'panther-position-stats',
+  selector: 'pango-position-stats',
   templateUrl: './position-stats.component.html',
   styleUrls: ['./position-stats.component.scss']
 })

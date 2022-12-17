@@ -1,13 +1,13 @@
-@import "src/@panther/scss/panther";
-@import "src/@panther.common/scss/panther.common";
+@import "src/@pango/scss/pango";
+@import "src/@pango.common/scss/pango.common";
 
 :host {
   footer {
     padding: 30px 8px;
-    background-color: $panther-primary-color;
+    background-color: $pango-primary-color;
     color: #f7f7f7;
 
-    .panther-image-logo {
+    .pango-image-logo {
       width: 100%;
     }
 

@@ -1,7 +1,7 @@
 @use "@angular/material" as mat;
-@import "src/@panther/scss/panther";
+@import "src/@pango/scss/pango";
 
-#panther-main {
+#pango-main {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -23,7 +23,7 @@
         height: auto !important;
       }
 
-      #panther-main-content {
+      #pango-main-content {
         display: flex;
         flex: 1;
         flex-direction: column;
@@ -41,7 +41,7 @@
             flex: 1;
             overflow: hidden;
 
-            panther-content {
+            pango-content {
               position: relative;
               display: flex;
               flex: 1;
@@ -49,7 +49,9 @@
               width: 100%;
               overflow: hidden;
 
-              > *:not(router-outlet):not(.ps__scrollbar-x-rail):not(.ps__scrollbar-y-rail) {
+              > *:not(router-outlet):not(.ps__scrollbar-x-rail):not(
+                  .ps__scrollbar-y-rail
+                ) {
                 display: flex;
                 flex: 1;
                 width: 100%;
@@ -68,7 +70,7 @@
     }
   }
 
-  &[panther-layout-mode="boxed"] {
+  &[pango-layout-mode="boxed"] {
     max-width: 1200px;
     margin: 0 auto;
     @include mat.elevation(8);

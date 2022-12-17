@@ -2,8 +2,8 @@ import { environment } from 'environments/environment';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { AnnotationPage, Query } from '../models/page';
-import { SearchCriteria } from '@panther.search/models/search-criteria';
-import { PantherGraphQLService } from '@panther.search/services/graphql.service';
+import { SearchCriteria } from '@pango.search/models/search-criteria';
+import { PangoGraphQLService } from '@pango.search/services/graphql.service';
 import { AnnotationCount, AnnotationStats, Annotation, AutocompleteFilterArgs, AutocompleteType } from '../models/annotation';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class AnnotationGraphQLService {
     annotationPage: AnnotationPage = new AnnotationPage();
 
     constructor(
-        private pantherGraphQLService: PantherGraphQLService) {
+        private pangoGraphQLService: PangoGraphQLService) {
 
         this.searchCriteria = new SearchCriteria();
 
@@ -71,7 +71,7 @@ export class AnnotationGraphQLService {
             }`
         }
 
-        return this.pantherGraphQLService.query(options).pipe(
+        return this.pangoGraphQLService.query(options).pipe(
             map((response: any) => {
                 return response.annotations.map(annotation => {
                     return annotation
@@ -93,7 +93,7 @@ export class AnnotationGraphQLService {
             }`
         }
 
-        return this.pantherGraphQLService.query(options).pipe(
+        return this.pangoGraphQLService.query(options).pipe(
             map((response: any) => {
                 return response.annotationsCount as AnnotationCount
             }));
@@ -123,7 +123,7 @@ export class AnnotationGraphQLService {
             }`
         }
 
-        return this.pantherGraphQLService.query(options).pipe(
+        return this.pangoGraphQLService.query(options).pipe(
             map((response: any) => {
                 return response.autocomplete.map(annotation => {
                     return annotation
@@ -147,7 +147,7 @@ export class AnnotationGraphQLService {
             }`
         }
 
-        return this.pantherGraphQLService.query(options).pipe(
+        return this.pangoGraphQLService.query(options).pipe(
             map((response: any) => {
                 return response.autocomplete.map(annotation => {
                     return annotation
@@ -193,7 +193,7 @@ export class AnnotationGraphQLService {
             }`
         }
 
-        return this.pantherGraphQLService.query(options).pipe(
+        return this.pangoGraphQLService.query(options).pipe(
             map((response: any) => {
                 return response.stats as AnnotationStats;
             }));

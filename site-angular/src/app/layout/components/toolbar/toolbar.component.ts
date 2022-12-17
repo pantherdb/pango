@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, ActivatedRoute } from '@angular/router';
 
-import { PantherConfigService } from '@panther/services/config.service';
+import { PangoConfigService } from '@pango/services/config.service';
 
 @Component({
-    selector: 'panther-toolbar',
+    selector: 'pango-toolbar',
     templateUrl: './toolbar.component.html',
     styleUrls: ['./toolbar.component.scss']
 })
 
-export class PantherToolbarComponent {
+export class PangoToolbarComponent {
     userStatusOptions: any[];
     languages: any;
     selectedLanguage: any;
@@ -22,7 +22,7 @@ export class PantherToolbarComponent {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private pantherConfig: PantherConfigService,
+        private pangoConfig: PangoConfigService,
     ) {
         this.languages = [{
             'id': 'en',

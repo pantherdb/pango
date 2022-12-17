@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute } from '@angular/router';
-import { RightPanel, LeftPanel } from '@panther.common/models/menu-panels';
-import { PantherMenuService } from '@panther.common/services/panther-menu.service';
+import { RightPanel, LeftPanel } from '@pango.common/models/menu-panels';
+import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 import { Annotation } from 'app/main/apps/annotation/models/annotation';
 import { AnnotationPage } from 'app/main/apps/annotation/models/page';
 import { AnnotationService } from 'app/main/apps/annotation/services/annotation.service';
@@ -62,7 +62,7 @@ export class GeneComponent implements OnInit, OnDestroy {
 
 
   constructor(private route: ActivatedRoute,
-    public pantherMenuService: PantherMenuService,
+    public pangoMenuService: PangoMenuService,
     public annotationService: AnnotationService) {
     this._unsubscribeAll = new Subject();
     this.route
@@ -79,8 +79,8 @@ export class GeneComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.pantherMenuService.setLeftDrawer(this.leftDrawer);
-    this.pantherMenuService.setRightDrawer(this.rightDrawer);
+    this.pangoMenuService.setLeftDrawer(this.leftDrawer);
+    this.pangoMenuService.setRightDrawer(this.rightDrawer);
 
     this.annotationService.onAnnotationsChanged
       .pipe(takeUntil(this._unsubscribeAll))

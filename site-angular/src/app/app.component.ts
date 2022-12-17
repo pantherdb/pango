@@ -4,28 +4,28 @@ import { Platform } from '@angular/cdk/platform';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { PantherConfigService } from '@panther/services/config.service';
-import { PantherSplashScreenService } from '@panther/services/splash-screen.service';
+import { PangoConfigService } from '@pango/services/config.service';
+import { PangoSplashScreenService } from '@pango/services/splash-screen.service';
 
 
 @Component({
-    selector: 'panther-root',
+    selector: 'pango-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit, OnDestroy {
-    pantherConfig: any;
+    pangoConfig: any;
     navigation: any;
 
     private _unsubscribeAll: Subject<any>;
 
 
     constructor(
-        private pantherSplashScreen: PantherSplashScreenService,
+        private pangoSplashScreen: PangoSplashScreenService,
         private _renderer: Renderer2,
         private _elementRef: ElementRef,
-        private pantherConfigService: PantherConfigService,
+        private pangoConfigService: PangoConfigService,
         private platform: Platform,
         @Inject(DOCUMENT) private document: any
     ) {
@@ -39,10 +39,10 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.pantherConfigService.config
+        this.pangoConfigService.config
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((config) => {
-                this.pantherConfig = config;
+                this.pangoConfig = config;
             });
     }
 
