@@ -37,7 +37,6 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   terms$: Observable<Annotation[]>;
   slimTerms$: Observable<Annotation[]>;
-  evidenceTypes$: Observable<Annotation[]>;
   genes$: Observable<Annotation[]>;
 
   selection = new SelectionModel<Bucket>(true, []);
@@ -96,13 +95,15 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       switchMap(name => this.annotationService.getAutocompleteQuery(genesFilter, name))
     );
 
-    this.evidenceTypes$ = this.filterForm.get('evidenceTypes')!.valueChanges.pipe(
+    this.filterForm.get('evidenceTypes')!.valueChanges.pipe(
       takeUntil(this._unsubscribeAll),
       distinctUntilChanged(),
       debounceTime(1000),
       filter((name) => !!name),
-      switchMap(name => this.annotationService.getAutocompleteQuery(evidenceTypesFilter, name))
-    );
+    ).subscribe((evidenceType) => {
+      this.annotationService.searchCriteria[SearchFilterType.EVIDENCE_TYPES] = [evidenceType];
+      this.annotationService.updateSearch();
+    });
   }
 
   ngOnDestroy(): void {

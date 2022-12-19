@@ -165,8 +165,8 @@ export class AnnotationService {
             query.filterArgs.termIds.push(annotation.term.id);
         });
 
-        this.searchCriteria.evidenceTypes.forEach((annotation: Annotation) => {
-            query.filterArgs.evidenceTypeIds.push(annotation.evidenceType);
+        this.searchCriteria.evidenceTypes.forEach((evidenceType: string) => {
+            query.filterArgs.evidenceTypeIds.push(evidenceType);
         });
 
         this.searchCriteria.slimTerms.forEach((annotation: Annotation) => {

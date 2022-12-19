@@ -97,6 +97,13 @@
           </div>
         </div>
 
+        <mat-radio-group fxFlex="135px" formControlName="evidenceTypes" fxLayout="column" fxLayoutAlign="start start">
+          <mat-radio-button *ngFor="let evidenceType of pangoDataService.evidenceTypeOption.options"
+            class="noc-radio-button-rounded mb-8" [value]="evidenceType.id">
+            {{evidenceType.label}}
+          </mat-radio-button>
+        </mat-radio-group>
+
         <!--   <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="pango-activity-term-row" fxLayout="column">
             <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p">
@@ -134,44 +141,6 @@
           </div>
         </div>
         -->
-        <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
-          <div class="pango-activity-term-row" fxLayout="column">
-            <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p">
-              <mat-label>Filter by Evidence Type</mat-label>
-              <mat-chip-list #evidenceTypeChipList>
-                <mat-chip class="pango-form-chip"
-                  *ngFor="let evidenceType of annotationService.searchCriteria.evidenceTypes" [selectable]="true"
-                  [removable]="true" (removed)="remove(evidenceType, SearchFilterType.EVIDENCE_TYPES)" fxLayout="row"
-                  fxLayoutAlign="start center" matTooltip="evidenceType: {{evidenceType.evidenceType}})"
-                  [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
-                  <div fxFlex="" class="pango-chip-label">
-                    {{evidenceType.evidenceType}}
-                  </div>
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-                <input #searchInput formControlName="evidenceTypes" placeholder="Add evidenceType Filter"
-                  [matAutocomplete]="evidenceTypeAuto" [matChipInputFor]="evidenceTypeChipList"
-                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
-              </mat-chip-list>
-              <mat-autocomplete #evidenceTypeAuto="matAutocomplete"
-                (optionSelected)="selected($event, SearchFilterType.EVIDENCE_TYPES)"
-                [displayWith]="evidenceTypeDisplayFn" class="pango-term-autocomplete">
-                <mat-option class="pango-term-autocomplete" *ngFor="let item of evidenceTypes$ | async"
-                  [value]="item">
-                  <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
-                    <div class="pango-term-label">
-                      {{ item.evidenceType }}
-                    </div>
-                    <span fxFlex></span>
-                    <div class="pango-term-id">
-                      ({{ item.count }})
-                    </div>
-                  </div>
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </div>
-        </div>
       </div>
     </div>
   </div>
