@@ -187,6 +187,10 @@ export class AnnotationGraphQLService {
                         buckets {
                           docCount
                           key
+                          meta {
+                            id
+                            label
+                          }
                         }
                       }
                   }

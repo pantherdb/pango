@@ -2,7 +2,6 @@
   class="pango-drawer h-100-p">
   <div class="pango-drawer-body pango-filter-form" pangoPerfectScrollbar>
     <div class="pango-table-form pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
-
       <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
         <h2 class="text-center">Filter By</h2>
         <div class="pango-alert alert-info text-center" fxLayout="column" fxLayoutAlign="start stretch">
@@ -11,50 +10,6 @@
         <button class="pango-rounded-button pango-xs" (click)="clear()" color="accent" type="button" mat-button>
           Clear Filters
         </button>
-
-        <mat-radio-group fxFlex="135px" formControlName="aspects" fxLayout="column" fxLayoutAlign="start start">
-          <mat-radio-button *ngFor="let aspect of pangoDataService.aspectOption.options"
-            class="noc-radio-button-rounded mb-8" [value]="aspect.id">
-            {{aspect.label}}
-          </mat-radio-button>
-        </mat-radio-group>
-
-
-        <div class=" pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
-          <div class="pango-activity-term-row" fxLayout="column">
-            <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p">
-              <mat-label>Filter by Term</mat-label>
-              <mat-chip-list #termChipList>
-                <mat-chip class="pango-form-chip" *ngFor="let term of annotationService.searchCriteria.terms"
-                  [selectable]="true" [removable]="true" (removed)="remove(term, SearchFilterType.TERMS)" fxLayout="row"
-                  fxLayoutAlign="start center" matTooltip="Term: {{term.term.id}} ({{term.term.label}})"
-                  [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
-                  <div fxFlex="" class="pango-chip-label">
-                    {{term.term.label}}
-                  </div>
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-                <input #searchInput formControlName="terms" placeholder="Add Term Filter" [matAutocomplete]="termAuto"
-                  [matChipInputFor]="termChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                  [matChipInputAddOnBlur]="false">
-              </mat-chip-list>
-              <mat-autocomplete #termAuto="matAutocomplete" (optionSelected)="selected($event, SearchFilterType.TERMS)"
-                [displayWith]="termDisplayFn" class="pango-term-autocomplete">
-                <mat-option class="pango-term-autocomplete" *ngFor="let item of terms$ | async" [value]="item">
-                  <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
-                    <div class="pango-term-label">
-                      {{ item.term.label }}
-                    </div>
-                    <span fxFlex></span>
-                    <div class="pango-term-id">
-                      ({{ item.term.id }})
-                    </div>
-                  </div>
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </div>
-        </div>
         <div *ngIf="options && !options.hideGeneSearch" class="pango-section-body" fxLayout="column"
           fxLayoutAlign="start stretch">
           <div class="pango-activity-term-row" fxLayout="column">
@@ -97,12 +52,64 @@
           </div>
         </div>
 
-        <mat-radio-group fxFlex="135px" formControlName="evidenceTypes" fxLayout="column" fxLayoutAlign="start start">
-          <mat-radio-button *ngFor="let evidenceType of pangoDataService.evidenceTypeOption.options"
-            class="noc-radio-button-rounded mb-8" [value]="evidenceType.id">
-            {{evidenceType.label}}
-          </mat-radio-button>
-        </mat-radio-group>
+
+        <div class=" pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="pango-activity-term-row" fxLayout="column">
+            <mat-radio-group fxFlex="135px" formControlName="evidenceTypes" fxLayout="column"
+              fxLayoutAlign="start start">
+              <mat-radio-button *ngFor="let evidenceType of pangoDataService.evidenceTypeOption.options"
+                class="noc-radio-button-rounded mb-8" [value]="evidenceType.id">
+                {{evidenceType.label}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+        <div class=" pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="pango-activity-term-row" fxLayout="column">
+            <mat-radio-group fxFlex="135px" formControlName="aspects" fxLayout="column" fxLayoutAlign="start start">
+              <mat-radio-button *ngFor="let aspect of pangoDataService.aspectOption.options"
+                class="noc-radio-button-rounded mb-8" [value]="aspect.id">
+                {{aspect.label}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="pango-activity-term-row" fxLayout="column">
+            <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p">
+              <mat-label>Filter by Term</mat-label>
+              <mat-chip-list #termChipList>
+                <mat-chip class="pango-form-chip" *ngFor="let term of annotationService.searchCriteria.terms"
+                  [selectable]="true" [removable]="true" (removed)="remove(term, SearchFilterType.TERMS)" fxLayout="row"
+                  fxLayoutAlign="start center" matTooltip="Term: {{term.term.id}} ({{term.term.label}})"
+                  [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
+                  <div fxFlex="" class="pango-chip-label">
+                    {{term.term.label}}
+                  </div>
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input #searchInput formControlName="terms" placeholder="Add Term Filter" [matAutocomplete]="termAuto"
+                  [matChipInputFor]="termChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="false">
+              </mat-chip-list>
+              <mat-autocomplete #termAuto="matAutocomplete" (optionSelected)="selected($event, SearchFilterType.TERMS)"
+                [displayWith]="termDisplayFn" class="pango-term-autocomplete">
+                <mat-option class="pango-term-autocomplete" *ngFor="let item of terms$ | async" [value]="item">
+                  <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                    <div class="pango-term-label">
+                      {{ item.term.label }}
+                    </div>
+                    <span fxFlex></span>
+                    <div class="pango-term-id">
+                      ({{ item.term.id }})
+                    </div>
+                  </div>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
 
         <!--   <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="pango-activity-term-row" fxLayout="column">
