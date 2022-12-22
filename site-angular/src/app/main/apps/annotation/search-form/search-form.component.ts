@@ -61,6 +61,14 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     const slimTermsFilter = new AutocompleteFilterArgs(AutocompleteType.SLIM_TERM)
     const genesFilter = new AutocompleteFilterArgs(AutocompleteType.GENE)
 
+    this.annotationService.onAnnotationsAggsChanged
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((annotationStats: AnnotationStats) => {
+        if (annotationStats) {
+          this.annotationStats = annotationStats;
+        }
+      });
+
     this.filterForm.get('aspects')!.valueChanges.pipe(
       takeUntil(this._unsubscribeAll),
       distinctUntilChanged(),
@@ -104,6 +112,8 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       this.annotationService.searchCriteria[SearchFilterType.EVIDENCE_TYPES] = [evidenceType];
       this.annotationService.updateSearch();
     });
+
+    // this.annotationStats.slimTermFrequency?.buckets
   }
 
   ngOnDestroy(): void {

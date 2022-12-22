@@ -261,7 +261,7 @@ export class AnnotationService {
         return sorted
     }
 
-    buildAnnotationBar(buckets: Bucket[], max = 10) {
+    buildAnnotationBar(buckets: Bucket[], max = 10, limit = 20) {
 
         const stats = buckets.map((bucket) => {
             return {
@@ -280,7 +280,7 @@ export class AnnotationService {
         }
 
         const sorted = orderBy(stats, ['value'], ['desc'])
-        return sorted
+        return sorted.slice(0, limit)
     }
 
 

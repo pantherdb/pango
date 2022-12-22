@@ -111,6 +111,27 @@
           </div>
         </div>
 
+
+        <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="pango-activity-term-row" fxLayout="column">
+            <div *ngFor="let item of annotationStats?.slimTermFrequency.buckets">
+              <div class="w-100-p" fxLayout="column" fxLayoutAlign="start start">
+                <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                  <div class="pango-gene-label">
+                    {{ item.meta.label }}
+                  </div>
+                  <span fxFlex></span>
+                  <div class="pango-gene-id">
+                    ({{ item.meta.id }})
+                  </div>
+                </div>
+                <div class="pango-gene-description w-100-p">
+                  ({{ item.docCount }})
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <!--   <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="pango-activity-term-row" fxLayout="column">
             <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p">

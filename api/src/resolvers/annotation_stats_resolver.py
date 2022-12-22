@@ -33,9 +33,9 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
              "size": 20
           }
         },
-        "slim_term_frequency": get_slim_terms_query()
-        
+        "slim_term_frequency": get_slim_terms_query()        
     }
+
     resp = await es.search(
           index=settings.PANTHER_ANNOTATIONS_INDEX,
           filter_path ='took,hits.total.value,aggregations',
@@ -77,7 +77,7 @@ def get_slim_terms_query():
               "terms": {
                  "field": "slim_terms.label.keyword",
                  "order":{"_count":"desc"},
-                 "size": 20
+                 "size": 200
               },
               "aggs": {
                 "docs": {
@@ -99,9 +99,10 @@ def get_response_meta(bucket):
    results = [hit for hit in bucket.get('hits', {}).get('hits', [])]
 
    if len(results) > 0:
-      return Entity(id=results[0]["_source"]["id"], label=results[0]["_source"]["id"])
+      return Entity(id=results[0]["_source"]["id"], label=results[0]["_source"]["label"])
 
    return None
+
 
 async def main():
     results = await get_annotations_stats()

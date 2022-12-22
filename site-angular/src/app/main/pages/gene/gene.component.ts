@@ -50,11 +50,10 @@ export class GeneComponent implements OnInit, OnDestroy {
 
   tableOptions = {
     displayedColumns: [
-      'qualifier',
       'term',
       'slimTerms',
       'evidence',
-      'group'
+      'summary'
     ]
   }
 
