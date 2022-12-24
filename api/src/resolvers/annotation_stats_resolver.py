@@ -83,7 +83,7 @@ def get_slim_terms_query():
                 "docs": {
                   "top_hits": {
                     "_source":   { 
-                    "includes": ["slim_terms.id", "slim_terms.label"]
+                    "includes": ["slim_terms.id", "slim_terms.label", "slim_terms.aspect"]
                     },
                     "size": 1
                   }
@@ -99,7 +99,10 @@ def get_response_meta(bucket):
    results = [hit for hit in bucket.get('hits', {}).get('hits', [])]
 
    if len(results) > 0:
-      return Entity(id=results[0]["_source"]["id"], label=results[0]["_source"]["label"])
+      return Entity(
+        id=results[0]["_source"]["id"], 
+        label=results[0]["_source"]["label"], 
+        aspect=results[0]["_source"]["aspect"])
 
    return None
 

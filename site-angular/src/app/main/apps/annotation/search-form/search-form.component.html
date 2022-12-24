@@ -112,22 +112,22 @@
         </div>
 
 
-        <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
-          <div class="pango-activity-term-row" fxLayout="column">
-            <div *ngFor="let item of annotationStats?.slimTermFrequency.buckets">
-              <div class="w-100-p" fxLayout="column" fxLayoutAlign="start start">
-                <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
-                  <div class="pango-gene-label">
-                    {{ item.meta.label }}
-                  </div>
-                  <span fxFlex></span>
-                  <div class="pango-gene-id">
-                    ({{ item.meta.id }})
-                  </div>
+        <div class="pango-section-body pango-terms-cell" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="pango-activity-term-row " fxLayout="column">
+            <div *ngFor="let item of annotationStats?.slimTermFrequency.buckets" class="w-100-p pango-term-cell"
+              fxLayout="row" fxLayoutAlign="start center">
+              <div class="w-100-p" fxFlex="" fxLayout="column" fxLayoutAlign="start start">
+                <div class="pango-cell-title w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                  {{item.meta.id}}
+                  <mat-chip class="noc-chip-xs ml-8 noc-aspect {{aspectMap[item.meta.aspect]?.shorthand}}"
+                    fxLayout="column" fxLayoutAlign="center center">
+                    <span>{{aspectMap[item.meta.aspect]?.shorthand}}</span>
+                  </mat-chip>
                 </div>
-                <div class="pango-gene-description w-100-p">
-                  ({{ item.docCount }})
-                </div>
+                <div class="w-100-p pango-cell-description"> {{item.meta.label}}</div>
+              </div>
+              <div class="pango-cell-count">
+                ({{ item.docCount }})
               </div>
             </div>
           </div>

@@ -12,6 +12,7 @@ import { AnnotationService } from '../services/annotation.service';
 import { Annotation, AnnotationStats, AutocompleteFilterArgs, AutocompleteType, Bucket } from '../models/annotation';
 import { SelectionModel } from '@angular/cdk/collections';
 import { PangoDataService } from '@pango.common/services/pango-data.service';
+import { pangoData } from '@pango.common/data/config';
 
 @Component({
   selector: 'pango-search-form',
@@ -33,7 +34,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   // searchFormData: any = [];
   separatorKeysCodes: number[] = [ENTER, COMMA];
   annotations: any[] = []
-  // columns: any[] = []
+  aspectMap = pangoData.aspectMap;
 
   terms$: Observable<Annotation[]>;
   slimTerms$: Observable<Annotation[]>;
@@ -57,7 +58,6 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const termsFilter = new AutocompleteFilterArgs(AutocompleteType.TERM)
-    const evidenceTypesFilter = new AutocompleteFilterArgs(AutocompleteType.EVIDENCE_TYPE)
     const slimTermsFilter = new AutocompleteFilterArgs(AutocompleteType.SLIM_TERM)
     const genesFilter = new AutocompleteFilterArgs(AutocompleteType.GENE)
 

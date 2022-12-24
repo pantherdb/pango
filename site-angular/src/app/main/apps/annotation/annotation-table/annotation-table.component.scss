@@ -50,7 +50,8 @@ $accent: map-get($theme, accent);
 
   .pango-annotation-table {
     @include deep-width(100%);
-    @include mat-elevation(5);
+    //@include mat-elevation(5);
+    border: $pango-border;
 
     .pango-direct {
       background-color: #e6faf3;

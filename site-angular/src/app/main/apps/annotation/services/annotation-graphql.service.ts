@@ -7,28 +7,28 @@ import { PangoGraphQLService } from '@pango.search/services/graphql.service';
 import { AnnotationCount, AnnotationStats, Annotation, AutocompleteFilterArgs, AutocompleteType } from '../models/annotation';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class AnnotationGraphQLService {
-    annotationResultsSize = environment.annotationResultsSize;
+  annotationResultsSize = environment.annotationResultsSize;
 
-    onSearchCriteriaChanged: BehaviorSubject<any>;
-    searchCriteria: SearchCriteria;
-    annotationPage: AnnotationPage = new AnnotationPage();
+  onSearchCriteriaChanged: BehaviorSubject<any>;
+  searchCriteria: SearchCriteria;
+  annotationPage: AnnotationPage = new AnnotationPage();
 
-    constructor(
-        private pangoGraphQLService: PangoGraphQLService) {
+  constructor(
+    private pangoGraphQLService: PangoGraphQLService) {
 
-        this.searchCriteria = new SearchCriteria();
+    this.searchCriteria = new SearchCriteria();
 
-    }
+  }
 
-    getAnnotationsQuery(query: Query): Observable<any> {
-        const options = {
-            variables: {
-                filterArgs: query.filterArgs
-            },
-            query: `query GetAnnotations($filterArgs: AnnotationFilterArgs) {
+  getAnnotationsQuery(query: Query): Observable<any> {
+    const options = {
+      variables: {
+        filterArgs: query.filterArgs
+      },
+      query: `query GetAnnotations($filterArgs: AnnotationFilterArgs) {
                 annotations(filterArgs:$filterArgs) {
                     gene
                     geneName
@@ -69,48 +69,48 @@ export class AnnotationGraphQLService {
                                                          
                   }
             }`
-        }
-
-        return this.pangoGraphQLService.query(options).pipe(
-            map((response: any) => {
-                return response.annotations.map(annotation => {
-                    return annotation
-                }) as Annotation[];
-            }));
     }
 
+    return this.pangoGraphQLService.query(options).pipe(
+      map((response: any) => {
+        return response.annotations.map(annotation => {
+          return annotation
+        }) as Annotation[];
+      }));
+  }
 
-    getAnnotationsCountQuery(query: Query): Observable<any> {
 
-        const options = {
-            variables: {
-                filterArgs: query.filterArgs
-            },
-            query: `query GetAnnotationsCount($filterArgs: AnnotationFilterArgs) {
+  getAnnotationsCountQuery(query: Query): Observable<any> {
+
+    const options = {
+      variables: {
+        filterArgs: query.filterArgs
+      },
+      query: `query GetAnnotationsCount($filterArgs: AnnotationFilterArgs) {
                 annotationsCount(filterArgs:$filterArgs) {
                     total                                     
                   }
             }`
-        }
-
-        return this.pangoGraphQLService.query(options).pipe(
-            map((response: any) => {
-                return response.annotationsCount as AnnotationCount
-            }));
-
     }
 
-    getUniqueListGraphQL(query: Query): Observable<Annotation[]> {
-        const aspectFilter = new AutocompleteFilterArgs(AutocompleteType.ASPECT)
-        const qualifierFilter = new AutocompleteFilterArgs(AutocompleteType.QUALIFIER)
-        const options = {
-            variables: {
-                filterArgs: query.filterArgs,
-                autocompleteType: aspectFilter.autocompleteType,
-                qualifierAutocompleteType: qualifierFilter.autocompleteType,
-                keyword: ""
-            },
-            query: `query GetAutocomplete($autocompleteType:AutocompleteType!,
+    return this.pangoGraphQLService.query(options).pipe(
+      map((response: any) => {
+        return response.annotationsCount as AnnotationCount
+      }));
+
+  }
+
+  getUniqueListGraphQL(query: Query): Observable<Annotation[]> {
+    const aspectFilter = new AutocompleteFilterArgs(AutocompleteType.ASPECT)
+    const qualifierFilter = new AutocompleteFilterArgs(AutocompleteType.QUALIFIER)
+    const options = {
+      variables: {
+        filterArgs: query.filterArgs,
+        autocompleteType: aspectFilter.autocompleteType,
+        qualifierAutocompleteType: qualifierFilter.autocompleteType,
+        keyword: ""
+      },
+      query: `query GetAutocomplete($autocompleteType:AutocompleteType!,
                 $qualifierAutocompleteType:AutocompleteType!,
                  $keyword: String!,
                  $filterArgs: AnnotationFilterArgs) {
@@ -121,49 +121,49 @@ export class AnnotationGraphQLService {
                     ${qualifierFilter.getAutocompleteFields()}                                                  
                  }
             }`
-        }
-
-        return this.pangoGraphQLService.query(options).pipe(
-            map((response: any) => {
-                return response.autocomplete.map(annotation => {
-                    return annotation
-                }) as Annotation[];
-            }));
-
     }
 
-    getAutocompleteQuery(query: Query, filter: AutocompleteFilterArgs, keyword: string): Observable<Annotation[]> {
-        const options = {
-            variables: {
-                filterArgs: query.filterArgs,
-                autocompleteType: filter.autocompleteType,
-                keyword
+    return this.pangoGraphQLService.query(options).pipe(
+      map((response: any) => {
+        return response.autocomplete.map(annotation => {
+          return annotation
+        }) as Annotation[];
+      }));
 
-            },
-            query: `query GetAutocomplete($autocompleteType:AutocompleteType!, $keyword: String!, $filterArgs: AnnotationFilterArgs) {
+  }
+
+  getAutocompleteQuery(query: Query, filter: AutocompleteFilterArgs, keyword: string): Observable<Annotation[]> {
+    const options = {
+      variables: {
+        filterArgs: query.filterArgs,
+        autocompleteType: filter.autocompleteType,
+        keyword
+
+      },
+      query: `query GetAutocomplete($autocompleteType:AutocompleteType!, $keyword: String!, $filterArgs: AnnotationFilterArgs) {
                 autocomplete(autocompleteType:$autocompleteType, keyword:$keyword, filterArgs:$filterArgs) {
                 ${filter.getAutocompleteFields()}                                                  
                 }
             }`
-        }
-
-        return this.pangoGraphQLService.query(options).pipe(
-            map((response: any) => {
-                return response.autocomplete.map(annotation => {
-                    return annotation
-                }) as Annotation[];
-            }));
-
     }
 
-    getAnnotationsAggsQuery(query: Query): Observable<any> {
-        const self = this;
+    return this.pangoGraphQLService.query(options).pipe(
+      map((response: any) => {
+        return response.autocomplete.map(annotation => {
+          return annotation
+        }) as Annotation[];
+      }));
 
-        const options = {
-            variables: {
-                filterArgs: query.filterArgs
-            },
-            query: `query GetAnnotationsStats($filterArgs: AnnotationFilterArgs) {
+  }
+
+  getAnnotationsAggsQuery(query: Query): Observable<any> {
+    const self = this;
+
+    const options = {
+      variables: {
+        filterArgs: query.filterArgs
+      },
+      query: `query GetAnnotationsStats($filterArgs: AnnotationFilterArgs) {
                     stats(filterArgs:$filterArgs) {
                       termFrequency {
                         buckets {
@@ -189,20 +189,21 @@ export class AnnotationGraphQLService {
                           key
                           meta {
                             id
+                            aspect
                             label
                           }
                         }
                       }
                   }
             }`
-        }
-
-        return this.pangoGraphQLService.query(options).pipe(
-            map((response: any) => {
-                return response.stats as AnnotationStats;
-            }));
-
     }
+
+    return this.pangoGraphQLService.query(options).pipe(
+      map((response: any) => {
+        return response.stats as AnnotationStats;
+      }));
+
+  }
 
 
 }

@@ -10,7 +10,7 @@
   .pango-drawer {
     // @include deep-width(300px);
     min-height: calc(100% - 40px);
-    @include mat-elevation(5);
+    // @include mat-elevation(5);
     background-color: $pango-background;
   }
 
@@ -34,6 +34,51 @@
 
     mat-icon {
       @include pango-icon-size(18px);
+    }
+  }
+
+  .pango-terms-cell {
+    mat-chip {
+      text-align: center;
+      @include deep-height(18px);
+      @include deep-width(18px);
+      font-size: 8px;
+      font-weight: bold;
+      padding: 2px;
+      &.MF {
+        border: $pango-mf solid 1px;
+        color: darken($pango-mf, 10%);
+      }
+
+      &.BP {
+        border: $pango-bp solid 1px;
+        color: darken($pango-bp, 10%);
+      }
+
+      &.CC {
+        border: $pango-cc solid 1px;
+        color: darken($pango-cc, 10%);
+      }
+    }
+
+    .pango-term-cell {
+      padding: 8px 0;
+      border-bottom: #bbb solid 1px;
+    }
+
+    .pango-cell-title {
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .pango-cell-description {
+      color: #777;
+    }
+
+    .pango-cell-count {
+      @include deep-width(50px);
+      font-size: 10px;
+      text-align: right;
     }
   }
 

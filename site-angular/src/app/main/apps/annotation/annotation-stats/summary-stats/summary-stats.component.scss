@@ -27,10 +27,11 @@ $accent: map-get($theme, accent);
 }
 
 .pango-stats-section {
-  @include mat-elevation(5);
+  //@include mat-elevation(5);
   margin: 12px;
   background-color: #fff;
   overflow: hidden;
+  border: $pango-border;
 
   .pango-section-header {
     height: 30px;

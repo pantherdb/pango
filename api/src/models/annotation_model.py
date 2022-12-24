@@ -20,6 +20,7 @@ class AutocompleteType(Enum):
 class Entity :
     id: str
     label: str
+    aspect: str
 
 
 @strawberry.type

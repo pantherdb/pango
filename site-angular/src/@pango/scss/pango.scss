@@ -5,6 +5,8 @@ $pango-mf: #7cd488;
 $pango-bp: #f4c89c;
 $pango-cc: #d3b5f5;
 
+$pango-border: #aaa solid 1px;
+
 @mixin deep-width($number) {
   width: $number;
   min-width: $number;
@@ -83,7 +85,8 @@ textarea {
   &.pango-white {
     .mat-form-field-wrapper {
       background-color: #fff;
-      @include mat-elevation(5);
+      //@include mat-elevation(5);
+      border: $pango-border;
     }
   }
 }
