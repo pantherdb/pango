@@ -14,10 +14,6 @@ export class PangoDataService {
 
   get aspectOption() {
     const options = [
-      {
-        id: 'all',
-        label: 'All',
-      },
       this.aspectMap['molecular function'],
       this.aspectMap['biological process'],
       this.aspectMap['cellular component']

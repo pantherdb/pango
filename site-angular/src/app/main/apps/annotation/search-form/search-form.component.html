@@ -1,7 +1,7 @@
 <form fxLayout="column" fxLayoutAlign="start stretch" name="filterForm" [formGroup]="filterForm"
   class="pango-drawer h-100-p">
   <div class="pango-drawer-body pango-filter-form" pangoPerfectScrollbar>
-    <div class="pango-table-form pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="pango-table-form" fxLayout="column" fxLayoutAlign="start stretch">
       <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
         <h2 class="text-center">Filter By</h2>
         <div class="pango-alert alert-info text-center" fxLayout="column" fxLayoutAlign="start stretch">
@@ -10,51 +10,74 @@
         <button class="pango-rounded-button pango-xs" (click)="clear()" color="accent" type="button" mat-button>
           Clear Filters
         </button>
-        <div *ngIf="options && !options.hideGeneSearch" class="pango-section-body" fxLayout="column"
-          fxLayoutAlign="start stretch">
-          <div class="pango-activity-term-row" fxLayout="column">
-            <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p">
-              <mat-label>Filter by Gene</mat-label>
-              <mat-chip-list #geneChipList>
-                <mat-chip class="pango-form-chip" *ngFor="let gene of annotationService.searchCriteria.genes"
-                  [selectable]="true" [removable]="true" (removed)="remove(gene, SearchFilterType.GENES)" fxLayout="row"
-                  fxLayoutAlign="start center" matTooltip="gene: {{gene.gene}} ({{gene.geneName}})"
-                  [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
-                  <div fxFlex="" class="pango-chip-label">
-                    {{gene.geneSymbol}}
-                  </div>
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-                <input #genesInput formControlName="genes" placeholder="Add gene Filter" [matAutocomplete]="geneAuto"
-                  [matChipInputFor]="geneChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                  [matChipInputAddOnBlur]="false">
-              </mat-chip-list>
-              <mat-autocomplete #geneAuto="matAutocomplete" (optionSelected)="selected($event, SearchFilterType.GENES)"
-                [displayWith]="geneDisplayFn" class="pango-gene-autocomplete">
-                <mat-option class="pango-term-autocomplete" *ngFor="let item of genes$ | async" [value]="item">
-                  <div class="w-100-p" fxLayout="column" fxLayoutAlign="start start">
-                    <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
-                      <div class="pango-gene-label">
-                        {{ item.gene }}
+
+        <div class="pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
+            <div class="pango-section-heading">
+              <h3>Gene Product</h3>
+            </div>
+            <span fxFlex></span>
+          </div>
+
+          <div *ngIf="options && !options.hideGeneSearch" class="pango-section-body" fxLayout="column"
+            fxLayoutAlign="start stretch">
+
+            <div class="pango-activity-term-row" fxLayout="column">
+              <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p">
+                <mat-label>Filter by Gene</mat-label>
+                <mat-chip-list #geneChipList>
+                  <mat-chip class="pango-form-chip" *ngFor="let gene of annotationService.searchCriteria.genes"
+                    [selectable]="true" [removable]="true" (removed)="remove(gene, SearchFilterType.GENES)"
+                    fxLayout="row" fxLayoutAlign="start center" matTooltip="gene: {{gene.gene}} ({{gene.geneName}})"
+                    [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
+                    <div fxFlex="" class="pango-chip-label">
+                      {{gene.geneSymbol}}
+                    </div>
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                  <input #genesInput formControlName="genes" placeholder="Add gene Filter" [matAutocomplete]="geneAuto"
+                    [matChipInputFor]="geneChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="false">
+                </mat-chip-list>
+                <mat-autocomplete #geneAuto="matAutocomplete"
+                  (optionSelected)="selected($event, SearchFilterType.GENES)" [displayWith]="geneDisplayFn"
+                  class="pango-gene-autocomplete">
+                  <mat-option class="pango-term-autocomplete" *ngFor="let item of genes$ | async" [value]="item">
+                    <div class="w-100-p" fxLayout="column" fxLayoutAlign="start start">
+                      <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                        <div class="pango-gene-label">
+                          {{ item.gene }}
+                        </div>
+                        <span fxFlex></span>
+                        <div class="pango-gene-id">
+                          ({{ item.geneSymbol }})
+                        </div>
                       </div>
-                      <span fxFlex></span>
-                      <div class="pango-gene-id">
-                        ({{ item.geneSymbol }})
+                      <div class="pango-gene-description w-100-p">
+                        ({{ item.geneName }})
                       </div>
                     </div>
-                    <div class="pango-gene-description w-100-p">
-                      ({{ item.geneName }})
-                    </div>
-                  </div>
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
           </div>
         </div>
 
 
-        <div class=" pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
-          <div class="pango-activity-term-row" fxLayout="column">
+        <div class="pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
+            <div class="pango-section-heading">
+              <h3>Relation Type</h3>
+            </div>
+            <span fxFlex></span>
+            <button mat-button type="button" (click)="clearRelationType(SearchFilterType.EVIDENCE_TYPES)">
+              Clear
+            </button>
+          </div>
+
+
+          <div class=" pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
             <mat-radio-group fxFlex="135px" formControlName="evidenceTypes" fxLayout="column"
               fxLayoutAlign="start start">
               <mat-radio-button *ngFor="let evidenceType of pangoDataService.evidenceTypeOption.options"
@@ -65,8 +88,19 @@
           </div>
         </div>
 
-        <div class=" pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
-          <div class="pango-activity-term-row" fxLayout="column">
+
+        <div class="pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
+            <div class="pango-section-heading">
+              <h3>Aspect</h3>
+            </div>
+            <span fxFlex></span>
+            <button mat-button type="button" (click)="clearRelationType(SearchFilterType.ASPECTS)">
+              Clear
+            </button>
+          </div>
+
+          <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
             <mat-radio-group fxFlex="135px" formControlName="aspects" fxLayout="column" fxLayoutAlign="start start">
               <mat-radio-button *ngFor="let aspect of pangoDataService.aspectOption.options"
                 class="noc-radio-button-rounded mb-8" [value]="aspect.id">
@@ -74,60 +108,71 @@
               </mat-radio-button>
             </mat-radio-group>
           </div>
-        </div>
-        <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
-          <div class="pango-activity-term-row" fxLayout="column">
-            <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p">
-              <mat-label>Filter by Term</mat-label>
-              <mat-chip-list #termChipList>
-                <mat-chip class="pango-form-chip" *ngFor="let term of annotationService.searchCriteria.terms"
-                  [selectable]="true" [removable]="true" (removed)="remove(term, SearchFilterType.TERMS)" fxLayout="row"
-                  fxLayoutAlign="start center" matTooltip="Term: {{term.term.id}} ({{term.term.label}})"
-                  [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
-                  <div fxFlex="" class="pango-chip-label">
-                    {{term.term.label}}
-                  </div>
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-                <input #searchInput formControlName="terms" placeholder="Add Term Filter" [matAutocomplete]="termAuto"
-                  [matChipInputFor]="termChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                  [matChipInputAddOnBlur]="false">
-              </mat-chip-list>
-              <mat-autocomplete #termAuto="matAutocomplete" (optionSelected)="selected($event, SearchFilterType.TERMS)"
-                [displayWith]="termDisplayFn" class="pango-term-autocomplete">
-                <mat-option class="pango-term-autocomplete" *ngFor="let item of terms$ | async" [value]="item">
-                  <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
-                    <div class="pango-term-label">
-                      {{ item.term.label }}
+          <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+            <div class="pango-activity-term-row" fxLayout="column">
+              <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p">
+                <mat-label>Filter by Term</mat-label>
+                <mat-chip-list #termChipList>
+                  <mat-chip class="pango-form-chip" *ngFor="let term of annotationService.searchCriteria.terms"
+                    [selectable]="true" [removable]="true" (removed)="remove(term, SearchFilterType.TERMS)"
+                    fxLayout="row" fxLayoutAlign="start center"
+                    matTooltip="Term: {{term.term.id}} ({{term.term.label}})" [matTooltipPosition]="'below'"
+                    [matTooltipShowDelay]="1000">
+                    <div fxFlex="" class="pango-chip-label">
+                      {{term.term.label}}
                     </div>
-                    <span fxFlex></span>
-                    <div class="pango-term-id">
-                      ({{ item.term.id }})
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                  <input #searchInput formControlName="terms" placeholder="Add Term Filter" [matAutocomplete]="termAuto"
+                    [matChipInputFor]="termChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="false">
+                </mat-chip-list>
+                <mat-autocomplete #termAuto="matAutocomplete"
+                  (optionSelected)="selected($event, SearchFilterType.TERMS)" [displayWith]="termDisplayFn"
+                  class="pango-term-autocomplete">
+                  <mat-option class="pango-term-autocomplete" *ngFor="let item of terms$ | async" [value]="item">
+                    <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                      <div class="pango-term-label">
+                        {{ item.term.label }}
+                      </div>
+                      <span fxFlex></span>
+                      <div class="pango-term-id">
+                        ({{ item.term.id }})
+                      </div>
                     </div>
-                  </div>
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
           </div>
         </div>
 
 
-        <div class="pango-section-body pango-terms-cell" fxLayout="column" fxLayoutAlign="start stretch">
-          <div class="pango-activity-term-row " fxLayout="column">
-            <div *ngFor="let item of annotationStats?.slimTermFrequency.buckets" class="w-100-p pango-term-cell"
-              fxLayout="row" fxLayoutAlign="start center">
-              <div class="w-100-p" fxFlex="" fxLayout="column" fxLayoutAlign="start start">
-                <div class="pango-cell-title w-100-p" fxLayout="row" fxLayoutAlign="start center">
-                  {{item.meta.id}}
-                  <mat-chip class="noc-chip-xs ml-8 noc-aspect {{aspectMap[item.meta.aspect]?.shorthand}}"
-                    fxLayout="column" fxLayoutAlign="center center">
-                    <span>{{aspectMap[item.meta.aspect]?.shorthand}}</span>
-                  </mat-chip>
+        <div class="pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
+            <div class="pango-section-heading">
+              <h3>Slim Terms</h3>
+            </div>
+            <span fxFlex></span>
+          </div>
+
+          <div class="pango-section-body pango-terms-cell" fxLayout="column" fxLayoutAlign="start stretch">
+            <div class="pango-activity-term-row " fxLayout="column">
+              <div *ngFor="let item of annotationStats?.slimTermFrequency.buckets" class="w-100-p pango-term-cell"
+                fxLayout="row" fxLayoutAlign="start center">
+                <div class="w-100-p" fxFlex="" fxLayout="column" fxLayoutAlign="start start">
+                  <div class="pango-cell-title w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                    {{item.meta.id}}
+                    <mat-chip class="noc-chip-xs ml-8 noc-aspect {{aspectMap[item.meta.aspect]?.shorthand}}"
+                      fxLayout="column" fxLayoutAlign="center center">
+                      <span>{{aspectMap[item.meta.aspect]?.shorthand}}</span>
+                    </mat-chip>
+                  </div>
+                  <div class="w-100-p pango-cell-description"> {{item.meta.label}}</div>
                 </div>
-                <div class="w-100-p pango-cell-description"> {{item.meta.label}}</div>
-              </div>
-              <div class="pango-cell-count">
-                ({{ item.docCount }})
+                <div class="pango-cell-count">
+                  ({{ item.docCount }})
+                </div>
               </div>
             </div>
           </div>

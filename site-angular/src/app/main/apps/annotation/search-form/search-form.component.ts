@@ -73,9 +73,10 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       takeUntil(this._unsubscribeAll),
       distinctUntilChanged(),
       debounceTime(1000),
-      filter((name) => !!name),
     ).subscribe((aspect) => {
-      this.annotationService.searchCriteria[SearchFilterType.ASPECTS] = [aspect];
+      this.annotationService.searchCriteria[SearchFilterType.ASPECTS] = aspect
+        ? [aspect]
+        : [];
       this.annotationService.updateSearch();
     });
 
@@ -107,9 +108,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       takeUntil(this._unsubscribeAll),
       distinctUntilChanged(),
       debounceTime(1000),
-      filter((name) => !!name),
     ).subscribe((evidenceType) => {
-      this.annotationService.searchCriteria[SearchFilterType.EVIDENCE_TYPES] = [evidenceType];
+      this.annotationService.searchCriteria[SearchFilterType.EVIDENCE_TYPES] = evidenceType ?
+        [evidenceType] : [];
       this.annotationService.updateSearch();
     });
 
@@ -161,20 +162,16 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     });
   }
 
+  clearRelationType(filterType: string) {
+    this.filterForm.controls[filterType].setValue(null);
+  }
+
   termDisplayFn(term: Annotation): string | undefined {
     return term ? term.term.label : undefined;
   }
 
   slimTermDisplayFn(term: Annotation): string | undefined {
     return term ? term.slimTerms[0].label : undefined;
-  }
-
-  aspectDisplayFn(gene: Annotation): string | undefined {
-    return gene ? gene.term.aspect : undefined;
-  }
-
-  evidenceTypeDisplayFn(gene: Annotation): string | undefined {
-    return gene ? gene.evidenceType : undefined;
   }
 
   geneDisplayFn(gene: Annotation): string | undefined {
