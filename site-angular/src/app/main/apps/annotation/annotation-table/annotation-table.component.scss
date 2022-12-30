@@ -223,7 +223,7 @@ $accent: map-get($theme, accent);
     height: 35px;
     padding: 0 10px;
     font-size: 10px !important;
-    color: map-get($primary, default);
+    color: $pango-header-color;
     font-weight: bold;
     border-right: #aaa solid 1px;
 
@@ -253,7 +253,7 @@ $accent: map-get($theme, accent);
     position: -webkit-sticky;
     top: 0;
     z-index: 1;
-    border-bottom: map-get($mat-orange, 500) solid 5px; // font-size: 3px !important;
+    border-bottom: $pango-header-border-bottom; // font-size: 3px !important;
     white-space: nowrap;
     .pango-action-button {
       padding: 0 !important;

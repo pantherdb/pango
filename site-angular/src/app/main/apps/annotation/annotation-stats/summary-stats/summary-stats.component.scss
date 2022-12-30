@@ -14,6 +14,7 @@ $accent: map-get($theme, accent);
 
 .pango-total-stats {
   @include deep-height(120px);
+  @include deep-width(250px);
   .pango-stat-number {
     font-size: 42px;
     line-height: 24px;

@@ -3,17 +3,27 @@ $primary: map-get($theme, primary);
 $accent: map-get($theme, accent);
 //$pango-background: map-get($mat-blue, 400);
 $pango-background: map-get($mat-blue-grey, 50);
-$pango-toolbar-color: #e7ecf4;
-$pango-primary-color: #183153; //#515E7B; #437A9B;
+$pango-toolbar-color: #173672;
+$pango-primary-color: #173672;
+$pango-header-color: $pango-primary-color;
+$pango-accent-color: #c0c03d;
 $pango-primary-color-accent: #8b9dc3;
 $pango-primary-color-lighter: #f2cf9d;
 $pango-primary-color-light: rgba(#c597a3, 0.3);
 $pango-primary-color-text: #4a8bfc;
 $pango-primary-color-2: #484f61;
+$pango-header-border-bottom: $pango-accent-color solid 1px;
 
 .pango-disabled {
   pointer-events: none;
   opacity: 0.3;
+}
+
+a {
+  color: $pango-primary-color;
+  &:hover {
+    color: lighten($pango-primary-color, 10);
+  }
 }
 
 .mat-row {
@@ -126,27 +136,39 @@ $pango-primary-color-2: #484f61;
 
 .pango-form-section {
   width: 100%;
+  margin: 8px;
+  border-radius: 8px;
   background-color: #fff;
 
   .pango-section-header {
-    height: 30px;
-    background-color: $pango-primary-color-light;
+    padding-right: 12px;
+    height: 40px;
+    color: $pango-header-color;
+    border-bottom: $pango-header-border-bottom;
+
+    h3 {
+      color: $pango-header-color;
+    }
 
     .pango-section-heading {
-      padding-left: 12px;
+      padding-left: 8px;
       font-size: 12px;
-      line-height: 30px;
+      line-height: 40px;
       color: #555;
     }
 
     .pango-action-button {
       margin: 0px;
-      height: 30px; // line-height: 36px;
+      height: 40px; // line-height: 36px;
     }
   }
 
   .pango-section-body {
-    padding: 4px 8px;
+    padding: 16px 8px 16px 8px;
+
+    .pango-activity-group-row {
+      margin-bottom: 8px;
+    }
   }
 }
 

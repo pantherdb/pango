@@ -78,7 +78,7 @@
         <td mat-cell *matCellDef="let element" class="pango-term-cell">
           <div class="w-100-p pango-cell-title" fxLayout="row" fxLayoutAlign="start center">
             {{element.term.id}}
-            <mat-chip class="noc-chip-xs ml-8 noc-aspect {{aspectMap[element.term.aspect]?.shorthand}}"
+            <mat-chip class="pango-chip-xs ml-8 pango-aspect {{aspectMap[element.term.aspect]?.shorthand}}"
               fxLayout="column" fxLayoutAlign="center center">
               <span>{{aspectMap[element.term.aspect]?.shorthand}}</span>
             </mat-chip>
@@ -101,7 +101,7 @@
           <div class="pango-cell-section w-100-p" *ngFor="let item of element.slimTerms">
             <div class="w-100-p pango-cell-title" fxLayout="row" fxLayoutAlign="start center">
               {{item.id}}
-              <mat-chip class="noc-chip-xs ml-8 noc-aspect {{aspectMap[item.aspect]?.shorthand}}" fxLayout="column"
+              <mat-chip class="pango-chip-xs ml-8 pango-aspect {{aspectMap[item.aspect]?.shorthand}}" fxLayout="column"
                 fxLayoutAlign="center center">
                 <span>{{aspectMap[item.aspect]?.shorthand}}</span>
               </mat-chip>
@@ -172,8 +172,7 @@
   </div>
 
 </div>
-<div *ngIf="annotationService.loading" class="pango-loading-container" fxLayout="column"
-  fxLayoutAlign="center center">
+<div *ngIf="annotationService.loading" class="pango-loading-container" fxLayout="column" fxLayoutAlign="center center">
   <mat-progress-spinner class="example-margin" [color]="loadingSpinner.color" [mode]="loadingSpinner.mode">
   </mat-progress-spinner>
 </div>

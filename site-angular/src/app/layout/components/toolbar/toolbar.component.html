@@ -1,15 +1,41 @@
-<mat-toolbar class="mat-elevation-z1" fxLayout="row" fxLayoutAlign="start center">
-  <mat-progress-bar *ngIf="showLoadingBar" class="loading-bar" color="accent" mode="indeterminate"></mat-progress-bar>
-  <div fxLayout="row" fxLayoutAlign="start center">
-    <div class="pango-logo" fxLayout="row" fxLayoutAlign="start">
-      <a class="pango-main-logo" href="http://www.pangodb.org/">
-        <strong>PAN-GO</strong>
-      </a> <!-- <small>(development site)</small> -->
-      <a class="pango-sub-logo" [routerLink]="['/']">
-        Human Functionome
-      </a>
+<div class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+  <mat-toolbar fxLayout="row" fxLayoutAlign="start center">
+    <mat-progress-bar *ngIf="showLoadingBar" class="loading-bar" color="accent" mode="indeterminate"></mat-progress-bar>
+    <div class="pango-logo pl-0 h-100-p" fxLayout="row" fxLayoutAlign="start center" fxFlex="180px">
+      <ng-container>
+        <a class="pango-main-logo" href="/">
+          PAN-GO
+        </a>
+        <a class="pango-sub-logo" href="/">
+          Human Functionome
+        </a>
+      </ng-container>
     </div>
-  </div>
-  <span fxFlex=""></span>
-  <a mat-button [routerLink]="['/about']">About</a>
-</mat-toolbar>
+    <div fxLayout="row" fxLayoutAlign="end center" fxFlex="">
+      <div class="pango-br pr-12" fxLayout="row" fxLayoutAlign="start center">
+        <a mat-icon-button href="https://github.com/geneontology" target="blank">
+          <fa-icon [icon]="['fab', 'github']"></fa-icon>
+        </a>
+        <a mat-icon-button href="https://twitter.com/news4go" target="blank">
+          <fa-icon [icon]="['fab', 'twitter']"></fa-icon>
+        </a>
+        <a mat-icon-button href="https://www.facebook.com/pages/Gene-Ontology/305908656519" target="blank">
+          <fa-icon [icon]="['fab', 'facebook']"></fa-icon>
+        </a>
+      </div>
+    </div>
+    <div class="pango-friends-logo" fxLayout="row" fxLayoutAlign="start">
+      <div class="pango-bl pango-logo" fxLayout="row" fxLayoutAlign="start">
+        <a href="http://geneontology.org/" target="_blank">
+          <img src="assets/images/logos/go-logo-mono.png">
+        </a>
+      </div>
+      <div class="pango-bl pango-logo" fxLayout="row" fxLayoutAlign="start">
+        <a href="http://pantherdb.org" target="_blank">
+          <img src="assets/images/logos/panther-logo-mono.png">
+        </a>
+      </div>
+    </div>
+
+  </mat-toolbar>
+</div>

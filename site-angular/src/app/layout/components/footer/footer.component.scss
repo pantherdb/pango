@@ -1,22 +1,14 @@
 @import "src/@pango/scss/pango";
 @import "src/@pango.common/scss/pango.common";
 
+$primary: map-get($theme, primary);
+$accent: map-get($theme, accent);
+
 :host {
-  footer {
-    padding: 30px 8px;
-    background-color: $pango-primary-color;
-    color: #f7f7f7;
-
-    .pango-image-logo {
-      width: 100%;
-    }
-
-    a {
-      color: #ffffff;
-
-      &:hover {
-        color: #dddddd;
-      }
-    }
+  .footer {
+    background: #1a237e;
+    background: linear-gradient(to right, #0e2a3b 0%, #34306b 100%);
+    padding: 20px;
+    color: #fff;
   }
 }

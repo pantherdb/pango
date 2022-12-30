@@ -1,9 +1,10 @@
 <div class="w-100-p" fxLayout="row" fxLayoutAlign="start stretch">
   <div class="" fxLayout="column" fxLayoutAlign="start stretch">
-    <div class="pango-stats-section pango-total-stats" fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="pango-form-section pango-total-stats" fxLayout="column" fxLayoutAlign="start stretch">
       <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
         <div class="pango-section-heading">
-          Annotation Results
+          <h3>Annotation Results</h3>
+
         </div>
         <span fxFlex></span>
       </div>
@@ -13,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div class="pango-stats-section pango-aspect-stats" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="pango-form-section pango-aspect-stats" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch">
 
       <div class="pango-section-body" fxLayout="row" fxLayoutAlign="start center">
         <ngx-charts-pie-chart [results]="stats.aspectPie" [view]="aspectPieOptions.view"
@@ -24,7 +25,7 @@
         </ngx-charts-pie-chart>
 
         <div class="pango-stat" fxLayout="column" fxLayoutAlign="start stretch">
-          <div class="pango-stat-heading mb-12" class="h6"> Annotations By Aspect</div>
+          <div class="pango-stat-heading mb-12" class="h6"> By Aspect</div>
           <div *ngFor="let item of this.annotationStats?.aspectFrequency.buckets" fxLayout="row"
             fxLayoutAlign="start center">
             <div class="pango-stat-color mr-8" [style]="{'backgroundColor':aspectMap[item.key].color}">
@@ -48,7 +49,7 @@
         </ngx-charts-pie-chart>
 
         <div class="pango-stat" fxLayout="column" fxLayoutAlign="start stretch">
-          <div class="pango-stat-heading mb-12" class="h6"> Annotations By Evidence</div>
+          <div class="pango-stat-heading mb-12" class="h6"> By Evidence Type</div>
           <div *ngFor="let item of this.annotationStats?.evidenceTypeFrequency.buckets" fxLayout="row"
             fxLayoutAlign="start center">
             <!-- <div class="pango-stat-color mr-8" [style]="{'backgroundColor':qualifierMap[item.key].color}">
@@ -65,11 +66,12 @@
       </div>
     </div>
   </div>
-  <div class="pango-stats-section  pango-referencess-stats h-100-p" fxFlex="" fxLayout="column"
+  <div class="pango-form-section  pango-referencess-stats h-100-p" fxFlex="" fxLayout="column"
     fxLayoutAlign="start stretch">
     <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
       <div class="pango-section-heading">
-        Slim Terms Distribution (first 20)
+        <h3>Slim Terms Distribution (first 20)</h3>
+
       </div>
       <span fxFlex></span>
     </div>
@@ -84,10 +86,10 @@
       </ngx-charts-bar-horizontal>
     </div>
   </div>
-  <div class="pango-stats-section  pango-terms-stats h-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+  <div class="pango-form-section  pango-terms-stats h-100-p" fxLayout="column" fxLayoutAlign="start stretch">
     <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
       <div class="pango-section-heading">
-        Terms Distribution (first 20)
+        <h3>Terms Distribution (first 20)</h3>
       </div>
       <span fxFlex></span>
     </div>
