@@ -42,7 +42,7 @@
                 <mat-autocomplete #geneAuto="matAutocomplete"
                   (optionSelected)="selected($event, SearchFilterType.GENES)" [displayWith]="geneDisplayFn"
                   class="pango-gene-autocomplete">
-                  <mat-option class="pango-term-autocomplete" *ngFor="let item of genes$ | async" [value]="item">
+                  <mat-option class="pango-entity-autocomplete" *ngFor="let item of genes$ | async" [value]="item">
                     <div class="w-100-p" fxLayout="column" fxLayoutAlign="start start">
                       <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
                         <div class="pango-gene-label">
@@ -125,14 +125,22 @@
                 <mat-autocomplete #slimTermAuto="matAutocomplete"
                   (optionSelected)="selected($event, SearchFilterType.SLIM_TERMS)" [displayWith]="slimTermDisplayFn"
                   class="pango-term-autocomplete">
-                  <mat-option class="pango-term-autocomplete" *ngFor="let item of slimTerms$ | async" [value]="item">
+                  <mat-option *ngFor="let item of slimTerms$ | async" [value]="item">
                     <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
-                      <div class="pango-term-label">
-                        {{ item.term.slimTerm }}
-                      </div>
-                      <span fxFlex></span>
-                      <div class="pango-term-id">
-                        ({{ item.count }})
+                      <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                        <div class="w-100-p" fxFlex="" fxLayout="column" fxLayoutAlign="start start">
+                          <div class="pango-cell-title w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                            {{item.id}}
+                            <mat-chip class="pango-chip-xs ml-8 pango-aspect {{aspectMap[item.aspect]?.shorthand}}"
+                              fxLayout="column" fxLayoutAlign="center center">
+                              <span>{{aspectMap[item.aspect]?.shorthand}}</span>
+                            </mat-chip>
+                          </div>
+                          <div class="w-100-p pango-cell-description"> {{item.label}}</div>
+                        </div>
+                        <div class="pango-cell-count">
+                          ({{ item.count }})
+                        </div>
                       </div>
                     </div>
                   </mat-option>
@@ -161,8 +169,8 @@
                 </mat-chip-list>
                 <mat-autocomplete #termAuto="matAutocomplete"
                   (optionSelected)="selected($event, SearchFilterType.TERMS)" [displayWith]="termDisplayFn"
-                  class="pango-term-autocomplete">
-                  <mat-option class="pango-term-autocomplete" *ngFor="let item of terms$ | async" [value]="item">
+                  class="pango-entity-autocomplete">
+                  <mat-option class="pango-entity-autocomplete" *ngFor="let item of terms$ | async" [value]="item">
                     <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
                       <div class="pango-term-label">
                         {{ item.term.label }}

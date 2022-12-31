@@ -210,6 +210,7 @@ async def get_slim_term_autocomplete_query_2(keyword:str, filter_args:Annotation
       terms.append(Term(
         id=meta.id,
         label=meta.label,
+        aspect=meta.aspect,
         count=freq_bucket["doc_count"]
       ))        
                          

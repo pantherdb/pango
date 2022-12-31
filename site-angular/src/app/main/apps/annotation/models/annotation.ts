@@ -145,6 +145,7 @@ export class Annotation {
 export class Bucket {
     key: string
     docCount: number
+    meta: any
 }
 
 export class Frequency {

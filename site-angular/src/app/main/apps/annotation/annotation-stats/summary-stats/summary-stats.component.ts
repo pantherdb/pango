@@ -53,7 +53,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
       ]
 
     },
-    onSelect: this.onSelectAspect
+    onSelect: this.onSelectAspect.bind(this)
 
   }
 
@@ -92,6 +92,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
         getColor('orange', 500),
       ]
     },
+    onSelect: this.onSelectEvidenceType.bind(this)
   }
 
   termFrequencyBarOptions = {
@@ -109,8 +110,8 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
       domain: [
         getColor('blue-grey', 500),
       ]
-
     },
+    onSelect: this.onSelectTerm.bind(this)
   }
 
   slimTermFrequencyBarOptions = {
@@ -130,6 +131,8 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
       ]
 
     },
+
+    onSelect: this.onSelectSlimTerm.bind(this)
   }
 
   stats = {
@@ -175,9 +178,28 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
   }
 
   onSelectAspect(event) {
-    //this.annotationService.searchCriteria[SearchFilterType.ASPECTS].push(event.name);
-    //this.annotationService.updateSearch();
+    console.log(event)
+    this.annotationService.searchCriteria[SearchFilterType.ASPECTS] = [event.name];
+    this.annotationService.updateSearch();
+  }
 
+  onSelectEvidenceType(event) {
+    this.annotationService.searchCriteria[SearchFilterType.EVIDENCE_TYPES] = [event.name];
+    this.annotationService.updateSearch();
+  }
+
+  onSelectSlimTerm(event) {
+    if (event.extra?.id) {
+      this.annotationService.searchCriteria[SearchFilterType.SLIM_TERMS] = [event.extra];
+      this.annotationService.updateSearch();
+    }
+  }
+
+  onSelectTerm(event) {
+    if (event.extra?.id) {
+      this.annotationService.searchCriteria[SearchFilterType.TERMS] = [event.extra];
+      this.annotationService.updateSearch();
+    }
   }
 
   generateStats() {

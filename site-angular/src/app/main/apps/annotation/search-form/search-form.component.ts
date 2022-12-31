@@ -37,7 +37,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   aspectMap = pangoData.aspectMap;
 
   terms$: Observable<Annotation[]>;
-  slimTerms$: Observable<Annotation[]>;
+  slimTerms$: Observable<Term[]>;
   genes$: Observable<Annotation[]>;
 
   selection = new SelectionModel<Bucket>(true, []);
@@ -93,7 +93,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       distinctUntilChanged(),
       debounceTime(1000),
       filter((name) => !!name),
-      switchMap(name => this.annotationService.getAutocompleteQuery(slimTermsFilter, name))
+      switchMap(name => this.annotationService.getSlimTermsAutocompleteQuery(name))
     );
 
     this.genes$ = this.filterForm.get('genes')!.valueChanges.pipe(
@@ -148,7 +148,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   selectSlimTerm(term: Term) {
-    this.annotationService.searchCriteria[SearchFilterType.SLIM_TERMS].push(term);
+    this.annotationService.searchCriteria[SearchFilterType.SLIM_TERMS] = [term];
     this.annotationService.updateSearch();
   }
 
@@ -175,8 +175,8 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     return term ? term.term.label : undefined;
   }
 
-  slimTermDisplayFn(term: Annotation): string | undefined {
-    return term ? term.slimTerms[0].label : undefined;
+  slimTermDisplayFn(term: Term): string | undefined {
+    return term ? term.label : undefined;
   }
 
   geneDisplayFn(gene: Annotation): string | undefined {

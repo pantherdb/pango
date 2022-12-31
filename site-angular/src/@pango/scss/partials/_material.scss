@@ -2,7 +2,7 @@ $primary: map-get($theme, primary);
 $accent: map-get($theme, accent);
 
 .mat-autocomplete-panel {
-  &.pango-term-autocomplete {
+  &.pango-entity-autocomplete {
     @include deep-width(500px !important);
     background-color: #def2fb;
 
@@ -21,6 +21,61 @@ $accent: map-get($theme, accent);
       .pango-term-label {
         font-size: 12px;
         //margin-right:
+      }
+    }
+  }
+  &.pango-term-autocomplete {
+    @include deep-width(500px !important);
+    background-color: #def2fb;
+
+    .mat-option {
+      padding: 8px !important;
+      border-bottom: rgba(map-get($primary, default), 0.6) solid 1px;
+      height: auto !important;
+      line-height: 18px !important;
+      white-space: normal !important;
+
+      mat-chip {
+        text-align: center;
+        @include deep-height(18px);
+        @include deep-width(18px);
+        font-size: 8px;
+        font-weight: bold;
+        padding: 2px;
+        &.MF {
+          border: $pango-mf solid 1px;
+          color: darken($pango-mf, 10%);
+        }
+
+        &.BP {
+          border: $pango-bp solid 1px;
+          color: darken($pango-bp, 10%);
+        }
+
+        &.CC {
+          border: $pango-cc solid 1px;
+          color: darken($pango-cc, 10%);
+        }
+      }
+
+      .pango-term-cell {
+        padding: 8px 0;
+        border-bottom: #bbb solid 1px;
+      }
+
+      .pango-cell-title {
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .pango-cell-description {
+        color: #777;
+      }
+
+      .pango-cell-count {
+        @include deep-width(50px);
+        font-size: 10px;
+        text-align: right;
       }
     }
   }

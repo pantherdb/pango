@@ -106,6 +106,10 @@ export class AnnotationService {
         return this.annotationGraphQLService.getAutocompleteQuery(this.query, filter, keyword)
     }
 
+    getSlimTermsAutocompleteQuery(keyword: string): Observable<Term[]> {
+        return this.annotationGraphQLService.getSlimTermsAutocompleteQuery(new Query, keyword)
+    }
+
     getUniqueItems(query: Query): any {
         return this.annotationGraphQLService.getUniqueListGraphQL(query).subscribe(
             {
@@ -251,9 +255,12 @@ export class AnnotationService {
     buildAspectChart(buckets: Bucket[]) {
 
         const stats = buckets.map((bucket) => {
+            const aspect = this.aspectMap[bucket.key];
             return {
-                name: this.aspectMap[bucket.key]?.label,
-                value: bucket.docCount
+                name: bucket.key,
+                label: aspect.label,
+                value: bucket.docCount,
+                extra: aspect
             }
         })
 
@@ -266,7 +273,8 @@ export class AnnotationService {
         const stats = buckets.map((bucket) => {
             return {
                 name: bucket.key,
-                value: bucket.docCount
+                value: bucket.docCount,
+                extra: bucket.meta
             }
         })
 
@@ -274,7 +282,8 @@ export class AnnotationService {
             for (let i = 0; i < max - stats.length; i++) {
                 stats.push({
                     name: ' '.repeat(i + 1),
-                    value: 0
+                    value: 0,
+                    extra: {}
                 })
             }
         }

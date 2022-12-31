@@ -1,7 +1,7 @@
 <form [formGroup]="fieldsFilterForm" novalidate class="pl-8 pr-8 w-100-p" fxLayout="column"
   fxLayoutAlign="start stretch" autocomplete="off">
-  <div formArrayName="fieldsFormArray" class="pango-form-secion w-100-p" fxLayout="column"
-    fxLayoutAlign="start stretch" pangoPerfectScrollbar>
+  <div formArrayName="fieldsFormArray" class="pango-form-secion w-100-p" fxLayout="column" fxLayoutAlign="start stretch"
+    pangoPerfectScrollbar>
     <div class="pango-with-group" *ngFor="let comp of fieldsFilterForm.get('fieldsFormArray')?.controls; let i=index">
       <div [formGroupName]="i">
         <div formArrayName="fieldFiltersArray">
@@ -32,8 +32,8 @@
       </div>
     </div>
     <mat-autocomplete #fieldAuto="matAutocomplete" (optionSelected)="selected($event)" [displayWith]="fieldDisplayFn"
-      class="pango-term-autocomplete">
-      <mat-option class="pango-term-autocomplete" *ngFor="let item of filteredFields | async" [value]="item">
+      class="pango-entity-autocomplete">
+      <mat-option class="pango-entity-autocomplete" *ngFor="let item of filteredFields | async" [value]="item">
         <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
           <div class="pango-term-label">
             {{ item.label }}
@@ -43,8 +43,8 @@
       </mat-option>
     </mat-autocomplete>
     <mat-autocomplete #fieldValueAuto="matAutocomplete" (optionSelected)="selected($event)"
-      [displayWith]="fieldValueDisplayFn" class="pango-term-autocomplete">
-      <mat-option class="pango-term-autocomplete" *ngFor="let item of filteredFieldValues | async" [value]="item">
+      [displayWith]="fieldValueDisplayFn" class="pango-entity-autocomplete">
+      <mat-option class="pango-entity-autocomplete" *ngFor="let item of filteredFieldValues | async" [value]="item">
         <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
           <div class="pango-term-label">
             {{ item.key }}

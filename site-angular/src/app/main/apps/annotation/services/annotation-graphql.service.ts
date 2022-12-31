@@ -4,7 +4,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { AnnotationPage, Query } from '../models/page';
 import { SearchCriteria } from '@pango.search/models/search-criteria';
 import { PangoGraphQLService } from '@pango.search/services/graphql.service';
-import { AnnotationCount, AnnotationStats, Annotation, AutocompleteFilterArgs, AutocompleteType } from '../models/annotation';
+import { AnnotationCount, AnnotationStats, Annotation, AutocompleteFilterArgs, AutocompleteType, Term } from '../models/annotation';
 
 @Injectable({
   providedIn: 'root',
@@ -152,6 +152,32 @@ export class AnnotationGraphQLService {
         return response.autocomplete.map(annotation => {
           return annotation
         }) as Annotation[];
+      }));
+
+  }
+
+  getSlimTermsAutocompleteQuery(query: Query, keyword: string): Observable<Term[]> {
+    const options = {
+      variables: {
+        filterArgs: query?.filterArgs,
+        keyword
+
+      },
+      query: `query GetSlimTermAutocomplete($keyword: String!, $filterArgs: AnnotationFilterArgs) {
+                slimTermsAutocomplete( keyword:$keyword, filterArgs:$filterArgs) {
+                  label
+                  id
+                  aspect
+                  count                                                
+                }
+            }`
+    }
+
+    return this.pangoGraphQLService.query(options).pipe(
+      map((response: any) => {
+        return response.slimTermsAutocomplete.map(term => {
+          return term
+        }) as Term[];
       }));
 
   }

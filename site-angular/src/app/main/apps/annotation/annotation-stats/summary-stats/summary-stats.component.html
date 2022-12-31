@@ -45,7 +45,7 @@
           [scheme]="evidenceTypePieOptions.colorScheme" [gradient]="evidenceTypePieOptions.gradient"
           [legend]="evidenceTypePieOptions.legend" [maxLabelLength]="evidenceTypePieOptions.maxLabelLength"
           [labels]="evidenceTypePieOptions.showLabels" [doughnut]="evidenceTypePieOptions.isDoughnut"
-          [customColors]="customEvidenceColors">
+          [customColors]="customEvidenceColors" (select)="evidenceTypePieOptions.onSelect($event)">
         </ngx-charts-pie-chart>
 
         <div class="pango-stat" fxLayout="column" fxLayoutAlign="start stretch">
@@ -82,7 +82,8 @@
         [legend]="slimTermFrequencyBarOptions.legend" [showXAxisLabel]="slimTermFrequencyBarOptions.showXAxisLabel"
         [maxYAxisTickLength]="slimTermFrequencyBarOptions.maxYAxisTickLength"
         [showYAxisLabel]="slimTermFrequencyBarOptions.showYAxisLabel"
-        [yAxisLabel]="slimTermFrequencyBarOptions.yAxisLabel" [xAxisLabel]="slimTermFrequencyBarOptions.xAxisLabel">
+        [yAxisLabel]="slimTermFrequencyBarOptions.yAxisLabel" [xAxisLabel]="slimTermFrequencyBarOptions.xAxisLabel"
+        (select)="slimTermFrequencyBarOptions.onSelect($event)">
       </ngx-charts-bar-horizontal>
     </div>
   </div>
@@ -100,7 +101,7 @@
         [legend]="termFrequencyBarOptions.legend" [showXAxisLabel]="termFrequencyBarOptions.showXAxisLabel"
         [maxYAxisTickLength]="termFrequencyBarOptions.maxYAxisTickLength"
         [showYAxisLabel]="termFrequencyBarOptions.showYAxisLabel" [yAxisLabel]="termFrequencyBarOptions.yAxisLabel"
-        [xAxisLabel]="termFrequencyBarOptions.xAxisLabel">
+        [xAxisLabel]="termFrequencyBarOptions.xAxisLabel" (select)="termFrequencyBarOptions.onSelect($event)">
       </ngx-charts-bar-horizontal>
     </div>
   </div>
