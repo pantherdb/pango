@@ -6,7 +6,7 @@ import { Client } from 'elasticsearch-browser';
 import { AnnotationPage, Query } from '../models/page';
 import { cloneDeep, find, orderBy, uniqBy } from 'lodash';
 import { SearchCriteria } from '@pango.search/models/search-criteria';
-import { AnnotationCount, AnnotationStats, Bucket, FilterArgs, Annotation, AutocompleteFilterArgs } from '../models/annotation';
+import { AnnotationCount, AnnotationStats, Bucket, FilterArgs, Annotation, AutocompleteFilterArgs, Term } from '../models/annotation';
 import { AnnotationGraphQLService } from './annotation-graphql.service';
 import { pangoData } from '@pango.common/data/config';
 
@@ -169,8 +169,8 @@ export class AnnotationService {
             query.filterArgs.evidenceTypeIds.push(evidenceType);
         });
 
-        this.searchCriteria.slimTerms.forEach((annotation: Annotation) => {
-            query.filterArgs.slimTermIds.push(annotation.term.id);
+        this.searchCriteria.slimTerms.forEach((term: Term) => {
+            query.filterArgs.slimTermIds.push(term.id);
         });
 
         this.searchCriteria.genes.forEach((annotation: Annotation) => {

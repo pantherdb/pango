@@ -75,9 +75,7 @@
               Clear
             </button>
           </div>
-
-
-          <div class=" pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="pango-section-body w-100-p">
             <mat-radio-group fxFlex="135px" formControlName="evidenceTypes" fxLayout="column"
               fxLayoutAlign="start start">
               <mat-radio-button *ngFor="let evidenceType of pangoDataService.evidenceTypeOption.options"
@@ -87,8 +85,6 @@
             </mat-radio-group>
           </div>
         </div>
-
-
         <div class="pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
             <div class="pango-section-heading">
@@ -99,14 +95,50 @@
               Clear
             </button>
           </div>
-
-          <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="pango-section-body w-100-p">
             <mat-radio-group fxFlex="135px" formControlName="aspects" fxLayout="column" fxLayoutAlign="start start">
               <mat-radio-button *ngFor="let aspect of pangoDataService.aspectOption.options"
                 class="pango-radio-button-rounded mb-8" [value]="aspect.id">
                 {{aspect.label}}
               </mat-radio-button>
             </mat-radio-group>
+          </div>
+          <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+            <div class="pango-activity-term-row" fxLayout="column">
+              <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p">
+                <mat-label>Filter by Slim Terms</mat-label>
+                <mat-chip-list #slimTermChipList>
+                  <mat-chip class="pango-form-chip" *ngFor="let slimTerm of annotationService.searchCriteria.slimTerms"
+                    [selectable]="true" [removable]="true" (removed)="remove(slimTerm, SearchFilterType.SLIM_TERMS)"
+                    fxLayout="row" fxLayoutAlign="start center"
+                    matTooltip="slimTerm: {{slimTerm.label}} ({{slimTerm.id}}))" [matTooltipPosition]="'below'"
+                    [matTooltipShowDelay]="1000">
+                    <div fxFlex="" class="pango-chip-label">
+                      {{slimTerm.label}}
+                    </div>
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                  <input #searchInput formControlName="slimTerms" placeholder="Add slimTerm Filter"
+                    [matAutocomplete]="slimTermAuto" [matChipInputFor]="slimTermChipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
+                </mat-chip-list>
+                <mat-autocomplete #slimTermAuto="matAutocomplete"
+                  (optionSelected)="selected($event, SearchFilterType.SLIM_TERMS)" [displayWith]="slimTermDisplayFn"
+                  class="pango-term-autocomplete">
+                  <mat-option class="pango-term-autocomplete" *ngFor="let item of slimTerms$ | async" [value]="item">
+                    <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                      <div class="pango-term-label">
+                        {{ item.term.slimTerm }}
+                      </div>
+                      <span fxFlex></span>
+                      <div class="pango-term-id">
+                        ({{ item.count }})
+                      </div>
+                    </div>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
           </div>
           <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
             <div class="pango-activity-term-row" fxLayout="column">
@@ -157,9 +189,9 @@
           </div>
 
           <div class="pango-section-body pango-terms-cell" fxLayout="column" fxLayoutAlign="start stretch">
-            <div class="pango-activity-term-row " fxLayout="column">
+            <div class="pango-activity-term-row" fxLayout="column">
               <div *ngFor="let item of annotationStats?.slimTermFrequency.buckets" class="w-100-p pango-term-cell"
-                fxLayout="row" fxLayoutAlign="start center">
+                (click)="selectSlimTerm(item.meta)" fxLayout="row" fxLayoutAlign="start center">
                 <div class="w-100-p" fxFlex="" fxLayout="column" fxLayoutAlign="start start">
                   <div class="pango-cell-title w-100-p" fxLayout="row" fxLayoutAlign="start center">
                     {{item.meta.id}}
@@ -177,43 +209,7 @@
             </div>
           </div>
         </div>
-        <!--   <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
-          <div class="pango-activity-term-row" fxLayout="column">
-            <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p">
-              <mat-label>Filter by Slim Terms</mat-label>
-              <mat-chip-list #slimTermChipList>
-                <mat-chip class="pango-form-chip" *ngFor="let slimTerm of annotationService.searchCriteria.slimTerms"
-                  [selectable]="true" [removable]="true" (removed)="remove(slimTerm, SearchFilterType.SLIM_TERMS)"
-                  fxLayout="row" fxLayoutAlign="start center" matTooltip="slimTerm: {{slimTerm.term.slimTerm}})"
-                  [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
-                  <div fxFlex="" class="pango-chip-label">
-                    {{slimTerm.term.slimTerm}}
-                  </div>
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-                <input #searchInput formControlName="slimTerms" placeholder="Add slimTerm Filter"
-                  [matAutocomplete]="slimTermAuto" [matChipInputFor]="slimTermChipList"
-                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
-              </mat-chip-list>
-              <mat-autocomplete #slimTermAuto="matAutocomplete"
-                (optionSelected)="selected($event, SearchFilterType.SLIM_TERMS)" [displayWith]="slimTermDisplayFn"
-                class="pango-term-autocomplete">
-                <mat-option class="pango-term-autocomplete" *ngFor="let item of slimTerms$ | async" [value]="item">
-                  <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
-                    <div class="pango-term-label">
-                      {{ item.term.slimTerm }}
-                    </div>
-                    <span fxFlex></span>
-                    <div class="pango-term-id">
-                      ({{ item.count }})
-                    </div>
-                  </div>
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </div>
-        </div>
-        -->
+
       </div>
     </div>
   </div>

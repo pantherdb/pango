@@ -9,7 +9,7 @@ import { Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { AnnotationPage } from '../models/page';
 import { AnnotationService } from '../services/annotation.service';
-import { Annotation, AnnotationStats, AutocompleteFilterArgs, AutocompleteType, Bucket } from '../models/annotation';
+import { Annotation, AnnotationStats, AutocompleteFilterArgs, AutocompleteType, Bucket, Term } from '../models/annotation';
 import { SelectionModel } from '@angular/cdk/collections';
 import { PangoDataService } from '@pango.common/services/pango-data.service';
 import { pangoData } from '@pango.common/data/config';
@@ -145,6 +145,11 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     this.isAllSelected() ?
       this.selection.clear() :
       this.annotationStats.aspectFrequency.buckets.forEach(row => this.selection.select(row));
+  }
+
+  selectSlimTerm(term: Term) {
+    this.annotationService.searchCriteria[SearchFilterType.SLIM_TERMS].push(term);
+    this.annotationService.updateSearch();
   }
 
   createFilterForm() {

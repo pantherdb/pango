@@ -1,8 +1,11 @@
 # import load_env
 # import asyncio
 import pprint
+import typing
+from src.models.term_model import Term
+from src.resolvers.annotation_stats_resolver import get_response_meta
 from src.resolvers.annotation_resolver import get_annotations_query
-from src.models.annotation_model import Annotation, AnnotationFilterArgs, AutocompleteType
+from src.models.annotation_model import Annotation, AnnotationFilterArgs, AnnotationStats, AutocompleteType, Bucket, Frequency
 from src.config.settings import settings
 from src.config.es import  es
 
@@ -26,7 +29,6 @@ async def get_autocomplete(autocomplete_type: AutocompleteType, keyword:str, fil
     elif autocomplete_type.value == AutocompleteType.withgene.value:
         query, collapse = await get_withgene_autocomplete_query(keyword, filter_args)
 
-    pprint.pprint (query)
     resp = await es.search(
         index = settings.PANTHER_ANNOTATIONS_INDEX,
         filter_path ='took,hits.hits._score,**hits.hits._source**',
@@ -142,6 +144,76 @@ async def get_gene_autocomplete_query(keyword:str, filter_args:AnnotationFilterA
     }
 
     return query, collapse
+
+
+async def get_slim_term_autocomplete_query_2(keyword:str, filter_args:AnnotationFilterArgs)->typing.List[Term]:
+  
+    filter_query = await get_annotations_query(filter_args)
+    query = {
+      "bool":{
+        "filter":filter_query["bool"]["filter"],
+        "must":[
+          {
+            "nested": {
+              "path":"slim_terms",
+              "query": {
+                  "multi_match" : {
+                  "query":      keyword,
+                  "type":       "best_fields",
+                  "fields":     [ "term.label", "slim_terms.label^3" ]
+                }                  
+              }
+            }
+          }
+        ]
+      }
+    }
+      
+    aggs = {
+      "slim_term_frequency": {
+        "nested": {
+          "path": "slim_terms"
+        },
+        "aggs": {
+            "distinct_slim_term_frequency": {
+              "terms": {
+                "field": "slim_terms.label.keyword",
+                "order":{"_count":"desc"},
+                "size": 20
+              },
+              "aggs": {
+                "docs": {
+                  "top_hits": {
+                    "_source":   { 
+                    "includes": ["slim_terms.id", "slim_terms.label", "slim_terms.aspect"]
+                    },
+                    "size": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }     
+
+    resp = await es.search(
+      index=settings.PANTHER_ANNOTATIONS_INDEX,
+      query=query,
+      aggs=aggs,
+      size=0,
+    )
+
+    freqs = resp['aggregations']['slim_term_frequency']
+    terms = list()
+    for freq_bucket in freqs['distinct_slim_term_frequency']['buckets']:     
+      meta = get_response_meta(freq_bucket["docs"])
+      terms.append(Term(
+        id=meta.id,
+        label=meta.label,
+        count=freq_bucket["doc_count"]
+      ))        
+                         
+    return terms
 
 
 async def get_term_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
