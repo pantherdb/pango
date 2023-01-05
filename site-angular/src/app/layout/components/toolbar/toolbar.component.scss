@@ -42,7 +42,9 @@ $accent: map-get($theme, accent);
       }
     }
     .pango-friends-logo {
-      background-color: #fff;
+      .pango-logo {
+        padding: 5px;
+      }
     }
 
     mat-toolbar-row {

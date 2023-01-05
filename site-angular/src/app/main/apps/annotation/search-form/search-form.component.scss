@@ -39,6 +39,7 @@
 
   .pango-terms-cell {
     mat-chip {
+      display: inline-block !important;
       text-align: center;
       @include deep-height(18px);
       @include deep-width(18px);
@@ -68,11 +69,11 @@
 
     .pango-cell-title {
       font-size: 12px;
-      font-weight: bold;
     }
 
-    .pango-cell-description {
+    .pango-cell-description-2 {
       color: #777;
+      font-style: italic;
     }
 
     .pango-cell-count {

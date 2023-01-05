@@ -160,7 +160,7 @@ async def get_slim_term_autocomplete_query_2(keyword:str, filter_args:Annotation
                   "multi_match" : {
                   "query":      keyword,
                   "type":       "best_fields",
-                  "fields":     [ "term.label", "slim_terms.label^3" ]
+                  "fields":     [ "slim_terms.id",  "slim_terms.label"]
                 }                  
               }
             }

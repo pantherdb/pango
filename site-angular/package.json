@@ -12,7 +12,7 @@
     "start-hmr-sourcemaps": "ng serve --hmr -e=hmr",
     "build-dev": "node --max_old_space_size=6144 ./node_modules/@angular/cli/bin/ng build --dev",
     "build-stats": "node --max_old_space_size=6144 ./node_modules/@angular/cli/bin/ng build --dev --stats-json",
-    "build-prod": "node --max_old_space_size=6144 ./node_modules/@angular/cli/bin/ng build --configuration production",
+    "build-prod": "node --max_old_space_size=1000 ./node_modules/@angular/cli/bin/ng build --configuration production",
     "build-prod-stats": "node --max_old_space_size=6144 ./node_modules/@angular/cli/bin/ng build --configuration production --stats-json",
     "test": "ng test",
     "lint": "ng lint",

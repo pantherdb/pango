@@ -68,7 +68,7 @@
         <div class="pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
             <div class="pango-section-heading">
-              <h3>Relation Type</h3>
+              <h3>Evidence Type</h3>
             </div>
             <span fxFlex></span>
             <button mat-button type="button" (click)="clearRelationType(SearchFilterType.EVIDENCE_TYPES)">
@@ -201,14 +201,14 @@
               <div *ngFor="let item of annotationStats?.slimTermFrequency.buckets" class="w-100-p pango-term-cell"
                 (click)="selectSlimTerm(item.meta)" fxLayout="row" fxLayoutAlign="start center">
                 <div class="w-100-p" fxFlex="" fxLayout="column" fxLayoutAlign="start start">
-                  <div class="pango-cell-title w-100-p" fxLayout="row" fxLayoutAlign="start center">
-                    {{item.meta.id}}
-                    <mat-chip class="pango-chip-xs ml-8 pango-aspect {{aspectMap[item.meta.aspect]?.shorthand}}"
+                  <div class="pango-cell-title w-100-p">
+                    <mat-chip class="pango-chip-xs pango-aspect {{aspectMap[item.meta.aspect]?.shorthand}}"
                       fxLayout="column" fxLayoutAlign="center center">
                       <span>{{aspectMap[item.meta.aspect]?.shorthand}}</span>
                     </mat-chip>
+                    <span class="pango-cell-description mr-4"> {{item.meta.label}}</span>
+                    <span class="pango-cell-description-2">({{item.meta.id}})</span>
                   </div>
-                  <div class="w-100-p pango-cell-description"> {{item.meta.label}}</div>
                 </div>
                 <div class="pango-cell-count">
                   ({{ item.docCount }})
