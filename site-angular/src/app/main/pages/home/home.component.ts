@@ -38,10 +38,7 @@ export class HomeComponent implements OnInit {
   }
 
   constructor(public pangoMenuService: PangoMenuService,
-    public annotationService: AnnotationService,
-    private route: ActivatedRoute,
-    private router: Router) {
-
+    public annotationService: AnnotationService) {
   }
 
   ngOnInit() {

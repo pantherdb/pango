@@ -146,7 +146,7 @@ async def get_gene_autocomplete_query(keyword:str, filter_args:AnnotationFilterA
     return query, collapse
 
 
-async def get_slim_term_autocomplete_query_2(keyword:str, filter_args:AnnotationFilterArgs)->typing.List[Term]:
+async def get_slim_term_autocomplete_query_multi(keyword:str, filter_args:AnnotationFilterArgs)->typing.List[Term]:
   
     filter_query = await get_annotations_query(filter_args)
     query = {
@@ -160,7 +160,7 @@ async def get_slim_term_autocomplete_query_2(keyword:str, filter_args:Annotation
                   "multi_match" : {
                   "query":      keyword,
                   "type":       "best_fields",
-                  "fields":     [ "slim_terms.id",  "slim_terms.label"]
+                  "fields":     [ "slim_terms.id", "slim_terms.label"]
                 }                  
               }
             }

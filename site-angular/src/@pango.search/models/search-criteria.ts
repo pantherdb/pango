@@ -10,10 +10,6 @@ export enum SearchFilterType {
     EVIDENCE_TYPES = "evidenceTypes"
 };
 
-export class GeneFieldGroup {
-
-}
-
 export class SearchCriteria {
     terms: any[] = [];
     slimTerms: any[] = [];

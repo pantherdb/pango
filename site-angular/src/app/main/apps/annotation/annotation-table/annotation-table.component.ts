@@ -22,6 +22,9 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
   columns: any[] = [];
   count = 0
 
+  amigoTermUrl = environment.amigoTermUrl
+  pubmedUrl = environment.pubmedUrl
+
   loadingIndicator: boolean;
   reorderable: boolean;
 
@@ -80,6 +83,15 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
         }
       });
 
+  }
+
+  getPubmedArticleUrl(pmid: string): string {
+    if (!pmid) return ''
+
+    const id = pmid.split(':')
+    if (id.length > 0) {
+      return this.pubmedUrl + id[1];
+    }
   }
 
   setAnnotationPage(annotationPage: AnnotationPage) {

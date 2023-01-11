@@ -24,6 +24,9 @@ a {
   &:hover {
     color: lighten($pango-primary-color, 10);
   }
+  &:link {
+    color: $pango-primary-color;
+  }
 }
 
 .mat-row {

@@ -80,16 +80,25 @@ $accent: map-get($theme, accent);
 
       .pango-cell-section {
         //border-bottom: #aaa solid 1px;
-        padding: 0 0 5px 0;
+        padding: 8px;
+
+        &:not(:last-child) {
+          border-bottom: rgba(map-get($primary, default), 0.3) solid 1px;
+        }
       }
 
       .pango-cell-title {
         font-size: 12px;
-        font-weight: bold;
       }
 
       .pango-cell-description {
-        color: #777;
+        color: #000;
+        font-weight: normal;
+      }
+
+      .pango-cell-description-2 {
+        color: #999;
+        font-style: italic;
       }
       &.pango-gene-cell {
         @include deep-width(150px);
@@ -103,6 +112,7 @@ $accent: map-get($theme, accent);
         }
         .pango-cell-description-2 {
           font-size: 12px;
+          text-decoration: none;
         }
       }
 
@@ -129,15 +139,11 @@ $accent: map-get($theme, accent);
         padding-right: 12px;
         font-size: 12px;
         @include deep-width(150px);
-
-        .pango-cell-description-2 {
-          font-size: 12px;
-          text-decoration: italics;
-        }
       }
 
       &.pango-slim-terms-cell {
         @include deep-width(150px);
+        padding: 0;
       }
 
       &.pango-aspect-cell {
@@ -153,6 +159,7 @@ $accent: map-get($theme, accent);
       }
 
       &.pango-evidence-cell {
+        padding: 0;
         min-width: 200px;
         .pango-cell-inner-section {
           padding-left: 30px;
@@ -170,6 +177,7 @@ $accent: map-get($theme, accent);
     }
 
     mat-chip {
+      display: inline-block !important;
       text-align: center;
       @include deep-height(18px);
       @include deep-width(18px);

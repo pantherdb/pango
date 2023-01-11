@@ -106,7 +106,7 @@
           <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
             <div class="pango-activity-term-row" fxLayout="column">
               <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p">
-                <mat-label>Filter by Slim Terms</mat-label>
+                <mat-label>Filter by Inferred Slim Terms</mat-label>
                 <mat-chip-list #slimTermChipList>
                   <mat-chip class="pango-form-chip" *ngFor="let slimTerm of annotationService.searchCriteria.slimTerms"
                     [selectable]="true" [removable]="true" (removed)="remove(slimTerm, SearchFilterType.SLIM_TERMS)"
@@ -151,7 +151,7 @@
           <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
             <div class="pango-activity-term-row" fxLayout="column">
               <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p">
-                <mat-label>Filter by Term</mat-label>
+                <mat-label>Filter by Annotated GO Term</mat-label>
                 <mat-chip-list #termChipList>
                   <mat-chip class="pango-form-chip" *ngFor="let term of annotationService.searchCriteria.terms"
                     [selectable]="true" [removable]="true" (removed)="remove(term, SearchFilterType.TERMS)"
@@ -191,7 +191,7 @@
         <div class="pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
             <div class="pango-section-heading">
-              <h3>Slim Terms</h3>
+              <h3>Inferred Slim Terms</h3>
             </div>
             <span fxFlex></span>
           </div>
@@ -217,7 +217,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>

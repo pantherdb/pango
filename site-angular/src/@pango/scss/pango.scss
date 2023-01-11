@@ -45,14 +45,6 @@ $pango-border: #aaa solid 1px;
   }
 }
 
-a {
-  color: #0000ee;
-
-  &:link {
-    color: #0000ee;
-  }
-}
-
 .pango-search-database-dialog {
   @include deep-height(90%);
   @include deep-width(1100px);

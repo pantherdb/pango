@@ -70,21 +70,29 @@
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
               <div>
-                Term
+                Annotated GO Term
               </div>
             </div>
           </div>
         </th>
         <td mat-cell *matCellDef="let element" class="pango-term-cell">
-          <div class="w-100-p pango-cell-title" fxLayout="row" fxLayoutAlign="start center">
-            {{element.term.id}}
-            <mat-chip class="pango-chip-xs ml-8 pango-aspect {{aspectMap[element.term.aspect]?.shorthand}}"
-              fxLayout="column" fxLayoutAlign="center center">
-              <span>{{aspectMap[element.term.aspect]?.shorthand}}</span>
-            </mat-chip>
+          <div class="w-100-p">
+            <div class="pango-cell-title w-100-p">
+              <span><mat-chip class="pango-chip-xs pango-aspect {{aspectMap[element.term.aspect]?.shorthand}}"
+                  fxLayout="column" fxLayoutAlign="center center">
+                  <span>{{aspectMap[element.term.aspect]?.shorthand}}</span>
+                </mat-chip></span>
+              <span class="pango-cell-description mr-4"> {{element.term.label}}
+                <span class="pango-cell-description-2">(
+                  <a (click)="$event.stopPropagation()" href="{{amigoTermUrl}}{{element.term.id}}"
+                    target="_blank">{{element.term.id}}</a>)</span>
+              </span>
+            </div><br>
+            <div class="w-100-p pango-cell-description-2"> {{element.qualifier}}</div>
           </div>
-          <div class="w-100-p pango-cell-description"> {{element.term?.label}}</div>
-          <div class="w-100-p pango-cell-description-2"> {{element.qualifier}}</div>
+
+
+
         </td>
       </ng-container>
       <ng-container matColumnDef="slimTerms">
@@ -92,22 +100,25 @@
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
               <div>
-                Slim Terms
+                Inferred Slim Terms
               </div>
             </div>
           </div>
         </th>
         <td mat-cell *matCellDef="let element" class="pango-slim-terms-cell">
           <div class="pango-cell-section w-100-p" *ngFor="let item of element.slimTerms">
-            <div class="w-100-p pango-cell-title" fxLayout="row" fxLayoutAlign="start center">
-              {{item.id}}
-              <mat-chip class="pango-chip-xs ml-8 pango-aspect {{aspectMap[item.aspect]?.shorthand}}" fxLayout="column"
-                fxLayoutAlign="center center">
-                <span>{{aspectMap[item.aspect]?.shorthand}}</span>
-              </mat-chip>
-            </div>
-            <div class="w-100-p pango-cell-description">
-              {{item.label}}
+
+            <div class="pango-cell-title w-100-p">
+              <span><mat-chip class="pango-chip-xs pango-aspect {{aspectMap[item.aspect]?.shorthand}}" fxLayout="column"
+                  fxLayoutAlign="center center">
+                  <span>{{aspectMap[item.aspect]?.shorthand}}</span>
+                </mat-chip></span>
+              <span class="pango-cell-description mr-4"> {{item.label}}
+                <span class="pango-cell-description-2">(
+                  <a (click)="$event.stopPropagation()" href="{{amigoTermUrl}}{{item.id}}"
+                    target="_blank">{{item.id}}</a>
+                  )</span>
+              </span>
             </div>
           </div>
         </td>
@@ -132,7 +143,8 @@
               <ng-container *ngFor="let reference of item.references; let i=index">
                 <div class="pango-cell-inner-section" *ngIf="i<maxReferences">
                   <div class="w-100-p pango-cell-title" fxLayout="row" fxLayoutAlign="start center">
-                    {{reference.pmid}}
+                    <a (click)="$event.stopPropagation()" href="{{getPubmedArticleUrl(reference.pmid)}}"
+                      target="_blank">{{reference.pmid}}</a>
                   </div>
                   <div class="w-100-p pango-cell-description">
                     {{reference.title}} <small>({{reference.date}})</small>
