@@ -117,10 +117,7 @@ class IbaExpRefCollection:
             self.annotation_lkp[gene_id][go_term][qualifier] = new_annot
 
         # Merge experimental references
-        self.annotation_lkp[gene_id][go_term][qualifier]["evidence"] = self.merge_exp_evidence(
-            self.annotation_lkp[gene_id][go_term][qualifier]["evidence"],
-            csv_row
-        )
+        self.merge_exp_evidence(gene_id, go_term, qualifier, csv_row)
 
     def add_gene_info_to_lkp(self, gene_id, gene_sym, gene_name, taxon_id):
         if "taxon:" in taxon_id:
@@ -142,16 +139,20 @@ class IbaExpRefCollection:
         exp_group = csv_row[21]
         return with_gene_id, exp_pmids, exp_group
 
-    def merge_exp_evidence(self, evidence, csv_row):
+    def merge_exp_evidence(self, gene_id: str, go_term: str, qualifier: str, csv_row: List):
         with_gene_id, exp_pmids, exp_group = self.parse_exp_gene_and_refs_from_row(csv_row)
         ev_obj = {
             "with_gene_id": with_gene_id,
             "references": exp_pmids,
             "group": exp_group
         }
+        evidence = self.annotation_lkp[gene_id][go_term][qualifier]["evidence"]  # Assumes everything exists
         if ev_obj not in evidence:
-            evidence.append(ev_obj)
-        return evidence
+            if with_gene_id == gene_id:
+                evidence.insert(0, ev_obj)
+            else:
+                evidence.append(ev_obj)
+        self.annotation_lkp[gene_id][go_term][qualifier]["evidence"] = evidence
 
     def annotation_list(self):
         annotations = []

@@ -55,3 +55,13 @@ def test_filling_in_the_unknowns():
     assert "UNKNOWN:0002" in iba_collection.annotation_lkp["UniProtKB:P28472"]
     assert "UNKNOWN:0003" in iba_collection.annotation_lkp["UniProtKB:P28472"]
     assert "UNKNOWN:0001" not in iba_collection.annotation_lkp["UniProtKB:P28472"]
+
+
+def test_direct_evidence_sorting():
+    gene_id = "UniProtKB:Q9HBH0"
+    go_term = "GO:0007015"
+    qualifier = "involved_in"
+    iba_gaf = "resources/test/gene_association.paint_human.gaf"
+    iba_collection = IbaExpRefManager.parse(iba_gaf, ont_manager)
+    evidences = iba_collection.annotation_lkp[gene_id][go_term][qualifier]["evidence"]
+    assert evidences[0]["with_gene_id"] == gene_id
