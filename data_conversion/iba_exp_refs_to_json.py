@@ -239,12 +239,10 @@ class IbaExpRefCollection:
                     start = r[2]
                     end = r[3]
                     strand = r[4]
-                    self.gene_info_lkp[gene_id]["coordinates"] = {
-                        "chr_num": chr_num,
-                        "start": start,
-                        "end": end,
-                        "strand": strand
-                    }
+                    self.gene_info_lkp[gene_id]["coordinates_chr_num"] = chr_num
+                    self.gene_info_lkp[gene_id]["coordinates_start"] = start
+                    self.gene_info_lkp[gene_id]["coordinates_end"] = end
+                    self.gene_info_lkp[gene_id]["coordinates_strand"] = strand
 
 
 class IbaExpRefManager:

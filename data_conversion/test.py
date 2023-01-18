@@ -74,4 +74,4 @@ def test_genome_coordinates():
     iba_collection = IbaExpRefManager.parse(iba_gaf, ont_manager)
     iba_collection.fill_in_genome_coordinates(genome_coords_file)
     gene_info = iba_collection.gene_info_lkp[gene_id]
-    assert "coordinates" in gene_info
+    assert gene_info["coordinates_start"] == "121780952"
