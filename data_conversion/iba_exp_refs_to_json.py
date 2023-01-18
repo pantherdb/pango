@@ -176,8 +176,10 @@ class IbaExpRefCollection:
                 "gene_name": gene_info["gene_name"],
                 "taxon_id": gene_info["taxon_id"],
             }
-            if "coordinates" in gene_info:
-                gene_info_record["coordinates"] = gene_info["coordinates"]
+            coordinate_fields = ["coordinates_chr_num", "coordinates_start", "coordinates_end", "coordinates_strand"]
+            for coord_field in coordinate_fields:
+                if coord_field in gene_info:
+                    gene_info_record[coord_field] = gene_info[coord_field]
             gene_infos.append(gene_info_record)
         return gene_infos
 

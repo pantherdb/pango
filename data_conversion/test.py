@@ -75,3 +75,10 @@ def test_genome_coordinates():
     iba_collection.fill_in_genome_coordinates(genome_coords_file)
     gene_info = iba_collection.gene_info_lkp[gene_id]
     assert gene_info["coordinates_start"] == "121780952"
+    gene_info_list = iba_collection.gene_info_list()
+    gene_info_json_obj = None
+    for gi in gene_info_list:
+        if gi["gene"] == gene_id:
+            gene_info_json_obj = gi
+            break
+    assert gene_info_json_obj["coordinates_start"] == "121780952"
