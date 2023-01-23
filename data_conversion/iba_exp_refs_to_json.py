@@ -19,6 +19,8 @@ parser.add_argument('-g', '--gene_info_only', action='store_const', const=True, 
                                                                                      "genes in evidence")
 parser.add_argument('-p', '--gene_dat', help="If supplied, all PANTHER genes will have at least 3 annotations, falling "
                                              "back on 'UNKNOWN:' aspect term if no annotation")
+parser.add_argument('-c', '--genome_coordinates_file', help="If supplied, will be added to gene info. Typically, "
+                                                            "a file named Homo_sapiens.chromosomal_location")
 
 
 class OntologyManager:
@@ -168,12 +170,17 @@ class IbaExpRefCollection:
     def gene_info_list(self):
         gene_infos = []
         for gene, gene_info in self.gene_info_lkp.items():
-            gene_infos.append({
+            gene_info_record = {
                 "gene": gene,
                 "gene_symbol": gene_info["gene_symbol"],
                 "gene_name": gene_info["gene_name"],
                 "taxon_id": gene_info["taxon_id"],
-            })
+            }
+            coordinate_fields = ["coordinates_chr_num", "coordinates_start", "coordinates_end", "coordinates_strand"]
+            for coord_field in coordinate_fields:
+                if coord_field in gene_info:
+                    gene_info_record[coord_field] = gene_info[coord_field]
+            gene_infos.append(gene_info_record)
         return gene_infos
 
     def print_annotations_to_json(self):
@@ -222,6 +229,23 @@ class IbaExpRefCollection:
                         new_annot["group"] = "GO_Central"
                         self.annotation_lkp[gene_id][unknown_aspect_term] = {"": new_annot}
 
+    def fill_in_genome_coordinates(self, coordinates_file):
+        with open(coordinates_file) as cf:
+            reader = csv.reader(cf, delimiter="\t")
+            for r in reader:
+                long_id = r[0]
+                oscode, mod_id, uniprot_id = long_id.split("|")
+                gene_id = uniprot_id.replace("=", ":")
+                if gene_id in self.gene_info_lkp:
+                    chr_num = r[1]
+                    start = r[2]
+                    end = r[3]
+                    strand = r[4]
+                    self.gene_info_lkp[gene_id]["coordinates_chr_num"] = chr_num
+                    self.gene_info_lkp[gene_id]["coordinates_start"] = start
+                    self.gene_info_lkp[gene_id]["coordinates_end"] = end
+                    self.gene_info_lkp[gene_id]["coordinates_strand"] = strand
+
 
 class IbaExpRefManager:
     @staticmethod
@@ -245,6 +269,8 @@ if __name__ == "__main__":
     iba_exp_ref_collection = IbaExpRefManager.parse(args.annot_files, ont_manager)
     if args.gene_dat:
         iba_exp_ref_collection.fill_in_missing_annotations(args.gene_dat)
+    if args.genome_coordinates_file:
+        iba_exp_ref_collection.fill_in_genome_coordinates(args.genome_coordinates_file)
 
     if args.gene_info_only:
         iba_exp_ref_collection.print_genes_to_json()

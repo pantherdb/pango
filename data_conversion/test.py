@@ -65,3 +65,20 @@ def test_direct_evidence_sorting():
     iba_collection = IbaExpRefManager.parse(iba_gaf, ont_manager)
     evidences = iba_collection.annotation_lkp[gene_id][go_term][qualifier]["evidence"]
     assert evidences[0]["with_gene_id"] == gene_id
+
+
+def test_genome_coordinates():
+    gene_id = "UniProtKB:Q9HBH0"
+    iba_gaf = "resources/test/gene_association.paint_human.gaf"
+    genome_coords_file = "resources/test/Homo_sapiens.genome_coords_sample"
+    iba_collection = IbaExpRefManager.parse(iba_gaf, ont_manager)
+    iba_collection.fill_in_genome_coordinates(genome_coords_file)
+    gene_info = iba_collection.gene_info_lkp[gene_id]
+    assert gene_info["coordinates_start"] == "121780952"
+    gene_info_list = iba_collection.gene_info_list()
+    gene_info_json_obj = None
+    for gi in gene_info_list:
+        if gi["gene"] == gene_id:
+            gene_info_json_obj = gi
+            break
+    assert gene_info_json_obj["coordinates_start"] == "121780952"
