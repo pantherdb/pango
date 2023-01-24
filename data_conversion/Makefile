@@ -47,7 +47,7 @@ SHELL := /bin/bash
 .PRECIOUS: %/resources/goslim_generic.owl
 %/resources/goslim_generic.owl:
 	mkdir -p $*/resources
-	wget http://release.geneontology.org/2022-03-22/ontology/subsets/goslim_generic.owl -O $@
+	wget http://current.geneontology.org/ontology/subsets/goslim_generic.owl -O $@
 
 .PRECIOUS: %/resources/go.obo
 %/resources/go.obo:
