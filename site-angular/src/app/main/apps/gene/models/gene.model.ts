@@ -5,4 +5,8 @@ export class Gene {
   taxonAbbr: string;
   taxonLabel: string;
   taxonId: string;
+  coordinatesChrNum: number
+  coordinatesStart: number
+  coordinatesEnd: number
+  coordinatesStrand: number
 }

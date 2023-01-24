@@ -48,6 +48,21 @@ $accent: map-get($theme, accent);
     }
   }
 
+  .pango-gene-summary {
+    padding: 12px;
+    .pango-cell-title {
+      font-size: 16px;
+    }
+
+    .pango-cell-description {
+      color: #777;
+      font-weight: bold;
+    }
+    .pango-cell-description-2 {
+      font-size: 14px;
+    }
+  }
+
   .pango-annotation-table {
     @include deep-width(100%);
     //@include mat-elevation(5);
@@ -100,8 +115,17 @@ $accent: map-get($theme, accent);
         color: #999;
         font-style: italic;
       }
+
+      .pango-cell-coordinates {
+        padding: 2px 4px;
+        background-color: #523684;
+        a {
+          font-size: 10px;
+          color: #edd776;
+        }
+      }
       &.pango-gene-cell {
-        @include deep-width(150px);
+        @include deep-width(200px);
         .pango-cell-title {
           font-size: 12px;
         }

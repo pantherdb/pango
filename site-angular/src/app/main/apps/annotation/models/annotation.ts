@@ -134,6 +134,10 @@ export class Annotation {
     taxonAbbr: string;
     taxonLabel: string;
     taxonId: string;
+    coordinatesChrNum: number
+    coordinatesStart: number
+    coordinatesEnd: number
+    coordinatesStrand: number
     term: Term;
     slimTerms: Term[];
     evidenceType: string;

@@ -36,6 +36,10 @@ export class AnnotationGraphQLService {
                     taxonAbbr
                     taxonLabel
                     taxonId
+                    coordinatesChrNum
+                    coordinatesStart
+                    coordinatesEnd
+                    coordinatesStrand
                     qualifier
                     term {
                       id
@@ -58,6 +62,10 @@ export class AnnotationGraphQLService {
                         taxonAbbr
                         taxonLabel
                         taxonId
+                        coordinatesChrNum
+                        coordinatesStart
+                        coordinatesEnd
+                        coordinatesStrand
                       }
                       references {
                         pmid

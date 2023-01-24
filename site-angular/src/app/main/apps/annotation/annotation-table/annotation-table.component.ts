@@ -9,6 +9,8 @@ import { RightPanel } from '@pango.common/models/menu-panels';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { environment } from 'environments/environment';
 import { pangoData } from '@pango.common/data/config';
+import { Annotation } from '../models/annotation';
+import { Gene } from '../../gene/models/gene.model';
 @Component({
   selector: 'pango-annotation-table',
   templateUrl: './annotation-table.component.html',
@@ -54,6 +56,8 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
   @Input('maxEvidences') maxEvidences = 2
   @Input('options') options;
 
+  selectedGP: Gene
+
   private _unsubscribeAll: Subject<any>;
 
   constructor(
@@ -94,6 +98,11 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
     }
   }
 
+  getUcscLink(element: Annotation) {
+    const chr = `${element.coordinatesChrNum}:${element.coordinatesStart}-${element.coordinatesEnd}`
+    return environment.ucscUrl + chr
+  }
+
   setAnnotationPage(annotationPage: AnnotationPage) {
     this.annotationPage = annotationPage;
     this.dataSource = new MatTableDataSource<any>(this.annotationPage.annotations);
@@ -109,6 +118,10 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
     this.pangoMenuService.selectRightPanel(RightPanel.annotationDetail);
     this.pangoMenuService.openRightDrawer();
     this.annotationService.onAnnotationChanged.next(row);
+  }
+
+  selectGene(gene: string) {
+
   }
 
   ngOnDestroy(): void {
