@@ -49,7 +49,7 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
     'term',
     'slimTerms',
     'evidence',
-    'summary'
+    'contributors'
   ];
 
   @Input('maxReferences') maxReferences = 4

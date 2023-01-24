@@ -134,7 +134,7 @@ export class Annotation {
     taxonAbbr: string;
     taxonLabel: string;
     taxonId: string;
-    coordinatesChrNum: number
+    coordinatesChrNum: string
     coordinatesStart: number
     coordinatesEnd: number
     coordinatesStrand: number

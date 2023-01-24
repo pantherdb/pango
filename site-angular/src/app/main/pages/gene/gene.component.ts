@@ -53,7 +53,7 @@ export class GeneComponent implements OnInit, OnDestroy {
       'term',
       'slimTerms',
       'evidence',
-      'summary'
+      'contributors'
     ]
   }
 

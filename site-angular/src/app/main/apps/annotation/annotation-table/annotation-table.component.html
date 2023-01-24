@@ -177,17 +177,17 @@
           </ng-container>
         </td>
       </ng-container>
-      <ng-container matColumnDef="summary">
-        <th mat-header-cell *matHeaderCellDef class="pango-summary-cell">
+      <ng-container matColumnDef="contributors">
+        <th mat-header-cell *matHeaderCellDef class="pango-contributors-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
               <div>
-                Summary
+                Contributors
               </div>
             </div>
           </div>
         </th>
-        <td mat-cell *matCellDef="let element" class="pango-summary-cell">
+        <td mat-cell *matCellDef="let element" class="pango-contributors-cell">
           {{element.groups}}<br>
           {{element.evidenceCount}}
         </td>

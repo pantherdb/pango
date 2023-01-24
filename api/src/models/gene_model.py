@@ -9,7 +9,7 @@ class Gene:
     taxon_abbr: str
     taxon_label: str
     taxon_id: str
-    coordinates_chr_num:typing.Optional[int] =  None
+    coordinates_chr_num:typing.Optional[str] =  None
     coordinates_start:typing.Optional[int] =  None
     coordinates_end:typing.Optional[int] =  None
     coordinates_strand: typing.Optional[int] =  None
