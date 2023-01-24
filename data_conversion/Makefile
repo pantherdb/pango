@@ -20,6 +20,15 @@ SHELL := /bin/bash
 %/resources/gene.dat: %/resources/gene.dat.gz
 	gunzip $<
 
+.PRECIOUS: %/resources/Homo_sapiens.chromosomal_location.gz
+%/resources/Homo_sapiens.chromosomal_location.gz:
+	mkdir -p $*/resources
+	wget http://data.pantherdb.org/PANTHER15.0/globals/Homo_sapiens.chromosomal_location.gz -O $@
+
+.PRECIOUS: %/resources/Homo_sapiens.chromosomal_location
+%/resources/Homo_sapiens.chromosomal_location: %/resources/Homo_sapiens.chromosomal_location.gz
+	gunzip $<
+
 .PRECIOUS: %/resources/goparentchild.tsv
 %/resources/goparentchild.tsv:
 	mkdir -p $*/resources
@@ -38,7 +47,7 @@ SHELL := /bin/bash
 .PRECIOUS: %/resources/goslim_generic.owl
 %/resources/goslim_generic.owl:
 	mkdir -p $*/resources
-	wget http://release.geneontology.org/2022-03-22/ontology/subsets/goslim_generic.owl -O $@
+	wget http://current.geneontology.org/ontology/subsets/goslim_generic.owl -O $@
 
 .PRECIOUS: %/resources/go.obo
 %/resources/go.obo:
@@ -61,8 +70,8 @@ SHELL := /bin/bash
 	python3 iba_exp_refs_to_json.py -f $*/resources/gene_association.paint_human.gaf -o $*/resources/goparentchild.tsv -s $*/goslim_generic.tsv -a $*/resources/go_aspects.tsv -p $*/resources/gene.dat > $@
 
 .PRECIOUS: %/human_iba_gene_info.json
-%/human_iba_gene_info.json: %/resources/gene_association.paint_human.gaf %/resources/goparentchild.tsv %/goslim_generic.tsv %/resources/go_aspects.tsv %/resources/gene.dat
-	python3 iba_exp_refs_to_json.py -f $*/resources/gene_association.paint_human.gaf -o $*/resources/goparentchild.tsv -s $*/goslim_generic.tsv -a $*/resources/go_aspects.tsv -p $*/resources/gene.dat -g > $@
+%/human_iba_gene_info.json: %/resources/gene_association.paint_human.gaf %/resources/goparentchild.tsv %/goslim_generic.tsv %/resources/go_aspects.tsv %/resources/gene.dat %/resources/Homo_sapiens.chromosomal_location
+	python3 iba_exp_refs_to_json.py -f $*/resources/gene_association.paint_human.gaf -o $*/resources/goparentchild.tsv -s $*/goslim_generic.tsv -a $*/resources/go_aspects.tsv -p $*/resources/gene.dat -c $*/resources/Homo_sapiens.chromosomal_location -g > $@
 
 .PRECIOUS: %/taxon_lkp.json
 %/taxon_lkp.json: %/human_iba_gene_info.json %/resources/species_list_15.tsv
