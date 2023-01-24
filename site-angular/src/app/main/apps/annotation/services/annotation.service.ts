@@ -68,8 +68,8 @@ export class AnnotationService {
     getAnnotationsPage(query: Query, page: number): any {
         const self = this;
         self.loading = true;
-        query.from = (page - 1) * this.annotationResultsSize;
-        query.size = this.annotationResultsSize;
+        query.pageArgs.page = (page - 1);
+        query.pageArgs.size = this.annotationResultsSize;
         this.query = query;
         return this.annotationGraphQLService.getAnnotationsQuery(query).subscribe(
             {
@@ -77,7 +77,7 @@ export class AnnotationService {
                     const annotationData = annotations
 
                     this.annotationPage.query = query;
-                    this.annotationPage.size = self.annotationResultsSize;
+                    this.annotationPage.updatePage()
                     this.annotationPage.annotations = annotationData;
                     //  this.annotationPage.aggs = response.aggregations;
                     this.annotationPage.query.source = query.source;

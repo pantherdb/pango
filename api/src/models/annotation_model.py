@@ -57,10 +57,10 @@ class Annotation:
     taxon_abbr: str
     taxon_label: str
     taxon_id: str
-    coordinates_chr_num:typing.Optional[int] = strawberry.UNSET
-    coordinates_start:typing.Optional[int] = strawberry.UNSET
-    coordinates_end:typing.Optional[int] = strawberry.UNSET
-    coordinates_strand: typing.Optional[int] = strawberry.UNSET
+    coordinates_chr_num:typing.Optional[int] =  None
+    coordinates_start:typing.Optional[int] =  None
+    coordinates_end:typing.Optional[int] =  None
+    coordinates_strand: typing.Optional[int] =  None
     term: Term
     slim_terms: typing.List[Term]
     qualifier: typing.Optional[str]
@@ -110,3 +110,8 @@ class AnnotationFilterArgs:
     qualifier_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
     with_gene_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
     reference_ids: typing.Optional[typing.List[str]] = strawberry.UNSET
+
+@strawberry.input
+class PageArgs:
+    page: typing.Optional[int] = 0
+    size: typing.Optional[int] = 50

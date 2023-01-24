@@ -26,10 +26,11 @@ export class AnnotationGraphQLService {
   getAnnotationsQuery(query: Query): Observable<any> {
     const options = {
       variables: {
-        filterArgs: query.filterArgs
+        filterArgs: query.filterArgs,
+        pageArgs: query.pageArgs
       },
-      query: `query GetAnnotations($filterArgs: AnnotationFilterArgs) {
-                annotations(filterArgs:$filterArgs) {
+      query: `query GetAnnotations($filterArgs: AnnotationFilterArgs, $pageArgs: PageArgs) {
+                annotations(filterArgs:$filterArgs, pageArgs:$pageArgs) {
                     gene
                     geneName
                     geneSymbol
