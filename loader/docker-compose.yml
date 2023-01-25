@@ -4,9 +4,9 @@ services:
 
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch:
-    mem_limit: 600m
+    mem_limit: 1G
     mem_reservation: 128M 
-    cpus: 0.5
+    cpus: 0.7
     image: docker.elastic.co/elasticsearch/elasticsearch:8.5.0
     container_name: elasticsearch
     environment:

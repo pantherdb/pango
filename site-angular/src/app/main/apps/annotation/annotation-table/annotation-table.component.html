@@ -57,23 +57,21 @@
         </th>
         <td mat-cell *matCellDef="let element" class="pango-gene-cell">
           <div class="w-100-p" fxLayout="column" fxLayoutAlign="start start">
-            <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
-              <div class="w-100-p pango-cell-title mr-8">
-                <a (click)="selectGene(element.gene)" [routerLink]="'/gene/'+element.gene">
-                  {{element.gene}}
-                </a>
-              </div>
-              <div *ngIf="element.evidenceType==='direct'">
-                <fa-icon [icon]="['far', 'check-circle']"></fa-icon>
-              </div>
-            </div>
             <div class="w-100-p pango-cell-description">
               {{element.geneSymbol}}
               (<a (click)="$event.stopPropagation()" [href]="taxonApiUrl+element.taxonId" target="_blank">
                 {{element.taxonAbbr}}
               </a> )
+              <span *ngIf="element.evidenceType==='direct'">
+                <fa-icon [icon]="['far', 'check-circle']"></fa-icon>
+              </span>
             </div>
             <div class="w-100-p pango-cell-description-2">{{element.geneName}}</div>
+            <div class="w-100-p pango-cell-title mr-8">
+              <a (click)="selectGene(element.gene)" [routerLink]="'/gene/'+element.gene">
+                {{element.gene}}
+              </a>
+            </div>
             <div *ngIf="element.coordinatesChrNum" class="pango-cell-coordinates">
               <a (click)="$event.stopPropagation()" [href]="getUcscLink(element)" target="_blank">
                 chr{{element.coordinatesChrNum}}:{{element.coordinatesStart}}-{{element.coordinatesEnd}}
@@ -155,12 +153,6 @@
                 (<a (click)="$event.stopPropagation()" [href]="taxonApiUrl+item.withGeneId?.taxonId" target="_blank">
                   {{item.withGeneId?.taxonAbbr}}
                 </a> )
-                <span *ngIf="item.withGeneId.coordinatesChrNum" class="pango-cell-coordinates">
-                  <a (click)="$event.stopPropagation()" [href]="getUcscLink(item.withGeneId)" target="_blank">
-                    chr{{item.withGeneId.coordinatesChrNum}}:{{item.withGeneId.coordinatesStart}}-{{item.withGeneId.coordinatesEnd}}
-                  </a>
-                </span>
-
               </div>
               <ng-container *ngFor="let reference of item.references; let i=index">
                 <div class="pango-cell-inner-section" *ngIf="i<maxReferences">
