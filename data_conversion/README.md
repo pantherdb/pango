@@ -1,6 +1,10 @@
 # Data conversion
 Convert data tied to a specific PAINT IBA release into JSON format for loading to elasticsearch.
-
+## Run
+Specify a destination `{target}` folder and run from `data_conversion`:
+```
+make {target}/all
+```
 ## Annotations
 Produce JSON file `human_iba_annotations.json` containing annotations from a GAF file.
 ### Prepare goslim_generic.tsv input
