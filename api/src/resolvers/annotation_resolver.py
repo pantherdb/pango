@@ -2,7 +2,7 @@
 # import asyncio
 import pprint
 import typing
-from src.models.annotation_model import Annotation, AnnotationFilterArgs, AnnotationStats, Bucket, Entity, Frequency, PageArgs, ResultCount
+from src.models.annotation_model import Annotation, AnnotationFilterArgs,PageArgs, ResultCount
 from src.config.settings import settings
 from src.config.es import  es
 

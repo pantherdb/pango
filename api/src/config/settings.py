@@ -2,7 +2,7 @@ import os
 from pydantic import BaseSettings
 
 class Settings(BaseSettings):
-
+    DEBUG:bool = bool(os.environ.get("DEBUG"))
     PANTHER_ES_URL:str = os.environ.get("PANTHER_ES_URL")
     PANTHER_ANNOTATIONS_INDEX :str = os.environ.get("PANTHER_ANNOTATIONS_INDEX")
     PANTHER_TERMS_INDEX:str = os.environ.get("PANTHER_TERMS_INDEX")

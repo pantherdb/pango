@@ -1,23 +1,35 @@
 {
   "number_of_shards": 1,
-  "number_of_replicas": 1,
+  "number_of_replicas": 0,
   "analysis": {
     "filter": {
-        "autocomplete_filter": {
+      "autocomplete_filter": {
         "type": "edge_ngram",
         "min_gram": 1,
-        "max_gram": 10
-        }
+        "max_gram": 50,
+        "token_chars": [
+          "letter",
+          "digit"
+        ]
+      }
     },
     "analyzer": {
-        "autocomplete": { 
+      "autocomplete": { 
         "type": "custom",
         "tokenizer": "standard",
         "filter": [
-            "lowercase",
-            "autocomplete_filter"
+          "lowercase",
+          "autocomplete_filter"
         ]
-        }
+      }  ,
+      "id_autocomplete": { 
+        "type": "custom",
+        "tokenizer": "standard",
+        "filter": [
+          "lowercase",
+          "autocomplete_filter"
+        ]
+      }      
     }
   }
 }

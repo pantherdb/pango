@@ -128,11 +128,10 @@ async def get_gene_autocomplete_query(keyword:str, filter_args:AnnotationFilterA
        "bool": {
          "must": [ 
             {     
-              "match": {
-                "gene": {
-                  "query": keyword,
-                  "operator": "and"
-                }
+              "multi_match" : {
+                "query": keyword,
+                "type": "phrase_prefix",
+                "fields":  [ "gene", "gene_name", "gene_symbol"]
               }
             }
          ],
@@ -157,9 +156,9 @@ async def get_slim_term_autocomplete_query_multi(keyword:str, filter_args:Annota
             "nested": {
               "path":"slim_terms",
               "query": {
-                  "multi_match" : {
+                "multi_match" : {
                   "query":      keyword,
-                  "type":       "best_fields",
+                  "type":       "phrase_prefix",
                   "fields":     [ "slim_terms.id", "slim_terms.label"]
                 }                  
               }

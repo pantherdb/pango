@@ -2,7 +2,7 @@
   "properties": {
     "gene": {
       "type": "text",
-      "analyzer": "autocomplete",
+      "analyzer": "id_autocomplete",
       "search_analyzer": "standard",
       "fields": {
         "keyword": {
@@ -13,7 +13,7 @@
     },
     "gene_symbol": {
       "type": "text",
-      "analyzer": "autocomplete",
+      "analyzer": "id_autocomplete",
       "search_analyzer": "standard",
       "fields": {
         "keyword": {
