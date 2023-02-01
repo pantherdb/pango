@@ -9,7 +9,8 @@ from typing import List
 parser = argparse.ArgumentParser()
 parser.add_argument('-f', '--annot_files', help="IBA GAF file with extra EXP_REF field; Will be an 'exploded' GAF "
                                                 "containing multiple lines per annotation with one line per with/from"
-                                                " value")
+                                                " value",
+                    nargs='*')
 parser.add_argument('-o', '--ontology', help="TSV of GO term parent(col1)-child(col2) relationships (is_a, part_of only)")
 parser.add_argument('-a', '--go_aspects', help="TSV of GO term->aspect lookup")
 parser.add_argument('-s', '--goslim_term_list', help="File list of the Generic GO slim terms")
@@ -249,14 +250,17 @@ class IbaExpRefCollection:
 
 class IbaExpRefManager:
     @staticmethod
-    def parse(iba_file, ontology_manager: OntologyManager):
+    def parse(iba_files, ontology_manager: OntologyManager):
         new_collection = IbaExpRefCollection(ontology_manager)
-        with open(iba_file) as af:
-            reader = csv.reader(af, delimiter="\t")
-            for r in reader:
-                if r[0].startswith("!"):
-                    continue
-                new_collection.update_annot_from_row(r)
+        if not isinstance(iba_files, List):
+            iba_files = [iba_files]
+        for iba_file in iba_files:
+            with open(iba_file) as af:
+                reader = csv.reader(af, delimiter="\t")
+                for r in reader:
+                    if r[0].startswith("!"):
+                        continue
+                    new_collection.update_annot_from_row(r)
         return new_collection
 
 
