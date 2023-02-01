@@ -224,7 +224,7 @@ class IbaExpRefCollection:
                 for aspect, result in has_aspect.items():
                     if not result:
                         unknown_aspect_term = self.ontology_manager.UNKNOWN_TERMS[aspect]
-                        new_annot = self.create_annotation_for_gene(gene_id, gene_name, gene_symbol, unknown_aspect_term)
+                        new_annot = self.create_annotation_for_gene(gene_id, gene_symbol, gene_name, unknown_aspect_term)
                         new_annot["slim_terms"] = [unknown_aspect_term]
                         new_annot["group"] = "GO_Central"
                         self.annotation_lkp[gene_id][unknown_aspect_term] = {"": new_annot}
