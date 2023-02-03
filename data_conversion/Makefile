@@ -20,6 +20,15 @@ SHELL := /bin/bash
 %/resources/gene.dat: %/resources/gene.dat.gz
 	gunzip $<
 
+.PRECIOUS: %/resources/gene_node.dat.gz
+%/resources/gene_node.dat.gz:
+	mkdir -p $*/resources
+	wget http://data.pantherdb.org/PANTHER15.0/globals/gene_node.dat.gz -O $@
+
+.PRECIOUS: %/resources/gene_node.dat
+%/resources/gene_node.dat: %/resources/gene_node.dat.gz
+	gunzip $<
+
 .PRECIOUS: %/resources/Homo_sapiens.chromosomal_location.gz
 %/resources/Homo_sapiens.chromosomal_location.gz:
 	mkdir -p $*/resources
@@ -69,9 +78,13 @@ SHELL := /bin/bash
 %/human_iba_annotations.json: %/resources/gene_association.paint_human.gaf %/resources/goparentchild.tsv %/goslim_generic.tsv %/resources/go_aspects.tsv %/resources/gene.dat
 	python3 iba_exp_refs_to_json.py -f $*/resources/gene_association.paint_human.gaf -o $*/resources/goparentchild.tsv -s $*/goslim_generic.tsv -a $*/resources/go_aspects.tsv -p $*/resources/gene.dat > $@
 
+# .PRECIOUS: %/human_iba_gene_info.json
+# %/human_iba_gene_info.json: %/resources/gene_association.paint_human.gaf %/resources/goparentchild.tsv %/goslim_generic.tsv %/resources/go_aspects.tsv %/resources/gene.dat %/resources/Homo_sapiens.chromosomal_location
+# 	python3 iba_exp_refs_to_json.py -f $*/resources/gene_association.paint_human.gaf -o $*/resources/goparentchild.tsv -s $*/goslim_generic.tsv -a $*/resources/go_aspects.tsv -p $*/resources/gene.dat -c $*/resources/Homo_sapiens.chromosomal_location -g > $@
+
 .PRECIOUS: %/human_iba_gene_info.json
-%/human_iba_gene_info.json: %/resources/gene_association.paint_human.gaf %/resources/goparentchild.tsv %/goslim_generic.tsv %/resources/go_aspects.tsv %/resources/gene.dat %/resources/Homo_sapiens.chromosomal_location
-	python3 iba_exp_refs_to_json.py -f $*/resources/gene_association.paint_human.gaf -o $*/resources/goparentchild.tsv -s $*/goslim_generic.tsv -a $*/resources/go_aspects.tsv -p $*/resources/gene.dat -c $*/resources/Homo_sapiens.chromosomal_location -g > $@
+%/human_iba_gene_info.json: %/resources/gene_association.paint_human.gaf %/resources/gene.dat %/resources/gene_node.dat %/resources/Homo_sapiens.chromosomal_location
+	python3 gene_info_from_gafs.py -a $*/resources/gene_association.paint_human.gaf resources/annot_human_genes_not_in_families_selected.gaf -g $*/resources/gene.dat -n $*/resources/gene_node.dat -c $*/resources/Homo_sapiens.chromosomal_location > $@
 
 .PRECIOUS: %/taxon_lkp.json
 %/taxon_lkp.json: %/human_iba_gene_info.json %/resources/species_list_15.tsv

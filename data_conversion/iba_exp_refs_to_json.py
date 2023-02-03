@@ -117,6 +117,7 @@ class IbaExpRefCollection:
             new_annot["slim_terms"] = slim_terms
             new_annot["qualifier"] = qualifier_val
             new_annot["group"] = group
+            new_annot["evidence_type"] = "homology"
             self.annotation_lkp[gene_id][go_term][qualifier] = new_annot
 
         # Merge experimental references
@@ -133,13 +134,19 @@ class IbaExpRefCollection:
 
     def parse_exp_gene_and_refs_from_row(self, csv_row: List):
         with_from_raw = csv_row[7]
-        with_gene_id = with_from_raw.split("|", maxsplit=1)[1]
-        with_gene_symbol = csv_row[18]
-        with_gene_name = csv_row[19]
-        with_gene_taxon_id = csv_row[20]
-        self.add_gene_info_to_lkp(with_gene_id, with_gene_symbol, with_gene_name, with_gene_taxon_id)
-        exp_pmids = sorted(csv_row[17].split("|"))
-        exp_group = csv_row[21]
+        if "|" in with_from_raw:
+            with_gene_id = with_from_raw.split("|", maxsplit=1)[1]
+            with_gene_symbol = csv_row[18]
+            with_gene_name = csv_row[19]
+            with_gene_taxon_id = csv_row[20]
+            exp_pmids = sorted(csv_row[17].split("|"))
+            exp_group = csv_row[21]
+            self.add_gene_info_to_lkp(with_gene_id, with_gene_symbol, with_gene_name, with_gene_taxon_id)
+        else:
+            # Likely not an IBA; fetch data from traditional columns
+            with_gene_id = None
+            exp_pmids = sorted(csv_row[17].split("|"))
+            exp_group = csv_row[21]
         return with_gene_id, exp_pmids, exp_group
 
     def merge_exp_evidence(self, gene_id: str, go_term: str, qualifier: str, csv_row: List):
@@ -150,9 +157,14 @@ class IbaExpRefCollection:
             "group": exp_group
         }
         evidence = self.annotation_lkp[gene_id][go_term][qualifier]["evidence"]  # Assumes everything exists
+        if with_gene_id is None:
+            # Likely not an IBA, so just stuff gene_id in with_gene so UI ties it with reference
+            ev_obj["with_gene_id"] = gene_id
+            self.annotation_lkp[gene_id][go_term][qualifier]["evidence_type"] = "N/A"
         if ev_obj not in evidence:
             if with_gene_id == gene_id:
                 evidence.insert(0, ev_obj)
+                self.annotation_lkp[gene_id][go_term][qualifier]["evidence_type"] = "direct"
             else:
                 evidence.append(ev_obj)
         self.annotation_lkp[gene_id][go_term][qualifier]["evidence"] = evidence
