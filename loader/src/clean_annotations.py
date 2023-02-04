@@ -119,8 +119,7 @@ def get_groups(evidences):
 
 
 def get_annos(annos_fp, terms_df, genes_df, articles_df):
-    start_time = time.time()
-    annos_df = pd.read_json(annos_fp)
+   annos_df = pd.read_json(annos_fp)
     annos_df = annos_df.merge(genes_df[
         ['taxon_id', 
         'taxon_label', 
@@ -130,23 +129,14 @@ def get_annos(annos_fp, terms_df, genes_df, articles_df):
         'coordinates_chr_num',
         'coordinates_start',
         'coordinates_end']], how='left', left_on="gene", right_index=True)
-    print( f" Merge. Total time taken {time.time() - start_time}s")
     annos_df['aspect'] = annos_df['term'].apply(lambda x: get_pd_row(terms_df, x)['aspect'])
-    print( f" Aspect. Total time taken {time.time() - start_time}s")
     annos_df['term'] = annos_df['term'].apply(lambda x: get_pd_row(terms_df, x))
-    print( f" Term. Total time taken {time.time() - start_time}s")
     annos_df['slim_terms'] = annos_df['slim_terms'].apply(lambda x: spread_terms(terms_df, x))
-    print( f" Slim T. Total time taken {time.time() - start_time}s")
     annos_df['qualifier'] = annos_df['qualifier'].str.replace('_', ' ')
-    print( f" Qualifier. Total time taken {time.time() - start_time}s")
     annos_df['evidence'] = annos_df.apply(lambda x: get_evidence(articles_df, genes_df, x),axis=1)
-    print( f" Evide. Total time taken {time.time() - start_time}s")
     annos_df['evidence_type'] = annos_df['evidence_type'].replace(np.nan, 'n/a')
-    print( f" Ev Type. Total time taken {time.time() - start_time}s")
     annos_df['groups'] = annos_df['evidence'].apply(lambda x: get_groups(x))
-    print( f" Groups. Total time taken {time.time() - start_time}s")
     annos_df['evidence_count'] = annos_df['evidence'].apply(lambda x: count_evidence(x))
-    print( f" Ev Count. Total time taken {time.time() - start_time}s")
 
     return annos_df
 
