@@ -19,6 +19,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
   evidenceTypeMap = pangoData.evidenceTypeMap
   annotationPage: AnnotationPage;
   annotationStats: AnnotationStats;
+  distinctGeneCount;
 
   /*   termFrequencyBarOptions = {
       view: [500, 500],
@@ -155,6 +156,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
       .subscribe((annotationStats: AnnotationStats) => {
         if (annotationStats) {
           this.annotationStats = annotationStats;
+          this.distinctGeneCount = this.annotationStats.distinctGeneCount
           this.generateStats()
         }
       });

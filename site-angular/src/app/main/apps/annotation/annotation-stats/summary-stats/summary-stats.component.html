@@ -4,13 +4,17 @@
       <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
         <div class="pango-section-heading">
           <h3>Annotation Results</h3>
-
         </div>
         <span fxFlex></span>
       </div>
       <div class="pango-section-body pt-12" fxLayout="row" fxLayoutAlign="start center">
         <div class="pango-stat-number">
           {{annotationPage?.total ? annotationPage.total: 0}}<br> <small>Annotations</small>
+        </div>
+      </div>
+      <div class="pango-section-body pt-12" fxLayout="row" fxLayoutAlign="start center">
+        <div class="pango-stat-number">
+          {{distinctGeneCount}}<br> <small>Genes</small>
         </div>
       </div>
     </div>
@@ -66,11 +70,10 @@
       </div>
     </div>
   </div>
-  <div class="pango-form-section  pango-referencess-stats h-100-p" fxFlex="" fxLayout="column"
-    fxLayoutAlign="start stretch">
+  <div class="pango-form-section  pango-terms-stats h-100-p" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch">
     <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
       <div class="pango-section-heading">
-        <h3>Slim Terms Distribution (first 20)</h3>
+        <h3>Inferred Slim Term Distribution (first 20)</h3>
 
       </div>
       <span fxFlex></span>
@@ -87,10 +90,10 @@
       </ngx-charts-bar-horizontal>
     </div>
   </div>
-  <div class="pango-form-section  pango-terms-stats h-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+  <div class="pango-form-section pango-terms-stats h-100-p" fxLayout="column" fxLayoutAlign="start stretch">
     <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
       <div class="pango-section-heading">
-        <h3>Terms Distribution (first 20)</h3>
+        <h3>Annotated GO Term Distribution (first 20)</h3>
       </div>
       <span fxFlex></span>
     </div>

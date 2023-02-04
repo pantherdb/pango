@@ -2,6 +2,7 @@ import argparse
 import json
 from os import path as ospath
 import time
+import numpy as np
 import pandas as pd
 from src.config.base import file_path
 from src.utils import get_pd_row, get_pd_row_key, write_to_json
@@ -140,8 +141,8 @@ def get_annos(annos_fp, terms_df, genes_df, articles_df):
     print( f" Qualifier. Total time taken {time.time() - start_time}s")
     annos_df['evidence'] = annos_df.apply(lambda x: get_evidence(articles_df, genes_df, x),axis=1)
     print( f" Evide. Total time taken {time.time() - start_time}s")
-    #annos_df['evidence_type'] = annos_df.apply(lambda x: get_evidence_type(x), axis=1)
-    #print( f" Ev Type. Total time taken {time.time() - start_time}s")
+    annos_df['evidence_type'] = annos_df['evidence_type'].replace(np.nan, 'n/a')
+    print( f" Ev Type. Total time taken {time.time() - start_time}s")
     annos_df['groups'] = annos_df['evidence'].apply(lambda x: get_groups(x))
     print( f" Groups. Total time taken {time.time() - start_time}s")
     annos_df['evidence_count'] = annos_df['evidence'].apply(lambda x: count_evidence(x))

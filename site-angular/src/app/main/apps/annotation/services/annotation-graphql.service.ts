@@ -202,6 +202,7 @@ export class AnnotationGraphQLService {
       },
       query: `query GetAnnotationsStats($filterArgs: AnnotationFilterArgs) {
                     stats(filterArgs:$filterArgs) {
+                      distinctGeneCount
                       termFrequency {
                         buckets {
                           docCount

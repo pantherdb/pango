@@ -48,10 +48,8 @@
       <ng-container matColumnDef="gene">
         <th mat-header-cell *matHeaderCellDef class="pango-gene-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
-            <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
-              <div>
-                Gene
-              </div>
+            <div>
+              Gene
             </div>
           </div>
         </th>
@@ -77,8 +75,8 @@
                 chr{{element.coordinatesChrNum}}:{{element.coordinatesStart}}-{{element.coordinatesEnd}}
               </a>
             </div>
-            <div class="w-100-p pango-cell-title mr-8">
-              <a>
+            <div *ngIf="element.pantherFamily" class="w-100-p pango-cell-title mr-8">
+              <a (click)="$event.stopPropagation()" [href]="getFamilyLink(element)" target="_blank">
                 {{element.pantherFamily}}
               </a>
             </div>

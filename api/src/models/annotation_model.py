@@ -97,7 +97,7 @@ class Frequency:
     
 @strawberry.type
 class AnnotationStats:
-    distinct_gene_count: Frequency
+    distinct_gene_count: int
     term_frequency: Frequency 
     aspect_frequency: Frequency 
     evidence_type_frequency: Frequency

@@ -8,7 +8,7 @@ annotations_fp='./downloads/input/human_iba_annotations.json'
 clean_articles_fp='./downloads/clean-articles.json'
 genes_fp='./downloads/input/human_iba_gene_info.json'
 taxon_fp='./downloads/input/taxon_lkp.json'
-clean_annotations_fp='./downloads/human_iba_annotations_clean2.json'
+clean_annotations_fp='./downloads/human_iba_annotations_clean.json'
 
 
 #python3 -m src.get_articles -a $annotations_fp -o $clean_articles_fp

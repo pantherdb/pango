@@ -159,6 +159,7 @@ export class Frequency {
 }
 
 export class AnnotationStats {
+    distinctGeneCount: number;
     termFrequency: Frequency;
     aspectFrequency: Frequency;
     evidenceTypeFrequency: Frequency;

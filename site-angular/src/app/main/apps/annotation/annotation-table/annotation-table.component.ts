@@ -103,6 +103,10 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
     return environment.ucscUrl + chr
   }
 
+  getFamilyLink(element: Annotation) {
+    return `${environment.pantherFamilyUrl}book=${element.pantherFamily}&seq=${element.longId}`
+  }
+
   setAnnotationPage(annotationPage: AnnotationPage) {
     this.annotationPage = annotationPage;
     this.dataSource = new MatTableDataSource<any>(this.annotationPage.annotations);

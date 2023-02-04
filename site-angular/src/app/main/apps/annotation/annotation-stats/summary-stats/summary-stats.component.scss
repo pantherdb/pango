@@ -6,18 +6,22 @@ $accent: map-get($theme, accent);
 
 .pango-aspect-stats {
   @include deep-width(250px);
+  .pango-section-body {
+    padding: 8px;
+  }
 }
 
-.pango-term-stats {
-  @include deep-width(300px);
+.pango-terms-stats {
+  // @include deep-width(300px);
+  min-height: 450px !important;
 }
 
 .pango-total-stats {
-  @include deep-height(120px);
+  @include deep-height(190px);
   @include deep-width(250px);
   .pango-stat-number {
-    font-size: 42px;
-    line-height: 24px;
+    font-size: 36px;
+    line-height: 20px;
     color: map-get($mat-blue-grey, 500);
     small {
       font-weight: normal;

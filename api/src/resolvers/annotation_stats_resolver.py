@@ -85,13 +85,13 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
                   doc_count=freq_bucket["doc_count"],
                   meta = get_response_meta(freq_bucket["docs"])
                 ))
+            stats[k] = Frequency(buckets=buckets)
         elif k =='distinct_gene_count':
-            buckets = [Bucket(key = 'gene', doc_count= freqs['value'])]
+            stats[k] = freqs['value']
         else:
             buckets = [Bucket(**bucket) for bucket in freqs['buckets']]
-        
-        stats[k] = Frequency(buckets=buckets)
-                 
+            stats[k] = Frequency(buckets=buckets)
+                         
     results = AnnotationStats(**stats)
         
     return results
