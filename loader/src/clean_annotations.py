@@ -1,6 +1,7 @@
 import argparse
 import json
 from os import path as ospath
+import time
 import pandas as pd
 from src.config.base import file_path
 from src.utils import get_pd_row, get_pd_row_key, write_to_json
@@ -27,6 +28,8 @@ def parse_arguments():
                         type=file_path, help='Terms Json')
     parser.add_argument('-art', dest='articles_fp', required=True,
                         type=file_path, help='Articles Json')
+    parser.add_argument('-tax', dest='taxon_fp', required=True,
+                        type=file_path, help='taxon Json')
     parser.add_argument('-g', dest='genes_fp', required=True,
                         type=file_path, help='Genes Json')
     parser.add_argument('-o', dest='clean_annos_fp', required=True,
@@ -97,6 +100,7 @@ def get_taxon_map(taxon_fp):
 # Gene
 def get_genes_map(genes_fp, taxon_df):
     genes_df = pd.read_json(genes_fp, dtype={'taxon_id':str})
+    genes_df['taxon_id'] = genes_df['taxon_id'].str.replace('taxon:', '')
     genes_df = genes_df.merge(taxon_df, how='left', on='taxon_id')
     genes_df = genes_df.set_index('gene', drop=False)
     return genes_df
@@ -114,24 +118,34 @@ def get_groups(evidences):
 
 
 def get_annos(annos_fp, terms_df, genes_df, articles_df):
-
+    start_time = time.time()
     annos_df = pd.read_json(annos_fp)
     annos_df = annos_df.merge(genes_df[
         ['taxon_id', 
         'taxon_label', 
-        'taxon_abbr' , 
+        'taxon_abbr',
+        'panther_family',
+        'long_id',
         'coordinates_chr_num',
         'coordinates_start',
-        'coordinates_end',
-        'coordinates_strand']], how='left', left_on="gene", right_index=True)
+        'coordinates_end']], how='left', left_on="gene", right_index=True)
+    print( f" Merge. Total time taken {time.time() - start_time}s")
     annos_df['aspect'] = annos_df['term'].apply(lambda x: get_pd_row(terms_df, x)['aspect'])
+    print( f" Aspect. Total time taken {time.time() - start_time}s")
     annos_df['term'] = annos_df['term'].apply(lambda x: get_pd_row(terms_df, x))
+    print( f" Term. Total time taken {time.time() - start_time}s")
     annos_df['slim_terms'] = annos_df['slim_terms'].apply(lambda x: spread_terms(terms_df, x))
+    print( f" Slim T. Total time taken {time.time() - start_time}s")
     annos_df['qualifier'] = annos_df['qualifier'].str.replace('_', ' ')
+    print( f" Qualifier. Total time taken {time.time() - start_time}s")
     annos_df['evidence'] = annos_df.apply(lambda x: get_evidence(articles_df, genes_df, x),axis=1)
-    annos_df['evidence_type'] = annos_df.apply(lambda x: get_evidence_type(x), axis=1)
+    print( f" Evide. Total time taken {time.time() - start_time}s")
+    #annos_df['evidence_type'] = annos_df.apply(lambda x: get_evidence_type(x), axis=1)
+    #print( f" Ev Type. Total time taken {time.time() - start_time}s")
     annos_df['groups'] = annos_df['evidence'].apply(lambda x: get_groups(x))
+    print( f" Groups. Total time taken {time.time() - start_time}s")
     annos_df['evidence_count'] = annos_df['evidence'].apply(lambda x: count_evidence(x))
+    print( f" Ev Count. Total time taken {time.time() - start_time}s")
 
     return annos_df
 

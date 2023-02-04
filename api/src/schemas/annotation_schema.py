@@ -2,9 +2,9 @@ import strawberry
 from pydantic import typing
 from strawberry.types import Info
 from src.models.term_model import Term
-from src.resolvers.annotation_stats_resolver import get_annotations_stats
+from src.resolvers.annotation_stats_resolver import get_annotations_count, get_annotations_stats
 from src.resolvers.autocomplete_resolver import get_autocomplete, get_slim_term_autocomplete_query_multi
-from src.resolvers.annotation_resolver import get_annotations, get_annotations_count
+from src.resolvers.annotation_resolver import get_annotations
 from src.models.annotation_model import Annotation, AnnotationFilterArgs, AnnotationStats, AutocompleteType, PageArgs, ResultCount
 from src.utils import get_selected_fields
 

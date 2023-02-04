@@ -7,11 +7,40 @@ from src.models.annotation_model import Annotation, AnnotationFilterArgs, Annota
 from src.config.settings import settings
 from src.config.es import  es
 
+async def get_annotations_count(filter_args:AnnotationFilterArgs):
+
+    query = await get_annotations_query(filter_args)
+    resp = await es.count(
+          index=settings.PANTHER_ANNOTATIONS_INDEX,
+          query=query,
+    )
+
+    results = ResultCount(total=resp['count'])
+        
+    return results   
+
+async def get_distinct_gene_count(filter_args:AnnotationFilterArgs):
+
+    query = await get_annotations_query(filter_args)
+    resp = await es.count(
+          index=settings.PANTHER_ANNOTATIONS_INDEX,
+          query=query,
+    )
+
+    results = ResultCount(total=resp['count'])
+        
+    return results   
+
 
 async def get_annotations_stats(filter_args:AnnotationFilterArgs):
     
     query = await get_annotations_query(filter_args)
     aggs = {
+        "distinct_gene_count": {
+          "cardinality": {
+            "field": "gene.keyword"
+          }
+        },
         "term_frequency": {
           "terms": {
             "field": "term.label.keyword",
@@ -51,14 +80,15 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
             buckets = list()
             for freq_bucket in freqs['distinct_slim_term_frequency']['buckets']:     
 
-              buckets.append(Bucket(
-                key=freq_bucket["key"],
-                doc_count=freq_bucket["doc_count"],
-                meta = get_response_meta(freq_bucket["docs"])
-              ))
-
+                buckets.append(Bucket(
+                  key=freq_bucket["key"],
+                  doc_count=freq_bucket["doc_count"],
+                  meta = get_response_meta(freq_bucket["docs"])
+                ))
+        elif k =='distinct_gene_count':
+            buckets = [Bucket(key = 'gene', doc_count= freqs['value'])]
         else:
-             buckets = [Bucket(**bucket) for bucket in freqs['buckets']]
+            buckets = [Bucket(**bucket) for bucket in freqs['buckets']]
         
         stats[k] = Frequency(buckets=buckets)
                  

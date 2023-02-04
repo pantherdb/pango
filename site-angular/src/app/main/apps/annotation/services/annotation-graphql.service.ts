@@ -34,6 +34,8 @@ export class AnnotationGraphQLService {
                     gene
                     geneName
                     geneSymbol
+                    longId
+                    pantherFamily
                     taxonAbbr
                     taxonLabel
                     taxonId

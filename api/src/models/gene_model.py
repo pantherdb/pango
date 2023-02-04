@@ -6,6 +6,8 @@ class Gene:
     gene: str
     gene_symbol: str
     gene_name: str
+    long_id: typing.Optional[str] =  None
+    panther_family: typing.Optional[str] =  None
     taxon_abbr: str
     taxon_label: str
     taxon_id: str

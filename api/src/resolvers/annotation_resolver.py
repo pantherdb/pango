@@ -24,17 +24,8 @@ async def get_annotations(filter_args:AnnotationFilterArgs, page_args=PageArgs):
         
     return results    
 
-async def get_annotations_count(filter_args:AnnotationFilterArgs):
 
-    query = await get_annotations_query(filter_args)
-    resp = await es.count(
-          index=settings.PANTHER_ANNOTATIONS_INDEX,
-          query=query,
-    )
 
-    results = ResultCount(total=resp['count'])
-        
-    return results   
 
 async def get_annotations_query(filter_args:AnnotationFilterArgs):
   
