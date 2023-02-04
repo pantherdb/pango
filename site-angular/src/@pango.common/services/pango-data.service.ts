@@ -28,7 +28,8 @@ export class PangoDataService {
   get evidenceTypeOption() {
     const options = [
       this.evidenceTypeMap.direct,
-      this.evidenceTypeMap.homology
+      this.evidenceTypeMap.homology,
+      this.evidenceTypeMap.na
     ];
 
     return {

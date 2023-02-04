@@ -35,6 +35,11 @@ const evidenceTypeMap = {
     label: 'homology',
     color: getColor('red', 500)
   },
+  'na': {
+    id: 'n/a',
+    label: 'n/a',
+    color: getColor('cyan', 500)
+  },
 }
 
 
