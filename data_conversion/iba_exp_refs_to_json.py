@@ -145,8 +145,8 @@ class IbaExpRefCollection:
         else:
             # Likely not an IBA; fetch data from traditional columns
             with_gene_id = None
-            exp_pmids = sorted(csv_row[17].split("|"))
-            exp_group = csv_row[21]
+            exp_pmids = sorted(csv_row[5].split("|"))
+            exp_group = csv_row[14]
         return with_gene_id, exp_pmids, exp_group
 
     def merge_exp_evidence(self, gene_id: str, go_term: str, qualifier: str, csv_row: List):

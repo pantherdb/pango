@@ -76,7 +76,7 @@ SHELL := /bin/bash
 
 .PRECIOUS: %/human_iba_annotations.json
 %/human_iba_annotations.json: %/resources/gene_association.paint_human.gaf %/resources/goparentchild.tsv %/goslim_generic.tsv %/resources/go_aspects.tsv %/resources/gene.dat
-	python3 iba_exp_refs_to_json.py -f $*/resources/gene_association.paint_human.gaf -o $*/resources/goparentchild.tsv -s $*/goslim_generic.tsv -a $*/resources/go_aspects.tsv -p $*/resources/gene.dat > $@
+	python3 iba_exp_refs_to_json.py -f $*/resources/gene_association.paint_human.gaf resources/annot_human_genes_not_in_families_selected.gaf -o $*/resources/goparentchild.tsv -s $*/goslim_generic.tsv -a $*/resources/go_aspects.tsv -p $*/resources/gene.dat > $@
 
 # .PRECIOUS: %/human_iba_gene_info.json
 # %/human_iba_gene_info.json: %/resources/gene_association.paint_human.gaf %/resources/goparentchild.tsv %/goslim_generic.tsv %/resources/go_aspects.tsv %/resources/gene.dat %/resources/Homo_sapiens.chromosomal_location
