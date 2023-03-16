@@ -82,3 +82,23 @@ def test_genome_coordinates():
             gene_info_json_obj = gi
             break
     assert gene_info_json_obj["coordinates_start"] == "121780952"
+
+
+def test_inferred_slim_terms():
+    # Test that slim term inference only captures the most specific slim terms
+    # GO:0017116 -is_a-> GO:0140097 -is_a-> GO:0003824
+    # So, GO:0003824 should not be in 'slim_terms'
+    test_row = ['UniProtKB', 'Q07001', 'CHRND', 'is_active_in', 'GO:0017116', 'PMID:21873635', 'IBA',
+                'PANTHER:PTN000434994|RGD:2704', 'F', 'Acetylcholine receptor subunit delta',
+                'UniProtKB:Q07001|PTN002498466', 'protein', 'taxon:9606', '20211216', 'GO_Central', '', '',
+                'PMID:25339867|PMID:23175852', 'Glra1', 'Glycine receptor subunit alpha-1', 'taxon:10116', 'RGD']
+    collection = IbaExpRefCollection(ont_manager)
+    collection.update_annot_from_row(test_row)
+    annots = collection.annotation_list()
+    assert "GO:0003824" not in annots[0]["slim_terms"]
+
+
+def test_term_ancestry():
+    assert ont_manager.is_ancestor_of('GO:0003824', 'GO:0017116') is True
+    assert ont_manager.is_ancestor_of('GO:0017116', 'GO:0003824') is None  # Good enough stand-in for False
+    assert ont_manager.is_ancestor_of('GO:0003824', 'GO:0140097') is True

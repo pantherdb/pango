@@ -59,7 +59,30 @@ class OntologyManager:
                 aspect = r[1]
                 self.go_aspects[term] = aspect
 
-    def generalize_term(self, goterm: str, new_terms: List = None):
+    def is_ancestor_of(self, term_a, term_b):
+        # Determine whether term_a is_ancestor_of term_b
+        # Returns None if False
+        if term_b in self.go_parents:
+            for parent in self.go_parents[term_b]:
+                if parent == term_a or self.is_ancestor_of(term_a, parent):
+                    return True
+
+    def generalize_term(self, goterm: str):
+        inferred_terms = self.infer_slim_terms(goterm)
+        # return inferred_terms
+    
+        nonredundant_generalized_terms = []
+        for t1 in inferred_terms:
+            t1_is_redundant = False
+            for t2 in inferred_terms:
+                if self.is_ancestor_of(t1, t2):
+                    t1_is_redundant = True
+                    break
+            if not t1_is_redundant:
+                nonredundant_generalized_terms.append(t1)
+        return nonredundant_generalized_terms
+
+    def infer_slim_terms(self, goterm: str, new_terms: List = None):
         # Roll up annotated term to goslim_generic
         if new_terms is None:
             new_terms = []
@@ -69,7 +92,7 @@ class OntologyManager:
             for parent_term in self.go_parents[goterm]:
                 if self.go_aspects[parent_term] != self.go_aspects[goterm]:
                     continue
-                for new_term in self.generalize_term(parent_term, new_terms):
+                for new_term in self.infer_slim_terms(parent_term, new_terms):
                     if new_term not in new_terms:
                         new_terms.append(new_term)
             return new_terms
