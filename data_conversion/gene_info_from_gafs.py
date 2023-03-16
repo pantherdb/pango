@@ -3,7 +3,6 @@
 import argparse
 import json
 import csv
-import yaml
 from typing import List
 
 
