@@ -70,9 +70,13 @@ SHELL := /bin/bash
 	wget https://github.com/ontodev/robot/raw/master/bin/robot -O $@
 	chmod 744 $@
 
+.PRECIOUS: %/goslim_generic_w_alt_ids.tsv
+%/goslim_generic_w_alt_ids.tsv: resources/goslim_generic_pt.obo %/bin/robot
+	$*/bin/robot export --input $< --header "ID|LABEL" --format tsv --export $@
+
 .PRECIOUS: %/goslim_generic.tsv
-%/goslim_generic.tsv: %/resources/goslim_generic.owl %/bin/robot
-	$*/bin/robot export --input $< --header "ID" --format tsv --export $@
+%/goslim_generic.tsv: %/goslim_generic_w_alt_ids.tsv
+	awk '$$2 != ""' $< | cut -f1 > $@
 
 .PRECIOUS: %/human_iba_annotations.json
 %/human_iba_annotations.json: %/resources/gene_association.paint_human.gaf %/resources/goparentchild.tsv %/goslim_generic.tsv %/resources/go_aspects.tsv %/resources/gene.dat
