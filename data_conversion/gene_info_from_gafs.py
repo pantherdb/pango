@@ -49,7 +49,7 @@ class GeneInfoCollection:
         gene_id = "{}:{}".format(csv_row[0], csv_row[1])
         gene_symbol = csv_row[2]
         gene_name = csv_row[9]
-        gene_taxon = csv_row[12]
+        gene_taxon = csv_row[12].replace("taxon:", "")
         self.gene_info_dict[gene_id] = {
             "gene": gene_id,
             "gene_symbol": gene_symbol,
@@ -61,7 +61,7 @@ class GeneInfoCollection:
             with_gene_id = with_from_raw.split("|", maxsplit=1)[1]
             with_gene_symbol = csv_row[18]
             with_gene_name = csv_row[19]
-            with_gene_taxon_id = csv_row[20]
+            with_gene_taxon_id = csv_row[20].replace("taxon:", "")
             self.gene_info_dict[with_gene_id] = {
                 "gene": with_gene_id,
                 "gene_symbol": with_gene_symbol,
