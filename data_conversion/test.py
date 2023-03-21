@@ -1,4 +1,5 @@
 from iba_exp_refs_to_json import IbaExpRefManager, IbaExpRefCollection, OntologyManager
+from gene_info_from_gafs import GeneInfoCollection
 
 goslim_term_file = "resources/test/goslim_generic.tsv"
 ontology_file = "resources/test/goparentchild.tsv"
@@ -102,3 +103,14 @@ def test_term_ancestry():
     assert ont_manager.is_ancestor_of('GO:0003824', 'GO:0017116') is True
     assert ont_manager.is_ancestor_of('GO:0017116', 'GO:0003824') is None  # Good enough stand-in for False
     assert ont_manager.is_ancestor_of('GO:0003824', 'GO:0140097') is True
+
+
+def test_gene_symbols_names():
+    iba_gaf = "resources/test/gene_association.paint_human.gaf"
+    exp_gaf = "resources/annot_human_genes_not_in_families_selected.gaf"
+    test_gene_dat = "resources/test/gene.dat"
+    gene_info_collection = GeneInfoCollection()
+    gene_info_collection.extract_from_annotation_gaf([iba_gaf, exp_gaf])
+    gene_info_collection.fill_in_gene_symbol_name(test_gene_dat)
+    assert gene_info_collection.gene_info_dict["UniProtKB:Q9NUQ7"]["gene_name"] == "Ufm1-specific protease 2"
+    assert gene_info_collection.gene_info_dict["UniProtKB:A0A1W2PRP0"]["gene_symbol"] == "A0A1W2PRP0"

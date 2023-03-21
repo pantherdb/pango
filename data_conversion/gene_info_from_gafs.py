@@ -84,7 +84,11 @@ class GeneInfoCollection:
                 if gene_id in self.gene_info_dict:
                     gene_symbol = r[2]
                     gene_name = r[1]
-                    self.gene_info_dict[gene_id]["gene_symbol"] = gene_symbol
+                    if self.gene_info_dict[gene_id]["gene_symbol"] == "":
+                        self.gene_info_dict[gene_id]["gene_symbol"] = gene_symbol
+                    if self.gene_info_dict[gene_id]["gene_symbol"] == "":
+                        # Duplicating symbol filling logic from createGAF.pl
+                        self.gene_info_dict[gene_id]["gene_symbol"] = gene_id.split(":", maxsplit=1)[1]
                     self.gene_info_dict[gene_id]["gene_name"] = gene_name
                     self.gene_info_dict[gene_id]["long_id"] = long_id
                     # self.gene_info_dict[gene_id]["taxon_id"] = species_oscode_to_taxon_id[oscode]
