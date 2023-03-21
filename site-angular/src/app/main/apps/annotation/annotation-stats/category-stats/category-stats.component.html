@@ -1,0 +1,22 @@
+<div class="w-100-p" fxLayout="row" fxLayoutAlign="start stretch">
+  <div class="pango-form-section  pango-terms-stats h-100-p" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
+      <div class="pango-section-heading">
+        <h3>GO Function Category Distribution </h3>
+
+      </div>
+      <span fxFlex></span>
+    </div>
+    <div class="pango-section-body h-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+      <ngx-charts-bar-horizontal [results]="stats.slimTermFrequencyBar" [view]="slimTermFrequencyBarOptions.view"
+        [scheme]="slimTermFrequencyBarOptions.colorScheme" [gradient]="slimTermFrequencyBarOptions.gradient"
+        [xAxis]="slimTermFrequencyBarOptions.showXAxis" [yAxis]="slimTermFrequencyBarOptions.showYAxis"
+        [legend]="slimTermFrequencyBarOptions.legend" [showXAxisLabel]="slimTermFrequencyBarOptions.showXAxisLabel"
+        [maxYAxisTickLength]="slimTermFrequencyBarOptions.maxYAxisTickLength"
+        [showYAxisLabel]="slimTermFrequencyBarOptions.showYAxisLabel"
+        [yAxisLabel]="slimTermFrequencyBarOptions.yAxisLabel" [xAxisLabel]="slimTermFrequencyBarOptions.xAxisLabel"
+        (select)="slimTermFrequencyBarOptions.onSelect($event)">
+      </ngx-charts-bar-horizontal>
+    </div>
+  </div>
+</div>

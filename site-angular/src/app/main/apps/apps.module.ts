@@ -13,6 +13,7 @@ import { SearchFormComponent } from './annotation/search-form/search-form.compon
 import { AnnotationFiltersComponent } from './annotation/annotation-filters/annotation-filters.component';
 import { SummaryStatsComponent } from './annotation/annotation-stats/summary-stats/summary-stats.component';
 import { AnnotationTableLongComponent } from './annotation/annotation-table-long/annotation-table-long.component';
+import { CategoryStatsComponent } from './annotation/annotation-stats/category-stats/category-stats.component';
 
 const routes = [];
 
@@ -23,6 +24,7 @@ const routes = [];
         AnnotationDetailComponent,
         AnnotationSummaryComponent,
         SummaryStatsComponent,
+        CategoryStatsComponent,
         AnnotationStatsComponent,
         GeneralStatsComponent,
         PositionStatsComponent,
@@ -42,6 +44,7 @@ const routes = [];
         AnnotationSummaryComponent,
         AnnotationStatsComponent,
         SummaryStatsComponent,
+        CategoryStatsComponent,
         GeneralStatsComponent,
         PositionStatsComponent,
         SearchFormComponent,

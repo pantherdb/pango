@@ -25,8 +25,6 @@ async def get_annotations(filter_args:AnnotationFilterArgs, page_args=PageArgs):
     return results    
 
 
-
-
 async def get_annotations_query(filter_args:AnnotationFilterArgs):
   
     filters = list()

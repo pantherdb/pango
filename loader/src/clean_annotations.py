@@ -101,7 +101,7 @@ def get_taxon_map(taxon_fp):
 # Gene
 def get_genes_map(genes_fp, taxon_df):
     genes_df = pd.read_json(genes_fp, dtype={'taxon_id':str})
-    genes_df['taxon_id'] = genes_df['taxon_id'].str.replace('taxon:', '')
+    #genes_df['taxon_id'] = genes_df['taxon_id'].str.replace('taxon:', '')
     genes_df = genes_df.merge(taxon_df, how='left', on='taxon_id')
     genes_df = genes_df.set_index('gene', drop=False)
     return genes_df

@@ -13,7 +13,7 @@ class AnnotationQuery:
 
     @strawberry.field
     async def annotations(self, info:Info, filter_args:typing.Optional[AnnotationFilterArgs]=None, 
-    page_args:typing.Optional[PageArgs] = None) -> typing.List[Annotation]:
+      page_args:typing.Optional[PageArgs] = None) -> typing.List[Annotation]:
         return await get_annotations(filter_args, page_args)
 
     @strawberry.field

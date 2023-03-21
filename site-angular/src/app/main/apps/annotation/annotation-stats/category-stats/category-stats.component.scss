@@ -5,8 +5,7 @@ $primary: map-get($theme, primary);
 $accent: map-get($theme, accent);
 
 .pango-aspect-stats {
-  //@include deep-width(250px);
-  @include deep-height(190px);
+  @include deep-width(250px);
   .pango-section-body {
     padding: 8px;
   }

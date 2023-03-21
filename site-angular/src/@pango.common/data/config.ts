@@ -5,19 +5,19 @@ const aspectMap = {
   'molecular function': {
     id: 'molecular function',
     shorthand: 'MF',
-    label: 'Molecular Function',
+    label: 'Molecular Function (MF)',
     color: getColor('green', 500)
   },
   'biological process': {
     id: 'biological process',
     shorthand: 'BP',
-    label: 'Biological Process',
+    label: 'Biological Process (BP)',
     color: getColor('orange', 500)
   },
   'cellular component': {
     id: 'cellular component',
     shorthand: 'CC',
-    label: 'Cellular Component',
+    label: 'Cellular Component (CC)',
     color: getColor('purple', 500)
   }
 

@@ -8,12 +8,14 @@
         </pango-annotation-summary>
         <pango-annotation-stats [panelDrawer]="rightDrawer" *ngSwitchCase="LeftPanel.annotationStats">
         </pango-annotation-stats>
-        <pango-search-form [panelDrawer]="rightDrawer" *ngSwitchCase="LeftPanel.annotationSearch">
-        </pango-search-form>
+
+        <pango-category-stats></pango-category-stats>
+
       </div>
     </mat-drawer>
     <mat-drawer-content #scrollbarRef class="pango-section-body w-100-p" [perfectScrollbar]="scrollbarConfig">
       <div class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+        <pango-search-form> </pango-search-form>
         <pango-summary-stats></pango-summary-stats>
         <pango-annotation-table class="w-100-p"></pango-annotation-table>
       </div>

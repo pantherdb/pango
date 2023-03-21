@@ -2,7 +2,6 @@ from enum import Enum
 import strawberry
 import typing
 from src.models.gene_model import Gene
-
 from src.models.term_model import Term
 
 @strawberry.enum

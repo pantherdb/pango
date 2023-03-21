@@ -21,4 +21,4 @@ python3 -m src.clean_annotations \
 -g $genes_fp \
 -o $clean_annotations_fp
 
-#python3 -m src.index_es -a $clean_annotations_fp
+python3 -m src.index_es -a $clean_annotations_fp

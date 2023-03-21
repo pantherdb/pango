@@ -268,7 +268,7 @@ export class AnnotationService {
         return sorted
     }
 
-    buildAnnotationBar(buckets: Bucket[], max = 10, limit = 20) {
+    buildAnnotationBar(buckets: Bucket[], max = 10, limit = 124) {
 
         const stats = buckets.map((bucket) => {
             return {
