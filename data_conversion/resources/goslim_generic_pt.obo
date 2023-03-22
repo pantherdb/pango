@@ -2098,23 +2098,11 @@ synonym: "receptor-associated protein activity" RELATED []
 xref: Wikipedia:Ligand_(biochemistry)
 
 [Term]
-id: GO:0043167
-name: ion binding
+id: GO:0005509
+name: calcium ion binding
 namespace: molecular_function
-def: "Binding to an ion, a charged atoms or groups of atoms." [GOC:jl]
-subset: goslim_chembl
-subset: goslim_metagenomics
-subset: goslim_pir
-subset: goslim_yeast
-synonym: "atom binding" RELATED []
-
-[Term]
-id: GO:0042277
-name: peptide binding
-namespace: molecular_function
-def: "Binding to a peptide, an organic compound comprising two or more amino acids linked by peptide bonds." [GOC:jl]
-subset: goslim_chembl
-subset: goslim_pir
+def: "Binding to a calcium ion (Ca2+)." [GOC:ai]
+synonym: "calcium ion storage activity" RELATED []
 
 [Term]
 id: GO:0030054
