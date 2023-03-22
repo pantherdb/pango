@@ -182,8 +182,8 @@ class IbaExpRefCollection:
         evidence = self.annotation_lkp[gene_id][go_term][qualifier]["evidence"]  # Assumes everything exists
         if with_gene_id is None:
             # Likely not an IBA, so just stuff gene_id in with_gene so UI ties it with reference
+            with_gene_id = gene_id
             ev_obj["with_gene_id"] = gene_id
-            self.annotation_lkp[gene_id][go_term][qualifier]["evidence_type"] = "N/A"
         if ev_obj not in evidence:
             if with_gene_id == gene_id:
                 evidence.insert(0, ev_obj)
@@ -273,6 +273,7 @@ class IbaExpRefCollection:
                         new_annot = self.create_annotation_for_gene(gene_id, gene_symbol, gene_name, unknown_aspect_term)
                         new_annot["slim_terms"] = [unknown_aspect_term]
                         new_annot["group"] = "GO_Central"
+                        new_annot["evidence_type"] = "n/a"
                         self.annotation_lkp[gene_id][unknown_aspect_term] = {"": new_annot}
 
     def scavenge_annots_for_any_nonblank_gene_symbol(self, gene_id):
