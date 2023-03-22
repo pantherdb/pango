@@ -114,3 +114,4 @@ def test_gene_symbols_names():
     gene_info_collection.fill_in_gene_symbol_name(test_gene_dat)
     assert gene_info_collection.gene_info_dict["UniProtKB:Q9NUQ7"]["gene_name"] == "Ufm1-specific protease 2"
     assert gene_info_collection.gene_info_dict["UniProtKB:A0A1W2PRP0"]["gene_symbol"] == "A0A1W2PRP0"
+    assert gene_info_collection.gene_info_dict["UniProtKB:X6R8D5"]["gene_symbol"] == "X6R8D5"

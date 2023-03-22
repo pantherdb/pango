@@ -76,12 +76,19 @@ class GeneInfoCollection:
                 long_id = r[0]
                 oscode, mod_id, uniprot_id = long_id.split("|")
                 uniprot_id_curie = uniprot_id.replace("=", ":")
-                if uniprot_id_curie in self.gene_info_dict:
+                if uniprot_id_curie in self.gene_info_dict or oscode == "HUMAN":
                     gene_id = uniprot_id_curie
                 else:
                     # Try linking by mod_id, for non-human genes
                     gene_id = mod_id.replace("=", ":")
-                if gene_id in self.gene_info_dict:
+                if gene_id in self.gene_info_dict or oscode == "HUMAN":
+                    if gene_id not in self.gene_info_dict:
+                        # These cases are from human genes not in GAF so, need to be filled in
+                        self.gene_info_dict[gene_id] = {
+                            "gene": gene_id,
+                            "gene_symbol": "",
+                            "taxon_id": "9606",
+                        }
                     gene_symbol = r[2]
                     gene_name = r[1]
                     if self.gene_info_dict[gene_id]["gene_symbol"] == "":
