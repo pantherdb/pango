@@ -121,7 +121,9 @@ def get_groups(evidences):
 def get_annos(annos_fp, terms_df, genes_df, articles_df):
     annos_df = pd.read_json(annos_fp)
     annos_df = annos_df.merge(genes_df[
-        ['taxon_id', 
+        ['gene_symbol',
+        'gene_name',
+        'taxon_id', 
         'taxon_label', 
         'taxon_abbr',
         'panther_family',

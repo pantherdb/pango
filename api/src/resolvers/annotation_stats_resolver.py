@@ -38,7 +38,8 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
     aggs = {
         "distinct_gene_count": {
           "cardinality": {
-            "field": "gene.keyword"
+            "field": "gene.keyword",
+            "precision_threshold": 40000
           }
         },
         "term_frequency": {

@@ -66,7 +66,7 @@ def get_pubmed_metadata(annotations_fp: path, out_fp):
     pubmed_json = list()
     for i in range(0, end, step):
         x = i
-        time.sleep(2)
+        time.sleep(1)
         response = requests.get(pubmed_api+",".join(pmids[x:x+step]))
         res = response.json()['result']
         pubmed_json.extend([parse_article(res[uid]) for uid in res['uids']])
