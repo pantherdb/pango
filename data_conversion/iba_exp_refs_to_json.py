@@ -182,8 +182,8 @@ class IbaExpRefCollection:
         evidence = self.annotation_lkp[gene_id][go_term][qualifier]["evidence"]  # Assumes everything exists
         if with_gene_id is None:
             # Likely not an IBA, so just stuff gene_id in with_gene so UI ties it with reference
+            with_gene_id = gene_id
             ev_obj["with_gene_id"] = gene_id
-            self.annotation_lkp[gene_id][go_term][qualifier]["evidence_type"] = "N/A"
         if ev_obj not in evidence:
             if with_gene_id == gene_id:
                 evidence.insert(0, ev_obj)
@@ -200,7 +200,11 @@ class IbaExpRefCollection:
                     if "NOT" in quals:
                         # Do not include negative annotations
                         continue
-                    annotations.append(annot)
+                    modified_annot = annot.copy()
+                    # Remove symbol and name from annots to prevent conflict with gene_info
+                    modified_annot.pop("gene_symbol", None)
+                    modified_annot.pop("gene_name", None)
+                    annotations.append(modified_annot)
         return annotations
 
     def gene_info_list(self):
@@ -250,6 +254,9 @@ class IbaExpRefCollection:
                 gene_id = uniprot_id.replace("=", ":")
                 gene_name = r[1]
                 gene_symbol = r[2]
+                if gene_symbol == "":
+                    # Duplicating symbol filling logic from createGAF.pl
+                    gene_symbol = gene_id.split(":", maxsplit=1)[1]
                 if gene_id not in self.annotation_lkp:
                     self.annotation_lkp[gene_id] = {}
                 has_aspect = {"molecular_function": False, "biological_process": False, "cellular_component": False}
@@ -257,13 +264,26 @@ class IbaExpRefCollection:
                     # get aspect of term
                     term_aspect = self.ontology_manager.go_aspects[term]
                     has_aspect[term_aspect] = True
+                    # Sometimes gene symbol not in gene.dat but is in GAF. Ex: UniProtKB:A0A1W2PRP0
+                    # Fetch from existing GAF-sourced annots.
+                    gene_symbol = self.scavenge_annots_for_any_nonblank_gene_symbol(gene_id)
                 for aspect, result in has_aspect.items():
                     if not result:
                         unknown_aspect_term = self.ontology_manager.UNKNOWN_TERMS[aspect]
                         new_annot = self.create_annotation_for_gene(gene_id, gene_symbol, gene_name, unknown_aspect_term)
                         new_annot["slim_terms"] = [unknown_aspect_term]
                         new_annot["group"] = "GO_Central"
+                        new_annot["evidence_type"] = "n/a"
                         self.annotation_lkp[gene_id][unknown_aspect_term] = {"": new_annot}
+
+    def scavenge_annots_for_any_nonblank_gene_symbol(self, gene_id):
+        new_gene_symbol = ""
+        for term in self.annotation_lkp[gene_id]:
+            for qual, annot in self.annotation_lkp[gene_id][term].items():
+                gene_symbol = annot["gene_symbol"]
+                if gene_symbol:
+                    return gene_symbol
+        return new_gene_symbol
 
     def fill_in_genome_coordinates(self, coordinates_file):
         with open(coordinates_file) as cf:

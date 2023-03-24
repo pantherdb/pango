@@ -1,4 +1,5 @@
 from iba_exp_refs_to_json import IbaExpRefManager, IbaExpRefCollection, OntologyManager
+from gene_info_from_gafs import GeneInfoCollection
 
 goslim_term_file = "resources/test/goslim_generic.tsv"
 ontology_file = "resources/test/goparentchild.tsv"
@@ -102,3 +103,37 @@ def test_term_ancestry():
     assert ont_manager.is_ancestor_of('GO:0003824', 'GO:0017116') is True
     assert ont_manager.is_ancestor_of('GO:0017116', 'GO:0003824') is None  # Good enough stand-in for False
     assert ont_manager.is_ancestor_of('GO:0003824', 'GO:0140097') is True
+
+
+def test_gene_symbols_names():
+    iba_gaf = "resources/test/gene_association.paint_human.gaf"
+    exp_gaf = "resources/annot_human_genes_not_in_families_selected.gaf"
+    test_gene_dat = "resources/test/gene.dat"
+    gene_info_collection = GeneInfoCollection()
+    gene_info_collection.extract_from_annotation_gaf([iba_gaf, exp_gaf])
+    gene_info_collection.fill_in_gene_symbol_name(test_gene_dat)
+    assert gene_info_collection.gene_info_dict["UniProtKB:Q9NUQ7"]["gene_name"] == "Ufm1-specific protease 2"
+    assert gene_info_collection.gene_info_dict["UniProtKB:A0A1W2PRP0"]["gene_symbol"] == "A0A1W2PRP0"
+    assert gene_info_collection.gene_info_dict["UniProtKB:X6R8D5"]["gene_symbol"] == "X6R8D5"
+
+
+def test_evidence_type_assignment():
+    gaf_files = [
+        "resources/annot_human_genes_not_in_families_selected.gaf",
+        "resources/test/gene_association.paint_human.gaf"
+    ]
+    test_gene_dat = "resources/test/gene.dat"
+    iba_collection = IbaExpRefManager.parse(gaf_files, ont_manager)
+    iba_collection.fill_in_missing_annotations(test_gene_dat)
+    # Selected experimental-only should be 'direct'
+    annot = iba_collection.annotation_lkp["UniProtKB:A6NCN2"]["GO:0005615"]["located_in"]
+    assert annot["evidence_type"] == "direct"
+    # IBA with evidence gene of same ID should be 'direct'
+    annot = iba_collection.annotation_lkp["UniProtKB:Q9HBH0"]["GO:0007015"]["involved_in"]
+    assert annot["evidence_type"] == "direct"
+    # IBA without evidence gene of same ID should be 'homology'
+    annot = iba_collection.annotation_lkp["UniProtKB:P28472"]["GO:0005254"]["contributes_to"]
+    assert annot["evidence_type"] == "homology"
+    # Filled in UNKNOWN annotations should be 'n/a'
+    annot = iba_collection.annotation_lkp["UniProtKB:X6R8D5"]["UNKNOWN:0001"][""]
+    assert annot["evidence_type"] == "n/a"

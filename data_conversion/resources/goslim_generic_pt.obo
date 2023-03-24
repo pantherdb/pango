@@ -1705,37 +1705,6 @@ synonym: "protein complex formation" RELATED []
 property_value: term_tracker_item https://github.com/geneontology/go-ontology/issues/22580 xsd:anyURI
 
 [Term]
-id: GO:0071554
-name: cell wall organization or biogenesis
-namespace: biological_process
-alt_id: GO:0070882
-def: "A process that results in the biosynthesis of constituent macromolecules, assembly, arrangement of constituent parts, or disassembly of a cell wall." [GOC:mah]
-subset: goslim_chembl
-subset: goslim_generic
-subset: goslim_pombe
-subset: goslim_yeast
-subset: prokaryote_subset
-synonym: "cell wall organisation or biogenesis" EXACT [GOC:mah]
-synonym: "cell wall organization or biogenesis at cellular level" EXACT [GOC:mah]
-synonym: "cellular cell wall organisation or biogenesis" EXACT [GOC:mah]
-synonym: "cellular cell wall organization or biogenesis" EXACT []
-created_by: mah
-creation_date: 2010-01-13T03:19:38Z
-
-[Term]
-id: GO:0071941
-name: nitrogen cycle metabolic process
-namespace: biological_process
-def: "A nitrogen compound metabolic process that contributes to the nitrogen cycle. The nitrogen cycle is a series of metabolic pathways by which nitrogen is converted between various forms and redox states; it encompasses pathways in which nitrogen is acted upon directly, such as nitrification, denitrification, nitrogen fixation, and mineralization." [GOC:mah, PMID:16675690, Wikipedia:Nitrogen_cycle]
-subset: goslim_chembl
-subset: goslim_generic
-subset: goslim_pombe
-subset: prokaryote_subset
-xref: Wikipedia:Nitrogen_cycle
-created_by: mah
-creation_date: 2010-09-30T05:21:03Z
-
-[Term]
 id: GO:0072659
 name: protein localization to plasma membrane
 namespace: biological_process
@@ -2090,6 +2059,68 @@ subset: goslim_yeast
 synonym: "cellular morphogenesis" EXACT []
 is_a: GO:0009653 ! anatomical structure morphogenesis
 
+[Term]
+id: GO:0099536
+name: synaptic signaling
+namespace: biological_process
+def: "Cell-cell signaling to, from or within a synapse." [GOC:dos]
+subset: goslim_drosophila
+subset: goslim_synapse
+
+[Term]
+id: GO:0003682
+name: chromatin binding
+namespace: molecular_function
+def: "Binding to chromatin, the network of fibers of DNA, protein, and sometimes RNA, that make up the chromosomes of the eukaryotic nucleus during interphase." [GOC:jl, ISBN:0198506732, PMID:20404130]
+subset: goslim_chembl
+subset: goslim_drosophila
+subset: goslim_pir
+subset: goslim_plant
+subset: goslim_yeast
+synonym: "lamin/chromatin binding" NARROW []
+synonym: "microtubule/chromatin interaction" NARROW []
+synonym: "nuclear membrane vesicle binding to chromatin" NARROW []
+
+[Term]
+id: GO:0005102
+name: signaling receptor binding
+namespace: molecular_function
+def: "Binding to one or more specific sites on a receptor molecule, a macromolecule that undergoes combination with a hormone, neurotransmitter, drug or intracellular messenger to initiate a change in cell function." [GOC:bf, GOC:ceb, ISBN:0198506732]
+comment: Where appropriate, also consider annotating to 'receptor agonist activity ; GO:0048018'.
+subset: goslim_agr
+subset: goslim_chembl
+subset: goslim_flybase_ribbon
+subset: goslim_mouse
+subset: goslim_plant
+synonym: "receptor binding" BROAD []
+synonym: "receptor ligand" NARROW []
+synonym: "receptor-associated protein activity" RELATED []
+xref: Wikipedia:Ligand_(biochemistry)
+
+[Term]
+id: GO:0005509
+name: calcium ion binding
+namespace: molecular_function
+def: "Binding to a calcium ion (Ca2+)." [GOC:ai]
+synonym: "calcium ion storage activity" RELATED []
+
+[Term]
+id: GO:0030054
+name: cell junction
+namespace: cellular_component
+def: "A cellular component that forms a specialized region of connection between two or more cells, or between a cell and the extracellular matrix, or between two membrane-bound components of a cell, such as flagella." [GOC:aruk, GOC:bc, GOC:mah, http://www.vivo.colostate.edu/hbooks/cmb/cells/pmemb/junctions_a.html, ISBN:0198506732, PMID:26820516, PMID:28096264]
+subset: goslim_agr
+subset: goslim_drosophila
+subset: goslim_flybase_ribbon
+xref: Wikipedia:Cell_junction
+
+[Term]
+id: GO:0019725
+name: cellular homeostasis
+namespace: biological_process
+def: "Any process involved in the maintenance of an internal steady state at the level of the cell." [GOC:isa_complete, GOC:jl, ISBN:0395825172]
+subset: goslim_candida
+subset: goslim_plant
 
 [Typedef]
 id: ends_during
