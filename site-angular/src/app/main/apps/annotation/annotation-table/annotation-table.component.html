@@ -48,7 +48,10 @@
       <ng-container matColumnDef="gene">
         <th mat-header-cell *matHeaderCellDef class="pango-gene-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
-            <div>
+            <div matTooltip="Information about the gene and the protein(s) it encodes, and links to more details.
+            Annotated GO term:
+            The annotated functional characteristic of the gene. These are as specific as possible. Click on the GO identifier number to see detailed information about a characteristic.
+            " [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
               Gene
             </div>
           </div>
@@ -114,7 +117,8 @@
         <th mat-header-cell *matHeaderCellDef class="pango-slim-terms-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
-              <div>
+              <div matTooltip="The high-level category(ies) of the annotated GO term shown in the previous column."
+                [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
                 GO Function Category
               </div>
             </div>
@@ -142,7 +146,9 @@
         <th mat-header-cell *matHeaderCellDef class="pango-evidence-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
-              <div>
+              <div
+                matTooltip="The evidence for the annotated GO term. Click on the PubMed identifier to access the published experimental results supporting the annotation."
+                [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
                 Evidence
               </div>
             </div>
@@ -176,7 +182,9 @@
         <th mat-header-cell *matHeaderCellDef class="pango-contributors-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
-              <div>
+              <div
+                matTooltip="The GO Consortium groups that created the “primary” GO annotations from the published evidence in the previous column."
+                [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
                 Contributors
               </div>
             </div>

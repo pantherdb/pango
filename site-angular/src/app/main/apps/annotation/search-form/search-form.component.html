@@ -10,8 +10,6 @@
         Clear Filters
       </button> -->
       <div class="pango-section-body" fxLayout="row" fxLayoutAlign="start stretch">
-
-
         <div class="pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
             <div class="pango-section-heading">
@@ -24,7 +22,10 @@
             fxLayoutAlign="start stretch">
 
             <div class="pango-activity-term-row" fxLayout="column">
-              <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p">
+              <mat-form-field
+                matTooltip="Find all functional characteristics for a gene of interest. Type the gene symbol, name or identifier into the box, and select your gene from the autocomplete."
+                [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500" appearance="outline"
+                class="pango-sm pango-white w-100-p">
                 <mat-label>Filter by Gene</mat-label>
                 <mat-chip-list #geneChipList>
                   <mat-chip class="pango-form-chip" *ngFor="let gene of annotationService.searchCriteria.genes"
@@ -36,9 +37,10 @@
                     </div>
                     <mat-icon matChipRemove>cancel</mat-icon>
                   </mat-chip>
-                  <input #genesInput formControlName="genes" placeholder="Add gene Filter" [matAutocomplete]="geneAuto"
-                    [matChipInputFor]="geneChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                    [matChipInputAddOnBlur]="false">
+                  <input #genesInput formControlName="genes"
+                    placeholder="Type the gene symbol, name or identifier, and select from the autocomplete"
+                    [matAutocomplete]="geneAuto" [matChipInputFor]="geneChipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
                 </mat-chip-list>
                 <mat-autocomplete #geneAuto="matAutocomplete"
                   (optionSelected)="selected($event, SearchFilterType.GENES)" [displayWith]="geneDisplayFn"
@@ -64,7 +66,10 @@
 
               <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
                 <div class="pango-activity-term-row" fxLayout="column">
-                  <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p">
+                  <mat-form-field
+                    matTooltip="Explore the human genome by functional category, and find all genes in a given category. Browse the graph of categories, and click to filter the list of annotations to include only those in the selected functional category."
+                    [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500" appearance="outline"
+                    class="pango-sm pango-white w-100-p">
                     <mat-label>Filter by GO Function Category</mat-label>
                     <mat-chip-list #slimTermChipList>
                       <mat-chip class="pango-form-chip"
@@ -113,7 +118,8 @@
         <div class="pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
             <div class="pango-section-heading">
-              <h3>GO Function Aspect</h3>
+              <h3 matTooltip="Filter by the general type of functional characteristic" [matTooltipPosition]="'above'"
+                [matTooltipShowDelay]="1500">GO Function Aspect</h3>
             </div>
             <span fxFlex></span>
             <button mat-button type="button" (click)="clearRelationType(SearchFilterType.ASPECTS)">
@@ -123,6 +129,7 @@
           <div class="pango-section-body w-100-p">
             <mat-radio-group fxFlex="135px" formControlName="aspects" fxLayout="column" fxLayoutAlign="start start">
               <mat-radio-button *ngFor="let aspect of pangoDataService.aspectOption.options"
+                matTooltip="{{aspect.description}}" [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500"
                 class="pango-radio-button-rounded mb-8" [value]="aspect.id">
                 {{aspect.label}}
               </mat-radio-button>
@@ -171,7 +178,8 @@
         <div class="pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
             <div class="pango-section-heading">
-              <h3>Evidence Type</h3>
+              <h3 matTooltip="Filter by the kind of evidence supporting the annotation" [matTooltipPosition]="'above'"
+                [matTooltipShowDelay]="1500">Evidence Type</h3>
             </div>
             <span fxFlex></span>
             <button mat-button type="button" (click)="clearRelationType(SearchFilterType.EVIDENCE_TYPES)">
@@ -182,6 +190,7 @@
             <mat-radio-group fxFlex="135px" formControlName="evidenceTypes" fxLayout="column"
               fxLayoutAlign="start start">
               <mat-radio-button *ngFor="let evidenceType of pangoDataService.evidenceTypeOption.options"
+                matTooltip="{{evidenceType.description}}" [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500"
                 class="pango-radio-button-rounded mb-8" [value]="evidenceType.id">
                 {{evidenceType.label}}
               </mat-radio-button>
