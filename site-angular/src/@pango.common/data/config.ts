@@ -43,7 +43,7 @@ const evidenceTypeMap = {
   'na': {
     id: 'n/a',
     label: 'n/a',
-    description: '',
+    description: 'Annotations indicating that an aspect of the gene’s function is not known (no evidence)',
     color: getColor('cyan', 500)
   },
 }

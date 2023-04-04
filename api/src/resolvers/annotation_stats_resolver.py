@@ -36,30 +36,24 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
     
     query = await get_annotations_query(filter_args)
     aggs = {
-        "distinct_gene_count": {
+       "distinct_gene_count": {
           "scripted_metric": {
             "params": {
               "fieldName": "gene"
             },
-            "init_script": "state.list = []",
+            "init_script": "state.list = new HashSet();",
             "map_script": """
-            if(params['_source'][params.fieldName] != null) 
-              state.list.add(params['_source'][params.fieldName]);
-            """,
-            "combine_script": "return state.list;",
+              if(params['_source'][params.fieldName] != null) 
+                state.list.add(params['_source'][params.fieldName]);
+              """,
+            "combine_script": "return state.list.size();",
             "reduce_script": """
-            Map uniqueValueMap = new HashMap();
             int count = 0;
-            for(shardList in states) {
-              if(shardList != null) {
-                for(key in shardList) {
-                  if(!uniqueValueMap.containsKey(key)) {
-                    count +=1;
-                    uniqueValueMap.put(key, key); 
-                  }
-                }
+            for(counts in states) {
+              if(counts != null) {
+                count +=counts;
               }
-            }
+            } 
             return count;
             """
           }

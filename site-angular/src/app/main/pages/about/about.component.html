@@ -3,64 +3,141 @@
     <div class="pango-body pango-section section-1">
         <div class="pango-container pango-sm-container" fxLayout="column" fxLayoutAlign="start stretch">
             <h1>About</h1>
-        </div>
+            <h2 class="p-0 m-0">
+                The Human Gene Functionome
+            </h2>
+            <p>
+                The functionome is the set of all annotated functional characteristics
+                (“annotations”) for human protein-coding genes, as determined by the PAN-GO
+                (Phylogenetic Annotation using Gene Ontology) project [link to paper when
+                available]. Each gene in the human genome has been “annotated” with one or
+                more terms from the Gene Ontology [link to GO website], and therefore each
+                annotation represents a functional characteristic of a protein that is
+                encoded by that gene.
+            </p>
+            <div>
+                The current functionome website is designed to support three main
+                use-cases:
+                <ol>
+                    <li>
+                        Find all functional characteristics for a gene of interest. Type
+                        the gene symbol, name or identifier into the “filter by gene” box,
+                        and select your gene from the autocomplete.
 
-        <div>
-            About the human gene functionome
+                    </li>
+                    <li>
+                        Explore the human genome by functional category, and find all genes
+                        in a given category of functional characteristic. Browse the graph
+                        of categories in the left panel, and click to filter the list of
+                        annotations to include only those in the selected functional
+                        category. You can then read more about each gene, and follow links
+                        to additional information about that gene.
 
-            The functionome is the set of all annotated functional characteristics (“annotations”) for human
-            protein-coding genes, as determined by the PAN-GO (Phylogenetic Annotation using Gene Ontology) project
-            [link to paper when available]. Each gene in the human genome has been “annotated” with one or more terms
-            from the Gene Ontology [link to GO website], and therefore each annotation represents a functional
-            characteristic of a protein that is encoded by that gene.
+                    </li>
+                    <li>
+                        Find all genes that have not yet been associated with any
+                        functional characteristics, for a given type of characteristic.
+                        Find these in the left panel under either molecular function
+                        unknown, biological process unknown, or cellular component unknown
+                        and click to select.
 
-            The current functionome website is designed to support three main use-cases:
-            Find all functional characteristics for a gene of interest. Type the gene symbol, name or identifier into
-            the “filter by gene” box, and select your gene from the autocomplete.
-            Explore the human genome by functional category, and find all genes in a given category of functional
-            characteristic. Browse the graph of categories in the left panel, and click to filter the list of
-            annotations to include only those in the selected functional category. You can then read more about each
-            gene, and follow links to additional information about that gene.
-            Find all genes that have not yet been associated with any functional characteristics, for a given type of
-            characteristic. Find these in the left panel– under either molecular function unknown, biological process
-            unknown, or cellular component unknown– and click to select.
+                    </li>
+                </ol>
+            </div>
+            <div>
+                <h2>Important details:</h2>
+                <ol>
+                    <li>
+                        EVIDENCE for annotations.
+                    </li>
+                    <ol>
+                        <li>
+                            All annotations are based on experimental evidence, which is
+                            shown in the table. This evidence may include a direct
+                            experiment on the human gene itself (“direct” evidence) or may
+                            only include experiments on a homologous, i.e. evolutionarily
+                            related, gene (“homology” evidence).
+                        </li>
+                        <li>
+                            Some “annotations” are merely a statement that there are no
+                            evidence-supported annotations for a gene in a particular
+                            functional aspect of GO (molecular function unknown, biological
+                            process unknown, or cellular component unknown). There is no
+                            evidence for these by definition, so they are marked as
+                            evidence type “n/a” (not applicable).
+                        </li>
+                    </ol>
+                    <li>
+                        ACCURACY AND COMPLETENESS of annotations.
+                    </li>
+                    <ol>
+                        <li>
+                            Annotations are updated regularly. If you see an incorrect
+                            annotation, or cannot find an annotation that should be
+                            included, please click on the Help link and report it. When
+                            suggesting a new annotation, please include a link to the
+                            publication that provides experimental evidence.
 
-            Important details:
-            EVIDENCE for annotations.
-            All annotations are based on experimental evidence, which is shown in the table. This evidence may include a
-            direct experiment on the human gene itself (“direct” evidence) or may only include experiments on a
-            homologous, i.e. evolutionarily related, gene (“homology” evidence).
-            Some “annotations” are merely a statement that there are no evidence-supported annotations for a gene in a
-            particular functional aspect of GO (molecular function unknown, biological process unknown, or cellular
-            component unknown). There is no evidence for these by definition, so they are marked as evidence type “n/a”
-            (not applicable).
-            ACCURACY AND COMPLETENESS of annotations.
-            Annotations are updated regularly. If you see an incorrect annotation, or cannot find an annotation that
-            should be included, please click on the Help link and report it. When suggesting a new annotation, please
-            include a link to the publication that provides experimental evidence.
-            ANNOTATION CATEGORIES.
-            Annotation categories are relatively high-level GO terms, and each annotated GO term is assigned to one (or
-            sometimes more) category using the structure of GO.
-            Annotation categories do not cover all GO term annotations. If an annotated GO term is not in any of the
-            categories, the annotation will be assigned to other molecular function, other biological process or other
-            cellular component.
-            Some categories are subcategories of others. In this case, to make the categories more useful, we assign an
-            annotation only to its most specific category. This means that filtering by the larger category will filter
-            out genes that are in a subcategory, and you will have to select the subcategory separately to review these.
-            The main categories this applies to are:
-            Catalytic activity. This will include mostly enzymes that act to transform one small molecule into another,
-            as enzymes that act directly on proteins, DNA or RNA can be found in subcategories. The category catalytic
-            activity, acting on protein also has even more specific subcategories for protein kinases and proteases, as
-            these include many human genes.
-            DNA binding. This will exclude DNA binding transcription factors, which have their own category.
-            Organelle. This will exclude the specific organellar locations in other categories of Cellular Component
-            annotations. Similarly, nucleus has even more specific subcategories such as nuclear envelope and
-            nucleoplasm.
-            Each annotation may be assigned to more than one category, in which case you will find the annotation under
-            multiple categories.
-            Each gene may have multiple distinct annotations that are assigned to the same category. As a result, the
-            number of genes in a category may be less than the total number of annotations.
-
+                        </li>
+                    </ol>
+                    <li>
+                        ANNOTATION CATEGORIES.
+                    </li>
+                    <ol>
+                        <li>
+                            Annotation categories are relatively high-level GO terms, and
+                            each annotated GO term is assigned to one (or sometimes more)
+                            category using the structure of GO.
+                        </li>
+                        <li>
+                            Annotation categories do not cover all GO term annotations. If
+                            an annotated GO term is not in any of the categories, the
+                            annotation will be assigned to other molecular function, other
+                            biological process or other cellular component.
+                        </li>
+                        <li>
+                            Some categories are subcategories of others. In this case, to
+                            make the categories more useful, we assign an annotation only
+                            to its most specific category. This means that filtering by the
+                            larger category will filter out genes that are in a
+                            subcategory, and you will have to select the subcategory
+                            separately to review these. The main categories this applies to
+                            are:
+                        </li>
+                        <ol>
+                            <li>
+                                Catalytic activity. This will include mostly enzymes that
+                                act to transform one small molecule into another, as
+                                enzymes that act directly on proteins, DNA or RNA can be
+                                found in subcategories. The category catalytic activity,
+                                acting on protein also has even more specific subcategories
+                                for protein kinases and proteases, as these include many
+                                human genes.
+                            </li>
+                            <li>
+                                DNA binding. This will exclude DNA binding transcription
+                                factors, which have their own category.
+                            </li>
+                            <li>
+                                Organelle. This will exclude the specific organellar
+                                locations in other categories of Cellular Component
+                                annotations. Similarly, nucleus has even more specific
+                                subcategories such as nuclear envelope and nucleoplasm.
+                            </li>
+                        </ol>
+                        <li>
+                            Each annotation may be assigned to more than one category, in
+                            which case you will find the annotation under multiple
+                            categories.
+                        </li>
+                        <li>
+                            Each gene may have multiple distinct annotations that are
+                            assigned to the same category. As a result, the number of genes
+                            in a category may be less than the total number of annotations.
+                        </li>
+                    </ol>
+                </ol>
+            </div>
         </div>
     </div>
     <pango-footer></pango-footer>

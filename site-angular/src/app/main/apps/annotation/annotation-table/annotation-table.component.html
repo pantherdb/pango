@@ -48,10 +48,8 @@
       <ng-container matColumnDef="gene">
         <th mat-header-cell *matHeaderCellDef class="pango-gene-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
-            <div matTooltip="Information about the gene and the protein(s) it encodes, and links to more details.
-            Annotated GO term:
-            The annotated functional characteristic of the gene. These are as specific as possible. Click on the GO identifier number to see detailed information about a characteristic.
-            " [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
+            <div matTooltip="Information about the gene and the protein(s) it encodes, and links to more details."
+              [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
               Gene
             </div>
           </div>
@@ -90,7 +88,8 @@
         <th mat-header-cell *matHeaderCellDef class="pango-term-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
-              <div>
+              <div matTooltip="The annotated functional characteristic of the gene. These are as specific as possible. Click on the GO identifier number to see detailed information about a characteristic.
+              " [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
                 Annotated GO Term
               </div>
             </div>
