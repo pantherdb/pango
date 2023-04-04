@@ -101,9 +101,9 @@ def get_taxon_map(taxon_fp):
 # Gene
 def get_genes_map(genes_fp, taxon_df):
     genes_df = pd.read_json(genes_fp, dtype={'taxon_id':str})
-    #genes_df['taxon_id'] = genes_df['taxon_id'].str.replace('taxon:', '')
     genes_df = genes_df.merge(taxon_df, how='left', on='taxon_id')
     genes_df = genes_df.set_index('gene', drop=False)
+    genes_df['pango_gene_id'] = range(1, len(genes_df) + 1)
     return genes_df
 
 
@@ -123,6 +123,7 @@ def get_annos(annos_fp, terms_df, genes_df, articles_df):
     annos_df = annos_df.merge(genes_df[
         ['gene_symbol',
         'gene_name',
+        'pango_gene_id',
         'taxon_id', 
         'taxon_label', 
         'taxon_abbr',

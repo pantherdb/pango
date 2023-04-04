@@ -65,7 +65,52 @@ export class AnnotationService {
         self.queryAnnotationStats(this.query);
     }
 
+    getAnnotationsExport(page: number): any {
+        const self = this;
+        self.loading = true;
+
+        this.searchCriteria.clearSearch()
+        this.searchCriteria = new SearchCriteria();
+
+        self.getAnnotationsPage(this.query, page);
+        self.getAnnotationsCount(this.query);
+        self.queryAnnotationStats(this.query);
+    }
+
+    getAnnotationsExportAll(): any {
+        const self = this;
+        self.loading = true;
+        return this.annotationGraphQLService.getAnnotationsExportAllQuery(this.query)
+    }
+
     getAnnotationsPage(query: Query, page: number): any {
+        const self = this;
+        self.loading = true;
+        query.pageArgs.page = (page - 1);
+        query.pageArgs.size = this.annotationResultsSize;
+        this.query = query;
+        return this.annotationGraphQLService.getAnnotationsQuery(query).subscribe(
+            {
+                next: (annotations: Annotation[]) => {
+                    const annotationData = annotations
+
+                    this.annotationPage.query = query;
+                    this.annotationPage.updatePage()
+                    this.annotationPage.annotations = annotationData;
+                    //  this.annotationPage.aggs = response.aggregations;
+                    this.annotationPage.query.source = query.source;
+
+                    this.onAnnotationsChanged.next(this.annotationPage);
+                    console.log(this.annotationPage)
+
+                    self.loading = false;
+                }, error: (err) => {
+                    self.loading = false;
+                }
+            });
+    }
+
+    getAnnotationsExportPage(query: Query, page: number): any {
         const self = this;
         self.loading = true;
         query.pageArgs.page = (page - 1);

@@ -8,6 +8,7 @@ import { ContactComponent } from './contact/contact.component';
 import { PangoConfirmDialogModule } from '@pango/components/confirm-dialog/confirm-dialog.module';
 import { GeneComponent } from './gene/gene.component';
 import { HomeComponent } from './home/home.component';
+import { DownloadComponent } from './download/download.component';
 
 const routes = [{
   path: '',
@@ -21,12 +22,15 @@ const routes = [{
   path: 'contact', component: ContactComponent
 }, {
   path: 'about', component: AboutComponent
+}, {
+  path: 'download', component: DownloadComponent
 }];
 
 @NgModule({
   declarations: [
     HomeComponent,
     AboutComponent,
+    DownloadComponent,
     ContactComponent,
     GeneComponent,
   ],

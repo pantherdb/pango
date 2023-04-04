@@ -81,7 +81,9 @@ class Annotation:
             else:
                 setattr(self, key,  value)
     
-
+@strawberry.type
+class AnnotationExport:
+    data: str
 
 @strawberry.type
 class Bucket:

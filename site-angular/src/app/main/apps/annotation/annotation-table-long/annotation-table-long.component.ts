@@ -37,15 +37,10 @@ export class AnnotationTableLongComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource<any>();
 
   displayedColumns = [
-    'annotation',
+    'gene',
     'geneSymbol',
-    'geneName',
-    'aspect',
-    'qualifier',
-    'term',
-    'slimTerms',
-    'evidence',
-    'group'
+    'termId',
+    'termLabel'
   ];
 
   private _unsubscribeAll: Subject<any>;
@@ -63,9 +58,7 @@ export class AnnotationTableLongComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-
-
-    this.annotationService.getAnnotations(1);
+    this.annotationService.getAnnotationsExport(1);
     this.annotationService.onAnnotationsChanged
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((annotationPage: AnnotationPage) => {
@@ -76,6 +69,35 @@ export class AnnotationTableLongComponent implements OnInit, OnDestroy {
         }
       });
 
+  }
+
+  downloadAll() {
+    this.annotationService.getAnnotationsExportAll().subscribe((annotationPage: AnnotationPage) => {
+      if (annotationPage) {
+
+      } else {
+
+      }
+    });
+  }
+
+  downloadFile() {
+    const replacer = (key, value) => (value === null ? '' : value);
+    const csv = this.annotationPage.annotations.map((annotation) =>
+      `"${annotation.gene}","${annotation.geneSymbol}","${annotation.term.id}","${annotation.term.label}"`
+    );
+    csv.unshift('Gene,Gene Symbol, Term Id, Term Label');
+    const csvArray = csv.join('\r\n');
+
+    const a = document.createElement('a');
+    const blob = new Blob([csvArray], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+
+    a.href = url;
+    a.download = 'human_functionome_results.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
+    a.remove();
   }
 
   setAnnotationPage(annotationPage: AnnotationPage) {
