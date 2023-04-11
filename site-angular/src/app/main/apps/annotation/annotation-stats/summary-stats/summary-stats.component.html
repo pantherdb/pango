@@ -54,6 +54,38 @@
     <div class="pango-form-section pango-aspect-stats" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch">
       <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
         <div class="pango-section-heading">
+          <h3>By GO Unknown</h3>
+        </div>
+        <span fxFlex></span>
+      </div>
+      <div class="pango-section-body" fxLayout="row" fxLayoutAlign="start center">
+        <ngx-charts-pie-chart [results]="stats.isUnknownTermPie" [view]="isUnknownTermPieOptions.view"
+          [scheme]="isUnknownTermPieOptions.colorScheme" [gradient]="isUnknownTermPieOptions.gradient"
+          [legend]="isUnknownTermPieOptions.legend" [maxLabelLength]="isUnknownTermPieOptions.maxLabelLength"
+          [labels]="isUnknownTermPieOptions.showLabels" [doughnut]="isUnknownTermPieOptions.isDoughnut"
+          [customColors]="customColors" (select)="isUnknownTermPieOptions.onSelect($event)">
+        </ngx-charts-pie-chart>
+
+        <div class="pango-stat" fxLayout="column" fxLayoutAlign="start stretch">
+          <!-- <div class="pango-stat-heading mb-12" class="h6"> By Aspect</div> -->
+          <div *ngFor="let item of this.annotationStats?.isUnknownTermFrequency.buckets" fxLayout="row"
+            fxLayoutAlign="start center">
+            <div class="pango-stat-color mr-8" [style]="{'backgroundColor':isUnknownTermMap[item.key].color}">
+
+            </div>
+            <div class="pango-stat-description mr-8">
+              {{isUnknownTermMap[item.key].label}}
+            </div>
+            <div class="pango-stat-number">
+              {{item.docCount}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pango-form-section pango-aspect-stats" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch">
+      <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
+        <div class="pango-section-heading">
           <h3>By Evidence Type</h3>
         </div>
         <span fxFlex></span>

@@ -58,13 +58,6 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
             """
           }
         },
-        "term_frequency": {
-          "terms": {
-            "field": "term.label.keyword",
-            "order":{"_count":"desc"},
-            "size": 20
-          }
-        },
         "aspect_frequency": {
           "terms": {
             "field": "term.aspect.keyword",
@@ -77,6 +70,13 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
             "field": "evidence_type.keyword",
              "order":{"_count":"desc"},
              "size": 20
+          }
+        },
+        "is_unknown_term_frequency": {
+          "terms": {
+            "field": "is_unknown_term",
+            "order":{"_count":"desc"},
+            "size": 2
           }
         },
         "slim_term_frequency": get_slim_terms_query()        
@@ -106,7 +106,8 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
         elif k =='distinct_gene_count':
             stats[k] = freqs['value']
         else:
-            buckets = [Bucket(**bucket) for bucket in freqs['buckets']]
+            buckets = [Bucket( key=bucket["key"], doc_count=bucket["doc_count"])
+                        for bucket in freqs['buckets']]
             stats[k] = Frequency(buckets=buckets)
                          
     results = AnnotationStats(**stats)

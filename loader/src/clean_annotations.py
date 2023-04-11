@@ -7,6 +7,8 @@ import pandas as pd
 from src.config.base import file_path
 from src.utils import get_pd_row, get_pd_row_key, write_to_json
 
+unknown_terms =['UNKNOWN:0001', 'UNKNOWN:0002', 'UNKNOWN:0003']
+
 def main():
     parser = parse_arguments()
     terms_df = get_terms_map(parser.terms_fp)
@@ -68,14 +70,8 @@ def get_evidence(df, genes_df, row):
     return result
 
 
-def get_evidence_type(row):
-    for evidence in row['evidence']:
-        if evidence["with_gene_id"]['gene'] == row['gene']:
-            return 'direct'
-        if len(evidence['references']) == 0:
-            return 'n/a' 
-            
-    return 'homology'
+def is_unknown_term(term):
+    return term['id'] in unknown_terms       
 
 
 # Terms
@@ -133,6 +129,7 @@ def get_annos(annos_fp, terms_df, genes_df, articles_df):
         'coordinates_end']], how='left', left_on="gene", right_index=True)
     annos_df['aspect'] = annos_df['term'].apply(lambda x: get_pd_row(terms_df, x)['aspect'])
     annos_df['term'] = annos_df['term'].apply(lambda x: get_pd_row(terms_df, x))
+    annos_df['is_unknown_term'] = annos_df['term'].apply(lambda x: is_unknown_term(x))
     annos_df['slim_terms'] = annos_df['slim_terms'].apply(lambda x: spread_terms(terms_df, x))
     annos_df['qualifier'] = annos_df['qualifier'].str.replace('_', ' ')
     annos_df['evidence'] = annos_df.apply(lambda x: get_evidence(articles_df, genes_df, x),axis=1)

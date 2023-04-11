@@ -16,6 +16,7 @@ import { AnnotationService } from '../../services/annotation.service';
 export class SummaryStatsComponent implements OnInit, OnDestroy {
 
   aspectMap = pangoData.aspectMap;
+  isUnknownTermMap = pangoData.isUnknownTermMap;
   evidenceTypeMap = pangoData.evidenceTypeMap
   annotationPage: AnnotationPage;
   annotationStats: AnnotationStats;
@@ -51,6 +52,24 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
         getColor('green', 500),
         getColor('brown', 500),
         getColor('purple', 500)
+      ]
+
+    },
+    onSelect: this.onSelectAspect.bind(this)
+
+  }
+
+  isUnknownTermPieOptions = {
+    view: [100, 100],
+    gradient: true,
+    legend: false,
+    showLabels: false,
+    isDoughnut: true,
+    maxLabelLength: 20,
+    colorScheme: {
+      domain: [
+        getColor('green', 500),
+        getColor('red', 500),
       ]
 
     },
@@ -139,6 +158,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
   stats = {
     termFrequencyBar: [],
     aspectPie: [],
+    isUnknownTermPie: [],
     evidenceTypePie: [],
     termsBar: [],
     slimTermFrequencyBar: []
@@ -180,7 +200,6 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
   }
 
   onSelectAspect(event) {
-    console.log(event)
     this.annotationService.searchCriteria[SearchFilterType.ASPECTS] = [event.name];
     this.annotationService.updateSearch();
   }
@@ -212,6 +231,10 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
 
     if (this.annotationStats.aspectFrequency?.buckets) {
       this.stats.aspectPie = this.annotationService.buildAspectChart(this.annotationStats.aspectFrequency.buckets)
+    }
+
+    if (this.annotationStats.isUnknownTermFrequency?.buckets) {
+      this.stats.isUnknownTermPie = this.annotationService.buildUnknownTermChart(this.annotationStats.isUnknownTermFrequency.buckets)
     }
 
     if (this.annotationStats.evidenceTypeFrequency?.buckets) {
