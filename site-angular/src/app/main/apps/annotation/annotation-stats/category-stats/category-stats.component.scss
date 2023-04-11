@@ -4,60 +4,65 @@
 $primary: map-get($theme, primary);
 $accent: map-get($theme, accent);
 
-.pango-aspect-stats {
-  @include deep-width(250px);
-  .pango-section-body {
-    padding: 8px;
-  }
-}
-
-.pango-terms-stats {
-  // @include deep-width(300px);
-  min-height: 450px !important;
-}
-
-.pango-total-stats {
-  @include deep-height(190px);
-  @include deep-width(250px);
-  .pango-stat-number {
-    font-size: 36px;
-    line-height: 20px;
-    color: map-get($mat-blue-grey, 500);
-    small {
-      font-weight: normal;
-      color: #555;
-      font-size: 12px;
+.pango-terms-cell {
+  mat-chip {
+    display: inline-block !important;
+    text-align: center;
+    @include deep-height(18px);
+    @include deep-width(18px);
+    font-size: 8px;
+    font-weight: bold;
+    padding: 2px;
+    &.MF {
+      border: $pango-mf solid 1px;
+      color: darken($pango-mf, 10%);
     }
-  }
-}
 
-.pango-stats-section {
-  //@include mat-elevation(5);
-  margin: 12px;
-  background-color: #fff;
-  overflow: hidden;
-  border: $pango-border;
+    &.BP {
+      border: $pango-bp solid 1px;
+      color: darken($pango-bp, 10%);
+    }
 
-  .pango-section-header {
-    height: 30px;
-    background-color: #fff;
-
-    .pango-section-heading {
-      padding-left: 12px;
-      font-size: 12px;
-      line-height: 30px;
-      color: #555;
+    &.CC {
+      border: $pango-cc solid 1px;
+      color: darken($pango-cc, 10%);
     }
   }
 
-  .pango-section-body {
-    padding: 4px 8px;
+  .pango-bar-container {
+    position: relative;
+    @include deep-width(200px);
+    .pango-cell-count {
+      position: absolute;
+      top: 5px;
+      border-radius: 8px;
+      font-size: 8px;
+      background-color: #f2f2f2;
+    }
   }
-}
 
-.pango-stat-color {
-  width: 10px;
-  height: 10px;
+  .pango-stat-bar {
+    @include deep-height(20px);
+  }
+
+  .pango-term-cell {
+    padding: 8px 0;
+    border-bottom: #bbb solid 1px;
+  }
+
+  .pango-cell-title {
+    font-size: 12px;
+  }
+
+  .pango-cell-description {
+    font-size: 8px;
+  }
+
+  .pango-cell-description-2 {
+    font-size: 8px;
+    color: #777;
+    font-style: italic;
+  }
 }
 
 .pango-stat-heading {
@@ -65,8 +70,4 @@ $accent: map-get($theme, accent);
 }
 .pango-stat-description {
   font-size: 10px;
-}
-.pango-stat-number {
-  font-size: 10px;
-  font-weight: bold;
 }

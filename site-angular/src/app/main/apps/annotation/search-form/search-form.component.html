@@ -135,44 +135,6 @@
               </mat-radio-button>
             </mat-radio-group>
           </div>
-
-          <!--    <div class="pango-section-body" fxLayout="column" fxLayoutAlign="start stretch">
-            <div class="pango-activity-term-row" fxLayout="column">
-              <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p">
-                <mat-label>Filter by Annotated GO Term</mat-label>
-                <mat-chip-list #termChipList>
-                  <mat-chip class="pango-form-chip" *ngFor="let term of annotationService.searchCriteria.terms"
-                    [selectable]="true" [removable]="true" (removed)="remove(term, SearchFilterType.TERMS)"
-                    fxLayout="row" fxLayoutAlign="start center"
-                    matTooltip="Term: {{term.term.id}} ({{term.term.label}})" [matTooltipPosition]="'below'"
-                    [matTooltipShowDelay]="1000">
-                    <div fxFlex="" class="pango-chip-label">
-                      {{term.term.label}}
-                    </div>
-                    <mat-icon matChipRemove>cancel</mat-icon>
-                  </mat-chip>
-                  <input #searchInput formControlName="terms" placeholder="Add Term Filter" [matAutocomplete]="termAuto"
-                    [matChipInputFor]="termChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                    [matChipInputAddOnBlur]="false">
-                </mat-chip-list>
-                <mat-autocomplete #termAuto="matAutocomplete"
-                  (optionSelected)="selected($event, SearchFilterType.TERMS)" [displayWith]="termDisplayFn"
-                  class="pango-entity-autocomplete">
-                  <mat-option class="pango-entity-autocomplete" *ngFor="let item of terms$ | async" [value]="item">
-                    <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
-                      <div class="pango-term-label">
-                        {{ item.term.label }}
-                      </div>
-                      <span fxFlex></span>
-                      <div class="pango-term-id">
-                        ({{ item.term.id }})
-                      </div>
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
-            </div>
-          </div> -->
         </div>
 
         <div class="pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">

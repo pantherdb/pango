@@ -206,22 +206,11 @@ export class CategoryStatsComponent implements OnInit, OnDestroy {
 
   generateStats() {
 
-    if (this.annotationStats.termFrequency?.buckets) {
-      this.stats.termFrequencyBar = this.annotationService.buildAnnotationBar(this.annotationStats.termFrequency.buckets)
-    }
-
-    if (this.annotationStats.aspectFrequency?.buckets) {
-      this.stats.aspectPie = this.annotationService.buildAspectChart(this.annotationStats.aspectFrequency.buckets)
-    }
-
-    if (this.annotationStats.evidenceTypeFrequency?.buckets) {
-      this.stats.evidenceTypePie = this.annotationService.buildAnnotationBar(this.annotationStats.evidenceTypeFrequency.buckets)
-    }
-
     if (this.annotationStats.slimTermFrequency?.buckets) {
-      console.log(this.annotationStats.slimTermFrequency?.buckets)
-      this.stats.slimTermFrequencyBar = this.annotationService.buildAnnotationBar(this.annotationStats.slimTermFrequency.buckets)
+      this.stats.slimTermFrequencyBar = this.annotationService.buildCategoryBar(this.annotationStats.slimTermFrequency.buckets)
     }
+
+    console.log(this.stats.slimTermFrequencyBar)
 
   }
 

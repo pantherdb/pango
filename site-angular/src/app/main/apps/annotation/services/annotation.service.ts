@@ -337,6 +337,27 @@ export class AnnotationService {
         return sorted.slice(0, limit)
     }
 
+    buildCategoryBar(buckets: Bucket[], max = 10_000) {
+
+        const stats = buckets.map((bucket) => {
+            const ratio = bucket.docCount / max;
+            return {
+                ...bucket.meta,
+                name: bucket.key,
+                count: bucket.docCount,
+                color: this.aspectMap[bucket.meta.aspect]?.color,
+                aspectShorthand: this.aspectMap[bucket.meta.aspect]?.shorthand,
+                width: (ratio * 100) + '%',
+                countPos: ratio < 0.20 ?
+                    (ratio * 100) + '%' :
+                    (ratio - 0.10) * 100 + '%'
+
+            }
+        })
+
+        return orderBy(stats, ['value'], ['desc'])
+    }
+
 
     buildAnnotationLine(buckets: Bucket[], name) {
 

@@ -27,16 +27,6 @@
     //  white-space: nowrap;
   }
 
-  .pango-evidence-db-trigger {
-    @include deep-height(20px);
-    @include deep-width(20px);
-    line-height: 20px;
-
-    mat-icon {
-      @include pango-icon-size(18px);
-    }
-  }
-
   .pango-terms-cell {
     mat-chip {
       display: inline-block !important;
