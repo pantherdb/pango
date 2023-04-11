@@ -16,7 +16,7 @@ import { AnnotationService } from '../../services/annotation.service';
 export class SummaryStatsComponent implements OnInit, OnDestroy {
 
   aspectMap = pangoData.aspectMap;
-  isUnknownTermMap = pangoData.isUnknownTermMap;
+  termTypeMap = pangoData.termTypeMap;
   evidenceTypeMap = pangoData.evidenceTypeMap
   annotationPage: AnnotationPage;
   annotationStats: AnnotationStats;
@@ -59,7 +59,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
 
   }
 
-  isUnknownTermPieOptions = {
+  termTypePieOptions = {
     view: [100, 100],
     gradient: true,
     legend: false,
@@ -73,7 +73,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
       ]
 
     },
-    onSelect: this.onSelectAspect.bind(this)
+    onSelect: this.onSelectTermType.bind(this)
 
   }
 
@@ -158,7 +158,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
   stats = {
     termFrequencyBar: [],
     aspectPie: [],
-    isUnknownTermPie: [],
+    termTypePie: [],
     evidenceTypePie: [],
     termsBar: [],
     slimTermFrequencyBar: []
@@ -204,6 +204,11 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
     this.annotationService.updateSearch();
   }
 
+  onSelectTermType(event) {
+    this.annotationService.searchCriteria[SearchFilterType.TERM_TYPES] = [event.name];
+    this.annotationService.updateSearch();
+  }
+
   onSelectEvidenceType(event) {
     this.annotationService.searchCriteria[SearchFilterType.EVIDENCE_TYPES] = [event.name];
     this.annotationService.updateSearch();
@@ -233,8 +238,8 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
       this.stats.aspectPie = this.annotationService.buildAspectChart(this.annotationStats.aspectFrequency.buckets)
     }
 
-    if (this.annotationStats.isUnknownTermFrequency?.buckets) {
-      this.stats.isUnknownTermPie = this.annotationService.buildUnknownTermChart(this.annotationStats.isUnknownTermFrequency.buckets)
+    if (this.annotationStats.termTypeFrequency?.buckets) {
+      this.stats.termTypePie = this.annotationService.buildUnknownTermChart(this.annotationStats.termTypeFrequency.buckets)
     }
 
     if (this.annotationStats.evidenceTypeFrequency?.buckets) {

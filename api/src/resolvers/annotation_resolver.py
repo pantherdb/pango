@@ -57,11 +57,11 @@ async def get_annotations_query(filter_args:AnnotationFilterArgs):
                 }
               })   
             
-      if filter_args.term_ids != None and len(filter_args.is_unknown_term_ids)>0:
+      if filter_args.term_ids != None and len(filter_args.term_type_ids)>0:
         filters.append(  
           {           
             "terms": {
-              "is_unknown_term": filter_args.is_unknown_term_ids
+              "term_type": filter_args.term_type_ids
             }
           })         
 

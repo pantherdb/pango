@@ -15,7 +15,7 @@ import { pangoData } from '@pango.common/data/config';
 })
 export class AnnotationService {
     aspectMap = pangoData.aspectMap;
-    isUnknownTermMap = pangoData.isUnknownTermMap;
+    termTypeMap = pangoData.termTypeMap;
     annotationResultsSize = environment.annotationResultsSize;
     onAnnotationsChanged: BehaviorSubject<AnnotationPage>;
     onAutocompleteChanged: BehaviorSubject<AnnotationPage>;
@@ -215,8 +215,8 @@ export class AnnotationService {
             query.filterArgs.termIds.push(annotation.term.id);
         });
 
-        this.searchCriteria.isUnknownTerms.forEach((value) => {
-            query.filterArgs.isUnknownTermIds.push(value);
+        this.searchCriteria.termTypes.forEach((value) => {
+            query.filterArgs.termTypeIds.push(value);
         });
 
         this.searchCriteria.evidenceTypes.forEach((evidenceType: string) => {
@@ -321,10 +321,10 @@ export class AnnotationService {
     buildUnknownTermChart(buckets: Bucket[]) {
 
         const stats = buckets.map((bucket) => {
-            const isUnknownTerm = this.isUnknownTermMap[bucket.key];
+            const termType = this.termTypeMap[bucket.key];
             return {
                 name: bucket.key,
-                label: isUnknownTerm.label,
+                label: termType.label,
                 value: bucket.docCount,
             }
         })

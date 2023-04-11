@@ -5,21 +5,26 @@
       <div class="pango-section-header-sm" fxLayout="row" fxLayoutAlign="start center">
         <div class="pango-section-heading">
           <h4 matTooltip="Filter by the general type of functional characteristic" [matTooltipPosition]="'above'"
-            [matTooltipShowDelay]="1500">GO Function Aspect</h4>
+            [matTooltipShowDelay]="1500">Select GO Function Aspect</h4>
         </div>
         <span fxFlex></span>
-        <button mat-button type="button" (click)="clearByType(SearchFilterType.ASPECTS)">
+        <!--    <button mat-stroked-button type="button" class="pango-rounded-button pango-xs"
+          (click)="clearByType(SearchFilterType.ASPECTS)">
           Clear
-        </button>
+        </button> -->
       </div>
       <div class="pango-box-radio-group w-100-p" fxLayout="row" fxLayoutAlign="start center">
-        <button mat-stroked-button class="pango-rounded-button pango-xxs pango-box-radio-item" fxFlex="33"
+        <div class="pango-box-radio-item" fxFlex="33" fxLayout="column" fxLayoutAlign="start center"
           *ngFor="let aspect of pangoDataService.aspectOption.options"
           (click)="toggleSelection(SearchFilterType.ASPECTS, aspect.id)" matTooltip="{{aspect.description}}"
           [ngClass]="{'pango-active': annotationService.searchCriteria[SearchFilterType.ASPECTS]?.[0] === aspect.id}"
           [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
+          <fa-icon class="pango-icon pango-selected-icon" [icon]="['far', 'check-circle']"></fa-icon>
+
+          <img [src]="'assets/images/activity/'+aspect.icon+'.png'">
+
           {{aspect.label}}
-        </button>
+        </div>
       </div>
       <!--     <mat-radio-group class="w-100-p" formControlName="aspects" fxLayout="column" fxLayoutAlign="start stretch">
       <mat-radio-button *ngFor="let aspect of pangoDataService.aspectOption.options" matTooltip="{{aspect.description}}"
@@ -34,22 +39,21 @@
     <div class="pango w-100-p">
       <div class="pango-section-header-sm" fxLayout="row" fxLayoutAlign="start center">
         <div class="pango-section-heading">
-          <h4 matTooltip="Filter by the general type of functional characteristic" [matTooltipPosition]="'above'"
-            [matTooltipShowDelay]="1500">GO Unknown</h4>
+          <h4>Select Gene's Function Aspect</h4>
         </div>
         <span fxFlex></span>
-        <button mat-button type="button" (click)="clearByType(SearchFilterType.IS_UNKNOWN_TERMS)">
+        <!--   <button mat-button type="button" (click)="clearByType(SearchFilterType.TERM_TYPES)">
           Clear
-        </button>
+        </button> -->
       </div>
       <div class="pango-box-radio-group w-100-p" fxLayout="row" fxLayoutAlign="start center">
-        <button mat-stroked-button class="pango-rounded-button pango-xxs pango-box-radio-item" fxFlex="33"
-          *ngFor="let isUnknownTerm of pangoDataService.isUnknownTermOption.options"
-          (click)="toggleSelection(SearchFilterType.IS_UNKNOWN_TERMS, isUnknownTerm.id)"
-          [ngClass]="{'pango-active': annotationService.searchCriteria[SearchFilterType.IS_UNKNOWN_TERMS]?.[0] === isUnknownTerm.id}"
-          matTooltip="{{isUnknownTerm.description}}" [matTooltipPosition]="'right'" [matTooltipShowDelay]="1500">
-          {{isUnknownTerm.label}}
-        </button>
+        <div class="pango-box-radio-item pango-sm" fxFlex="33" fxLayout="column" fxLayoutAlign="center center"
+          *ngFor="let termType of pangoDataService.termTypeOption.options"
+          (click)="toggleSelection(SearchFilterType.TERM_TYPES, termType.id)"
+          [ngClass]="{'pango-active': annotationService.searchCriteria[SearchFilterType.TERM_TYPES]?.[0] === termType.id}"
+          matTooltip="{{termType.description}}" [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
+          {{termType.label}}
+        </div>
       </div>
     </div>
   </div>

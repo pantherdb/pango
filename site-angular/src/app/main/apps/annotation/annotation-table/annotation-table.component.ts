@@ -104,7 +104,8 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
   }
 
   getFamilyLink(element: Annotation) {
-    return `${environment.pantherFamilyUrl}book=${element.pantherFamily}&seq=${element.longId}`
+
+    return `${environment.pantherFamilyUrl}book=${encodeURIComponent(element.pantherFamily)}&seq=${encodeURIComponent(element.longId)}`
   }
 
   setAnnotationPage(annotationPage: AnnotationPage) {

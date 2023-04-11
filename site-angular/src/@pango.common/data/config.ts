@@ -4,6 +4,7 @@ import { getColor } from "./pango-colors"
 const aspectMap = {
   'molecular function': {
     id: 'molecular function',
+    icon: 'coverage-4',
     shorthand: 'MF',
     label: 'Molecular Function',
     description: 'What a protein encoded by the gene does at the molecular level',
@@ -11,6 +12,7 @@ const aspectMap = {
   },
   'biological process': {
     id: 'biological process',
+    icon: 'coverage-2',
     shorthand: 'BP',
     label: 'Biological Process',
     description: '“System” functions, at the level of the cell or whole organism, that the gene helps to carry out, usually together with other genes',
@@ -18,6 +20,7 @@ const aspectMap = {
   },
   'cellular component': {
     id: 'cellular component',
+    icon: 'coverage-1',
     shorthand: 'CC',
     label: 'Cellular Component',
     description: 'The part of a cell where a protein encoded by the gene performs its molecular function',
@@ -25,17 +28,18 @@ const aspectMap = {
   }
 }
 
-const isUnknownTermMap = {
+const termTypeMap = {
 
-  '0': {
-    id: true,
-    label: 'known',
+  'known': {
+    id: 'known',
+    label: 'Known Aspect',
     description: "Annotations indicating that an aspect of the gene's function is known",
     color: getColor('green', 500)
   },
-  '1': {
-    id: false,
-    label: 'unknown',
+
+  'unknown': {
+    id: 'unknown',
+    label: 'Unknown Aspect',
     description: "Annotations indicating that an aspect of the gene's function is not known (no evidence)",
     color: getColor('red', 500)
   },
@@ -66,5 +70,5 @@ const evidenceTypeMap = {
 export const pangoData = {
   aspectMap: cloneDeep(aspectMap),
   evidenceTypeMap: cloneDeep(evidenceTypeMap),
-  isUnknownTermMap: cloneDeep(isUnknownTermMap)
+  termTypeMap: cloneDeep(termTypeMap)
 }

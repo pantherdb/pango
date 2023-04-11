@@ -6,7 +6,7 @@ import { pangoData } from '@pango.common/data/config';
 })
 export class PangoDataService {
   aspectMap = pangoData.aspectMap;
-  isUnknownTermMap = pangoData.isUnknownTermMap
+  termTypeMap = pangoData.termTypeMap
   evidenceTypeMap = pangoData.evidenceTypeMap
 
   constructor() {
@@ -26,10 +26,10 @@ export class PangoDataService {
     };
   }
 
-  get isUnknownTermOption() {
+  get termTypeOption() {
     const options = [
-      this.isUnknownTermMap['0'],
-      this.isUnknownTermMap['1'],
+      this.termTypeMap['known'],
+      this.termTypeMap['unknown'],
     ];
 
     return {

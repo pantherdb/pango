@@ -43,7 +43,7 @@ export class SearchAspectFormComponent implements OnInit, OnDestroy {
       distinctUntilChanged(),
       debounceTime(1000),
     ).subscribe((aspect) => {
-      this.annotationService.searchCriteria[SearchFilterType.ASPECTS] == aspect
+      this.annotationService.searchCriteria[SearchFilterType.ASPECTS] = aspect
         ? [aspect]
         : [];
       this.annotationService.updateSearch();
@@ -64,9 +64,8 @@ export class SearchAspectFormComponent implements OnInit, OnDestroy {
 
   toggleSelection(filterType: string, value) {
 
-    this.annotationService.searchCriteria[filterType] = this.annotationService.searchCriteria[filterType].length === 0 ?
-      [value] :
-      [];
+    this.annotationService.searchCriteria[filterType] = this.annotationService.searchCriteria[filterType]?.[0] === value ?
+      [] : [value];
     this.annotationService.updateSearch();
   }
 

@@ -95,7 +95,7 @@ export class AutocompleteFilterArgs {
 
 export class FilterArgs {
     termIds: string[] = [];
-    isUnknownTermIds: string[] = [];
+    termTypeIds: string[] = [];
     slimTermIds: string[] = [];
     evidenceTypeIds: string[] = [];
     geneIds: string[] = [];
@@ -162,7 +162,7 @@ export class Frequency {
 export class AnnotationStats {
     distinctGeneCount: number;
     termFrequency: Frequency;
-    isUnknownTermFrequency: Frequency;
+    termTypeFrequency: Frequency;
     aspectFrequency: Frequency;
     evidenceTypeFrequency: Frequency;
     slimTermFrequency: Frequency;

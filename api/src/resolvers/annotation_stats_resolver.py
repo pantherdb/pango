@@ -72,9 +72,9 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
              "size": 20
           }
         },
-        "is_unknown_term_frequency": {
+        "term_type_frequency": {
           "terms": {
-            "field": "is_unknown_term",
+            "field": "term_type.keyword",
             "order":{"_count":"desc"},
             "size": 2
           }

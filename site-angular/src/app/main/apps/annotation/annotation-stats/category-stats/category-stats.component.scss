@@ -31,7 +31,7 @@ $accent: map-get($theme, accent);
 
   .pango-bar-container {
     position: relative;
-    @include deep-width(200px);
+    //@include deep-width(200px);
     .pango-cell-count {
       padding: 0 4px;
       position: absolute;

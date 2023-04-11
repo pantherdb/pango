@@ -6,6 +6,11 @@
   display: block;
   background-color: $pango-background;
 
+  .pango-section-body {
+    background-color: transparent;
+    border-bottom: #ccc solid 1px;
+  }
+
   .pango-section-header-sm {
     //padding-right: 12px;
     margin-bottom: 8px;
@@ -51,11 +56,37 @@
 
   .pango-box-radio-group {
     .pango-box-radio-item {
-      margin-right: 4px;
+      position: relative;
+      padding: 4px 5px;
+      border: rgba(map-get($primary, default), 0.2) solid 2px;
+      border-radius: 12px;
+      height: 90px;
+      //width: 120px;
+      margin: 4px;
       font-size: 10px !important;
+      text-align: center;
+      .pango-selected-icon {
+        visibility: hidden;
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        font-size: 16px;
+        color: darken(map-get($accent, default), 10%);
+      }
+      img {
+        width: 40px;
+        margin-bottom: 5px;
+      }
       &.pango-active {
         background-color: rgba(map-get($accent, default), 0.2);
         border-color: rgba(map-get($accent, default), 0.9);
+        .pango-selected-icon {
+          visibility: visible;
+        }
+      }
+
+      &.pango-sm {
+        height: 40px;
       }
     }
   }

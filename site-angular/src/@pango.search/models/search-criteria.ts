@@ -1,7 +1,7 @@
 
 export enum SearchFilterType {
     TERMS = 'terms',
-    IS_UNKNOWN_TERMS = 'isUnknownTerms',
+    TERM_TYPES = 'termTypes',
     SLIM_TERMS = "slimTerms",
     GENES = 'genes',
     ASPECTS = 'aspects',
@@ -13,7 +13,7 @@ export enum SearchFilterType {
 
 export class SearchCriteria {
     terms: any[] = [];
-    isUnknownTerms: any[] = [];
+    termTypes: any[] = [];
     slimTerms: any[] = [];
     genes: any[] = [];
     evidenceTypes: any[] = [];

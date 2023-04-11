@@ -70,8 +70,8 @@ def get_evidence(df, genes_df, row):
     return result
 
 
-def is_unknown_term(term):
-    return term['id'] in unknown_terms       
+def term_type(term):
+    return  'unknown' if term['id'] in unknown_terms  else 'known'     
 
 
 # Terms
@@ -129,7 +129,7 @@ def get_annos(annos_fp, terms_df, genes_df, articles_df):
         'coordinates_end']], how='left', left_on="gene", right_index=True)
     annos_df['aspect'] = annos_df['term'].apply(lambda x: get_pd_row(terms_df, x)['aspect'])
     annos_df['term'] = annos_df['term'].apply(lambda x: get_pd_row(terms_df, x))
-    annos_df['is_unknown_term'] = annos_df['term'].apply(lambda x: is_unknown_term(x))
+    annos_df['term_type'] = annos_df['term'].apply(lambda x: term_type(x))
     annos_df['slim_terms'] = annos_df['slim_terms'].apply(lambda x: spread_terms(terms_df, x))
     annos_df['qualifier'] = annos_df['qualifier'].str.replace('_', ' ')
     annos_df['evidence'] = annos_df.apply(lambda x: get_evidence(articles_df, genes_df, x),axis=1)

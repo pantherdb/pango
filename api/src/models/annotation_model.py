@@ -62,7 +62,7 @@ class Annotation:
     coordinates_start:typing.Optional[int] =  None
     coordinates_end:typing.Optional[int] =  None
     coordinates_strand: typing.Optional[int] =  None
-    is_unknown_term: bool
+    term_type: str
     term: Term
     slim_terms: typing.List[Term]
     qualifier: typing.Optional[str]
@@ -100,7 +100,7 @@ class Frequency:
 @strawberry.type
 class AnnotationStats:
     distinct_gene_count: int
-    is_unknown_term_frequency: Frequency 
+    term_type_frequency: Frequency 
     aspect_frequency: Frequency 
     evidence_type_frequency: Frequency
     slim_term_frequency: Frequency
@@ -108,7 +108,7 @@ class AnnotationStats:
 @strawberry.input
 class AnnotationFilterArgs:
     term_ids: typing.Optional[typing.List[str]] = strawberry.UNSET
-    is_unknown_term_ids: typing.Optional[typing.List[str]] = strawberry.UNSET
+    term_type_ids: typing.Optional[typing.List[str]] = strawberry.UNSET
     slim_term_ids: typing.Optional[typing.List[str]] = strawberry.UNSET
     evidence_type_ids: typing.Optional[typing.List[str]] = strawberry.UNSET
     gene_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
