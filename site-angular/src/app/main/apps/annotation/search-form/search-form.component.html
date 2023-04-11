@@ -118,28 +118,6 @@
         <div class="pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
           <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
             <div class="pango-section-heading">
-              <h3 matTooltip="Filter by the general type of functional characteristic" [matTooltipPosition]="'above'"
-                [matTooltipShowDelay]="1500">GO Function Aspect</h3>
-            </div>
-            <span fxFlex></span>
-            <button mat-button type="button" (click)="clearRelationType(SearchFilterType.ASPECTS)">
-              Clear
-            </button>
-          </div>
-          <div class="pango-section-body w-100-p">
-            <mat-radio-group fxFlex="135px" formControlName="aspects" fxLayout="column" fxLayoutAlign="start start">
-              <mat-radio-button *ngFor="let aspect of pangoDataService.aspectOption.options"
-                matTooltip="{{aspect.description}}" [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500"
-                class="pango-radio-button-rounded mb-8" [value]="aspect.id">
-                {{aspect.label}}
-              </mat-radio-button>
-            </mat-radio-group>
-          </div>
-        </div>
-
-        <div class="pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
-          <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
-            <div class="pango-section-heading">
               <h3 matTooltip="Filter by the kind of evidence supporting the annotation" [matTooltipPosition]="'above'"
                 [matTooltipShowDelay]="1500">Evidence Type</h3>
             </div>

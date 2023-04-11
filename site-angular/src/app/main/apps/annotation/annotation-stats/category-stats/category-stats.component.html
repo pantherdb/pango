@@ -9,12 +9,12 @@
     <div class="pango-section-body pango-terms-cell" fxLayout="column" fxLayoutAlign="start stretch">
       <div class="pango-activity-term-row" fxLayout="column">
         <div *ngFor="let item of stats?.slimTermFrequencyBar" class="w-100-p pango-term-cell"
-          (click)="selectSlimTerm(item.meta)" fxLayout="row" fxLayoutAlign="start center">
-          <mat-chip class="pango-chip-xs pango-aspect {{item.aspectShorthand}}" fxLayout="column"
+          (click)="selectSlimTerm(item)" fxLayout="row" fxLayoutAlign="start center">
+          <mat-chip class="pango-chip-xs mr-4 pango-aspect {{item.aspectShorthand}}" fxLayout="column"
             fxLayoutAlign="center center">
             <span>{{item.aspectShorthand}}</span>
           </mat-chip>
-          <div class="" fxFlex="150px" fxLayout="column" fxLayoutAlign="start start">
+          <div class="" fxFlex="100px" fxLayout="column" fxLayoutAlign="start start">
             <div class="pango-cell-title w-100-p">
               <span class="pango-cell-description pango-truncate"> {{item.label}}</span>
               <span class="pango-cell-description-2 pango-truncate">({{item.id}})</span>

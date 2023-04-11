@@ -2,6 +2,7 @@
   <mat-drawer-container class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start start" autosize>
     <mat-drawer #leftDrawer class="pango-right-drawer" pangoPerfectScrollbar mode="side" position="start" opened="true">
       <div class="h-100-p" [ngSwitch]="pangoMenuService.selectedLeftPanel">
+        <pango-search-aspect-form></pango-search-aspect-form>
         <pango-annotation-detail [panelDrawer]="rightDrawer" *ngSwitchCase="LeftPanel.annotationDetail">
         </pango-annotation-detail>
         <pango-annotation-summary [panelDrawer]="rightDrawer" *ngSwitchCase="LeftPanel.annotationSummary">

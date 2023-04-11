@@ -337,10 +337,14 @@ export class AnnotationService {
         return sorted.slice(0, limit)
     }
 
-    buildCategoryBar(buckets: Bucket[], max = 10_000) {
+    buildCategoryBar(buckets: Bucket[]) {
 
-        const stats = buckets.map((bucket) => {
-            const ratio = bucket.docCount / max;
+        if (buckets.length === 0) return []
+
+        const sortedBuckets = orderBy(buckets, ['docCount'], ['desc'])
+        const longest = sortedBuckets[0].docCount
+        const stats = sortedBuckets.map((bucket) => {
+            const ratio = bucket.docCount / longest;
             return {
                 ...bucket.meta,
                 name: bucket.key,
@@ -355,7 +359,7 @@ export class AnnotationService {
             }
         })
 
-        return orderBy(stats, ['value'], ['desc'])
+        return stats
     }
 
 
