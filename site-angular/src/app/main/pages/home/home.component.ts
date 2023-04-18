@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { MatDrawer } from '@angular/material/sidenav';
 
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   rightDrawer: MatDrawer;
 
   searchCriteria: any = {};
-  searchForm: FormGroup;
+  searchForm: UntypedFormGroup;
   leftPanelMenu;
 
   loadingSpinner: any = {

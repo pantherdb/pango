@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, ElementRef, QueryList, ViewChildren } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDrawer } from '@angular/material/sidenav';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -30,7 +30,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   };
 
   @ViewChildren('searchInput') searchInput: QueryList<ElementRef>;
-  filterForm: FormGroup;
+  filterForm: UntypedFormGroup;
   // searchFormData: any = [];
   separatorKeysCodes: number[] = [ENTER, COMMA];
   annotations: any[] = []
@@ -45,7 +45,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any>;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public pangoMenuService: PangoMenuService,
     public pangoDataService: PangoDataService,
     public annotationService: AnnotationService) {
@@ -153,12 +153,12 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   createFilterForm() {
-    return new FormGroup({
-      terms: new FormControl(),
-      slimTerms: new FormControl(),
-      genes: new FormControl(),
-      evidenceTypes: new FormControl(),
-      aspects: new FormControl(),
+    return new UntypedFormGroup({
+      terms: new UntypedFormControl(),
+      slimTerms: new UntypedFormControl(),
+      genes: new UntypedFormControl(),
+      evidenceTypes: new UntypedFormControl(),
+      aspects: new UntypedFormControl(),
     });
   }
   clear() {

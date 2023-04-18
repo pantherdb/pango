@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators, UntypedFormBuilder, UntypedFormArray } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 import { Subject, Observable } from 'rxjs';
@@ -25,7 +25,7 @@ export class AnnotationFiltersComponent implements OnInit, OnDestroy {
   weeks = [];
   connectedTo = [];
 
-  fieldsFilterForm: FormGroup;
+  fieldsFilterForm: UntypedFormGroup;
   annotationStats: AnnotationStats;
   fieldValues: any[] = [];
 
@@ -47,7 +47,7 @@ export class AnnotationFiltersComponent implements OnInit, OnDestroy {
   filteredAnnotations: Observable<string[]>;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public pangoMenuService: PangoMenuService,
     public annotationService: AnnotationService
   ) {
@@ -155,7 +155,7 @@ export class AnnotationFiltersComponent implements OnInit, OnDestroy {
   }
 
   addNewFieldFilterGroup() {
-    let control = <FormArray>this.fieldsFilterForm.controls.fieldsFormArray;
+    let control = <UntypedFormArray>this.fieldsFilterForm.controls.fieldsFormArray;
     control.push(
       this.fb.group({
         fieldFilterGroup: [''],
@@ -165,17 +165,17 @@ export class AnnotationFiltersComponent implements OnInit, OnDestroy {
   }
 
   deleteFieldFilterGroup(index) {
-    let control = <FormArray>this.fieldsFilterForm.controls.fieldsFormArray;
+    let control = <UntypedFormArray>this.fieldsFilterForm.controls.fieldsFormArray;
     control.removeAt(index)
   }
 
   addField(control, value?) {
-    const fieldName = new FormControl(null, [
+    const fieldName = new UntypedFormControl(null, [
       Validators.required,
       Validators.minLength(1)
     ],
     );
-    const fieldValue = new FormControl(null, [
+    const fieldValue = new UntypedFormControl(null, [
       Validators.required,
       Validators.minLength(1)
     ]);
@@ -192,7 +192,7 @@ export class AnnotationFiltersComponent implements OnInit, OnDestroy {
   }
 
   setfieldsFormArray() {
-    let control = <FormArray>this.fieldsFilterForm.controls.fieldsFormArray;
+    let control = <UntypedFormArray>this.fieldsFilterForm.controls.fieldsFormArray;
     this.indata.fieldsFormArray.forEach(x => {
       control.push(this.fb.group({
         fieldFiltersArray: this.setFieldFiltersArray(x)
@@ -201,7 +201,7 @@ export class AnnotationFiltersComponent implements OnInit, OnDestroy {
   }
 
   setFieldFiltersArray(x) {
-    let arr = new FormArray([]);
+    let arr = new UntypedFormArray([]);
     x.fieldFiltersArray.forEach(y => {
       this.addField(arr, y.fieldName);
     });
@@ -251,7 +251,7 @@ export class AnnotationFiltersComponent implements OnInit, OnDestroy {
     return this.annotations.filter((field: any) => field.name.toLowerCase().includes(filterValue)).slice(0, 20);;
   }
 
-  private _onValueChanges(fieldNameControl: FormControl, fieldValueControl: FormControl) {
+  private _onValueChanges(fieldNameControl: UntypedFormControl, fieldValueControl: UntypedFormControl) {
     const self = this;
 
     this.filteredFields = fieldNameControl.valueChanges

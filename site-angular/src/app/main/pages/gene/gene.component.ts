@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute } from '@angular/router';
 import { RightPanel, LeftPanel } from '@pango.common/models/menu-panels';
@@ -26,7 +26,7 @@ export class GeneComponent implements OnInit, OnDestroy {
   @ViewChild('rightDrawer', { static: true })
   rightDrawer: MatDrawer;
 
-  searchForm: FormGroup;
+  searchForm: UntypedFormGroup;
   leftPanelMenu;
 
   loadingSpinner: any = {

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ElementRef, QueryList, ViewChildren } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 import { SearchFilterType } from '@pango.search/models/search-criteria';
@@ -19,12 +19,12 @@ export class SearchAspectFormComponent implements OnInit, OnDestroy {
   SearchFilterType = SearchFilterType;
 
   @ViewChildren('searchInput') searchInput: QueryList<ElementRef>;
-  filterForm: FormGroup;
+  filterForm: UntypedFormGroup;
 
   private _unsubscribeAll: Subject<any>;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public pangoMenuService: PangoMenuService,
     public pangoDataService: PangoDataService,
     public annotationService: AnnotationService) {
@@ -57,8 +57,8 @@ export class SearchAspectFormComponent implements OnInit, OnDestroy {
 
 
   createFilterForm() {
-    return new FormGroup({
-      aspects: new FormControl(),
+    return new UntypedFormGroup({
+      aspects: new UntypedFormControl(),
     });
   }
 
