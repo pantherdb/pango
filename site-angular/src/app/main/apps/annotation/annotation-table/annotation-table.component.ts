@@ -52,7 +52,7 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
     'contributors'
   ];
 
-  @Input('maxReferences') maxReferences = 4
+  @Input('maxReferences') maxReferences = 2
   @Input('maxEvidences') maxEvidences = 2
   @Input('options') options;
 

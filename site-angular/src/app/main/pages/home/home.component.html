@@ -9,7 +9,28 @@
     </mat-drawer>
     <mat-drawer-content #scrollbarRef class="pango-section-body w-100-p" [perfectScrollbar]="scrollbarConfig">
       <div class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
-        <pango-search-form> </pango-search-form>
+        <div class="pango-header accent p-8 w-100-p" fxLayout="column" fxLayoutAlign="start center">
+
+          <h1>
+            Functions of Human Genes
+          </h1>
+          <h2>
+            Each line in the table below represents a functional characteristic of a human gene that is supported by
+            scientific evidence. You can filter the list to find specific genes and/or functions.
+          </h2>
+          <h3>
+            The left panel has more filter options, including a clickable graph of the currently selected annotations.
+          </h3>
+          <!--   <div fxLayout="column" fxLayoutAlign="start center" class="pango-filter-section">
+            <div class="pango-heading">
+              <span>Filter By</span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start center">
+              
+            </div>
+          </div> -->
+          <pango-search-form> </pango-search-form>
+        </div>
         <pango-summary-stats></pango-summary-stats>
         <pango-annotation-table class="w-100-p"></pango-annotation-table>
       </div>

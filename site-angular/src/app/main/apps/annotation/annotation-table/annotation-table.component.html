@@ -173,8 +173,14 @@
                   </div>
                 </div>
               </ng-container>
+              <div class="pango-cell-inner-section" *ngIf="maxReferences < item.references.length">
+                <a> — View {{item.references.length- maxReferences}} more reference(s)</a>
+              </div>
             </div>
           </ng-container>
+          <div class="pango-cell-section" *ngIf="maxEvidences < element.evidence.length">
+            <a> — View {{element.evidence.length- maxEvidences}} more evidence</a>
+          </div>
         </td>
       </ng-container>
       <ng-container matColumnDef="contributors">
@@ -190,8 +196,7 @@
           </div>
         </th>
         <td mat-cell *matCellDef="let element" class="pango-contributors-cell">
-          {{element.groups}}<br>
-          {{element.evidenceCount}}
+          {{element.groups}}
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

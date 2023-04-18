@@ -39,7 +39,8 @@
     <div class="pango w-100-p">
       <div class="pango-section-header-sm" fxLayout="row" fxLayoutAlign="start center">
         <div class="pango-section-heading">
-          <h4>Select Gene's Function Aspect</h4>
+          <h4 matTooltip="Filter to find either known characteristics, or ones that are not yet known"
+            [matTooltipPosition]="'above'" [matTooltipShowDelay]="3000">Select Knowledge Status</h4>
         </div>
         <span fxFlex></span>
         <!--   <button mat-button type="button" (click)="clearByType(SearchFilterType.TERM_TYPES)">
@@ -53,6 +54,29 @@
           [ngClass]="{'pango-active': annotationService.searchCriteria[SearchFilterType.TERM_TYPES]?.[0] === termType.id}"
           matTooltip="{{termType.description}}" [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
           {{termType.label}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pango-section-body w-100-p">
+    <div class="pango w-100-p">
+      <div class="pango-section-header-sm" fxLayout="row" fxLayoutAlign="start center">
+        <div class="pango-section-heading">
+          <h4 matTooltip="Filter by the kind of evidence supporting the annotation" [matTooltipPosition]="'above'"
+            [matTooltipShowDelay]="3000">>Select Evidence Type</h4>
+        </div>
+        <span fxFlex></span>
+        <!--   <button mat-button type="button" (click)="clearByType(SearchFilterType.TERM_TYPES)">
+          Clear
+        </button> -->
+      </div>
+      <div class="pango-box-radio-group w-100-p" fxLayout="row" fxLayoutAlign="start center">
+        <div class="pango-box-radio-item pango-sm" fxFlex="33" fxLayout="column" fxLayoutAlign="center center"
+          *ngFor="let evidenceType of pangoDataService.evidenceTypeOption.options"
+          (click)="toggleSelection(SearchFilterType.EVIDENCE_TYPES, evidenceType.id)"
+          [ngClass]="{'pango-active': annotationService.searchCriteria[SearchFilterType.EVIDENCE_TYPES]?.[0] === evidenceType.id}"
+          matTooltip="{{evidenceType.description}}" [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
+          {{evidenceType.label}}
         </div>
       </div>
     </div>

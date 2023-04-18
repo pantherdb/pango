@@ -33,14 +33,14 @@ const termTypeMap = {
   'known': {
     id: 'known',
     label: 'Known Aspect',
-    description: "Annotations indicating that an aspect of the gene's function is known",
+    description: "Show only annotations of known functions",
     color: getColor('green', 500)
   },
 
   'unknown': {
     id: 'unknown',
     label: 'Unknown Aspect',
-    description: "Annotations indicating that an aspect of the gene's function is not known (no evidence)",
+    description: "Show only “placeholder” annotations indicating unknown function aspects",
     color: getColor('red', 500)
   },
 }
@@ -61,7 +61,7 @@ const evidenceTypeMap = {
   'na': {
     id: 'n/a',
     label: 'n/a',
-    description: "Annotations indicating that an aspect of the gene's function is not known (no evidence)",
+    description: "Evidence is not applicable to “placeholder” annotations indicating unknown function aspects",
     color: getColor('cyan', 500)
   },
 }
