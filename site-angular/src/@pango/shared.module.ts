@@ -5,11 +5,9 @@ import { CommonModule } from '@angular/common';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { PangoDirectivesModule } from './directives/directives';
 import { PangoPipesModule } from './pipes/pipes.module';
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 @NgModule({
     imports: [
@@ -18,11 +16,9 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
         MaterialModule,
         ReactiveFormsModule,
         FlexLayoutModule,
-        PangoDirectivesModule,
         PangoPipesModule,
         DragDropModule,
-        FontAwesomeModule,
-        PerfectScrollbarModule,
+        FontAwesomeModule
     ],
     exports: [
         CommonModule,
@@ -30,11 +26,9 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
         FormsModule,
         ReactiveFormsModule,
         FlexLayoutModule,
-        PangoDirectivesModule,
         PangoPipesModule,
         DragDropModule,
-        FontAwesomeModule,
-        PerfectScrollbarModule,
+        FontAwesomeModule
     ]
 })
 

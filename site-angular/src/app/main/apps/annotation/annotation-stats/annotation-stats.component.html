@@ -25,7 +25,7 @@
       {{statsType.label}}
     </button>
   </div>
-  <div class="pango-drawer-body" pangoPerfectScrollbar>
+  <div class="pango-drawer-body">
     <ng-container *ngIf="annotationStats">
       <div [ngSwitch]="selectedStatsType">
         <pango-general-stats *ngSwitchCase="StatsType.GENERAL"></pango-general-stats>

@@ -1,8 +1,7 @@
 <div class="w-100-p" fxLayout="row" fxLayoutAlign="start start">
   <mat-drawer-container class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start start" autosize>
 
-    <mat-drawer #leftDrawer class="pango-right-drawer" pangoPerfectScrollbar mode="side" position="start"
-      opened="true">
+    <mat-drawer #leftDrawer class="pango-right-drawer" mode="side" position="start" opened="true">
       <div class="h-100-p" [ngSwitch]="pangoMenuService.selectedLeftPanel">
         <pango-annotation-detail [panelDrawer]="rightDrawer" *ngSwitchCase="LeftPanel.annotationDetail">
         </pango-annotation-detail>
@@ -15,7 +14,7 @@
         </pango-search-form>
       </div>
     </mat-drawer>
-    <mat-drawer-content #scrollbarRef class="pango-section-body w-100-p" [perfectScrollbar]="scrollbarConfig">
+    <mat-drawer-content #scrollbarRef class="pango-section-body w-100-p">
       <div class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
         <div class="pango-gene-summary w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
           <div fxLayout="column" fxLayoutAlign="start center">
@@ -36,7 +35,7 @@
         <pango-footer></pango-footer>
       </div>
     </mat-drawer-content>
-    <mat-drawer #rightDrawer class="pango-right-drawer" pangoPerfectScrollbar mode="over" position="end">
+    <mat-drawer #rightDrawer class="pango-right-drawer" mode="over" position="end">
       <div class="h-100-p" [ngSwitch]="pangoMenuService.selectedRightPanel">
         <pango-annotation-detail [panelDrawer]="rightDrawer" *ngSwitchCase="RightPanel.annotationDetail">
         </pango-annotation-detail>

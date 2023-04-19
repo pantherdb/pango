@@ -8,7 +8,7 @@
       <mat-icon>close</mat-icon> Close
     </button>
   </div>
-  <div class="pango-drawer-body" fxLayout="row" fxLayoutAlign="start start" pangoPerfectScrollbar>
+  <div class="pango-drawer-body" fxLayout="row" fxLayoutAlign="start start">
     <div *ngIf="annotation" class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
       <div class="pango-annotation-detail-row" fxLayout="column" fxLayoutAlign="start stretch">
         <div class="pango-title">
@@ -67,8 +67,8 @@
           <div class="pango-cell-section w-100-p" *ngFor="let item of  annotation.slimTerms">
             <div class="w-100-p pango-cell-title" fxLayout="row" fxLayoutAlign="start center">
               {{item.id}}
-              <mat-chip-option class="pango-chip-xs ml-8 pango-aspect {{aspectMap[item.aspect]?.shorthand}}" fxLayout="column"
-                fxLayoutAlign="center center">
+              <mat-chip-option class="pango-chip-xs ml-8 pango-aspect {{aspectMap[item.aspect]?.shorthand}}"
+                fxLayout="column" fxLayoutAlign="center center">
                 <span>{{aspectMap[item.aspect]?.shorthand}}</span>
               </mat-chip-option>
             </div>

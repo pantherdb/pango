@@ -1,7 +1,7 @@
 <form [formGroup]="fieldsFilterForm" novalidate class="pl-8 pr-8 w-100-p" fxLayout="column"
   fxLayoutAlign="start stretch" autocomplete="off">
-  <div formArrayName="fieldsFormArray" class="pango-form-secion w-100-p" fxLayout="column" fxLayoutAlign="start stretch"
-    pangoPerfectScrollbar>
+  <div formArrayName="fieldsFormArray" class="pango-form-secion w-100-p" fxLayout="column"
+    fxLayoutAlign="start stretch">
     <div class="pango-with-group" *ngFor="let comp of fieldsFilterForm.get('fieldsFormArray')?.controls; let i=index">
       <div [formGroupName]="i">
         <div formArrayName="fieldFiltersArray">

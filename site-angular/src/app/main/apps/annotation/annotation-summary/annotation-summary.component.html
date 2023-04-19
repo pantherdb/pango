@@ -8,8 +8,7 @@
       <mat-icon>close</mat-icon> CLOSE
     </button>
   </div>
-  <div class="pango-drawer-body" pangoPerfectScrollbar>
-
+  <div class="pango-drawer-body">
     <div class="pango-tree-container">
       <div class="pango-tree">
         <div class="pango-pos-summary-bar" fxLayout="column" fxLayoutAlign="start start">
@@ -22,8 +21,7 @@
         </div>
         <div *ngFor="let item of treeNodes" class="w-100-p pango-tree-node" fxLayout="column"
           fxLayoutAlign="start center">
-          <div class="pango-term-row pango-category-row w-100-p" fxFlex="" fxLayout="row"
-            fxLayoutAlign="start center">
+          <div class="pango-term-row pango-category-row w-100-p" fxFlex="" fxLayout="row" fxLayoutAlign="start center">
             <div class="pango-title">
               {{item.label}}
             </div>

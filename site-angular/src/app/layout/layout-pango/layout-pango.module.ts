@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { PangoSharedModule } from '@pango/shared.module';
 
 import { ContentModule } from 'app/layout/components/content/content.module';
