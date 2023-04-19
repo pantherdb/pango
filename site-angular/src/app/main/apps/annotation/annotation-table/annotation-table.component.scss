@@ -72,22 +72,22 @@ $accent: map-get($theme, accent);
       background-color: #e6faf3;
     }
 
-    .mat-header-cell {
+    .mat-mdc-header-cell {
       padding: 0 10px;
       font-size: 10px !important;
       font-weight: bold;
       text-transform: uppercase;
     }
 
-    .mat-header-row {
+    .mat-mdc-header-row {
       background-color: #fff;
       @include deep-height(30px);
       border-bottom: $pango-primary-color-light solid 1px;
       z-index: 10;
     }
 
-    .mat-cell,
-    .mat-header-cell {
+    .mat-mdc-cell,
+    .mat-mdc-header-cell {
       //display: flex;
       // align-items: center;
       padding: 8px;
@@ -195,11 +195,11 @@ $accent: map-get($theme, accent);
       }
     }
 
-    .mat-cell {
+    .mat-mdc-cell {
       vertical-align: top;
       border-right: map-get($mat-blue-grey, 200) solid 1px;
     }
-
+    /* TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version.*/
     mat-chip {
       display: inline-block !important;
       text-align: center;
@@ -238,20 +238,20 @@ $accent: map-get($theme, accent);
     overflow: auto;
   }
 
-  .mat-cell {
+  .mat-mdc-cell {
     padding: 0 10px;
     font-size: 12px !important;
     color: #000;
     border-right: #ddd solid 1px;
   }
 
-  .mat-cell,
-  .mat-header-cell {
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
     max-width: 450px;
     word-wrap: break-word;
   }
 
-  .mat-header-cell {
+  .mat-mdc-header-cell {
     height: 35px;
     padding: 0 10px;
     font-size: 10px !important;
@@ -277,8 +277,8 @@ $accent: map-get($theme, accent);
     }
   }
 
-  .mat-header-cell,
-  .mat-header-row {
+  .mat-mdc-header-cell,
+  .mat-mdc-header-row {
     //padding: 0;
     @include deep-height(35px!important);
     position: sticky;

@@ -98,10 +98,10 @@
         <td mat-cell *matCellDef="let element" class="pango-term-cell">
           <div class="w-100-p">
             <div class="pango-cell-title w-100-p">
-              <span><mat-chip class="pango-chip-xs pango-aspect {{aspectMap[element.term.aspect]?.shorthand}}"
+              <span><mat-chip-option class="pango-chip-xs pango-aspect {{aspectMap[element.term.aspect]?.shorthand}}"
                   fxLayout="column" fxLayoutAlign="center center">
                   <span>{{aspectMap[element.term.aspect]?.shorthand}}</span>
-                </mat-chip></span>
+                </mat-chip-option></span>
               <span class="pango-cell-description mr-4"> {{element.term.label}}
                 <span class="pango-cell-description-2">(
                   <a (click)="$event.stopPropagation()" href="{{amigoTermUrl}}{{element.term.id}}"
@@ -127,10 +127,10 @@
           <div class="pango-cell-section w-100-p" *ngFor="let item of element.slimTerms">
 
             <div class="pango-cell-title w-100-p">
-              <span><mat-chip class="pango-chip-xs pango-aspect {{aspectMap[item.aspect]?.shorthand}}" fxLayout="column"
+              <span><mat-chip-option class="pango-chip-xs pango-aspect {{aspectMap[item.aspect]?.shorthand}}" fxLayout="column"
                   fxLayoutAlign="center center">
                   <span>{{aspectMap[item.aspect]?.shorthand}}</span>
-                </mat-chip></span>
+                </mat-chip-option></span>
               <span class="pango-cell-description mr-4"> {{item.label}}
                 <span class="pango-cell-description-2">(
                   <a (click)="$event.stopPropagation()" href="{{amigoTermUrl}}{{item.id}}"

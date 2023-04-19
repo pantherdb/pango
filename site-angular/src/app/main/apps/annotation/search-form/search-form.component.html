@@ -9,8 +9,8 @@
         [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500" appearance="outline"
         class="pango-sm pango-white pango-form-field">
         <mat-label>Filter by Gene</mat-label>
-        <mat-chip-list #geneChipList>
-          <mat-chip class="pango-form-chip" *ngFor="let gene of annotationService.searchCriteria.genes"
+        <mat-chip-grid #geneChipList>
+          <mat-chip-row class="pango-form-chip" *ngFor="let gene of annotationService.searchCriteria.genes"
             [selectable]="true" [removable]="true" (removed)="remove(gene, SearchFilterType.GENES)" fxLayout="row"
             fxLayoutAlign="start center" matTooltip="gene: {{gene.gene}} ({{gene.geneName}})"
             [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
@@ -18,12 +18,12 @@
               {{gene.geneSymbol}}
             </div>
             <mat-icon matChipRemove>cancel</mat-icon>
-          </mat-chip>
+          </mat-chip-row>
           <input #genesInput formControlName="genes"
             placeholder="Type the gene symbol, name or identifier, and select from the autocomplete"
             [matAutocomplete]="geneAuto" [matChipInputFor]="geneChipList"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
-        </mat-chip-list>
+        </mat-chip-grid>
         <mat-autocomplete #geneAuto="matAutocomplete" (optionSelected)="selected($event, SearchFilterType.GENES)"
           [displayWith]="geneDisplayFn" class="pango-gene-autocomplete">
           <mat-option class="pango-entity-autocomplete" *ngFor="let item of genes$ | async" [value]="item">
@@ -49,8 +49,8 @@
         [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500" appearance="outline"
         class="pango-sm pango-white pango-form-field">
         <mat-label>Filter by GO Function Category</mat-label>
-        <mat-chip-list #slimTermChipList>
-          <mat-chip class="pango-form-chip" *ngFor="let slimTerm of annotationService.searchCriteria.slimTerms"
+        <mat-chip-grid #slimTermChipList>
+          <mat-chip-row class="pango-form-chip" *ngFor="let slimTerm of annotationService.searchCriteria.slimTerms"
             [selectable]="true" [removable]="true" (removed)="remove(slimTerm, SearchFilterType.SLIM_TERMS)"
             fxLayout="row" fxLayoutAlign="start center" matTooltip="slimTerm: {{slimTerm.label}} ({{slimTerm.id}}))"
             [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
@@ -58,11 +58,11 @@
               {{slimTerm.label}}
             </div>
             <mat-icon matChipRemove>cancel</mat-icon>
-          </mat-chip>
+          </mat-chip-row>
           <input #searchInput formControlName="slimTerms" placeholder="Add slimTerm Filter"
             [matAutocomplete]="slimTermAuto" [matChipInputFor]="slimTermChipList"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
-        </mat-chip-list>
+        </mat-chip-grid>
         <mat-autocomplete #slimTermAuto="matAutocomplete"
           (optionSelected)="selected($event, SearchFilterType.SLIM_TERMS)" [displayWith]="slimTermDisplayFn"
           class="pango-term-autocomplete">
@@ -72,10 +72,10 @@
                 <div class="w-100-p" fxFlex="" fxLayout="column" fxLayoutAlign="start start">
                   <div class="pango-cell-title w-100-p" fxLayout="row" fxLayoutAlign="start center">
                     {{item.id}}
-                    <mat-chip class="pango-chip-xs ml-8 pango-aspect {{aspectMap[item.aspect]?.shorthand}}"
+                    <mat-chip-option class="pango-chip-xs ml-8 pango-aspect {{aspectMap[item.aspect]?.shorthand}}"
                       fxLayout="column" fxLayoutAlign="center center">
                       <span>{{aspectMap[item.aspect]?.shorthand}}</span>
-                    </mat-chip>
+                    </mat-chip-option>
                   </div>
                   <div class="w-100-p pango-cell-description"> {{item.label}}</div>
                 </div>

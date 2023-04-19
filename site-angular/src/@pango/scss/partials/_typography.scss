@@ -65,7 +65,7 @@ h6,
 a {
   color: mat.get-color-from-palette($accent);
   text-decoration: none;
-  &:not(.mat-button):not(.mat-raised-button):not(.mat-icon-button) {
+  &:not(.mat-mdc-button):not(.mat-mdc-raised-button):not(.mat-mdc-icon-button) {
     &:hover,
     &:active {
       text-decoration: underline;

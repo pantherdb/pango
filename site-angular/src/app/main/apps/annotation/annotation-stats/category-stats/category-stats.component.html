@@ -10,10 +10,10 @@
       <div class="pango-activity-term-row" fxLayout="column">
         <div *ngFor="let item of stats?.slimTermFrequencyBar" class="w-100-p pango-term-cell"
           (click)="selectSlimTerm(item)" fxLayout="row" fxLayoutAlign="start center">
-          <mat-chip class="pango-chip-xs mr-4 pango-aspect {{item.aspectShorthand}}" fxLayout="column"
+          <mat-chip-option class="pango-chip-xs mr-4 pango-aspect {{item.aspectShorthand}}" fxLayout="column"
             fxLayoutAlign="center center">
             <span>{{item.aspectShorthand}}</span>
-          </mat-chip>
+          </mat-chip-option>
           <div class="" fxFlex="100px" fxLayout="column" fxLayoutAlign="start start">
             <div class="pango-cell-title w-100-p">
               <span class="pango-cell-description pango-truncate"> {{item.label}}</span>

@@ -5,9 +5,9 @@ import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 import { AnnotationService } from './../services/annotation.service'
 import { AnnotationPage } from '../models/page';
 import { Annotation } from '../models/annotation';
-import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { RightPanel } from '@pango.common/models/menu-panels';
-import { MatLegacyTable as MatTable, MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'pango-annotation-table-long',
   templateUrl: './annotation-table-long.component.html',

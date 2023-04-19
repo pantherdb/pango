@@ -6,7 +6,10 @@ pango-progress-bar {
   right: 0;
   width: 100%;
   z-index: 99998;
+  /* TODO(mdc-migration): The following rule targets internal classes of progress-bar that may no longer apply for the MDC version. */
+  /* TODO(mdc-migration): The following rule targets internal classes of progress-bar that may no longer apply for the MDC version. */
   mat-progress-bar {
+    /* TODO(mdc-migration): The following rule targets internal classes of progress-bar that may no longer apply for the MDC version. */
     .mat-progress-bar-buffer {
       background-color: #c5c6cb !important;
     }

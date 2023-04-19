@@ -49,10 +49,10 @@
         <div class="pango-description">
           <div class="w-100-p pango-cell-title" fxLayout="row" fxLayoutAlign="start center">
             {{ annotation.term.id}}
-            <mat-chip class="pango-chip-xs ml-8 pango-aspect {{aspectMap[annotation.term.aspect]?.shorthand}}"
+            <mat-chip-option class="pango-chip-xs ml-8 pango-aspect {{aspectMap[annotation.term.aspect]?.shorthand}}"
               fxLayout="column" fxLayoutAlign="center center">
               <span>{{aspectMap[annotation.term.aspect]?.shorthand}}</span>
-            </mat-chip>
+            </mat-chip-option>
           </div>
           <div class="w-100-p pango-cell-description"> {{ annotation.term?.label}}</div>
         </div>
@@ -67,10 +67,10 @@
           <div class="pango-cell-section w-100-p" *ngFor="let item of  annotation.slimTerms">
             <div class="w-100-p pango-cell-title" fxLayout="row" fxLayoutAlign="start center">
               {{item.id}}
-              <mat-chip class="pango-chip-xs ml-8 pango-aspect {{aspectMap[item.aspect]?.shorthand}}" fxLayout="column"
+              <mat-chip-option class="pango-chip-xs ml-8 pango-aspect {{aspectMap[item.aspect]?.shorthand}}" fxLayout="column"
                 fxLayoutAlign="center center">
                 <span>{{aspectMap[item.aspect]?.shorthand}}</span>
-              </mat-chip>
+              </mat-chip-option>
             </div>
             <div class="w-100-p pango-cell-description">
               {{item.label}}
