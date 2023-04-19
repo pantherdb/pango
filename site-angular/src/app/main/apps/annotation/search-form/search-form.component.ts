@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/legacy-autocomplete';
 import { MatDrawer } from '@angular/material/sidenav';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { PangoMenuService } from '@pango.common/services/pango-menu.service';
