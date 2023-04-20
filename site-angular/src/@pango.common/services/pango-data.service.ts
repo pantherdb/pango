@@ -6,6 +6,7 @@ import { pangoData } from '@pango.common/data/config';
 })
 export class PangoDataService {
   aspectMap = pangoData.aspectMap;
+  termTypeMap = pangoData.termTypeMap
   evidenceTypeMap = pangoData.evidenceTypeMap
 
   constructor() {
@@ -24,6 +25,19 @@ export class PangoDataService {
       selected: options[0]
     };
   }
+
+  get termTypeOption() {
+    const options = [
+      this.termTypeMap['known'],
+      this.termTypeMap['unknown'],
+    ];
+
+    return {
+      options: options,
+      selected: options[0]
+    };
+  }
+
 
   get evidenceTypeOption() {
     const options = [

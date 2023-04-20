@@ -11,7 +11,7 @@ taxon_fp='./downloads/input/taxon_lkp.json'
 clean_annotations_fp='./downloads/human_iba_annotations_clean.json'
 
 
-#python3 -m src.get_articles -a $annotations_fp -o $clean_articles_fp
+# python3 -m src.get_articles -a $annotations_fp -o $clean_articles_fp
 
 python3 -m src.clean_annotations \
 -a $annotations_fp \

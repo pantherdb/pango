@@ -15,6 +15,7 @@ import { pangoData } from '@pango.common/data/config';
 })
 export class AnnotationService {
     aspectMap = pangoData.aspectMap;
+    termTypeMap = pangoData.termTypeMap;
     annotationResultsSize = environment.annotationResultsSize;
     onAnnotationsChanged: BehaviorSubject<AnnotationPage>;
     onAutocompleteChanged: BehaviorSubject<AnnotationPage>;
@@ -65,7 +66,52 @@ export class AnnotationService {
         self.queryAnnotationStats(this.query);
     }
 
+    getAnnotationsExport(page: number): any {
+        const self = this;
+        self.loading = true;
+
+        this.searchCriteria.clearSearch()
+        this.searchCriteria = new SearchCriteria();
+
+        self.getAnnotationsPage(this.query, page);
+        self.getAnnotationsCount(this.query);
+        self.queryAnnotationStats(this.query);
+    }
+
+    getAnnotationsExportAll(): any {
+        const self = this;
+        self.loading = true;
+        return this.annotationGraphQLService.getAnnotationsExportAllQuery(this.query)
+    }
+
     getAnnotationsPage(query: Query, page: number): any {
+        const self = this;
+        self.loading = true;
+        query.pageArgs.page = (page - 1);
+        query.pageArgs.size = this.annotationResultsSize;
+        this.query = query;
+        return this.annotationGraphQLService.getAnnotationsQuery(query).subscribe(
+            {
+                next: (annotations: Annotation[]) => {
+                    const annotationData = annotations
+
+                    this.annotationPage.query = query;
+                    this.annotationPage.updatePage()
+                    this.annotationPage.annotations = annotationData;
+                    //  this.annotationPage.aggs = response.aggregations;
+                    this.annotationPage.query.source = query.source;
+
+                    this.onAnnotationsChanged.next(this.annotationPage);
+                    console.log(this.annotationPage)
+
+                    self.loading = false;
+                }, error: (err) => {
+                    self.loading = false;
+                }
+            });
+    }
+
+    getAnnotationsExportPage(query: Query, page: number): any {
         const self = this;
         self.loading = true;
         query.pageArgs.page = (page - 1);
@@ -169,6 +215,10 @@ export class AnnotationService {
             query.filterArgs.termIds.push(annotation.term.id);
         });
 
+        this.searchCriteria.termTypes.forEach((value) => {
+            query.filterArgs.termTypeIds.push(value);
+        });
+
         this.searchCriteria.evidenceTypes.forEach((evidenceType: string) => {
             query.filterArgs.evidenceTypeIds.push(evidenceType);
         });
@@ -268,6 +318,21 @@ export class AnnotationService {
         return sorted
     }
 
+    buildUnknownTermChart(buckets: Bucket[]) {
+
+        const stats = buckets.map((bucket) => {
+            const termType = this.termTypeMap[bucket.key];
+            return {
+                name: bucket.key,
+                label: termType.label,
+                value: bucket.docCount,
+            }
+        })
+
+        const sorted = orderBy(stats, ['value'], ['desc'])
+        return sorted
+    }
+
     buildAnnotationBar(buckets: Bucket[], max = 10, limit = 124) {
 
         const stats = buckets.map((bucket) => {
@@ -290,6 +355,31 @@ export class AnnotationService {
 
         const sorted = orderBy(stats, ['value'], ['desc'])
         return sorted.slice(0, limit)
+    }
+
+    buildCategoryBar(buckets: Bucket[]) {
+
+        if (buckets.length === 0) return []
+
+        const sortedBuckets = orderBy(buckets, ['docCount'], ['desc'])
+        const longest = sortedBuckets[0].docCount
+        const stats = sortedBuckets.map((bucket) => {
+            const ratio = bucket.docCount / longest;
+            return {
+                ...bucket.meta,
+                name: bucket.key,
+                count: bucket.docCount,
+                color: this.aspectMap[bucket.meta.aspect]?.color,
+                aspectShorthand: this.aspectMap[bucket.meta.aspect]?.shorthand,
+                width: (ratio * 100) + '%',
+                countPos: ratio < 0.20 ?
+                    (ratio * 100) + '%' :
+                    (ratio - 0.10) * 100 + '%'
+
+            }
+        })
+
+        return stats
     }
 
 

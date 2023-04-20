@@ -48,7 +48,8 @@
       <ng-container matColumnDef="gene">
         <th mat-header-cell *matHeaderCellDef class="pango-gene-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
-            <div>
+            <div matTooltip="Information about the gene and the protein(s) it encodes, and links to more details."
+              [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
               Gene
             </div>
           </div>
@@ -87,7 +88,8 @@
         <th mat-header-cell *matHeaderCellDef class="pango-term-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
-              <div>
+              <div matTooltip="The annotated functional characteristic of the gene. These are as specific as possible. Click on the GO identifier number to see detailed information about a characteristic.
+              " [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
                 Annotated GO Term
               </div>
             </div>
@@ -114,7 +116,8 @@
         <th mat-header-cell *matHeaderCellDef class="pango-slim-terms-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
-              <div>
+              <div matTooltip="The high-level category(ies) of the annotated GO term shown in the previous column."
+                [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
                 GO Function Category
               </div>
             </div>
@@ -142,7 +145,9 @@
         <th mat-header-cell *matHeaderCellDef class="pango-evidence-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
-              <div>
+              <div
+                matTooltip="The evidence for the annotated GO term. Click on the PubMed identifier to access the published experimental results supporting the annotation."
+                [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
                 Evidence
               </div>
             </div>
@@ -168,23 +173,30 @@
                   </div>
                 </div>
               </ng-container>
+              <div class="pango-cell-inner-section" *ngIf="maxReferences < item.references.length">
+                <a> — View {{item.references.length- maxReferences}} more reference(s)</a>
+              </div>
             </div>
           </ng-container>
+          <div class="pango-cell-section" *ngIf="maxEvidences < element.evidence.length">
+            <a> — View {{element.evidence.length- maxEvidences}} more evidence</a>
+          </div>
         </td>
       </ng-container>
       <ng-container matColumnDef="contributors">
         <th mat-header-cell *matHeaderCellDef class="pango-contributors-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
-              <div>
+              <div
+                matTooltip="The GO Consortium groups that created the “primary” GO annotations from the published evidence in the previous column."
+                [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
                 Contributors
               </div>
             </div>
           </div>
         </th>
         <td mat-cell *matCellDef="let element" class="pango-contributors-cell">
-          {{element.groups}}<br>
-          {{element.evidenceCount}}
+          {{element.groups}}
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -6,13 +6,15 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 import { LeftPanel, RightPanel } from '@pango.common/models/menu-panels';
 import { AnnotationService } from 'app/main/apps/annotation/services/annotation.service';
+import { SearchCriteria } from '@pango.search/models/search-criteria';
+import { filter, map } from 'rxjs';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-download',
+  templateUrl: './download.component.html',
+  styleUrls: ['./download.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class DownloadComponent implements OnInit {
   RightPanel = RightPanel;
   LeftPanel = LeftPanel
 

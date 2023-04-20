@@ -36,16 +36,26 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
     
     query = await get_annotations_query(filter_args)
     aggs = {
-        "distinct_gene_count": {
-          "cardinality": {
-            "field": "gene.keyword"
-          }
-        },
-        "term_frequency": {
-          "terms": {
-            "field": "term.label.keyword",
-            "order":{"_count":"desc"},
-            "size": 20
+       "distinct_gene_count": {
+          "scripted_metric": {
+            "params": {
+              "fieldName": "gene"
+            },
+            "init_script": "state.list = new HashSet();",
+            "map_script": """
+              if(params['_source'][params.fieldName] != null) 
+                state.list.add(params['_source'][params.fieldName]);
+              """,
+            "combine_script": "return state.list.size();",
+            "reduce_script": """
+            int count = 0;
+            for(counts in states) {
+              if(counts != null) {
+                count +=counts;
+              }
+            } 
+            return count;
+            """
           }
         },
         "aspect_frequency": {
@@ -60,6 +70,13 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
             "field": "evidence_type.keyword",
              "order":{"_count":"desc"},
              "size": 20
+          }
+        },
+        "term_type_frequency": {
+          "terms": {
+            "field": "term_type.keyword",
+            "order":{"_count":"desc"},
+            "size": 2
           }
         },
         "slim_term_frequency": get_slim_terms_query()        
@@ -89,7 +106,8 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
         elif k =='distinct_gene_count':
             stats[k] = freqs['value']
         else:
-            buckets = [Bucket(**bucket) for bucket in freqs['buckets']]
+            buckets = [Bucket( key=bucket["key"], doc_count=bucket["doc_count"])
+                        for bucket in freqs['buckets']]
             stats[k] = Frequency(buckets=buckets)
                          
     results = AnnotationStats(**stats)

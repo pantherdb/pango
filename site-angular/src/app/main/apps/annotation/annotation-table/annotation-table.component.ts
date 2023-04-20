@@ -52,7 +52,7 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
     'contributors'
   ];
 
-  @Input('maxReferences') maxReferences = 4
+  @Input('maxReferences') maxReferences = 2
   @Input('maxEvidences') maxEvidences = 2
   @Input('options') options;
 
@@ -104,7 +104,8 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
   }
 
   getFamilyLink(element: Annotation) {
-    return `${environment.pantherFamilyUrl}book=${element.pantherFamily}&seq=${element.longId}`
+
+    return `${environment.pantherFamilyUrl}book=${encodeURIComponent(element.pantherFamily)}&seq=${encodeURIComponent(element.longId)}`
   }
 
   setAnnotationPage(annotationPage: AnnotationPage) {

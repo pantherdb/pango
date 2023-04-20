@@ -91,6 +91,52 @@ export class AnnotationGraphQLService {
   }
 
 
+  getAnnotationsExportQuery(query: Query): Observable<any> {
+    const options = {
+      variables: {
+        filterArgs: query.filterArgs,
+        pageArgs: query.pageArgs
+      },
+      query: `query GetAnnotations($filterArgs: AnnotationFilterArgs, $pageArgs: PageArgs) {
+                annotations(filterArgs:$filterArgs, pageArgs:$pageArgs) {
+                    gene
+                    geneSymbol
+                    term {
+                      id
+                      label
+                    }                                  
+                  }
+                }`
+    }
+
+    return this.pangoGraphQLService.query(options).pipe(
+      map((response: any) => {
+        return response.annotations.map(annotation => {
+          return annotation
+        }) as Annotation[];
+      }));
+  }
+
+  getAnnotationsExportAllQuery(query: Query): Observable<any> {
+    const options = {
+      variables: {
+        filterArgs: query.filterArgs,
+        pageArgs: query.pageArgs
+      },
+      query: `query GetAnnotationsExport($filterArgs: AnnotationFilterArgs, $pageArgs: PageArgs) {
+                annotations(filterArgs:$filterArgs, pageArgs:$pageArgs) {
+                    data                                 
+                  }
+                }`
+    }
+
+    return this.pangoGraphQLService.query(options).pipe(
+      map((response: any) => {
+        return response.annotations
+      }));
+  }
+
+
   getAnnotationsCountQuery(query: Query): Observable<any> {
 
     const options = {
@@ -203,7 +249,7 @@ export class AnnotationGraphQLService {
       query: `query GetAnnotationsStats($filterArgs: AnnotationFilterArgs) {
                     stats(filterArgs:$filterArgs) {
                       distinctGeneCount
-                      termFrequency {
+                      termTypeFrequency {
                         buckets {
                           docCount
                           key

@@ -4,7 +4,7 @@ import { getColor } from '@pango.common/data/pango-colors';
 import { SearchFilterType } from '@pango.search/models/search-criteria';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AnnotationStats } from '../../models/annotation';
+import { AnnotationStats, Term } from '../../models/annotation';
 import { AnnotationPage } from '../../models/page';
 import { AnnotationService } from '../../services/annotation.service';
 
@@ -112,7 +112,7 @@ export class CategoryStatsComponent implements OnInit, OnDestroy {
         getColor('blue-grey', 500),
       ]
     },
-    onSelect: this.onSelectTerm.bind(this)
+    // onSelect: this.onSelectTerm.bind(this)
   }
 
   slimTermFrequencyBarOptions = {
@@ -197,31 +197,19 @@ export class CategoryStatsComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSelectTerm(event) {
-    if (event.extra?.id) {
-      this.annotationService.searchCriteria[SearchFilterType.TERMS] = [event.extra];
-      this.annotationService.updateSearch();
-    }
+  selectSlimTerm(term: Term) {
+    this.annotationService.searchCriteria[SearchFilterType.SLIM_TERMS] = [term];
+    this.annotationService.updateSearch();
   }
+
 
   generateStats() {
 
-    if (this.annotationStats.termFrequency?.buckets) {
-      this.stats.termFrequencyBar = this.annotationService.buildAnnotationBar(this.annotationStats.termFrequency.buckets)
-    }
-
-    if (this.annotationStats.aspectFrequency?.buckets) {
-      this.stats.aspectPie = this.annotationService.buildAspectChart(this.annotationStats.aspectFrequency.buckets)
-    }
-
-    if (this.annotationStats.evidenceTypeFrequency?.buckets) {
-      this.stats.evidenceTypePie = this.annotationService.buildAnnotationBar(this.annotationStats.evidenceTypeFrequency.buckets)
-    }
-
     if (this.annotationStats.slimTermFrequency?.buckets) {
-      console.log(this.annotationStats.slimTermFrequency?.buckets)
-      this.stats.slimTermFrequencyBar = this.annotationService.buildAnnotationBar(this.annotationStats.slimTermFrequency.buckets)
+      this.stats.slimTermFrequencyBar = this.annotationService.buildCategoryBar(this.annotationStats.slimTermFrequency.buckets)
     }
+
+    console.log(this.stats.slimTermFrequencyBar)
 
   }
 

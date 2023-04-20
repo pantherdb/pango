@@ -24,6 +24,25 @@ async def get_annotations(filter_args:AnnotationFilterArgs, page_args=PageArgs):
         
     return results    
 
+async def get_annotations_export(filter_args:AnnotationFilterArgs, page_args=PageArgs):
+
+    if page_args is None:
+      page_args = PageArgs
+
+    query = await get_annotations_query(filter_args)
+    resp = await es.search(
+          fields=['gene', 'gene_symbol', 'term.id', 'term/label'], 
+          index=settings.PANTHER_ANNOTATIONS_INDEX,
+          filter_path ='took,hits.hits._score,**hits.hits._source**',
+          query=query,
+          from_=page_args.page*page_args.size,
+          size=100000,
+    )
+
+    results = [Annotation(**hit['_source']) for hit in resp.get('hits', {}).get('hits', [])]
+        
+    return results    
+
 
 async def get_annotations_query(filter_args:AnnotationFilterArgs):
   
@@ -37,6 +56,14 @@ async def get_annotations_query(filter_args:AnnotationFilterArgs):
                   "term.id.keyword": filter_args.term_ids
                 }
               })   
+            
+      if filter_args.term_ids != None and len(filter_args.term_type_ids)>0:
+        filters.append(  
+          {           
+            "terms": {
+              "term_type": filter_args.term_type_ids
+            }
+          })         
 
       if filter_args.slim_term_ids != None and len(filter_args.slim_term_ids)>0:
             filters.append( 

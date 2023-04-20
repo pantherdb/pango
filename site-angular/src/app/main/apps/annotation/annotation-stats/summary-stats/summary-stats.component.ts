@@ -16,6 +16,7 @@ import { AnnotationService } from '../../services/annotation.service';
 export class SummaryStatsComponent implements OnInit, OnDestroy {
 
   aspectMap = pangoData.aspectMap;
+  termTypeMap = pangoData.termTypeMap;
   evidenceTypeMap = pangoData.evidenceTypeMap
   annotationPage: AnnotationPage;
   annotationStats: AnnotationStats;
@@ -55,6 +56,24 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
 
     },
     onSelect: this.onSelectAspect.bind(this)
+
+  }
+
+  termTypePieOptions = {
+    view: [100, 100],
+    gradient: true,
+    legend: false,
+    showLabels: false,
+    isDoughnut: true,
+    maxLabelLength: 20,
+    colorScheme: {
+      domain: [
+        getColor('green', 500),
+        getColor('red', 500),
+      ]
+
+    },
+    onSelect: this.onSelectTermType.bind(this)
 
   }
 
@@ -139,6 +158,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
   stats = {
     termFrequencyBar: [],
     aspectPie: [],
+    termTypePie: [],
     evidenceTypePie: [],
     termsBar: [],
     slimTermFrequencyBar: []
@@ -180,8 +200,12 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
   }
 
   onSelectAspect(event) {
-    console.log(event)
     this.annotationService.searchCriteria[SearchFilterType.ASPECTS] = [event.name];
+    this.annotationService.updateSearch();
+  }
+
+  onSelectTermType(event) {
+    this.annotationService.searchCriteria[SearchFilterType.TERM_TYPES] = [event.name];
     this.annotationService.updateSearch();
   }
 
@@ -212,6 +236,10 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
 
     if (this.annotationStats.aspectFrequency?.buckets) {
       this.stats.aspectPie = this.annotationService.buildAspectChart(this.annotationStats.aspectFrequency.buckets)
+    }
+
+    if (this.annotationStats.termTypeFrequency?.buckets) {
+      this.stats.termTypePie = this.annotationService.buildUnknownTermChart(this.annotationStats.termTypeFrequency.buckets)
     }
 
     if (this.annotationStats.evidenceTypeFrequency?.buckets) {
