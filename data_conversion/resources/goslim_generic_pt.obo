@@ -1875,17 +1875,6 @@ subset: goslim_pir
 subset: goslim_yeast
 
 [Term]
-id: GO:0008643
-name: carbohydrate transport
-namespace: biological_process
-alt_id: GO:0006861
-alt_id: GO:0008644
-def: "The directed movement of carbohydrate into, out of or within a cell, or between cells, by means of some agent such as a transporter or pore. Carbohydrates are a group of organic compounds based of the general formula Cx(H2O)y." [GOC:ai]
-subset: goslim_pir
-subset: goslim_yeast
-synonym: "sugar transport" NARROW []
-
-[Term]
 id: GO:0071840
 name: cellular component organization or biogenesis
 namespace: biological_process
@@ -1947,17 +1936,6 @@ subset: prokaryote_subset
 synonym: "single-organism transport" RELATED []
 
 [Term]
-id: GO:0009605
-name: response to external stimulus
-namespace: biological_process
-def: "Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of an external stimulus." [GOC:hb]
-comment: Note that this term is in the subset of terms that should not be used for direct gene product annotation. Instead, select a child term or, if no appropriate child term exists, please request a new term. Direct annotations to this term may be amended during annotation QC.
-subset: gocheck_do_not_manually_annotate
-subset: goslim_drosophila
-subset: goslim_plant
-synonym: "response to environmental stimulus" EXACT []
-
-[Term]
 id: GO:0010817
 name: regulation of hormone levels
 namespace: biological_process
@@ -1973,21 +1951,6 @@ subset: goslim_pir
 subset: goslim_yeast
 synonym: "ion transport" BROAD []
 is_a: GO:0006810 ! transport
-
-[Term]
-id: GO:0006950
-name: response to stress
-namespace: biological_process
-def: "Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a disturbance in organismal or cellular homeostasis, usually, but not necessarily, exogenous (e.g. temperature, humidity, ionizing radiation)." [GOC:mah]
-comment: Note that this term is in the subset of terms that should not be used for direct gene product annotation. Instead, select a child term or, if no appropriate child term exists, please request a new term. Direct annotations to this term may be amended during annotation QC.
-subset: gocheck_do_not_manually_annotate
-subset: goslim_candida
-subset: goslim_chembl
-subset: goslim_drosophila
-subset: goslim_metagenomics
-subset: goslim_plant
-synonym: "response to abiotic stress" RELATED []
-synonym: "response to biotic stress" RELATED []
 
 [Term]
 id: GO:0016070
@@ -2030,21 +1993,6 @@ subset: goslim_flybase_ribbon
 subset: goslim_metagenomics
 synonym: "small molecule metabolism" EXACT []
 is_a: GO:0008152 ! metabolic process
-
-[Term]
-id: GO:0042221
-name: response to chemical
-namespace: biological_process
-def: "Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a chemical stimulus." [GOC:jl]
-comment: Note that this term is in the subset of terms that should not be used for direct gene product annotation. Instead, select a child term or, if no appropriate child term exists, please request a new term. Direct annotations to this term may be amended during annotation QC.
-subset: gocheck_do_not_manually_annotate
-subset: goslim_candida
-subset: goslim_drosophila
-subset: goslim_metagenomics
-subset: goslim_plant
-subset: goslim_yeast
-synonym: "response to chemical stimulus" EXACT [GOC:dos]
-synonym: "response to chemical substance" EXACT []
 
 [Term]
 id: GO:0008152
@@ -2137,6 +2085,37 @@ synonym: "macromolecule complex" EXACT []
 synonym: "protein complex" NARROW []
 synonym: "protein containing complex" EXACT []
 synonym: "protein-protein complex" NARROW []
+
+[Term]
+id: GO:0009617
+name: response to bacterium
+namespace: biological_process
+alt_id: GO:0009618
+alt_id: GO:0009680
+def: "Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a stimulus from a bacterium." [GOC:hb]
+synonym: "response to bacteria" EXACT []
+
+[Term]
+id: GO:0009615
+name: response to virus
+namespace: biological_process
+def: "Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a stimulus from a virus." [GOC:hb]
+synonym: "response to viruses" EXACT []
+
+[Term]
+id: GO:0042060
+name: wound healing
+namespace: biological_process
+def: "The series of events that restore integrity to a damaged tissue, following an injury." [GOC:bf, PMID:15269788]
+subset: goslim_generic
+xref: Wikipedia:Wound_healing
+
+[Term]
+id: GO:0042594
+name: response to starvation
+namespace: biological_process
+def: "Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a starvation stimulus, deprivation of nourishment." [GOC:go_curators]
+subset: goslim_yeast
 
 
 [Typedef]
