@@ -60,7 +60,7 @@ $accent: map-get($theme, accent);
       font-size: 14px;
     }
     /*TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version.*/
-    mat-chip {
+    .mat-mdc-chip {
       text-align: center;
       @include deep-height(22px);
       @include deep-width(22px);

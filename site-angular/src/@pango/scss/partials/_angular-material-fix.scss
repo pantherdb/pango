@@ -35,7 +35,7 @@
 }
 
 /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
-.mat-form-field-wrapper {
+.mat-mdc-form-field-wrapper {
   font-size: 16px;
 }
 
@@ -53,16 +53,16 @@
 }
 
 /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
-.mat-form-field-underline {
+.mat-mdc-form-field-underline {
   background-color: rgba(0, 0, 0, 0.12);
 }
 
 .mat-mdc-form-field {
-  &.mat-form-field-type-mat-select {
+  &.mat-mdc-form-field-type-mat-select {
     /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
-    .mat-form-field-infix {
+    .mat-mdc-form-field-infix {
       display: inline-flex;
       width: auto;
       /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version. */
@@ -104,7 +104,7 @@ mat-vertical-stepper {
 }
 
 /* TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version. */
-mat-chip {
+.mat-mdc-chip {
   mat-icon {
     min-width: 0 !important;
     min-height: 0 !important;

@@ -62,7 +62,7 @@ def get_evidence(df, genes_df, row):
        
         evidence_item = {
           'with_gene_id':gene_row,
-          'group': evidence['group'],
+          'groups': evidence['groups'],
           'references':result_ref
         }
         result.append(evidence_item)
@@ -110,7 +110,9 @@ def count_evidence(evidences):
 def get_groups(evidences):
     groups = set()
     for evidence in evidences:
-        groups.add(evidence['group'])
+        for group in evidence['groups']:
+            groups.add(group)
+            
     return list(groups)
 
 

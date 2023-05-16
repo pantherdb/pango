@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 import { SearchFilterType } from '@pango.search/models/search-criteria';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { PangoDataService } from '@pango.common/services/pango-data.service';
-import { pangoData } from '@pango.common/data/config';
 import { AnnotationService } from '../../services/annotation.service';
 
 @Component({

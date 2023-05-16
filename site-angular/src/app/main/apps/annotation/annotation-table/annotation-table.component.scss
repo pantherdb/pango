@@ -200,7 +200,7 @@ $accent: map-get($theme, accent);
       border-right: map-get($mat-blue-grey, 200) solid 1px;
     }
     /* TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version.*/
-    mat-chip {
+    .mat-mdc-chip {
       display: inline-block !important;
       text-align: center;
       @include deep-height(18px);

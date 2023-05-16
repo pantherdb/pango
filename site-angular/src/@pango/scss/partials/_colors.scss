@@ -125,11 +125,11 @@ $matColorHues: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, A100, A200, A400
 
   // Input
   /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-  .mat-form-field-label {
+  .mat-mdc-form-field-label {
     color: map_get($pangoForeground, hint-text);
   }
   /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-  .mat-form-field-underline {
+  .mat-mdc-form-field-underline {
     background-color: map_get($pangoForeground, divider);
   }
 
