@@ -727,17 +727,6 @@ subset: prokaryote_subset
 xref: Wikipedia:DNA_repair
 
 [Term]
-id: GO:0006310
-name: DNA recombination
-namespace: biological_process
-def: "Any process in which a new genotype is formed by reassortment of genes resulting in gene combinations different from those that were present in the parents. In eukaryotes genetic recombination can occur by chromosome assortment, intrachromosomal recombination, or nonreciprocal interchromosomal recombination. Interchromosomal recombination occurs by crossing over. In bacteria it may occur by genetic transformation, conjugation, transduction, or F-duction." [ISBN:0198506732]
-subset: goslim_drosophila
-subset: goslim_generic
-subset: goslim_pombe
-subset: goslim_yeast
-subset: prokaryote_subset
-
-[Term]
 id: GO:0006325
 name: chromatin organization
 namespace: biological_process
@@ -872,21 +861,6 @@ synonym: "cellular amino acid metabolism" EXACT []
 property_value: term_tracker_item https://github.com/geneontology/go-ontology/issues/17904 xsd:anyURI
 
 [Term]
-id: GO:0006575
-name: cellular modified amino acid metabolic process
-namespace: biological_process
-def: "The chemical reactions and pathways involving compounds derived from amino acids, organic acids containing one or more amino substituents." [GOC:ai]
-subset: goslim_drosophila
-subset: goslim_generic
-subset: prokaryote_subset
-synonym: "amino acid derivative metabolic process" EXACT []
-synonym: "cellular amino acid derivative metabolic process" EXACT []
-synonym: "cellular amino acid derivative metabolism" EXACT []
-synonym: "cellular modified amino acid metabolism" EXACT [GOC:mah]
-synonym: "modified amino acid metabolic process" EXACT [GOC:mah]
-synonym: "modified amino acid metabolism" EXACT [GOC:mah]
-
-[Term]
 id: GO:0006629
 name: lipid metabolic process
 namespace: biological_process
@@ -920,22 +894,6 @@ subset: goslim_yeast
 synonym: "vitamin metabolism" EXACT []
 
 [Term]
-id: GO:0006790
-name: sulfur compound metabolic process
-namespace: biological_process
-def: "The chemical reactions and pathways involving the nonmetallic element sulfur or compounds that contain sulfur, such as the amino acids methionine and cysteine or the tripeptide glutathione." [GOC:ai]
-subset: goslim_chembl
-subset: goslim_drosophila
-subset: goslim_generic
-subset: goslim_pir
-subset: goslim_pombe
-subset: prokaryote_subset
-synonym: "sulfur metabolism" EXACT []
-synonym: "sulphur metabolic process" EXACT []
-synonym: "sulphur metabolism" EXACT []
-xref: Wikipedia:Sulfur_metabolism
-
-[Term]
 id: GO:0006886
 name: intracellular protein transport
 namespace: biological_process
@@ -944,19 +902,6 @@ def: "The directed movement of proteins in a cell, including the movement of pro
 subset: goslim_generic
 subset: prokaryote_subset
 synonym: "copper-induced intracellular protein transport" RELATED [GOC:al]
-
-[Term]
-id: GO:0006913
-name: nucleocytoplasmic transport
-namespace: biological_process
-alt_id: GO:0000063
-def: "The directed movement of molecules between the nucleus and the cytoplasm." [GOC:go_curators]
-comment: Note that transport through the nuclear pore complex is not transmembrane because the nuclear membrane is a double membrane, and is not traversed.
-subset: goslim_chembl
-subset: goslim_drosophila
-subset: goslim_generic
-subset: goslim_pombe
-synonym: "nucleocytoplasmic shuttling" NARROW []
 
 [Term]
 id: GO:0006914
@@ -1018,44 +963,6 @@ namespace: biological_process
 def: "A microtubule-based process that results in the movement of organelles, other microtubules, or other cellular components. Examples include motor-driven movement along microtubules and movement driven by polymerization or depolymerization of microtubules." [GOC:cjm, ISBN:0815316194]
 subset: goslim_drosophila
 subset: goslim_generic
-
-[Term]
-id: GO:0007031
-name: peroxisome organization
-namespace: biological_process
-def: "A process that is carried out at the cellular level which results in the assembly, arrangement of constituent parts, or disassembly of a peroxisome. A peroxisome is a small, membrane-bounded organelle that uses dioxygen (O2) to oxidize organic molecules." [GOC:mah]
-subset: goslim_drosophila
-subset: goslim_generic
-subset: goslim_pir
-subset: goslim_pombe
-subset: goslim_yeast
-synonym: "peroxisome organisation" EXACT []
-synonym: "peroxisome organization and biogenesis" RELATED [GOC:mah]
-synonym: "peroxisome-assembly ATPase activity" RELATED []
-
-[Term]
-id: GO:0007040
-name: lysosome organization
-namespace: biological_process
-def: "A process that is carried out at the cellular level which results in the assembly, arrangement of constituent parts, or disassembly of a lysosome. A lysosome is a cytoplasmic, membrane-bounded organelle that is found in most animal cells and that contains a variety of hydrolases." [GOC:mah]
-subset: goslim_generic
-synonym: "lysosome organisation" EXACT []
-synonym: "lysosome organization and biogenesis" RELATED [GOC:mah]
-
-[Term]
-id: GO:0007059
-name: chromosome segregation
-namespace: biological_process
-def: "The process in which genetic material, in the form of chromosomes, is organized into specific structures and then physically separated and apportioned to two or more sets. In eukaryotes, chromosome segregation begins with the condensation of chromosomes, includes chromosome separation, and ends when chromosomes have completed movement to the spindle poles." [GOC:jl, GOC:mah, GOC:mtg_cell_cycle, GOC:vw]
-subset: goslim_chembl
-subset: goslim_drosophila
-subset: goslim_generic
-subset: goslim_pir
-subset: goslim_yeast
-subset: prokaryote_subset
-synonym: "chromosome division" EXACT []
-synonym: "chromosome transmission" RELATED []
-xref: Wikipedia:Chromosome_segregation
 
 [Term]
 id: GO:0007155
@@ -1204,16 +1111,6 @@ subset: prokaryote_subset
 synonym: "mRNA metabolism" EXACT []
 
 [Term]
-id: GO:0016073
-name: snRNA metabolic process
-namespace: biological_process
-def: "The chemical reactions and pathways involving snRNA, small nuclear RNA, any of various low-molecular-mass RNA molecules found in the eukaryotic nucleus as components of the small nuclear ribonucleoprotein." [ISBN:0198506732]
-subset: goslim_drosophila
-subset: goslim_generic
-subset: goslim_pombe
-synonym: "snRNA metabolism" EXACT []
-
-[Term]
 id: GO:0016192
 name: vesicle-mediated transport
 namespace: biological_process
@@ -1241,17 +1138,6 @@ subset: goslim_metagenomics
 subset: goslim_pir
 subset: prokaryote_subset
 relationship: part_of GO:0098754 ! detoxification
-
-[Term]
-id: GO:0022414
-name: reproductive process
-namespace: biological_process
-alt_id: GO:0044702
-def: "A biological process that directly contributes to the process of producing new individuals by one or two organisms. The new individuals inherit some proportion of their genetic material from the parent or parents." [GOC:dph, GOC:isa_complete]
-subset: goslim_generic
-synonym: "single organism reproductive process" RELATED []
-created_by: jl
-creation_date: 2012-09-19T15:56:06Z
 
 [Term]
 id: GO:0007165
@@ -1377,19 +1263,6 @@ xref: NIF_Subcellular:sao180601769
 is_a: GO:0043226 ! organelle
 
 [Term]
-id: GO:0032200
-name: telomere organization
-namespace: biological_process
-def: "A process that is carried out at the cellular level which results in the assembly, arrangement of constituent parts, or disassembly of telomeres, terminal regions of a linear chromosome that include the telomeric DNA repeats and associated proteins." [GOC:dph, GOC:jl, GOC:mah]
-subset: goslim_generic
-subset: goslim_pombe
-subset: goslim_yeast
-synonym: "chromosome organization, telomeric" EXACT []
-synonym: "organization of chromosome, telomeric region" EXACT []
-synonym: "telomere organisation" EXACT [GOC:mah]
-synonym: "telomere organization and biogenesis" RELATED [GOC:mah]
-
-[Term]
 id: GO:0034330
 name: cell junction organization
 namespace: biological_process
@@ -1437,15 +1310,6 @@ relationship: has_part GO:0060090 ! molecular adaptor activity
 relationship: part_of GO:0016192 ! vesicle-mediated transport
 created_by: bf
 creation_date: 2011-08-01T02:50:45Z
-
-[Term]
-id: GO:0042060
-name: wound healing
-namespace: biological_process
-def: "The series of events that restore integrity to a damaged tissue, following an injury." [GOC:bf, PMID:15269788]
-subset: goslim_generic
-xref: Wikipedia:Wound_healing
-relationship: has_part GO:0048856 ! anatomical structure development
 
 [Term]
 id: GO:0042254
@@ -1557,20 +1421,6 @@ subset: goslim_plant
 synonym: "development of an anatomical structure" EXACT []
 
 [Term]
-id: GO:0048870
-name: cell motility
-namespace: biological_process
-def: "Any process involved in the controlled self-propelled movement of a cell that results in translocation of the cell from one place to another." [GOC:dgh, GOC:dph, GOC:isa_complete, GOC:mlg]
-subset: goslim_chembl
-subset: goslim_drosophila
-subset: goslim_generic
-subset: prokaryote_subset
-synonym: "cell locomotion" EXACT []
-synonym: "cell movement" RELATED []
-synonym: "movement of a cell" EXACT []
-property_value: term_tracker_item https://github.com/geneontology/go-ontology/issues/19809 xsd:anyURI
-
-[Term]
 id: GO:0050877
 name: nervous system process
 namespace: biological_process
@@ -1584,36 +1434,6 @@ synonym: "neurological system process" EXACT []
 synonym: "neurophysiological process" EXACT []
 synonym: "pan-neural process" RELATED []
 property_value: term_tracker_item https://github.com/geneontology/go-ontology/issues/13824 xsd:anyURI
-
-[Term]
-id: GO:0055085
-name: transmembrane transport
-namespace: biological_process
-alt_id: GO:0090662
-def: "The process in which a solute is transported across a lipid bilayer, from one side of a membrane to the other." [GOC:dph, GOC:jid]
-comment: Transmembrane transport is the transport of a solute across a lipid bilayer. Note that transport through the nuclear pore complex is not transmembrane because the nuclear membrane is a double membrane and is not traversed. For transport through the nuclear pore, consider instead the term 'nucleocytoplasmic transport ; GO:0006913' and its children. Note also that this term is not intended for use in annotating lateral movement within membranes.
-subset: goslim_chembl
-subset: goslim_drosophila
-subset: goslim_generic
-subset: goslim_pombe
-subset: goslim_yeast
-synonym: "ATP hydrolysis coupled transmembrane transport" NARROW []
-synonym: "membrane transport" EXACT []
-created_by: tb
-creation_date: 2015-10-21T13:22:47Z
-
-[Term]
-id: GO:0055086
-name: nucleobase-containing small molecule metabolic process
-namespace: biological_process
-def: "The cellular chemical reactions and pathways involving a nucleobase-containing small molecule: a nucleobase, a nucleoside, or a nucleotide." [GOC:vw]
-subset: goslim_drosophila
-subset: goslim_generic
-subset: goslim_pombe
-subset: goslim_yeast
-subset: prokaryote_subset
-synonym: "nucleobase, nucleoside and nucleotide metabolic process" RELATED []
-synonym: "nucleobase, nucleoside and nucleotide metabolism" EXACT []
 
 [Term]
 id: GO:0038023
@@ -1649,37 +1469,6 @@ synonym: "protein complex scaffold activity" RELATED []
 synonym: "protein-containing complex scaffold activity" RELATED []
 
 [Term]
-id: GO:0061007
-name: hepaticobiliary system process
-namespace: biological_process
-def: "An system process carried out by any of the organs or tissues of the hepaticobiliary system. The hepaticobiliary system is responsible for metabolic and catabolic processing of small molecules absorbed from the blood or gut, hormones and serum proteins, detoxification, storage of glycogen, triglycerides, metals and lipid soluble vitamins and excretion of bile. Included are the synthesis of albumin, blood coagulation factors, complement, and specific binding proteins." [GOC:dph]
-subset: goslim_generic
-synonym: "hepatobiliary system process" EXACT [GOC:dph]
-created_by: dph
-creation_date: 2010-01-22T09:09:10Z
-
-[Term]
-id: GO:0061024
-name: membrane organization
-namespace: biological_process
-alt_id: GO:0016044
-alt_id: GO:0044802
-def: "A process which results in the assembly, arrangement of constituent parts, or disassembly of a membrane. A membrane is a double layer of lipid molecules that encloses all cells, and, in eukaryotes, many organelles; may be a single or double lipid bilayer; also includes associated proteins." [GOC:dph, GOC:tb]
-subset: goslim_chembl
-subset: goslim_drosophila
-subset: goslim_generic
-subset: goslim_pir
-subset: goslim_pombe
-subset: prokaryote_subset
-synonym: "cellular membrane organisation" EXACT []
-synonym: "cellular membrane organization" EXACT []
-synonym: "membrane organisation" EXACT [GOC:mah]
-synonym: "membrane organization and biogenesis" RELATED [GOC:mah]
-synonym: "single-organism membrane organization" RELATED []
-created_by: jl
-creation_date: 2010-02-08T02:43:11Z
-
-[Term]
 id: GO:0065003
 name: protein-containing complex assembly
 namespace: biological_process
@@ -1703,22 +1492,6 @@ synonym: "macromolecule complex assembly" RELATED []
 synonym: "protein complex assembly" RELATED []
 synonym: "protein complex formation" RELATED []
 property_value: term_tracker_item https://github.com/geneontology/go-ontology/issues/22580 xsd:anyURI
-
-[Term]
-id: GO:0072659
-name: protein localization to plasma membrane
-namespace: biological_process
-alt_id: GO:0072661
-alt_id: GO:0090002
-def: "A process in which a protein is transported to, or maintained in, a specific location in the plasma membrane." [GOC:mah]
-subset: goslim_generic
-subset: goslim_pombe
-synonym: "protein localisation in plasma membrane" RELATED [GOC:mah]
-synonym: "protein localization in plasma membrane" RELATED []
-synonym: "protein targeting to plasma membrane" RELATED []
-synonym: "protein-plasma membrane targeting" RELATED [GOC:mah]
-created_by: tb
-creation_date: 2009-07-10T10:29:23Z
 
 [Term]
 id: GO:0090729
@@ -1746,15 +1519,6 @@ relationship: part_of GO:0007155 ! cell adhesion
 property_value: term_tracker_item https://github.com/geneontology/go-ontology/issues/22959 xsd:anyURI
 
 [Term]
-id: GO:0098754
-name: detoxification
-namespace: biological_process
-def: "Any process that reduces or removes the toxicity of a toxic substance. These may include transport of the toxic substance away from sensitive areas and to compartments or complexes whose purpose is sequestration of the toxic substance." [GOC:dos]
-subset: goslim_generic
-subset: goslim_pombe
-subset: prokaryote_subset
-
-[Term]
 id: GO:0098772
 name: molecular function regulator activity
 namespace: molecular_function
@@ -1766,17 +1530,6 @@ subset: prokaryote_subset
 synonym: "molecular function regulator" EXACT []
 property_value: term_tracker_item https://github.com/geneontology/go-ontology/issues/20854 xsd:anyURI
 property_value: term_tracker_item https://github.com/geneontology/go-ontology/issues/20862 xsd:anyURI
-
-[Term]
-id: GO:0140053
-name: mitochondrial gene expression
-namespace: biological_process
-def: "The process in which a mitochondrial gene's sequence is converted into a mature gene product or products (proteins or RNA). This includes the production of an RNA transcript as well as any processing to produce a mature RNA product or an mRNA or circRNA (for protein-coding genes) and the translation of that mRNA or circRNA into protein. Protein maturation is included when required to form an active form of a product from an inactive precursor form." [PMID:27058308]
-subset: goslim_generic
-subset: goslim_pombe
-relationship: occurs_in GO:0005739 ! mitochondrion
-created_by: pg
-creation_date: 2017-06-26T10:57:45Z
 
 [Term]
 id: GO:0140096
@@ -2037,29 +1790,6 @@ namespace: biological_process
 def: "Any process that modulates the establishment or extent of a membrane potential, the electric potential existing across any membrane arising from charges in the membrane itself and from the charges present in the media on either side of the membrane." [GOC:jl, GOC:mtg_cardio, GOC:tb, ISBN:0198506732]
 
 [Term]
-id: GO:0032989
-name: cellular component morphogenesis
-namespace: biological_process
-def: "The process in which cellular structures, including whole cells or cell parts, are generated and organized." [GOC:dph, GOC:mah, GOC:tb]
-subset: goslim_pir
-synonym: "cellular structure morphogenesis" EXACT [GOC:dph, GOC:tb]
-is_a: GO:0009653 ! anatomical structure morphogenesis
-
-[Term]
-id: GO:0000902
-name: cell morphogenesis
-namespace: biological_process
-alt_id: GO:0007148
-alt_id: GO:0045790
-alt_id: GO:0045791
-def: "The developmental process in which the size or shape of a cell is generated and organized." [GOC:clt, GOC:dph, GOC:go_curators, GOC:tb]
-subset: goslim_chembl
-subset: goslim_drosophila
-subset: goslim_yeast
-synonym: "cellular morphogenesis" EXACT []
-is_a: GO:0009653 ! anatomical structure morphogenesis
-
-[Term]
 id: GO:0099536
 name: synaptic signaling
 namespace: biological_process
@@ -2115,12 +1845,278 @@ subset: goslim_flybase_ribbon
 xref: Wikipedia:Cell_junction
 
 [Term]
-id: GO:0019725
-name: cellular homeostasis
+id: GO:0019538
+name: protein metabolic process
 namespace: biological_process
-def: "Any process involved in the maintenance of an internal steady state at the level of the cell." [GOC:isa_complete, GOC:jl, ISBN:0395825172]
-subset: goslim_candida
+alt_id: GO:0006411
+alt_id: GO:0044267
+alt_id: GO:0044268
+def: "The chemical reactions and pathways involving a protein. Includes protein modification." [GOC:ma]
+subset: goslim_agr
+subset: goslim_flybase_ribbon
+subset: goslim_mouse
+subset: goslim_pir
 subset: goslim_plant
+synonym: "cellular protein metabolic process" EXACT []
+synonym: "cellular protein metabolism" EXACT []
+synonym: "multicellular organismal protein metabolic process" NARROW []
+synonym: "protein metabolic process and modification" EXACT []
+synonym: "protein metabolism" EXACT []
+synonym: "protein metabolism and modification" EXACT []
+xref: Wikipedia:Protein_metabolism
+
+[Term]
+id: GO:0006865
+name: amino acid transport
+namespace: biological_process
+alt_id: GO:0006866
+def: "The directed movement of amino acids, organic acids containing one or more amino substituents, into, out of or within a cell, or between cells, by means of some agent such as a transporter or pore." [GOC:ai]
+subset: goslim_pir
+subset: goslim_yeast
+
+[Term]
+id: GO:0071840
+name: cellular component organization or biogenesis
+namespace: biological_process
+alt_id: GO:0071841
+def: "A process that results in the biosynthesis of constituent macromolecules, assembly, arrangement of constituent parts, or disassembly of a cellular component." [GOC:mah]
+subset: goslim_flybase_ribbon
+subset: goslim_metagenomics
+synonym: "cellular component organisation or biogenesis" EXACT [GOC:mah]
+synonym: "cellular component organisation or biogenesis at cellular level" EXACT [GOC:mah]
+synonym: "cellular component organization or biogenesis at cellular level" EXACT []
+
+[Term]
+id: GO:0007049
+name: cell cycle
+namespace: biological_process
+def: "The progression of biochemical and morphological phases and events that occur in a cell during successive cell replication or nuclear replication events. Canonically, the cell cycle comprises the replication and segregation of genetic material followed by the division of the cell, but in endocycles or syncytial cells nuclear replication or nuclear division may not be followed by cell division." [GOC:go_curators, GOC:mtg_cell_cycle]
+subset: gocheck_do_not_manually_annotate
+subset: goslim_agr
+subset: goslim_candida
+subset: goslim_chembl
+subset: goslim_flybase_ribbon
+subset: goslim_pir
+subset: goslim_plant
+synonym: "cell-division cycle" EXACT []
+xref: Wikipedia:Cell_cycle
+
+[Term]
+id: GO:0006259
+name: DNA metabolic process
+namespace: biological_process
+alt_id: GO:0055132
+def: "Any cellular metabolic process involving deoxyribonucleic acid. This is one of the two main types of nucleic acid, consisting of a long, unbranched macromolecule formed from one, or more commonly, two, strands of linked deoxyribonucleotides." [ISBN:0198506732]
+subset: goslim_agr
+subset: goslim_candida
+subset: goslim_chembl
+subset: goslim_flybase_ribbon
+subset: goslim_metagenomics
+subset: goslim_pir
+subset: goslim_plant
+synonym: "cellular DNA metabolism" EXACT []
+synonym: "DNA metabolism" EXACT []
+
+[Term]
+id: GO:0006810
+name: transport
+namespace: biological_process
+alt_id: GO:0015457
+alt_id: GO:0015460
+alt_id: GO:0044765
+def: "The directed movement of substances (such as macromolecules, small molecules, ions) or cellular components (such as complexes and organelles) into, out of or within a cell, or between cells, or within a multicellular organism by means of some agent such as a transporter or a transporter complex, a pore or a motor protein." [GOC:dos, GOC:dph, GOC:jl, GOC:mah]
+comment: Note that this term should not be used for direct annotation. It should be possible to make a more specific annotation to one of the children of this term, for e.g. to transmembrane transport, to microtubule-based transport or to vesicle-mediated transport.
+subset: gocheck_do_not_annotate
+subset: goslim_candida
+subset: goslim_chembl
+subset: goslim_metagenomics
+subset: goslim_pir
+subset: goslim_plant
+subset: prokaryote_subset
+synonym: "single-organism transport" RELATED []
+
+[Term]
+id: GO:0010817
+name: regulation of hormone levels
+namespace: biological_process
+def: "Any process that modulates the levels of hormone within an organism or a tissue. A hormone is any substance formed in very small amounts in one specialized organ or group of cells and carried (sometimes in the bloodstream) to another organ or group of cells in the same organism, upon which it has a specific regulatory action." [GOC:BHF, GOC:dph, GOC:tb]
+
+[Term]
+id: GO:0006811
+name: monoatomic ion transport
+namespace: biological_process
+def: "The directed movement of a monoatomic ion into, out of or within a cell, or between cells, by means of some agent such as a transporter or pore. Monatomic ions (also called simple ions) are ions consisting of exactly one atom." [GOC:ai]
+subset: goslim_drosophila
+subset: goslim_pir
+subset: goslim_yeast
+synonym: "ion transport" BROAD []
+is_a: GO:0006810 ! transport
+
+[Term]
+id: GO:0016070
+name: RNA metabolic process
+namespace: biological_process
+def: "The cellular chemical reactions and pathways involving RNA, ribonucleic acid, one of the two main type of nucleic acid, consisting of a long, unbranched macromolecule formed from ribonucleotides joined in 3',5'-phosphodiester linkage." [ISBN:0198506732]
+subset: goslim_agr
+subset: goslim_candida
+subset: goslim_metagenomics
+subset: goslim_pir
+subset: prokaryote_subset
+synonym: "RNA metabolism" EXACT []
+
+[Term]
+id: GO:0042592
+name: homeostatic process
+namespace: biological_process
+alt_id: GO:0032844
+alt_id: GO:0032845
+alt_id: GO:0032846
+def: "Any biological process involved in the maintenance of an internal steady state." [GOC:jl, ISBN:0395825172]
+subset: goslim_agr
+subset: goslim_chembl
+subset: goslim_mouse
+synonym: "activation of homeostatic process" NARROW []
+synonym: "homeostasis" EXACT []
+synonym: "inhibition of homeostatic process" NARROW []
+synonym: "negative regulation of homeostatic process" RELATED []
+synonym: "positive regulation of homeostatic process" RELATED []
+synonym: "regulation of homeostatic process" RELATED []
+
+[Term]
+id: GO:0044281
+name: small molecule metabolic process
+namespace: biological_process
+def: "The chemical reactions and pathways involving small molecules, any low molecular weight, monomeric, non-encoded molecule." [GOC:curators, GOC:pde, GOC:vw]
+comment: Small molecules in GO include monosaccharides but exclude disaccharides and polysaccharides.
+subset: goslim_chembl
+subset: goslim_flybase_ribbon
+subset: goslim_metagenomics
+synonym: "small molecule metabolism" EXACT []
+is_a: GO:0008152 ! metabolic process
+
+[Term]
+id: GO:0008152
+name: metabolic process
+namespace: biological_process
+alt_id: GO:0044236
+alt_id: GO:0044710
+def: "The chemical reactions and pathways, including anabolism and catabolism, by which living organisms transform chemical substances. Metabolic processes typically transform small molecules, but also include macromolecular processes such as DNA repair and replication, and protein synthesis and degradation." [GOC:go_curators, ISBN:0198547684]
+comment: Note that metabolic processes do not include single functions or processes such as protein-protein interactions, protein-nucleic acids, nor receptor-ligand interactions.
+subset: gocheck_do_not_manually_annotate
+subset: goslim_chembl
+subset: goslim_metagenomics
+subset: goslim_pir
+subset: goslim_plant
+synonym: "metabolic process resulting in cell growth" NARROW []
+synonym: "metabolism" EXACT []
+synonym: "metabolism resulting in cell growth" NARROW []
+synonym: "multicellular organism metabolic process" NARROW []
+synonym: "single-organism metabolic process" RELATED []
+xref: Wikipedia:Metabolism
+
+[Term]
+id: GO:0051179
+name: localization
+namespace: biological_process
+alt_id: GO:1902578
+def: "Any process in which a cell, a substance, or a cellular entity, such as a protein complex or organelle, is transported, tethered to or otherwise maintained in a specific location. In the case of substances, localization may also be achieved via selective degradation." [GOC:ai, GOC:dos]
+subset: goslim_pir
+synonym: "establishment and maintenance of cellular component location" NARROW []
+synonym: "establishment and maintenance of localization" EXACT []
+synonym: "establishment and maintenance of position" EXACT []
+synonym: "establishment and maintenance of substance location" NARROW []
+synonym: "establishment and maintenance of substrate location" NARROW []
+synonym: "localisation" EXACT [GOC:mah]
+synonym: "single organism localization" RELATED [GOC:TermGenie]
+synonym: "single-organism localization" RELATED []
+
+[Term]
+id: GO:0048468
+name: cell development
+namespace: biological_process
+def: "The cellular developmental process in which a specific cell progresses from an immature to a mature state. Cell development start once cell commitment has taken place." [GOC:go_curators]
+subset: goslim_candida
+synonym: "terminal differentiation" RELATED [GOC:dph, GOC:tb]
+is_a: GO:0048856 ! anatomical structure development
+is_a: GO:0048869 ! cellular developmental process
+
+[Term]
+id: GO:0042995
+name: cell projection
+namespace: cellular_component
+def: "A prolongation or process extending from a cell, e.g. a flagellum or axon." [GOC:jl, http://www.cogsci.princeton.edu/~wn/]
+subset: goslim_agr
+subset: goslim_flybase_ribbon
+subset: goslim_mouse
+subset: goslim_pir
+subset: prokaryote_subset
+synonym: "cell process" BROAD []
+synonym: "cellular process" BROAD []
+synonym: "cellular projection" EXACT []
+
+[Term]
+id: GO:0005737
+name: cytoplasm
+namespace: cellular_component
+def: "The contents of a cell excluding the plasma membrane and nucleus, but including other subcellular structures." [ISBN:0198547684]
+subset: goslim_candida
+subset: goslim_chembl
+subset: goslim_metagenomics
+subset: goslim_pir
+subset: goslim_plant
+subset: goslim_yeast
+subset: prokaryote_subset
+xref: Wikipedia:Cytoplasm
+
+[Term]
+id: GO:0032991
+name: protein-containing complex
+namespace: cellular_component
+alt_id: GO:0043234
+def: "A stable assembly of two or more macromolecules, i.e. proteins, nucleic acids, carbohydrates or lipids, in which at least one component is a protein and the constituent parts function together." [GOC:dos, GOC:mah]
+comment: A protein complex in this context is meant as a stable set of interacting proteins which can be co-purified by an acceptable method, and where the complex has been shown to exist as an isolated, functional unit in vivo. Acceptable experimental methods include stringent protein purification followed by detection of protein interaction. The following methods should be considered non-acceptable: simple immunoprecipitation, pull-down experiments from cell extracts without further purification, colocalization and 2-hybrid screening. Interactions that should not be captured as protein complexes include: 1) enzyme/substrate, receptor/ligand or any similar transient interactions, unless these are a critical part of the complex assembly or are required e.g. for the receptor to be functional; 2) proteins associated in a pull-down/co-immunoprecipitation assay with no functional link or any evidence that this is a defined biological entity rather than a loose-affinity complex; 3) any complex where the only evidence is based on genetic interaction data; 4) partial complexes, where some subunits (e.g. transmembrane ones) cannot be expressed as recombinant proteins and are excluded from experiments (in this case, independent evidence is necessary to find out the composition of the full complex, if known). Interactions that may be captured as protein complexes include: 1) enzyme/substrate or receptor/ligand if the complex can only assemble and become functional in the presence of both classes of subunits; 2) complexes where one of the members has not been shown to be physically linked to the other(s), but is a homologue of, and has the same functionality as, a protein that has been experimentally demonstrated to form a complex with the other member(s); 3) complexes whose existence is accepted based on localization and pharmacological studies, but for which experimental evidence is not yet available for the complex as a whole.
+subset: goslim_agr
+subset: goslim_chembl
+subset: goslim_flybase_ribbon
+subset: goslim_mouse
+subset: goslim_pir
+synonym: "macromolecular complex" EXACT []
+synonym: "macromolecule complex" EXACT []
+synonym: "protein complex" NARROW []
+synonym: "protein containing complex" EXACT []
+synonym: "protein-protein complex" NARROW []
+
+[Term]
+id: GO:0009617
+name: response to bacterium
+namespace: biological_process
+alt_id: GO:0009618
+alt_id: GO:0009680
+def: "Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a stimulus from a bacterium." [GOC:hb]
+synonym: "response to bacteria" EXACT []
+
+[Term]
+id: GO:0009615
+name: response to virus
+namespace: biological_process
+def: "Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a stimulus from a virus." [GOC:hb]
+synonym: "response to viruses" EXACT []
+
+[Term]
+id: GO:0042060
+name: wound healing
+namespace: biological_process
+def: "The series of events that restore integrity to a damaged tissue, following an injury." [GOC:bf, PMID:15269788]
+subset: goslim_generic
+xref: Wikipedia:Wound_healing
+
+[Term]
+id: GO:0042594
+name: response to starvation
+namespace: biological_process
+def: "Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a starvation stimulus, deprivation of nourishment." [GOC:go_curators]
+subset: goslim_yeast
+
 
 [Typedef]
 id: ends_during

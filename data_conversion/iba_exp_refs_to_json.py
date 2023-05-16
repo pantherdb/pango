@@ -163,21 +163,21 @@ class IbaExpRefCollection:
             with_gene_name = csv_row[19]
             with_gene_taxon_id = csv_row[20]
             exp_pmids = sorted(csv_row[17].split("|"))
-            exp_group = csv_row[21]
+            exp_groups = sorted(csv_row[21].split("|"))
             self.add_gene_info_to_lkp(with_gene_id, with_gene_symbol, with_gene_name, with_gene_taxon_id)
         else:
             # Likely not an IBA; fetch data from traditional columns
             with_gene_id = None
             exp_pmids = sorted(csv_row[5].split("|"))
-            exp_group = csv_row[14]
-        return with_gene_id, exp_pmids, exp_group
+            exp_groups = sorted(csv_row[14].split("|"))
+        return with_gene_id, exp_pmids, exp_groups
 
     def merge_exp_evidence(self, gene_id: str, go_term: str, qualifier: str, csv_row: List):
-        with_gene_id, exp_pmids, exp_group = self.parse_exp_gene_and_refs_from_row(csv_row)
+        with_gene_id, exp_pmids, exp_groups = self.parse_exp_gene_and_refs_from_row(csv_row)
         ev_obj = {
             "with_gene_id": with_gene_id,
             "references": exp_pmids,
-            "group": exp_group
+            "groups": exp_groups
         }
         evidence = self.annotation_lkp[gene_id][go_term][qualifier]["evidence"]  # Assumes everything exists
         if with_gene_id is None:

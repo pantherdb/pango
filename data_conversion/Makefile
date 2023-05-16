@@ -76,7 +76,7 @@ SHELL := /bin/bash
 
 .PRECIOUS: %/goslim_generic.tsv
 %/goslim_generic.tsv: %/goslim_generic_w_alt_ids.tsv
-	awk '$$2 != ""' $< | cut -f1 > $@
+	awk '$$2 != ""' $< | cut -f1 | grep GO > $@
 
 .PRECIOUS: %/human_iba_annotations.json
 %/human_iba_annotations.json: %/resources/gene_association.paint_human.gaf %/resources/goparentchild.tsv %/goslim_generic.tsv %/resources/go_aspects.tsv %/resources/gene.dat
