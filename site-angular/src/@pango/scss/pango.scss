@@ -34,6 +34,31 @@ $pango-border: #aaa solid 1px;
   }
 }
 
+.pango-circle-chip {
+  border-radius: 50%;
+  display: inline-block !important;
+  text-align: center;
+  @include deep-height(18px);
+  @include deep-width(18px);
+  font-size: 8px;
+  font-weight: bold;
+  padding: 2px;
+  &.MF {
+    border: $pango-mf solid 1px;
+    color: darken($pango-mf, 10%);
+  }
+
+  &.BP {
+    border: $pango-bp solid 1px;
+    color: darken($pango-bp, 10%);
+  }
+
+  &.CC {
+    border: $pango-cc solid 1px;
+    color: darken($pango-cc, 10%);
+  }
+}
+
 .pango-container {
   position: relative;
   padding: 0;

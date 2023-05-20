@@ -1,10 +1,20 @@
 <div class="w-100-p" fxLayout="row" fxLayoutAlign="start start">
   <mat-drawer-container class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start start" autosize>
     <mat-drawer #leftDrawer class="" mode="side" position="start" opened="true">
-      <div class="pango-left-drawer h-100-p">
-        <pango-search-aspect-form></pango-search-aspect-form>
-        <pango-category-stats></pango-category-stats>
-
+      <div fxLayout="column" fxLayoutAlign="start stretch" class="pango-drawer h-100-p">
+        <div class="pango-drawer-header" fxLayout="row" fxLayoutAlign="start center">
+          <span class="pango-drawer-header-title">
+            Search Summary</span>
+          <span fxFlex></span>
+          <button mat-stroked-button (click)="closeLeftDrawer()" class="pango-rounded-button pango-sm" color="primary"
+            aria-label="Close dialog">
+            <mat-icon>close</mat-icon> CLOSE
+          </button>
+        </div>
+        <div class="pango-drawer-body">
+          <pango-search-aspect-form></pango-search-aspect-form>
+          <pango-category-stats></pango-category-stats>
+        </div>
       </div>
     </mat-drawer>
     <mat-drawer-content #scrollbarRef class="pango-section-body w-100-p">

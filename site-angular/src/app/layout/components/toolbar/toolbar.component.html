@@ -1,6 +1,9 @@
 <div class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
   <mat-toolbar fxLayout="row" fxLayoutAlign="start center">
     <mat-progress-bar *ngIf="showLoadingBar" class="loading-bar" color="accent" mode="indeterminate"></mat-progress-bar>
+    <a (click)="openLeftDrawer()" class="pango-bars mr-8" aria-label="Close dialog">
+      <fa-icon [icon]="['fas', 'bars']"></fa-icon>
+    </a>
     <div class="pango-logo pl-0 h-100-p" fxLayout="row" fxLayoutAlign="start center" fxFlex="180px">
       <ng-container>
         <a class="pango-main-logo" href="/">
@@ -11,7 +14,9 @@
         </a>
       </ng-container>
     </div>
-    <div fxLayout="row" fxLayoutAlign="end center" fxFlex="">
+
+
+    <div fxLayout="row" fxHide.lt-md fxLayoutAlign="end center" fxFlex="">
       <div class="pango-br pr-12" fxLayout="row" fxLayoutAlign="start center">
         <a mat-icon-button href="https://github.com/geneontology" target="blank">
           <fa-icon [icon]="['fab', 'github']"></fa-icon>
@@ -24,11 +29,11 @@
         </a>
       </div>
     </div>
-    <div class="noc-br pl-12 pr-12" fxLayout="row" fxLayoutAlign="start center">
-      <!-- <a mat-button [routerLink]="['/download']">Export</a> -->
+    <div class="noc-br pl-12 pr-12" fxHide.lt-md fxLayout="row" fxLayoutAlign="start center">
+      <a mat-button [routerLink]="['/download']">Export</a>
       <a mat-button [routerLink]="['/about']">About</a>
     </div>
-    <div class="pango-friends-logo" fxLayout="row" fxLayoutAlign="start">
+    <div class="pango-friends-logo" fxHide.lt-md fxLayout="row" fxLayoutAlign="start">
       <div class="pango-bl pango-logo" fxLayout="row" fxLayoutAlign="start">
         <a href="http://geneontology.org/" target="_blank">
           <img src="assets/images/logos/go-logo-yellow.png">

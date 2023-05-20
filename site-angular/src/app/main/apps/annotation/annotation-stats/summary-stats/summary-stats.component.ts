@@ -142,7 +142,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
     legend: false,
     showXAxisLabel: false,
     maxYAxisTickLength: 30,
-    yAxisLabel: 'Slim Terms',
+    yAxisLabel: 'GO Function Categories',
     showYAxisLabel: true,
     xAxisLabel: 'Count',
     colorScheme: {

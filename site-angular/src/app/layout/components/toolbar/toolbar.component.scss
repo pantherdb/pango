@@ -11,6 +11,8 @@ $accent: map-get($theme, accent);
   z-index: 4;
 
   border-bottom: 2px solid $pango-primary-color;
+  .pango-bars {
+  }
 
   a {
     color: $pango-accent-color;

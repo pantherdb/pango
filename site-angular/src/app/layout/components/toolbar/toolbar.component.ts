@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, ActivatedRoute } from '@angular/router';
-
-import { PangoConfigService } from '@pango/services/config.service';
+import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 
 @Component({
     selector: 'pango-toolbar',
@@ -13,6 +12,7 @@ export class PangoToolbarComponent {
     showLoadingBar: boolean;
 
     constructor(
+        public pangoMenuService: PangoMenuService,
         private router: Router,
     ) {
 
@@ -30,6 +30,10 @@ export class PangoToolbarComponent {
 
     search(value): void {
         console.log(value);
+    }
+
+    openLeftDrawer() {
+        this.pangoMenuService.openLeftDrawer();
     }
 
 }

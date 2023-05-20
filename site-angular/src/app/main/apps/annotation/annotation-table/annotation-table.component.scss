@@ -199,8 +199,8 @@ $accent: map-get($theme, accent);
       vertical-align: top;
       border-right: map-get($mat-blue-grey, 200) solid 1px;
     }
-    /* TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version.*/
-    .mat-mdc-chip {
+    .pango-circle-chip {
+      border-radius: 50%;
       display: inline-block !important;
       text-align: center;
       @include deep-height(18px);

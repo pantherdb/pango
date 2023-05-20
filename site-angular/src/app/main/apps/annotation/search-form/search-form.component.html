@@ -74,10 +74,10 @@
                 <div class="w-100-p" fxFlex="" fxLayout="column" fxLayoutAlign="start start">
                   <div class="pango-cell-title w-100-p" fxLayout="row" fxLayoutAlign="start center">
                     {{item.id}}
-                    <mat-chip-option class="pango-chip-xs ml-8 pango-aspect {{aspectMap[item.aspect]?.shorthand}}"
+                    <div class="pango-circle-chip pango-chip-xs ml-8 pango-aspect {{aspectMap[item.aspect]?.shorthand}}"
                       fxLayout="column" fxLayoutAlign="center center">
                       <span>{{aspectMap[item.aspect]?.shorthand}}</span>
-                    </mat-chip-option>
+                    </div>
                   </div>
                   <div class="w-100-p pango-cell-description"> {{item.label}}</div>
                 </div>

@@ -45,4 +45,8 @@ export class HomeComponent implements OnInit {
     this.pangoMenuService.setLeftDrawer(this.leftDrawer);
     this.pangoMenuService.setRightDrawer(this.rightDrawer);
   }
+
+  closeLeftDrawer() {
+    this.leftDrawer.close()
+  }
 }
