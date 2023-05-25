@@ -54,8 +54,9 @@
         <mat-chip-grid #slimTermChipList>
           <mat-chip-row class="pango-form-chip" *ngFor="let slimTerm of annotationService.searchCriteria.slimTerms"
             [selectable]="true" [removable]="true" (removed)="remove(slimTerm, SearchFilterType.SLIM_TERMS)"
-            fxLayout="row" fxLayoutAlign="start center" matTooltip="slimTerm: {{slimTerm.label}} ({{slimTerm.id}}))"
-            [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
+            fxLayout="row" fxLayoutAlign="start center"
+            matTooltip="slimTerm: {{slimTerm.label}} ({{slimTerm.displayId}})" [matTooltipPosition]="'below'"
+            [matTooltipShowDelay]="1000">
             <div fxFlex="" class="pango-chip-label">
               {{slimTerm.label}}
             </div>

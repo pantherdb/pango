@@ -4,6 +4,7 @@ import typing
 from src.models.gene_model import Gene
 from src.models.term_model import Term
 
+
 @strawberry.enum
 class AutocompleteType(Enum):
     term = 'term'
@@ -20,6 +21,7 @@ class Entity :
     id: str
     label: str
     aspect: str
+    display_id:str
 
 
 @strawberry.type
@@ -74,13 +76,19 @@ class Annotation:
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
             if key == 'term':
-                setattr(self, key, Term(**value))
+                setattr(self, key, self.add_term_display_id(value) )
             elif key == 'slim_terms':
-                setattr(self, key, [Term(**value_k) for value_k in value])
+                setattr(self, key, [self.add_term_display_id(value_k) for value_k in value])
             elif key == 'evidence':
                 setattr(self, key, [Evidence(**value_k) for value_k in value])
             else:
                 setattr(self, key,  value)
+
+    def add_term_display_id(key, value):
+        term = Term(**value)
+        term.display_id = term.id if term.id.startswith("GO") else ''
+        return term
+
     
 @strawberry.type
 class AnnotationExport:

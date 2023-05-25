@@ -49,12 +49,14 @@ export class AnnotationGraphQLService {
                       aspect
                       isGoslim
                       label
+                      displayId
                     } 
                     slimTerms {
                       aspect
                       id
                       isGoslim
                       label
+                      displayId
                     } 
                     evidenceType
                     evidence {
@@ -275,6 +277,7 @@ export class AnnotationGraphQLService {
                             id
                             aspect
                             label
+                            displayId
                           }
                         }
                       }
@@ -288,6 +291,5 @@ export class AnnotationGraphQLService {
       }));
 
   }
-
 
 }

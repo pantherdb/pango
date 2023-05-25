@@ -102,7 +102,6 @@ export class AnnotationService {
                     this.annotationPage.query.source = query.source;
 
                     this.onAnnotationsChanged.next(this.annotationPage);
-                    console.log(this.annotationPage)
 
                     self.loading = false;
                 }, error: (err) => {

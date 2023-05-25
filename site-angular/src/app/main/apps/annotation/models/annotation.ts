@@ -112,8 +112,10 @@ export class AnnotationCount {
 export class Term {
     id: string;
     label: string;
+    displayId: string;
     aspect: string;
     isGoSlim: boolean;
+
 }
 
 export class Reference {

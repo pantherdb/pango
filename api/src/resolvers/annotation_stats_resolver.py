@@ -147,10 +147,12 @@ def get_response_meta(bucket):
    results = [hit for hit in bucket.get('hits', {}).get('hits', [])]
 
    if len(results) > 0:
+      idx=results[0]["_source"]["id"]
       return Entity(
-        id=results[0]["_source"]["id"], 
+        id=idx, 
         label=results[0]["_source"]["label"], 
-        aspect=results[0]["_source"]["aspect"])
+        aspect=results[0]["_source"]["aspect"],
+        display_id= idx if idx.startswith("GO") else '')
 
    return None
 

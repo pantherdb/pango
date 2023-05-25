@@ -100,9 +100,9 @@
                 {{aspectMap[element.term.aspect]?.shorthand}}
               </span>
               <span class="pango-cell-description mr-4"> {{element.term.label}}
-                <span class="pango-cell-description-2">(
+                <span *ngIf="element.term.displayId" class="pango-cell-description-2">
                   <a (click)="$event.stopPropagation()" href="{{amigoTermUrl}}{{element.term.id}}"
-                    target="_blank">{{element.term.id}}</a>)</span>
+                    target="_blank">{{element.term.displayId}}</a></span>
               </span>
             </div><br>
             <div class="w-100-p pango-cell-description-2"> {{element.qualifier}}</div>
@@ -129,10 +129,10 @@
                 {{aspectMap[item.aspect]?.shorthand}}
               </span>
               <span class="pango-cell-description mr-4"> {{item.label}}
-                <span class="pango-cell-description-2">(
+                <span *ngIf="item.displayId" class="pango-cell-description-2">
                   <a (click)="$event.stopPropagation()" href="{{amigoTermUrl}}{{item.id}}"
-                    target="_blank">{{item.id}}</a>
-                  )</span>
+                    target="_blank">{{item.displayId}}</a>
+                </span>
               </span>
             </div>
           </div>
