@@ -54,7 +54,7 @@
 
   @include media-breakpoint("lt-md") {
     // height: 50px;
-    min-width: 600px;
+    min-width: 100%;
   }
 
   h1 {
