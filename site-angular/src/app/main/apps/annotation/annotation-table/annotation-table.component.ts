@@ -4,9 +4,9 @@ import { takeUntil } from 'rxjs/operators';
 import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 import { AnnotationService } from './../services/annotation.service'
 import { AnnotationPage } from '../models/page';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
 import { RightPanel } from '@pango.common/models/menu-panels';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTable as MatTable, MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { environment } from 'environments/environment';
 import { pangoData } from '@pango.common/data/config';
 import { Annotation } from '../models/annotation';

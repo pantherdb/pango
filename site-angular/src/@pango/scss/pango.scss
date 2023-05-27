@@ -84,26 +84,23 @@ textarea {
   overflow: hidden;
 }
 
-.mat-mdc-form-field {
-  /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-  .mat-mdc-form-field-wrapper {
+.mat-form-field {
+  .mat-form-field-wrapper {
     padding-bottom: 0;
   }
-  /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-  .mat-mdc-form-field-underline {
+
+  .mat-form-field-underline {
     bottom: 0;
   }
 
   &.pango-sm {
-    /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-    .mat-mdc-form-field-wrapper {
+    .mat-form-field-wrapper {
       font-size: 12px;
     }
   }
 
   &.pango-white {
-    /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-    .mat-mdc-text-field-wrapper {
+    .mat-form-field-wrapper {
       background-color: #fff;
       //@include mat-elevation(5);
       border: $pango-border;
@@ -130,7 +127,7 @@ textarea {
   @include deep-height(40px);
   background-color: #ddd;
 
-  .mat-mdc-paginator-container {
+  .mat-paginator-container {
     @include deep-height(40px !important);
   }
 }

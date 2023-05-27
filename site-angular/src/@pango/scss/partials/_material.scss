@@ -1,8 +1,6 @@
 $primary: map-get($theme, primary);
 $accent: map-get($theme, accent);
 
-/*TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version.*/
-/*TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version.*/
 mat-radio-button {
   &.pango-radio-button-rounded {
     padding: 0 10px;
@@ -12,12 +10,12 @@ mat-radio-button {
     font-weight: normal;
     border: rgba(map-get($accent, default), 0.7) solid 1px;
     border-radius: 15px;
-    /*TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version.*/
+
     &.mat-radio-checked {
       background-color: rgba(map-get($accent, default), 0.2);
       border-color: rgba(map-get($accent, default), 0.9);
     }
-    /*TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version.*/
+
     .mat-radio-container,
     .mat-radio-outer-circle,
     .mat-radio-inner-circle {
@@ -57,12 +55,12 @@ mat-radio-button {
     font-size: 12px;
     font-weight: normal;
     border-radius: 15px;
-    /*TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version.*/
+
     &.mat-radio-checked {
       background-color: rgba(map-get($accent, default), 0.2);
       border-color: rgba(map-get($accent, default), 0.9);
     }
-    /*TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version.*/
+
     .mat-radio-container,
     .mat-radio-outer-circle,
     .mat-radio-inner-circle {
@@ -96,14 +94,12 @@ mat-radio-button {
     }
   }
 }
-/*TODO(mdc-migration): The following rule targets internal classes of autocomplete that may no longer apply for the MDC version.*/
-/*TODO(mdc-migration): The following rule targets internal classes of autocomplete that may no longer apply for the MDC version.*/
-.mat-mdc-autocomplete-panel {
+.mat-autocomplete-panel {
   &.pango-entity-autocomplete {
     @include deep-width(500px !important);
     background-color: #def2fb;
 
-    .mat-mdc-option {
+    .mat-option {
       padding: 8px !important;
       border-bottom: rgba(map-get($primary, default), 0.6) solid 1px;
       height: auto !important;
@@ -125,14 +121,14 @@ mat-radio-button {
     @include deep-width(500px !important);
     background-color: #def2fb;
 
-    .mat-mdc-option {
+    .mat-option {
       padding: 8px !important;
       border-bottom: rgba(map-get($primary, default), 0.6) solid 1px;
       height: auto !important;
       line-height: 18px !important;
       white-space: normal !important;
-      /*TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version.*/
-      .mat-mdc-chip {
+
+      mat-chip {
         text-align: center;
         @include deep-height(18px);
         @include deep-width(18px);
@@ -181,7 +177,7 @@ mat-radio-button {
     @include deep-width(500px !important);
     background-color: #def2fb;
 
-    .mat-mdc-option {
+    .mat-option {
       padding: 8px !important;
       border-bottom: rgba(map-get($primary, default), 0.6) solid 1px;
       height: auto !important;

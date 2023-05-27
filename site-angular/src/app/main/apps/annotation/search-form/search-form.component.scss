@@ -16,15 +16,13 @@
     font-size: 12px;
   }
 
-  /* TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version.*/
-  .mat-mdc-chip {
+  mat-chip {
     font-size: 12px;
     font-weight: normal;
   }
 
   .pango-terms-cell {
-    /* TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version.*/
-    .mat-mdc-chip {
+    mat-chip {
       display: inline-block !important;
       text-align: center;
       @include deep-height(18px);
@@ -78,8 +76,8 @@
       margin-right: 0;
     }
   }
-  /* TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version.*/
-  .mat-mdc-chip {
+
+  mat-chip {
     font-size: 12px;
     font-weight: normal;
     @include deep-height(25px);

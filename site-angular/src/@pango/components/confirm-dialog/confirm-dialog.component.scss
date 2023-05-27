@@ -18,11 +18,11 @@ $accent: map-get($theme, accent);
     @include deep-width(100%);
   }
 
-  .mat-mdc-dialog-container {
+  .mat-dialog-container {
     padding: 0;
   }
 
-  .mat-mdc-dialog-content {
+  .mat-dialog-content {
   }
 
   .dialog-content-wrapper {

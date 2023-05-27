@@ -124,42 +124,35 @@ $matColorHues: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, A100, A200, A400
   }
 
   // Input
-  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-  .mat-mdc-form-field-label {
+  .mat-form-field-label {
     color: map_get($pangoForeground, hint-text);
   }
-  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-  .mat-mdc-form-field-underline {
+
+  .mat-form-field-underline {
     background-color: map_get($pangoForeground, divider);
   }
 
   // Select
-  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
-  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
   .mat-select-trigger,
   .mat-select-arrow {
     color: map_get($pangoForeground, hint-text);
   }
-  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
-  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
+
   .mat-select-underline {
     background-color: map_get($pangoForeground, divider);
   }
-  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
-  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
+
   .mat-select-disabled .mat-select-value,
   .mat-select-arrow,
   .mat-select-trigger {
     color: map_get($pangoForeground, hint-text);
   }
-  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
-  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
+
   .mat-select-content,
   .mat-select-panel-done-animating {
     background: map_get($background, card);
   }
-  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
-  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
+
   .mat-select-value {
     color: map_get($pangoForeground, text);
   }

@@ -1,7 +1,7 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators, UntypedFormBuilder, UntypedFormArray } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/legacy-autocomplete';
 import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 import { Subject, Observable } from 'rxjs';
 import { startWith, map, takeUntil } from 'rxjs/operators';

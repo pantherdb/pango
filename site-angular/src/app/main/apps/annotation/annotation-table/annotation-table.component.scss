@@ -72,22 +72,22 @@ $accent: map-get($theme, accent);
       background-color: #e6faf3;
     }
 
-    .mat-mdc-header-cell {
+    .mat-header-cell {
       padding: 0 10px;
       font-size: 10px !important;
       font-weight: bold;
       text-transform: uppercase;
     }
 
-    .mat-mdc-header-row {
+    .mat-header-row {
       background-color: #fff;
       @include deep-height(30px);
       border-bottom: $pango-primary-color-light solid 1px;
       z-index: 10;
     }
 
-    .mat-mdc-cell,
-    .mat-mdc-header-cell {
+    .mat-cell,
+    .mat-header-cell {
       //display: flex;
       // align-items: center;
       padding: 8px;
@@ -195,12 +195,12 @@ $accent: map-get($theme, accent);
       }
     }
 
-    .mat-mdc-cell {
+    .mat-cell {
       vertical-align: top;
       border-right: map-get($mat-blue-grey, 200) solid 1px;
     }
-    .pango-circle-chip {
-      border-radius: 50%;
+
+    mat-chip {
       display: inline-block !important;
       text-align: center;
       @include deep-height(18px);
@@ -238,20 +238,20 @@ $accent: map-get($theme, accent);
     overflow: auto;
   }
 
-  .mat-mdc-cell {
+  .mat-cell {
     padding: 0 10px;
     font-size: 12px !important;
     color: #000;
     border-right: #ddd solid 1px;
   }
 
-  .mat-mdc-cell,
-  .mat-mdc-header-cell {
+  .mat-cell,
+  .mat-header-cell {
     max-width: 450px;
     word-wrap: break-word;
   }
 
-  .mat-mdc-header-cell {
+  .mat-header-cell {
     height: 35px;
     padding: 0 10px;
     font-size: 10px !important;
@@ -277,8 +277,8 @@ $accent: map-get($theme, accent);
     }
   }
 
-  .mat-mdc-header-cell,
-  .mat-mdc-header-row {
+  .mat-header-cell,
+  .mat-header-row {
     //padding: 0;
     @include deep-height(35px!important);
     position: sticky;
