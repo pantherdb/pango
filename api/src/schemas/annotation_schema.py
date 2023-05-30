@@ -18,7 +18,7 @@ class AnnotationQuery:
     
     @strawberry.field
     async def annotations_export(self, info:Info, filter_args:typing.Optional[AnnotationFilterArgs]=None, 
-      page_args:typing.Optional[PageArgs] = None) -> typing.List[AnnotationExport]:
+      page_args:typing.Optional[PageArgs] = None) -> AnnotationExport:
         return await get_annotations_export(filter_args, page_args)
 
     @strawberry.field

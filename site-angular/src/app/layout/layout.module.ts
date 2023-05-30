@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { LayoutPangoModule } from 'app/layout/layout-pango/layout-pango.module';
 
 

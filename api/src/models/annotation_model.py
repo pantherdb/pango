@@ -53,25 +53,25 @@ class ResultCount:
 @strawberry.type
 class Annotation:
     gene: str
-    gene_symbol: str
-    gene_name: str
+    gene_symbol: typing.Optional[str]
+    gene_name: typing.Optional[str]
     long_id: typing.Optional[str] =  None
     panther_family: typing.Optional[str] =  None
-    taxon_abbr: str
-    taxon_label: str
-    taxon_id: str    
+    taxon_abbr: typing.Optional[str]
+    taxon_label: typing.Optional[str]
+    taxon_id: typing.Optional[str]    
     coordinates_chr_num:typing.Optional[str] =  None
     coordinates_start:typing.Optional[int] =  None
     coordinates_end:typing.Optional[int] =  None
     coordinates_strand: typing.Optional[int] =  None
-    term_type: str
-    term: Term
+    term_type: typing.Optional[str]
+    term: typing.Optional[Term]
     slim_terms: typing.List[Term]
     qualifier: typing.Optional[str]
     evidence_type:typing.Optional[str] = None
     evidence: typing.List[Evidence] 
     groups: typing.List[str]
-    evidence_count: int
+    evidence_count: typing.Optional[int]
 
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
@@ -84,11 +84,26 @@ class Annotation:
             else:
                 setattr(self, key,  value)
 
-    def add_term_display_id(key, value):
+    def add_term_display_id(self, value):
         term = Term(**value)
         term.display_id = term.id if term.id.startswith("GO") else ''
         return term
 
+
+@strawberry.type
+class AnnotationMinimal:
+    gene: str
+    gene_symbol: typing.Optional[str]
+    term_id: typing.Optional[str]
+    term_label: typing.Optional[str]
+
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            if key == 'term':
+                setattr(self, 'term_id', value['id'] )
+                setattr(self, 'term_label', value['label'] )
+            else:
+                setattr(self, key,  value)
     
 @strawberry.type
 class AnnotationExport:

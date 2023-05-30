@@ -126,7 +126,7 @@ export class AnnotationGraphQLService {
         pageArgs: query.pageArgs
       },
       query: `query GetAnnotationsExport($filterArgs: AnnotationFilterArgs, $pageArgs: PageArgs) {
-                annotations(filterArgs:$filterArgs, pageArgs:$pageArgs) {
+                annotationsExport(filterArgs:$filterArgs, pageArgs:$pageArgs) {
                     data                                 
                   }
                 }`

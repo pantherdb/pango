@@ -1,8 +1,9 @@
 # import load_env
 # import asyncio
+import json
 import pprint
 import typing
-from src.models.annotation_model import Annotation, AnnotationFilterArgs,PageArgs, ResultCount
+from src.models.annotation_model import Annotation, AnnotationExport, AnnotationFilterArgs, AnnotationMinimal,PageArgs, ResultCount
 from src.config.settings import settings
 from src.config.es import  es
 
@@ -36,12 +37,13 @@ async def get_annotations_export(filter_args:AnnotationFilterArgs, page_args=Pag
           filter_path ='took,hits.hits._score,**hits.hits._source**',
           query=query,
           from_=page_args.page*page_args.size,
-          size=100000,
+          size=100,
     )
 
-    results = [Annotation(**hit['_source']) for hit in resp.get('hits', {}).get('hits', [])]
-        
-    return results    
+    results = [AnnotationMinimal(**hit['_source']) for hit in resp.get('hits', {}).get('hits', [])]
+    data = AnnotationExport(data=json.dumps(results, default=lambda x: x.__dict__))
+
+    return data   
 
 
 async def get_annotations_query(filter_args:AnnotationFilterArgs):
