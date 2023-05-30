@@ -32,12 +32,12 @@ async def get_annotations_export(filter_args:AnnotationFilterArgs, page_args=Pag
 
     query = await get_annotations_query(filter_args)
     resp = await es.search(
-          fields=['gene', 'gene_symbol', 'term.id', 'term/label'], 
+          source=['gene', 'gene_symbol', 'term.id', 'term.label'], 
           index=settings.PANTHER_ANNOTATIONS_INDEX,
           filter_path ='took,hits.hits._score,**hits.hits._source**',
           query=query,
           from_=page_args.page*page_args.size,
-          size=100,
+          size=10000,
     )
 
     results = [AnnotationMinimal(**hit['_source']) for hit in resp.get('hits', {}).get('hits', [])]
