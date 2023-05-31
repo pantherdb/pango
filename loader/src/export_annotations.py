@@ -12,10 +12,17 @@ def main():
     terms_df = get_terms_map(parser.terms_fp)
     genes_df = get_genes_map(parser.genes_fp)
     annos_df = get_annos(parser.annos_fp, terms_df, genes_df)
+    
+    #to json
     anno_json = annos_df.to_json(orient="records", default_handler=None)
     json_str = json.loads(anno_json)
+    write_to_json(json_str, ospath.join('.', parser.output_json_fp), zip=True)
 
-    write_to_json(json_str, ospath.join('.', parser.clean_annos_fp))
+    #to csv
+    compression_opts = dict(method='zip', archive_name='annotations.csv')  
+    annos_df.to_csv(ospath.join('.', parser.output_tsv_fp), sep='\t', 
+                    index=False, compression=compression_opts)  
+   
 
 
 def parse_arguments():
@@ -27,8 +34,11 @@ def parse_arguments():
                         type=file_path, help='Terms Json')
     parser.add_argument('-g', dest='genes_fp', required=True,
                         type=file_path, help='Genes Json')
-    parser.add_argument('-o', dest='clean_annos_fp', required=True,
-                         help='Output of Clean anno')
+    parser.add_argument('--ojson', dest='output_json_fp', required=True,
+                         help='Output of json')
+    parser.add_argument('--otsv', dest='output_tsv_fp', required=True,
+                         help='Output of tsv')
+    
 
     return parser.parse_args()
 
