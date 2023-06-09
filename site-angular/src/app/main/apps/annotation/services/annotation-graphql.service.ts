@@ -24,6 +24,7 @@ export class AnnotationGraphQLService {
   }
 
   getAnnotationsQuery(query: Query): Observable<any> {
+    console.log(query)
     const options = {
       variables: {
         filterArgs: query.filterArgs,

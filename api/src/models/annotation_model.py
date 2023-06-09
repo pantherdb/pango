@@ -91,6 +91,11 @@ class Annotation:
 
 
 @strawberry.type
+class AnnotationGroup:
+    name: str
+    annotations: typing.List[Annotation]
+
+@strawberry.type
 class AnnotationMinimal:
     gene: str
     gene_symbol: typing.Optional[str]

@@ -3,7 +3,7 @@
 import json
 import pprint
 import typing
-from src.models.annotation_model import Annotation, AnnotationExport, AnnotationFilterArgs, AnnotationMinimal,PageArgs, ResultCount
+from src.models.annotation_model import Annotation, AnnotationExport, AnnotationFilterArgs, AnnotationGroup, AnnotationMinimal,PageArgs, ResultCount
 from src.config.settings import settings
 from src.config.es import  es
 
@@ -24,6 +24,25 @@ async def get_annotations(filter_args:AnnotationFilterArgs, page_args=PageArgs):
     results = [Annotation(**hit['_source']) for hit in resp.get('hits', {}).get('hits', [])]
         
     return results    
+
+
+async def get_grouped_annotations(filter_args:AnnotationFilterArgs, page_args=PageArgs, group_by='gene'):
+
+    if page_args is None:
+        page_args = PageArgs
+
+    query = await get_annotations_query(filter_args)
+    resp = await es.search(
+          index=settings.PANTHER_ANNOTATIONS_INDEX,
+          #filter_path ='took,hits.hits._score,**hits.hits._source**',
+          query=query,
+          aggs = await get_grouped_aggs_query(group_by),
+          #from_=page_args.page*page_args.size,
+          size=0,
+    )
+
+    results = await get_results(resp, group_by)
+    return results   
 
 async def get_annotations_export(filter_args:AnnotationFilterArgs, page_args=PageArgs):
 
@@ -119,7 +138,38 @@ async def get_annotations_query(filter_args:AnnotationFilterArgs):
       }
     }
     
-    return  query    
+    return query 
+
+async def get_results(resp, group_by) -> typing.List[AnnotationGroup]:
+    results = list()
+    for bucket in resp["aggregations"][group_by]["buckets"]:
+      hits = bucket["top_hits"]["hits"]["hits"]
+      annotations = [Annotation(**hit['_source']) for hit in hits]
+      group = AnnotationGroup(name=bucket["key"], annotations=annotations)
+      results.append(group)
+        
+    return results   
+    
+
+async def get_grouped_aggs_query(group_by):
+    aggs = {
+      group_by: {
+        "terms": {
+          "field": "gene.keyword",
+          "size": 10
+        },
+        "aggs": {
+          "top_hits": {
+            "top_hits": {
+              "size": 10
+            }
+          }
+        }
+      }
+    }
+
+    return aggs
+     
 
 
 async def main():

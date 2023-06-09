@@ -50,6 +50,7 @@
     "file-saver": "^2.0.5",
     "lodash": "4.17.21",
     "moment": "2.29.3",
+    "ng-recaptcha": "^12.0.1",
     "ngx-datatable": "^1.0.3",
     "ngx-perfect-scrollbar": "^10.1.1",
     "ngx-scrollbar": "^9.0.2",
