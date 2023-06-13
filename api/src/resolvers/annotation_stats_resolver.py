@@ -3,7 +3,7 @@
 import pprint
 import typing
 from src.resolvers.annotation_resolver import get_annotations_query
-from src.models.annotation_model import Annotation, AnnotationFilterArgs, AnnotationStats, Bucket, Entity, Frequency, ResultCount
+from src.models.annotation_model import  AnnotationFilterArgs, AnnotationStats, Bucket, Entity, Frequency, ResultCount
 from src.config.settings import settings
 from src.config.es import  es
 

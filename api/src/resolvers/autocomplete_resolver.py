@@ -31,13 +31,13 @@ async def get_autocomplete(autocomplete_type: AutocompleteType, keyword:str, fil
 
     resp = await es.search(
         index = settings.PANTHER_ANNOTATIONS_INDEX,
-        filter_path ='took,hits.hits._score,**hits.hits._source**',
+        filter_path ='took,hits.hits._score,**hits.hits._id**,**hits.hits._source**',
         query = query,
         collapse = collapse,
         size=20,
     )
  
-    results = [Annotation(**hit['_source']) for hit in resp.get('hits', {}).get('hits', [])]
+    results = [Annotation(id=hit['_id'], **hit['_source']) for hit in resp.get('hits', {}).get('hits', [])]
         
     return results 
 

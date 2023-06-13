@@ -52,6 +52,7 @@ class ResultCount:
 
 @strawberry.type
 class Annotation:
+    id: typing.Optional[str] = ''
     gene: str
     gene_symbol: typing.Optional[str]
     gene_name: typing.Optional[str]
