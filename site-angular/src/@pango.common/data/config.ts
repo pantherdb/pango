@@ -32,7 +32,7 @@ const termTypeMap = {
 
   'known': {
     id: 'known',
-    label: 'Known Aspect',
+    label: 'Known Aspects (all)',
     description: "Show only annotations of known functions",
     color: getColor('green', 500)
   },
@@ -48,13 +48,13 @@ const termTypeMap = {
 const evidenceTypeMap = {
   'direct': {
     id: 'direct',
-    label: 'direct',
+    label: 'Known Aspects (direct evidence)',
     description: 'Annotations supported by experimental evidence directly for that gene',
     color: getColor('green', 500)
   },
   'homology': {
     id: 'homology',
-    label: 'homology',
+    label: 'Known Aspects (homology evidence)',
     description: 'Annotations supported only by experimental evidence for a homologous gene',
     color: getColor('red', 500)
   },

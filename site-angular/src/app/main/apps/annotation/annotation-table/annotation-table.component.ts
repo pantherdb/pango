@@ -20,6 +20,7 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
   RightPanel = RightPanel;
   aspectMap = pangoData.aspectMap;
   annotationPage: AnnotationPage;
+  uniprotUrl = environment.uniprotUrl;
   annotations: any[] = [];
   columns: any[] = [];
   count = 0
@@ -101,6 +102,16 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
   getUcscLink(element: Annotation) {
     const chr = `${element.coordinatesChrNum}:${element.coordinatesStart}-${element.coordinatesEnd}`
     return environment.ucscUrl + chr
+  }
+
+  getUniprotUrl(gene: string) {
+    const geneId = gene.split(':')
+
+    if (geneId.length > 1) {
+      return this.uniprotUrl + geneId[1];
+    }
+
+    return gene;
   }
 
   getFamilyLink(element: Annotation) {

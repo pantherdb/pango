@@ -57,14 +57,16 @@
         <td mat-cell *matCellDef="let element" class="pango-gene-cell">
           <div class="w-100-p" fxLayout="column" fxLayoutAlign="start start">
             <div class="w-100-p pango-cell-description">
-              {{element.geneSymbol}}
+              <a (click)="selectGene(element.gene)" [routerLink]="'/gene/'+element.gene">
+                {{element.geneSymbol}}
+              </a>
               (<a (click)="$event.stopPropagation()" [href]="taxonApiUrl+element.taxonId" target="_blank">
                 {{element.taxonAbbr}}
               </a> )
             </div>
             <div class="w-100-p pango-cell-description-2">{{element.geneName}}</div>
             <div class="w-100-p pango-cell-title mr-8">
-              <a (click)="selectGene(element.gene)" [routerLink]="'/gene/'+element.gene">
+              <a href="{{getUniprotUrl(element.gene)}}" target="_blank">
                 {{element.gene}}
               </a>
             </div>
@@ -171,12 +173,13 @@
                 </div>
               </ng-container>
               <div class="pango-cell-inner-section" *ngIf="maxReferences < item.references.length">
-                <a> — View {{item.references.length- maxReferences}} more reference(s)</a>
+                <a (click)="selectAnnotation(element)"> — View {{item.references.length- maxReferences}} more
+                  reference(s)</a>
               </div>
             </div>
           </ng-container>
           <div class="pango-cell-section" *ngIf="maxEvidences < element.evidence.length">
-            <a> — View {{element.evidence.length- maxEvidences}} more evidence</a>
+            <a (click)="selectAnnotation(element)"> — View {{element.evidence.length- maxEvidences}} more evidence</a>
           </div>
         </td>
       </ng-container>
@@ -197,8 +200,7 @@
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns; " [ngClass]="{'pango-row-selected': false}"
-        (click)="selectAnnotation(row)">
+      <tr mat-row *matRowDef="let row; columns: displayedColumns; " [ngClass]="{'pango-row-selected': false}">
       </tr>
     </table>
     <mat-paginator *ngIf="annotationPage?.total>0" class="pango-paginator pango-drawer-footer" #paginator

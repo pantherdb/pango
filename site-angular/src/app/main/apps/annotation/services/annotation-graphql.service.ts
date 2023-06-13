@@ -24,7 +24,7 @@ export class AnnotationGraphQLService {
   }
 
   getAnnotationsQuery(query: Query): Observable<any> {
-    console.log(query)
+
     const options = {
       variables: {
         filterArgs: query.filterArgs,
@@ -148,9 +148,9 @@ export class AnnotationGraphQLService {
       },
       query: `query GetAnnotationsCount($filterArgs: AnnotationFilterArgs) {
                 annotationsCount(filterArgs:$filterArgs) {
-                    total                                     
-                  }
-            }`
+                  total                                     
+                }
+              }`
     }
 
     return this.pangoGraphQLService.query(options).pipe(

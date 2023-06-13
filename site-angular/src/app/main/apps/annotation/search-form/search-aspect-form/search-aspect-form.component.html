@@ -48,7 +48,7 @@
         </button> -->
       </div>
       <div class="pango-box-radio-group w-100-p" fxLayout="row" fxLayoutAlign="start center">
-        <div class="pango-box-radio-item pango-sm" fxFlex="33" fxLayout="column" fxLayoutAlign="center center"
+        <div class="pango-box-radio-item pango-sm" fxFlex="50" fxLayout="column" fxLayoutAlign="center center"
           *ngFor="let termType of pangoDataService.termTypeOption.options"
           (click)="toggleSelection(SearchFilterType.TERM_TYPES, termType.id)"
           [ngClass]="{'pango-active': annotationService.searchCriteria[SearchFilterType.TERM_TYPES]?.[0] === termType.id}"
@@ -56,26 +56,12 @@
           {{termType.label}}
         </div>
       </div>
-    </div>
-  </div>
-  <div class="pango-section-body w-100-p">
-    <div class="pango w-100-p">
-      <div class="pango-section-header-sm" fxLayout="row" fxLayoutAlign="start center">
-        <div class="pango-section-heading">
-          <h4 matTooltip="Filter by the kind of evidence supporting the annotation" [matTooltipPosition]="'above'"
-            [matTooltipShowDelay]="3000">Select Evidence Type</h4>
-        </div>
-        <span fxFlex></span>
-        <!--   <button mat-button type="button" (click)="clearByType(SearchFilterType.TERM_TYPES)">
-          Clear
-        </button> -->
-      </div>
       <div class="pango-box-radio-group w-100-p" fxLayout="row" fxLayoutAlign="start center">
-        <div class="pango-box-radio-item pango-sm" fxFlex="33" fxLayout="column" fxLayoutAlign="center center"
+        <div class="pango-box-radio-item pango-sm" fxFlex="50" fxLayout="column" fxLayoutAlign="center center"
           *ngFor="let evidenceType of pangoDataService.evidenceTypeOption.options"
           (click)="toggleSelection(SearchFilterType.EVIDENCE_TYPES, evidenceType.id)"
           [ngClass]="{'pango-active': annotationService.searchCriteria[SearchFilterType.EVIDENCE_TYPES]?.[0] === evidenceType.id}"
-          matTooltip="{{evidenceType.description}}" [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
+          matTooltip="{{evidenceType.description}}" [matTooltipPosition]="'below'" [matTooltipShowDelay]="1500">
           {{evidenceType.label}}
         </div>
       </div>
