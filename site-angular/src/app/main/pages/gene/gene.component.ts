@@ -8,6 +8,7 @@ import { Annotation } from 'app/main/apps/annotation/models/annotation';
 import { AnnotationPage } from 'app/main/apps/annotation/models/page';
 import { AnnotationService } from 'app/main/apps/annotation/services/annotation.service';
 import { Gene } from 'app/main/apps/gene/models/gene.model';
+import { environment } from 'environments/environment';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -38,7 +39,7 @@ export class GeneComponent implements OnInit, OnDestroy {
     suppressScrollX: true
   }
 
-  gene: Gene;
+  annotation: Annotation;
   geneId: string;
 
   searchFormOptions: {
@@ -84,13 +85,10 @@ export class GeneComponent implements OnInit, OnDestroy {
     this.annotationService.onAnnotationsChanged
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((annotationPage: AnnotationPage) => {
-        if (annotationPage) {
-          this.gene = new Gene();
-          this.gene.gene = annotationPage.annotations[0].gene;
-          this.gene.geneName = annotationPage.annotations[0]?.geneName;
-          this.gene.geneSymbol = annotationPage.annotations[0]?.geneSymbol;
+        if (annotationPage && annotationPage.annotations.length > 0) {
+          this.annotation = annotationPage.annotations[0];
         } else {
-          this.gene = null
+          this.annotation = null
         }
       });
   }
@@ -98,6 +96,27 @@ export class GeneComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
+  }
+
+
+  getUcscLink(element: Annotation) {
+    const chr = `${element.coordinatesChrNum}:${element.coordinatesStart}-${element.coordinatesEnd}`
+    return environment.ucscUrl + chr
+  }
+
+  getUniprotLink(gene: string) {
+    const geneId = gene.split(':')
+
+    if (geneId.length > 1) {
+      return environment.uniprotUrl + geneId[1];
+    }
+
+    return gene;
+  }
+
+  getFamilyLink(element: Annotation) {
+
+    return `${environment.pantherFamilyUrl}book=${encodeURIComponent(element.pantherFamily)}&seq=${encodeURIComponent(element.longId)}`
   }
 
 }

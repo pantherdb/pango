@@ -15,6 +15,13 @@ $pango-background: map-get($mat-blue-grey, 50);
     }
   }
 
+  .pango-heading {
+    font-weight: normal;
+    .pango-highlight {
+      font-weight: bold;
+    }
+  }
+
   pango-summary-stats {
     display: block;
     //@include deep-height(300px !important);
@@ -48,6 +55,34 @@ $pango-background: map-get($mat-blue-grey, 50);
 }
 
 .pango-gene-summary {
+  .pango-gene-detail-col {
+    width: 300px;
+    margin-right: 100px;
+  }
+
+  .pango-links-col {
+    width: 300px;
+  }
+  .pango-term-row {
+    padding: 5px;
+
+    //border-bottom: #6f919b solid 1px;
+
+    .pango-title {
+      // font-weight: bold;
+      font-size: 12px;
+      padding-right: 8px;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      hyphens: auto;
+    }
+
+    .pango-description {
+      font-size: 12px;
+      color: #777;
+    }
+  }
+
   padding: 12px;
   .pango-cell-title {
     font-size: 16px;

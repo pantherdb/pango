@@ -104,7 +104,7 @@ export class AnnotationTableComponent implements OnInit, OnDestroy {
     return environment.ucscUrl + chr
   }
 
-  getUniprotUrl(gene: string) {
+  getUniprotLink(gene: string) {
     const geneId = gene.split(':')
 
     if (geneId.length > 1) {
