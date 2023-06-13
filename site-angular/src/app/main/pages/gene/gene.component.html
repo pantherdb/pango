@@ -20,7 +20,7 @@
           <h1 class="pango-heading">
             All annotations and evidence for
             <span class="pango-highlight">
-              {{annotation.geneSymbol}}_HUMAN
+              {{annotation.geneSymbol}}
             </span>
           </h1>
           <div class="w-100-p" fxLayout="row" fxLayoutAlign="start space-between">
@@ -28,6 +28,7 @@
               <h2>
                 Gene Details
               </h2>
+
               <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
                 <div class="pango-title mr-8">
                   Gene:
@@ -44,16 +45,7 @@
                   {{annotation.geneName}}
                 </div>
               </div>
-              <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
-                <div class="pango-title mr-8">
-                  Uniprot ID:
-                </div>
-                <div class=" pango-description">
-                  <a href="{{getUniprotLink(annotation.gene)}}" target="_blank">
-                    {{annotation.gene}}
-                  </a>
-                </div>
-              </div>
+
               <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
                 <div class="pango-title mr-8">
                   Organism
@@ -68,8 +60,18 @@
 
             <div class="pango-links-col" fxLayout="column" fxLayoutAlign="start start">
               <h2>
-                External Tools
+                External Links
               </h2>
+              <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                <div class="pango-title mr-8">
+                  Uniprot ID:
+                </div>
+                <div class=" pango-description">
+                  <a href="{{getUniprotLink(annotation.gene)}}" target="_blank">
+                    {{annotation.gene}}
+                  </a>
+                </div>
+              </div>
               <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
                 <div class="pango-title mr-8">
                   PANTHER Tree Viewer:
@@ -87,6 +89,16 @@
                 <div class=" pango-description">
                   <a (click)="$event.stopPropagation()" [href]="getUcscLink(annotation)" target="_blank">
                     chr{{annotation.coordinatesChrNum}}:{{annotation.coordinatesStart}}-{{annotation.coordinatesEnd}}
+                  </a>
+                </div>
+              </div>
+              <div *ngIf="hgncId" class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                <div class="pango-title mr-8">
+                  Alliance of Genome Resources:
+                </div>
+                <div class=" pango-description">
+                  <a [href]="getAGRLink()" target="_blank">
+                    gene/{{hgncId}}
                   </a>
                 </div>
               </div>

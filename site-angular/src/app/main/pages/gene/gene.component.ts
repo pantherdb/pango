@@ -4,6 +4,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute } from '@angular/router';
 import { RightPanel, LeftPanel } from '@pango.common/models/menu-panels';
 import { PangoMenuService } from '@pango.common/services/pango-menu.service';
+import { PangoUtils } from '@pango/utils/pango-utils';
 import { Annotation } from 'app/main/apps/annotation/models/annotation';
 import { AnnotationPage } from 'app/main/apps/annotation/models/page';
 import { AnnotationService } from 'app/main/apps/annotation/services/annotation.service';
@@ -41,6 +42,7 @@ export class GeneComponent implements OnInit, OnDestroy {
 
   annotation: Annotation;
   geneId: string;
+  hgncId;
 
   searchFormOptions: {
     hideGeneSearch: true
@@ -87,6 +89,7 @@ export class GeneComponent implements OnInit, OnDestroy {
       .subscribe((annotationPage: AnnotationPage) => {
         if (annotationPage && annotationPage.annotations.length > 0) {
           this.annotation = annotationPage.annotations[0];
+          this.hgncId = PangoUtils.getHGNC(this.annotation.longId);
         } else {
           this.annotation = null
         }
@@ -98,6 +101,15 @@ export class GeneComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
+  getAGRLink() {
+
+    if (this.hgncId) {
+      return environment.agrPrefixUrl + this.hgncId;
+    }
+
+    return environment.agrPrefixUrl;
+
+  }
 
   getUcscLink(element: Annotation) {
     const chr = `${element.coordinatesChrNum}:${element.coordinatesStart}-${element.coordinatesEnd}`

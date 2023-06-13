@@ -1,5 +1,18 @@
 export class PangoUtils {
 
+    public static getHGNC(longId: string): string {
+
+        const pattern = /HGNC=(\d+)/;
+        const matches = longId.match(pattern);
+
+        if (matches && matches.length > 1) {
+            return `HGNC:${matches[1]}`;
+        }
+
+        return null;
+
+    }
+
     public static filterArrayByString(mainArr, searchText) {
         if (searchText === '') {
             return mainArr;

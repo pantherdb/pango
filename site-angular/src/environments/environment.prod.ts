@@ -7,5 +7,6 @@ export const environment = {
   pangoGraphQLUrl: 'http://3.211.50.244:5000/graphql',
   ucscUrl: 'https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr',
   pantherFamilyUrl: 'http://www.pantherdb.org/treeViewer/treeViewer.jsp?',
-  uniprotUrl: 'https://www.uniprot.org/uniprotkb/'
+  uniprotUrl: 'https://www.uniprot.org/uniprotkb/',
+  agrPrefixUrl: 'https://www.alliancegenome.org/gene/'
 };
