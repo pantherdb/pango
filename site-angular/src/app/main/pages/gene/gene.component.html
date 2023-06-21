@@ -64,7 +64,7 @@
               </h2>
               <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
                 <div class="pango-title mr-8">
-                  Uniprot ID:
+                  UniProt ID:
                 </div>
                 <div class=" pango-description">
                   <a href="{{getUniprotLink(annotation.gene)}}" target="_blank">
@@ -98,7 +98,17 @@
                 </div>
                 <div class=" pango-description">
                   <a [href]="getAGRLink()" target="_blank">
-                    gene/{{hgncId}}
+                    {{hgncId}}
+                  </a>
+                </div>
+              </div>
+              <div *ngIf="hgncId" class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                <div class="pango-title mr-8">
+                  HUGO Gene Nomenclature Committee:
+                </div>
+                <div class=" pango-description">
+                  <a [href]="getHGNCLink()" target="_blank">
+                    {{hgncId}}
                   </a>
                 </div>
               </div>

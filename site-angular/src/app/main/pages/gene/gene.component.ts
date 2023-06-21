@@ -111,6 +111,16 @@ export class GeneComponent implements OnInit, OnDestroy {
 
   }
 
+  getHGNCLink() {
+
+    if (this.hgncId) {
+      return environment.hgncPrefixUrl + this.hgncId;
+    }
+
+    return environment.hgncPrefixUrl;
+
+  }
+
   getUcscLink(element: Annotation) {
     const chr = `${element.coordinatesChrNum}:${element.coordinatesStart}-${element.coordinatesEnd}`
     return environment.ucscUrl + chr

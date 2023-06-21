@@ -58,9 +58,6 @@ export class CategoryStatsComponent implements OnInit, OnDestroy {
 
   }
 
-
-
-
   customColors = Object.keys(this.aspectMap).map((aspect) => {
     return {
       name: this.aspectMap[aspect].label,

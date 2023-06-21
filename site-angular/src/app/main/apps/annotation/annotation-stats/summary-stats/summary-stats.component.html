@@ -28,9 +28,9 @@
       </div>
       <div class="pango-section-body" fxLayout="row" fxLayoutAlign="start center">
         <ngx-charts-pie-chart [results]="stats.aspectPie" [view]="aspectPieOptions.view"
-          [scheme]="aspectPieOptions.colorScheme" [gradient]="aspectPieOptions.gradient"
-          [legend]="aspectPieOptions.legend" [maxLabelLength]="aspectPieOptions.maxLabelLength"
-          [labels]="aspectPieOptions.showLabels" [doughnut]="aspectPieOptions.isDoughnut" [customColors]="customColors"
+          [gradient]="aspectPieOptions.gradient" [legend]="aspectPieOptions.legend"
+          [maxLabelLength]="aspectPieOptions.maxLabelLength" [labels]="aspectPieOptions.showLabels"
+          [doughnut]="aspectPieOptions.isDoughnut" [customColors]="customColors"
           (select)="aspectPieOptions.onSelect($event)">
         </ngx-charts-pie-chart>
 
@@ -59,54 +59,22 @@
         <span fxFlex></span>
       </div>
       <div class="pango-section-body" fxLayout="row" fxLayoutAlign="start center">
-        <ngx-charts-pie-chart [results]="stats.termTypePie" [view]="termTypePieOptions.view"
-          [scheme]="termTypePieOptions.colorScheme" [gradient]="termTypePieOptions.gradient"
-          [legend]="termTypePieOptions.legend" [maxLabelLength]="termTypePieOptions.maxLabelLength"
-          [labels]="termTypePieOptions.showLabels" [doughnut]="termTypePieOptions.isDoughnut"
-          [customColors]="customColors" (select)="termTypePieOptions.onSelect($event)">
-        </ngx-charts-pie-chart>
-
-        <div class="pango-stat" fxLayout="column" fxLayoutAlign="start stretch">
-          <!-- <div class="pango-stat-heading mb-12" class="h6"> By Aspect</div> -->
-          <div *ngFor="let item of this.annotationStats?.termTypeFrequency.buckets" fxLayout="row"
-            fxLayoutAlign="start center">
-            <div class="pango-stat-color mr-8" [style]="{'backgroundColor':termTypeMap[item.key].color}">
-
-            </div>
-            <div class="pango-stat-description mr-8">
-              {{termTypeMap[item.key].label}}
-            </div>
-            <div class="pango-stat-number">
-              {{item.docCount}}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pango-form-section pango-aspect-stats" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch">
-      <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
-        <div class="pango-section-heading">
-          <h3>Evidence Type</h3>
-        </div>
-        <span fxFlex></span>
-      </div>
-      <div class="pango-section-body" fxLayout="row" fxLayoutAlign="start center">
         <ngx-charts-pie-chart [results]="stats.evidenceTypePie" [view]="evidenceTypePieOptions.view"
-          [scheme]="evidenceTypePieOptions.colorScheme" [gradient]="evidenceTypePieOptions.gradient"
-          [legend]="evidenceTypePieOptions.legend" [maxLabelLength]="evidenceTypePieOptions.maxLabelLength"
-          [labels]="evidenceTypePieOptions.showLabels" [doughnut]="evidenceTypePieOptions.isDoughnut"
-          [customColors]="customEvidenceColors" (select)="evidenceTypePieOptions.onSelect($event)">
+          [gradient]="evidenceTypePieOptions.gradient" [legend]="evidenceTypePieOptions.legend"
+          [maxLabelLength]="evidenceTypePieOptions.maxLabelLength" [labels]="evidenceTypePieOptions.showLabels"
+          [doughnut]="evidenceTypePieOptions.isDoughnut" [customColors]="customEvidenceColors"
+          (select)="evidenceTypePieOptions.onSelect($event)">
         </ngx-charts-pie-chart>
 
         <div class="pango-stat" fxLayout="column" fxLayoutAlign="start stretch">
           <!-- <div class="pango-stat-heading mb-12" class="h6"> By Evidence Type</div> -->
           <div *ngFor="let item of this.annotationStats?.evidenceTypeFrequency.buckets" fxLayout="row"
             fxLayoutAlign="start center">
-            <!-- <div class="pango-stat-color mr-8" [style]="{'backgroundColor':qualifierMap[item.key].color}">
+            <div class="pango-stat-color mr-8" [style]="{'backgroundColor':evidenceTypeMap[item.key].color}">
 
-          </div> -->
+            </div>
             <div class="pango-stat-description mr-8">
-              {{item.key}}
+              {{evidenceTypeMap[item.key].label}}
             </div>
             <div class="pango-stat-number">
               {{item.docCount}}

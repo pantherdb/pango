@@ -58,9 +58,9 @@ const evidenceTypeMap = {
     description: 'Annotations supported only by experimental evidence for a homologous gene',
     color: getColor('red', 500)
   },
-  'na': {
+  'n/a': {
     id: 'n/a',
-    label: 'n/a',
+    label: 'Unknown Aspect (unknown evidence)',
     description: "Evidence is not applicable to “placeholder” annotations indicating unknown function aspects",
     color: getColor('cyan', 500)
   },
