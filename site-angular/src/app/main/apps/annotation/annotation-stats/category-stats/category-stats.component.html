@@ -7,6 +7,8 @@
       <span fxFlex></span>
     </div>
     <div class="pango-section-body pango-terms-cell" fxLayout="column" fxLayoutAlign="start stretch">
+      <p class="pango-alert alert-info">Click to filter by category</p>
+
       <div class="pango-activity-term-row" fxLayout="column">
         <div *ngFor="let item of stats?.slimTermFrequencyBar" class="w-100-p pango-term-cell"
           (click)="selectSlimTerm(item)" fxLayout="row" fxLayoutAlign="start center">

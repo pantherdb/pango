@@ -39,7 +39,7 @@ const termTypeMap = {
 
   'unknown': {
     id: 'unknown',
-    label: 'Unknown Aspect',
+    label: 'Unknown Aspects',
     description: "Show only “placeholder” annotations indicating unknown function aspects",
     color: getColor('red', 500)
   },
@@ -60,7 +60,7 @@ const evidenceTypeMap = {
   },
   'n/a': {
     id: 'n/a',
-    label: 'Unknown Aspect (unknown evidence)',
+    label: 'Unknown Aspects (unknown evidence)',
     description: "Evidence is not applicable to “placeholder” annotations indicating unknown function aspects",
     color: getColor('cyan', 500)
   },
