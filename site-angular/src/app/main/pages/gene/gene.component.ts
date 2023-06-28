@@ -75,6 +75,7 @@ export class GeneComponent implements OnInit, OnDestroy {
 
         const annotation = new Annotation()
         annotation.gene = this.geneId
+        this.annotationService.searchCriteria.clearSearch()
         this.annotationService.searchCriteria.genes = [annotation]
         this.annotationService.updateSearch();
       });

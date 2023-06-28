@@ -41,6 +41,15 @@ export class SearchCriteria {
     clearSearch() {
         this.terms = [];
         this.genes = []
+        this.termTypes = [];
+        this.slimTerms = [];
+        this.genes = [];
+        this.evidenceTypes = [];
+        this.aspects = [];
+        this.qualifiers = [];
+        this.withgenes = [];
+        this.references = [];
+        this.fieldValues = [];
     }
 
 
