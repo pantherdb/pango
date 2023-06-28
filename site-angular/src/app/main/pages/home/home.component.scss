@@ -57,6 +57,13 @@
     min-width: 100%;
   }
 
+  a {
+    color: $pango-accent-color;
+    &:hover {
+      color: lighten($pango-accent-color, 10);
+    }
+  }
+
   h1 {
     margin: 8px 0;
     padding: 0 0 2px 0;
