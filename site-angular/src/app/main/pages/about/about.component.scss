@@ -2,6 +2,7 @@
 @import "src/@pango.common/scss/pango.common";
 
 :host {
+  overflow-y: auto;
   pango-footer {
   }
 
