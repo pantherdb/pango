@@ -6,9 +6,15 @@
           <span class="pango-drawer-header-title">
             Filter Options</span>
           <span fxFlex></span>
-          <button mat-stroked-button (click)="closeLeftDrawer()" class="pango-rounded-button pango-sm" color="primary"
-            aria-label="Close dialog">
-            CLOSE
+          <button mat-stroked-button type="button" color="warn" class="pango-rounded-button pango-xs mr-8"
+            (click)="clearAllFIlters()">
+            Clear All Filters
+          </button>
+          <button mat-stroked-button (click)="closeLeftDrawer()" class="pango-rounded-button pango-xs" color="primary"
+            aria-label="Close dialog"
+            matTooltip="Expand your viewing space by hiding the filter panel and focus on the results. To bring back the panel, simply click the menu icon [hamburger icon] located at the top left corner."
+            [matTooltipPosition]="'above'" [matTooltipShowDelay]="3000">
+            Close
           </button>
         </div>
         <div class="pango-drawer-body">

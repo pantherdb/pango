@@ -68,6 +68,7 @@ $accent: map-get($theme, accent);
   font-size: 10px;
 }
 .pango-stat-number {
+  cursor: auto;
   font-size: 10px;
   font-weight: bold;
 }

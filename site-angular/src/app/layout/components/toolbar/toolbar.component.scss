@@ -12,6 +12,22 @@ $accent: map-get($theme, accent);
 
   border-bottom: 2px solid $pango-primary-color;
 
+  .pango-announcement {
+    padding: 0 10px 0 10px;
+    //background-color: rgb(168, 225, 238);
+    @include deep-height(30px);
+    color: inherit;
+    position: relative;
+    padding: 5px !important;
+    margin-bottom: 0 !important;
+    // border:none!
+    .pango-announcement-header {
+      @include deep-height(100%);
+    }
+
+    //.pango-rounded-button
+  }
+
   a {
     color: $pango-accent-color;
     &:hover {

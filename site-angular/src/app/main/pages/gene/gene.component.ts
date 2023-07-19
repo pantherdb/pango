@@ -19,6 +19,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class GeneComponent implements OnInit, OnDestroy {
 
+  taxonApiUrl = environment.taxonApiUrl;
   RightPanel = RightPanel;
   LeftPanel = LeftPanel
 
@@ -59,6 +60,8 @@ export class GeneComponent implements OnInit, OnDestroy {
       'contributors'
     ]
   }
+
+
 
   private _unsubscribeAll: Subject<any>;
 

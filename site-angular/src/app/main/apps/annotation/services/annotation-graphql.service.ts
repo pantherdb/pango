@@ -4,7 +4,10 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { AnnotationPage, Query } from '../models/page';
 import { SearchCriteria } from '@pango.search/models/search-criteria';
 import { PangoGraphQLService } from '@pango.search/services/graphql.service';
-import { AnnotationCount, AnnotationStats, Annotation, AutocompleteFilterArgs, AutocompleteType, Term } from '../models/annotation';
+import { AnnotationCount, AnnotationStats, Annotation, AutocompleteFilterArgs, AutocompleteType, Term, Group } from '../models/annotation';
+import groupsData from '@pango.common/data/groups.json';
+import { find } from 'lodash';
+
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +25,15 @@ export class AnnotationGraphQLService {
     this.searchCriteria = new SearchCriteria();
 
   }
+
+  findGroup(shorthand: string): Group {
+    const group = find(groupsData, (group) => {
+      return group.shorthand === shorthand;
+    }) as Group;
+
+    return group;
+  }
+
 
   getAnnotationsQuery(query: Query): Observable<any> {
 
@@ -87,7 +99,11 @@ export class AnnotationGraphQLService {
 
     return this.pangoGraphQLService.query(options).pipe(
       map((response: any) => {
-        return response.annotations.map(annotation => {
+        return response.annotations.map((annotation: Annotation) => {
+          annotation.detailedGroups = annotation.groups.map((group) => {
+            return this.findGroup(group);
+          })
+          console.log(annotation.detailedGroups)
           return annotation
         }) as Annotation[];
       }));

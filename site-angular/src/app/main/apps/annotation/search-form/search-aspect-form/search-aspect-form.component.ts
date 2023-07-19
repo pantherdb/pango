@@ -87,6 +87,12 @@ export class SearchAspectFormComponent implements OnInit, OnDestroy {
     this.filterForm.controls[filterType].setValue(null);
   }
 
+  clearAllFIlters() {
+    this.annotationService.searchCriteria.clearSearch()
+    this.annotationService.updateSearch();
+  }
+
+
   private _onValueChanges() {
     const self = this;
 

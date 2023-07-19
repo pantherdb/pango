@@ -101,6 +101,12 @@ export class AnnotationCount {
     total = 0;
 }
 
+export class Group {
+    label: string
+    id: string
+    shorthand: string
+}
+
 export class Term {
     id: string;
     label: string;
@@ -141,6 +147,7 @@ export class Annotation {
     evidence: Evidence[] = [];
     qualifier: string;
     groups: string[] = [];
+    detailedGroups: Group[] = [];
 }
 
 export class Bucket {

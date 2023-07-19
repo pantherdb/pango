@@ -56,7 +56,7 @@
 
   .pango-box-radio-group {
     .pango-box-radio-item {
-      cursor: default;
+      cursor: pointer;
       position: relative;
       padding: 4px 5px;
       border: rgba(map-get($primary, default), 0.2) solid 2px;

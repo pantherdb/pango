@@ -2,8 +2,6 @@
 @import "src/@pango.common/scss/pango.common";
 
 :host {
-  @include deep-width(100%);
-  @include deep-height(100%);
   display: block;
 
   .pango-drawer {

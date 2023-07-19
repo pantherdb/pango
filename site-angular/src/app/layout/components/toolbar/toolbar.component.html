@@ -1,4 +1,11 @@
 <div class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+  <div class="pango-announcement pango-alert alert-warning" fxLayout="row" fxLayoutAlign="center center">
+    <div class="pango-announcement-header text-center" fxLayout="row" fxLayoutAlign="center center">
+
+      <strong>PREVIEW SITE ONLY</strong>: PLEASE KEEP CONFIDENTIAL UNTIL PUBLICATION
+
+    </div>
+  </div>
   <mat-toolbar fxLayout="row" fxLayoutAlign="start center">
     <mat-progress-bar *ngIf="showLoadingBar" class="loading-bar" color="accent" mode="indeterminate"></mat-progress-bar>
     <a (click)="openLeftDrawer()" class="pango-bars mr-8" aria-label="Close dialog">
@@ -23,13 +30,13 @@
         </a>
       </div>
     </div>
-    <div class="noc-br pl-12 pr-12" fxHide.lt-md fxLayout="row" fxLayoutAlign="start center">
+    <div class="pango-br pl-12 pr-12" fxHide.lt-md fxLayout="row" fxLayoutAlign="start center">
       <!-- <a mat-button [routerLink]="['/download']">Export</a> -->
 
-      <a mat-button class="noc-icon-button" [matMenuTriggerFor]="exportMenu">
+      <a mat-button class="pango-icon-button" [matMenuTriggerFor]="exportMenu">
         Download
       </a>
-      <mat-menu #exportMenu="matMenu" class="noc-dropdown-menu">
+      <mat-menu #exportMenu="matMenu" class="pango-dropdown-menu">
         <a mat-menu-item href="http://data.pantherdb.org/ftp/downloads/pango/export_annotations.zip" class="">
           As CSV
         </a>
@@ -54,4 +61,6 @@
     </div>
 
   </mat-toolbar>
+
+
 </div>

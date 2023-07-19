@@ -49,4 +49,9 @@ export class HomeComponent implements OnInit {
   closeLeftDrawer() {
     this.leftDrawer.close()
   }
+
+  clearAllFIlters() {
+    this.annotationService.searchCriteria.clearSearch()
+    this.annotationService.updateSearch();
+  }
 }
