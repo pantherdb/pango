@@ -4,7 +4,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { AnnotationPage, Query } from '../models/page';
 import { SearchCriteria } from '@pango.search/models/search-criteria';
 import { PangoGraphQLService } from '@pango.search/services/graphql.service';
-import { AnnotationCount, AnnotationStats, Annotation, AutocompleteFilterArgs, AutocompleteType, Term, Group } from '../models/annotation';
+import { AnnotationCount, AnnotationStats, Annotation, AutocompleteFilterArgs, AutocompleteType, Term, Group, GroupedAnnotation } from '../models/annotation';
 import groupsData from '@pango.common/data/groups.json';
 import { find } from 'lodash';
 
@@ -105,6 +105,64 @@ export class AnnotationGraphQLService {
           })
           return annotation
         }) as Annotation[];
+      }));
+  }
+
+
+  getGroupedAnnotationsQuery(query: Query): Observable<any> {
+
+    const options = {
+      variables: {
+        filterArgs: query.filterArgs,
+        pageArgs: query.pageArgs
+      },
+      query: `query GetAnnotations($filterArgs: AnnotationFilterArgs, $pageArgs: PageArgs) {
+          groupedAnnotations(filterArgs:$filterArgs, pageArgs:$pageArgs) {
+            name
+            annotations {
+              id
+              gene
+              geneName
+              geneSymbol
+              longId
+              pantherFamily
+              taxonAbbr
+              taxonLabel
+              taxonId
+              qualifier
+              term {
+                id
+                aspect
+                isGoslim
+                label
+                displayId
+              } 
+              slimTerms {
+                aspect
+                id
+                isGoslim
+                label
+                displayId
+              } 
+              evidenceType            
+              groups
+              evidenceCount
+            }                              
+          }
+        }`
+    }
+
+    return this.pangoGraphQLService.query(options).pipe(
+      map((response: any) => {
+        return response.groupedAnnotations.map((groupedAnnotation: GroupedAnnotation) => {
+          return groupedAnnotation.annotations.map((annotation: Annotation) => {
+            annotation.detailedGroups = annotation.groups.map((group) => {
+              return this.findGroup(group);
+            })
+            return annotation
+          }) as Annotation[];
+
+        }) as GroupedAnnotation[];
       }));
   }
 

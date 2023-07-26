@@ -110,6 +110,32 @@ export class AnnotationService {
             });
     }
 
+    getGroupedAnnotationsPage(query: Query, page: number): any {
+        const self = this;
+        self.loading = true;
+        query.pageArgs.page = (page - 1);
+        query.pageArgs.size = this.annotationResultsSize;
+        this.query = query;
+        return this.annotationGraphQLService.getGroupedAnnotationsQuery(query).subscribe(
+            {
+                next: (annotations: Annotation[]) => {
+                    const annotationData = annotations
+
+                    this.annotationPage.query = query;
+                    this.annotationPage.updatePage()
+                    this.annotationPage.annotations = annotationData;
+                    //  this.annotationPage.aggs = response.aggregations;
+                    this.annotationPage.query.source = query.source;
+
+                    this.onAnnotationsChanged.next(this.annotationPage);
+
+                    self.loading = false;
+                }, error: (err) => {
+                    self.loading = false;
+                }
+            });
+    }
+
     getAnnotationsExportPage(query: Query, page: number): any {
         const self = this;
         self.loading = true;

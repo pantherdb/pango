@@ -150,6 +150,12 @@ export class Annotation {
     detailedGroups: Group[] = [];
 }
 
+export class GroupedAnnotation {
+    title: string;
+    label: string;
+    annotations: Annotation[] = [];
+}
+
 export class Bucket {
     key: string
     docCount: number
