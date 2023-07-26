@@ -54,7 +54,7 @@ export class AnnotationService {
     }
 
 
-    getAnnotations(page: number): any {
+    xxgetAnnotations(page: number): any {
         const self = this;
         self.loading = true;
 
@@ -236,35 +236,6 @@ export class AnnotationService {
             query.filterArgs.aspectIds.push(aspect);
         });
 
-        this.searchCriteria.withgenes.forEach((annotation: Annotation) => {
-            // query.filterArgs.withgeneIds.push(annotation.evidence);
-        });
-
-        this.searchCriteria.references.forEach((annotation: Annotation) => {
-            // query.filterArgs.references.push(annotation.reference);
-        });
-
-
-        //for advanced search
-        /*         const filters = this.searchCriteria.fieldValues.map((filedValueArray) => {
-                    return {
-                        'bool': {
-                            "should": filedValueArray.map((field) => {
-                                const annotation = this.annotationService.findDetailByName(field.name);
-                                let fieldSearchable = field.name;
-    
-                                if (annotation.field_type === ColumnFieldType.TEXT) {
-                                    fieldSearchable += '.keyword';
-                                }
-                                return {
-                                    'term': { [fieldSearchable]: field.value }
-                                };
-                            })
-                        }
-                    };
-                });
-    
-                query.query.bool['must'] = filters */
 
         this.query = query;
 

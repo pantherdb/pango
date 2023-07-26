@@ -48,6 +48,7 @@
           [ngClass]="{'pango-active': annotationService.searchCriteria[SearchFilterType.TERM_TYPES]?.[0] === termType.id}"
           matTooltip="{{termType.description}}" [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
           {{termType.label}}
+          <fa-icon class="pango-icon pango-selected-icon" [icon]="['far', 'check-circle']"></fa-icon>
         </div>
       </div>
       <div class="pango-box-radio-group w-100-p" fxLayout="row" fxLayoutAlign="start center">
@@ -57,6 +58,8 @@
           [ngClass]="{'pango-active': annotationService.searchCriteria[SearchFilterType.EVIDENCE_TYPES]?.[0] === evidenceType.id}"
           matTooltip="{{evidenceType.description}}" [matTooltipPosition]="'below'" [matTooltipShowDelay]="1500">
           {{evidenceType.label}}
+          <fa-icon class="pango-icon pango-selected-icon" [icon]="['far', 'check-circle']"></fa-icon>
+
         </div>
       </div>
     </div>
