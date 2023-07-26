@@ -15,6 +15,7 @@ import { AnnotationService } from '../../services/annotation.service';
 })
 export class CategoryStatsComponent implements OnInit, OnDestroy {
 
+  SearchFilterType = SearchFilterType;
   aspectMap = pangoData.aspectMap;
   evidenceTypeMap = pangoData.evidenceTypeMap
   annotationPage: AnnotationPage;
@@ -171,13 +172,17 @@ export class CategoryStatsComponent implements OnInit, OnDestroy {
 
   }
 
+  clearByType(filterType: string) {
+    this.annotationService.searchCriteria[filterType] = []
+    this.annotationService.updateSearch();
+  }
+
   ngOnDestroy(): void {
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
 
   onSelectAspect(event) {
-    console.log(event)
     this.annotationService.searchCriteria[SearchFilterType.ASPECTS] = [event.name];
     this.annotationService.updateSearch();
   }
@@ -206,7 +211,6 @@ export class CategoryStatsComponent implements OnInit, OnDestroy {
       this.stats.slimTermFrequencyBar = this.annotationService.buildCategoryBar(this.annotationStats.slimTermFrequency.buckets)
     }
 
-    console.log(this.stats.slimTermFrequencyBar)
 
   }
 

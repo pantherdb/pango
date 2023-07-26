@@ -103,7 +103,6 @@ export class AnnotationGraphQLService {
           annotation.detailedGroups = annotation.groups.map((group) => {
             return this.findGroup(group);
           })
-          console.log(annotation.detailedGroups)
           return annotation
         }) as Annotation[];
       }));

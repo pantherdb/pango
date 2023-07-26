@@ -128,7 +128,6 @@ export class AnnotationService {
                     this.annotationPage.query.source = query.source;
 
                     this.onAnnotationsChanged.next(this.annotationPage);
-                    console.log(this.annotationPage)
 
                     self.loading = false;
                 }, error: (err) => {
@@ -181,7 +180,6 @@ export class AnnotationService {
     queryDistinctAggs(query: any, field: string): any {
         const self = this;
         query.size = 0;
-        //console.log(query);
         this.onDistinctAggsChanged.next(null);
         return this.client.search({
             body: {

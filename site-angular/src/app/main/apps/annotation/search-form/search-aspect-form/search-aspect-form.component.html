@@ -43,7 +43,8 @@
             [matTooltipPosition]="'above'" [matTooltipShowDelay]="3000">Select Knowledge Status</h4>
         </div>
         <span fxFlex></span>
-        <button mat-button type="button" (click)="clearByType(SearchFilterType.TERM_TYPES)">
+        <button mat-stroked-button type="button" class="pango-rounded-button pango-xs"
+          (click)="clearByType(SearchFilterType.TERM_TYPES)">
           Clear
         </button>
       </div>
