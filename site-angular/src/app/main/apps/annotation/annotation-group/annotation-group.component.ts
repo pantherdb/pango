@@ -9,15 +9,15 @@ import { RightPanel } from '@pango.common/models/menu-panels';
 import { MatLegacyTable as MatTable, MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { environment } from 'environments/environment';
 import { pangoData } from '@pango.common/data/config';
-import { Annotation } from '../models/annotation';
+import { Annotation, AnnotationGroup } from '../models/annotation';
 import { Gene } from '../../gene/models/gene.model';
 @Component({
-  selector: 'pango-annotation-table',
-  templateUrl: './annotation-table.component.html',
-  styleUrls: ['./annotation-table.component.scss'],
+  selector: 'pango-annotation-group',
+  templateUrl: './annotation-group.component.html',
+  styleUrls: ['./annotation-group.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AnnotationTableComponent implements OnInit, OnDestroy, OnChanges {
+export class AnnotationGroupComponent implements OnInit, OnDestroy, OnChanges {
   RightPanel = RightPanel;
   aspectMap = pangoData.aspectMap;
 
@@ -29,7 +29,6 @@ export class AnnotationTableComponent implements OnInit, OnDestroy, OnChanges {
   pubmedUrl = environment.pubmedUrl
 
   loadingIndicator: boolean;
-  reorderable: boolean;
 
 
 
@@ -40,14 +39,14 @@ export class AnnotationTableComponent implements OnInit, OnDestroy, OnChanges {
 
   taxonApiUrl = environment.taxonApiUrl
 
-  annotationPage: AnnotationPage;
-  @Input() annotations: Annotation[] = [];
+  @Input() annotationPage: AnnotationPage;
+
   @ViewChild(MatTable) table: MatTable<any>
 
   @ViewChild(MatPaginator, { static: true })
   paginator: MatPaginator;
 
-  dataSource = new MatTableDataSource<any>();
+  annotationGroups: AnnotationGroup[];
 
   displayedColumns = [
     'gene',
@@ -70,17 +69,17 @@ export class AnnotationTableComponent implements OnInit, OnDestroy, OnChanges {
     public annotationService: AnnotationService
   ) {
     this.loadingIndicator = false;
-    this.reorderable = true;
 
     this._unsubscribeAll = new Subject();
 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.annotations.currentValue) {
-      console.log('changed ann');
-      this.dataSource = new MatTableDataSource<any>(this.annotations);
-      this.annotationPage = this.annotationService.annotationPage
+    if (changes.annotationPage.currentValue) {
+      console.log('changed ann group');
+      this.annotationGroups = this.annotationPage.annotations
+
+      console.log(this.annotationGroups)
     }
   }
 
@@ -122,7 +121,7 @@ export class AnnotationTableComponent implements OnInit, OnDestroy, OnChanges {
 
   setPage($event) {
     if (this.annotationPage) {
-      this.annotationService.getAnnotationsPage(this.annotationService.annotationPage.query, $event.pageIndex + 1);
+      this.annotationService.getAnnotationsPage(this.annotationPage.query, $event.pageIndex + 1);
     }
   }
 

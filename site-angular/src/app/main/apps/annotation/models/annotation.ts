@@ -150,9 +150,10 @@ export class Annotation {
     detailedGroups: Group[] = [];
 }
 
-export class GroupedAnnotation {
+export class AnnotationGroup {
     title: string;
     label: string;
+    gene: Gene
     annotations: Annotation[] = [];
 }
 

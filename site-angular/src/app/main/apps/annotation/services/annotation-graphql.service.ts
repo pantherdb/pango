@@ -4,7 +4,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { AnnotationPage, Query } from '../models/page';
 import { SearchCriteria } from '@pango.search/models/search-criteria';
 import { PangoGraphQLService } from '@pango.search/services/graphql.service';
-import { AnnotationCount, AnnotationStats, Annotation, AutocompleteFilterArgs, AutocompleteType, Term, Group, GroupedAnnotation } from '../models/annotation';
+import { AnnotationCount, AnnotationStats, Annotation, AutocompleteFilterArgs, AutocompleteType, Term, Group, AnnotationGroup } from '../models/annotation';
 import groupsData from '@pango.common/data/groups.json';
 import { find } from 'lodash';
 
@@ -147,6 +147,25 @@ export class AnnotationGraphQLService {
               evidenceType            
               groups
               evidenceCount
+              evidence {
+                withGeneId {
+                  gene
+                  geneName
+                  geneSymbol
+                  taxonAbbr
+                  taxonLabel
+                  taxonId
+                  coordinatesChrNum
+                  coordinatesStart
+                  coordinatesEnd
+                  coordinatesStrand
+                }
+                references {
+                  pmid
+                  title
+                  date
+                }
+              }
             }                              
           }
         }`
@@ -154,15 +173,23 @@ export class AnnotationGraphQLService {
 
     return this.pangoGraphQLService.query(options).pipe(
       map((response: any) => {
-        return response.groupedAnnotations.map((groupedAnnotation: GroupedAnnotation) => {
-          return groupedAnnotation.annotations.map((annotation: Annotation) => {
+        return response.groupedAnnotations.map((annotationGroup: AnnotationGroup) => {
+          let gene = annotationGroup.annotations.length > 0 ?
+            { ...annotationGroup.annotations[0] } :
+            null
+
+          const annotations = annotationGroup.annotations.map((annotation: Annotation) => {
             annotation.detailedGroups = annotation.groups.map((group) => {
               return this.findGroup(group);
             })
             return annotation
           }) as Annotation[];
 
-        }) as GroupedAnnotation[];
+          return {
+            gene,
+            annotations
+          }
+        }) as AnnotationGroup[];
       }));
   }
 

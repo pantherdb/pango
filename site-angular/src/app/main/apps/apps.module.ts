@@ -15,11 +15,13 @@ import { SummaryStatsComponent } from './annotation/annotation-stats/summary-sta
 import { AnnotationTableLongComponent } from './annotation/annotation-table-long/annotation-table-long.component';
 import { CategoryStatsComponent } from './annotation/annotation-stats/category-stats/category-stats.component';
 import { SearchAspectFormComponent } from './annotation/search-form/search-aspect-form/search-aspect-form.component';
+import { AnnotationGroupComponent } from './annotation/annotation-group/annotation-group.component';
 
 const routes = [];
 
 @NgModule({
     declarations: [
+        AnnotationGroupComponent,
         AnnotationTableComponent,
         AnnotationTableLongComponent,
         AnnotationDetailComponent,
@@ -31,7 +33,8 @@ const routes = [];
         PositionStatsComponent,
         SearchFormComponent,
         SearchAspectFormComponent,
-        AnnotationFiltersComponent
+        AnnotationFiltersComponent,
+        AnnotationGroupComponent
     ],
     imports: [
         RouterModule.forChild(routes),
@@ -40,6 +43,7 @@ const routes = [];
         PangoConfirmDialogModule,
     ],
     exports: [
+        AnnotationGroupComponent,
         AnnotationTableComponent,
         AnnotationTableLongComponent,
         AnnotationDetailComponent,

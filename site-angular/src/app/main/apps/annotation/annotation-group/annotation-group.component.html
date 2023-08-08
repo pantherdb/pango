@@ -1,0 +1,34 @@
+<mat-accordion class="example-headers-align">
+  <mat-expansion-panel *ngFor="let annotationGroup of annotationGroups">
+    <mat-expansion-panel-header>
+      <div class="w-100-p" fxLayout="column" fxLayoutAlign="start start">
+        <div class="w-100-p pango-cell-description">
+          <a [routerLink]="'/gene/'+annotationGroup.gene?.gene" target="_blank">
+            {{annotationGroup.gene?.geneSymbol}}
+          </a>
+          (<a [href]="taxonApiUrl+annotationGroup.gene?.taxonId" target="_blank">
+            {{annotationGroup.gene?.taxonAbbr}}
+          </a> )
+        </div>
+        <div class="w-100-p pango-cell-description-2">{{annotationGroup.gene?.geneName}}</div>
+        <div class="w-100-p pango-cell-title mr-8">
+          <a href="{{getUniprotLink(annotationGroup.gene?.gene)}}" target="_blank">
+            {{annotationGroup.gene?.gene}}
+          </a>
+        </div>
+        <div *ngIf="annotationGroup.gene?.coordinatesChrNum" class="pango-cell-coordinates">
+          <a [href]="getUcscLink(annotationGroup)" target="_blank">
+            chr{{annotationGroup.gene?.coordinatesChrNum}}:{{annotationGroup.gene?.coordinatesStart}}-{{annotationGroup.gene?.coordinatesEnd}}
+          </a>
+        </div>
+        <div *ngIf="annotationGroup.gene?.pantherFamily" class="w-100-p pango-cell-title mr-8">
+          <a [href]="getFamilyLink(annotationGroup)" target="_blank">
+            {{annotationGroup.gene?.pantherFamily}}
+          </a>
+        </div>
+      </div>
+    </mat-expansion-panel-header>
+    <pango-annotation-table class="w-100-p" [annotations]="annotationGroup.annotations"></pango-annotation-table>
+
+  </mat-expansion-panel>
+</mat-accordion>

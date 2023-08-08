@@ -9,11 +9,16 @@ import { PangoConfirmDialogModule } from '@pango/components/confirm-dialog/confi
 import { GeneComponent } from './gene/gene.component';
 import { HomeComponent } from './home/home.component';
 import { DownloadComponent } from './download/download.component';
+import { HomeLabComponent } from './home-lab/home-lab.component';
 
 const routes = [{
   path: '',
   title: 'Home: Annotations',
   component: HomeComponent
+}, {
+  path: 'lab',
+  title: 'Lab: Layout',
+  component: HomeLabComponent
 }, {
   path: 'gene/:gene',
   title: 'Gene Page',
@@ -29,6 +34,7 @@ const routes = [{
 @NgModule({
   declarations: [
     HomeComponent,
+    HomeLabComponent,
     AboutComponent,
     DownloadComponent,
     ContactComponent,

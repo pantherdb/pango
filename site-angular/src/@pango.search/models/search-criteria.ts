@@ -1,4 +1,8 @@
 
+export enum SearchType {
+    ANNOTATIONS = 'annotations',
+    ANNOTATION_GROUP = 'annotations_group'
+}
 export enum SearchFilterType {
     TERMS = 'terms',
     TERM_TYPES = 'termTypes',
