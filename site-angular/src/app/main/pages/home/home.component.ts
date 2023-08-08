@@ -6,6 +6,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 import { LeftPanel, RightPanel } from '@pango.common/models/menu-panels';
 import { AnnotationService } from 'app/main/apps/annotation/services/annotation.service';
+import { pangoData } from '@pango.common/data/config';
 
 @Component({
   selector: 'app-home',
@@ -41,7 +42,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.annotationService.searchCriteria.clearSearch()
+    this.annotationService.searchCriteria.termTypes = [pangoData.termTypeMap.known.id]
     this.annotationService.updateSearch();
+
     this.pangoMenuService.setLeftDrawer(this.leftDrawer);
     this.pangoMenuService.setRightDrawer(this.rightDrawer);
   }
