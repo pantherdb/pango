@@ -116,6 +116,9 @@ class IbaExpRefCollection:
         gene_id = "{}:{}".format(csv_row[0], csv_row[1])
         go_term = csv_row[4]
         qualifier = csv_row[3]  # Currently treating as only one
+        if "NOT" in qualifier:
+            # Completely skip processing these rows
+            return
 
         if gene_id not in self.annotation_lkp:
             self.annotation_lkp[gene_id] = {}

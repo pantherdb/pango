@@ -57,6 +57,11 @@ def test_filling_in_the_unknowns():
     assert "UNKNOWN:0003" in iba_collection.annotation_lkp["UniProtKB:P28472"]
     assert "UNKNOWN:0001" not in iba_collection.annotation_lkp["UniProtKB:P28472"]
 
+    # Ensure the two NOT annotations do not block UNKNOWNs to those aspects
+    assert "UNKNOWN:0001" in iba_collection.annotation_lkp["UniProtKB:O14531"]
+    assert "UNKNOWN:0002" in iba_collection.annotation_lkp["UniProtKB:O14531"]
+    assert "UNKNOWN:0003" in iba_collection.annotation_lkp["UniProtKB:O14531"]
+
 
 def test_direct_evidence_sorting():
     gene_id = "UniProtKB:Q9HBH0"
