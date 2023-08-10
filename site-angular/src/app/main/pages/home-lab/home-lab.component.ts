@@ -50,9 +50,10 @@ export class HomeLabComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.annotationService.searchType = SearchType.ANNOTATION_GROUP;
     this.annotationService.searchCriteria.clearSearch()
     this.annotationService.searchCriteria.termTypes = [pangoData.termTypeMap.known.id]
-    this.annotationService.updateSearch(SearchType.ANNOTATION_GROUP);
+    this.annotationService.updateSearch();
 
     this.pangoMenuService.setLeftDrawer(this.leftDrawer);
     this.pangoMenuService.setRightDrawer(this.rightDrawer);
@@ -74,7 +75,7 @@ export class HomeLabComponent implements OnInit {
 
   clearAllFIlters() {
     this.annotationService.searchCriteria.clearSearch()
-    this.annotationService.updateSearch(SearchType.ANNOTATION_GROUP);
+    this.annotationService.updateSearch();
   }
 
 

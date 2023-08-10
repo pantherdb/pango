@@ -16,11 +16,13 @@ import { AnnotationTableLongComponent } from './annotation/annotation-table-long
 import { CategoryStatsComponent } from './annotation/annotation-stats/category-stats/category-stats.component';
 import { SearchAspectFormComponent } from './annotation/search-form/search-aspect-form/search-aspect-form.component';
 import { AnnotationGroupComponent } from './annotation/annotation-group/annotation-group.component';
+import { GeneListComponent } from './annotation/gene-list/gene-list.component';
 
 const routes = [];
 
 @NgModule({
     declarations: [
+        GeneListComponent,
         AnnotationGroupComponent,
         AnnotationTableComponent,
         AnnotationTableLongComponent,
@@ -43,6 +45,7 @@ const routes = [];
         PangoConfirmDialogModule,
     ],
     exports: [
+        GeneListComponent,
         AnnotationGroupComponent,
         AnnotationTableComponent,
         AnnotationTableLongComponent,

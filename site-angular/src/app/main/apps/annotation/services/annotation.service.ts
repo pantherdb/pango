@@ -25,12 +25,15 @@ export class AnnotationService {
     onDistinctAggsChanged: BehaviorSubject<AnnotationStats>;
     onAnnotationChanged: BehaviorSubject<any>;
     onSearchCriteriaChanged: BehaviorSubject<any>;
+
+    onSelectedAnnotationsChanged: BehaviorSubject<Annotation[]>;
     searchCriteria: SearchCriteria;
     annotationPage: AnnotationPage = new AnnotationPage();
     loading = false;
     selectedQuery;
     queryOriginal;
     query: Query = new Query();
+    searchType = SearchType.ANNOTATIONS
 
     private client: Client;
     uniqueList: Annotation[];
@@ -46,6 +49,7 @@ export class AnnotationService {
         this.onDistinctAggsChanged = new BehaviorSubject(null);
         this.onAnnotationChanged = new BehaviorSubject(null);
         this.onSearchCriteriaChanged = new BehaviorSubject(null);
+        this.onSelectedAnnotationsChanged = new BehaviorSubject(null);
         this.searchCriteria = new SearchCriteria();
 
     }
@@ -232,7 +236,7 @@ export class AnnotationService {
         });
     }
 
-    updateSearch(searchType = SearchType.ANNOTATIONS) {
+    updateSearch() {
         this.searchCriteria.updateFiltersCount();
         this.onSearchCriteriaChanged.next(this.searchCriteria);
 
@@ -269,7 +273,7 @@ export class AnnotationService {
 
         this.query = query;
 
-        if (searchType === SearchType.ANNOTATION_GROUP) {
+        if (this.searchType === SearchType.ANNOTATION_GROUP) {
             this.getAnnotationGroupsPage(query, 1);
         } else {
             this.getAnnotationsPage(query, 1);

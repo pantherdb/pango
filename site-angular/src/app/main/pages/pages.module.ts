@@ -10,6 +10,7 @@ import { GeneComponent } from './gene/gene.component';
 import { HomeComponent } from './home/home.component';
 import { DownloadComponent } from './download/download.component';
 import { HomeLabComponent } from './home-lab/home-lab.component';
+import { HomeAdvancedComponent } from './home-advanced/home-advanced.component';
 
 const routes = [{
   path: '',
@@ -19,6 +20,10 @@ const routes = [{
   path: 'lab',
   title: 'Lab: Layout',
   component: HomeLabComponent
+}, {
+  path: 'advanced-lab',
+  title: 'Advanced Lab: Layout',
+  component: HomeAdvancedComponent
 }, {
   path: 'gene/:gene',
   title: 'Gene Page',
@@ -35,6 +40,7 @@ const routes = [{
   declarations: [
     HomeComponent,
     HomeLabComponent,
+    HomeAdvancedComponent,
     AboutComponent,
     DownloadComponent,
     ContactComponent,
