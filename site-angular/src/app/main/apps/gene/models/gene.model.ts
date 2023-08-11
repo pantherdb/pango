@@ -1,3 +1,5 @@
+import { Term } from "../../annotation/models/annotation";
+
 export class Gene {
   gene: string
   geneSymbol: string
@@ -11,4 +13,9 @@ export class Gene {
   coordinatesStart: number
   coordinatesEnd: number
   coordinatesStrand: number
+  hgncId: string;
+  //summary
+  termsSummary: Term[];
+  slimTermsSummary: Term[];
+
 }

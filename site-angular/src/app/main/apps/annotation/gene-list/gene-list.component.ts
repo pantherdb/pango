@@ -125,9 +125,9 @@ export class GeneListComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  selectAnnotation(annotations: Annotation[]) {
+  selectAnnotationGroup(annotationGroup: AnnotationGroup) {
 
-    this.annotationService.onSelectedAnnotationsChanged.next(annotations);
+    this.annotationService.onSelectedAnnotationGroupChanged.next(annotationGroup);
   }
 
   selectGene(gene: string) {

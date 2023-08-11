@@ -1,19 +1,23 @@
 <div *ngFor="let annotationGroup of annotationGroups">
   <div class="pango-cell  w-100-p" fxLayout="column" fxLayoutAlign="start start">
-    <div class="w-100-p pango-cell-description">
-      <a [routerLink]="'/gene/'+annotationGroup.gene?.gene" target="_blank">
-        {{annotationGroup.gene?.geneSymbol}}
-      </a>
-      (<a [href]="taxonApiUrl+annotationGroup.gene?.taxonId" target="_blank">
-        {{annotationGroup.gene?.taxonAbbr}}
-      </a> )
+    <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+      <div fxFlex="150px" class="pango-cell-description">
+        <a [routerLink]="'/gene/'+annotationGroup.gene?.gene" target="_blank">
+          {{annotationGroup.gene?.geneSymbol}}
+        </a>
+        (<a [href]="taxonApiUrl+annotationGroup.gene?.taxonId" target="_blank">
+          {{annotationGroup.gene?.taxonAbbr}}
+        </a> )
+      </div>
+      <span fxFlex></span>
+      <div class="pango-cell-title mr-8">
+        <a href="{{getUniprotLink(annotationGroup.gene?.gene)}}" target="_blank">
+          {{annotationGroup.gene?.gene}}
+        </a>
+      </div>
     </div>
     <div class="w-100-p pango-cell-description-2">{{annotationGroup.gene?.geneName}}</div>
-    <div class="w-100-p pango-cell-title mr-8">
-      <a href="{{getUniprotLink(annotationGroup.gene?.gene)}}" target="_blank">
-        {{annotationGroup.gene?.gene}}
-      </a>
-    </div>
+
     <div *ngIf="annotationGroup.gene?.coordinatesChrNum" class="pango-cell-coordinates">
       <a [href]="getUcscLink(annotationGroup)" target="_blank">
         chr{{annotationGroup.gene?.coordinatesChrNum}}:{{annotationGroup.gene?.coordinatesStart}}-{{annotationGroup.gene?.coordinatesEnd}}
@@ -25,8 +29,21 @@
       </a>
     </div>
     <div>
+      <div *ngFor="let term of annotationGroup.gene.termsSummary" class="pango-cell-title w-100-p">
+        <span class="pango-circle-chip pango-chip-xs pango-aspect {{aspectMap[term.aspect]?.shorthand}}"
+          fxLayout="column" fxLayoutAlign="center center">
+          {{aspectMap[term.aspect]?.shorthand}}
+        </span>
+        <span class="pango-cell-description mr-4"> {{term.label}}
+          <span *ngIf="term.displayId" class="pango-cell-description-2">
+            <a href="{{amigoTermUrl}}{{term.id}}" target="_blank">{{term.displayId}}</a>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div>
       <button mat-stroked-button type="button" class="pango-rounded-button pango-xs mr-8"
-        (click)="selectAnnotation(annotationGroup.annotations)">
+        (click)="selectAnnotationGroup(annotationGroup)">
         View {{annotationGroup.annotations.length}} annotationSearch
       </button>
     </div>

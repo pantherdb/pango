@@ -26,7 +26,7 @@
     <mat-drawer-content #scrollbarRef class="pango-section-body w-100-p">
       <div fxLayout="row" fxLayoutAlign="start stretch">
         <div fxFlex="300px">
-          <pango-summary-stats></pango-summary-stats>
+          <pango-summary-stats-vertical></pango-summary-stats-vertical>
           <pango-gene-list [annotationPage]="annotationPage"></pango-gene-list>
         </div>
         <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
@@ -53,7 +53,117 @@
           </div> -->
             <pango-search-form> </pango-search-form>
           </div>
-          <pango-annotation-table class="w-100-p" [annotations]="selectedAannotations"></pango-annotation-table>
+          <div class="w-100-p" *ngIf="selectedAnnotationGroup">
+            <div class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+              <div class="pango-gene-summary w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+                <h1 class="pango-heading">
+                  All annotations and evidence for
+                  <span class="pango-highlight">
+                    {{selectedAnnotationGroup.gene.geneSymbol}}
+                  </span>
+                </h1>
+                <div class="w-100-p" fxLayout="row" fxLayoutAlign="start space-between">
+                  <div class="pango-gene-detail-col" fxLayout="column" fxLayoutAlign="start start">
+                    <h2>
+                      Gene Details
+                    </h2>
+
+                    <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                      <div class="pango-title mr-8">
+                        Gene:
+                      </div>
+                      <div class=" pango-description">
+                        {{selectedAnnotationGroup.gene.geneSymbol}}
+                      </div>
+                    </div>
+                    <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                      <div class="pango-title mr-8">
+                        Protein:
+                      </div>
+                      <div class=" pango-description">
+                        {{selectedAnnotationGroup.gene.geneName}}
+                      </div>
+                    </div>
+
+                    <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                      <div class="pango-title mr-8">
+                        Organism
+                      </div>
+                      <div class=" pango-description">
+                        <a [href]="taxonApiUrl+selectedAnnotationGroup.gene.taxonId" target="_blank">
+                          {{selectedAnnotationGroup.gene.taxonLabel}}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pango-links-col" fxLayout="column" fxLayoutAlign="start start">
+                    <h2>
+                      External Links
+                    </h2>
+                    <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                      <div class="pango-title mr-8">
+                        UniProt ID:
+                      </div>
+                      <div class=" pango-description">
+                        <a href="{{getUniprotLink(selectedAnnotationGroup.gene.gene)}}" target="_blank">
+                          {{selectedAnnotationGroup.gene.gene}}
+                        </a>
+                      </div>
+                    </div>
+                    <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                      <div class="pango-title mr-8">
+                        PANTHER Tree Viewer:
+                      </div>
+                      <div class=" pango-description">
+                        <a (click)="$event.stopPropagation()" [href]="getFamilyLink(selectedAnnotationGroup.gene)"
+                          target="_blank">
+                          {{selectedAnnotationGroup.gene.pantherFamily}}
+                        </a>
+                      </div>
+                    </div>
+                    <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                      <div class="pango-title mr-8">
+                        UCSC Genome Browser:
+                      </div>
+                      <div class=" pango-description">
+                        <a (click)="$event.stopPropagation()" [href]="getUcscLink(selectedAnnotationGroup.gene)"
+                          target="_blank">
+                          chr{{selectedAnnotationGroup.gene.coordinatesChrNum}}:{{selectedAnnotationGroup.gene.coordinatesStart}}-{{selectedAnnotationGroup.gene.coordinatesEnd}}
+                        </a>
+                      </div>
+                    </div>
+                    <div *ngIf="selectedAnnotationGroup.gene.hgncId" class="pango-term-row" fxLayout="row"
+                      fxLayoutAlign="start center">
+                      <div class="pango-title mr-8">
+                        Alliance of Genome Resources:
+                      </div>
+                      <div class=" pango-description">
+                        <a [href]="getAGRLink(selectedAnnotationGroup.gene.hgncId)" target="_blank">
+                          {{selectedAnnotationGroup.gene.hgncId}}
+                        </a>
+                      </div>
+                    </div>
+                    <div *ngIf="selectedAnnotationGroup.gene.hgncId" class="pango-term-row" fxLayout="row"
+                      fxLayoutAlign="start center">
+                      <div class="pango-title mr-8">
+                        HUGO Gene Nomenclature Committee:
+                      </div>
+                      <div class=" pango-description">
+                        <a [href]="getHGNCLink(selectedAnnotationGroup.gene.hgncId)" target="_blank">
+                          {{selectedAnnotationGroup.gene.hgncId}}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <pango-summary-stats></pango-summary-stats>
+
+              <pango-annotation-table class="w-100-p" [options]="tableOptions"
+                [annotations]="selectedAnnotationGroup.annotations"></pango-annotation-table>
+            </div>
+          </div>
           <div class="w-100-p">
             <pango-footer></pango-footer>
           </div>

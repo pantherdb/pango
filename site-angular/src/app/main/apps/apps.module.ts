@@ -17,6 +17,7 @@ import { CategoryStatsComponent } from './annotation/annotation-stats/category-s
 import { SearchAspectFormComponent } from './annotation/search-form/search-aspect-form/search-aspect-form.component';
 import { AnnotationGroupComponent } from './annotation/annotation-group/annotation-group.component';
 import { GeneListComponent } from './annotation/gene-list/gene-list.component';
+import { SummaryStatsVerticalComponent } from './annotation/annotation-stats/summary-stats-vertical/summary-stats-vertical.component';
 
 const routes = [];
 
@@ -29,6 +30,7 @@ const routes = [];
         AnnotationDetailComponent,
         AnnotationSummaryComponent,
         SummaryStatsComponent,
+        SummaryStatsVerticalComponent,
         CategoryStatsComponent,
         AnnotationStatsComponent,
         GeneralStatsComponent,
@@ -53,6 +55,7 @@ const routes = [];
         AnnotationSummaryComponent,
         AnnotationStatsComponent,
         SummaryStatsComponent,
+        SummaryStatsVerticalComponent,
         CategoryStatsComponent,
         GeneralStatsComponent,
         PositionStatsComponent,

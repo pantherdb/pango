@@ -26,7 +26,7 @@ export class AnnotationService {
     onAnnotationChanged: BehaviorSubject<any>;
     onSearchCriteriaChanged: BehaviorSubject<any>;
 
-    onSelectedAnnotationsChanged: BehaviorSubject<Annotation[]>;
+    onSelectedAnnotationGroupChanged: BehaviorSubject<AnnotationGroup>;
     searchCriteria: SearchCriteria;
     annotationPage: AnnotationPage = new AnnotationPage();
     loading = false;
@@ -49,7 +49,7 @@ export class AnnotationService {
         this.onDistinctAggsChanged = new BehaviorSubject(null);
         this.onAnnotationChanged = new BehaviorSubject(null);
         this.onSearchCriteriaChanged = new BehaviorSubject(null);
-        this.onSelectedAnnotationsChanged = new BehaviorSubject(null);
+        this.onSelectedAnnotationGroupChanged = new BehaviorSubject(null);
         this.searchCriteria = new SearchCriteria();
 
     }

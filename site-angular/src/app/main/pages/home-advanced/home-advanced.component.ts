@@ -10,7 +10,9 @@ import { pangoData } from '@pango.common/data/config';
 import { AnnotationPage } from 'app/main/apps/annotation/models/page';
 import { Subject, takeUntil } from 'rxjs';
 import { SearchType } from '@pango.search/models/search-criteria';
-import { Annotation } from 'app/main/apps/annotation/models/annotation';
+import { Annotation, AnnotationGroup } from 'app/main/apps/annotation/models/annotation';
+import { environment } from 'environments/environment';
+import { PangoUtils } from '@pango/utils/pango-utils';
 
 @Component({
   selector: 'app-home-advanced',
@@ -27,7 +29,7 @@ export class HomeAdvancedComponent implements OnInit {
   @ViewChild('rightDrawer', { static: true })
   rightDrawer: MatDrawer;
 
-  selectedAannotations = []
+  selectedAnnotationGroup: AnnotationGroup;
   searchCriteria: any = {};
   searchForm: UntypedFormGroup;
   leftPanelMenu;
@@ -39,11 +41,21 @@ export class HomeAdvancedComponent implements OnInit {
     mode: 'indeterminate'
   };
 
+  tableOptions = {
+    displayedColumns: [
+      'term',
+      'slimTerms',
+      'evidence',
+      'contributors'
+    ]
+  }
+
   scrollbarConfig = {
     suppressScrollX: true
   }
 
   private _unsubscribeAll: Subject<any>;
+
 
   constructor(public pangoMenuService: PangoMenuService,
     public annotationService: AnnotationService) {
@@ -70,11 +82,11 @@ export class HomeAdvancedComponent implements OnInit {
         }
       });
 
-    this.annotationService.onSelectedAnnotationsChanged
+    this.annotationService.onSelectedAnnotationGroupChanged
       .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((annotations: Annotation[]) => {
-        if (annotations) {
-          this.selectedAannotations = annotations
+      .subscribe((annotationGroup: AnnotationGroup) => {
+        if (annotationGroup) {
+          this.selectedAnnotationGroup = annotationGroup
         } else {
           this.annotationPage = null
         }
@@ -97,5 +109,47 @@ export class HomeAdvancedComponent implements OnInit {
   ngOnDestroy(): void {
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
+  }
+
+
+
+  getAGRLink(hgncId) {
+
+    if (hgncId) {
+      return environment.agrPrefixUrl + hgncId;
+    }
+
+    return environment.agrPrefixUrl;
+
+  }
+
+  getHGNCLink(hgncId) {
+
+    if (hgncId) {
+      return environment.hgncPrefixUrl + hgncId;
+    }
+
+    return environment.hgncPrefixUrl;
+
+  }
+
+  getUcscLink(element: Annotation) {
+    const chr = `${element.coordinatesChrNum}:${element.coordinatesStart}-${element.coordinatesEnd}`
+    return environment.ucscUrl + chr
+  }
+
+  getUniprotLink(gene: string) {
+    const geneId = gene.split(':')
+
+    if (geneId.length > 1) {
+      return environment.uniprotUrl + geneId[1];
+    }
+
+    return gene;
+  }
+
+  getFamilyLink(element: Annotation) {
+
+    return `${environment.pantherFamilyUrl}book=${encodeURIComponent(element.pantherFamily)}&seq=${encodeURIComponent(element.longId)}`
   }
 }

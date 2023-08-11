@@ -7,6 +7,8 @@ import { PangoGraphQLService } from '@pango.search/services/graphql.service';
 import { AnnotationCount, AnnotationStats, Annotation, AutocompleteFilterArgs, AutocompleteType, Term, Group, AnnotationGroup } from '../models/annotation';
 import groupsData from '@pango.common/data/groups.json';
 import { find } from 'lodash';
+import { Gene } from '../../gene/models/gene.model';
+import { PangoUtils } from '@pango/utils/pango-utils';
 
 
 @Injectable({
@@ -174,9 +176,13 @@ export class AnnotationGraphQLService {
     return this.pangoGraphQLService.query(options).pipe(
       map((response: any) => {
         return response.groupedAnnotations.map((annotationGroup: AnnotationGroup) => {
-          let gene = annotationGroup.annotations.length > 0 ?
-            { ...annotationGroup.annotations[0] } :
-            null
+          let gene: Gene
+          if (annotationGroup.annotations.length > 0) {
+            gene = { ...annotationGroup.annotations[0] } as unknown as Gene
+            gene.termsSummary = this.getTermsSummary(annotationGroup.annotations)
+            gene.hgncId = PangoUtils.getHGNC(gene.longId);
+
+          }
 
           const annotations = annotationGroup.annotations.map((annotation: Annotation) => {
             annotation.detailedGroups = annotation.groups.map((group) => {
@@ -393,4 +399,21 @@ export class AnnotationGraphQLService {
 
   }
 
+  getTermsSummary(annotations: Annotation[]): Term[] {
+    const distinctTerms: Term[] = [];
+    const distinctIds = new Set<string>();
+
+    annotations.forEach(annotation => {
+      if (!distinctIds.has(annotation.term.id)) {
+        distinctIds.add(annotation.term.id);
+        distinctTerms.push(annotation.term);
+      }
+    })
+
+    return distinctTerms;
+
+  }
+
 }
+
+
