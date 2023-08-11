@@ -134,16 +134,7 @@ async def get_annotations_query(filter_args:AnnotationFilterArgs):
                   "evidence_type.keyword": filter_args.evidence_type_ids
                 }
               }) 
-
-      if filter_args.qualifier_ids != None and len(filter_args.qualifier_ids)>0:
-            filters.append(  
-              {           
-                "terms": {
-                  "qualifier.keyword": filter_args.qualifier_ids
-                }
-              }
-          )   
-
+   
     query = {  
       "bool": {  
         "filter": filters

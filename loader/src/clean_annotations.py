@@ -133,7 +133,6 @@ def get_annos(annos_fp, terms_df, genes_df, articles_df):
     annos_df['term'] = annos_df['term'].apply(lambda x: get_pd_row(terms_df, x))
     annos_df['term_type'] = annos_df['term'].apply(lambda x: term_type(x))
     annos_df['slim_terms'] = annos_df['slim_terms'].apply(lambda x: spread_terms(terms_df, x))
-    annos_df['qualifier'] = annos_df['qualifier'].str.replace('_', ' ')
     annos_df['evidence'] = annos_df.apply(lambda x: get_evidence(articles_df, genes_df, x),axis=1)
     annos_df['evidence_type'] = annos_df['evidence_type'].replace(np.nan, 'n/a')
     annos_df['groups'] = annos_df['evidence'].apply(lambda x: get_groups(x))

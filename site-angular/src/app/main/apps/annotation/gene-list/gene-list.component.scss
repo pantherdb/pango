@@ -39,14 +39,36 @@ $accent: map-get($theme, accent);
     z-index: 10;
   }
 
+  .pango-gene-header {
+    padding: 5px 10px;
+    border-bottom: #bbb solid 1px;
+  }
+
+  .pango-gene-term {
+    padding: 5px 0px;
+  }
+
+  .pango-gene-terms {
+    padding: 8px;
+
+    &:not(:last-child) {
+      border-bottom: rgba(map-get($primary, default), 0.3) solid 1px;
+    }
+  }
+
+  .pango-gene-footer {
+    height: 30px;
+  }
+
   .pango-cell {
     //display: flex;
     // align-items: center;
-    margin: 5px 5px;
+    margin: 8px 0;
     padding: 8px;
     font-size: 10px;
-    border: #aaa solid 1px;
-    @include mat-elevation(5);
+    border: #ccc solid 1px;
+    background-color: #fff;
+    // @include mat-elevation(5);
 
     .pango-cell-section {
       //border-bottom: #aaa solid 1px;
@@ -127,10 +149,6 @@ $accent: map-get($theme, accent);
 
     &.pango-aspect-cell {
       @include deep-width(150px);
-    }
-
-    &.pango-qualifier-cell {
-      @include deep-width(80px);
     }
 
     &.pango-group-cell {

@@ -154,7 +154,18 @@
   }
 
   .pango-section-body {
+    overflow: hidden;
     background-color: $pango-background;
+  }
+
+  .pango-genes-panel {
+    @include deep-height(100%);
+    overflow-y: auto;
+  }
+
+  .pango-annotations-panel {
+    @include deep-height(100%);
+    overflow-y: auto;
   }
 
   .pango-middle-panel {

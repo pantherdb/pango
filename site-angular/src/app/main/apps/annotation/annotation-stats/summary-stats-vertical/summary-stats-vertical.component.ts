@@ -22,11 +22,11 @@ export class SummaryStatsVerticalComponent implements OnInit, OnDestroy {
   distinctGeneCount;
 
   aspectPieOptions = {
-    view: [100, 100],
+    view: [60, 60],
     gradient: true,
     legend: false,
     showLabels: false,
-    isDoughnut: true,
+    isDoughnut: false,
     maxLabelLength: 20,
     onSelect: this.onSelectAspect.bind(this)
 
@@ -48,11 +48,11 @@ export class SummaryStatsVerticalComponent implements OnInit, OnDestroy {
 
 
   evidenceTypePieOptions = {
-    view: [100, 100],
+    view: [60, 60],
     gradient: true,
     legend: false,
     showLabels: false,
-    isDoughnut: true,
+    isDoughnut: false,
     maxLabelLength: 20,
     onSelect: this.onSelectEvidenceType.bind(this)
   }

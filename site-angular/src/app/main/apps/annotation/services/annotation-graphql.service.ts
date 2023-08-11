@@ -58,7 +58,6 @@ export class AnnotationGraphQLService {
                     coordinatesStart
                     coordinatesEnd
                     coordinatesStrand
-                    qualifier
                     term {
                       id
                       aspect
@@ -131,7 +130,6 @@ export class AnnotationGraphQLService {
               taxonAbbr
               taxonLabel
               taxonId
-              qualifier
               term {
                 id
                 aspect
@@ -179,7 +177,7 @@ export class AnnotationGraphQLService {
           let gene: Gene
           if (annotationGroup.annotations.length > 0) {
             gene = { ...annotationGroup.annotations[0] } as unknown as Gene
-            gene.termsSummary = this.getTermsSummary(annotationGroup.annotations)
+            gene.termsSummary = this.getTermsSummary(annotationGroup.annotations).slice(0, 4)
             gene.hgncId = PangoUtils.getHGNC(gene.longId);
 
           }
@@ -268,24 +266,19 @@ export class AnnotationGraphQLService {
 
   getUniqueListGraphQL(query: Query): Observable<Annotation[]> {
     const aspectFilter = new AutocompleteFilterArgs(AutocompleteType.ASPECT)
-    const qualifierFilter = new AutocompleteFilterArgs(AutocompleteType.QUALIFIER)
     const options = {
       variables: {
         filterArgs: query.filterArgs,
         autocompleteType: aspectFilter.autocompleteType,
-        qualifierAutocompleteType: qualifierFilter.autocompleteType,
         keyword: ""
       },
       query: `query GetAutocomplete($autocompleteType:AutocompleteType!,
-                $qualifierAutocompleteType:AutocompleteType!,
                  $keyword: String!,
                  $filterArgs: AnnotationFilterArgs) {
                 aspect: autocomplete(autocompleteType:$autocompleteType, keyword:$keyword, filterArgs:$filterArgs) {
                    ${aspectFilter.getAutocompleteFields()}                                                  
                 }
-                qualifier: autocomplete(autocompleteType:$qualifierAutocompleteType, keyword:$keyword, filterArgs:$filterArgs) {
-                    ${qualifierFilter.getAutocompleteFields()}                                                  
-                 }
+            
             }`
     }
 

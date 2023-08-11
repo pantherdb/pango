@@ -262,9 +262,6 @@ export class AnnotationService {
             query.filterArgs.geneIds.push(annotation.gene);
         });
 
-        this.searchCriteria.qualifiers.forEach((annotation: Annotation) => {
-            query.filterArgs.qualifierIds.push(annotation.qualifier);
-        });
 
         this.searchCriteria.aspects.forEach((aspect: string) => {
             query.filterArgs.aspectIds.push(aspect);

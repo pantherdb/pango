@@ -6,28 +6,24 @@ $accent: map-get($theme, accent);
 
 .pango-aspect-stats {
   //@include deep-width(250px);
-  @include deep-height(190px);
+  @include deep-height(120px);
   .pango-section-body {
     padding: 8px;
   }
 }
 
-.pango-terms-stats {
-  // @include deep-width(300px);
-  min-height: 450px !important;
-}
-
 .pango-total-stats {
-  @include deep-height(190px);
-  @include deep-width(250px);
+  @include deep-height(100px);
+  @include deep-width(100%);
   .pango-stat-number {
     font-size: 36px;
     line-height: 20px;
     color: map-get($mat-blue-grey, 500);
-    small {
+    span {
       font-weight: normal;
       color: #555;
-      font-size: 12px;
+      font-size: 10px;
+      line-height: 12px;
     }
   }
 }
@@ -56,6 +52,10 @@ $accent: map-get($theme, accent);
   }
 }
 
+.pango-stat {
+  padding-left: 12px;
+}
+
 .pango-stat-color {
   width: 10px;
   height: 10px;
@@ -66,6 +66,7 @@ $accent: map-get($theme, accent);
 }
 .pango-stat-description {
   font-size: 10px;
+  line-height: 10px;
 }
 .pango-stat-number {
   cursor: auto;

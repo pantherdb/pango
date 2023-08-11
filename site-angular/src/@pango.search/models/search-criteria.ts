@@ -9,7 +9,6 @@ export enum SearchFilterType {
     SLIM_TERMS = "slimTerms",
     GENES = 'genes',
     ASPECTS = 'aspects',
-    QUALIFIERS = 'qualifiers',
     REFERENCES = 'references',
     WITHGENES = 'withgenes',
     EVIDENCE_TYPES = "evidenceTypes"
@@ -22,7 +21,6 @@ export class SearchCriteria {
     genes: any[] = [];
     evidenceTypes: any[] = [];
     aspects: any[] = [];
-    qualifiers: any[] = [];
     withgenes: any[] = [];
     references: any[] = [];
     fieldValues: any[] = [];
@@ -50,7 +48,6 @@ export class SearchCriteria {
         this.genes = [];
         this.evidenceTypes = [];
         this.aspects = [];
-        this.qualifiers = [];
         this.withgenes = [];
         this.references = [];
         this.fieldValues = [];

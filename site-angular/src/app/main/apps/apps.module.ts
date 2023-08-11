@@ -18,11 +18,13 @@ import { SearchAspectFormComponent } from './annotation/search-form/search-aspec
 import { AnnotationGroupComponent } from './annotation/annotation-group/annotation-group.component';
 import { GeneListComponent } from './annotation/gene-list/gene-list.component';
 import { SummaryStatsVerticalComponent } from './annotation/annotation-stats/summary-stats-vertical/summary-stats-vertical.component';
+import { NgxPieChartRemoveMarginsDirective } from '@pango.common/directives/piechart-remove-margins.directive';
 
 const routes = [];
 
 @NgModule({
     declarations: [
+        NgxPieChartRemoveMarginsDirective,
         GeneListComponent,
         AnnotationGroupComponent,
         AnnotationTableComponent,
@@ -47,6 +49,7 @@ const routes = [];
         PangoConfirmDialogModule,
     ],
     exports: [
+        NgxPieChartRemoveMarginsDirective,
         GeneListComponent,
         AnnotationGroupComponent,
         AnnotationTableComponent,

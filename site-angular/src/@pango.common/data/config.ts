@@ -32,7 +32,8 @@ const termTypeMap = {
 
   'known': {
     id: 'known',
-    label: 'Known Aspects (all)',
+    label: 'Known Aspects',
+    hint: 'all',
     description: "Show only annotations of known functions",
     color: getColor('green', 500)
   },
@@ -40,6 +41,7 @@ const termTypeMap = {
   'unknown': {
     id: 'unknown',
     label: 'Unknown Aspects',
+    hint: '',
     description: "Show only “placeholder” annotations indicating unknown function aspects",
     color: getColor('red', 500)
   },
@@ -48,19 +50,22 @@ const termTypeMap = {
 const evidenceTypeMap = {
   'direct': {
     id: 'direct',
-    label: 'Known Aspects (direct evidence)',
+    label: 'Known Aspects',
+    hint: 'direct evidence',
     description: 'Annotations supported by experimental evidence directly for that gene',
     color: getColor('green', 500)
   },
   'homology': {
     id: 'homology',
-    label: 'Known Aspects (homology evidence)',
+    label: 'Known Aspects',
+    hint: 'homology evidence',
     description: 'Annotations supported only by experimental evidence for a homologous gene',
     color: getColor('red', 500)
   },
   'n/a': {
     id: 'n/a',
-    label: 'Unknown Aspects (unknown evidence)',
+    label: 'Unknown Aspects',
+    hint: 'unknown evidence',
     description: "Evidence is not applicable to “placeholder” annotations indicating unknown function aspects",
     color: getColor('cyan', 500)
   },

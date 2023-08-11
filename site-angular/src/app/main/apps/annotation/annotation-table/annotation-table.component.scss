@@ -174,10 +174,6 @@ $accent: map-get($theme, accent);
         @include deep-width(150px);
       }
 
-      &.pango-qualifier-cell {
-        @include deep-width(80px);
-      }
-
       &.pango-group-cell {
         @include deep-width(100px);
       }

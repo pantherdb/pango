@@ -22,8 +22,6 @@ async def get_autocomplete(autocomplete_type: AutocompleteType, keyword:str, fil
         query, collapse = await get_evidence_type_autocomplete_query(keyword, filter_args)
     elif autocomplete_type.value == AutocompleteType.aspect.value:
         query, collapse = await get_aspect_autocomplete_query(keyword, filter_args)
-    elif autocomplete_type.value == AutocompleteType.qualifier.value:
-        query, collapse = await get_qualifier_autocomplete_query(keyword, filter_args)
     elif autocomplete_type.value == AutocompleteType.reference.value:
         query, collapse = await get_reference_autocomplete_query(keyword, filter_args)
     elif autocomplete_type.value == AutocompleteType.withgene.value:
@@ -89,34 +87,6 @@ async def get_evidence_type_autocomplete_query(keyword:str, filter_args:Annotati
     } 
     collapse ={
         "field": "evidence_type.keyword"
-    }
-
-    return query, collapse
-
-
-async def get_qualifier_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
-    
-    filter_query = await get_annotations_query(filter_args)
-    query = {
-       "bool": {
-         "filter":filter_query["bool"]["filter"]
-       }
-    }
-
-    if len(keyword) > 0:
-       query['bool']["must"] = [ 
-            {     
-              "match": {
-                "qualifier": {
-                  "query": keyword,
-                  "operator": "and"
-                }
-              }
-            }
-         ]
-         
-    collapse ={
-        "field": "qualifier.keyword"
     }
 
     return query, collapse

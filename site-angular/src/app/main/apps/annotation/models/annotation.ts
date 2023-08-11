@@ -7,14 +7,12 @@ export enum AutocompleteType {
     WITHGENE = "withgene",
     REFERENCE = "reference",
     ASPECT = "aspect",
-    QUALIFIER = "qualifier",
     SLIM_TERM = "slim_term",
     EVIDENCE_TYPE = "evidence_type"
 }
 
 export class UniqueAnnotations {
     aspect: string
-    qualifier: string
 }
 export class AutocompleteFilterArgs {
 
@@ -57,10 +55,7 @@ export class AutocompleteFilterArgs {
                         aspect
                     }
                 `
-            case AutocompleteType.QUALIFIER:
-                return `
-                    qualifier
-                `
+
             case AutocompleteType.REFERENCE:
                 return `
                     evidence {
@@ -92,7 +87,6 @@ export class FilterArgs {
     evidenceTypeIds: string[] = [];
     geneIds: string[] = [];
     aspectIds: string[] = [];
-    qualifierIds: string[] = [];
     withGeneIds: string[] = [];
     referenceIds: string[] = [];
 }
@@ -145,7 +139,6 @@ export class Annotation {
     slimTerms: Term[];
     evidenceType: string;
     evidence: Evidence[] = [];
-    qualifier: string;
     groups: string[] = [];
     detailedGroups: Group[] = [];
 }

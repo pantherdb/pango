@@ -106,7 +106,6 @@
                   <a href="{{amigoTermUrl}}{{element.term.id}}" target="_blank">{{element.term.displayId}}</a></span>
               </span>
             </div><br>
-            <div class="w-100-p pango-cell-description-2"> {{element.qualifier}}</div>
           </div>
         </td>
       </ng-container>
@@ -171,7 +170,8 @@
               </ng-container>
               <div class="pango-cell-inner-section" *ngIf="maxReferences < item.references.length">
                 <a (click)="selectAnnotation(element)"> — View {{item.references.length- maxReferences}} more
-                  reference(s)</a>
+                  reference(s)
+                </a>
               </div>
             </div>
           </ng-container>

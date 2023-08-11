@@ -23,13 +23,13 @@
         </div>
       </div>
     </mat-drawer>
-    <mat-drawer-content #scrollbarRef class="pango-section-body w-100-p">
-      <div fxLayout="row" fxLayoutAlign="start stretch">
-        <div fxFlex="300px">
+    <mat-drawer-content class="pango-section-body w-100-p">
+      <div class="h-100-p" fxLayout="row" fxLayoutAlign="start stretch">
+        <div class="pango-genes-panel" fxFlex="300px">
           <pango-summary-stats-vertical></pango-summary-stats-vertical>
           <pango-gene-list [annotationPage]="annotationPage"></pango-gene-list>
         </div>
-        <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+        <div class="pango-annotations-panel" fxFlex fxLayout="column" fxLayoutAlign="start stretch">
           <div class="pango-header accent p-8 w-100-p" fxLayout="column" fxLayoutAlign="start center">
 
             <h1>
@@ -57,7 +57,7 @@
             <div class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
               <div class="pango-gene-summary w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
                 <h1 class="pango-heading">
-                  All annotations and evidence for
+                  Filtered annotations and evidence for
                   <span class="pango-highlight">
                     {{selectedAnnotationGroup.gene.geneSymbol}}
                   </span>
@@ -158,8 +158,8 @@
                   </div>
                 </div>
               </div>
-              <pango-summary-stats></pango-summary-stats>
-
+              <!--  <pango-summary-stats></pango-summary-stats>
+ -->
               <pango-annotation-table class="w-100-p" [options]="tableOptions"
                 [annotations]="selectedAnnotationGroup.annotations"></pango-annotation-table>
             </div>
@@ -168,7 +168,6 @@
             <pango-footer></pango-footer>
           </div>
         </div>
-
       </div>
     </mat-drawer-content>
     <mat-drawer #rightDrawer class="pango-right-drawer" mode="over" position="end">
