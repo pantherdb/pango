@@ -9,12 +9,14 @@ import groupsData from '@pango.common/data/groups.json';
 import { find } from 'lodash';
 import { Gene } from '../../gene/models/gene.model';
 import { PangoUtils } from '@pango/utils/pango-utils';
+import { pangoData } from '@pango.common/data/config';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class AnnotationGraphQLService {
+  aspectMap = pangoData.aspectMap;
   annotationResultsSize = environment.annotationResultsSize;
 
   onSearchCriteriaChanged: BehaviorSubject<any>;
@@ -177,7 +179,10 @@ export class AnnotationGraphQLService {
           let gene: Gene
           if (annotationGroup.annotations.length > 0) {
             gene = { ...annotationGroup.annotations[0] } as unknown as Gene
-            gene.termsSummary = this.getTermsSummary(annotationGroup.annotations).slice(0, 4)
+            const termsSummary = this.getTermsSummary(annotationGroup.annotations)
+            gene.mfs = termsSummary['mf']
+            gene.bps = termsSummary['bp']
+            gene.ccs = termsSummary['cc']
             gene.hgncId = PangoUtils.getHGNC(gene.longId);
 
           }
@@ -392,14 +397,23 @@ export class AnnotationGraphQLService {
 
   }
 
-  getTermsSummary(annotations: Annotation[]): Term[] {
-    const distinctTerms: Term[] = [];
-    const distinctIds = new Set<string>();
+  getTermsSummary(annotations: Annotation[]) {
+    const distinctTerms = {
+      mf: [],
+      bp: [],
+      cc: []
+    }
+    const distinctIds = {
+      mf: new Set<string>(),
+      bp: new Set<string>(),
+      cc: new Set<string>()
+    }
 
     annotations.forEach(annotation => {
-      if (!distinctIds.has(annotation.term.id)) {
-        distinctIds.add(annotation.term.id);
-        distinctTerms.push(annotation.term);
+      const aspect = this.aspectMap[annotation.term.aspect]?.shorthand.toLowerCase()
+      if (aspect && !distinctIds[aspect].has(annotation.term.id)) {
+        distinctIds[aspect].add(annotation.term.id);
+        distinctTerms[aspect].push(annotation.term);
       }
     })
 

@@ -17,5 +17,8 @@ export class Gene {
   //summary
   termsSummary: Term[];
   slimTermsSummary: Term[];
+  mfs: Term[];
+  bps: Term[];
+  ccs: Term[];
 
 }

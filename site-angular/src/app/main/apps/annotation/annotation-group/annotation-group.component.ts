@@ -46,14 +46,16 @@ export class AnnotationGroupComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChild(MatPaginator, { static: true })
   paginator: MatPaginator;
 
+  dataSource = new MatTableDataSource<any>();
+
   annotationGroups: AnnotationGroup[];
 
   displayedColumns = [
+    'expand',
     'gene',
-    'term',
-    'slimTerms',
-    'evidence',
-    'contributors'
+    'mfs',
+    'bps',
+    'ccs',
   ];
 
   @Input('maxReferences') maxReferences = 2
@@ -78,6 +80,8 @@ export class AnnotationGroupComponent implements OnInit, OnDestroy, OnChanges {
     if (changes.annotationPage.currentValue) {
       console.log('changed ann group');
       this.annotationGroups = this.annotationPage.annotations
+      const genes = this.annotationGroups.map(group => group.gene)
+      this.dataSource = new MatTableDataSource<any>(genes);
 
       console.log(this.annotationGroups)
     }
