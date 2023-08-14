@@ -119,12 +119,14 @@ class IbaExpRefCollection:
         if "NOT" in qualifier:
             # Completely skip processing these rows
             return
+        qualifier_key = ''  # Default key for annotation_lkp qualifier
+        qualifier_val = None  # Default value for annotation DS qualifier
 
         if gene_id not in self.annotation_lkp:
             self.annotation_lkp[gene_id] = {}
         if go_term not in self.annotation_lkp[gene_id]:
             self.annotation_lkp[gene_id][go_term] = {}
-        if qualifier not in self.annotation_lkp[gene_id][go_term]:
+        if qualifier_key not in self.annotation_lkp[gene_id][go_term]:
             # No annot exists so make one
             slim_terms = self.ontology_manager.generalize_term(go_term)
             if len(slim_terms) == 0:
@@ -135,19 +137,15 @@ class IbaExpRefCollection:
             gene_taxon = csv_row[12]
             self.add_gene_info_to_lkp(gene_id, gene_symbol, gene_name, gene_taxon)
             group = csv_row[14]
-            qualifier_val = None  # Default
-            if qualifier in ["contributes_to", "colocalizes_with"]:
-                # value can only be "contributes_to" or "colocalizes_with"
-                qualifier_val = qualifier
             new_annot = self.create_annotation_for_gene(gene_id, gene_symbol, gene_name, go_term)
             new_annot["slim_terms"] = slim_terms
             new_annot["qualifier"] = qualifier_val
             new_annot["group"] = group
             new_annot["evidence_type"] = "homology"
-            self.annotation_lkp[gene_id][go_term][qualifier] = new_annot
+            self.annotation_lkp[gene_id][go_term][qualifier_key] = new_annot
 
         # Merge experimental references
-        self.merge_exp_evidence(gene_id, go_term, qualifier, csv_row)
+        self.merge_exp_evidence(gene_id, go_term, qualifier_key, csv_row)
 
     def add_gene_info_to_lkp(self, gene_id, gene_sym, gene_name, taxon_id):
         if "taxon:" in taxon_id:
@@ -207,6 +205,8 @@ class IbaExpRefCollection:
                     # Remove symbol and name from annots to prevent conflict with gene_info
                     modified_annot.pop("gene_symbol", None)
                     modified_annot.pop("gene_name", None)
+                    # Also remove qualifier since we no longer really care
+                    modified_annot.pop("qualifier", None)
                     annotations.append(modified_annot)
         return annotations
 

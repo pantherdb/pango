@@ -25,14 +25,14 @@ def test_qualifier():
     collection = IbaExpRefCollection(ont_manager)
     collection.update_annot_from_row(test_row)
     annots = collection.annotation_list()
-    assert annots[0]["qualifier"] is None
+    # assert annots[0]["qualifier"] is None
 
     # Retest with PAINT qualifier 'colocalizes_with'
     test_row[3] = "colocalizes_with"
     collection = IbaExpRefCollection(ont_manager)
     collection.update_annot_from_row(test_row)
     annots = collection.annotation_list()
-    assert annots[0]["qualifier"] == "colocalizes_with"
+    # assert annots[0]["qualifier"] is None  # We no longer want to track qualifiers at all
 
     # Retest with a NOT, ensuring this annotation is omitted
     test_row[3] = "NOT|colocalizes_with"
@@ -66,7 +66,7 @@ def test_filling_in_the_unknowns():
 def test_direct_evidence_sorting():
     gene_id = "UniProtKB:Q9HBH0"
     go_term = "GO:0007015"
-    qualifier = "involved_in"
+    qualifier = ""
     iba_gaf = "resources/test/gene_association.paint_human.gaf"
     iba_collection = IbaExpRefManager.parse(iba_gaf, ont_manager)
     evidences = iba_collection.annotation_lkp[gene_id][go_term][qualifier]["evidence"]
@@ -131,13 +131,13 @@ def test_evidence_type_assignment():
     iba_collection = IbaExpRefManager.parse(gaf_files, ont_manager)
     iba_collection.fill_in_missing_annotations(test_gene_dat)
     # Selected experimental-only should be 'direct'
-    annot = iba_collection.annotation_lkp["UniProtKB:A6NCN2"]["GO:0005615"]["located_in"]
+    annot = iba_collection.annotation_lkp["UniProtKB:A6NCN2"]["GO:0005615"][""]
     assert annot["evidence_type"] == "direct"
     # IBA with evidence gene of same ID should be 'direct'
-    annot = iba_collection.annotation_lkp["UniProtKB:Q9HBH0"]["GO:0007015"]["involved_in"]
+    annot = iba_collection.annotation_lkp["UniProtKB:Q9HBH0"]["GO:0007015"][""]
     assert annot["evidence_type"] == "direct"
     # IBA without evidence gene of same ID should be 'homology'
-    annot = iba_collection.annotation_lkp["UniProtKB:P28472"]["GO:0005254"]["contributes_to"]
+    annot = iba_collection.annotation_lkp["UniProtKB:P28472"]["GO:0005254"][""]
     assert annot["evidence_type"] == "homology"
     # Filled in UNKNOWN annotations should be 'n/a'
     annot = iba_collection.annotation_lkp["UniProtKB:X6R8D5"]["UNKNOWN:0001"][""]
