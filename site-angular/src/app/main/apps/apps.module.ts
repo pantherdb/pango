@@ -15,23 +15,32 @@ import { SummaryStatsComponent } from './annotation/annotation-stats/summary-sta
 import { AnnotationTableLongComponent } from './annotation/annotation-table-long/annotation-table-long.component';
 import { CategoryStatsComponent } from './annotation/annotation-stats/category-stats/category-stats.component';
 import { SearchAspectFormComponent } from './annotation/search-form/search-aspect-form/search-aspect-form.component';
+import { AnnotationGroupComponent } from './annotation/annotation-group/annotation-group.component';
+import { GeneListComponent } from './annotation/gene-list/gene-list.component';
+import { SummaryStatsVerticalComponent } from './annotation/annotation-stats/summary-stats-vertical/summary-stats-vertical.component';
+import { NgxPieChartRemoveMarginsDirective } from '@pango.common/directives/piechart-remove-margins.directive';
 
 const routes = [];
 
 @NgModule({
     declarations: [
+        NgxPieChartRemoveMarginsDirective,
+        GeneListComponent,
+        AnnotationGroupComponent,
         AnnotationTableComponent,
         AnnotationTableLongComponent,
         AnnotationDetailComponent,
         AnnotationSummaryComponent,
         SummaryStatsComponent,
+        SummaryStatsVerticalComponent,
         CategoryStatsComponent,
         AnnotationStatsComponent,
         GeneralStatsComponent,
         PositionStatsComponent,
         SearchFormComponent,
         SearchAspectFormComponent,
-        AnnotationFiltersComponent
+        AnnotationFiltersComponent,
+        AnnotationGroupComponent
     ],
     imports: [
         RouterModule.forChild(routes),
@@ -40,12 +49,16 @@ const routes = [];
         PangoConfirmDialogModule,
     ],
     exports: [
+        NgxPieChartRemoveMarginsDirective,
+        GeneListComponent,
+        AnnotationGroupComponent,
         AnnotationTableComponent,
         AnnotationTableLongComponent,
         AnnotationDetailComponent,
         AnnotationSummaryComponent,
         AnnotationStatsComponent,
         SummaryStatsComponent,
+        SummaryStatsVerticalComponent,
         CategoryStatsComponent,
         GeneralStatsComponent,
         PositionStatsComponent,

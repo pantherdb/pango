@@ -4,15 +4,19 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { AnnotationPage, Query } from '../models/page';
 import { SearchCriteria } from '@pango.search/models/search-criteria';
 import { PangoGraphQLService } from '@pango.search/services/graphql.service';
-import { AnnotationCount, AnnotationStats, Annotation, AutocompleteFilterArgs, AutocompleteType, Term, Group } from '../models/annotation';
+import { AnnotationCount, AnnotationStats, Annotation, AutocompleteFilterArgs, AutocompleteType, Term, Group, AnnotationGroup } from '../models/annotation';
 import groupsData from '@pango.common/data/groups.json';
 import { find } from 'lodash';
+import { Gene } from '../../gene/models/gene.model';
+import { PangoUtils } from '@pango/utils/pango-utils';
+import { pangoData } from '@pango.common/data/config';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class AnnotationGraphQLService {
+  aspectMap = pangoData.aspectMap;
   annotationResultsSize = environment.annotationResultsSize;
 
   onSearchCriteriaChanged: BehaviorSubject<any>;
@@ -56,7 +60,6 @@ export class AnnotationGraphQLService {
                     coordinatesStart
                     coordinatesEnd
                     coordinatesStrand
-                    qualifier
                     term {
                       id
                       aspect
@@ -105,6 +108,97 @@ export class AnnotationGraphQLService {
           })
           return annotation
         }) as Annotation[];
+      }));
+  }
+
+
+  getGroupedAnnotationsQuery(query: Query): Observable<any> {
+
+    const options = {
+      variables: {
+        filterArgs: query.filterArgs,
+        pageArgs: query.pageArgs
+      },
+      query: `query GetAnnotations($filterArgs: AnnotationFilterArgs, $pageArgs: PageArgs) {
+          groupedAnnotations(filterArgs:$filterArgs, pageArgs:$pageArgs) {
+            name
+            annotations {
+              id
+              gene
+              geneName
+              geneSymbol
+              longId
+              pantherFamily
+              taxonAbbr
+              taxonLabel
+              taxonId
+              term {
+                id
+                aspect
+                isGoslim
+                label
+                displayId
+              } 
+              slimTerms {
+                aspect
+                id
+                isGoslim
+                label
+                displayId
+              } 
+              evidenceType            
+              groups
+              evidenceCount
+              evidence {
+                withGeneId {
+                  gene
+                  geneName
+                  geneSymbol
+                  taxonAbbr
+                  taxonLabel
+                  taxonId
+                  coordinatesChrNum
+                  coordinatesStart
+                  coordinatesEnd
+                  coordinatesStrand
+                }
+                references {
+                  pmid
+                  title
+                  date
+                }
+              }
+            }                              
+          }
+        }`
+    }
+
+    return this.pangoGraphQLService.query(options).pipe(
+      map((response: any) => {
+        return response.groupedAnnotations.map((annotationGroup: AnnotationGroup) => {
+          let gene: Gene
+          if (annotationGroup.annotations.length > 0) {
+            gene = { ...annotationGroup.annotations[0] } as unknown as Gene
+            const termsSummary = this.getTermsSummary(annotationGroup.annotations)
+            gene.mfs = termsSummary['mf']
+            gene.bps = termsSummary['bp']
+            gene.ccs = termsSummary['cc']
+            gene.hgncId = PangoUtils.getHGNC(gene.longId);
+
+          }
+
+          const annotations = annotationGroup.annotations.map((annotation: Annotation) => {
+            annotation.detailedGroups = annotation.groups.map((group) => {
+              return this.findGroup(group);
+            })
+            return annotation
+          }) as Annotation[];
+
+          return {
+            gene,
+            annotations
+          }
+        }) as AnnotationGroup[];
       }));
   }
 
@@ -177,24 +271,19 @@ export class AnnotationGraphQLService {
 
   getUniqueListGraphQL(query: Query): Observable<Annotation[]> {
     const aspectFilter = new AutocompleteFilterArgs(AutocompleteType.ASPECT)
-    const qualifierFilter = new AutocompleteFilterArgs(AutocompleteType.QUALIFIER)
     const options = {
       variables: {
         filterArgs: query.filterArgs,
         autocompleteType: aspectFilter.autocompleteType,
-        qualifierAutocompleteType: qualifierFilter.autocompleteType,
         keyword: ""
       },
       query: `query GetAutocomplete($autocompleteType:AutocompleteType!,
-                $qualifierAutocompleteType:AutocompleteType!,
                  $keyword: String!,
                  $filterArgs: AnnotationFilterArgs) {
                 aspect: autocomplete(autocompleteType:$autocompleteType, keyword:$keyword, filterArgs:$filterArgs) {
                    ${aspectFilter.getAutocompleteFields()}                                                  
                 }
-                qualifier: autocomplete(autocompleteType:$qualifierAutocompleteType, keyword:$keyword, filterArgs:$filterArgs) {
-                    ${qualifierFilter.getAutocompleteFields()}                                                  
-                 }
+            
             }`
     }
 
@@ -308,4 +397,30 @@ export class AnnotationGraphQLService {
 
   }
 
+  getTermsSummary(annotations: Annotation[]) {
+    const distinctTerms = {
+      mf: [],
+      bp: [],
+      cc: []
+    }
+    const distinctIds = {
+      mf: new Set<string>(),
+      bp: new Set<string>(),
+      cc: new Set<string>()
+    }
+
+    annotations.forEach(annotation => {
+      const aspect = this.aspectMap[annotation.term.aspect]?.shorthand.toLowerCase()
+      if (aspect && !distinctIds[aspect].has(annotation.term.id)) {
+        distinctIds[aspect].add(annotation.term.id);
+        distinctTerms[aspect].push(annotation.term);
+      }
+    })
+
+    return distinctTerms;
+
+  }
+
 }
+
+

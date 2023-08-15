@@ -47,7 +47,8 @@
           (click)="toggleSelection(SearchFilterType.TERM_TYPES, termType.id)"
           [ngClass]="{'pango-active': annotationService.searchCriteria[SearchFilterType.TERM_TYPES]?.[0] === termType.id}"
           matTooltip="{{termType.description}}" [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
-          {{termType.label}}
+          {{termType.label}}<br>
+          <small>{{termType.hint}}</small>
           <fa-icon class="pango-icon pango-selected-icon" [icon]="['far', 'check-circle']"></fa-icon>
         </div>
       </div>
@@ -57,7 +58,8 @@
           (click)="toggleSelection(SearchFilterType.EVIDENCE_TYPES, evidenceType.id)"
           [ngClass]="{'pango-active': annotationService.searchCriteria[SearchFilterType.EVIDENCE_TYPES]?.[0] === evidenceType.id}"
           matTooltip="{{evidenceType.description}}" [matTooltipPosition]="'below'" [matTooltipShowDelay]="1500">
-          {{evidenceType.label}}
+          {{evidenceType.label}}<br>
+          <small>{{evidenceType.hint}}</small>
           <fa-icon class="pango-icon pango-selected-icon" [icon]="['far', 'check-circle']"></fa-icon>
 
         </div>

@@ -118,10 +118,6 @@ $accent: map-get($theme, accent);
         }
       }
 
-      &.pango-qualifier-cell {
-        @include deep-width(100px);
-      }
-
       &.pango-group-cell {
         @include deep-width(150px);
       }

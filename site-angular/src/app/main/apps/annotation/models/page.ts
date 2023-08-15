@@ -32,10 +32,7 @@ export class AnnotationPage extends Page {
         this.size = this.query.pageArgs.size;
     }
 
-    shallowRefresh() {
-        this.pageNumber = 0;
-        this.query = undefined;
-        this.annotations = undefined;
-        this.aggs = undefined;
-    }
+
 }
+
+

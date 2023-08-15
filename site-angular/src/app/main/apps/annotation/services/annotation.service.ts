@@ -5,8 +5,8 @@ import { BehaviorSubject, map, Observable, throwError } from 'rxjs';
 import { Client } from 'elasticsearch-browser';
 import { AnnotationPage, Query } from '../models/page';
 import { cloneDeep, find, orderBy, uniqBy } from 'lodash';
-import { SearchCriteria } from '@pango.search/models/search-criteria';
-import { AnnotationCount, AnnotationStats, Bucket, FilterArgs, Annotation, AutocompleteFilterArgs, Term } from '../models/annotation';
+import { SearchCriteria, SearchType } from '@pango.search/models/search-criteria';
+import { AnnotationCount, AnnotationStats, Bucket, FilterArgs, Annotation, AutocompleteFilterArgs, Term, AnnotationGroup } from '../models/annotation';
 import { AnnotationGraphQLService } from './annotation-graphql.service';
 import { pangoData } from '@pango.common/data/config';
 
@@ -17,6 +17,7 @@ export class AnnotationService {
     aspectMap = pangoData.aspectMap;
     termTypeMap = pangoData.termTypeMap;
     annotationResultsSize = environment.annotationResultsSize;
+    onAnnotationGroupsChanged: BehaviorSubject<AnnotationPage>;
     onAnnotationsChanged: BehaviorSubject<AnnotationPage>;
     onAutocompleteChanged: BehaviorSubject<AnnotationPage>;
     onUniqueListChanged: BehaviorSubject<any>;
@@ -24,12 +25,15 @@ export class AnnotationService {
     onDistinctAggsChanged: BehaviorSubject<AnnotationStats>;
     onAnnotationChanged: BehaviorSubject<any>;
     onSearchCriteriaChanged: BehaviorSubject<any>;
+
+    onSelectedAnnotationGroupChanged: BehaviorSubject<AnnotationGroup>;
     searchCriteria: SearchCriteria;
     annotationPage: AnnotationPage = new AnnotationPage();
     loading = false;
     selectedQuery;
     queryOriginal;
     query: Query = new Query();
+    searchType = SearchType.ANNOTATIONS
 
     private client: Client;
     uniqueList: Annotation[];
@@ -38,12 +42,14 @@ export class AnnotationService {
         private httpClient: HttpClient,
         private annotationGraphQLService: AnnotationGraphQLService) {
         this.onAnnotationsChanged = new BehaviorSubject(null);
+        this.onAnnotationGroupsChanged = new BehaviorSubject(null);
         this.onUniqueListChanged = new BehaviorSubject(null);
         this.onAutocompleteChanged = new BehaviorSubject(null);
         this.onAnnotationsAggsChanged = new BehaviorSubject(null);
         this.onDistinctAggsChanged = new BehaviorSubject(null);
         this.onAnnotationChanged = new BehaviorSubject(null);
         this.onSearchCriteriaChanged = new BehaviorSubject(null);
+        this.onSelectedAnnotationGroupChanged = new BehaviorSubject(null);
         this.searchCriteria = new SearchCriteria();
 
     }
@@ -93,11 +99,39 @@ export class AnnotationService {
         return this.annotationGraphQLService.getAnnotationsQuery(query).subscribe(
             {
                 next: (annotations: Annotation[]) => {
-                    const annotationData = annotations
+                    this.annotationPage = Object.assign(Object.create(Object.getPrototypeOf(this.annotationPage)), this.annotationPage);
 
                     this.annotationPage.query = query;
                     this.annotationPage.updatePage()
-                    this.annotationPage.annotations = annotationData;
+                    this.annotationPage.annotations = annotations;
+                    //  this.annotationPage.aggs = response.aggregations;
+                    this.annotationPage.query.source = query.source;
+
+
+                    this.onAnnotationsChanged.next(this.annotationPage);
+
+                    self.loading = false;
+                }, error: (err) => {
+                    self.loading = false;
+                }
+            });
+    }
+
+    getAnnotationGroupsPage(query: Query, page: number): any {
+        const self = this;
+        self.loading = true;
+        query.pageArgs.page = (page - 1);
+        query.pageArgs.size = this.annotationResultsSize;
+        this.query = query;
+        return this.annotationGraphQLService.getGroupedAnnotationsQuery(query).subscribe(
+            {
+                next: (annotationGroups: AnnotationGroup[]) => {
+                    //const annotationData = annotations
+                    this.annotationPage = Object.assign(Object.create(Object.getPrototypeOf(this.annotationPage)), this.annotationPage);
+
+                    this.annotationPage.query = query;
+                    this.annotationPage.updatePage()
+                    this.annotationPage.annotations = annotationGroups;
                     //  this.annotationPage.aggs = response.aggregations;
                     this.annotationPage.query.source = query.source;
 
@@ -228,9 +262,6 @@ export class AnnotationService {
             query.filterArgs.geneIds.push(annotation.gene);
         });
 
-        this.searchCriteria.qualifiers.forEach((annotation: Annotation) => {
-            query.filterArgs.qualifierIds.push(annotation.qualifier);
-        });
 
         this.searchCriteria.aspects.forEach((aspect: string) => {
             query.filterArgs.aspectIds.push(aspect);
@@ -239,7 +270,12 @@ export class AnnotationService {
 
         this.query = query;
 
-        this.getAnnotationsPage(query, 1);
+        if (this.searchType === SearchType.ANNOTATION_GROUP) {
+            this.getAnnotationGroupsPage(query, 1);
+        } else {
+            this.getAnnotationsPage(query, 1);
+        }
+
         this.getAnnotationsCount(query)
         this.queryAnnotationStats(query)
         this.getUniqueItems(query)

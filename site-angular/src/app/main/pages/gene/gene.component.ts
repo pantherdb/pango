@@ -4,6 +4,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute } from '@angular/router';
 import { RightPanel, LeftPanel } from '@pango.common/models/menu-panels';
 import { PangoMenuService } from '@pango.common/services/pango-menu.service';
+import { SearchType } from '@pango.search/models/search-criteria';
 import { PangoUtils } from '@pango/utils/pango-utils';
 import { Annotation } from 'app/main/apps/annotation/models/annotation';
 import { AnnotationPage } from 'app/main/apps/annotation/models/page';
@@ -78,6 +79,7 @@ export class GeneComponent implements OnInit, OnDestroy {
 
         const annotation = new Annotation()
         annotation.gene = this.geneId
+        this.annotationService.searchType = SearchType.ANNOTATIONS;
         this.annotationService.searchCriteria.clearSearch()
         this.annotationService.searchCriteria.genes = [annotation]
         this.annotationService.updateSearch();

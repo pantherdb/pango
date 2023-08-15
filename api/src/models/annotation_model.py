@@ -14,7 +14,6 @@ class AutocompleteType(Enum):
     withgene = "withgene"
     reference = "reference"
     aspect = "aspect"
-    qualifier = "qualifier"
 
 @strawberry.type
 class Entity :
@@ -68,7 +67,6 @@ class Annotation:
     term_type: typing.Optional[str]
     term: typing.Optional[Term]
     slim_terms: typing.List[Term]
-    qualifier: typing.Optional[str]
     evidence_type:typing.Optional[str] = None
     evidence: typing.List[Evidence] 
     groups: typing.List[str]
@@ -142,7 +140,6 @@ class AnnotationFilterArgs:
     evidence_type_ids: typing.Optional[typing.List[str]] = strawberry.UNSET
     gene_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
     aspect_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
-    qualifier_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
     with_gene_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
     reference_ids: typing.Optional[typing.List[str]] = strawberry.UNSET
 

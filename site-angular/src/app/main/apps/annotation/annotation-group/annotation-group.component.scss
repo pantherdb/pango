@@ -140,6 +140,10 @@ $accent: map-get($theme, accent);
         }
       }
 
+      &.pango-expand-cell {
+        @include deep-width(50px);
+      }
+
       &.pango-gene-symbol-cell {
         @include deep-width(60px);
       }
