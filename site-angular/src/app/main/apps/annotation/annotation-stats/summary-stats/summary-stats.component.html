@@ -9,15 +9,16 @@
       </div>
       <div class="pango-section-body pt-12" fxLayout="row" fxLayoutAlign="start center">
         <div class="pango-stat-number">
-          {{annotationPage?.total ? annotationPage.total: 0}}<br> <small>Annotations (functional
-            characteristics)</small>
+          {{distinctGeneCount}}<br> <small>Genes</small>
         </div>
       </div>
       <div class="pango-section-body pt-12" fxLayout="row" fxLayoutAlign="start center">
         <div class="pango-stat-number">
-          {{distinctGeneCount}}<br> <small>Genes</small>
+          {{annotationPage?.total ? annotationPage.total: 0}}<br> <small>Annotations (functional
+            characteristics)</small>
         </div>
       </div>
+
     </div>
     <div class="pango-form-section pango-aspect-stats" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch">
       <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
@@ -27,7 +28,7 @@
         <span fxFlex></span>
       </div>
       <div class="pango-section-body" fxLayout="row" fxLayoutAlign="start center">
-        <ngx-charts-pie-chart [results]="stats.aspectPie" [view]="aspectPieOptions.view"
+        <ngx-charts-pie-chart piechart-remove-margins [results]="stats.aspectPie" [view]="aspectPieOptions.view"
           [gradient]="aspectPieOptions.gradient" [legend]="aspectPieOptions.legend"
           [maxLabelLength]="aspectPieOptions.maxLabelLength" [labels]="aspectPieOptions.showLabels"
           [doughnut]="aspectPieOptions.isDoughnut" [customColors]="customColors"
@@ -59,11 +60,11 @@
         <span fxFlex></span>
       </div>
       <div class="pango-section-body" fxLayout="row" fxLayoutAlign="start center">
-        <ngx-charts-pie-chart [results]="stats.evidenceTypePie" [view]="evidenceTypePieOptions.view"
-          [gradient]="evidenceTypePieOptions.gradient" [legend]="evidenceTypePieOptions.legend"
-          [maxLabelLength]="evidenceTypePieOptions.maxLabelLength" [labels]="evidenceTypePieOptions.showLabels"
-          [doughnut]="evidenceTypePieOptions.isDoughnut" [customColors]="customEvidenceColors"
-          (select)="evidenceTypePieOptions.onSelect($event)">
+        <ngx-charts-pie-chart piechart-remove-margins [results]="stats.evidenceTypePie"
+          [view]="evidenceTypePieOptions.view" [gradient]="evidenceTypePieOptions.gradient"
+          [legend]="evidenceTypePieOptions.legend" [maxLabelLength]="evidenceTypePieOptions.maxLabelLength"
+          [labels]="evidenceTypePieOptions.showLabels" [doughnut]="evidenceTypePieOptions.isDoughnut"
+          [customColors]="customEvidenceColors" (select)="evidenceTypePieOptions.onSelect($event)">
         </ngx-charts-pie-chart>
 
         <div class="pango-stat" fxLayout="column" fxLayoutAlign="start stretch">

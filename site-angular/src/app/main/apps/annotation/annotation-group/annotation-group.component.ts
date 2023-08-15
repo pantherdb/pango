@@ -20,6 +20,7 @@ import { Gene } from '../../gene/models/gene.model';
 export class AnnotationGroupComponent implements OnInit, OnDestroy, OnChanges {
   RightPanel = RightPanel;
   aspectMap = pangoData.aspectMap;
+  evidenceTypeMap = pangoData.evidenceTypeMap;
 
   uniprotUrl = environment.uniprotUrl;
   columns: any[] = [];
@@ -29,8 +30,6 @@ export class AnnotationGroupComponent implements OnInit, OnDestroy, OnChanges {
   pubmedUrl = environment.pubmedUrl
 
   loadingIndicator: boolean;
-
-
 
   loadingSpinner: any = {
     color: 'primary',
@@ -92,6 +91,18 @@ export class AnnotationGroupComponent implements OnInit, OnDestroy, OnChanges {
     if (this.options?.displayedColumns) {
       this.displayedColumns = this.options.displayedColumns
     }
+  }
+
+
+  toggleExpand(gene: Gene) {
+    gene.expanded = !gene.expanded;
+
+    if (gene.expanded) {
+      gene.maxTerms = 500
+    } else {
+      gene.maxTerms = 2
+    }
+
   }
 
   getPubmedArticleUrl(pmid: string): string {

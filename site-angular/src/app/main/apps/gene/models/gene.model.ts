@@ -21,4 +21,6 @@ export class Gene {
   bps: Term[];
   ccs: Term[];
 
+  expanded = false;
+  maxTerms = 2
 }

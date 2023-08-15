@@ -15,11 +15,11 @@ import { HomeAdvancedComponent } from './home-advanced/home-advanced.component';
 const routes = [{
   path: '',
   title: 'Home: Annotations',
-  component: HomeComponent
+  component: HomeLabComponent
 }, {
   path: 'lab',
   title: 'Lab: Layout',
-  component: HomeLabComponent
+  component: HomeComponent
 }, {
   path: 'advanced-lab',
   title: 'Advanced Lab: Layout',
