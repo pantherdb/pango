@@ -30,8 +30,9 @@ export class GeneComponent implements OnInit, OnDestroy {
   @ViewChild('rightDrawer', { static: true })
   rightDrawer: MatDrawer;
 
-  searchForm: UntypedFormGroup;
   leftPanelMenu;
+
+  annotations: Annotation[];
 
   loadingSpinner: any = {
     color: 'primary',
@@ -50,8 +51,8 @@ export class GeneComponent implements OnInit, OnDestroy {
     hideGeneSearch: true
   }
 
-  maxReferences = 150
-  maxEvidences = 200
+  maxReferences = 5
+  maxEvidences = 2
 
   tableOptions = {
     displayedColumns: [
@@ -95,11 +96,13 @@ export class GeneComponent implements OnInit, OnDestroy {
       .subscribe((annotationPage: AnnotationPage) => {
         if (annotationPage && annotationPage.annotations.length > 0) {
           this.annotation = annotationPage.annotations[0];
+          this.annotations = annotationPage.annotations;
           this.hgncId = PangoUtils.getHGNC(this.annotation.longId);
         } else {
           this.annotation = null
         }
       });
+
   }
 
   ngOnDestroy(): void {

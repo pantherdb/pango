@@ -108,6 +108,9 @@ export class Term {
     aspect: string;
     isGoSlim: boolean;
 
+    // for display
+    evidenceType
+
 }
 
 export class Reference {

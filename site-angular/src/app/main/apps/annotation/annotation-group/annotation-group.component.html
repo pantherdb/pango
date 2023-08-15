@@ -1,7 +1,28 @@
 <div *ngIf="annotationGroups && dataSource" class="w-100-p h-100-p p-12" fxLayout="row" fxLayoutAlign="start start">
 
   <div class="w-100-p h-100-p " fxLayout="column" fxLayoutAlign="start stretch">
-    <table fxFlex="1 1 auto" mat-table [dataSource]="dataSource" class="pango-annotation-table">
+    <!--     <div class="legend">
+      <div fxFlex="40px">
+        <span class="pango-evidence-type D" fxLayout="column" fxLayoutAlign="center center">
+          <fa-icon class="pango-icon" [icon]="['fas', 'microscope']"></fa-icon>
+          <span class="pango-label">
+            D
+          </span>
+        </span>
+      </div>
+      = Direct Evidence
+
+      <div fxFlex="40px">
+        <span class="pango-evidence-type H" fxLayout="column" fxLayoutAlign="center center">
+          <fa-icon class="pango-icon" [icon]="['fas', 'microscope']"></fa-icon>
+          <span class="pango-label">
+            H
+          </span>
+        </span>
+      </div>
+      = Homology Evidence
+    </div> -->
+    <table mat-table [dataSource]="dataSource" class="pango-annotation-table">
       <ng-container matColumnDef="expand">
         <th mat-header-cell *matHeaderCellDef class="pango-expand-cell">
 
@@ -54,7 +75,7 @@
       </ng-container>
 
       <ng-container matColumnDef="mfs">
-        <th mat-header-cell *matHeaderCellDef class="pango-slim-terms-cell">
+        <th mat-header-cell *matHeaderCellDef class="pango-terms-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
               <div matTooltip="The high-level category(ies) of the annotated GO term shown in the previous column."
@@ -64,25 +85,42 @@
             </div>
           </div>
         </th>
-        <td mat-cell *matCellDef="let element" class="pango-slim-terms-cell">
-          <div class="pango-cell-section w-100-p" *ngFor="let item of element.mfs">
-
-            <div class="pango-cell-title w-100-p">
-              <span class="pango-circle-chip pango-chip-xs pango-aspect {{aspectMap[item.aspect]?.shorthand}}"
-                fxLayout="column" fxLayoutAlign="center center">
-                {{aspectMap[item.aspect]?.shorthand}}
-              </span>
-              <span class="pango-cell-description mr-4"> {{item.label}}
-                <span *ngIf="item.displayId" class="pango-cell-description-2">
-                  <a href="{{amigoTermUrl}}{{item.id}}" target="_blank">{{item.displayId}}</a>
-                </span>
-              </span>
+        <td mat-cell *matCellDef="let element" class="pango-terms-cell">
+          <ng-container *ngFor="let item of element.mfs; let i=index">
+            <div *ngIf="i<element.maxTerms" class="w-100-p">
+              <div class="pango-cell-title w-100-p {{evidenceTypeMap[item.evidenceType]?.shorthand}}" fxLayout="row"
+                fxLayoutAlign="start center">
+                <div fxFlex="40px">
+                  <span class="pango-evidence-type" fxLayout="column" fxLayoutAlign="center center">
+                    <fa-icon class="pango-icon" [icon]="['fas', 'microscope']"></fa-icon>
+                    <span class="pango-label">
+                      {{evidenceTypeMap[item.evidenceType]?.shorthand}}
+                    </span>
+                  </span>
+                </div>
+                <div fxFlex="">
+                  <!--     <span class="pango-circle-chip pango-chip-xs pango-aspect {{aspectMap[item.aspect]?.shorthand}}"
+                  fxLayout="column" fxLayoutAlign="center center">
+                  {{aspectMap[item.aspect]?.shorthand}}
+                </span> -->
+                  <span class="pango-cell-description mr-4"> {{item.label}}
+                    <span *ngIf="item.displayId" class="pango-cell-description-2">
+                      <a href="{{amigoTermUrl}}{{item.id}}" target="_blank">{{item.displayId}}</a>
+                    </span>
+                  </span>
+                </div>
+              </div>
             </div>
+          </ng-container>
+          <div class="pango-cell-inner-section" *ngIf="element.maxTerms < element.mfs.length">
+            <a (click)="toggleExpand(element)"> — View {{element.mfs.length- element.maxTerms}} more
+              Molecular Function(s)
+            </a>
           </div>
         </td>
       </ng-container>
       <ng-container matColumnDef="bps">
-        <th mat-header-cell *matHeaderCellDef class="pango-slim-terms-cell">
+        <th mat-header-cell *matHeaderCellDef class="pango-terms-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
               <div matTooltip="The high-level category(ies) of the annotated GO term shown in the previous column."
@@ -92,25 +130,42 @@
             </div>
           </div>
         </th>
-        <td mat-cell *matCellDef="let element" class="pango-slim-terms-cell">
-          <div class="pango-cell-section w-100-p" *ngFor="let item of element.bps">
-
-            <div class="pango-cell-title w-100-p">
-              <span class="pango-circle-chip pango-chip-xs pango-aspect {{aspectMap[item.aspect]?.shorthand}}"
-                fxLayout="column" fxLayoutAlign="center center">
-                {{aspectMap[item.aspect]?.shorthand}}
-              </span>
-              <span class="pango-cell-description mr-4"> {{item.label}}
-                <span *ngIf="item.displayId" class="pango-cell-description-2">
-                  <a href="{{amigoTermUrl}}{{item.id}}" target="_blank">{{item.displayId}}</a>
-                </span>
-              </span>
+        <td mat-cell *matCellDef="let element" class="pango-terms-cell">
+          <ng-container *ngFor="let item of element.bps; let i=index">
+            <div *ngIf="i<element.maxTerms" class="w-100-p">
+              <div class="pango-cell-title w-100-p  {{evidenceTypeMap[item.evidenceType]?.shorthand}}" fxLayout="row"
+                fxLayoutAlign="start center">
+                <div fxFlex="40px">
+                  <span class="pango-evidence-type" fxLayout="column" fxLayoutAlign="center center">
+                    <fa-icon class="pango-icon" [icon]="['fas', 'microscope']"></fa-icon>
+                    <span class="pango-label">
+                      {{evidenceTypeMap[item.evidenceType]?.shorthand}}
+                    </span>
+                  </span>
+                </div>
+                <div fxFlex="">
+                  <!--     <span class="pango-circle-chip pango-chip-xs pango-aspect {{aspectMap[item.aspect]?.shorthand}}"
+                  fxLayout="column" fxLayoutAlign="center center">
+                  {{aspectMap[item.aspect]?.shorthand}}
+                </span> -->
+                  <span class="pango-cell-description mr-4"> {{item.label}}
+                    <span *ngIf="item.displayId" class="pango-cell-description-2">
+                      <a href="{{amigoTermUrl}}{{item.id}}" target="_blank">{{item.displayId}}</a>
+                    </span>
+                  </span>
+                </div>
+              </div>
             </div>
+          </ng-container>
+          <div class="pango-cell-inner-section" *ngIf="element.maxTerms < element.bps.length">
+            <a (click)="toggleExpand(element)"> — View {{element.bps.length- element.maxTerms}} more
+              Biological Process(s)
+            </a>
           </div>
         </td>
       </ng-container>
       <ng-container matColumnDef="ccs">
-        <th mat-header-cell *matHeaderCellDef class="pango-slim-terms-cell">
+        <th mat-header-cell *matHeaderCellDef class="pango-terms-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
               <div matTooltip="The high-level category(ies) of the annotated GO term shown in the previous column."
@@ -120,22 +175,40 @@
             </div>
           </div>
         </th>
-        <td mat-cell *matCellDef="let element" class="pango-slim-terms-cell">
-          <div class="pango-cell-section w-100-p" *ngFor="let item of element.ccs">
-
-            <div class="pango-cell-title w-100-p">
-              <span class="pango-circle-chip pango-chip-xs pango-aspect {{aspectMap[item.aspect]?.shorthand}}"
-                fxLayout="column" fxLayoutAlign="center center">
-                {{aspectMap[item.aspect]?.shorthand}}
-              </span>
-              <span class="pango-cell-description mr-4"> {{item.label}}
-                <span *ngIf="item.displayId" class="pango-cell-description-2">
-                  <a href="{{amigoTermUrl}}{{item.id}}" target="_blank">{{item.displayId}}</a>
-                </span>
-              </span>
+        <td mat-cell *matCellDef="let element" class="pango-terms-cell">
+          <ng-container *ngFor="let item of element.ccs; let i=index">
+            <div *ngIf="i<element.maxTerms" class="w-100-p">
+              <div class="pango-cell-title w-100-p  {{evidenceTypeMap[item.evidenceType]?.shorthand}}" fxLayout="row"
+                fxLayoutAlign="start center">
+                <div fxFlex="40px">
+                  <span class="pango-evidence-type" fxLayout="column" fxLayoutAlign="center center">
+                    <fa-icon class="pango-icon" [icon]="['fas', 'microscope']"></fa-icon>
+                    <span class="pango-label">
+                      {{evidenceTypeMap[item.evidenceType]?.shorthand}}
+                    </span>
+                  </span>
+                </div>
+                <div fxFlex="">
+                  <!--     <span class="pango-circle-chip pango-chip-xs pango-aspect {{aspectMap[item.aspect]?.shorthand}}"
+                  fxLayout="column" fxLayoutAlign="center center">
+                  {{aspectMap[item.aspect]?.shorthand}}
+                </span> -->
+                  <span class="pango-cell-description mr-4"> {{item.label}}
+                    <span *ngIf="item.displayId" class="pango-cell-description-2">
+                      <a href="{{amigoTermUrl}}{{item.id}}" target="_blank">{{item.displayId}}</a>
+                    </span>
+                  </span>
+                </div>
+              </div>
             </div>
+          </ng-container>
+          <div class="pango-cell-inner-section" *ngIf="element.maxTerms < element.ccs.length">
+            <a (click)="toggleExpand(element)"> — View {{element.ccs.length- element.maxTerms}} more
+              Cellular Component(s)
+            </a>
           </div>
         </td>
+
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

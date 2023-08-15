@@ -6,6 +6,9 @@ $primary: map-get($theme, primary);
 $accent: map-get($theme, accent);
 
 :host {
+  a {
+    cursor: pointer;
+  }
   .pango-sidemenu {
     padding: 0;
     @include deep-height(100%);
@@ -44,6 +47,39 @@ $accent: map-get($theme, accent);
         font-size: 28px;
         color: map-get($primary, default);
         color: #fff;
+      }
+    }
+  }
+
+  .pango-evidence-type {
+    position: relative;
+    @include deep-width(30px);
+    @include deep-height(30px);
+    border-radius: 50%;
+    .pango-icon {
+      font-size: 16px;
+    }
+    .pango-label {
+      position: absolute;
+      right: 1px;
+      bottom: 0px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    &.D {
+      border-color: green;
+      color: darken(green, 10%);
+      .pango-icon {
+        color: rgba(green, 0.5);
+      }
+    }
+
+    &.H {
+      border-color: green;
+      color: darken(red, 10%);
+      .pango-icon {
+        color: rgba(red, 0.5);
       }
     }
   }
@@ -94,11 +130,10 @@ $accent: map-get($theme, accent);
       font-size: 10px;
 
       .pango-cell-section {
-        //border-bottom: #aaa solid 1px;
         padding: 8px;
 
         &:not(:last-child) {
-          border-bottom: rgba(map-get($primary, default), 0.3) solid 1px;
+          // border-bottom: rgba(map-get($primary, default), 0.3) solid 1px;
         }
       }
 
@@ -125,7 +160,7 @@ $accent: map-get($theme, accent);
         }
       }
       &.pango-gene-cell {
-        @include deep-width(200px);
+        // @include deep-width(200px);
         .pango-cell-title {
           font-size: 12px;
         }
@@ -141,7 +176,8 @@ $accent: map-get($theme, accent);
       }
 
       &.pango-expand-cell {
-        @include deep-width(50px);
+        padding: 0;
+        @include deep-width(40px);
       }
 
       &.pango-gene-symbol-cell {
@@ -169,9 +205,37 @@ $accent: map-get($theme, accent);
         @include deep-width(150px);
       }
 
-      &.pango-slim-terms-cell {
-        @include deep-width(150px);
-        padding: 0;
+      &.pango-terms-cell {
+        @include deep-width(20%);
+        padding: 8px;
+
+        .pango-cell-title {
+          margin: 5px 0;
+          border: #aaa solid 1px;
+          border-radius: 6px;
+
+          &.D {
+            background-color: rgba(green, 0.05);
+            .pango-evidence-type {
+              border-color: green;
+              color: darken(green, 10%);
+              .pango-icon {
+                color: rgba(green, 0.5);
+              }
+            }
+          }
+
+          &.H {
+            background-color: rgba(red, 0.05);
+            .pango-evidence-type {
+              border-color: green;
+              color: darken(red, 10%);
+              .pango-icon {
+                color: rgba(red, 0.5);
+              }
+            }
+          }
+        }
       }
 
       &.pango-aspect-cell {
@@ -192,6 +256,12 @@ $accent: map-get($theme, accent);
 
       &.pango-reference-cell {
         @include deep-width(100px);
+      }
+    }
+
+    .mat-header-cell {
+      &.pango-terms-cell {
+        padding: 0 10px;
       }
     }
 

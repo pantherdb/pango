@@ -43,18 +43,53 @@ async def get_grouped_annotations(filter_args:AnnotationFilterArgs, page_args=Pa
     if page_args is None:
         page_args = PageArgs
 
-    query = await get_annotations_query(filter_args)
-    resp = await es.search(
-          index=settings.PANTHER_ANNOTATIONS_INDEX,
-          #filter_path ='took,hits.hits._score,**hits.hits._source**',
-          query=query,
-          aggs = await get_grouped_aggs_query(group_by),
-          #from_=page_args.page*page_args.size,
-          size=0,
+    gene_query = await get_annotations_query(filter_args)
+    gene_resp = await es.search(
+        index=settings.PANTHER_ANNOTATIONS_INDEX,
+        query=gene_query,
+        aggs=await get_grouped_aggs_query(group_by),
+        size=0,
     )
 
-    results = await get_results(resp, group_by)
-    return results   
+    gene_keys = [bucket["key"] for bucket in gene_resp["aggregations"][group_by]["buckets"]]
+
+    # Second Query: Retrieve all annotations for the genes identified in the first query
+    annotations_query = {
+        "terms": {
+            f"{group_by}.keyword": gene_keys
+        }
+    }
+    annotations_resp = await es.search(
+        index=settings.PANTHER_ANNOTATIONS_INDEX,
+        query=annotations_query,
+        size=0,
+        source= {
+          "excludes": ["evidence"]
+        },
+        aggs={
+            "genes_grouped": {
+                "terms": {
+                    "field": f"{group_by}.keyword",
+                    "size": 1000  # Adjust based on the number of unique genes you expect
+                },
+                "aggs": {
+                    "gene_annotations": {
+                        "top_hits": {
+                            "_source": {
+                              "excludes": ["evidence"]
+                            },
+                            "size": 100  # Adjust based on how many annotations per gene you expect
+                        }
+                    }
+                }
+            }
+        }
+    )
+
+    results = await get_results(annotations_resp, "genes_grouped")
+    return results  
+  
+  
 
 async def get_annotations_export(filter_args:AnnotationFilterArgs, page_args=PageArgs):
 
@@ -146,7 +181,7 @@ async def get_annotations_query(filter_args:AnnotationFilterArgs):
 async def get_results(resp, group_by) -> typing.List[AnnotationGroup]:
     results = list()
     for bucket in resp["aggregations"][group_by]["buckets"]:
-      hits = bucket["top_hits"]["hits"]["hits"]
+      hits = bucket["gene_annotations"]["hits"]["hits"]
       annotations = [Annotation(id=hit['_id'], **hit['_source']) for hit in hits]
       group = AnnotationGroup(name=bucket["key"], annotations=annotations)
       results.append(group)
@@ -159,14 +194,7 @@ async def get_grouped_aggs_query(group_by):
       group_by: {
         "terms": {
           "field": "gene.keyword",
-          "size": 10
-        },
-        "aggs": {
-          "top_hits": {
-            "top_hits": {
-              "size": 10
-            }
-          }
+          "size": 50
         }
       }
     }
@@ -176,8 +204,9 @@ async def get_grouped_aggs_query(group_by):
 
 
 async def main():
-    results = await get_annotations()
-    pprint.pp(results)
+    #results = await get_annotations()
+   # pprint.pp(results)
+   pass
 
 if __name__ == "__main__":
 

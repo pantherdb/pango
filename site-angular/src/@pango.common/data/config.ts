@@ -53,21 +53,24 @@ const evidenceTypeMap = {
     label: 'Known Aspects',
     hint: 'direct evidence',
     description: 'Annotations supported by experimental evidence directly for that gene',
-    color: getColor('green', 500)
+    color: getColor('green', 500),
+    shorthand: 'D'
   },
   'homology': {
     id: 'homology',
     label: 'Known Aspects',
     hint: 'homology evidence',
     description: 'Annotations supported only by experimental evidence for a homologous gene',
-    color: getColor('red', 500)
+    color: getColor('red', 500),
+    shorthand: 'H'
   },
   'n/a': {
     id: 'n/a',
     label: 'Unknown Aspects',
     hint: 'unknown evidence',
     description: "Evidence is not applicable to “placeholder” annotations indicating unknown function aspects",
-    color: getColor('cyan', 500)
+    color: getColor('cyan', 500),
+    shorthand: 'na'
   },
 }
 

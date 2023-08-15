@@ -148,26 +148,7 @@ export class AnnotationGraphQLService {
               } 
               evidenceType            
               groups
-              evidenceCount
-              evidence {
-                withGeneId {
-                  gene
-                  geneName
-                  geneSymbol
-                  taxonAbbr
-                  taxonLabel
-                  taxonId
-                  coordinatesChrNum
-                  coordinatesStart
-                  coordinatesEnd
-                  coordinatesStrand
-                }
-                references {
-                  pmid
-                  title
-                  date
-                }
-              }
+              evidenceCount             
             }                              
           }
         }`
@@ -177,6 +158,7 @@ export class AnnotationGraphQLService {
       map((response: any) => {
         return response.groupedAnnotations.map((annotationGroup: AnnotationGroup) => {
           let gene: Gene
+
           if (annotationGroup.annotations.length > 0) {
             gene = { ...annotationGroup.annotations[0] } as unknown as Gene
             const termsSummary = this.getTermsSummary(annotationGroup.annotations)
@@ -184,7 +166,8 @@ export class AnnotationGraphQLService {
             gene.bps = termsSummary['bp']
             gene.ccs = termsSummary['cc']
             gene.hgncId = PangoUtils.getHGNC(gene.longId);
-
+            gene.maxTerms = 2;
+            gene.expanded = false;
           }
 
           const annotations = annotationGroup.annotations.map((annotation: Annotation) => {
@@ -413,6 +396,8 @@ export class AnnotationGraphQLService {
       const aspect = this.aspectMap[annotation.term.aspect]?.shorthand.toLowerCase()
       if (aspect && !distinctIds[aspect].has(annotation.term.id)) {
         distinctIds[aspect].add(annotation.term.id);
+        annotation.term.evidenceType = annotation.evidenceType
+
         distinctTerms[aspect].push(annotation.term);
       }
     })
