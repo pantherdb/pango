@@ -54,7 +54,8 @@ const evidenceTypeMap = {
     hint: 'direct evidence',
     description: 'Annotations supported by experimental evidence directly for that gene',
     color: getColor('green', 500),
-    shorthand: 'D'
+    shorthand: 'D',
+    iconTooltip: 'This characteristic has been demonstrated directly for the human gene'
   },
   'homology': {
     id: 'homology',
@@ -62,7 +63,9 @@ const evidenceTypeMap = {
     hint: 'homology evidence',
     description: 'Annotations supported only by experimental evidence for a homologous gene',
     color: getColor('red', 500),
-    shorthand: 'H'
+    shorthand: 'H',
+    iconTooltip: 'This characteristic has been demonstrated for a homology of the human gene'
+
   },
   'n/a': {
     id: 'n/a',
@@ -70,7 +73,8 @@ const evidenceTypeMap = {
     hint: 'unknown evidence',
     description: "Evidence is not applicable to “placeholder” annotations indicating unknown function aspects",
     color: getColor('cyan', 500),
-    shorthand: 'na'
+    shorthand: 'na',
+    iconTooltip: ''
   },
 }
 
