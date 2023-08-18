@@ -80,6 +80,10 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
         if (annotationStats) {
           this.annotationStats = annotationStats;
           this.distinctGeneCount = this.annotationStats.distinctGeneCount
+          this.knowledgeCount = {
+            'known': 0,
+            'unknown': 0,
+          };
           this.annotationStats.termTypeFrequency.buckets.forEach(bucket => {
             this.knowledgeCount[bucket.key] = bucket.docCount;
           });
