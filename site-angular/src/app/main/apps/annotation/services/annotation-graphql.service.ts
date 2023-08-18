@@ -348,19 +348,7 @@ export class AnnotationGraphQLService {
                           docCount
                           key
                         }
-                      }
-                      aspectFrequency {
-                        buckets {
-                          docCount
-                          key
-                        }
-                      }
-                      evidenceTypeFrequency {
-                        buckets {
-                          docCount
-                          key
-                        }
-                      }
+                      }                    
                       slimTermFrequency {
                         buckets {
                           docCount

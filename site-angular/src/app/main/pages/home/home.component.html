@@ -24,29 +24,27 @@
     </mat-drawer>
     <mat-drawer-content #scrollbarRef class="pango-section-body w-100-p">
       <div class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
-        <div class="pango-header accent p-8 w-100-p" fxLayout="column" fxLayoutAlign="start center">
+        <div class="pango-header accent w-100-p" fxLayout="column" fxLayoutAlign="start start">
 
           <h1>
             Functions of Human Genes
           </h1>
           <h2>
             The table below shows functional characteristics of protein-coding genes that are supported by scientific
-            evidence. You can filter the list to find a specific gene or function category. Functional characteristics
-            are described using terms from the Gene Ontology, and describe three distinct aspects of gene function:
-            molecular function, biological process, and cellular component. </h2>
+            evidence. You can filter the list to find a specific gene or function category.</h2>
           <h3>
-            See any missing or incorrect functions? <a href="https://help.geneontology.org/" target="_blank">Let us
-              know!</a>
+            Functional characteristics are described using terms from the Gene Ontology, and describe three distinct
+            aspects of gene function:
+            molecular function, biological process, and cellular component.
           </h3>
-          <!--   <div fxLayout="column" fxLayoutAlign="start center" class="pango-filter-section">
-            <div class="pango-heading">
-              <span>Filter By</span>
-            </div>
-            <div fxLayout="row" fxLayoutAlign="start center">
-              
-            </div>
-          </div> -->
-          <pango-gene-form> </pango-gene-form>
+          <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+            <pango-gene-form> </pango-gene-form>
+            <h3 class="ml-12">
+              See any missing or incorrect functions? <a href="https://help.geneontology.org/" target="_blank">Let us
+                know!</a>
+            </h3>
+          </div>
+
         </div>
         <pango-summary-stats></pango-summary-stats>
         <pango-annotation-group class="w-100-p" [annotationPage]="annotationPage"></pango-annotation-group>
