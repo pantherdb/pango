@@ -2,43 +2,12 @@
 @import "src/@pango.common/scss/pango.common";
 
 :host {
-  @include deep-width(100%);
   display: block;
-  background-color: $pango-background;
-
-  .pango-section-body {
-    background-color: transparent;
-    border-bottom: #ccc solid 1px;
-  }
-
-  .pango-section-header-sm {
-    //padding-right: 12px;
-    margin-bottom: 8px;
-    height: 25px;
-    color: #777;
-    border-bottom: #ccc;
-
-    h4 {
-      font-size: 12px;
-    }
-
-    .pango-section-heading {
-      font-size: 12px;
-      line-height: 25px;
-      color: #555;
-    }
-
-    .pango-action-button {
-      margin: 0px;
-      height: 25px; // line-height: 36px;
-    }
-  }
 
   .pango-drawer {
     // @include deep-width(300px);
     min-height: calc(100% - 40px);
     // @include mat-elevation(5);
-    background-color: $pango-background;
   }
 
   .pango-checkbox {
@@ -48,48 +17,6 @@
   mat-chip {
     font-size: 12px;
     font-weight: normal;
-    //min-height: 30px;
-    //  max-width: 200px;
-    // text-overflow: ellipsis;
-    //  white-space: nowrap;
-  }
-
-  .pango-box-radio-group {
-    .pango-box-radio-item {
-      cursor: pointer;
-      position: relative;
-      padding: 4px 5px;
-      border: rgba(map-get($primary, default), 0.2) solid 2px;
-      border-radius: 12px;
-      height: 90px;
-      //width: 120px;
-      margin: 4px;
-      font-size: 10px !important;
-      text-align: center;
-      .pango-selected-icon {
-        visibility: hidden;
-        position: absolute;
-        top: 4px;
-        right: 4px;
-        font-size: 16px;
-        color: darken(map-get($accent, default), 10%);
-      }
-      img {
-        width: 40px;
-        margin-bottom: 5px;
-      }
-      &.pango-active {
-        background-color: rgba(map-get($accent, default), 0.2);
-        border-color: rgba(map-get($accent, default), 0.9);
-        .pango-selected-icon {
-          visibility: visible;
-        }
-      }
-
-      &.pango-sm {
-        height: 40px;
-      }
-    }
   }
 
   .pango-terms-cell {
@@ -184,25 +111,9 @@
     }
   }
 
-  input[type="file"] {
-    display: none;
-  }
-
-  button {
-    @include deep-height(35px);
-
-    &.pango-file-button {
-      pointer-events: none;
+  .pango-form-row {
+    .pango-form-field {
+      @include deep-width(300px);
     }
-  }
-
-  label {
-    padding: 0;
-  }
-
-  .pango-file-upload-title {
-    margin-left: 4px;
-    color: #888;
-    font-weight: bold;
   }
 }

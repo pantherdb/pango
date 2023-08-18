@@ -9,16 +9,17 @@ import { AnnotationStatsComponent } from './annotation/annotation-stats/annotati
 import { PangoSharedModule } from '@pango/shared.module';
 import { PangoConfirmDialogModule } from '@pango/components/confirm-dialog/confirm-dialog.module';
 import { PositionStatsComponent } from './annotation/annotation-stats/position-stats/position-stats.component';
-import { SearchFormComponent } from './annotation/search-form/search-form.component';
 import { AnnotationFiltersComponent } from './annotation/annotation-filters/annotation-filters.component';
 import { SummaryStatsComponent } from './annotation/annotation-stats/summary-stats/summary-stats.component';
 import { AnnotationTableLongComponent } from './annotation/annotation-table-long/annotation-table-long.component';
 import { CategoryStatsComponent } from './annotation/annotation-stats/category-stats/category-stats.component';
-import { SearchAspectFormComponent } from './annotation/search-form/search-aspect-form/search-aspect-form.component';
+import { SearchAspectFormComponent } from './annotation/forms/search-aspect-form/search-aspect-form.component';
 import { AnnotationGroupComponent } from './annotation/annotation-group/annotation-group.component';
 import { GeneListComponent } from './annotation/gene-list/gene-list.component';
 import { SummaryStatsVerticalComponent } from './annotation/annotation-stats/summary-stats-vertical/summary-stats-vertical.component';
 import { NgxPieChartRemoveMarginsDirective } from '@pango.common/directives/piechart-remove-margins.directive';
+import { TermFormComponent } from './annotation/forms/term-form/term-form.component';
+import { GeneFormComponent } from './annotation/forms/gene-form/gene-form.component';
 
 const routes = [];
 
@@ -37,7 +38,8 @@ const routes = [];
         AnnotationStatsComponent,
         GeneralStatsComponent,
         PositionStatsComponent,
-        SearchFormComponent,
+        GeneFormComponent,
+        TermFormComponent,
         SearchAspectFormComponent,
         AnnotationFiltersComponent,
         AnnotationGroupComponent
@@ -62,7 +64,8 @@ const routes = [];
         CategoryStatsComponent,
         GeneralStatsComponent,
         PositionStatsComponent,
-        SearchFormComponent,
+        GeneFormComponent,
+        TermFormComponent,
         SearchAspectFormComponent,
         AnnotationFiltersComponent
     ],

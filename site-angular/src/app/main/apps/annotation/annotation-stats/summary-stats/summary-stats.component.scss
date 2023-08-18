@@ -17,19 +17,28 @@ $accent: map-get($theme, accent);
   min-height: 450px !important;
 }
 
-.pango-total-stats {
-  @include deep-height(190px);
-  @include deep-width(250px);
+.pango-stat-count { 
+    @include deep-height(120px);
+    @include deep-width(250px); 
+    background-color: #daead6;
+    border-radius: 12px;
   .pango-stat-number {
-    font-size: 36px;
-    line-height: 20px;
-    color: map-get($mat-blue-grey, 500);
-    small {
+ 
+    padding-top: 20px;
+    font-size: 40px;
+    color: map-get($mat-blue-grey, 500);  
+ 
+  } 
+
+  .pango-stat-label {
+    font-size:16px;
+  }
+  
+  small {
       font-weight: normal;
       color: #555;
-      font-size: 12px;
+      font-size: 10px;
     }
-  }
 }
 
 .pango-stats-section {
@@ -37,7 +46,7 @@ $accent: map-get($theme, accent);
   margin: 12px;
   background-color: #fff;
   overflow: hidden;
-  border: $pango-border;
+  border: $pango-border; 
 
   .pango-section-header {
     height: 30px;
@@ -47,7 +56,7 @@ $accent: map-get($theme, accent);
       padding-left: 12px;
       font-size: 12px;
       line-height: 30px;
-      color: #555;
+      color: #555; 
     }
   }
 

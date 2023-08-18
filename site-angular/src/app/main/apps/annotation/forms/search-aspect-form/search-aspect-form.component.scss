@@ -1,0 +1,213 @@
+@import "src/@pango/scss/pango";
+@import "src/@pango.common/scss/pango.common";
+
+:host {
+  @include deep-width(100%);
+  display: block;
+  background-color: $pango-background;
+
+  .pango-form-section {
+    margin: 0;
+  }
+
+  .pango-section-body {
+    margin: 0;
+    background-color: transparent;
+    border-bottom: #ccc solid 1px;
+  }
+
+  .pango-section-header-sm {
+    //padding-right: 12px;
+    margin-bottom: 8px;
+    height: 25px;
+    color: #777;
+    border-bottom: #ccc;
+
+    h4 {
+      font-size: 12px;
+    }
+
+    .pango-section-heading {
+      font-size: 12px;
+      line-height: 25px;
+      color: #555;
+    }
+
+    .pango-action-button {
+      margin: 0px;
+      height: 25px; // line-height: 36px;
+    }
+  }
+
+  .pango-drawer {
+    // @include deep-width(300px);
+    min-height: calc(100% - 40px);
+    // @include mat-elevation(5);
+    background-color: $pango-background;
+  }
+
+  .pango-checkbox {
+    font-size: 12px;
+  }
+
+  mat-chip {
+    font-size: 12px;
+    font-weight: normal;
+    //min-height: 30px;
+    //  max-width: 200px;
+    // text-overflow: ellipsis;
+    //  white-space: nowrap;
+  }
+
+  .pango-box-radio-group {
+    .pango-box-radio-item {
+      cursor: pointer;
+      position: relative;
+      padding: 4px 5px;
+      border: rgba(map-get($primary, default), 0.2) solid 2px;
+      border-radius: 12px;
+      height: 70px;
+      //width: 120px;
+      margin: 4px;
+      font-size: 10px !important;
+      text-align: center;
+      .pango-selected-icon {
+        visibility: hidden;
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        font-size: 16px;
+        color: darken(map-get($accent, default), 10%);
+      }
+      img {
+        width: 40px;
+        margin-bottom: 5px;
+      }
+      &.pango-active {
+        background-color: rgba(map-get($accent, default), 0.2);
+        border-color: rgba(map-get($accent, default), 0.9);
+        .pango-selected-icon {
+          visibility: visible;
+        }
+      }
+
+      &.pango-sm {
+        height: 40px;
+      }
+    }
+  }
+
+  .pango-terms-cell {
+    mat-chip {
+      display: inline-block !important;
+      text-align: center;
+      @include deep-height(18px);
+      @include deep-width(18px);
+      font-size: 8px;
+      font-weight: bold;
+      padding: 2px;
+      &.MF {
+        border: $pango-mf solid 1px;
+        color: darken($pango-mf, 10%);
+      }
+
+      &.BP {
+        border: $pango-bp solid 1px;
+        color: darken($pango-bp, 10%);
+      }
+
+      &.CC {
+        border: $pango-cc solid 1px;
+        color: darken($pango-cc, 10%);
+      }
+    }
+
+    .pango-term-cell {
+      padding: 8px 0;
+      border-bottom: #bbb solid 1px;
+    }
+
+    .pango-cell-title {
+      font-size: 12px;
+    }
+
+    .pango-cell-description-2 {
+      color: #777;
+      font-style: italic;
+    }
+
+    .pango-cell-count {
+      @include deep-width(50px);
+      font-size: 10px;
+      text-align: right;
+    }
+  }
+
+  .pango-filter-form {
+    padding-bottom: 200px;
+
+    .pango-form-section {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  mat-chip {
+    font-size: 12px;
+    font-weight: normal;
+    @include deep-height(25px);
+    max-width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    .pango-chip-label {
+      padding: 0 8px 0 4px;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &.pango-form-chip {
+      padding: 0;
+      @include deep-height(20px);
+      font-size: 10px;
+
+      .pango-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 25px;
+        width: 25px;
+        border-radius: 50%;
+        color: #777;
+        font-size: 14px;
+      }
+
+      @include pango-chip-color(#bbc9cc);
+    }
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  button {
+    @include deep-height(35px);
+
+    &.pango-file-button {
+      pointer-events: none;
+    }
+  }
+
+  label {
+    padding: 0;
+  }
+
+  .pango-file-upload-title {
+    margin-left: 4px;
+    color: #888;
+    font-weight: bold;
+  }
+}

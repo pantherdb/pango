@@ -132,6 +132,10 @@ export class AnnotationGraphQLService {
               taxonAbbr
               taxonLabel
               taxonId
+              coordinatesChrNum
+              coordinatesStart
+              coordinatesEnd
+              coordinatesStrand
               term {
                 id
                 aspect

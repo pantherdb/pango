@@ -1,0 +1,44 @@
+<form class="w-100-p" name="filterForm" [formGroup]="filterForm">
+
+  <mat-form-field
+    matTooltip="Find all functional characteristics for a gene of interest. Type the gene symbol, name or identifier into the box, and select your gene from the autocomplete."
+    [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500" appearance="outline"
+    class="pango-sm pango-white w-100-p pango-form-field">
+    <mat-label>Filter by Gene</mat-label>
+    <mat-chip-list #geneChipList>
+      <mat-chip class="pango-form-chip" *ngFor="let gene of annotationService.searchCriteria.genes" [selectable]="true"
+        [removable]="true" (removed)="remove(gene, SearchFilterType.GENES)" fxLayout="row" fxLayoutAlign="start center"
+        matTooltip="gene: {{gene.gene}} ({{gene.geneName}})" [matTooltipPosition]="'below'"
+        [matTooltipShowDelay]="1000">
+        <div fxFlex="" class="pango-chip-label">
+          {{gene.geneSymbol}}
+        </div>
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input #genesInput formControlName="genes"
+        placeholder="Type the gene symbol, name or identifier, and select from the autocomplete"
+        [matAutocomplete]="geneAuto" [matChipInputFor]="geneChipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
+    </mat-chip-list>
+    <mat-autocomplete #geneAuto="matAutocomplete" (optionSelected)="selected($event, SearchFilterType.GENES)"
+      [displayWith]="geneDisplayFn" class="pango-gene-autocomplete">
+      <mat-option class="pango-entity-autocomplete" *ngFor="let item of genes$ | async" [value]="item">
+        <div class="w-100-p" fxLayout="column" fxLayoutAlign="start start">
+          <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+            <div class="pango-gene-label">
+              {{ item.gene }}
+            </div>
+            <span fxFlex></span>
+            <div class="pango-gene-id">
+              ({{ item.geneSymbol }})
+            </div>
+          </div>
+          <div class="pango-gene-description w-100-p">
+            ({{ item.geneName }})
+          </div>
+        </div>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+</form>

@@ -9,14 +9,15 @@ import { AnnotationService } from 'app/main/apps/annotation/services/annotation.
 import { pangoData } from '@pango.common/data/config';
 import { AnnotationPage } from 'app/main/apps/annotation/models/page';
 import { Subject, takeUntil } from 'rxjs';
+import { Annotation } from 'app/main/apps/annotation/models/annotation';
 import { SearchType } from '@pango.search/models/search-criteria';
 
 @Component({
-  selector: 'app-home-lab',
-  templateUrl: './home-lab.component.html',
-  styleUrls: ['./home-lab.component.scss']
+  selector: 'app-home-annotations',
+  templateUrl: './home-annotations.component.html',
+  styleUrls: ['./home-annotations.component.scss']
 })
-export class HomeLabComponent implements OnInit {
+export class HomeAnnotationsComponent implements OnInit {
   RightPanel = RightPanel;
   LeftPanel = LeftPanel
 
@@ -30,7 +31,7 @@ export class HomeLabComponent implements OnInit {
   searchForm: UntypedFormGroup;
   leftPanelMenu;
 
-  annotationPage: AnnotationPage;
+  annotations: Annotation[];
 
   loadingSpinner: any = {
     color: 'primary',
@@ -50,7 +51,7 @@ export class HomeLabComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.annotationService.searchType = SearchType.ANNOTATION_GROUP;
+    this.annotationService.searchType = SearchType.ANNOTATIONS;
     this.annotationService.searchCriteria.clearSearch()
     this.annotationService.searchCriteria.termTypes = [pangoData.termTypeMap.known.id]
     this.annotationService.updateSearch();
@@ -62,9 +63,9 @@ export class HomeLabComponent implements OnInit {
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((annotationPage: AnnotationPage) => {
         if (annotationPage) {
-          this.setAnnotationPage(annotationPage);
+          this.annotations = annotationPage.annotations
         } else {
-          this.annotationPage = null
+          this.annotations = []
         }
       });
   }
@@ -76,11 +77,6 @@ export class HomeLabComponent implements OnInit {
   clearAllFIlters() {
     this.annotationService.searchCriteria.clearSearch()
     this.annotationService.updateSearch();
-  }
-
-
-  setAnnotationPage(annotationPage: AnnotationPage) {
-    this.annotationPage = annotationPage;
   }
 
   ngOnDestroy(): void {

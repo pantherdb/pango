@@ -5,7 +5,7 @@
   width: 100%;
 
   .pango-left-drawer {
-    width: 320px;
+    width: 380px;
     border-right: #111 solid 1px;
 
     .pango-menu-section {
@@ -18,8 +18,13 @@
     //@include deep-height(300px !important);
   }
 
-  pango-search-form {
-    // @include deep-width(300px !important);
+  pango-gene-form {
+    @include deep-width(400px !important);
+    display: block;
+  }
+
+  pango-term-form {
+    @include deep-width(100% !important);
     display: block;
   }
 
@@ -46,9 +51,9 @@
   background-position: top;
   position: relative;
   flex: 1 0 auto;
-  height: 220px;
+  height: 270px;
   min-width: 800px;
-  max-height: 350px;
+  max-height: 400px;
   text-align: center;
   //overflow: hidden;
 
@@ -119,7 +124,7 @@
 }
 
 .pango-filter-section {
-  margin: 8px;
+  margin: 8px; 
   padding: 8px;
   background-color: rgba(map-get($accent, default), 0.5);
   .pango-heading {
@@ -163,7 +168,7 @@
   border-bottom: 200px;
 }
 
-.pango-search-form {
+.pango-gene-form {
   padding: 15px;
   @include deep-width(500px);
 }

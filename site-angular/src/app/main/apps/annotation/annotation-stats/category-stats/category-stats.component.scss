@@ -4,6 +4,11 @@
 $primary: map-get($theme, primary);
 $accent: map-get($theme, accent);
 
+pango-term-form {
+  @include deep-width(100% !important);
+  display: block;
+}
+
 .pango-terms-cell {
   mat-chip {
     display: inline-block !important;

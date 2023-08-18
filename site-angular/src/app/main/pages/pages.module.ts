@@ -7,19 +7,19 @@ import { PangoFooterModule } from 'app/layout/components/footer/footer.module';
 import { ContactComponent } from './contact/contact.component';
 import { PangoConfirmDialogModule } from '@pango/components/confirm-dialog/confirm-dialog.module';
 import { GeneComponent } from './gene/gene.component';
-import { HomeComponent } from './home/home.component';
 import { DownloadComponent } from './download/download.component';
-import { HomeLabComponent } from './home-lab/home-lab.component';
 import { HomeAdvancedComponent } from './home-advanced/home-advanced.component';
+import { HomeAnnotationsComponent } from './home-annotations/home-annotations.component';
+import { HomeComponent } from './home/home.component';
 
 const routes = [{
   path: '',
   title: 'Home: Annotations',
-  component: HomeLabComponent
-}, {
-  path: 'lab',
-  title: 'Lab: Layout',
   component: HomeComponent
+}, {
+  path: 'annotations',
+  title: 'Lab: Annotations Layout',
+  component: HomeAnnotationsComponent
 }, {
   path: 'advanced-lab',
   title: 'Advanced Lab: Layout',
@@ -39,7 +39,7 @@ const routes = [{
 @NgModule({
   declarations: [
     HomeComponent,
-    HomeLabComponent,
+    HomeAnnotationsComponent,
     HomeAdvancedComponent,
     AboutComponent,
     DownloadComponent,

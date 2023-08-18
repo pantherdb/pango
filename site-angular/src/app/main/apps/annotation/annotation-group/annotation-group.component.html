@@ -2,7 +2,8 @@
 
   <div class="w-100-p h-100-p " fxLayout="column" fxLayoutAlign="start stretch">
     <!--     <div class="legend">
-      <div fxFlex="40px">
+          <div fxFlex="40px" matTooltip="{{evidenceTypeMap[item.evidenceType]?.iconTooltip}}"
+                  [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
         <span class="pango-evidence-type D" fxLayout="column" fxLayoutAlign="center center">
           <fa-icon class="pango-icon" [icon]="['fas', 'microscope']"></fa-icon>
           <span class="pango-label">
@@ -12,7 +13,8 @@
       </div>
       = Direct Evidence
 
-      <div fxFlex="40px">
+          <div fxFlex="40px" matTooltip="{{evidenceTypeMap[item.evidenceType]?.iconTooltip}}"
+                  [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
         <span class="pango-evidence-type H" fxLayout="column" fxLayoutAlign="center center">
           <fa-icon class="pango-icon" [icon]="['fas', 'microscope']"></fa-icon>
           <span class="pango-label">
@@ -70,6 +72,9 @@
                 {{element.pantherFamily}}
               </a>
             </div>
+            <a [routerLink]="'/gene/'+element.gene" target="_blank">
+              <small>View all functions and evidence</small>
+            </a>
           </div>
         </td>
       </ng-container>
@@ -78,7 +83,8 @@
         <th mat-header-cell *matHeaderCellDef class="pango-terms-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
-              <div matTooltip="The high-level category(ies) of the annotated GO term shown in the previous column."
+              <div
+                matTooltip="What a protein encoded by a gene does at the molecular level. Click on a GO identifier for more information about a GO term."
                 [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
                 Molecular Function
               </div>
@@ -90,7 +96,8 @@
             <div *ngIf="i<element.maxTerms" class="w-100-p">
               <div class="pango-cell-title w-100-p {{evidenceTypeMap[item.evidenceType]?.shorthand}}" fxLayout="row"
                 fxLayoutAlign="start center">
-                <div fxFlex="40px">
+                <div fxFlex="40px" matTooltip="{{evidenceTypeMap[item.evidenceType]?.iconTooltip}}"
+                  [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
                   <span class="pango-evidence-type" fxLayout="column" fxLayoutAlign="center center">
                     <fa-icon class="pango-icon" [icon]="['fas', 'microscope']"></fa-icon>
                     <span class="pango-label">
@@ -123,7 +130,8 @@
         <th mat-header-cell *matHeaderCellDef class="pango-terms-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
-              <div matTooltip="The high-level category(ies) of the annotated GO term shown in the previous column."
+              <div
+                matTooltip="System functions, at the level of the cell or whole organism, that the gene helps to carry out. Click on a GO identifier for more information about a GO term"
                 [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
                 Biological Process
               </div>
@@ -135,7 +143,8 @@
             <div *ngIf="i<element.maxTerms" class="w-100-p">
               <div class="pango-cell-title w-100-p  {{evidenceTypeMap[item.evidenceType]?.shorthand}}" fxLayout="row"
                 fxLayoutAlign="start center">
-                <div fxFlex="40px">
+                <div fxFlex="40px" matTooltip="{{evidenceTypeMap[item.evidenceType]?.iconTooltip}}"
+                  [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
                   <span class="pango-evidence-type" fxLayout="column" fxLayoutAlign="center center">
                     <fa-icon class="pango-icon" [icon]="['fas', 'microscope']"></fa-icon>
                     <span class="pango-label">
@@ -168,7 +177,8 @@
         <th mat-header-cell *matHeaderCellDef class="pango-terms-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
             <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
-              <div matTooltip="The high-level category(ies) of the annotated GO term shown in the previous column."
+              <div
+                matTooltip="The part of a cell where the protein encoded by the gene is active. Click on a GO identifier for more information about a GO term"
                 [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
                 Cellular Component
               </div>
@@ -180,7 +190,8 @@
             <div *ngIf="i<element.maxTerms" class="w-100-p">
               <div class="pango-cell-title w-100-p  {{evidenceTypeMap[item.evidenceType]?.shorthand}}" fxLayout="row"
                 fxLayoutAlign="start center">
-                <div fxFlex="40px">
+                <div fxFlex="40px" matTooltip="{{evidenceTypeMap[item.evidenceType]?.iconTooltip}}"
+                  [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
                   <span class="pango-evidence-type" fxLayout="column" fxLayoutAlign="center center">
                     <fa-icon class="pango-icon" [icon]="['fas', 'microscope']"></fa-icon>
                     <span class="pango-label">
