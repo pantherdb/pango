@@ -21,6 +21,7 @@ export class CategoryStatsComponent implements OnInit, OnDestroy {
   annotationPage: AnnotationPage;
   annotationStats: AnnotationStats;
   distinctGeneCount;
+  showCategories;
 
   /*   termFrequencyBarOptions = {
       view: [500, 500],
@@ -156,6 +157,9 @@ export class CategoryStatsComponent implements OnInit, OnDestroy {
           this.annotationStats = annotationStats;
           this.distinctGeneCount = this.annotationStats.distinctGeneCount
           this.generateStats()
+
+          //show if none is selected
+          this.showCategories = this.annotationService.searchCriteria[SearchFilterType.SLIM_TERMS]?.length === 0;
         }
       });
 
@@ -210,8 +214,5 @@ export class CategoryStatsComponent implements OnInit, OnDestroy {
     if (this.annotationStats.slimTermFrequency?.buckets) {
       this.stats.slimTermFrequencyBar = this.annotationService.buildCategoryBar(this.annotationStats.slimTermFrequency.buckets)
     }
-
-
   }
-
 }

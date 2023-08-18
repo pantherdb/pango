@@ -1,10 +1,9 @@
 <div class="w-100-p" fxLayout="row" fxLayoutAlign="start start">
   <mat-drawer-container class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start start" autosize>
-    <mat-drawer #leftDrawer class="" mode="side" position="start" opened="true">
+    <mat-drawer #leftDrawer class="pango-left-drawer" mode="side" position="start" opened="true">
       <div fxLayout="column" fxLayoutAlign="start stretch" class="pango-drawer h-100-p">
         <div class="pango-drawer-header" fxLayout="row" fxLayoutAlign="start center">
-          <span class="pango-drawer-header-title">
-            Filter Options</span>
+          <span class="pango-drawer-header-title"> Filter Options</span>
           <span fxFlex></span>
           <button mat-stroked-button type="button" color="warn" class="pango-rounded-button pango-xs mr-8"
             (click)="clearAllFIlters()">
@@ -31,9 +30,10 @@
             Functions of Human Genes
           </h1>
           <h2>
-            Each line in the table below represents a functional characteristic of a human gene that is supported by
-            scientific evidence. You can filter the list to find specific genes and/or functions.
-          </h2>
+            The table below shows functional characteristics of protein-coding genes that are supported by scientific
+            evidence. You can filter the list to find a specific gene or function category. Functional characteristics
+            are described using terms from the Gene Ontology, and describe three distinct aspects of gene function:
+            molecular function, biological process, and cellular component. </h2>
           <h3>
             See any missing or incorrect functions? <a href="https://help.geneontology.org/" target="_blank">Let us
               know!</a>
@@ -46,10 +46,10 @@
               
             </div>
           </div> -->
-          <pango-search-form> </pango-search-form>
+          <pango-gene-form> </pango-gene-form>
         </div>
         <pango-summary-stats></pango-summary-stats>
-        <pango-annotation-table class="w-100-p" [annotations]="annotations"></pango-annotation-table>
+        <pango-annotation-group class="w-100-p" [annotationPage]="annotationPage"></pango-annotation-group>
       </div>
       <div class="w-100-p">
         <pango-footer></pango-footer>

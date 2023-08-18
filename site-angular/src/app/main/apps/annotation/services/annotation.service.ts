@@ -198,7 +198,6 @@ export class AnnotationService {
             });
     }
 
-
     queryAnnotationStats(query: Query): any {
         return this.annotationGraphQLService.getAnnotationsAggsQuery(query).subscribe(
             {
@@ -369,6 +368,16 @@ export class AnnotationService {
         const longest = sortedBuckets[0].docCount
         const stats = sortedBuckets.map((bucket) => {
             const ratio = bucket.docCount / longest;
+
+            let countPos
+            if (ratio < 0.20) {
+                countPos = (ratio * 100) + '%';
+            } else if (ratio < 0.90) {
+                countPos = (ratio - 0.15) * 100 + '%'
+            } else {
+                countPos = (ratio - 0.30) * 100 + '%'
+            }
+
             return {
                 ...bucket.meta,
                 name: bucket.key,
@@ -376,9 +385,7 @@ export class AnnotationService {
                 color: this.aspectMap[bucket.meta.aspect]?.color,
                 aspectShorthand: this.aspectMap[bucket.meta.aspect]?.shorthand,
                 width: (ratio * 100) + '%',
-                countPos: ratio < 0.20 ?
-                    (ratio * 100) + '%' :
-                    (ratio - 0.10) * 100 + '%'
+                countPos: countPos
 
             }
         })

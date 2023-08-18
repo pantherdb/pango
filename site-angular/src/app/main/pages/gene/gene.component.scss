@@ -27,7 +27,7 @@ $pango-background: map-get($mat-blue-grey, 50);
     //@include deep-height(300px !important);
   }
 
-  pango-search-form {
+  pango-gene-form {
     // @include deep-width(300px !important);
   }
 
@@ -49,7 +49,7 @@ $pango-background: map-get($mat-blue-grey, 50);
   border-bottom: 200px;
 }
 
-.pango-search-form {
+.pango-gene-form {
   padding: 15px;
   @include deep-width(500px);
 }

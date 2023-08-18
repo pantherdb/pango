@@ -8,9 +8,11 @@
 
     </div>
     <div class="pango-section-body pango-terms-cell" fxLayout="column" fxLayoutAlign="start stretch">
+
+      <pango-term-form> </pango-term-form>
       <p class="pango-alert alert-info">Click to filter by category</p>
 
-      <div class="pango-activity-term-row" fxLayout="column">
+      <div *ngIf="showCategories" class="pango-activity-term-row" fxLayout="column">
         <div *ngFor="let item of stats?.slimTermFrequencyBar" class="w-100-p pango-term-cell"
           (click)="selectSlimTerm(item)" fxLayout="row" fxLayoutAlign="start center">
           <mat-chip class="pango-chip-xs mr-4 pango-aspect {{item.aspectShorthand}}" fxLayout="column"
@@ -27,7 +29,7 @@
             <div class="pango-stat-bar" [style.background-color]="item.color" [style.width]='item.width'>
             </div>
             <div class="pango-cell-count" [style.left]='item.countPos'>
-              {{ item.count }}
+              {{ item.count }} genes
             </div>
           </div>
         </div>

@@ -1,26 +1,36 @@
 <div class="w-100-p" fxLayout="row" fxLayoutAlign="start stretch">
   <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
-    <div class="pango-form-section pango-total-stats" fxLayout="column" fxLayoutAlign="start stretch">
-      <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
-        <div class="pango-section-heading">
-          <h3>Annotation Results</h3>
-        </div>
-        <span fxFlex></span>
-      </div>
-      <div class="pango-section-body pt-12" fxLayout="row" fxLayoutAlign="start center">
-        <div class="pango-stat-number">
-          {{distinctGeneCount}}<br> <small>Genes</small>
-        </div>
-      </div>
-      <div class="pango-section-body pt-12" fxLayout="row" fxLayoutAlign="start center">
-        <div class="pango-stat-number">
-          {{annotationPage?.total ? annotationPage.total: 0}}<br> <small>Annotations (functional
-            characteristics)</small>
-        </div>
-      </div>
+    <div class="pango-form-section" fxLayout="column" fxLayoutAlign="start stretch">
 
+      <div class="" fxLayout="column" fxLayoutAlign="start stretch">
+        <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
+          <div class="pango-section-heading">
+            <h3>Current Selections</h3>
+          </div>
+          <span fxFlex></span>
+        </div>
+        <div class="w-100-p p-8" fxLayout="row" fxLayoutAlign="start center">
+          <div class="pango-stat-count mr-20" fxLayout="column" fxLayoutAlign="start center">
+            <div class="pango-stat-number">
+              {{distinctGeneCount}}
+            </div>
+            <div class="pango-stat-label">
+              Genes
+            </div>
+          </div>
+          <div class="pango-stat-count mr-20" fxLayout="column" fxLayoutAlign="start center">
+            <div class="pango-stat-number">
+              {{annotationPage?.total ? annotationPage.total: 0}}
+            </div>
+            <div class="pango-stat-label">
+              Annotations
+            </div>
+            <small>(functional characteristics)</small>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="pango-form-section pango-aspect-stats" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch">
+    <!--   <div class="pango-form-section pango-aspect-stats" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch">
       <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
         <div class="pango-section-heading">
           <h3>GO Function Aspect</h3>
@@ -36,8 +46,7 @@
         </ngx-charts-pie-chart>
 
         <div class="pango-stat" fxLayout="column" fxLayoutAlign="start stretch">
-          <!-- <div class="pango-stat-heading mb-12" class="h6"> By Aspect</div> -->
-          <div *ngFor="let item of this.annotationStats?.aspectFrequency.buckets" fxLayout="row"
+         <div *ngFor="let item of this.annotationStats?.aspectFrequency.buckets" fxLayout="row"
             fxLayoutAlign="start center">
             <div class="pango-stat-color mr-8" [style]="{'backgroundColor':aspectMap[item.key].color}">
 
@@ -68,8 +77,7 @@
         </ngx-charts-pie-chart>
 
         <div class="pango-stat" fxLayout="column" fxLayoutAlign="start stretch">
-          <!-- <div class="pango-stat-heading mb-12" class="h6"> By Evidence Type</div> -->
-          <div *ngFor="let item of this.annotationStats?.evidenceTypeFrequency.buckets" fxLayout="row"
+         <div *ngFor="let item of this.annotationStats?.evidenceTypeFrequency.buckets" fxLayout="row"
             fxLayoutAlign="start center">
             <div class="pango-stat-color mr-8" [style]="{'backgroundColor':evidenceTypeMap[item.key].color}">
 
@@ -83,8 +91,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
-
-
 </div>
