@@ -81,6 +81,7 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
         },
         "slim_term_frequency": get_slim_terms_query()        
     }
+    
 
     resp = await es.search(
           index=settings.PANTHER_ANNOTATIONS_INDEX,
@@ -99,7 +100,7 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
 
                 buckets.append(Bucket(
                   key=freq_bucket["key"],
-                  doc_count=freq_bucket["doc_count"],
+                  doc_count=freq_bucket["distinct_genes"]["gene_count"]["value"],
                   meta = get_response_meta(freq_bucket["docs"])
                 ))
             stats[k] = Frequency(buckets=buckets)
@@ -116,30 +117,46 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
 
 def get_slim_terms_query():
     
-      slim_term_frequency = {
-        "nested": {
-           "path": "slim_terms"
-        },
-        "aggs": {
-           "distinct_slim_term_frequency": {
-              "terms": {
-                 "field": "slim_terms.label.keyword",
-                 "order":{"_count":"desc"},
-                 "size": 200
-              },
-              "aggs": {
-                "docs": {
-                  "top_hits": {
-                    "_source":   { 
-                    "includes": ["slim_terms.id", "slim_terms.label", "slim_terms.aspect"]
-                    },
-                    "size": 1
+      slim_term_frequency =  {
+            "nested": {
+              "path": "slim_terms"
+            },
+            "aggs": {
+              "distinct_slim_term_frequency": {
+                "terms": {
+                  "field": "slim_terms.label.keyword",
+                  "order": {
+                    "_count": "desc"
+                  },
+                  "size": 200
+                },
+                "aggs": {
+                  "distinct_genes": {
+                    "reverse_nested": {},
+                    "aggs": {
+                      "gene_count": {
+                        "cardinality": {
+                          "field": "gene.keyword"
+                        }
+                      }
+                    }
+                  },
+                  "docs": {
+                    "top_hits": {
+                      "_source": {
+                        "includes": [
+                          "slim_terms.id",
+                          "slim_terms.label",
+                          "slim_terms.aspect"
+                        ]
+                      },
+                      "size": 1
+                    }
                   }
                 }
-             }
+              }
+            }
           }
-        }
-      }
 
       return slim_term_frequency
 
@@ -167,3 +184,6 @@ if __name__ == "__main__":
     #loop.run_until_complete(main())
     #loop.close()
     pass
+  
+  
+ 
