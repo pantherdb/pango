@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute } from '@angular/router';
+import { pangoData } from '@pango.common/data/config';
 import { RightPanel, LeftPanel } from '@pango.common/models/menu-panels';
 import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 import { SearchType } from '@pango.search/models/search-criteria';
@@ -11,6 +12,7 @@ import { AnnotationPage } from 'app/main/apps/annotation/models/page';
 import { AnnotationService } from 'app/main/apps/annotation/services/annotation.service';
 import { Gene } from 'app/main/apps/gene/models/gene.model';
 import { environment } from 'environments/environment';
+import { orderBy } from 'lodash';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -23,6 +25,7 @@ export class GeneComponent implements OnInit, OnDestroy {
   taxonApiUrl = environment.taxonApiUrl;
   RightPanel = RightPanel;
   LeftPanel = LeftPanel
+  aspectOrder = pangoData.aspectOrder;
 
   @ViewChild('leftDrawer', { static: true })
   leftDrawer: MatDrawer;
@@ -96,7 +99,9 @@ export class GeneComponent implements OnInit, OnDestroy {
       .subscribe((annotationPage: AnnotationPage) => {
         if (annotationPage && annotationPage.annotations.length > 0) {
           this.annotation = annotationPage.annotations[0];
-          this.annotations = annotationPage.annotations;
+
+          const sortedAnnotations = orderBy(annotationPage.annotations, item => this.aspectOrder[item.term.aspect])
+          this.annotations = sortedAnnotations;
           this.hgncId = PangoUtils.getHGNC(this.annotation.longId);
         } else {
           this.annotation = null

@@ -78,9 +78,16 @@ const evidenceTypeMap = {
   },
 }
 
+const aspectOrder = {
+  'molecular function': 1,
+  'biological process': 2,
+  'cellular component': 3
+};
+
 
 export const pangoData = {
   aspectMap: cloneDeep(aspectMap),
   evidenceTypeMap: cloneDeep(evidenceTypeMap),
-  termTypeMap: cloneDeep(termTypeMap)
+  termTypeMap: cloneDeep(termTypeMap),
+  aspectOrder: { ...aspectOrder }
 }

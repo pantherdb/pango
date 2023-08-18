@@ -20,6 +20,10 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
   annotationPage: AnnotationPage;
   annotationStats: AnnotationStats;
   distinctGeneCount;
+  knowledgeCount = {
+    'known': 0,
+    'unknown': 0,
+  };
 
   aspectPieOptions = {
     view: [100, 100],
@@ -76,6 +80,13 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
         if (annotationStats) {
           this.annotationStats = annotationStats;
           this.distinctGeneCount = this.annotationStats.distinctGeneCount
+          this.knowledgeCount = {
+            'known': 0,
+            'unknown': 0,
+          };
+          this.annotationStats.termTypeFrequency.buckets.forEach(bucket => {
+            this.knowledgeCount[bucket.key] = bucket.docCount;
+          });
           this.generateStats()
         }
       });

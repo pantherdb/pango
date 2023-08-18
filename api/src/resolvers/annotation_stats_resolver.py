@@ -19,24 +19,16 @@ async def get_annotations_count(filter_args:AnnotationFilterArgs):
         
     return results   
 
-async def get_distinct_gene_count(filter_args:AnnotationFilterArgs):
+
+async def get_genes_count(filter_args:AnnotationFilterArgs):
 
     query = await get_annotations_query(filter_args)
-    resp = await es.count(
+    resp = await es.search(
           index=settings.PANTHER_ANNOTATIONS_INDEX,
           query=query,
-    )
-
-    results = ResultCount(total=resp['count'])
-        
-    return results   
-
-
-async def get_annotations_stats(filter_args:AnnotationFilterArgs):
-    
-    query = await get_annotations_query(filter_args)
-    aggs = {
-       "distinct_gene_count": {
+          size=0,
+          aggs= {
+          "distinct_gene_count": {
           "scripted_metric": {
             "params": {
               "fieldName": "gene"
@@ -57,7 +49,20 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
             return count;
             """
           }
-        },
+          }
+        })
+    
+    count = resp['aggregations']['distinct_gene_count']['value'] 
+       
+    results = ResultCount(total=count)
+        
+    return results   
+
+
+async def get_annotations_stats(filter_args:AnnotationFilterArgs):
+    
+    query = await get_annotations_query(filter_args)
+    aggs = {     
         "aspect_frequency": {
           "terms": {
             "field": "term.aspect.keyword",

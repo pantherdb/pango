@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.annotationService.searchType = SearchType.ANNOTATION_GROUP;
     this.annotationService.searchCriteria.clearSearch()
-    this.annotationService.searchCriteria.termTypes = [pangoData.termTypeMap.known.id]
+    // this.annotationService.searchCriteria.termTypes = [pangoData.termTypeMap.known.id]
     this.annotationService.updateSearch();
 
     this.pangoMenuService.setLeftDrawer(this.leftDrawer);
