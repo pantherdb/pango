@@ -256,6 +256,26 @@ export class AnnotationGraphQLService {
 
   }
 
+  getGenesCountQuery(query: Query): Observable<any> {
+
+    const options = {
+      variables: {
+        filterArgs: query.filterArgs
+      },
+      query: `query GetGenesCount($filterArgs: AnnotationFilterArgs) {
+                genesCount(filterArgs:$filterArgs) {
+                  total                                     
+                }
+              }`
+    }
+
+    return this.pangoGraphQLService.query(options).pipe(
+      map((response: any) => {
+        return response.genesCount as AnnotationCount
+      }));
+
+  }
+
   getUniqueListGraphQL(query: Query): Observable<Annotation[]> {
     const aspectFilter = new AutocompleteFilterArgs(AutocompleteType.ASPECT)
     const options = {
@@ -342,7 +362,6 @@ export class AnnotationGraphQLService {
       },
       query: `query GetAnnotationsStats($filterArgs: AnnotationFilterArgs) {
                     stats(filterArgs:$filterArgs) {
-                      distinctGeneCount
                       termTypeFrequency {
                         buckets {
                           docCount

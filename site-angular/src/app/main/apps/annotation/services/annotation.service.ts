@@ -60,18 +60,6 @@ export class AnnotationService {
     }
 
 
-    xxgetAnnotations(page: number): any {
-        const self = this;
-        self.loading = true;
-
-        this.searchCriteria.clearSearch()
-        this.searchCriteria = new SearchCriteria();
-
-        self.getAnnotationsPage(this.query, page);
-        self.getAnnotationsCount(this.query);
-        self.queryAnnotationStats(this.query);
-    }
-
     getAnnotationsExport(page: number): any {
         const self = this;
         self.loading = true;
@@ -166,6 +154,16 @@ export class AnnotationService {
                     self.loading = false;
                 }, error: (err) => {
                     self.loading = false;
+                }
+            });
+    }
+
+    getGenesCount(query: Query): any {
+        return this.annotationGraphQLService.getGenesCountQuery(query).subscribe(
+            {
+                next: (geneCount: AnnotationCount) => {
+                    this.annotationPage.total = geneCount.total;
+                }, error: (err) => {
                 }
             });
     }
@@ -271,11 +269,12 @@ export class AnnotationService {
 
         if (this.searchType === SearchType.ANNOTATION_GROUP) {
             this.getAnnotationGroupsPage(query, 1);
+            this.getGenesCount(query)
         } else {
             this.getAnnotationsPage(query, 1);
+            this.getAnnotationsCount(query)
         }
 
-        this.getAnnotationsCount(query)
         this.queryAnnotationStats(query)
         this.getUniqueItems(query)
     }

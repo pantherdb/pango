@@ -47,7 +47,7 @@ async def get_grouped_annotations(filter_args:AnnotationFilterArgs, page_args=Pa
     gene_resp = await es.search(
         index=settings.PANTHER_ANNOTATIONS_INDEX,
         query=gene_query,
-        aggs=await get_grouped_aggs_query(group_by),
+        aggs=await get_grouped_aggs_query(group_by, page_args),
         size=0,
     )
 
@@ -70,7 +70,7 @@ async def get_grouped_annotations(filter_args:AnnotationFilterArgs, page_args=Pa
             "genes_grouped": {
                 "terms": {
                     "field": f"{group_by}.keyword",
-                    "size": 1000  # Adjust based on the number of unique genes you expect
+                    "size": 1000  
                 },
                 "aggs": {
                     "gene_annotations": {
@@ -78,7 +78,7 @@ async def get_grouped_annotations(filter_args:AnnotationFilterArgs, page_args=Pa
                             "_source": {
                               "excludes": ["evidence"]
                             },
-                            "size": 100  # Adjust based on how many annotations per gene you expect
+                            "size": 100
                         }
                     }
                 }
@@ -189,12 +189,13 @@ async def get_results(resp, group_by) -> typing.List[AnnotationGroup]:
     return results   
     
 
-async def get_grouped_aggs_query(group_by):
+async def get_grouped_aggs_query(group_by, page_args:PageArgs):
     aggs = {
       group_by: {
         "terms": {
           "field": "gene.keyword",
-          "size": 50
+          "size": page_args.size,
+          #"from": page_args.page*page_args.size,
         }
       }
     }
