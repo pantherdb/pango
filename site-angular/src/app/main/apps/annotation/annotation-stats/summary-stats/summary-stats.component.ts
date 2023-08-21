@@ -19,7 +19,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
   evidenceTypeMap = pangoData.evidenceTypeMap
   annotationPage: AnnotationPage;
   annotationStats: AnnotationStats;
-  distinctGeneCount;
+  geneCount;
   knowledgeCount = {
     'known': 0,
     'unknown': 0,
@@ -79,7 +79,6 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
       .subscribe((annotationStats: AnnotationStats) => {
         if (annotationStats) {
           this.annotationStats = annotationStats;
-          this.distinctGeneCount = this.annotationStats.distinctGeneCount
           this.knowledgeCount = {
             'known': 0,
             'unknown': 0,
@@ -89,6 +88,13 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
           });
           this.generateStats()
         }
+      });
+
+    this.annotationService.onGeneCountChanged
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((geneCount: number) => {
+        this.geneCount = geneCount;
+
       });
 
     this.annotationService.onAnnotationsChanged

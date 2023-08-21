@@ -12,8 +12,10 @@
         <div class="w-100-p p-8" fxLayout="row" fxLayoutAlign="start center">
           <div class="pango-stat-count mr-20" fxLayout="column" fxLayoutAlign="start center">
             <div class="pango-stat-number">
-              {{distinctGeneCount}}
+              {{geneCount}}
             </div>
+
+            <div *ngIf="!geneCount" class="pango-loader"></div>
             <div class="pango-stat-label">
               Genes
             </div>

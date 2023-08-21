@@ -17,6 +17,7 @@ export class AnnotationService {
     aspectMap = pangoData.aspectMap;
     termTypeMap = pangoData.termTypeMap;
     annotationResultsSize = environment.annotationResultsSize;
+    onGeneCountChanged: BehaviorSubject<number>;
     onAnnotationGroupsChanged: BehaviorSubject<AnnotationPage>;
     onAnnotationsChanged: BehaviorSubject<AnnotationPage>;
     onAutocompleteChanged: BehaviorSubject<AnnotationPage>;
@@ -42,6 +43,7 @@ export class AnnotationService {
         private httpClient: HttpClient,
         private annotationGraphQLService: AnnotationGraphQLService) {
         this.onAnnotationsChanged = new BehaviorSubject(null);
+        this.onGeneCountChanged = new BehaviorSubject(null);
         this.onAnnotationGroupsChanged = new BehaviorSubject(null);
         this.onUniqueListChanged = new BehaviorSubject(null);
         this.onAutocompleteChanged = new BehaviorSubject(null);
@@ -159,10 +161,12 @@ export class AnnotationService {
     }
 
     getGenesCount(query: Query): any {
+        this.onGeneCountChanged.next(null);
         return this.annotationGraphQLService.getGenesCountQuery(query).subscribe(
             {
                 next: (geneCount: AnnotationCount) => {
                     this.annotationPage.total = geneCount.total;
+                    this.onGeneCountChanged.next(geneCount.total)
                 }, error: (err) => {
                 }
             });
