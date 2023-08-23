@@ -23,8 +23,7 @@ def main():
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description='PreLoad Processing',
-                                     epilog='It should probably work!')
+    parser = argparse.ArgumentParser()
     parser.add_argument('-a', dest='annos_fp', required=True,
                         type=file_path, help='annos Json')
     parser.add_argument('-t', dest='terms_fp', required=True,
