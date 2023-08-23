@@ -1,3 +1,3 @@
 . host.sh
 
-curl $host/panther-annotations/_search?pretty=true&q=*:*
+curl $host/pango-annotations/_search?pretty=true&q=*:*

@@ -5,11 +5,6 @@ from os.path import abspath, join, dirname, isdir, isfile
 import os
 
 
-class TableAggType(Enum):
-    TERM = 'term'
-    ANNOTATION = 'annotation'
-
-
 def file_path(path):
     """
     Checks if a is valid 

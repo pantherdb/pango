@@ -25,6 +25,6 @@ genes_annotations_fp='./downloads/human_iba_genes_clean.json'
 
 python3 -m src.generate_gene_annotations \
 -a $clean_annotations_fp \
--o $clean_annotations_fp
+-o $genes_annotations_fp
 
 #python3 -m src.index_es -a $clean_annotations_fp

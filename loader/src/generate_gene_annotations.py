@@ -5,6 +5,18 @@ import pandas as pd
 from src.config.base import file_path
 from src.utils import write_to_json
 
+COLUMNS_TO_EXTRACT = [
+    'gene_symbol',
+    'gene_name', 
+    'taxon_id',
+    'taxon_label',
+    'taxon_abbr',
+    'pango_family',
+    'long_id',
+    'coordinates_chr_num',
+    'coordinates_start',
+    'coordinates_end'   
+]
 
 def main():
     parser = parse_arguments()
@@ -23,6 +35,7 @@ def parse_arguments():
                          help='Output of Clean anno')
 
     return parser.parse_args()
+
 
 def uniquify_term(series, evidence_series):
     unique_terms = {}
@@ -56,9 +69,12 @@ def uniquify_slim_terms(series, evidence_series):
     return list(unique_terms.values())
 
 
-def get_annos(annos_fp):
+def get_annos(annos_fp):   
+
     annos_df = pd.read_json(annos_fp)
+    annos_df = annos_df.drop(['evidence'], axis=1)
     genes_df = annos_df.groupby('gene').apply(lambda group: pd.Series({
+        **{col: group[col].iloc[0] for col in COLUMNS_TO_EXTRACT},
         'term': uniquify_term(group['term'], group['evidence_type']),
         'slim_terms': uniquify_slim_terms(group['slim_terms'], group['evidence_type'])
     })).reset_index()

@@ -123,7 +123,7 @@ def get_annos(annos_fp, terms_df, genes_df, articles_df):
         'taxon_id', 
         'taxon_label', 
         'taxon_abbr',
-        'panther_family',
+        'pango_family',
         'long_id',
         'coordinates_chr_num',
         'coordinates_start',

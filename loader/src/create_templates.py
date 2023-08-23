@@ -18,7 +18,7 @@ def add_template():
 
     template = {
         "index_patterns": [
-            "panther-*"
+            "pango-*"
         ],
         "settings": {
             "number_of_shards": 1,
@@ -60,7 +60,7 @@ def add_template():
         }
     }
 
-    es.indices.put_template(name='panther_keyword_template', body=template)
+    es.indices.put_template(name='pango_keyword_template', body=template)
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-curl  -X PUT http://localhost:9200/panther-annotations/_mapping \
+curl  -X PUT http://localhost:9200/pango-annotations/_mapping \
 -H "Content-Type: application/json" \
 --data '
 {

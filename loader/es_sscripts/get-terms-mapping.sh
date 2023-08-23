@@ -1,1 +1,1 @@
-curl -XGET "localhost:9200/panther-terms/_mapping?pretty"
+curl -XGET "localhost:9200/pango-terms/_mapping?pretty"
