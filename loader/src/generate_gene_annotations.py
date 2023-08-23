@@ -1,8 +1,6 @@
 import argparse
 import json
 from os import path as ospath
-import time
-import numpy as np
 import pandas as pd
 from src.config.base import file_path
 from src.utils import write_to_json
@@ -14,7 +12,7 @@ def main():
     anno_json = annos_df.to_json(orient="records", default_handler=None)
     json_str = json.loads(anno_json)
 
-    write_to_json(json_str, ospath.join('.', parser.clean_annos_fp))
+    write_to_json(json_str, ospath.join('.', parser.genes_annos_fp))
 
 
 def parse_arguments():
@@ -28,12 +26,22 @@ def parse_arguments():
 
 def uniquify_term(series, evidence_series):
     unique_terms = {}
+    term_counts = {}
+
     for idx, item in enumerate(series):
         if isinstance(item, dict):
-            term = item.copy() 
+            term_id = item['id']
+            term = item.copy()  
             term.pop('is_goslim', None)
             term['evidence_type'] = evidence_series.iloc[idx] 
-            unique_terms[term['id']] = term
+            
+            if term_id in term_counts:
+                raise ValueError(f"Duplicate term found: {term}")
+            else:
+                term_counts[term_id] = 1
+
+            unique_terms[term_id] = term
+            
     return list(unique_terms.values())
 
 def uniquify_slim_terms(series, evidence_series):
