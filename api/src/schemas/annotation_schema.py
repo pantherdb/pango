@@ -35,7 +35,7 @@ class AnnotationQuery:
         return await get_annotations_count(filter_args)   
     
     @strawberry.field
-    async def genes_count(self, info:Info, filter_args:typing.Optional[AnnotationFilterArgs]=None) -> ResultCount:
+    async def genes_count(self, info:Info, filter_args:typing.Optional[GeneFilterArgs]=None) -> ResultCount:
         return await get_genes_count(filter_args)       
 
     @strawberry.field
@@ -43,7 +43,7 @@ class AnnotationQuery:
         return await get_annotations_stats(filter_args)       
 
     @strawberry.field
-    async def autocomplete(self, info:Info, autocomplete_type: AutocompleteType,  keyword:str, filter_args:typing.Optional[AnnotationFilterArgs]=None,) -> typing.List[Annotation]:
+    async def autocomplete(self, info:Info, autocomplete_type: AutocompleteType,  keyword:str, filter_args:typing.Optional[GeneFilterArgs]=None,) -> typing.List[Gene]:
         return await get_autocomplete(autocomplete_type, keyword, filter_args)
 
     @strawberry.field

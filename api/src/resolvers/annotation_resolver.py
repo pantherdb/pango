@@ -49,6 +49,12 @@ async def get_genes(filter_args:GeneFilterArgs, page_args=PageArgs, group_by='ge
         query=query,
         from_=page_args.page*page_args.size,
         size=page_args.size,
+        sort = [
+            {
+              "term_count": {
+                "order": "desc"
+              }
+            }]
     )
 
     results = [Gene(id=hit['_id'], **hit['_source']) for hit in resp.get('hits', {}).get('hits', [])]

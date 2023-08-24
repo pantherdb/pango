@@ -15,8 +15,8 @@ export class Gene {
   coordinatesStrand: number
   hgncId: string;
   //summary
-  termsSummary: Term[];
-  slimTermsSummary: Term[];
+  terms: Term[];
+  slimTerms: Term[];
   mfs: Term[];
   bps: Term[];
   ccs: Term[];

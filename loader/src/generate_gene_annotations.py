@@ -68,16 +68,25 @@ def uniquify_slim_terms(series, evidence_series):
                 unique_terms[term['id']] = term
     return list(unique_terms.values())
 
+def group_terms(group):
+    unique_terms = uniquify_term(group['term'], group['evidence_type'])
+    slim_terms = uniquify_slim_terms(group['slim_terms'], group['evidence_type'])
+    return pd.Series({
+        **{col: group[col].iloc[0] for col in COLUMNS_TO_EXTRACT},
+        'terms': unique_terms,
+        'slim_terms': slim_terms,
+        'term_count': len(unique_terms)
+    })
+
+
+
 
 def get_annos(annos_fp):   
 
     annos_df = pd.read_json(annos_fp)
     annos_df = annos_df.drop(['evidence'], axis=1)
-    genes_df = annos_df.groupby('gene').apply(lambda group: pd.Series({
-        **{col: group[col].iloc[0] for col in COLUMNS_TO_EXTRACT},
-        'terms': uniquify_term(group['term'], group['evidence_type']),
-        'slim_terms': uniquify_slim_terms(group['slim_terms'], group['evidence_type'])
-    })).reset_index()
+    genes_df = annos_df.groupby('gene').apply(group_terms).reset_index()
+    genes_df = genes_df.sort_values(by='term_count', ascending=False).reset_index(drop=True)
 
     return genes_df
 

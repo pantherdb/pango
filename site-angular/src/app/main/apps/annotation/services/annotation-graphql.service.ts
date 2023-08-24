@@ -4,7 +4,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { AnnotationPage, Query } from '../models/page';
 import { SearchCriteria } from '@pango.search/models/search-criteria';
 import { PangoGraphQLService } from '@pango.search/services/graphql.service';
-import { AnnotationCount, AnnotationStats, Annotation, AutocompleteFilterArgs, AutocompleteType, Term, Group, AnnotationGroup } from '../models/annotation';
+import { AnnotationCount, AnnotationStats, Annotation, AutocompleteFilterArgs, AutocompleteType, Term, Group, GOAspect } from '../models/annotation';
 import groupsData from '@pango.common/data/groups.json';
 import { find } from 'lodash';
 import { Gene } from '../../gene/models/gene.model';
@@ -155,32 +155,19 @@ export class AnnotationGraphQLService {
 
     return this.pangoGraphQLService.query(options).pipe(
       map((response: any) => {
-        return response.groupedAnnotations.map((annotationGroup: AnnotationGroup) => {
-          let gene: Gene
+        return response.genes.map((gene: Gene) => {
 
-          if (annotationGroup.annotations.length > 0) {
-            gene = { ...annotationGroup.annotations[0] } as unknown as Gene
-            const termsSummary = this.getTermsSummary(annotationGroup.annotations)
-            gene.mfs = termsSummary['mf']
-            gene.bps = termsSummary['bp']
-            gene.ccs = termsSummary['cc']
-            gene.hgncId = PangoUtils.getHGNC(gene.longId);
-            gene.maxTerms = 2;
-            gene.expanded = false;
-          }
+          const groupedTerms = this.groupTerms(gene.terms)
 
-          const annotations = annotationGroup.annotations.map((annotation: Annotation) => {
-            annotation.detailedGroups = annotation.groups.map((group) => {
-              return this.findGroup(group);
-            })
-            return annotation
-          }) as Annotation[];
+          gene.mfs = groupedTerms[GOAspect.MOLECULAR_FUNCTION]
+          gene.bps = groupedTerms[GOAspect.BIOLOGICAL_PROCESS]
+          gene.ccs = groupedTerms[GOAspect.CELLULAR_COMPONENT]
+          gene.hgncId = PangoUtils.getHGNC(gene.longId);
+          gene.maxTerms = 2;
+          gene.expanded = false;
 
-          return {
-            gene,
-            annotations
-          }
-        }) as AnnotationGroup[];
+          return gene
+        }) as Gene[];
       }));
   }
 
@@ -255,9 +242,12 @@ export class AnnotationGraphQLService {
 
     const options = {
       variables: {
-        filterArgs: query.filterArgs
+        filterArgs: {
+          geneIds: query.filterArgs.geneIds,
+          slimTermIds: query.filterArgs.slimTermIds
+        }
       },
-      query: `query GetGenesCount($filterArgs: AnnotationFilterArgs) {
+      query: `query GetGenesCount($filterArgs: GeneFilterArgs) {
                 genesCount(filterArgs:$filterArgs) {
                   total                                     
                 }
@@ -271,42 +261,18 @@ export class AnnotationGraphQLService {
 
   }
 
-  getUniqueListGraphQL(query: Query): Observable<Annotation[]> {
-    const aspectFilter = new AutocompleteFilterArgs(AutocompleteType.ASPECT)
-    const options = {
-      variables: {
-        filterArgs: query.filterArgs,
-        autocompleteType: aspectFilter.autocompleteType,
-        keyword: ""
-      },
-      query: `query GetAutocomplete($autocompleteType:AutocompleteType!,
-                 $keyword: String!,
-                 $filterArgs: AnnotationFilterArgs) {
-                aspect: autocomplete(autocompleteType:$autocompleteType, keyword:$keyword, filterArgs:$filterArgs) {
-                   ${aspectFilter.getAutocompleteFields()}                                                  
-                }
-            
-            }`
-    }
-
-    return this.pangoGraphQLService.query(options).pipe(
-      map((response: any) => {
-        return response.autocomplete.map(annotation => {
-          return annotation
-        }) as Annotation[];
-      }));
-
-  }
 
   getAutocompleteQuery(query: Query, filter: AutocompleteFilterArgs, keyword: string): Observable<Annotation[]> {
     const options = {
       variables: {
-        filterArgs: query.filterArgs,
+        filterArgs: {
+          geneIds: query.filterArgs.geneIds,
+          slimTermIds: query.filterArgs.slimTermIds
+        },
         autocompleteType: filter.autocompleteType,
         keyword
-
       },
-      query: `query GetAutocomplete($autocompleteType:AutocompleteType!, $keyword: String!, $filterArgs: AnnotationFilterArgs) {
+      query: `query GetAutocomplete($autocompleteType:AutocompleteType!, $keyword: String!, $filterArgs: GeneFilterArgs) {
                 autocomplete(autocompleteType:$autocompleteType, keyword:$keyword, filterArgs:$filterArgs) {
                 ${filter.getAutocompleteFields()}                                                  
                 }
@@ -386,29 +352,16 @@ export class AnnotationGraphQLService {
 
   }
 
-  getTermsSummary(annotations: Annotation[]) {
-    const distinctTerms = {
-      mf: [],
-      bp: [],
-      cc: []
-    }
-    const distinctIds = {
-      mf: new Set<string>(),
-      bp: new Set<string>(),
-      cc: new Set<string>()
-    }
-
-    annotations.forEach(annotation => {
-      const aspect = this.aspectMap[annotation.term.aspect]?.shorthand.toLowerCase()
-      if (aspect && !distinctIds[aspect].has(annotation.term.id)) {
-        distinctIds[aspect].add(annotation.term.id);
-        annotation.term.evidenceType = annotation.evidenceType
-
-        distinctTerms[aspect].push(annotation.term);
+  groupTerms(terms: Term[]) {
+    const grouped = terms.reduce((acc, term) => {
+      if (!acc[term.aspect]) {
+        acc[term.aspect] = [];
       }
-    })
+      acc[term.aspect].push(term);
+      return acc;
+    }, {});
 
-    return distinctTerms;
+    return grouped;
 
   }
 

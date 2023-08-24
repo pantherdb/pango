@@ -6,9 +6,10 @@ import { Client } from 'elasticsearch-browser';
 import { AnnotationPage, Query } from '../models/page';
 import { cloneDeep, find, orderBy, uniqBy } from 'lodash';
 import { SearchCriteria, SearchType } from '@pango.search/models/search-criteria';
-import { AnnotationCount, AnnotationStats, Bucket, FilterArgs, Annotation, AutocompleteFilterArgs, Term, AnnotationGroup } from '../models/annotation';
+import { AnnotationCount, AnnotationStats, Bucket, FilterArgs, Annotation, AutocompleteFilterArgs, Term } from '../models/annotation';
 import { AnnotationGraphQLService } from './annotation-graphql.service';
 import { pangoData } from '@pango.common/data/config';
+import { Gene } from '../../gene/models/gene.model';
 
 @Injectable({
     providedIn: 'root',
@@ -18,7 +19,7 @@ export class AnnotationService {
     termTypeMap = pangoData.termTypeMap;
     annotationResultsSize = environment.annotationResultsSize;
     onGeneCountChanged: BehaviorSubject<number>;
-    onAnnotationGroupsChanged: BehaviorSubject<AnnotationPage>;
+    //onAnnotationGroupsChanged: BehaviorSubject<AnnotationPage>;
     onAnnotationsChanged: BehaviorSubject<AnnotationPage>;
     onAutocompleteChanged: BehaviorSubject<AnnotationPage>;
     onUniqueListChanged: BehaviorSubject<any>;
@@ -27,7 +28,7 @@ export class AnnotationService {
     onAnnotationChanged: BehaviorSubject<any>;
     onSearchCriteriaChanged: BehaviorSubject<any>;
 
-    onSelectedAnnotationGroupChanged: BehaviorSubject<AnnotationGroup>;
+    onSelectedGeneChanged: BehaviorSubject<Gene>;
     searchCriteria: SearchCriteria;
     annotationPage: AnnotationPage = new AnnotationPage();
     loading = false;
@@ -44,14 +45,14 @@ export class AnnotationService {
         private annotationGraphQLService: AnnotationGraphQLService) {
         this.onAnnotationsChanged = new BehaviorSubject(null);
         this.onGeneCountChanged = new BehaviorSubject(null);
-        this.onAnnotationGroupsChanged = new BehaviorSubject(null);
+        //this.onAnnotationGroupsChanged = new BehaviorSubject(null);
         this.onUniqueListChanged = new BehaviorSubject(null);
         this.onAutocompleteChanged = new BehaviorSubject(null);
         this.onAnnotationsAggsChanged = new BehaviorSubject(null);
         this.onDistinctAggsChanged = new BehaviorSubject(null);
         this.onAnnotationChanged = new BehaviorSubject(null);
         this.onSearchCriteriaChanged = new BehaviorSubject(null);
-        this.onSelectedAnnotationGroupChanged = new BehaviorSubject(null);
+        this.onSelectedGeneChanged = new BehaviorSubject(null);
         this.searchCriteria = new SearchCriteria();
 
     }
@@ -116,12 +117,12 @@ export class AnnotationService {
 
         return this.annotationGraphQLService.getGenesQuery(query).subscribe(
             {
-                next: (annotationGroups: AnnotationGroup[]) => {
+                next: (genes: Gene[]) => {
                     //const annotationData = annotations
                     this.annotationPage = Object.assign(Object.create(Object.getPrototypeOf(this.annotationPage)), this.annotationPage);
                     this.annotationPage.query = query;
                     this.annotationPage.updatePage()
-                    this.annotationPage.annotations = annotationGroups;
+                    this.annotationPage.annotations = genes;
                     // this.annotationPage.aggs = response.aggregations;
                     this.annotationPage.query.source = query.source;
 
@@ -188,16 +189,6 @@ export class AnnotationService {
 
     getSlimTermsAutocompleteQuery(keyword: string): Observable<Term[]> {
         return this.annotationGraphQLService.getSlimTermsAutocompleteQuery(new Query, keyword)
-    }
-
-    getUniqueItems(query: Query): any {
-        return this.annotationGraphQLService.getUniqueListGraphQL(query).subscribe(
-            {
-                next: (annotations: Annotation[]) => {
-                    this.uniqueList = annotations;
-                }, error: (err) => {
-                }
-            });
     }
 
     queryAnnotationStats(query: Query): any {
@@ -276,7 +267,7 @@ export class AnnotationService {
         }
 
         this.queryAnnotationStats(query)
-        this.getUniqueItems(query)
+        //this.getUniqueItems(query)
     }
 
     buildSummaryTree(aggs) {

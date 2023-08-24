@@ -15,7 +15,6 @@ import { AnnotationTableLongComponent } from './annotation/annotation-table-long
 import { CategoryStatsComponent } from './annotation/annotation-stats/category-stats/category-stats.component';
 import { SearchAspectFormComponent } from './annotation/forms/search-aspect-form/search-aspect-form.component';
 import { AnnotationGroupComponent } from './annotation/annotation-group/annotation-group.component';
-import { GeneListComponent } from './annotation/gene-list/gene-list.component';
 import { SummaryStatsVerticalComponent } from './annotation/annotation-stats/summary-stats-vertical/summary-stats-vertical.component';
 import { NgxPieChartRemoveMarginsDirective } from '@pango.common/directives/piechart-remove-margins.directive';
 import { TermFormComponent } from './annotation/forms/term-form/term-form.component';
@@ -26,7 +25,6 @@ const routes = [];
 @NgModule({
     declarations: [
         NgxPieChartRemoveMarginsDirective,
-        GeneListComponent,
         AnnotationGroupComponent,
         AnnotationTableComponent,
         AnnotationTableLongComponent,
@@ -52,7 +50,6 @@ const routes = [];
     ],
     exports: [
         NgxPieChartRemoveMarginsDirective,
-        GeneListComponent,
         AnnotationGroupComponent,
         AnnotationTableComponent,
         AnnotationTableLongComponent,

@@ -8,7 +8,6 @@ import { ContactComponent } from './contact/contact.component';
 import { PangoConfirmDialogModule } from '@pango/components/confirm-dialog/confirm-dialog.module';
 import { GeneComponent } from './gene/gene.component';
 import { DownloadComponent } from './download/download.component';
-import { HomeAdvancedComponent } from './home-advanced/home-advanced.component';
 import { HomeAnnotationsComponent } from './home-annotations/home-annotations.component';
 import { HomeComponent } from './home/home.component';
 
@@ -20,10 +19,6 @@ const routes = [{
   path: 'annotations',
   title: 'Lab: Annotations Layout',
   component: HomeAnnotationsComponent
-}, {
-  path: 'advanced-lab',
-  title: 'Advanced Lab: Layout',
-  component: HomeAdvancedComponent
 }, {
   path: 'gene/:gene',
   title: 'Gene Page',
@@ -40,7 +35,6 @@ const routes = [{
   declarations: [
     HomeComponent,
     HomeAnnotationsComponent,
-    HomeAdvancedComponent,
     AboutComponent,
     DownloadComponent,
     ContactComponent,

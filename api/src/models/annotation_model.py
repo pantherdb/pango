@@ -6,13 +6,8 @@ from src.models.term_model import Term
 
 @strawberry.enum
 class AutocompleteType(Enum):
-    term = 'term'
     slim_term = 'slim_term'
-    evidence_type='evidence_type'
     gene = 'gene'
-    withgene = "withgene"
-    reference = "reference"
-    aspect = "aspect"
 
 @strawberry.type
 class Entity :
@@ -45,6 +40,7 @@ class Gene:
     coordinates_strand: typing.Optional[int] =  None
     terms: typing.List[Term]
     slim_terms: typing.List[Term]
+    term_count: typing.Optional[int]
     
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
