@@ -1,7 +1,6 @@
 from enum import Enum
 import strawberry
 import typing
-from src.models.gene_model import Gene
 from src.models.term_model import Term
 
 
@@ -29,6 +28,37 @@ class Reference :
     title: str
     authors: typing.List[str]
     date: str
+    
+@strawberry.type
+class Gene:
+    gene: str
+    gene_symbol: typing.Optional[str]
+    gene_name: typing.Optional[str]
+    long_id: typing.Optional[str] =  None
+    panther_family: typing.Optional[str] =  None
+    taxon_abbr: typing.Optional[str]
+    taxon_label: typing.Optional[str]
+    taxon_id: typing.Optional[str]
+    coordinates_chr_num:typing.Optional[str] =  None
+    coordinates_start:typing.Optional[int] =  None
+    coordinates_end:typing.Optional[int] =  None
+    coordinates_strand: typing.Optional[int] =  None
+    terms: typing.List[Term]
+    slim_terms: typing.List[Term]
+    
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            if key == 'slim_terms' or key == 'terms':
+                setattr(self, key, [self.add_term_display_id(value_k) for value_k in value])
+            else:
+                setattr(self, key,  value)
+                
+                
+    def add_term_display_id(self, value):
+        term = Term(**value)
+        term.display_id = term.id if term.id.startswith("GO") else ''
+        return term
+    
 
 @strawberry.type
 class Evidence:
@@ -48,6 +78,8 @@ class Evidence:
 class ResultCount:
     total: int
 
+
+    
 
 @strawberry.type
 class Annotation:
@@ -130,6 +162,12 @@ class AnnotationStats:
     aspect_frequency: Frequency 
     evidence_type_frequency: Frequency
     slim_term_frequency: Frequency
+
+@strawberry.input
+class GeneFilterArgs:
+    slim_term_ids: typing.Optional[typing.List[str]] = strawberry.UNSET
+    gene_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
+    
 
 @strawberry.input
 class AnnotationFilterArgs:

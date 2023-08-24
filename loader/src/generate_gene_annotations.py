@@ -11,7 +11,7 @@ COLUMNS_TO_EXTRACT = [
     'taxon_id',
     'taxon_label',
     'taxon_abbr',
-    'pango_family',
+    'panther_family',
     'long_id',
     'coordinates_chr_num',
     'coordinates_start',
@@ -75,7 +75,7 @@ def get_annos(annos_fp):
     annos_df = annos_df.drop(['evidence'], axis=1)
     genes_df = annos_df.groupby('gene').apply(lambda group: pd.Series({
         **{col: group[col].iloc[0] for col in COLUMNS_TO_EXTRACT},
-        'term': uniquify_term(group['term'], group['evidence_type']),
+        'terms': uniquify_term(group['term'], group['evidence_type']),
         'slim_terms': uniquify_slim_terms(group['slim_terms'], group['evidence_type'])
     })).reset_index()
 

@@ -112,18 +112,18 @@ export class AnnotationGraphQLService {
   }
 
 
-  getGroupedAnnotationsQuery(query: Query): Observable<any> {
+  getGenesQuery(query: Query): Observable<any> {
 
     const options = {
       variables: {
-        filterArgs: query.filterArgs,
+        filterArgs: {
+          geneIds: query.filterArgs.geneIds,
+          slimTermIds: query.filterArgs.slimTermIds
+        },
         pageArgs: query.pageArgs
       },
-      query: `query GetAnnotations($filterArgs: AnnotationFilterArgs, $pageArgs: PageArgs) {
-          groupedAnnotations(filterArgs:$filterArgs, pageArgs:$pageArgs) {
-            name
-            annotations {
-              id
+      query: `query GetGenes($filterArgs: GeneFilterArgs, $pageArgs: PageArgs) {
+          genes(filterArgs:$filterArgs, pageArgs:$pageArgs) {
               gene
               geneName
               geneSymbol
@@ -136,25 +136,20 @@ export class AnnotationGraphQLService {
               coordinatesStart
               coordinatesEnd
               coordinatesStrand
-              term {
+              terms {
                 id
                 aspect
-                isGoslim
                 label
                 displayId
+                evidenceType
               } 
               slimTerms {
                 aspect
                 id
-                isGoslim
                 label
-                displayId
-              } 
-              evidenceType            
-              groups
-              evidenceCount             
-            }                              
-          }
+                displayId    
+              }         
+           }
         }`
     }
 

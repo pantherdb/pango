@@ -28,7 +28,7 @@ async def get_autocomplete(autocomplete_type: AutocompleteType, keyword:str, fil
         query, collapse = await get_withgene_autocomplete_query(keyword, filter_args)
 
     resp = await es.search(
-        index = settings.PANTHER_ANNOTATIONS_INDEX,
+        index = settings.PANGO_ANNOTATIONS_INDEX,
         filter_path ='took,hits.hits._score,**hits.hits._id**,**hits.hits._source**',
         query = query,
         collapse = collapse,
@@ -166,7 +166,7 @@ async def get_slim_term_autocomplete_query_multi(keyword:str, filter_args:Annota
       }     
 
     resp = await es.search(
-      index=settings.PANTHER_ANNOTATIONS_INDEX,
+      index=settings.PANGO_ANNOTATIONS_INDEX,
       query=query,
       aggs=aggs,
       size=0,

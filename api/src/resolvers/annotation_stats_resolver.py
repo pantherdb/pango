@@ -11,7 +11,7 @@ async def get_annotations_count(filter_args:AnnotationFilterArgs):
 
     query = await get_annotations_query(filter_args)
     resp = await es.count(
-          index=settings.PANTHER_ANNOTATIONS_INDEX,
+          index=settings.PANGO_ANNOTATIONS_INDEX,
           query=query,
     )
 
@@ -24,7 +24,7 @@ async def get_genes_count(filter_args:AnnotationFilterArgs):
 
     query = await get_annotations_query(filter_args)
     resp = await es.search(
-          index=settings.PANTHER_ANNOTATIONS_INDEX,
+          index=settings.PANGO_ANNOTATIONS_INDEX,
           query=query,
           size=0,
           aggs= {
@@ -89,7 +89,7 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
     
 
     resp = await es.search(
-          index=settings.PANTHER_ANNOTATIONS_INDEX,
+          index=settings.PANGO_ANNOTATIONS_INDEX,
           filter_path ='took,hits.total.value,aggregations',
           query=query,
           aggs=aggs,

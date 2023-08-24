@@ -80,6 +80,11 @@ export class AutocompleteFilterArgs {
     }
 }
 
+export class GeneFilterArgs {
+    termIds: string[] = [];
+    slimTermIds: string[] = [];
+}
+
 export class FilterArgs {
     termIds: string[] = [];
     termTypeIds: string[] = [];

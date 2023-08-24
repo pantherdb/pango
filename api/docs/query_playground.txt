@@ -1,10 +1,10 @@
-POST panther-annotations/_search
+POST pango-annotations/_search
 {
   "size": 2, 
   "query": { "match_all": {} }
 }
 
-POST panther-annotations/_search
+POST pango-annotations/_search
 {
   "size": 20, 
   "query": { 
@@ -14,7 +14,7 @@ POST panther-annotations/_search
   }
 }
 
-POST panther-annotations/_search?filter_path=took,hits.hits._score,hits.hits
+POST pango-annotations/_search?filter_path=took,hits.hits._score,hits.hits
 {
   "_source": ["gene", "term.aspect", "term.label"], 
   "size": 20, 
@@ -45,7 +45,7 @@ POST panther-annotations/_search?filter_path=took,hits.hits._score,hits.hits
 }
 
 
-POST panther-annotations/_search
+POST pango-annotations/_search
 {
   "_source": ["gene", "term.aspect", "term.label"], 
   "size": 20, 
@@ -71,7 +71,7 @@ POST panther-annotations/_search
   }
 }
 
-POST panther-annotations/_search
+POST pango-annotations/_search
 {
   "_source": ["gene", "term.label", "slim_terms.label", "slim_terms.id"], 
   "size": 20, 
@@ -99,7 +99,7 @@ POST panther-annotations/_search
 }
 
 
-POST panther-annotations/_search
+POST pango-annotations/_search
 {
   "size": 0, 
     "query": {
@@ -143,7 +143,7 @@ POST panther-annotations/_search
 }
 }
 
-POST panther-annotations/_search
+POST pango-annotations/_search
 {
   "size": 0, 
     "query": {
@@ -177,7 +177,7 @@ POST panther-annotations/_search
 }
 }
 
-POST panther-annotations/_search
+POST pango-annotations/_search
 {
   "size": 0, 
    "query": { "match_all": {} },
@@ -207,7 +207,7 @@ POST panther-annotations/_search
 }
 
 
-POST panther-annotations/_search
+POST pango-annotations/_search
 {
   "size": 0, 
   "query": { "match_all": {} },
@@ -228,7 +228,7 @@ POST panther-annotations/_search
     }
 }
 
-POST panther-annotations/_search
+POST pango-annotations/_search
 {
   "_source": ["evidence.references.pmid"], 
   "size": 20,
@@ -261,7 +261,7 @@ POST pthres-terms-keyword/_search
   "query": { "prefix": { "label.keyword": "bond" } }
 }
 
-POST panther-annotations/_search
+POST pango-annotations/_search
 {
  "query": {
     "term": {

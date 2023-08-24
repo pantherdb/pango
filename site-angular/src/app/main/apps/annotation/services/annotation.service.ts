@@ -107,22 +107,22 @@ export class AnnotationService {
             });
     }
 
-    getAnnotationGroupsPage(query: Query, page: number): any {
+    getGenesPage(query: Query, page: number): any {
         const self = this;
         self.loading = true;
         query.pageArgs.page = (page - 1);
         query.pageArgs.size = this.annotationResultsSize;
         this.query = query;
-        return this.annotationGraphQLService.getGroupedAnnotationsQuery(query).subscribe(
+
+        return this.annotationGraphQLService.getGenesQuery(query).subscribe(
             {
                 next: (annotationGroups: AnnotationGroup[]) => {
                     //const annotationData = annotations
                     this.annotationPage = Object.assign(Object.create(Object.getPrototypeOf(this.annotationPage)), this.annotationPage);
-
                     this.annotationPage.query = query;
                     this.annotationPage.updatePage()
                     this.annotationPage.annotations = annotationGroups;
-                    //  this.annotationPage.aggs = response.aggregations;
+                    // this.annotationPage.aggs = response.aggregations;
                     this.annotationPage.query.source = query.source;
 
                     this.onAnnotationsChanged.next(this.annotationPage);
@@ -243,18 +243,6 @@ export class AnnotationService {
 
         const query = new Query()
 
-        this.searchCriteria.terms.forEach((annotation: Annotation) => {
-            query.filterArgs.termIds.push(annotation.term.id);
-        });
-
-        this.searchCriteria.termTypes.forEach((value) => {
-            query.filterArgs.termTypeIds.push(value);
-        });
-
-        this.searchCriteria.evidenceTypes.forEach((evidenceType: string) => {
-            query.filterArgs.evidenceTypeIds.push(evidenceType);
-        });
-
         this.searchCriteria.slimTerms.forEach((term: Term) => {
             query.filterArgs.slimTermIds.push(term.id);
         });
@@ -263,18 +251,26 @@ export class AnnotationService {
             query.filterArgs.geneIds.push(annotation.gene);
         });
 
-
         this.searchCriteria.aspects.forEach((aspect: string) => {
             query.filterArgs.aspectIds.push(aspect);
+        });
+        this.searchCriteria.termTypes.forEach((value) => {
+            query.filterArgs.termTypeIds.push(value);
+        });
+
+        this.searchCriteria.evidenceTypes.forEach((evidenceType: string) => {
+            query.filterArgs.evidenceTypeIds.push(evidenceType);
         });
 
 
         this.query = query;
 
         if (this.searchType === SearchType.ANNOTATION_GROUP) {
-            this.getAnnotationGroupsPage(query, 1);
+            this.getGenesPage(query, 1);
             this.getGenesCount(query)
         } else {
+
+
             this.getAnnotationsPage(query, 1);
             this.getAnnotationsCount(query)
         }
