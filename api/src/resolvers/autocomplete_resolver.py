@@ -32,20 +32,36 @@ async def get_autocomplete(autocomplete_type: AutocompleteType, keyword:str, fil
 
    
 async def get_gene_autocomplete_query(keyword:str, filter_args:GeneFilterArgs):
+    wildcard_keyword = f"*{keyword}*"
     filter_query = await get_genes_query(filter_args)
     query = {
        "bool": {
-         "must": [ 
-            {     
-              "multi_match" : {
-                "query": keyword,
-                "type": "phrase_prefix",
-                "fields":  [ "gene", "gene_name", "gene_symbol"]
+          "should": [
+            {
+              "wildcard": {
+                "gene.keyword": {
+                  "value": wildcard_keyword
+                }
+              }
+            },
+            {
+              "wildcard": {
+                "gene_name.keyword": {
+                  "value": wildcard_keyword
+                }
+              }
+            },
+            {
+              "wildcard": {
+                "gene_symbol.keyword": {
+                  "value": wildcard_keyword
+                }
               }
             }
-         ],
-         "filter":filter_query["bool"]["filter"]
-       }
+          ],
+          "minimum_should_match": 1,
+          "filter":filter_query["bool"]["filter"]
+        }
     }
     collapse ={
         "field": "gene.keyword"
