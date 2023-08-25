@@ -205,32 +205,7 @@ async def get_annotations_query(filter_args:AnnotationFilterArgs):
     }
     
     return query 
-
-async def get_results(resp, group_by) -> typing.List[AnnotationGroup]:
-    results = list()
-    for bucket in resp["aggregations"][group_by]["buckets"]:
-      hits = bucket["gene_annotations"]["hits"]["hits"]
-      annotations = [Annotation(id=hit['_id'], **hit['_source']) for hit in hits]
-      group = AnnotationGroup(name=bucket["key"], annotations=annotations)
-      results.append(group)
-        
-    return results   
-    
-
-async def get_grouped_aggs_query(group_by, page_args:PageArgs):
-    aggs = {
-      group_by: {
-        "terms": {
-          "field": "gene.keyword",
-          "size": page_args.size,
-          #"from": page_args.page*page_args.size,
-        }
-      }
-    }
-
-    return aggs
-     
-
+  
 
 async def main():
     #results = await get_annotations()

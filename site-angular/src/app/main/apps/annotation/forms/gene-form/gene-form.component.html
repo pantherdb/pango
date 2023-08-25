@@ -15,7 +15,7 @@
         </div>
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
-      <input #genesInput formControlName="genes"
+      <input #searchInput formControlName="genes"
         placeholder="Type the gene symbol, name or identifier, and select from the autocomplete"
         [matAutocomplete]="geneAuto" [matChipInputFor]="geneChipList"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
