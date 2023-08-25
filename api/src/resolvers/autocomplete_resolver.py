@@ -4,96 +4,35 @@ import pprint
 import typing
 from src.models.term_model import Term
 from src.resolvers.annotation_stats_resolver import get_response_meta
-from src.resolvers.annotation_resolver import get_annotations_query
-from src.models.annotation_model import Annotation, AnnotationFilterArgs, AnnotationStats, AutocompleteType, Bucket, Frequency
+from src.resolvers.annotation_resolver import get_annotations_query, get_genes_query
+from src.models.annotation_model import Annotation, AnnotationFilterArgs, AnnotationStats, AutocompleteType, Bucket, Frequency, Gene, GeneFilterArgs
 from src.config.settings import settings
 from src.config.es import  es
 
-async def get_autocomplete(autocomplete_type: AutocompleteType, keyword:str, filter_args:AnnotationFilterArgs):
+async def get_autocomplete(autocomplete_type: AutocompleteType, keyword:str, filter_args:GeneFilterArgs):
     query = {}
     collapse = {}
     if autocomplete_type.value == AutocompleteType.gene.value:
         query, collapse = await get_gene_autocomplete_query(keyword, filter_args)
-    elif autocomplete_type.value == AutocompleteType.term.value:
-        query, collapse = await get_term_autocomplete_query(keyword, filter_args)
     elif autocomplete_type.value == AutocompleteType.slim_term.value:
         query, collapse = await get_slim_term_autocomplete_query(keyword, filter_args)
-    elif autocomplete_type.value == AutocompleteType.evidence_type.value:
-        query, collapse = await get_evidence_type_autocomplete_query(keyword, filter_args)
-    elif autocomplete_type.value == AutocompleteType.aspect.value:
-        query, collapse = await get_aspect_autocomplete_query(keyword, filter_args)
-    elif autocomplete_type.value == AutocompleteType.reference.value:
-        query, collapse = await get_reference_autocomplete_query(keyword, filter_args)
-    elif autocomplete_type.value == AutocompleteType.withgene.value:
-        query, collapse = await get_withgene_autocomplete_query(keyword, filter_args)
 
     resp = await es.search(
-        index = settings.PANTHER_ANNOTATIONS_INDEX,
+        index = settings.PANGO_GENES_INDEX,
         filter_path ='took,hits.hits._score,**hits.hits._id**,**hits.hits._source**',
         query = query,
         collapse = collapse,
         size=20,
     )
  
-    results = [Annotation(id=hit['_id'], **hit['_source']) for hit in resp.get('hits', {}).get('hits', [])]
+    results = [Gene(id=hit['_id'], **hit['_source']) for hit in resp.get('hits', {}).get('hits', [])]
         
     return results 
 
 
-async def get_aspect_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
-    
-    filter_query = await get_annotations_query(filter_args)
-    query = {
-       "bool": {       
-         "filter":filter_query["bool"]["filter"]
-       }
-    } 
-    collapse ={
-        "field": "term.aspect.keyword"
-    }
-
-    if len(keyword) > 0:
-        query['bool']["must"] = [ 
-            {     
-              "match": {
-                "term.aspect": {
-                  "query": keyword,
-                  "operator": "and"
-                }
-              }
-            }
-         ]
-
-    return query, collapse
-
-
-async def get_evidence_type_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
-    
-    filter_query = await get_annotations_query(filter_args)
-    query = {
-       "bool": {
-         "must": [ 
-            {     
-              "match": {
-                "evidence_type": {
-                  "query": keyword,
-                  "operator": "and"
-                }
-              }
-            }
-         ],
-         "filter":filter_query["bool"]["filter"]
-       }
-    } 
-    collapse ={
-        "field": "evidence_type.keyword"
-    }
-
-    return query, collapse
-
-    
-async def get_gene_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
-    filter_query = await get_annotations_query(filter_args)
+   
+async def get_gene_autocomplete_query(keyword:str, filter_args:GeneFilterArgs):
+    filter_query = await get_genes_query(filter_args)
     query = {
        "bool": {
          "must": [ 
@@ -166,7 +105,7 @@ async def get_slim_term_autocomplete_query_multi(keyword:str, filter_args:Annota
       }     
 
     resp = await es.search(
-      index=settings.PANTHER_ANNOTATIONS_INDEX,
+      index=settings.PANGO_ANNOTATIONS_INDEX,
       query=query,
       aggs=aggs,
       size=0,
@@ -184,31 +123,6 @@ async def get_slim_term_autocomplete_query_multi(keyword:str, filter_args:Annota
       ))        
                          
     return terms
-
-
-async def get_term_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
-  
-    filter_query = await get_annotations_query(filter_args)
-    query = {
-       "bool": {
-         "must": [ 
-            {     
-              "match": {
-                "term.label": {
-                  "query": keyword,
-                  "operator": "and"
-                }
-              }
-            }
-         ],
-         "filter":filter_query["bool"]["filter"]
-       }
-    }
-    collapse ={
-        "field": "term.id.keyword"
-    }
-
-    return query, collapse
 
 async def get_slim_term_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
   
@@ -238,57 +152,6 @@ async def get_slim_term_autocomplete_query(keyword:str, filter_args:AnnotationFi
     }
 
     return query, collapse
-
-
-async def get_reference_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
-
-    filter_query = await get_annotations_query(filter_args)
-    query = {
-       "bool": {
-         "must": [ 
-            {     
-              "match": {
-                  "evidence.references.label": {
-                    "query": keyword,
-                    "operator": "and"
-                  }
-                }
-            }
-         ],
-         "filter":filter_query["bool"]["filter"]
-       }
-    }
-    collapse ={
-        "field": "references.id.keyword"
-    }
-
-    return query, collapse
-
-
-async def get_withgene_autocomplete_query(keyword:str, filter_args:AnnotationFilterArgs):
-  
-    filter_query = await get_annotations_query(filter_args)
-    query = {
-       "bool": {
-         "must": [ 
-            {     
-              "match": {
-                 "evidence.with_gene_id.gene": {
-                      "query": keyword,
-                      "operator": "and"
-                  }
-                }
-            }
-         ],
-         "filter":filter_query["bool"]["filter"]
-       }
-    }
-    collapse ={
-        "field": "evidence.with_gene_id.gene.keyword"
-    }
-
-    return query, collapse
-  
 
 
 async def main():

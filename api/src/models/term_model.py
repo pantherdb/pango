@@ -9,4 +9,5 @@ class Term:
     aspect: typing.Optional[str] = ""
     is_goslim: typing.Optional[bool] = False
     count: typing.Optional[int] = 0
+    evidence_type:typing.Optional[str] = None
     

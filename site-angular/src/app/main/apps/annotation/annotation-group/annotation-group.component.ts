@@ -9,7 +9,7 @@ import { RightPanel } from '@pango.common/models/menu-panels';
 import { MatLegacyTable as MatTable, MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { environment } from 'environments/environment';
 import { pangoData } from '@pango.common/data/config';
-import { Annotation, AnnotationGroup } from '../models/annotation';
+import { Annotation } from '../models/annotation';
 import { Gene } from '../../gene/models/gene.model';
 @Component({
   selector: 'pango-annotation-group',
@@ -47,7 +47,7 @@ export class AnnotationGroupComponent implements OnInit, OnDestroy, OnChanges {
 
   dataSource = new MatTableDataSource<any>();
 
-  annotationGroups: AnnotationGroup[];
+  genes: Gene[];
 
   displayedColumns = [
     'expand',
@@ -78,11 +78,8 @@ export class AnnotationGroupComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.annotationPage.currentValue) {
       console.log('changed ann group');
-      this.annotationGroups = this.annotationPage.annotations
-      const genes = this.annotationGroups.map(group => group.gene)
-      this.dataSource = new MatTableDataSource<any>(genes);
-
-      console.log(this.annotationGroups)
+      this.genes = this.annotationPage.annotations
+      this.dataSource = new MatTableDataSource<any>(this.genes);
     }
   }
 
@@ -136,7 +133,7 @@ export class AnnotationGroupComponent implements OnInit, OnDestroy, OnChanges {
 
   setPage($event) {
     if (this.annotationPage) {
-      this.annotationService.getAnnotationsPage(this.annotationPage.query, $event.pageIndex + 1);
+      this.annotationService.getGenesPage(this.annotationPage.query, $event.pageIndex + 1);
     }
   }
 

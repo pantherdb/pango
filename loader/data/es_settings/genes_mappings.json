@@ -33,29 +33,8 @@
         }
       }
     },
-    "taxon_label": {
-      "type": "text",
-      "analyzer": "autocomplete",
-      "search_analyzer": "standard",
-      "fields": {
-        "keyword": {
-          "type": "keyword",
-          "ignore_above": 256
-        }
-      }
-    },
-    "evidence_type": {
-      "type": "text",
-      "analyzer": "autocomplete",
-      "search_analyzer": "standard",
-      "fields": {
-        "keyword": {
-          "type": "keyword",
-          "ignore_above": 256
-        }
-      }
-    },
-    "term": {
+    "terms": {
+      "type": "object",
       "properties": {
         "id": {
           "type": "text",
@@ -121,64 +100,6 @@
             "keyword": {
               "type": "keyword",
               "ignore_above": 256
-            }
-          }
-        }
-      }
-    },
-    "evidence": {
-      "type": "nested",
-      "properties": {
-        "with_gene_id": {
-          "properties": {
-            "gene": {
-              "type": "text",
-              "analyzer": "autocomplete",
-              "search_analyzer": "standard",
-              "fields": {
-                "keyword": {
-                  "type": "keyword",
-                  "ignore_above": 256
-                }
-              }
-            },
-            "gene_symbol": {
-              "type": "text",
-              "analyzer": "autocomplete",
-              "search_analyzer": "standard",
-              "fields": {
-                "keyword": {
-                  "type": "keyword",
-                  "ignore_above": 256
-                }
-              }
-            },
-            "gene_name": {
-              "type": "text",
-              "analyzer": "autocomplete",
-              "search_analyzer": "standard",
-              "fields": {
-                "keyword": {
-                  "type": "keyword",
-                  "ignore_above": 256
-                }
-              }
-            }
-          }
-        },
-        "references": {
-          "type": "nested",
-          "properties": {
-            "pmid": {
-              "type": "text",
-              "analyzer": "autocomplete",
-              "search_analyzer": "standard",
-              "fields": {
-                "keyword": {
-                  "type": "keyword",
-                  "ignore_above": 256
-                }
-              }
             }
           }
         }

@@ -1,3 +1,3 @@
 . host.sh
 
-curl "$host/panther-annotations/structure"
+curl "$host/pango-annotations/structure"

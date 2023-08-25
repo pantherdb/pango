@@ -64,7 +64,7 @@ const evidenceTypeMap = {
     description: 'Annotations supported only by experimental evidence for a homologous gene',
     color: getColor('red', 500),
     shorthand: 'H',
-    iconTooltip: 'This characteristic has been demonstrated for a homology of the human gene'
+    iconTooltip: 'This characteristic has been demonstrated for a homolog of the human gene'
 
   },
   'n/a': {

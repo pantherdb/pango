@@ -2,8 +2,8 @@
 # import asyncio
 import pprint
 import typing
-from src.resolvers.annotation_resolver import get_annotations_query
-from src.models.annotation_model import  AnnotationFilterArgs, AnnotationStats, Bucket, Entity, Frequency, ResultCount
+from src.resolvers.annotation_resolver import get_annotations_query, get_genes_query
+from src.models.annotation_model import  AnnotationFilterArgs, AnnotationStats, Bucket, Entity, Frequency, GeneFilterArgs, ResultCount
 from src.config.settings import settings
 from src.config.es import  es
 
@@ -11,7 +11,7 @@ async def get_annotations_count(filter_args:AnnotationFilterArgs):
 
     query = await get_annotations_query(filter_args)
     resp = await es.count(
-          index=settings.PANTHER_ANNOTATIONS_INDEX,
+          index=settings.PANGO_ANNOTATIONS_INDEX,
           query=query,
     )
 
@@ -20,43 +20,17 @@ async def get_annotations_count(filter_args:AnnotationFilterArgs):
     return results   
 
 
-async def get_genes_count(filter_args:AnnotationFilterArgs):
+async def get_genes_count(filter_args:GeneFilterArgs):
 
-    query = await get_annotations_query(filter_args)
-    resp = await es.search(
-          index=settings.PANTHER_ANNOTATIONS_INDEX,
-          query=query,
-          size=0,
-          aggs= {
-          "distinct_gene_count": {
-          "scripted_metric": {
-            "params": {
-              "fieldName": "gene"
-            },
-            "init_script": "state.list = new HashSet();",
-            "map_script": """
-              if(params['_source'][params.fieldName] != null) 
-                state.list.add(params['_source'][params.fieldName]);
-              """,
-            "combine_script": "return state.list.size();",
-            "reduce_script": """
-            int count = 0;
-            for(counts in states) {
-              if(counts != null) {
-                count +=counts;
-              }
-            } 
-            return count;
-            """
-          }
-          }
-        })
+    query = await get_genes_query(filter_args)
+    resp = await es.count(
+          index=settings.PANGO_GENES_INDEX,
+          query=query
+    )
     
-    count = resp['aggregations']['distinct_gene_count']['value'] 
-       
-    results = ResultCount(total=count)
+    results = ResultCount(total=resp['count'])
         
-    return results   
+    return results  
 
 
 async def get_annotations_stats(filter_args:AnnotationFilterArgs):
@@ -89,7 +63,7 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
     
 
     resp = await es.search(
-          index=settings.PANTHER_ANNOTATIONS_INDEX,
+          index=settings.PANGO_ANNOTATIONS_INDEX,
           filter_path ='took,hits.total.value,aggregations',
           query=query,
           aggs=aggs,

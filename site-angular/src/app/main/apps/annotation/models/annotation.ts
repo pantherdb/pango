@@ -1,14 +1,15 @@
 import { getColor } from "@pango.common/data/pango-colors";
 import { Gene } from "../../gene/models/gene.model";
 
+export enum GOAspect {
+    MOLECULAR_FUNCTION = 'molecular function',
+    BIOLOGICAL_PROCESS = 'biological process',
+    CELLULAR_COMPONENT = 'cellular component'
+}
+
 export enum AutocompleteType {
-    TERM = 'term',
     GENE = 'gene',
-    WITHGENE = "withgene",
-    REFERENCE = "reference",
-    ASPECT = "aspect",
     SLIM_TERM = "slim_term",
-    EVIDENCE_TYPE = "evidence_type"
 }
 
 export class UniqueAnnotations {
@@ -16,7 +17,7 @@ export class UniqueAnnotations {
 }
 export class AutocompleteFilterArgs {
 
-    constructor(autocompleteType = AutocompleteType.TERM) {
+    constructor(autocompleteType = AutocompleteType.GENE) {
         this.autocompleteType = autocompleteType;
     }
     autocompleteType: AutocompleteType;
@@ -29,14 +30,6 @@ export class AutocompleteFilterArgs {
                     geneSymbol
                     geneName
                 `
-            case AutocompleteType.TERM:
-                return `
-                    term {
-                        id
-                        aspect
-                        label
-                    }
-                `
             case AutocompleteType.SLIM_TERM:
                 return `
                     slimTerms {
@@ -45,39 +38,13 @@ export class AutocompleteFilterArgs {
                         label
                       } 
                     `
-            case AutocompleteType.EVIDENCE_TYPE:
-                return `
-                            evidenceType
-                        `
-            case AutocompleteType.ASPECT:
-                return `
-                    term {
-                        aspect
-                    }
-                `
-
-            case AutocompleteType.REFERENCE:
-                return `
-                    evidence {
-                        reference {
-                            pmid
-                            title
-                            date
-                        }
-                    }
-                `
-            case AutocompleteType.WITHGENE:
-                return `
-                    evidence {
-                        withGeneId {
-                            gene
-                            geneSymbol
-                            geneName
-                        }
-                    }
-                `
         }
     }
+}
+
+export class GeneFilterArgs {
+    termIds: string[] = [];
+    slimTermIds: string[] = [];
 }
 
 export class FilterArgs {
@@ -144,13 +111,6 @@ export class Annotation {
     evidence: Evidence[] = [];
     groups: string[] = [];
     detailedGroups: Group[] = [];
-}
-
-export class AnnotationGroup {
-    title: string;
-    label: string;
-    gene: Gene
-    annotations: Annotation[] = [];
 }
 
 export class Bucket {

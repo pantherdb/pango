@@ -1,2 +1,2 @@
-curl -X DELETE "http://localhost:9200/panther-terms"
-curl -X DELETE "http://localhost:9200/panther-annotations"
+curl -X DELETE "http://localhost:9200/pango-terms"
+curl -X DELETE "http://localhost:9200/pango-annotations"

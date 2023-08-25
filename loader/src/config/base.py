@@ -4,7 +4,8 @@ from os.path import isdir, isfile
 
 
 class TableAggType(Enum):
-    ANNOTATION = 'annotation'
+    ANNOTATIONS='annotations'
+    GENES ='genes'
 
 
 def file_path(path):
