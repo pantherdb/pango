@@ -55,7 +55,7 @@ const evidenceTypeMap = {
     description: 'Annotations supported by experimental evidence directly for that gene',
     color: getColor('green', 500),
     shorthand: 'D',
-    iconTooltip: 'This characteristic has been demonstrated directly for the human gene'
+    iconTooltip: 'Direct evidence: This characteristic is supported by experimental evidence directly for this gene, and evolutionary modeling including information about related genes'
   },
   'homology': {
     id: 'homology',
@@ -64,7 +64,7 @@ const evidenceTypeMap = {
     description: 'Annotations supported only by experimental evidence for a homologous gene',
     color: getColor('red', 500),
     shorthand: 'H',
-    iconTooltip: 'This characteristic has been demonstrated for a homolog of the human gene'
+    iconTooltip: 'Homolog evidence: This characteristic is supported by experimental evidence for a homologous gene, using evolutionary modeling.'
 
   },
   'n/a': {
