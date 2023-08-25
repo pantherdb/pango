@@ -88,7 +88,7 @@ export class SearchAspectFormComponent implements OnInit, OnDestroy {
     this.annotationService.updateSearch();
   }
 
-  clearAllFIlters() {
+  clearAllFilters() {
     this.annotationService.searchCriteria.clearSearch()
     this.annotationService.updateSearch();
   }

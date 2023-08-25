@@ -6,7 +6,7 @@
           <span class="pango-drawer-header-title"> Filter Options</span>
           <span fxFlex></span>
           <button mat-stroked-button type="button" color="warn" class="pango-rounded-button pango-xs mr-8"
-            (click)="clearAllFIlters()">
+            (click)="clearAllFilters()">
             Clear All Filters
           </button>
           <button mat-stroked-button (click)="closeLeftDrawer()" class="pango-rounded-button pango-xs" color="primary"
@@ -44,7 +44,48 @@
                 know!</a>
             </h3>
           </div>
+        </div>
 
+        <div class="pango-summary-filter-bar" fxLayout="row" fxLayoutAlign="start center">
+          <span *ngIf="annotationService.searchCriteria.filtersCount===0" (click)="clearAllFilters()"
+            class="pango-no-info">
+            No FIlters selected: You can filter the list to find a specific gene or function category.
+          </span>
+
+          <ng-container *ngIf="annotationService.searchCriteria.filtersCount>0">
+            <small class="mr-12">Filtered By: </small>
+
+            <mat-chip (click)="clearAllFilters()" class="pango-clearall-chip">
+              Clear All
+            </mat-chip>
+          </ng-container>
+          <mat-chip *ngIf="annotationService.searchCriteria[SearchFilterType.GENES].length>0" class="pango-filter-chip"
+            [removable]="true" (removed)="removeFilter(SearchFilterType.GENES)"
+            matTooltip="{{annotationService.searchCriteria.slimTermsTooltip}}" [matTooltipPosition]="'below'"
+            [matTooltipShowDelay]="2000">
+
+            Genes <span> ({{
+              annotationService.searchCriteria[SearchFilterType.GENES].length}})</span>
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <mat-chip *ngIf="annotationService.searchCriteria[SearchFilterType.ASPECTS].length>0"
+            class="pango-filter-chip" [removable]="true" (removed)="removeFilter(SearchFilterType.ASPECTS)"
+            matTooltip="{{annotationService.searchCriteria.genesTooltip}}" [matTooltipPosition]="'below'"
+            [matTooltipShowDelay]="2000">
+
+            Aspects <span> ({{
+              annotationService.searchCriteria[SearchFilterType.ASPECTS].length}})</span>
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <mat-chip *ngIf="annotationService.searchCriteria[SearchFilterType.SLIM_TERMS].length>0"
+            class="pango-filter-chip" [removable]="true" (removed)="removeFilter(SearchFilterType.SLIM_TERMS)"
+            matTooltip="{{annotationService.searchCriteria.aspectsTooltip}}" [matTooltipPosition]="'below'"
+            [matTooltipShowDelay]="2000">
+
+            Category <span> ({{
+              annotationService.searchCriteria[SearchFilterType.SLIM_TERMS].length}})</span>
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
         </div>
         <pango-summary-stats></pango-summary-stats>
         <pango-annotation-group class="w-100-p" [annotationPage]="annotationPage"></pango-annotation-group>

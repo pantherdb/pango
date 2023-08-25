@@ -78,7 +78,7 @@
   mat-chip {
     font-size: 12px;
     font-weight: normal;
-    @include deep-height(25px);
+    //@include deep-height(25px);
     max-width: 200px;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -93,8 +93,12 @@
 
     &.pango-form-chip {
       padding: 0;
-      @include deep-height(20px);
+      //@include deep-height(20px);
       font-size: 10px;
+
+      .pango-gene-description {
+        text-overflow: ellipsis;
+      }
 
       .pango-icon {
         display: flex;

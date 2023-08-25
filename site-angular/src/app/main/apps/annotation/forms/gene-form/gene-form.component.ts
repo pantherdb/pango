@@ -89,8 +89,10 @@ export class GeneFormComponent implements OnInit, OnDestroy {
   }
 
   selected(event: MatAutocompleteSelectedEvent, filterType): void {
-    this.annotationService.searchCriteria[filterType].push(event.option.value);
-    this.annotationService.updateSearch();
+    if (this.annotationService.searchCriteria[filterType].length < 1) {
+      this.annotationService.searchCriteria[filterType].push(event.option.value);
+      this.annotationService.updateSearch();
+    }
 
     this.searchInput.forEach((item) => {
       item.nativeElement.value = null;

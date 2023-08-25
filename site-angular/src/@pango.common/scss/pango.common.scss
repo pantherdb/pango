@@ -19,6 +19,12 @@ $pango-header-border-bottom: $pango-accent-color solid 1px;
   opacity: 0.3;
 }
 
+.pango-disabled-input {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
 a {
   color: $pango-primary-color;
   &:hover {

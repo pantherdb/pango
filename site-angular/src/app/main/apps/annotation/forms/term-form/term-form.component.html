@@ -7,16 +7,17 @@
     <mat-chip-list #slimTermChipList>
       <mat-chip class="pango-form-chip" *ngFor="let slimTerm of annotationService.searchCriteria.slimTerms"
         [selectable]="true" [removable]="true" (removed)="remove(slimTerm, SearchFilterType.SLIM_TERMS)" fxLayout="row"
-        fxLayoutAlign="start center" matTooltip="slimTerm: {{slimTerm.label}} ({{slimTerm.id}}))"
-        [matTooltipPosition]="'below'" [matTooltipShowDelay]="1000">
+        fxLayoutAlign="start center" matTooltip="{{slimTerm.label}} ({{slimTerm.id}})" [matTooltipPosition]="'below'"
+        [matTooltipShowDelay]="1000">
         <div fxFlex="" class="pango-chip-label">
           {{slimTerm.label}}
         </div>
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
-      <input #searchInput formControlName="slimTerms" placeholder="Add slimTerm Filter" [matAutocomplete]="slimTermAuto"
-        [matChipInputFor]="slimTermChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        [matChipInputAddOnBlur]="false">
+      <input #searchInput
+        [class.pango-disabled-input]="annotationService.searchCriteria[SearchFilterType.SLIM_TERMS].length!==0"
+        formControlName="slimTerms" [matAutocomplete]="slimTermAuto" [matChipInputFor]="slimTermChipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
     </mat-chip-list>
     <mat-autocomplete #slimTermAuto="matAutocomplete" (optionSelected)="selected($event, SearchFilterType.SLIM_TERMS)"
       [displayWith]="slimTermDisplayFn" class="pango-term-autocomplete">

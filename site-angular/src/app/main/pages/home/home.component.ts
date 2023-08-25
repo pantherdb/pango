@@ -9,7 +9,7 @@ import { AnnotationService } from 'app/main/apps/annotation/services/annotation.
 import { pangoData } from '@pango.common/data/config';
 import { AnnotationPage } from 'app/main/apps/annotation/models/page';
 import { Subject, takeUntil } from 'rxjs';
-import { SearchType } from '@pango.search/models/search-criteria';
+import { SearchFilterType, SearchType } from '@pango.search/models/search-criteria';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +17,7 @@ import { SearchType } from '@pango.search/models/search-criteria';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  SearchFilterType = SearchFilterType;
   RightPanel = RightPanel;
   LeftPanel = LeftPanel
 
@@ -84,15 +85,21 @@ export class HomeComponent implements OnInit {
     this.leftDrawer.close()
   }
 
-  clearAllFIlters() {
+  clearAllFilters() {
     this.annotationService.searchCriteria.clearSearch()
     this.annotationService.updateSearch();
   }
 
 
+  removeFilter(filterType: string) {
+    this.annotationService.searchCriteria[filterType] = [];
+    this.annotationService.updateSearch();
+  }
+
   setAnnotationPage(annotationPage: AnnotationPage) {
     this.annotationPage = annotationPage;
   }
+
 
   ngOnDestroy(): void {
     this._unsubscribeAll.next(null);

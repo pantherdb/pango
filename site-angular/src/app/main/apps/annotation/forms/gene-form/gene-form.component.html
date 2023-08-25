@@ -11,12 +11,25 @@
         matTooltip="gene: {{gene.gene}} ({{gene.geneName}})" [matTooltipPosition]="'below'"
         [matTooltipShowDelay]="1000">
         <div fxFlex="" class="pango-chip-label">
-          {{gene.geneSymbol}}
+          <div class="w-100-p pl-12" fxLayout="column" fxLayoutAlign="start start">
+            <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+              <div class="pango-gene-label">
+                {{ gene.gene }}
+              </div>
+              <span fxFlex></span>
+              <div class="pango-gene-id">
+                ({{ gene.geneSymbol }})
+              </div>
+            </div>
+            <div class="pango-gene-description w-100-p">
+              ({{ gene.geneName }})
+            </div>
+          </div>
         </div>
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
       <input #searchInput formControlName="genes"
-        placeholder="Type the gene symbol, name or identifier, and select from the autocomplete"
+        [class.pango-disabled-input]="annotationService.searchCriteria[SearchFilterType.GENES].length!==0"
         [matAutocomplete]="geneAuto" [matChipInputFor]="geneChipList"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
     </mat-chip-list>

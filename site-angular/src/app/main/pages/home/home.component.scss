@@ -1,5 +1,6 @@
 @import "src/@pango/scss/pango";
 @import "src/@pango.common/scss/pango.common";
+$primary: map-get($theme, primary);
 
 :host {
   width: 100%;
@@ -19,7 +20,7 @@
   }
 
   pango-gene-form {
-    @include deep-width(250px !important);
+    @include deep-width(300px !important);
     display: block;
   }
 
@@ -86,7 +87,7 @@
   h2 {
     margin: 0;
     max-width: 550px;
-   // text-align: center;
+    // text-align: center;
     font-size: 12px;
     font-weight: 520;
     letter-spacing: 0.03em;
@@ -123,8 +124,57 @@
   }
 }
 
+.pango-summary-filter-bar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  margin-bottom: 4px;
+  padding: 0 10px;
+  @include deep-height(30px);
+  @include deep-width(100%);
+  //  min-height: 40px; //min-height: 35px;
+  background-color: #fff;
+  font-size: 16px;
+  overflow: hidden;
+  z-index: 10;
+
+  .pango-no-info {
+    font-size: 12px;
+    font-style: italic;
+    text-align: center;
+    color: #aaa;
+  }
+
+  @include mat-elevation(2);
+
+  mat-chip-list {
+  }
+
+  mat-chip {
+    margin-right: 8px;
+    font-weight: normal;
+    font-size: 10px;
+    @include deep-height(25px);
+
+    &.pango-filter-chip {
+      font-size: 10px;
+      @include pango-chip-color(#bbc9cc);
+
+      .pango-filter-number {
+        font-weight: bold;
+        color: map-get($primary, default);
+      }
+    }
+
+    &.pango-clearall-chip {
+      @include pango-chip-color(#da7f7f);
+      font-size: 10px;
+    }
+  }
+}
+
 .pango-filter-section {
-  margin: 8px; 
+  margin: 8px;
   padding: 8px;
   background-color: rgba(map-get($accent, default), 0.5);
   .pango-heading {

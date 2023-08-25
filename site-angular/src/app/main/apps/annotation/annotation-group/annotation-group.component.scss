@@ -352,8 +352,9 @@ $accent: map-get($theme, accent);
     @include deep-height(35px!important);
     position: sticky;
     position: -webkit-sticky;
-    top: 0;
+    top: 31px;
     z-index: 1;
+    border-top: $pango-header-border-bottom;
     border-bottom: $pango-header-border-bottom; // font-size: 3px !important;
     white-space: nowrap;
     .pango-action-button {

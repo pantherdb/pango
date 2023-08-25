@@ -15,6 +15,10 @@ export enum SearchFilterType {
 };
 
 export class SearchCriteria {
+    slimTermsTooltip = ''
+    geneTooltip = ''
+    aspectsTooltip = ''
+
     terms: any[] = [];
     termTypes: any[] = [];
     slimTerms: any[] = [];
@@ -30,10 +34,25 @@ export class SearchCriteria {
     constructor() {
     }
 
+    updateTooltips() {
+
+        this.slimTermsTooltip = this.slimTerms.map((term => {
+            return `${term.label}(${term.id})`
+        })).join('\n')
+
+        this.geneTooltip = this.slimTerms.map((item => {
+            return `${item.geneSymbol} (${item.gene})\n${item.geneName}`
+        })).join('\n')
+
+        this.aspectsTooltip = this.slimTerms.map((aspect => {
+            return `${aspect.label}`
+        })).join('\n')
+    }
+
     updateFiltersCount() {
         const self = this;
 
-        self.filtersCount = self.terms.length;
+        self.filtersCount = self.slimTerms.length + self.genes.length + self.aspects.length;
     }
 
     addAspect() {

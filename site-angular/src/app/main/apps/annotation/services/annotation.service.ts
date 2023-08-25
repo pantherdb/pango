@@ -230,6 +230,7 @@ export class AnnotationService {
 
     updateSearch() {
         this.searchCriteria.updateFiltersCount();
+        this.searchCriteria.updateTooltips()
         this.onSearchCriteriaChanged.next(this.searchCriteria);
 
         const query = new Query()
