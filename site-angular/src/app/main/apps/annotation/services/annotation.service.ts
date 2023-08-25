@@ -258,14 +258,12 @@ export class AnnotationService {
 
         if (this.searchType === SearchType.ANNOTATION_GROUP) {
             this.getGenesPage(query, 1);
-            this.getGenesCount(query)
+
         } else {
-
-
             this.getAnnotationsPage(query, 1);
             this.getAnnotationsCount(query)
         }
-
+        this.getGenesCount(query)
         this.queryAnnotationStats(query)
         //this.getUniqueItems(query)
     }

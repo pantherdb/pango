@@ -38,28 +38,51 @@ async def get_annotations(filter_args:AnnotationFilterArgs, page_args=PageArgs):
     return results    
 
 
-async def get_genes(filter_args:GeneFilterArgs, page_args=PageArgs, group_by='gene'):
+async def get_genes(filter_args: GeneFilterArgs, page_args=PageArgs):
 
     if page_args is None:
         page_args = PageArgs
 
-    query = await get_genes_query(filter_args)
-    resp = await es.search(
+    # Get the gene IDs based on the filter 
+    genes_query = await get_genes_query(filter_args)
+    gene_id_resp = await es.search(
         index=settings.PANGO_GENES_INDEX,
-        query=query,
-        from_=page_args.page*page_args.size,
+        query=genes_query,
+        from_=page_args.page * page_args.size,
         size=page_args.size,
-        sort = [
+        source=["_id"],
+        sort=[
             {
-              "term_count": {
-                "order": "desc"
-              }
-            }]
+                "term_count": {
+                    "order": "desc"
+                }
+            }
+        ]
     )
 
-    results = [Gene(id=hit['_id'], **hit['_source']) for hit in resp.get('hits', {}).get('hits', [])]
-        
-    return results    
+    gene_ids = [hit['_id'] for hit in gene_id_resp.get('hits', {}).get('hits', [])]
+
+    if not gene_ids:
+        return []
+
+    # Fetch the complete gene data using the IDs
+    complete_data_query = {
+            "ids": {
+                "values": gene_ids
+            }
+      }
+
+    gene_resp = await es.search(
+        index=settings.PANGO_GENES_INDEX,
+        query=complete_data_query,
+        size=len(gene_ids)
+    )
+
+    results = [Gene(id=hit['_id'], **hit['_source']) for hit in gene_resp.get('hits', {}).get('hits', [])]
+
+    return results
+
+  
   
 async def get_genes_query(filter_args:GeneFilterArgs):
   filters = list()

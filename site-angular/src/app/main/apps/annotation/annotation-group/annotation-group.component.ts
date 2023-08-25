@@ -133,7 +133,7 @@ export class AnnotationGroupComponent implements OnInit, OnDestroy, OnChanges {
 
   setPage($event) {
     if (this.annotationPage) {
-      this.annotationService.getAnnotationsPage(this.annotationPage.query, $event.pageIndex + 1);
+      this.annotationService.getGenesPage(this.annotationPage.query, $event.pageIndex + 1);
     }
   }
 

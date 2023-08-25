@@ -20,7 +20,7 @@ def main():
     parser = parse_arguments()
     
     annotations_index = create_index(TableAggType.ANNOTATIONS.value)
-    #bulk_load(parser.annotations_file, annotations_index)    
+    bulk_load(parser.annotations_file, annotations_index)    
     
     genes_index = create_index(TableAggType.GENES.value)
     bulk_load(parser.genes_file, genes_index)    
