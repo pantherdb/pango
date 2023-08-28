@@ -78,7 +78,6 @@ export class AnnotationTableComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.annotations.currentValue) {
-      console.log('changed ann');
       this.dataSource = new MatTableDataSource<any>(this.annotations);
       this.annotationPage = this.annotationService.annotationPage
     }

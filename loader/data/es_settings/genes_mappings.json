@@ -2,7 +2,7 @@
   "properties": {
     "gene": {
       "type": "text",
-      "analyzer": "id_autocomplete",
+      "analyzer": "ngram_analyzer",
       "search_analyzer": "standard",
       "fields": {
         "keyword": {
@@ -13,7 +13,7 @@
     },
     "gene_symbol": {
       "type": "text",
-      "analyzer": "id_autocomplete",
+      "analyzer": "ngram_analyzer",
       "search_analyzer": "standard",
       "fields": {
         "keyword": {
@@ -24,7 +24,7 @@
     },
     "gene_name": {
       "type": "text",
-      "analyzer": "autocomplete",
+      "analyzer": "ngram_analyzer",
       "search_analyzer": "standard",
       "fields": {
         "keyword": {
@@ -47,8 +47,6 @@
         },
         "label": {
           "type": "text",
-          "analyzer": "autocomplete",
-          "search_analyzer": "standard",
           "fields": {
             "keyword": {
               "type": "keyword",
@@ -58,8 +56,6 @@
         },
         "aspect": {
           "type": "text",
-          "analyzer": "autocomplete",
-          "search_analyzer": "standard",
           "fields": {
             "keyword": {
               "type": "keyword",
@@ -74,6 +70,8 @@
       "properties": {
         "id": {
           "type": "text",
+          "analyzer": "ngram_analyzer",
+          "search_analyzer": "standard",
           "fields": {
             "keyword": {
               "type": "keyword",
@@ -83,7 +81,7 @@
         },
         "label": {
           "type": "text",
-          "analyzer": "autocomplete",
+          "analyzer": "ngram_analyzer",
           "search_analyzer": "standard",
           "fields": {
             "keyword": {
@@ -94,8 +92,6 @@
         },
         "aspect": {
           "type": "text",
-          "analyzer": "autocomplete",
-          "search_analyzer": "standard",
           "fields": {
             "keyword": {
               "type": "keyword",

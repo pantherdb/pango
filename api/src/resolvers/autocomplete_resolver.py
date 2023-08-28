@@ -32,37 +32,14 @@ async def get_autocomplete(autocomplete_type: AutocompleteType, keyword:str, fil
 
    
 async def get_gene_autocomplete_query(keyword:str, filter_args:GeneFilterArgs):
-    wildcard_keyword = f"*{keyword}*"
-    filter_query = await get_genes_query(filter_args)
+    # filter_query = await get_genes_query(filter_args)
     query = {
-       "bool": {
-          "should": [
-            {
-              "wildcard": {
-                "gene.keyword": {
-                  "value": wildcard_keyword
-                }
-              }
-            },
-            {
-              "wildcard": {
-                "gene_name.keyword": {
-                  "value": wildcard_keyword
-                }
-              }
-            },
-            {
-              "wildcard": {
-                "gene_symbol.keyword": {
-                  "value": wildcard_keyword
-                }
-              }
-            }
-          ],
-          "minimum_should_match": 1,
-          "filter":filter_query["bool"]["filter"]
-        }
-    }
+      "multi_match": {
+        "query": keyword,
+        "fields": ["gene", "gene_symbol", "gene_name"],
+        "type": "best_fields"
+      }  
+     }
     collapse ={
         "field": "gene.keyword"
     }
@@ -121,7 +98,7 @@ async def get_slim_term_autocomplete_query_multi(keyword:str, filter_args:Annota
       }     
 
     resp = await es.search(
-      index=settings.PANGO_ANNOTATIONS_INDEX,
+      index=settings.PANGO_GENES_INDEX,
       query=query,
       aggs=aggs,
       size=0,

@@ -18,7 +18,7 @@ def create_index(tsv_type: TableAggType):
 
     es_index = get_index_name(tsv_type)
     es.options(ignore_status=[400, 404]).indices.delete(index=es_index)
-    es.options(ignore_status=[400]).indices.create(index=es_index, settings=add_settings())
+    es.options(ignore_status=[400, 404]).indices.create(index=es_index, settings=add_settings())
      
     if(tsv_type == TableAggType.ANNOTATIONS.value):
         es.indices.put_mapping(index=es_index, body=annotations_mapping())         

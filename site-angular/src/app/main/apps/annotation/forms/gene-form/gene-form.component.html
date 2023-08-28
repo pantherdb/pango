@@ -18,11 +18,11 @@
               </div>
               <span fxFlex></span>
               <div class="pango-gene-id">
-                ({{ gene.geneSymbol }})
+                <strong>({{ gene.geneSymbol }})</strong>
               </div>
             </div>
             <div class="pango-gene-description w-100-p">
-              ({{ gene.geneName }})
+              {{ gene.geneName }}
             </div>
           </div>
         </div>
@@ -47,7 +47,7 @@
             </div>
           </div>
           <div class="pango-gene-description w-100-p">
-            ({{ item.geneName }})
+            {{ item.geneName }}
           </div>
         </div>
       </mat-option>

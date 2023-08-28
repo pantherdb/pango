@@ -2,8 +2,6 @@
   "properties": {
     "gene": {
       "type": "text",
-      "analyzer": "id_autocomplete",
-      "search_analyzer": "standard",
       "fields": {
         "keyword": {
           "type": "keyword",
@@ -13,8 +11,6 @@
     },
     "gene_symbol": {
       "type": "text",
-      "analyzer": "id_autocomplete",
-      "search_analyzer": "standard",
       "fields": {
         "keyword": {
           "type": "keyword",
@@ -24,8 +20,6 @@
     },
     "gene_name": {
       "type": "text",
-      "analyzer": "autocomplete",
-      "search_analyzer": "standard",
       "fields": {
         "keyword": {
           "type": "keyword",
@@ -35,8 +29,6 @@
     },
     "taxon_label": {
       "type": "text",
-      "analyzer": "autocomplete",
-      "search_analyzer": "standard",
       "fields": {
         "keyword": {
           "type": "keyword",
@@ -46,8 +38,6 @@
     },
     "evidence_type": {
       "type": "text",
-      "analyzer": "autocomplete",
-      "search_analyzer": "standard",
       "fields": {
         "keyword": {
           "type": "keyword",
@@ -68,8 +58,6 @@
         },
         "label": {
           "type": "text",
-          "analyzer": "autocomplete",
-          "search_analyzer": "standard",
           "fields": {
             "keyword": {
               "type": "keyword",
@@ -79,8 +67,6 @@
         },
         "aspect": {
           "type": "text",
-          "analyzer": "autocomplete",
-          "search_analyzer": "standard",
           "fields": {
             "keyword": {
               "type": "keyword",
@@ -104,8 +90,6 @@
         },
         "label": {
           "type": "text",
-          "analyzer": "autocomplete",
-          "search_analyzer": "standard",
           "fields": {
             "keyword": {
               "type": "keyword",
@@ -115,8 +99,6 @@
         },
         "aspect": {
           "type": "text",
-          "analyzer": "autocomplete",
-          "search_analyzer": "standard",
           "fields": {
             "keyword": {
               "type": "keyword",
@@ -133,8 +115,6 @@
           "properties": {
             "gene": {
               "type": "text",
-              "analyzer": "autocomplete",
-              "search_analyzer": "standard",
               "fields": {
                 "keyword": {
                   "type": "keyword",
@@ -144,8 +124,6 @@
             },
             "gene_symbol": {
               "type": "text",
-              "analyzer": "autocomplete",
-              "search_analyzer": "standard",
               "fields": {
                 "keyword": {
                   "type": "keyword",
@@ -155,8 +133,6 @@
             },
             "gene_name": {
               "type": "text",
-              "analyzer": "autocomplete",
-              "search_analyzer": "standard",
               "fields": {
                 "keyword": {
                   "type": "keyword",
@@ -171,8 +147,6 @@
           "properties": {
             "pmid": {
               "type": "text",
-              "analyzer": "autocomplete",
-              "search_analyzer": "standard",
               "fields": {
                 "keyword": {
                   "type": "keyword",
@@ -183,9 +157,6 @@
           }
         }
       }
-    },
-    "name_suggest": {
-      "type": "completion"
     }
   }
 }

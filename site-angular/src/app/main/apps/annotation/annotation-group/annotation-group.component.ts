@@ -77,7 +77,6 @@ export class AnnotationGroupComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.annotationPage.currentValue) {
-      console.log('changed ann group');
       this.genes = this.annotationPage.annotations
       this.dataSource = new MatTableDataSource<any>(this.genes);
     }

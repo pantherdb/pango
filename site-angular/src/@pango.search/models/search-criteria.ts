@@ -16,7 +16,7 @@ export enum SearchFilterType {
 
 export class SearchCriteria {
     slimTermsTooltip = ''
-    geneTooltip = ''
+    genesTooltip = ''
     aspectsTooltip = ''
 
     terms: any[] = [];
@@ -37,15 +37,15 @@ export class SearchCriteria {
     updateTooltips() {
 
         this.slimTermsTooltip = this.slimTerms.map((term => {
-            return `${term.label}(${term.id})`
+            return `${term.label} (${term.displayId})`
         })).join('\n')
 
-        this.geneTooltip = this.slimTerms.map((item => {
-            return `${item.geneSymbol} (${item.gene})\n${item.geneName}`
+        this.genesTooltip = this.genes.map((item => {
+            return `${item.gene} (${item.geneSymbol})${item.geneName}`
         })).join('\n')
 
-        this.aspectsTooltip = this.slimTerms.map((aspect => {
-            return `${aspect.label}`
+        this.aspectsTooltip = this.aspects.map((aspect => {
+            return `${aspect}`
         })).join('\n')
     }
 

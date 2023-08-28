@@ -96,8 +96,22 @@
       //@include deep-height(20px);
       font-size: 10px;
 
+      height: auto !important;
+      line-height: 18px !important;
+      white-space: normal !important;
+
+      .pango-gene-id {
+        font-size: 10px;
+        //margin-right:
+      }
+
+      .pango-gene-label {
+        font-size: 12px;
+        //margin-right:
+      }
       .pango-gene-description {
-        text-overflow: ellipsis;
+        font-size: 10px;
+        //margin-right:
       }
 
       .pango-icon {

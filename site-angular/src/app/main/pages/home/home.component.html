@@ -34,8 +34,7 @@
             evidence. You can filter the list to find a specific gene or function category.</h2>
           <h3>
             Functional characteristics are described using terms from the Gene Ontology, and describe three distinct
-            aspects of gene function:
-            molecular function, biological process, and cellular component.
+            aspects of gene function: molecular function, biological process, and cellular component.
           </h3>
           <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
             <pango-gene-form> </pango-gene-form>
@@ -59,33 +58,34 @@
               Clear All
             </mat-chip>
           </ng-container>
+
           <mat-chip *ngIf="annotationService.searchCriteria[SearchFilterType.GENES].length>0" class="pango-filter-chip"
             [removable]="true" (removed)="removeFilter(SearchFilterType.GENES)"
-            matTooltip="{{annotationService.searchCriteria.slimTermsTooltip}}" [matTooltipPosition]="'below'"
+            matTooltip="{{annotationService.searchCriteria.genesTooltip}}" [matTooltipPosition]="'below'"
             [matTooltipShowDelay]="2000">
-
             Genes <span> ({{
               annotationService.searchCriteria[SearchFilterType.GENES].length}})</span>
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip>
+
+          <mat-chip *ngIf="annotationService.searchCriteria[SearchFilterType.SLIM_TERMS].length>0"
+            class="pango-filter-chip" [removable]="true" (removed)="removeFilter(SearchFilterType.SLIM_TERMS)"
+            matTooltip="{{annotationService.searchCriteria.slimTermsTooltip}}" [matTooltipPosition]="'below'"
+            [matTooltipShowDelay]="2000">
+            GO Function Categories <span> ({{
+              annotationService.searchCriteria[SearchFilterType.SLIM_TERMS].length}})</span>
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+
           <mat-chip *ngIf="annotationService.searchCriteria[SearchFilterType.ASPECTS].length>0"
             class="pango-filter-chip" [removable]="true" (removed)="removeFilter(SearchFilterType.ASPECTS)"
-            matTooltip="{{annotationService.searchCriteria.genesTooltip}}" [matTooltipPosition]="'below'"
+            matTooltip="{{annotationService.searchCriteria.aspectsTooltip}}" [matTooltipPosition]="'below'"
             [matTooltipShowDelay]="2000">
-
             Aspects <span> ({{
               annotationService.searchCriteria[SearchFilterType.ASPECTS].length}})</span>
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip>
-          <mat-chip *ngIf="annotationService.searchCriteria[SearchFilterType.SLIM_TERMS].length>0"
-            class="pango-filter-chip" [removable]="true" (removed)="removeFilter(SearchFilterType.SLIM_TERMS)"
-            matTooltip="{{annotationService.searchCriteria.aspectsTooltip}}" [matTooltipPosition]="'below'"
-            [matTooltipShowDelay]="2000">
 
-            Category <span> ({{
-              annotationService.searchCriteria[SearchFilterType.SLIM_TERMS].length}})</span>
-            <mat-icon matChipRemove>cancel</mat-icon>
-          </mat-chip>
         </div>
         <pango-summary-stats></pango-summary-stats>
         <pango-annotation-group class="w-100-p" [annotationPage]="annotationPage"></pango-annotation-group>
