@@ -58,17 +58,17 @@
             </div>
             <div class="w-100-p pango-cell-description-2">{{element.geneName}}</div>
             <div class="w-100-p pango-cell-title mr-8">
-              <a href="{{getUniprotLink(element.gene)}}" target="_blank">
+              <a href="{{getUniprotLink(element)}}" target="_blank">
                 {{element.gene}}
               </a>
             </div>
             <div *ngIf="element.coordinatesChrNum" class="pango-cell-coordinates">
-              <a [href]="getUcscLink(element.gene)" target="_blank">
+              <a [href]="getUcscLink(element)" target="_blank">
                 chr{{element.coordinatesChrNum}}:{{element.coordinatesStart}}-{{element.coordinatesEnd}}
               </a>
             </div>
             <div *ngIf="element.pantherFamily" class="w-100-p pango-cell-title mr-8">
-              <a [href]="getFamilyLink(element.gene)" target="_blank">
+              <a [href]="getFamilyLink(element)" target="_blank">
                 {{element.pantherFamily}}
               </a>
             </div>

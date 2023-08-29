@@ -101,32 +101,22 @@ export class AnnotationGroupComponent implements OnInit, OnDestroy, OnChanges {
 
   }
 
-  getPubmedArticleUrl(pmid: string): string {
-    if (!pmid) return ''
-
-    const id = pmid?.split(':')
-    if (id.length > 0) {
-      return this.pubmedUrl + id[1];
-    }
-  }
-
-  getUcscLink(element: Annotation) {
+  getUcscLink(element: Gene) {
     const chr = `${element.coordinatesChrNum}:${element.coordinatesStart}-${element.coordinatesEnd}`
     return environment.ucscUrl + chr
   }
 
-  getUniprotLink(gene: string) {
-    const geneId = gene?.split(':')
+  getUniprotLink(element: Gene) {
+    const geneId = element.gene?.split(':')
 
     if (geneId.length > 1) {
       return this.uniprotUrl + geneId[1];
     }
 
-    return gene;
+    return element.gene;
   }
 
-  getFamilyLink(element: Annotation) {
-
+  getFamilyLink(element: Gene) {
     return `${environment.pantherFamilyUrl}book=${encodeURIComponent(element.pantherFamily)}&seq=${encodeURIComponent(element.longId)}`
   }
 
