@@ -1,0 +1,12 @@
+@use "@angular/material" as mat;
+@import "src/@pango/scss/pango";
+@import "src/@pango.common/scss/pango.common";
+
+$primary: map-get($theme, primary);
+$accent: map-get($theme, accent);
+
+:host {
+  textarea {
+    background-color: #fff !important;
+  }
+}

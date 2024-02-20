@@ -24,25 +24,87 @@
     </mat-drawer>
     <mat-drawer-content #scrollbarRef class="pango-section-body w-100-p">
       <div class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
-        <div class="pango-header accent w-100-p" fxLayout="column" fxLayoutAlign="start start">
+        <div class="pango-header accent w-100-p" fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="60%" fxLayout="column" fxLayoutAlign="start start">
+            <h1>
+              Functions of Human Genes
+            </h1>
+            <h2>
+              The table below shows, for each human protein-coding gene, the set of functional characteristics that have
+              been assigned based on expert review and integration of available experimental evidence in 6,333 families
+              of protein-coding genes (<a [routerLink]="['/about']" color="accent"> Read More</a>). Each
+              characteristic is linked to the experimental evidence supporting
+              it.</h2>
 
-          <h1>
-            Functions of Human Genes
-          </h1>
-          <h2>
-            The table below shows functional characteristics of protein-coding genes that are supported by scientific
-            evidence. You can filter the list to find a specific gene or function category.</h2>
-          <h3>
-            Functional characteristics are described using terms from the Gene Ontology, and describe three distinct
-            aspects of gene function: molecular function, biological process, and cellular component.
-          </h3>
-          <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
-            <pango-gene-form> </pango-gene-form>
-            <h3 class="ml-12">
-              See any missing or incorrect functions? <a href="https://help.geneontology.org/" target="_blank">Let us
-                know!</a>
-            </h3>
+
+            <div class="mt-12 w-100-p" fxLayout="row" fxLayoutAlign="start center">
+              <pango-gene-form> </pango-gene-form>
+              <h3 class="ml-12">
+                See any missing or incorrect functions? <a href="https://help.geneontology.org/" target="_blank">Let us
+                  know!</a>
+              </h3>
+            </div>
           </div>
+
+          <div fxFlex="" class="p-12" fxLayout="column" fxLayoutAlign="start start">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h2>PAN-GO Enrichment Analysis
+              <i class="fa fa-question-circle"></i>
+            </h2>
+            <pango-overrep-form></pango-overrep-form>
+
+            <form class="form-inline">
+              <mat-form-field appearance="outline" class="pango-sm w-100-p pango-gene-autocomplete">
+                <textarea matInput type="text" placeholder="Your gene IDs here..." autocomplete="off" rows="3"
+                  required></textarea>
+              </mat-form-field>
+
+
+              <div class="form-group" style="width:100%;margin-bottom: 5px;">
+                <select id="rte_ontology" class="form-control" name="ontology" style="width:100%">
+                  <option value="biological_process">biological process</option>
+                  <option value="molecular_function">molecular function</option>
+                  <option value="cellular_component">cellular component</option>
+                </select>
+              </div>
+
+
+              <div class="input-group">
+
+
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-primary u-no-transform u-anim-zoom-in"
+                    style="background-color: #22612C; border-color: #22612C; margin-left: 4px;" onclick="setExample()"
+                    title="Cycle through different Gene Set examples">
+                    Examples
+                  </button>
+
+                  <button type="submit" class="btn btn-primary u-no-transform u-anim-move-right"
+                    style="background-color: #22612C; border-color: #22612C; margin-left: 4px;"
+                    title="Launch GO Enrichment Analysis">
+                    Launch <i class="fa fa-chevron-right u-line-height-single"></i>
+                  </button>
+                </span>
+              </div>
+              <div id="input_hint" class="input_hint">Hint: can use UniProt ID/AC, Gene Name, Gene Symbols, MOD IDs
+              </div>
+            </form>
+          </div>
+
         </div>
 
         <div class="pango-summary-filter-bar" fxLayout="row" fxLayoutAlign="start center">

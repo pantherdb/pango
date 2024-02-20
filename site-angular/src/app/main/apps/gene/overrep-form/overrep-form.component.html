@@ -1,0 +1,19 @@
+<form [formGroup]="overrepForm" class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch" (ngSubmit)="save()">
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Input</mat-label>
+      <textarea matInput formControlName="inputData" rows="3"></textarea>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Ontology</mat-label>
+      <mat-select formControlName="selectedOntology">
+        <mat-option *ngFor="let option of ontologyOptions" [value]="option.value">
+          {{option.displayText}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" type="submit">Save</button>
+</form>

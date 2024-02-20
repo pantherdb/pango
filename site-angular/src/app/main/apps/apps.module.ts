@@ -19,6 +19,7 @@ import { SummaryStatsVerticalComponent } from './annotation/annotation-stats/sum
 import { NgxPieChartRemoveMarginsDirective } from '@pango.common/directives/piechart-remove-margins.directive';
 import { TermFormComponent } from './annotation/forms/term-form/term-form.component';
 import { GeneFormComponent } from './annotation/forms/gene-form/gene-form.component';
+import { OverrepFormComponent } from './gene/overrep-form/overrep-form.component';
 
 const routes = [];
 
@@ -40,7 +41,8 @@ const routes = [];
         TermFormComponent,
         SearchAspectFormComponent,
         AnnotationFiltersComponent,
-        AnnotationGroupComponent
+        AnnotationGroupComponent,
+        OverrepFormComponent
     ],
     imports: [
         RouterModule.forChild(routes),
@@ -64,7 +66,8 @@ const routes = [];
         GeneFormComponent,
         TermFormComponent,
         SearchAspectFormComponent,
-        AnnotationFiltersComponent
+        AnnotationFiltersComponent,
+        OverrepFormComponent
     ],
     providers: []
 })

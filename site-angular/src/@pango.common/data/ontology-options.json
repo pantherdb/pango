@@ -1,0 +1,38 @@
+[
+  {
+    "id": "biological_process_IBA",
+    "label": "biological process IBA"
+  },
+  {
+    "id": "molecular_function_IBA",
+    "label": "molecular function IBA"
+  },
+  {
+    "id": "cellular_component_IBA",
+    "label": "cellular component IBA"
+  },
+  {
+    "id": "biological_process_IEA",
+    "label": "biological process IEA"
+  },
+  {
+    "id": "molecular_function_IEA",
+    "label": "molecular function IEA"
+  },
+  {
+    "id": "cellular_component_IEA",
+    "label": "cellular component IEA"
+  },
+  {
+    "id": "biological_process",
+    "label": "Full GO biological process"
+  },
+  {
+    "id": "molecular_function",
+    "label": "Full GO molecular function"
+  },
+  {
+    "id": "cellular_component",
+    "label": "Full GO cellular component"
+  }
+]
