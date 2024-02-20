@@ -1,19 +1,31 @@
-<form [formGroup]="overrepForm" class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch" (ngSubmit)="save()">
+<form *ngIf="overrepForm" [formGroup]="overrepForm" class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch"
+  (ngSubmit)="save()">
   <div>
-    <mat-form-field appearance="outline">
-      <mat-label>Input</mat-label>
-      <textarea matInput formControlName="inputData" rows="3"></textarea>
+    <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p pango-form-field">
+      <mat-label>Your Gene Ids</mat-label>
+      <textarea matInput formControlName="geneIds" rows="3"></textarea>
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="pango-sm pango-white w-100-p pango-form-field">
       <mat-label>Ontology</mat-label>
-      <mat-select formControlName="selectedOntology">
-        <mat-option *ngFor="let option of ontologyOptions" [value]="option.value">
-          {{option.displayText}}
+      <mat-select formControlName="ontology">
+        <mat-option *ngFor="let option of ontologyOptions" [value]="option.id">
+          {{option.label}}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </div>
-  <button mat-raised-button color="primary" type="submit">Save</button>
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <button fxFlex="50" mat-raised-button type="button" class="" (click)="setExample()"
+      title="Cycle through different Gene Set examples">
+      Examples
+    </button>
+    <button fxFlex="50" class="pango-submit-btn" mat-raised-button color="primary" type="submit">
+      Launch <fa-icon [icon]="['fas', 'chevron-right']"></fa-icon>
+    </button>
+  </div>
+  <small class="mt-8">
+    <strong> Hint: </strong> can use UniProt ID/AC, Gene Name, Gene Symbols, MOD IDs
+  </small>
 </form>

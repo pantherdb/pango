@@ -6,7 +6,17 @@ $primary: map-get($theme, primary);
 $accent: map-get($theme, accent);
 
 :host {
+  small {
+    color: #fff;
+  }
+
+  @include deep-width(100% !important);
   textarea {
     background-color: #fff !important;
+  }
+
+  .pango-submit-btn {
+    background-color: #344f30;
+    color: #fff;
   }
 }

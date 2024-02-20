@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import ontologyOptions from '@pango.common/data/ontology-options.json';
 import { environment } from 'environments/environment';
@@ -10,31 +10,45 @@ import { environment } from 'environments/environment';
   //encapsulation: ViewEncapsulation.None
 })
 export class OverrepFormComponent implements OnInit {
-  ontologyOptions = ontologyOptions; // Loaded from a JSON file or directly imported
+  ontologyOptions = ontologyOptions.ontology;
+  genes = ontologyOptions.genes;
   overrepForm: FormGroup;
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit(): void {
+    this.createForm();
   }
 
   createForm() {
     this.overrepForm = new FormGroup({
-      inputData: new FormControl(''),
-      selectedOntology: new FormControl('')
+      geneIds: new FormControl(''),
+      ontology: new FormControl('')
+    });
+
+    if (this.ontologyOptions.length > 0) {
+      this.overrepForm.get('ontology').setValue(this.ontologyOptions[0].id);
+    }
+  }
+
+  setExample() {
+    this.overrepForm.patchValue({
+      geneIds: this.genes.join('\n')
     });
   }
 
   save(): void {
     const formData = this.overrepForm.value;
-    const queryParams = new URLSearchParams({
-      input: formData.inputData,
-      ontology: formData.selectedOntology,
+    const overrepUrl = environment.overrepApiUrl;
+
+    const payload = new URLSearchParams({
+      input: formData.geneIds,
+      ontology: formData.ontology,
       species: 'HUMAN',
       test_type: 'FISHER'
     }).toString();
-    const submitUrl = `${environment.overrepApiUrl}?${queryParams}`;
-    console.log(submitUrl);
+
+    const fullUrl = `${overrepUrl}?${payload}`;
+    window.open(fullUrl, '_blank');
   }
 }
