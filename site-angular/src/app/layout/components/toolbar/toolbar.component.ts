@@ -28,6 +28,20 @@ export class PangoToolbarComponent {
 
     }
 
+    downloadCSVFile() {
+        const userConsent = confirm('Confirm Download?');
+        if (userConsent) {
+            window.open('http://data.pantherdb.org/ftp/downloads/pango/export_annotations.zip', '_blank');
+        }
+    }
+
+    downloadJSONFile() {
+        const userConsent = confirm('Confirm Download?');
+        if (userConsent) {
+            window.open('http://data.pantherdb.org/ftp/downloads/pango/export_annotations.json.gz', '_blank');
+        }
+    }
+
     search(value): void {
         console.log(value);
     }

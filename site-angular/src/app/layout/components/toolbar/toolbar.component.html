@@ -37,12 +37,18 @@
         Download
       </a>
       <mat-menu #exportMenu="matMenu" class="pango-dropdown-menu">
-        <a mat-menu-item href="http://data.pantherdb.org/ftp/downloads/pango/export_annotations.zip" class="">
+        <a mat-menu-item (click)="downloadCSVFile()" class="">
+          As CSV
+        </a>
+        <a mat-menu-item (click)="downloadJSONFile()" class="">
+          As JSON
+        </a>
+        <!--   <a mat-menu-item href="http://data.pantherdb.org/ftp/downloads/pango/export_annotations.zip" class="">
           As CSV
         </a>
         <a mat-menu-item href="http://data.pantherdb.org/ftp/downloads/pango/export_annotations.json.gz" class="">
           As JSON
-        </a>
+        </a> -->
       </mat-menu>
 
       <a mat-button [routerLink]="['/about']">About</a>
