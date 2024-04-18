@@ -52,11 +52,16 @@ async def get_genes(filter_args: GeneFilterArgs, page_args=PageArgs):
         size=page_args.size,
         source=["_id"],
         sort=[
-            {
-                "term_count": {
-                    "order": "desc"
-                }
-            }
+          {
+              "coordinates_chr_num.keyword": {
+                  "order": "asc"
+              }
+          },
+          {
+              "gene_symbol.keyword": {
+                  "order": "asc"
+              }
+          }
         ]
     )
 
