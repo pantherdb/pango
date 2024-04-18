@@ -8,10 +8,10 @@ export const environment = {
   amigoTermUrl: "http://amigo.geneontology.org/amigo/term/",
   pubmedUrl: "https://www.ncbi.nlm.nih.gov/pubmed/",
   taxonApiUrl: 'https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=',
-  pangoGraphQLUrl: 'http://preview.functionome.org/api/graphql',
+  pangoGraphQLUrl: 'https://functionome.org/api/graphql',
   ucscUrl: 'https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr',
   pantherFamilyUrl: 'https://www.pantherdb.org/treeViewer/treeViewer.jsp?',
-  overrepApiUrl: 'https://pantree-dev.usc.edu//webservices/go/overrep.jsp',
+  overrepApiUrl: 'https://enrichment.functionome.org/webservices/go/overrep.jsp',
   //overrepApiUrl: 'https://pantherdb.org/webservices/go/overrep.jsp',
 
   uniprotUrl: 'https://www.uniprot.org/uniprotkb/',
