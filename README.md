@@ -78,6 +78,7 @@ Front-end development guidelines and setup instructions are detailed at [Site RE
 To begin using this pipeline, ensure all prerequisites are installed. Then, clone this repository and follow the setup instructions in each component's detailed documentation:
 
 ```bash
-git clone https://github.com/your-repository/project-name.git
-cd project-name
+   git clone https://github.com/pantherdb/pango
+   cd pango
+```
 
