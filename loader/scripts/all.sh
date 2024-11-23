@@ -39,6 +39,13 @@ if [[ -z "$INPUT_BASE" ]] || [[ -z "$CLEAN_ARTICLES" ]]; then
     usage
 fi
 
+if [[ ! -f "$CLEAN_ARTICLES" ]]; then
+    echo "Warning: Clean articles file not found: $CLEAN_ARTICLES"
+    echo "Creating empty clean articles file..."
+    echo "[]" > "$CLEAN_ARTICLES"
+    echo "Created empty clean articles file at: $CLEAN_ARTICLES"
+fi
+
 # Function to process a single dataset
 process_dataset() {
     local folder="$1"
@@ -86,6 +93,12 @@ process_dataset() {
     fi
     
     echo "Starting processing pipeline for $prefix..."
+
+    echo "Getting articles..."
+    python3 -m src.get_articles \
+        -a "$annotations_fp" \
+        -o "$CLEAN_ARTICLES" \
+        -e "$CLEAN_ARTICLES"
     
     echo "Cleaning annotations..."
     python3 -m src.clean_annotations \
