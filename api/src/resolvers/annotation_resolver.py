@@ -1,16 +1,13 @@
 # import load_env
 # import asyncio
 import json
-import pprint
-import typing
 from src.models.annotation_model import Annotation, AnnotationExport, AnnotationFilterArgs, AnnotationGroup, AnnotationMinimal, Gene, GeneFilterArgs,PageArgs, ResultCount
-from src.config.settings import settings
 from src.config.es import  es
 
-async def get_annotation(id:str):
+async def get_annotation(annotation_index:str, id:str,):
 
     resp = await es.get(
-          index=settings.PANGO_ANNOTATIONS_INDEX,
+          index=annotation_index,
           id=id
     )
 
@@ -19,14 +16,14 @@ async def get_annotation(id:str):
     return results    
 
 
-async def get_annotations(filter_args:AnnotationFilterArgs, page_args=PageArgs):
+async def get_annotations(annotation_index:str, filter_args:AnnotationFilterArgs, page_args=PageArgs):
 
     if page_args is None:
       page_args = PageArgs
 
     query = await get_annotations_query(filter_args)
     resp = await es.search(
-          index=settings.PANGO_ANNOTATIONS_INDEX,
+          index=annotation_index,
           filter_path ='took,hits.hits._score,**hits.hits._id**, **hits.hits._source**',
           query=query,
           from_=page_args.page*page_args.size,
@@ -38,7 +35,7 @@ async def get_annotations(filter_args:AnnotationFilterArgs, page_args=PageArgs):
     return results    
 
 
-async def get_genes(filter_args: GeneFilterArgs, page_args=PageArgs):
+async def get_genes(gene_index:str, filter_args: GeneFilterArgs, page_args=PageArgs):
 
     if page_args is None:
         page_args = PageArgs
@@ -46,7 +43,7 @@ async def get_genes(filter_args: GeneFilterArgs, page_args=PageArgs):
     # Get the gene IDs based on the filter 
     genes_query = await get_genes_query(filter_args)
     gene_id_resp = await es.search(
-        index=settings.PANGO_GENES_INDEX,
+        index=gene_index,
         query=genes_query,
         from_=page_args.page * page_args.size,
         size=page_args.size,
@@ -78,7 +75,7 @@ async def get_genes(filter_args: GeneFilterArgs, page_args=PageArgs):
       }
 
     gene_resp = await es.search(
-        index=settings.PANGO_GENES_INDEX,
+        index=gene_index,
         query=complete_data_query,
         size=len(gene_ids)
     )
@@ -124,7 +121,7 @@ async def get_genes_query(filter_args:GeneFilterArgs):
     
     return query 
 
-async def get_annotations_export(filter_args:AnnotationFilterArgs, page_args=PageArgs):
+async def get_annotations_export(annotation_index:str, filter_args:AnnotationFilterArgs, page_args=PageArgs):
 
     if page_args is None:
       page_args = PageArgs
@@ -132,7 +129,7 @@ async def get_annotations_export(filter_args:AnnotationFilterArgs, page_args=Pag
     query = await get_annotations_query(filter_args)
     resp = await es.search(
           source=['gene', 'gene_symbol', 'term.id', 'term.label'], 
-          index=settings.PANGO_ANNOTATIONS_INDEX,
+          index=annotation_index,
           filter_path ='took,hits.hits._score,**hits.hits._source**',
           query=query,
           from_=page_args.page*page_args.size,

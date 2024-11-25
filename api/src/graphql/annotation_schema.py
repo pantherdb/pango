@@ -1,6 +1,8 @@
 import strawberry
 from pydantic import typing
 from strawberry.types import Info
+from src.config.settings import settings
+from src.graphql.graphql_context import GraphQLContext
 from src.models.term_model import Term
 from src.resolvers.annotation_stats_resolver import get_annotations_count, get_annotations_stats, get_genes_count
 from src.resolvers.autocomplete_resolver import get_autocomplete, get_slim_term_autocomplete_query_multi
@@ -13,22 +15,34 @@ class AnnotationQuery:
 
     @strawberry.field
     async def annotation(self, info:Info, id:str) -> Annotation:
-        return await get_annotation(id)
+        context: GraphQLContext = info.context
+        index = context.get_index(settings.PANGO_ANNOTATIONS_INDEX)
+        
+        return await get_annotation(index, id)
 
     @strawberry.field
     async def annotations(self, info:Info, filter_args:typing.Optional[AnnotationFilterArgs]=None, 
       page_args:typing.Optional[PageArgs] = None) -> typing.List[Annotation]:
-        return await get_annotations(filter_args, page_args)
+        context: GraphQLContext = info.context
+        index = context.get_index(settings.PANGO_ANNOTATIONS_INDEX)
+        
+        return await get_annotations(index, filter_args, page_args)
     
     @strawberry.field
     async def genes(self, info:Info, filter_args:typing.Optional[GeneFilterArgs]=None, 
       page_args:typing.Optional[PageArgs] = None) -> typing.List[Gene]:
-        return await get_genes(filter_args, page_args)
+        context: GraphQLContext = info.context
+        index = context.get_index(settings.PANGO_GENES_INDEX)
+        
+        return await get_genes(index, filter_args, page_args)
     
     @strawberry.field
     async def annotations_export(self, info:Info, filter_args:typing.Optional[AnnotationFilterArgs]=None, 
       page_args:typing.Optional[PageArgs] = None) -> AnnotationExport:
-        return await get_annotations_export(filter_args, page_args)
+        context: GraphQLContext = info.context
+        index = context.get_index(settings.PANGO_ANNOTATIONS_INDEX)
+        
+        return await get_annotations_export(index, filter_args, page_args)
 
     @strawberry.field
     async def annotations_count(self, info:Info, filter_args:typing.Optional[AnnotationFilterArgs]=None) -> ResultCount:

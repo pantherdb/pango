@@ -3,7 +3,7 @@ import strawberry
 from strawberry.fastapi import GraphQLRouter
 from strawberry.schema.config import StrawberryConfig
 from strawberry.tools import merge_types
-from src.schemas.annotation_schema import AnnotationQuery
+from src.graphql.annotation_schema import AnnotationQuery
 from fastapi.middleware.cors import CORSMiddleware
 
 #Queries = merge_types("Queries", AnnotationQuery))
