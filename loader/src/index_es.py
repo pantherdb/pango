@@ -101,38 +101,22 @@ def bulk_load(j_file: str, index_name: str) -> Tuple[int, list]:
         logger.error(f"Unexpected error during bulk loading: {str(e)}")
         raise
 
-def get_index_name(base_name: str, prefix: str = '') -> str:
-    """
-    Generate full index name with optional prefix.
-    
-    Args:
-        base_name: Base name of the index
-        prefix: Optional prefix to add
-        
-    Returns:
-        Full index name
-    """
-    return f"{prefix}{base_name}" if prefix else base_name
 
 def main() -> None:
-    """Main execution function."""
+    
     try:
         args = parse_arguments()
         
         # Create and load annotations index
-        annotations_index = get_index_name(
-            create_index(TableAggType.ANNOTATIONS.value),
-            args.index_prefix
-        )
+        annotations_index = create_index(TableAggType.ANNOTATIONS.value, args.index_prefix)
+    
         success, errors = bulk_load(args.annotations_file, annotations_index)
         if errors:
             logger.warning(f"Annotations loading had {len(errors)} errors")
         
         # Create and load genes index
-        genes_index = get_index_name(
-            create_index(TableAggType.GENES.value),
-            args.index_prefix
-        )
+        genes_index = create_index(TableAggType.GENES.value, args.index_prefix)
+        
         success, errors = bulk_load(args.genes_file, genes_index)
         if errors:
             logger.warning(f"Genes loading had {len(errors)} errors")

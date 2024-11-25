@@ -118,7 +118,7 @@ process_dataset() {
     python3 -m src.index_es \
         -a "$clean_annotations_fp" \
         -g "$genes_annotations_fp" \
-        -p "${prefix}_"
+        -p "${prefix}"
     
     echo "Completed processing for $prefix"
     echo "----------------------------------------"
