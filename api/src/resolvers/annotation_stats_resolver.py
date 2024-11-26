@@ -4,14 +4,13 @@ import pprint
 import typing
 from src.resolvers.annotation_resolver import get_annotations_query, get_genes_query
 from src.models.annotation_model import  AnnotationFilterArgs, AnnotationStats, Bucket, Entity, Frequency, GeneFilterArgs, ResultCount
-from src.config.settings import settings
 from src.config.es import  es
 
-async def get_annotations_count(filter_args:AnnotationFilterArgs):
+async def get_annotations_count(annotation_index:str, filter_args:AnnotationFilterArgs):
 
     query = await get_annotations_query(filter_args)
     resp = await es.count(
-          index=settings.PANGO_ANNOTATIONS_INDEX,
+          index=annotation_index,
           query=query,
     )
 
@@ -20,11 +19,11 @@ async def get_annotations_count(filter_args:AnnotationFilterArgs):
     return results   
 
 
-async def get_genes_count(filter_args:GeneFilterArgs):
+async def get_genes_count(gene_index:str, filter_args:GeneFilterArgs):
 
     query = await get_genes_query(filter_args)
     resp = await es.count(
-          index=settings.PANGO_GENES_INDEX,
+          index=gene_index,
           query=query
     )
     
@@ -33,7 +32,7 @@ async def get_genes_count(filter_args:GeneFilterArgs):
     return results  
 
 
-async def get_annotations_stats(filter_args:AnnotationFilterArgs):
+async def get_annotations_stats(annotation_index:str, filter_args:AnnotationFilterArgs):
     
     query = await get_annotations_query(filter_args)
     aggs = {     
@@ -63,7 +62,7 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
     
 
     resp = await es.search(
-          index=settings.PANGO_ANNOTATIONS_INDEX,
+          index=annotation_index,
           filter_path ='took,hits.total.value,aggregations',
           query=query,
           aggs=aggs,
@@ -93,6 +92,7 @@ async def get_annotations_stats(filter_args:AnnotationFilterArgs):
     results = AnnotationStats(**stats)
         
     return results
+  
 
 def get_slim_terms_query():
     

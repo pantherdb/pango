@@ -9,7 +9,7 @@ from src.models.annotation_model import Annotation, AnnotationFilterArgs, Annota
 from src.config.settings import settings
 from src.config.es import  es
 
-async def get_autocomplete(autocomplete_type: AutocompleteType, keyword:str, filter_args:GeneFilterArgs):
+async def get_autocomplete(gene_index:str, autocomplete_type: AutocompleteType, keyword:str, filter_args:GeneFilterArgs):
     query = {}
     collapse = {}
     if autocomplete_type.value == AutocompleteType.gene.value:
@@ -18,7 +18,7 @@ async def get_autocomplete(autocomplete_type: AutocompleteType, keyword:str, fil
         query, collapse = await get_slim_term_autocomplete_query(keyword, filter_args)
 
     resp = await es.search(
-        index = settings.PANGO_GENES_INDEX,
+        index = gene_index,
         filter_path ='took,hits.hits._score,**hits.hits._id**,**hits.hits._source**',
         query = query,
         collapse = collapse,
@@ -47,7 +47,7 @@ async def get_gene_autocomplete_query(keyword:str, filter_args:GeneFilterArgs):
     return query, collapse
 
 
-async def get_slim_term_autocomplete_query_multi(keyword:str, filter_args:AnnotationFilterArgs)->typing.List[Term]:
+async def get_slim_term_autocomplete_query_multi(gene_index:str, keyword:str, filter_args:AnnotationFilterArgs)->typing.List[Term]:
   
     filter_query = await get_annotations_query(filter_args)
     query = {
@@ -98,7 +98,7 @@ async def get_slim_term_autocomplete_query_multi(keyword:str, filter_args:Annota
       }     
 
     resp = await es.search(
-      index=settings.PANGO_GENES_INDEX,
+      index=gene_index,
       query=query,
       aggs=aggs,
       size=0,
