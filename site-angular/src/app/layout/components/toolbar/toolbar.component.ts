@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, ActivatedRoute } from '@angular/router';
 import { PangoMenuService } from '@pango.common/services/pango-menu.service';
+import { ApiVersion, PangoGraphQLService } from '@pango.search/services/graphql.service';
 
 @Component({
     selector: 'pango-toolbar',
@@ -10,9 +11,15 @@ import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 
 export class PangoToolbarComponent {
     showLoadingBar: boolean;
+    ApiVersion = ApiVersion;
+    currentVersion: ApiVersion = ApiVersion.V2024;
+
+    protected readonly version2024Link = window.location.pathname;
+    protected readonly version2023Link = window.location.pathname + '?apiVersion=pango-2023';
 
     constructor(
         public pangoMenuService: PangoMenuService,
+        private _pangoGraphQLService: PangoGraphQLService,
         private router: Router,
     ) {
 
@@ -26,6 +33,16 @@ export class PangoToolbarComponent {
                 }
             });
 
+    }
+
+    ngOnInit() {
+        this._pangoGraphQLService.route.queryParams.subscribe(() => {
+            this.currentVersion = this._pangoGraphQLService.getCurrentVersion();
+        });
+    }
+
+    onVersionChange(version: ApiVersion) {
+        this._pangoGraphQLService.setVersion(version);
     }
 
     downloadCSVFile() {

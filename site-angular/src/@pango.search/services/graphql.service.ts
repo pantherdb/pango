@@ -8,7 +8,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export enum ApiVersion {
   V2023 = 'pango-2023',
   V2024 = 'pango-2024',
-  LATEST = 'latest'
 }
 
 @Injectable({
@@ -16,12 +15,12 @@ export enum ApiVersion {
 })
 export class PangoGraphQLService {
   graphQLUrl = environment.pangoGraphQLUrl;
-  private currentVersion: ApiVersion = ApiVersion.LATEST;
+  private currentVersion: ApiVersion = ApiVersion.V2024;
   private readonly VERSION_PARAM = 'apiVersion';
 
   constructor(
     private httpClient: HttpClient,
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     private router: Router
   ) {
     // Initialize version from query params if present
@@ -47,7 +46,7 @@ export class PangoGraphQLService {
   private updateQueryParam(version: ApiVersion) {
     const queryParams = { ...this.route.snapshot.queryParams };
 
-    if (version === ApiVersion.V2024 || version === ApiVersion.LATEST) {
+    if (version === ApiVersion.V2024) {
       // Remove param if it's the default version
       delete queryParams[this.VERSION_PARAM];
     } else {
@@ -63,7 +62,7 @@ export class PangoGraphQLService {
 
   private resolveVersion(version?: ApiVersion): string {
     const resolvedVersion = version || this.currentVersion;
-    return resolvedVersion === ApiVersion.LATEST ? ApiVersion.V2024 : resolvedVersion;
+    return resolvedVersion;
   }
 
   private getHeaders(version?: ApiVersion): HttpHeaders {

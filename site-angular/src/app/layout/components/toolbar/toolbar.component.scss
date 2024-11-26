@@ -35,6 +35,28 @@ $accent: map-get($theme, accent);
     }
   }
 
+  .pango-version-banner {
+    padding: 4px 16px;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+
+    &.pango-version-2024 {
+      color: #e3f2fd; /* light blue */
+      background-color: #259433;
+    }
+
+    &.pango-version-2023 {
+      color: #fff3e0; /* light orange */
+      background-color: #d46d05;
+    }
+
+    .pango-version-link {
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
+
   .mat-toolbar {
     padding: 0 10px 0 5px;
     background-color: $pango-primary-color;
