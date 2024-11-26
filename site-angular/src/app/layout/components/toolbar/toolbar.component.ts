@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, ActivatedRoute } from '@angular/router';
 import { PangoMenuService } from '@pango.common/services/pango-menu.service';
+import { PangoUtilService } from '@pango.common/services/pango-util.service';
 import { ApiVersion, PangoGraphQLService } from '@pango.search/services/graphql.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class PangoToolbarComponent {
     protected readonly version2023Link = window.location.pathname + '?apiVersion=pango-2023';
 
     constructor(
+        public pangoUtilService: PangoUtilService,
         public pangoMenuService: PangoMenuService,
         private _pangoGraphQLService: PangoGraphQLService,
         private router: Router,

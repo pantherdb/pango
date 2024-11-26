@@ -20,7 +20,8 @@
           <div fxLayout="column" fxLayoutAlign="start stretch">
             <div class="pango-item">
               <div class="w-100-p pango-cell-title">
-                <a (click)="$event.stopPropagation()" [routerLink]="'/gene/'+ annotation.gene" target="_blank">
+                <a (click)="$event.stopPropagation()"
+                  [href]="pangoUtilService.getVersionedLink('/gene/'+annotation.gene)" target="_blank">
                   {{ annotation.gene}}
                 </a>
               </div>

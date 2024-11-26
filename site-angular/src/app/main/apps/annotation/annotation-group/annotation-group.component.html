@@ -49,7 +49,7 @@
         <td mat-cell *matCellDef="let element" class="pango-gene-cell">
           <div class="w-100-p" fxLayout="column" fxLayoutAlign="start start">
             <div class="w-100-p pango-cell-description">
-              <a [routerLink]="'/gene/'+element.gene" target="_blank">
+              <a [href]="pangoUtilService.getVersionedLink('/gene/'+element.gene)" target="_blank">
                 {{element.geneSymbol}}
               </a>
               (<a [href]="taxonApiUrl+element.taxonId" target="_blank">
@@ -72,7 +72,7 @@
                 {{element.pantherFamily}}
               </a>
             </div>
-            <a [routerLink]="'/gene/'+element.gene" target="_blank">
+            <a [href]="pangoUtilService.getVersionedLink('/gene/'+element.gene)" target="_blank">
               <small>View all functions and evidence</small>
             </a>
           </div>

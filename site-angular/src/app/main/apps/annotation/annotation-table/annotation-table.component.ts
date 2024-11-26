@@ -11,6 +11,7 @@ import { environment } from 'environments/environment';
 import { pangoData } from '@pango.common/data/config';
 import { Annotation } from '../models/annotation';
 import { Gene } from '../../gene/models/gene.model';
+import { PangoUtilService } from '@pango.common/services/pango-util.service';
 @Component({
   selector: 'pango-annotation-table',
   templateUrl: './annotation-table.component.html',
@@ -66,6 +67,7 @@ export class AnnotationTableComponent implements OnInit, OnDestroy, OnChanges {
   private _unsubscribeAll: Subject<any>;
 
   constructor(
+    public pangoUtilService: PangoUtilService,
     public pangoMenuService: PangoMenuService,
     public annotationService: AnnotationService
   ) {
