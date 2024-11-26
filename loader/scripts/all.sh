@@ -153,3 +153,5 @@ if [[ "$found_folders" = false ]]; then
 fi
 
 echo "All folders processed successfully!"
+
+# bash scripts/all.sh  -i ./downloads/input -a ./downloads/clean-articles.json
