@@ -6,6 +6,12 @@ $primary: map-get($theme, primary);
 $accent: map-get($theme, accent);
 
 :host {
+  overrep-form {
+    --overrep-height: 270px;
+    --overrep-width: 100%;
+    --overrep-font-size: 12px;
+  }
+
   small {
     color: #fff;
   }

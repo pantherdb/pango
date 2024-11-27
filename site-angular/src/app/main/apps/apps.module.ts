@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AnnotationTableComponent } from './annotation/annotation-table/annotation-table.component';
@@ -49,6 +49,9 @@ const routes = [];
         NgxChartsModule,
         PangoSharedModule,
         PangoConfirmDialogModule,
+    ],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
     ],
     exports: [
         NgxPieChartRemoveMarginsDirective,

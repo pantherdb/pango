@@ -1,54 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import ontologyOptions from '@pango.common/data/ontology-options.json';
 import { environment } from 'environments/environment';
 
 @Component({
   selector: 'pango-overrep-form',
   templateUrl: './overrep-form.component.html',
-  styleUrls: ['./overrep-form.component.scss'],
-  //encapsulation: ViewEncapsulation.None
+  styleUrls: ['./overrep-form.component.scss']
 })
-export class OverrepFormComponent implements OnInit {
+export class OverrepFormComponent implements OnInit, AfterViewInit {
   ontologyOptions = ontologyOptions.ontology;
   genes = ontologyOptions.genes;
-  overrepForm: FormGroup;
+  submitUrl = environment.overrepApiUrl;
 
   constructor() { }
 
-  ngOnInit(): void {
-    this.createForm();
-  }
+  ngOnInit(): void { }
 
-  createForm() {
-    this.overrepForm = new FormGroup({
-      geneIds: new FormControl(''),
-      ontology: new FormControl('')
-    });
-
-    if (this.ontologyOptions.length > 0) {
-      this.overrepForm.get('ontology').setValue(this.ontologyOptions[0].id);
+  ngAfterViewInit(): void {
+    // Set the properties after view initialization, similar to the HTML example
+    const form = document.querySelector('overrep-form');
+    if (form) {
+      form['ontologyOptions'] = this.ontologyOptions;
+      form['exampleGenes'] = this.genes;
     }
-  }
-
-  setExample() {
-    this.overrepForm.patchValue({
-      geneIds: this.genes.join('\n')
-    });
-  }
-
-  save(): void {
-    const formData = this.overrepForm.value;
-    const overrepUrl = environment.overrepApiUrl;
-
-    const payload = new URLSearchParams({
-      input: formData.geneIds,
-      ontology: formData.ontology,
-      species: 'HUMAN',
-      test_type: 'FISHER'
-    }).toString();
-
-    const fullUrl = `${overrepUrl}?${payload}`;
-    window.open(fullUrl, '_blank');
   }
 }
