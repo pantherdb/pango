@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 import { AnnotationService } from './../services/annotation.service'
 import { AnnotationPage } from '../models/page';
@@ -9,8 +8,8 @@ import { RightPanel } from '@pango.common/models/menu-panels';
 import { MatLegacyTable as MatTable, MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { environment } from 'environments/environment';
 import { pangoData } from '@pango.common/data/config';
-import { Annotation } from '../models/annotation';
 import { Gene } from '../../gene/models/gene.model';
+import { PangoUtilService } from '@pango.common/services/pango-util.service';
 @Component({
   selector: 'pango-annotation-group',
   templateUrl: './annotation-group.component.html',
@@ -66,6 +65,7 @@ export class AnnotationGroupComponent implements OnInit, OnDestroy, OnChanges {
   private _unsubscribeAll: Subject<any>;
 
   constructor(
+    public pangoUtilService: PangoUtilService,
     public pangoMenuService: PangoMenuService,
     public annotationService: AnnotationService
   ) {

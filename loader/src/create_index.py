@@ -5,7 +5,7 @@ from src.config.settings import settings
 from src.config.es import es
 
 
-def get_index_name(tsv_type: TableAggType):
+def get_index_base_name(tsv_type: TableAggType):
     index_map = {
         'annotations': settings.PANGO_ANNOTATIONS_INDEX,
         'genes': settings.PANGO_GENES_INDEX
@@ -14,9 +14,11 @@ def get_index_name(tsv_type: TableAggType):
     return index_map.get(tsv_type)
 
 
-def create_index(tsv_type: TableAggType):
+def create_index(tsv_type: TableAggType, prefix=None):
+    
+    base_name = get_index_base_name(tsv_type)
+    es_index = f"{prefix}-{base_name}" if prefix else base_name
 
-    es_index = get_index_name(tsv_type)
     es.options(ignore_status=[400, 404]).indices.delete(index=es_index)
     es.options(ignore_status=[400, 404]).indices.create(index=es_index, settings=add_settings())
      

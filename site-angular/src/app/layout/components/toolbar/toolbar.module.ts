@@ -7,6 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { PangoSharedModule } from '@pango/shared.module';
 import { PangoToolbarComponent } from './toolbar.component';
+import { PangoVersionBannerModule } from '@pango.common/components/version-banner/version-banner.module';
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import { PangoToolbarComponent } from './toolbar.component';
         MatProgressBarModule,
         MatToolbarModule,
         PangoSharedModule,
+        PangoVersionBannerModule
     ],
     exports: [
         PangoToolbarComponent

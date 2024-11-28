@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { MatDrawer } from '@angular/material/sidenav';
 
 import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 import { LeftPanel, RightPanel } from '@pango.common/models/menu-panels';
 import { AnnotationService } from 'app/main/apps/annotation/services/annotation.service';
-import { pangoData } from '@pango.common/data/config';
 import { AnnotationPage } from 'app/main/apps/annotation/models/page';
 import { Subject, takeUntil } from 'rxjs';
 import { SearchFilterType, SearchType } from '@pango.search/models/search-criteria';
+import { PangoUtilService } from '@pango.common/services/pango-util.service';
+import { ApiVersion, PangoGraphQLService } from '@pango.search/services/graphql.service';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +20,8 @@ export class HomeComponent implements OnInit {
   SearchFilterType = SearchFilterType;
   RightPanel = RightPanel;
   LeftPanel = LeftPanel
+
+  ApiVersion = ApiVersion;
 
   @ViewChild('leftDrawer', { static: true })
   leftDrawer: MatDrawer;
@@ -53,15 +55,24 @@ export class HomeComponent implements OnInit {
     suppressScrollX: true
   }
 
+
+  currentVersion: ApiVersion;
+
   private _unsubscribeAll: Subject<any>;
 
-  constructor(public pangoMenuService: PangoMenuService,
+  constructor(
+    private _pangoGraphQLService: PangoGraphQLService,
+    public pangoUtilService: PangoUtilService,
+    public pangoMenuService: PangoMenuService,
     public annotationService: AnnotationService) {
 
     this._unsubscribeAll = new Subject();
   }
 
   ngOnInit() {
+    this._pangoGraphQLService.route.queryParams.subscribe(() => {
+      this.currentVersion = this._pangoGraphQLService.getCurrentVersion();
+    });
     this.annotationService.searchType = SearchType.ANNOTATION_GROUP;
     this.annotationService.searchCriteria.clearSearch()
     // this.annotationService.searchCriteria.termTypes = [pangoData.termTypeMap.known.id]

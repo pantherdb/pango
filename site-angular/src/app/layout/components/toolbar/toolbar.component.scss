@@ -25,13 +25,42 @@ $accent: map-get($theme, accent);
       @include deep-height(100%);
     }
 
-    //.pango-rounded-button
+    pango-version-banner {
+      margin: 5px 0;
+      padding: 5px;
+      display: block;
+      .pango-version-banner {
+        height: 40px;
+      }
+    }
   }
 
   a {
     color: $pango-accent-color;
     &:hover {
       color: lighten($pango-accent-color, 10);
+    }
+  }
+
+  .pango-version-banner {
+    padding: 4px 16px;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+
+    &.pango-version-2024 {
+      color: #e3f2fd; /* light blue */
+      background-color: #259433;
+    }
+
+    &.pango-version-2023 {
+      color: #fff3e0; /* light orange */
+      background-color: #d46d05;
+    }
+
+    .pango-version-link {
+      color: inherit;
+      text-decoration: underline;
     }
   }
 

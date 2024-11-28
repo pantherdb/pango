@@ -1,0 +1,38 @@
+@import "src/@pango/scss/pango";
+@import "src/@pango.common/scss/pango.common";
+
+$primary: map-get($theme, primary);
+$accent: map-get($theme, accent);
+
+:host {
+  .pango-version-banner {
+    p {
+      padding: 0;
+      margin: 0;
+    }
+    --pango-version-banner-height: 30px;
+
+    @include deep-height(var(--pango-version-banner-height));
+    //height: 100%;
+
+    padding: 4px 16px;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+
+    &.pango-version-2024 {
+      color: #e3f2fd; /* light blue */
+      background-color: #259433;
+    }
+
+    &.pango-version-2023 {
+      color: #fff3e0; /* light orange */
+      background-color: #d46d05;
+    }
+
+    .pango-version-link {
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
+}

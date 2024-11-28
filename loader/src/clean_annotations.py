@@ -57,7 +57,7 @@ def get_evidence(df, genes_df, row):
         result_ref =[]
         for reference in evidence['references']:
             result_ref.append(get_pd_row_key(df, reference))
-        gene_row = get_pd_row_key(genes_df, evidence['with_gene_id'])
+        gene_row = get_pd_row(genes_df, evidence['with_gene_id'])
        
         evidence_item = {
           'with_gene_id':gene_row,

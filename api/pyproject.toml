@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "api"
+version = "0.1.0"
+description = ""
+authors = ["PANTHERDB.org <pantherfeedback@yahoo.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+elasticsearch = "8.5.0"
+fastapi = "^0.115.5"
+jupyterlab = "^4.3.1"
+notebook = "^7.2.2"
+pydantic = "^2.10.1"
+pydantic-settings = "^2.6.1"
+python-dotenv = "^1.0.1"
+requests = "^2.32.3"
+strawberry-graphql = "^0.253.0"
+uvicorn = "^0.32.1"
+aiohttp = "^3.11.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

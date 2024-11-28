@@ -10,6 +10,7 @@ import { GeneComponent } from './gene/gene.component';
 import { DownloadComponent } from './download/download.component';
 import { HomeAnnotationsComponent } from './home-annotations/home-annotations.component';
 import { HomeComponent } from './home/home.component';
+import { PangoVersionBannerModule } from '@pango.common/components/version-banner/version-banner.module';
 
 const routes = [{
   path: '',
@@ -45,7 +46,8 @@ const routes = [{
     PangoSharedModule,
     PangoFooterModule,
     PangoConfirmDialogModule,
-    AppsModule
+    AppsModule,
+    PangoVersionBannerModule
   ],
   providers: [
   ]

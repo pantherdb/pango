@@ -1,0 +1,14 @@
+<div class="pango-version-banner"
+  [ngClass]="currentVersion === ApiVersion.V2024 ? 'pango-version-2024' : 'pango-version-2023'">
+  <ng-container *ngIf="currentVersion === ApiVersion.V2024">
+    <p>Current version 2.0. For the version matching the PAN-GO publication,
+      <a [href]="version2023Link" class="pango-version-link" target="_blank">here</a>.
+    </p>
+  </ng-container>
+
+  <ng-container *ngIf="currentVersion === ApiVersion.V2023">
+    <p>Archived version 1.0 matching the PAN-GO publication. For the current version
+      <a [href]="version2024Link" class="pango-version-link" target="_blank">here</a>.
+    </p>
+  </ng-container>
+</div>

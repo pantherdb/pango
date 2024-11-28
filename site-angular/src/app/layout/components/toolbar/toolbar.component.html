@@ -1,11 +1,7 @@
 <div class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
-  <div class="pango-announcement pango-alert alert-warning" fxLayout="row" fxLayoutAlign="center center">
-    <div class="pango-announcement-header text-center" fxLayout="row" fxLayoutAlign="center center">
-
-      <strong>PREVIEW SITE ONLY</strong>: PLEASE KEEP CONFIDENTIAL UNTIL PUBLICATION
-
-    </div>
-  </div>
+  <ng-container *ngIf="currentVersion !== ApiVersion.V2024">
+    <pango-version-banner> </pango-version-banner>
+  </ng-container>
   <mat-toolbar fxLayout="row" fxLayoutAlign="start center">
     <mat-progress-bar *ngIf="showLoadingBar" class="loading-bar" color="accent" mode="indeterminate"></mat-progress-bar>
     <a (click)="openLeftDrawer()" class="pango-bars mr-8" aria-label="Close dialog">
@@ -13,10 +9,10 @@
     </a>
     <div class="pango-logo pl-0 h-100-p" fxLayout="row" fxLayoutAlign="start center" fxFlex="180px">
       <ng-container>
-        <a class="pango-main-logo" href="/">
+        <a class="pango-main-logo" [href]="pangoUtilService.getVersionedLink('/')">
           PAN-GO
         </a>
-        <a class="pango-sub-logo" href="/">
+        <a class="pango-sub-logo" [href]="pangoUtilService.getVersionedLink('/')">
           Human Functionome
         </a>
       </ng-container>
@@ -51,7 +47,7 @@
         </a> -->
       </mat-menu>
 
-      <a mat-button [routerLink]="['/about']">About</a>
+      <a mat-button [href]="pangoUtilService.getVersionedLink('/about')">About</a>
     </div>
     <div class="pango-friends-logo" fxHide.lt-md fxLayout="row" fxLayoutAlign="start">
       <div class="pango-bl pango-logo" fxLayout="row" fxLayoutAlign="start">
