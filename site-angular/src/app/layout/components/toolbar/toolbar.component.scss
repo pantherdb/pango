@@ -25,7 +25,14 @@ $accent: map-get($theme, accent);
       @include deep-height(100%);
     }
 
-    //.pango-rounded-button
+    pango-version-banner {
+      margin: 5px 0;
+      padding: 5px;
+      display: block;
+      .pango-version-banner {
+        height: 40px;
+      }
+    }
   }
 
   a {

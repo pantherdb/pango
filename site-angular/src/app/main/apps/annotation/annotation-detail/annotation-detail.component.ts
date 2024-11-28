@@ -7,6 +7,7 @@ import { Annotation } from '../models/annotation';
 
 
 import { AnnotationService } from '../services/annotation.service';
+import { PangoUtilService } from '@pango.common/services/pango-util.service';
 
 @Component({
   selector: 'pango-annotation-detail',
@@ -22,6 +23,7 @@ export class AnnotationDetailComponent implements OnInit, OnDestroy {
   annotation: Annotation;
   private _unsubscribeAll: Subject<any>;
   constructor(
+    public pangoUtilService: PangoUtilService,
     private annotationService: AnnotationService) {
     this._unsubscribeAll = new Subject();
   }

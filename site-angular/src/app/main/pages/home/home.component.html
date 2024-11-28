@@ -38,6 +38,9 @@
               it.</h2>
 
 
+            <ng-container *ngIf="currentVersion === ApiVersion.V2024">
+              <pango-version-banner> </pango-version-banner>
+            </ng-container>
             <div class="mt-12 w-100-p" fxLayout="row" fxLayoutAlign="start center">
               <pango-gene-form> </pango-gene-form>
               <h3 class="ml-12">

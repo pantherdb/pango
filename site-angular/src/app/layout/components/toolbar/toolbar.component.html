@@ -1,18 +1,7 @@
 <div class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
-  <div class="pango-announcement pango-version-banner" fxLayout="row" fxLayoutAlign="center center"
-    [ngClass]="currentVersion === ApiVersion.V2024 ? 'pango-version-2024' : 'pango-version-2023'">
-    <ng-container *ngIf="currentVersion === ApiVersion.V2024">
-      <p>You are using PAN-GO v2.0. View the original version (v1.0)
-        <a [href]="version2023Link" class="pango-version-link" target="_blank">here</a>.
-      </p>
-    </ng-container>
-
-    <ng-container *ngIf="currentVersion === ApiVersion.V2023">
-      <p>You are using PAN-GO v1.0. View the latest version (v2.0)
-        <a [href]="version2024Link" class="pango-version-link" target="_blank">here</a>.
-      </p>
-    </ng-container>
-  </div>
+  <ng-container *ngIf="currentVersion !== ApiVersion.V2024">
+    <pango-version-banner> </pango-version-banner>
+  </ng-container>
   <mat-toolbar fxLayout="row" fxLayoutAlign="start center">
     <mat-progress-bar *ngIf="showLoadingBar" class="loading-bar" color="accent" mode="indeterminate"></mat-progress-bar>
     <a (click)="openLeftDrawer()" class="pango-bars mr-8" aria-label="Close dialog">
