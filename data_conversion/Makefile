@@ -1,20 +1,26 @@
 SHELL := /bin/bash
 
+export PANTHER_VERSION ?= 15.0
+
 %/all: %/full_go_annotated.json %/human_iba_annotations.json %/human_iba_gene_info.json %/taxon_lkp.json
 	echo "Done"
 
-%/resources/gene_association.paint_human.gaf.gz:
-	mkdir -p $*/resources
-	wget http://data.pantherdb.org/ftp/downloads/paint/test/15.0/2022-04-18/presubmission/gene_association.paint_human.gaf.gz -O $@
-
 .PRECIOUS: %/resources/gene_association.paint_human.gaf
-%/resources/gene_association.paint_human.gaf: %/resources/gene_association.paint_human.gaf.gz
-	gunzip $<
+%/resources/gene_association.paint_human.gaf:
+	mkdir -p $*/resources
+	@if [ -n "$(HUMAN_IBA_GAF)" ] && [ -f "$(HUMAN_IBA_GAF)" ]; then \
+		echo "Copying file $(HUMAN_IBA_GAF) to $@"; \
+		cp "$(HUMAN_IBA_GAF)" $@; \
+	else \
+		echo "Downloading the default 15.0/2022-04-18 human IBA GAF"; \
+		wget http://data.pantherdb.org/ftp/downloads/paint/test/15.0/2022-04-18/presubmission/gene_association.paint_human.gaf.gz -O $*/resources/gene_association.paint_human.gaf.gz; \
+		gunzip $*/resources/gene_association.paint_human.gaf.gz; \
+	fi
 
 .PRECIOUS: %/resources/gene.dat.gz
 %/resources/gene.dat.gz:
 	mkdir -p $*/resources
-	wget http://data.pantherdb.org/PANTHER15.0/globals/gene.dat.gz -O $@
+	wget http://data.pantherdb.org/PANTHER$(PANTHER_VERSION)/globals/gene.dat.gz -O $@
 
 .PRECIOUS: %/resources/gene.dat
 %/resources/gene.dat: %/resources/gene.dat.gz
@@ -23,7 +29,7 @@ SHELL := /bin/bash
 .PRECIOUS: %/resources/gene_node.dat.gz
 %/resources/gene_node.dat.gz:
 	mkdir -p $*/resources
-	wget http://data.pantherdb.org/PANTHER15.0/globals/gene_node.dat.gz -O $@
+	wget http://data.pantherdb.org/PANTHER$(PANTHER_VERSION)/globals/gene_node.dat.gz -O $@
 
 .PRECIOUS: %/resources/gene_node.dat
 %/resources/gene_node.dat: %/resources/gene_node.dat.gz
@@ -32,7 +38,7 @@ SHELL := /bin/bash
 .PRECIOUS: %/resources/Homo_sapiens.chromosomal_location.gz
 %/resources/Homo_sapiens.chromosomal_location.gz:
 	mkdir -p $*/resources
-	wget http://data.pantherdb.org/PANTHER15.0/globals/Homo_sapiens.chromosomal_location.gz -O $@
+	wget http://data.pantherdb.org/PANTHER$(PANTHER_VERSION)/globals/Homo_sapiens.chromosomal_location.gz -O $@
 
 .PRECIOUS: %/resources/Homo_sapiens.chromosomal_location
 %/resources/Homo_sapiens.chromosomal_location: %/resources/Homo_sapiens.chromosomal_location.gz
@@ -41,17 +47,26 @@ SHELL := /bin/bash
 .PRECIOUS: %/resources/goparentchild.tsv
 %/resources/goparentchild.tsv:
 	mkdir -p $*/resources
-	wget http://data.pantherdb.org/ftp/downloads/paint/test/15.0/2022-04-18/goparentchild.tsv -O $@
+	@if [ -n "$(GO_PARENT_CHILD_TSV)" ] && [ -f "$(GO_PARENT_CHILD_TSV)" ]; then \
+		echo "Copying file $(GO_PARENT_CHILD_TSV) to $@"; \
+		cp "$(GO_PARENT_CHILD_TSV)" $@; \
+	else \
+		echo "Downloading the default 15.0/2022-04-18 goparentchild.tsv"; \
+		wget http://data.pantherdb.org/ftp/downloads/paint/test/15.0/2022-04-18/goparentchild.tsv -O $@; \
+	fi
 
 .PRECIOUS: %/resources/go_aspects.tsv
-%/resources/go_aspects.tsv:
+%/resources/go_aspects.tsv: %/resources/go.obo
 	mkdir -p $*/resources
-	wget http://data.pantherdb.org/ftp/downloads/paint/test/15.0/2022-04-18/go_aspects.tsv -O $@
+	# wget http://data.pantherdb.org/ftp/downloads/paint/test/15.0/2022-04-18/go_aspects.tsv -O $@
+	$*/bin/robot export --input $< --format tsv --header "ID|hasOBONamespace" --export $@
+	awk '$$2 != ""' $*/resources/go_aspects.tsv | tail -n +2 > $*/resources/go_aspects.tsv.tmp
+	mv $*/resources/go_aspects.tsv.tmp $@
 
-.PRECIOUS: %/resources/species_list_15.tsv
-%/resources/species_list_15.tsv:
+.PRECIOUS: %/resources/species_list.tsv
+%/resources/species_list.tsv:
 	mkdir -p $*/resources
-	wget http://data.pantherdb.org/PANTHER15.0/globals/species_list.tsv -O $@
+	wget http://data.pantherdb.org/PANTHER$(PANTHER_VERSION)/globals/species_list.tsv -O $@
 
 .PRECIOUS: %/resources/goslim_generic.owl
 %/resources/goslim_generic.owl:
@@ -61,7 +76,13 @@ SHELL := /bin/bash
 .PRECIOUS: %/resources/go.obo
 %/resources/go.obo:
 	mkdir -p $*/resources
-	wget http://release.geneontology.org/2022-03-22/ontology/go.obo -O $@
+	@if [ -n "$(GO_OBO)" ] && [ -f "$(GO_OBO)" ]; then \
+		echo "Copying file $(GO_OBO) to $@"; \
+		cp "$(GO_OBO)" $@; \
+	else \
+		echo "Downloading the default 2022-03-22 GO release go.obo"; \
+		wget http://release.geneontology.org/2022-03-22/ontology/go.obo -O $@; \
+	fi
 
 .PRECIOUS: %/bin/robot
 %/bin/robot:
@@ -91,8 +112,8 @@ SHELL := /bin/bash
 	python3 gene_info_from_gafs.py -a $*/resources/gene_association.paint_human.gaf resources/annot_human_genes_not_in_families_selected.gaf -g $*/resources/gene.dat -n $*/resources/gene_node.dat -c $*/resources/Homo_sapiens.chromosomal_location > $@
 
 .PRECIOUS: %/taxon_lkp.json
-%/taxon_lkp.json: %/human_iba_gene_info.json %/resources/species_list_15.tsv
-	python3 gene_info_taxon_lookup.py -g $*/human_iba_gene_info.json -s $*/resources/species_list_15.tsv > $@
+%/taxon_lkp.json: %/human_iba_gene_info.json %/resources/species_list.tsv
+	python3 gene_info_taxon_lookup.py -g $*/human_iba_gene_info.json -s $*/resources/species_list.tsv > $@
 
 .PRECIOUS: %/full_go.json
 %/full_go.json: %/resources/go.obo %/bin/robot
