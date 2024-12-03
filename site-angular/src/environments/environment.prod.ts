@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   annotationResultsSize: 50,
-  pangoGraphQLUrl: 'http://67.202.0.155/api/graphql',
+  pangoGraphQLUrl: 'http://34.207.99.207/api/graphql',
   amigoTermUrl: "http://amigo.geneontology.org/amigo/term/",
   pubmedUrl: "https://www.ncbi.nlm.nih.gov/pubmed/",
   taxonApiUrl: 'https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=',
