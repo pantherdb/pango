@@ -171,6 +171,8 @@ class IbaExpRefCollection:
             with_gene_id = None
             exp_pmids = sorted(csv_row[5].split("|"))
             exp_groups = sorted(csv_row[14].split("|"))
+        if exp_pmids == ['']:
+            exp_pmids = []
         return with_gene_id, exp_pmids, exp_groups
 
     def merge_exp_evidence(self, gene_id: str, go_term: str, qualifier: str, csv_row: List):
