@@ -21,7 +21,7 @@ if __name__ == "__main__":
     with open(args.species_list_tsv) as slf:
         reader = csv.DictReader(slf, delimiter="\t")
         for r in reader:
-            taxon_id = r["taxon_id"]
+            taxon_id = r["taxon_id"].replace("NCBITaxon:", "")
             if taxon_id and taxon_id in input_taxons:
                 taxon_label = r["organism"]
                 if " " in taxon_label:
