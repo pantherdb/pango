@@ -3,43 +3,71 @@ import json
 from collections import Counter
 from pathlib import Path
 import pandas as pd
-from typing import Dict, List, Counter as CounterType
+from typing import Dict, List, Counter as CounterType, Set
+from enum import Enum
+
+UNKNOWN_TERMS = ['UNKNOWN:0001', 'UNKNOWN:0002', 'UNKNOWN:0003']
+
+class SortColumn(Enum):
+    GENE = 'gene'
+    GENE_SYMBOL = 'gene_symbol'
+    GENE_NAME = 'gene_name'
+    COUNT = 'count'
+    
+    def __str__(self):
+        return self.value
 
 class GeneAnalyzer:
     def __init__(self, data: List[Dict], gene_lookup: pd.DataFrame):
         self.data = data
         self.gene_lookup = gene_lookup
         
+        self.valid_genes: Set[str] = set(gene_lookup['gene'].values)
+        
     def count_genes(self) -> Counter:
         gene_counter = Counter()
+        skipped_count = 0
+        unknown_term_set = set(UNKNOWN_TERMS) 
+        
+        # Pre-allocate lists for batch processing
+        genes_to_process = []
         
         for entry in self.data:
+            if entry.get('term') in unknown_term_set:
+                skipped_count += 1
+                continue
+                
             gene = entry.get('gene')
             if not gene:
-                raise ValueError(f"Entry missing gene field: {entry}")
+                raise ValueError(f"Entry missing gene field: {entry}") # unlikely
                 
-            gene_counter[gene] += 1
-            
-            if gene not in self.gene_lookup['gene'].values:
+            if gene not in self.valid_genes:
                 raise ValueError(f"Gene {gene} not found in lookup file")
+            
+            genes_to_process.append(gene)
         
+        gene_counter.update(genes_to_process)
+        
+        if skipped_count > 0:
+            print(f"Skipped {skipped_count} entries with unknown terms")
+            
         return gene_counter
     
-    def create_report(self, counts: Counter, sort_by: str, ascending: bool = True) -> pd.DataFrame:
-        """Create a DataFrame with gene counts and lookup information."""
-        df = pd.DataFrame({
-            'gene': list(counts.keys()),
-            'count': list(counts.values())
-        })
+    def create_report(self, counts: Counter, sort_by: SortColumn, ascending: bool = True) -> pd.DataFrame:
         
-        df = df.merge(
-            self.gene_lookup[['gene', 'gene_symbol', 'gene_name']], 
-            on='gene', 
-            how='left'
+        # Still working on creating DataFrame efficiently
+        df = pd.DataFrame(list(counts.items()), columns=['gene', 'count'])
+        
+        if not self.gene_lookup.index.name == 'gene':
+            self.gene_lookup.set_index('gene', inplace=True)
+            
+        df = df.join(
+            self.gene_lookup[['gene_symbol', 'gene_name']], 
+            on='gene'
         )
         
         df = df[['gene', 'gene_symbol', 'gene_name', 'count']].sort_values(
-            by=sort_by, 
+            by=sort_by.value, 
             ascending=ascending
         )
         
@@ -64,8 +92,9 @@ def parse_arguments() -> argparse.Namespace:
                        help='Output CSV file path')
     
     parser.add_argument('-s', '--sort_by',
-                       choices=['gene', 'gene_symbol', 'gene_name', 'count'],
-                       default='count',
+                       type=SortColumn,
+                       choices=list(SortColumn),
+                       default=SortColumn.COUNT,
                        help='Column to sort by')
     
     parser.add_argument('--ascending',
@@ -86,7 +115,7 @@ def main():
         analyzer = GeneAnalyzer(annotations_data, gene_lookup)
         counts = analyzer.count_genes()
                 
-        ascending = args.ascending if args.ascending else (args.sort_by != 'count')
+        ascending = args.ascending if args.ascending else (args.sort_by != SortColumn.COUNT)
         
         report_df = analyzer.create_report(
             counts, 

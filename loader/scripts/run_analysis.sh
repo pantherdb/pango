@@ -64,3 +64,5 @@ for input_folder in "$input_dir"/*/ ; do
 done
 
 echo -e "\nAnalysis complete. Results saved in $output_dir"
+
+# -- bash scripts/run_analysis.sh downloads/input downloads/output-analysis/
