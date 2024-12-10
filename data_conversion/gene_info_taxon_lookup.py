@@ -6,6 +6,7 @@ import csv
 parser = argparse.ArgumentParser()
 parser.add_argument('-g', '--gene_info_json')
 parser.add_argument('-s', '--species_list_tsv')
+parser.add_argument('-d', '--debug_indent', type=int, default=0)
 
 
 if __name__ == "__main__":
@@ -36,4 +37,7 @@ if __name__ == "__main__":
                 }
                 taxon_objs.append(taxon_obj)
 
-    print(json.dumps(taxon_objs, indent=4))
+    if args.debug_indent != 0:
+        print(json.dumps(taxon_objs, indent=args.debug_indent))
+    else:
+        print(json.dumps(taxon_objs, separators=(',', ':')))
