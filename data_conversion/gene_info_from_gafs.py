@@ -12,6 +12,7 @@ parser.add_argument('-g', '--gene_dat')
 parser.add_argument('-n', '--gene_node_dat')
 parser.add_argument('-c', '--genome_coordinates_file', help="If supplied, will be added to gene info. Typically, "
                                                             "a file named Homo_sapiens.chromosomal_location")
+parser.add_argument('-d', '--debug_indent', type=int, default=0)
 
 
 class GeneInfoCollection:
@@ -147,8 +148,11 @@ class GeneInfoCollection:
             gene_infos.append(gene_info_record)
         return gene_infos
 
-    def print_genes_to_json(self):
-        print(json.dumps(self.gene_info_list(), indent=4))
+    def print_genes_to_json(self, debug_indent: int = 0):
+        if debug_indent != 0:
+            print(json.dumps(self.gene_info_list(), indent=debug_indent))
+        else:
+            print(json.dumps(self.gene_info_list(), separators=(',', ':')))
 
 
 if __name__ == "__main__":
@@ -161,4 +165,4 @@ if __name__ == "__main__":
     gene_info_collection.fill_in_gene_panther_family(args.gene_node_dat)
     gene_info_collection.fill_in_genome_coordinates(args.genome_coordinates_file)
 
-    gene_info_collection.print_genes_to_json()
+    gene_info_collection.print_genes_to_json(args.debug_indent)
