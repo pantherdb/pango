@@ -46,7 +46,6 @@ if [[ ! -f "$CLEAN_ARTICLES" ]]; then
     echo "Created empty clean articles file at: $CLEAN_ARTICLES"
 fi
 
-# Function to process a single dataset
 process_dataset() {
     local folder="$1"
     local prefix="$(basename "$folder")"
@@ -124,20 +123,17 @@ process_dataset() {
     echo "----------------------------------------"
 }
 
-# Main execution
 echo "Starting data processing pipeline..."
 
-# Check if input directory exists
 if [[ ! -d "$INPUT_BASE" ]]; then
     echo "Error: Input directory '$INPUT_BASE' not found!"
     exit 1
 fi
 
-# Debug: Show what's in the directory
 echo "Contents of $INPUT_BASE:"
 ls -la "$INPUT_BASE"
 
-# Find and process each folder using find command
+# Process each folder
 found_folders=false
 while IFS= read -r folder; do
     if [[ -d "$folder" && "$folder" != "$INPUT_BASE" ]]; then
