@@ -15,14 +15,26 @@ $accent: map-get($theme, accent);
   .pango-announcement {
     padding: 0 10px 0 10px;
     //background-color: rgb(168, 225, 238);
-    @include deep-height(30px);
+    @include deep-height(40px);
     color: inherit;
     position: relative;
     padding: 5px !important;
     margin-bottom: 0 !important;
+    background-color: #de620f;
+    font-size: 14px;
+    color: white;
     // border:none!
     .pango-announcement-header {
       @include deep-height(100%);
+
+      a {
+        color: white;
+        text-decoration: underline;
+        font-weight: bold;
+        &:hover {
+          color: #ddd;
+        }
+      }
     }
 
     //.pango-rounded-button
