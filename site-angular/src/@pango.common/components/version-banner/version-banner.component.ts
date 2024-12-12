@@ -13,7 +13,7 @@ export class PangoVersionBannerComponent {
   currentVersion: ApiVersion = ApiVersion.V2024;
 
   protected readonly version2024Link = window.location.origin;
-  protected readonly version2023Link = window.location.origin + '?apiVersion=pango-2023';
+  protected readonly version2023Link = 'https://functionome.org/'; //window.location.origin + '?apiVersion=pango-2023';
 
   constructor(private _pangoGraphQLService: PangoGraphQLService) {
 
