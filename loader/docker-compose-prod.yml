@@ -2,16 +2,16 @@ version: "3.8"
 services:
   elasticsearch:
     # Adjusted memory for a 4GB machine
-    mem_limit: 1G
-    mem_reservation: 128M
-    cpus: 0.7
+    mem_limit: 2.5G
+    mem_reservation: 512M
+    cpus: 0.8
 
     image: docker.elastic.co/elasticsearch/elasticsearch:8.5.0
     container_name: elasticsearch
 
     environment:
       - xpack.security.enabled=false
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
       - discovery.type=single-node
       # Added performance optimization settings
       - bootstrap.memory_lock=true
@@ -55,14 +55,14 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1G
+          memory: 2.5G
         reservations:
-          memory: 128M
+          memory: 512M
 
     logging:
       options:
-        max-size: "50m"
-        max-file: "3"
+        max-size: "100m"
+        max-file: "5"
 
 volumes:
   elasticsearch-data:
