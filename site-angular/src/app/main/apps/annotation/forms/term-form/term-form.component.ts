@@ -10,7 +10,6 @@ import { debounceTime, distinctUntilChanged, filter, switchMap, takeUntil } from
 import { AnnotationPage } from '../../models/page';
 import { AnnotationService } from '../../services/annotation.service';
 import { Annotation, AnnotationStats, Term } from '../../models/annotation';
-import { SelectionModel } from '@angular/cdk/collections';
 import { PangoDataService } from '@pango.common/services/pango-data.service';
 import { pangoData } from '@pango.common/data/config';
 
