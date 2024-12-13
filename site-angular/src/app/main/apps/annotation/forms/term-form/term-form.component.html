@@ -14,10 +14,9 @@
         </div>
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
-      <input #searchInput
-        [class.pango-disabled-input]="annotationService.searchCriteria[SearchFilterType.SLIM_TERMS].length!==0"
-        formControlName="slimTerms" [matAutocomplete]="slimTermAuto" [matChipInputFor]="slimTermChipList"
-        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false">
+      <input #searchInput formControlName="slimTerms" [matAutocomplete]="slimTermAuto"
+        [matChipInputFor]="slimTermChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="false">
     </mat-chip-list>
     <mat-autocomplete #slimTermAuto="matAutocomplete" (optionSelected)="selected($event, SearchFilterType.SLIM_TERMS)"
       [displayWith]="slimTermDisplayFn" class="pango-term-autocomplete">

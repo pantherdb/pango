@@ -1,10 +1,9 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { pangoData } from '@pango.common/data/config';
-import { getColor } from '@pango.common/data/pango-colors';
 import { SearchFilterType } from '@pango.search/models/search-criteria';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AnnotationStats } from '../../models/annotation';
+import { AnnotationStats, GeneStats } from '../../models/annotation';
 import { AnnotationPage } from '../../models/page';
 import { AnnotationService } from '../../services/annotation.service';
 
@@ -19,6 +18,7 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
   evidenceTypeMap = pangoData.evidenceTypeMap
   annotationPage: AnnotationPage;
   annotationStats: AnnotationStats;
+  geneStats: GeneStats;
   geneCount;
   knowledgeCount = {
     'known': 0,
@@ -83,10 +83,30 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
             'known': 0,
             'unknown': 0,
           };
+
+          console.log('annotationStats', annotationStats)
           this.annotationStats.termTypeFrequency.buckets.forEach(bucket => {
             this.knowledgeCount[bucket.key] = bucket.docCount;
           });
           this.generateStats()
+        }
+      });
+
+    this.annotationService.onGenesAggsChanged
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((geneStats: GeneStats) => {
+        if (geneStats) {
+          this.geneStats = geneStats;
+          this.knowledgeCount = {
+            'known': 0,
+            'unknown': 0,
+          };
+
+          console.log('geneStats', geneStats)
+          // this.geneStats.termTypeFrequency.buckets.forEach(bucket => {
+          //  this.knowledgeCount[bucket.key] = bucket.docCount;
+          //  });
+          // this.generateStats()
         }
       });
 

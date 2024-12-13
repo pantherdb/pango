@@ -123,6 +123,10 @@ export class Frequency {
     buckets: Bucket[]
 }
 
+export class GeneStats {
+    slimTermFrequency: Frequency;
+}
+
 export class AnnotationStats {
     distinctGeneCount: number;
     termFrequency: Frequency;

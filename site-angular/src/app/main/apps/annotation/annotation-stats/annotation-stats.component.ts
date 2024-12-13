@@ -4,7 +4,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { takeUntil } from 'rxjs/operators';
 import { AnnotationPage } from '../models/page';
 import { AnnotationService } from '../services/annotation.service';
-import { AnnotationStats } from '../models/annotation';
+import { AnnotationStats, GeneStats } from '../models/annotation';
 
 enum StatsType {
   GENERAL = 'general',
@@ -20,6 +20,7 @@ export class AnnotationStatsComponent implements OnInit, OnDestroy {
   StatsType = StatsType;
   annotationPage: AnnotationPage;
   annotationStats: AnnotationStats;
+  geneStats: GeneStats;
   columns: any[] = [];
 
   @Input('panelDrawer')
@@ -67,6 +68,15 @@ export class AnnotationStatsComponent implements OnInit, OnDestroy {
       .subscribe((annotationStats: AnnotationStats) => {
         if (annotationStats) {
           this.annotationStats = annotationStats;
+          //this.selectedField = this.annotationStats.field;
+        }
+      });
+
+    this.annotationService.onGenesAggsChanged
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((geneStats: GeneStats) => {
+        if (geneStats) {
+          this.geneStats = geneStats;
           //this.selectedField = this.annotationStats.field;
         }
       });

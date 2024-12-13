@@ -315,14 +315,12 @@ export class AnnotationGraphQLService {
   }
 
   getAnnotationsAggsQuery(query: Query): Observable<any> {
-    const self = this;
-
     const options = {
       variables: {
         filterArgs: query.filterArgs
       },
       query: `query GetAnnotationsStats($filterArgs: AnnotationFilterArgs) {
-                    stats(filterArgs:$filterArgs) {
+                    annotationStats(filterArgs:$filterArgs) {
                       termTypeFrequency {
                         buckets {
                           docCount
@@ -347,7 +345,44 @@ export class AnnotationGraphQLService {
 
     return this.pangoGraphQLService.query(options).pipe(
       map((response: any) => {
-        return response.stats as AnnotationStats;
+        return response.annotationStats as AnnotationStats;
+      }));
+
+  }
+
+  getGenesAggsQuery(query: Query): Observable<any> {
+
+    const options = {
+      variables: {
+        filterArgs: query.filterArgs
+      },
+      query: `query GetGenesStats($filterArgs: GeneFilterArgs) {
+                    geneStats(filterArgs:$filterArgs) {
+                      termTypeFrequency {
+                        buckets {
+                          docCount
+                          key
+                        }
+                      }                    
+                      slimTermFrequency {
+                        buckets {
+                          docCount
+                          key
+                          meta {
+                            id
+                            aspect
+                            label
+                            displayId
+                          }
+                        }
+                      }
+                  }
+            }`
+    }
+
+    return this.pangoGraphQLService.query(options).pipe(
+      map((response: any) => {
+        return response.geneStats as AnnotationStats;
       }));
 
   }

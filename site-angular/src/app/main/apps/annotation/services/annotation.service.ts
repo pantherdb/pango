@@ -6,7 +6,7 @@ import { Client } from 'elasticsearch-browser';
 import { AnnotationPage, Query } from '../models/page';
 import { cloneDeep, find, orderBy, uniqBy } from 'lodash';
 import { SearchCriteria, SearchType } from '@pango.search/models/search-criteria';
-import { AnnotationCount, AnnotationStats, Bucket, FilterArgs, Annotation, AutocompleteFilterArgs, Term } from '../models/annotation';
+import { AnnotationCount, AnnotationStats, Bucket, FilterArgs, Annotation, AutocompleteFilterArgs, Term, GeneStats } from '../models/annotation';
 import { AnnotationGraphQLService } from './annotation-graphql.service';
 import { pangoData } from '@pango.common/data/config';
 import { Gene } from '../../gene/models/gene.model';
@@ -24,6 +24,8 @@ export class AnnotationService {
     onAutocompleteChanged: BehaviorSubject<AnnotationPage>;
     onUniqueListChanged: BehaviorSubject<any>;
     onAnnotationsAggsChanged: BehaviorSubject<AnnotationStats>;
+    onGenesAggsChanged: BehaviorSubject<GeneStats>;
+
     onDistinctAggsChanged: BehaviorSubject<AnnotationStats>;
     onAnnotationChanged: BehaviorSubject<any>;
     onSearchCriteriaChanged: BehaviorSubject<any>;
@@ -49,6 +51,7 @@ export class AnnotationService {
         this.onUniqueListChanged = new BehaviorSubject(null);
         this.onAutocompleteChanged = new BehaviorSubject(null);
         this.onAnnotationsAggsChanged = new BehaviorSubject(null);
+        this.onGenesAggsChanged = new BehaviorSubject(null);
         this.onDistinctAggsChanged = new BehaviorSubject(null);
         this.onAnnotationChanged = new BehaviorSubject(null);
         this.onSearchCriteriaChanged = new BehaviorSubject(null);
@@ -73,6 +76,7 @@ export class AnnotationService {
         self.getAnnotationsPage(this.query, page);
         self.getAnnotationsCount(this.query);
         self.queryAnnotationStats(this.query);
+        self.queryGeneStats(this.query);
     }
 
     getAnnotationsExportAll(): any {
@@ -203,6 +207,18 @@ export class AnnotationService {
             });
     }
 
+    queryGeneStats(query: Query): any {
+        return this.annotationGraphQLService.getGenesAggsQuery(query).subscribe(
+            {
+                next: (stats) => {
+                    const geneStats = stats as GeneStats
+                    this.onGenesAggsChanged.next(geneStats);
+                }, error: (err) => {
+                    console.warn(err);
+                }
+            });
+    }
+
     queryDistinctAggs(query: any, field: string): any {
         const self = this;
         query.size = 0;
@@ -266,6 +282,7 @@ export class AnnotationService {
         }
         this.getGenesCount(query)
         this.queryAnnotationStats(query)
+        this.queryGeneStats(query)
         //this.getUniqueItems(query)
     }
 
