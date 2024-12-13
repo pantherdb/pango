@@ -1,7 +1,9 @@
 # import load_env
 # import asyncio
 import json
-from src.models.annotation_model import Annotation, AnnotationExport, AnnotationFilterArgs, AnnotationGroup, AnnotationMinimal, Gene, GeneFilterArgs,PageArgs, ResultCount
+from src.models.base_model import PageArgs
+from src.models.gene_model import Gene
+from src.models.annotation_model import Annotation, AnnotationExport, AnnotationFilterArgs, AnnotationMinimal, GeneFilterArgs
 from src.config.es import  es
 
 async def get_annotation(annotation_index:str, id:str,):
@@ -91,16 +93,22 @@ async def get_genes_query(filter_args:GeneFilterArgs):
 
   if filter_args != None:
                 
-    if filter_args.slim_term_ids != None and len(filter_args.slim_term_ids)>0:
-          filters.append( 
-            {
-              "nested": {
-                "path":"slim_terms",
-                "query": {
-                  "terms": {
-                    "slim_terms.id.keyword": filter_args.slim_term_ids
-                  }
-                }
+    if filter_args.slim_term_ids and len(filter_args.slim_term_ids)>0:
+          filters.append({
+              "bool": {
+                  "must": [
+                      {
+                          "nested": {
+                              "path": "slim_terms",
+                              "query": {
+                                  "term": {
+                                      "slim_terms.id.keyword": term_id
+                                  }
+                              }
+                          }
+                      }
+                      for term_id in filter_args.slim_term_ids
+                  ]
               }
           })
         

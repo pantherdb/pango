@@ -1,16 +1,16 @@
 import strawberry
 from pydantic import typing
 from strawberry.types import Info
+from src.models.base_model import AutocompleteType, PageArgs, ResultCount
+from src.models.gene_model import Gene
 from src.config.settings import settings
 from src.graphql.graphql_context import GraphQLContext
 from src.models.term_model import Term
-from src.resolvers.annotation_stats_resolver import get_annotations_count, get_annotations_stats, get_genes_count
+from src.resolvers.annotation_stats_resolver import get_annotations_count, get_annotations_stats
+from src.resolvers.gene_stats_resolver import get_genes_count
 from src.resolvers.autocomplete_resolver import get_autocomplete, get_slim_term_autocomplete_query_multi
 from src.resolvers.annotation_resolver import get_annotation, get_annotations, get_annotations_export, get_genes
-from src.models.annotation_model import Annotation, AnnotationExport, AnnotationFilterArgs, AnnotationGroup, AnnotationStats, AutocompleteType, Gene, GeneFilterArgs, PageArgs, ResultCount
-from src.utils import get_selected_fields
-
-
+from src.models.annotation_model import Annotation, AnnotationExport, AnnotationFilterArgs, AnnotationStats, GeneFilterArgs
 
 @strawberry.type
 class AnnotationQuery:

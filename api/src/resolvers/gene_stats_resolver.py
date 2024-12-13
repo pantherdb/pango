@@ -1,56 +1,35 @@
 # import load_env
 # import asyncio
 import pprint
-import typing
-from src.models.base_model import Bucket, Entity, ResultCount
-from src.resolvers.annotation_resolver import get_annotations_query
-from src.models.annotation_model import  AnnotationFilterArgs, AnnotationStats, Frequency
+from src.models.base_model import Bucket, ResultCount
+from src.models.gene_model import GeneStats
+from src.models.annotation_model import  Frequency, GeneFilterArgs
+from src.resolvers.annotation_resolver import get_genes_query
 from src.config.es import  es
 
-async def get_annotations_count(annotation_index:str, filter_args:AnnotationFilterArgs):
+async def get_genes_count(gene_index:str, filter_args:GeneFilterArgs):
 
-    query = await get_annotations_query(filter_args)
+    query = await get_genes_query(filter_args)
     resp = await es.count(
-          index=annotation_index,
-          query=query,
+          index=gene_index,
+          query=query
     )
-
+    
     results = ResultCount(total=resp['count'])
         
-    return results     
+    return results  
 
 
-async def get_annotations_stats(annotation_index:str, filter_args:AnnotationFilterArgs):
+async def get_genes_stats(gene_index:str, filter_args:GeneFilterArgs):
     
-    query = await get_annotations_query(filter_args)
-    aggs = {     
-        "aspect_frequency": {
-          "terms": {
-            "field": "term.aspect.keyword",
-             "order":{"_count":"desc"},
-             "size": 20
-          }
-        },
-         "evidence_type_frequency": {
-          "terms": {
-            "field": "evidence_type.keyword",
-             "order":{"_count":"desc"},
-             "size": 20
-          }
-        },
-        "term_type_frequency": {
-          "terms": {
-            "field": "term_type.keyword",
-            "order":{"_count":"desc"},
-            "size": 2
-          }
-        },
+    query = await get_genes_query(filter_args)
+    aggs = {           
         "slim_term_frequency": get_slim_terms_query()        
     }
     
 
     resp = await es.search(
-          index=annotation_index,
+          index=gene_index,
           filter_path ='took,hits.total.value,aggregations',
           query=query,
           aggs=aggs,
@@ -77,7 +56,7 @@ async def get_annotations_stats(annotation_index:str, filter_args:AnnotationFilt
                         for bucket in freqs['buckets']]
             stats[k] = Frequency(buckets=buckets)
                          
-    results = AnnotationStats(**stats)
+    results = GeneStats(**stats)
         
     return results
   
@@ -142,7 +121,7 @@ def get_response_meta(bucket):
 
 
 async def main():
-    results = await get_annotations_stats()
+    results = await get_genes_stats()
     pprint.pp(results)
 
 if __name__ == "__main__":
