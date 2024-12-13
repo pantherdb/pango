@@ -1,7 +1,7 @@
 # import load_env
 # import asyncio
 import pprint
-from src.models.base_model import Bucket, ResultCount
+from src.models.base_model import Bucket, Entity, ResultCount
 from src.models.gene_model import GeneStats
 from src.models.annotation_model import  Frequency, GeneFilterArgs
 from src.resolvers.annotation_resolver import get_genes_query

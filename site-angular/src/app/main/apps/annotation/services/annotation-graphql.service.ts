@@ -340,7 +340,7 @@ export class AnnotationGraphQLService {
                         }
                       }
                   }
-            }`
+                }`
     }
 
     return this.pangoGraphQLService.query(options).pipe(
@@ -354,16 +354,13 @@ export class AnnotationGraphQLService {
 
     const options = {
       variables: {
-        filterArgs: query.filterArgs
+        filterArgs: {
+          geneIds: query.filterArgs.geneIds,
+          slimTermIds: query.filterArgs.slimTermIds
+        },
       },
       query: `query GetGenesStats($filterArgs: GeneFilterArgs) {
-                    geneStats(filterArgs:$filterArgs) {
-                      termTypeFrequency {
-                        buckets {
-                          docCount
-                          key
-                        }
-                      }                    
+                    geneStats(filterArgs:$filterArgs) {                                    
                       slimTermFrequency {
                         buckets {
                           docCount

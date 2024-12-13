@@ -92,24 +92,6 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.annotationService.onGenesAggsChanged
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((geneStats: GeneStats) => {
-        if (geneStats) {
-          this.geneStats = geneStats;
-          this.knowledgeCount = {
-            'known': 0,
-            'unknown': 0,
-          };
-
-          console.log('geneStats', geneStats)
-          // this.geneStats.termTypeFrequency.buckets.forEach(bucket => {
-          //  this.knowledgeCount[bucket.key] = bucket.docCount;
-          //  });
-          // this.generateStats()
-        }
-      });
-
     this.annotationService.onGeneCountChanged
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((geneCount: number) => {

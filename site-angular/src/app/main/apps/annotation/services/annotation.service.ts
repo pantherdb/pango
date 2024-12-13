@@ -208,6 +208,7 @@ export class AnnotationService {
     }
 
     queryGeneStats(query: Query): any {
+        console.log('queryGeneStats', query)
         return this.annotationGraphQLService.getGenesAggsQuery(query).subscribe(
             {
                 next: (stats) => {
