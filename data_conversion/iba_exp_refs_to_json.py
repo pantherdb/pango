@@ -22,6 +22,7 @@ parser.add_argument('-p', '--gene_dat', help="If supplied, all PANTHER genes wil
                                              "back on 'UNKNOWN:' aspect term if no annotation")
 parser.add_argument('-c', '--genome_coordinates_file', help="If supplied, will be added to gene info. Typically, "
                                                             "a file named Homo_sapiens.chromosomal_location")
+parser.add_argument('-d', '--debug_indent', type=int, default=0)
 
 
 class OntologyManager:
@@ -107,10 +108,11 @@ class OntologyManager:
 
 
 class IbaExpRefCollection:
-    def __init__(self, ontology_manager: OntologyManager):
+    def __init__(self, ontology_manager: OntologyManager, debug_indent: int = 0):
         self.annotation_lkp = {}  # Goes Gene->Term->Qualifiers
         self.gene_info_lkp = {}
         self.ontology_manager = ontology_manager
+        self.debug_indent = debug_indent
 
     def update_annot_from_row(self, csv_row: List):
         gene_id = "{}:{}".format(csv_row[0], csv_row[1])
@@ -228,11 +230,17 @@ class IbaExpRefCollection:
             gene_infos.append(gene_info_record)
         return gene_infos
 
+    def json_dumps(self, obj):
+        if self.debug_indent != 0:
+            return json.dumps(obj, indent=self.debug_indent)
+        else:
+            return json.dumps(obj, separators=(',', ':'))
+
     def print_annotations_to_json(self):
-        print(json.dumps(self.annotation_list(), indent=4))
+        print(self.json_dumps(self.annotation_list()))
 
     def print_genes_to_json(self):
-        print(json.dumps(self.gene_info_list(), indent=4))
+        print(self.json_dumps(self.gene_info_list()))
 
     def create_annotation_for_gene(self, gene_id, gene_symbol, gene_name, term):
         new_annot = {
@@ -310,8 +318,8 @@ class IbaExpRefCollection:
 
 class IbaExpRefManager:
     @staticmethod
-    def parse(iba_files, ontology_manager: OntologyManager):
-        new_collection = IbaExpRefCollection(ontology_manager)
+    def parse(iba_files, ontology_manager: OntologyManager, debug_indent: int = 0):
+        new_collection = IbaExpRefCollection(ontology_manager, debug_indent)
         if not isinstance(iba_files, List):
             iba_files = [iba_files]
         for iba_file in iba_files:
@@ -330,7 +338,7 @@ if __name__ == "__main__":
     ont_manager = OntologyManager(args.goslim_term_list,
                                   args.ontology,
                                   args.go_aspects)
-    iba_exp_ref_collection = IbaExpRefManager.parse(args.annot_files, ont_manager)
+    iba_exp_ref_collection = IbaExpRefManager.parse(args.annot_files, ont_manager, args.debug_indent)
     if args.gene_dat:
         iba_exp_ref_collection.fill_in_missing_annotations(args.gene_dat)
     if args.genome_coordinates_file:

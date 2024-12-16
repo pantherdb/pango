@@ -7,6 +7,7 @@ import json
 parser = argparse.ArgumentParser()
 parser.add_argument('-g', '--goslim_term_list', help="Single-col file list of terms in goslim_generic")
 parser.add_argument('-p', '--panther_slim_json')
+parser.add_argument('-d', '--debug_indent', type=int, default=0)
 
 
 if __name__ == "__main__":
@@ -76,4 +77,7 @@ if __name__ == "__main__":
 
     annotated_panther_slim = annotated_panther_slim + other_terms + unknown_terms
 
-    print(json.dumps(annotated_panther_slim, indent=4))
+    if args.debug_indent != 0:
+        print(json.dumps(annotated_panther_slim, indent=args.debug_indent))
+    else:
+        print(json.dumps(annotated_panther_slim, separators=(',', ':')))
