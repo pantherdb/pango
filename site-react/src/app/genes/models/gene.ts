@@ -9,7 +9,7 @@ export enum AutocompleteType {
   SLIM_TERM = "slim_term",
 }
 
-export interface UniqueAnnotations {
+export interface UniqueGenes {
   aspect: string
 }
 export interface AutocompleteFilterArgs {
@@ -32,7 +32,7 @@ export interface FilterArgs {
   referenceIds: string[];
 }
 
-export interface AnnotationCount {
+export interface GeneCount {
   total: number;
 }
 
@@ -64,7 +64,7 @@ export interface Evidence {
   reference: Reference[];
 }
 
-export interface Annotation {
+export interface Gene {
   gene: string;
   geneSymbol: string;
   geneName: string;
@@ -99,7 +99,7 @@ export interface GeneStats {
   slimTermFrequency: Frequency;
 }
 
-export interface AnnotationStats {
+export interface GeneStats {
   distinctGeneCount: number;
   termFrequency: Frequency;
   termTypeFrequency: Frequency;

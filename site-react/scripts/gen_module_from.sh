@@ -9,7 +9,7 @@ newVariable="$2"
 originalFolder="${originalVariable}s"
 newFolder="${newVariable}s"
 
-cd src/features
+cd src/app
 
 # Copy the original folder to the new folder
 cp -r "$originalFolder" "$newFolder"
