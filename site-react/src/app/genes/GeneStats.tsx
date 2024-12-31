@@ -20,6 +20,8 @@ const SummaryStats: React.FC = () => {
     unknown: 0,
   };
 
+  console.log(annotationStats);
+
   if (annotationStats?.termTypeFrequency?.buckets) {
     annotationStats.termTypeFrequency.buckets.forEach(bucket => {
       knowledgeCount[bucket.key as keyof typeof knowledgeCount] = bucket.docCount;

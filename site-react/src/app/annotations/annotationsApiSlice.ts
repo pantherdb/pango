@@ -1,4 +1,3 @@
-// annotationsApi.ts
 import type { ApiResponseError } from '@/@pango.core/utils/api';
 import { baseGraphQLRequest, createGraphQLBody, transformResponse } from '@/@pango.core/utils/api';
 import apiService from '../store/apiService';
@@ -9,7 +8,7 @@ import {
   GET_AUTOCOMPLETE_QUERY,
   GET_SLIM_TERMS_AUTOCOMPLETE_QUERY
 } from './services/annotationsQueryService';
-import type { FilterArgs, AnnotationStats, AutocompleteType } from './models/annotation';
+import type { AnnotationsApiResponse, AnnotationStats, AutocompleteType } from './models/annotation';
 
 export const addTagTypes = ['annotation', 'annotation-stats', 'autocomplete'] as const;
 
@@ -18,63 +17,57 @@ const annotationsApi = apiService.enhanceEndpoints({
 }).injectEndpoints({
   endpoints: (builder) => ({
     getAnnotations: builder.query({
-      query: (filterArgs?: FilterArgs) => ({
+      query: () => ({
         ...baseGraphQLRequest,
-        body: createGraphQLBody(GET_ANNOTATIONS_QUERY, {
-          filter: { ...filterArgs, appType: 'self_care' }
-        }),
+        body: createGraphQLBody(GET_ANNOTATIONS_QUERY, { filter: { appType: 'self_care' } }),
       }),
-      providesTags: (result, error, id) => [{ type: 'annotation', id }],
-      transformResponse: (response: { data?: AnnotationsApiResponse; errors?: ApiResponseError[] }) =>
-        transformResponse<AnnotationsApiResponse>(response)
+      providesTags: ['annotation'],
+      transformResponse: (response: { data?: AnnotationsApiResponse; errors?: ApiResponseError[] }): AnnotationsApiResponse => {
+        return transformResponse<AnnotationsApiResponse>(response);
+      }
     }),
 
     getAnnotationsCount: builder.query({
-      query: (filterArgs?: FilterArgs) => ({
+      query: () => ({
         ...baseGraphQLRequest,
-        body: createGraphQLBody(GET_ANNOTATIONS_COUNT_QUERY, { filterArgs }),
+        body: createGraphQLBody(GET_ANNOTATIONS_COUNT_QUERY),
       }),
-      transformResponse: (response: { data?: { genesCount: { total: number } } }) =>
-        response.data?.genesCount || { total: 0 },
-      providesTags: ['annotation']
+      transformResponse: (response: { data?: { genesCount: { total: number } }; errors?: ApiResponseError[] }) => {
+        const transformedResponse = transformResponse<{ genesCount: { total: number } }>(response);
+        return transformedResponse.genesCount || { total: 0 };
+      }
     }),
 
     getAnnotationStats: builder.query({
-      query: (filterArgs?: FilterArgs) => ({
+      query: () => ({
         ...baseGraphQLRequest,
-        body: createGraphQLBody(GET_ANNOTATION_STATS_QUERY, { filterArgs }),
+        body: createGraphQLBody(GET_ANNOTATION_STATS_QUERY),
       }),
-      transformResponse: (response: { data?: { geneStats: AnnotationStats } }) =>
-        response.data?.geneStats,
+      transformResponse: (response: { data?: { annotationStats: AnnotationStats }; errors?: ApiResponseError[] }) => {
+        const transformedResponse = transformResponse<{ annotationStats: AnnotationStats }>(response);
+        return transformedResponse.annotationStats;
+      },
       providesTags: ['annotation-stats']
     }),
 
     getAutocomplete: builder.query({
-      query: ({ type, keyword, filterArgs }: {
-        type: AutocompleteType,
-        keyword: string,
-        filterArgs?: FilterArgs
-      }) => ({
+      query: ({ type, keyword }: { type: AutocompleteType, keyword: string }) => ({
         ...baseGraphQLRequest,
         body: createGraphQLBody(GET_AUTOCOMPLETE_QUERY, {
           autocompleteType: type,
-          keyword,
-          filterArgs
+          keyword
         }),
       }),
+      transformResponse: (response: { data?: { slimTermsAutocomplete: any }; errors?: ApiResponseError[] }) => {
+        return transformResponse<{ slimTermsAutocomplete: any }>(response).slimTermsAutocomplete;
+      },
       providesTags: ['autocomplete']
     }),
 
     getSlimTermsAutocomplete: builder.query({
-      query: ({ keyword, filterArgs }: {
-        keyword: string,
-        filterArgs?: FilterArgs
-      }) => ({
+      query: ({ keyword }: { keyword: string }) => ({
         ...baseGraphQLRequest,
-        body: createGraphQLBody(GET_SLIM_TERMS_AUTOCOMPLETE_QUERY, {
-          keyword,
-          filterArgs
-        }),
+        body: createGraphQLBody(GET_SLIM_TERMS_AUTOCOMPLETE_QUERY, { keyword }),
       }),
       providesTags: ['autocomplete']
     })
