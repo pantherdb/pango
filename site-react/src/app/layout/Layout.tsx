@@ -23,6 +23,13 @@ interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
 
+interface LayoutProps {
+  leftDrawerContent?: React.ReactNode;
+  rightDrawerContent?: React.ReactNode;
+}
+
+
+
 interface MainProps {
   open: boolean;
   rightOpen?: boolean;
@@ -69,7 +76,7 @@ const Main = styled('main')<MainProps>(({ theme, open, rightOpen }) => ({
   }),
 }));
 
-const Layout: React.FC = () => {
+const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(!isMobile);
@@ -106,69 +113,57 @@ const Layout: React.FC = () => {
         </Toolbar>
       </AppBar>
 
-      <Drawer
-        variant={isMobile ? 'temporary' : 'persistent'}
-        anchor="left"
-        open={leftDrawerOpen}
-        onClose={handleDrawerToggle}
-        sx={{
-          width: drawerWidth,
-          '& .MuiDrawer-paper': {
+      {leftDrawerContent && (
+        <Drawer
+          variant={isMobile ? 'temporary' : 'persistent'}
+          anchor="left"
+          open={leftDrawerOpen}
+          onClose={handleDrawerToggle}
+          sx={{
             width: drawerWidth,
-            borderRight: '1px solid #111',
-            backgroundColor: theme.palette.background.default,
-          },
-        }}
-      >
-        <DrawerHeader>
-          <span className="text-lg font-medium">Filter Options</span>
-          <div className="space-x-2">
-            <Button
-              variant="outlined"
-              color="error"
-              size="small"
-              className="rounded-full text-xs"
-            >
-              Clear All Filters
-            </Button>
-            <IconButton size="small" onClick={handleDrawerToggle}>
+            '& .MuiDrawer-paper': {
+              width: drawerWidth
+            }
+          }}>
+          <DrawerHeader>
+            <span>Filter Options</span>
+            <IconButton onClick={handleDrawerToggle}>
               <MdClose />
             </IconButton>
-          </div>
-        </DrawerHeader>
-        <Box className="p-4">
-          <div className="flex flex-col space-y-4">
-            {/* Drawer content components will go here */}
-          </div>
-        </Box>
-      </Drawer>
+          </DrawerHeader>
+          <Box className="p-4">
+            {leftDrawerContent}
+          </Box>
+        </Drawer>
+      )}
 
       <Main open={leftDrawerOpen} rightOpen={rightDrawerOpen}>
-        <Toolbar /> {/* Spacer for AppBar */}
+        <Toolbar />
         <Box className="p-4">
           <Outlet />
         </Box>
       </Main>
 
-      <Drawer
-        anchor="right"
-        open={rightDrawerOpen}
-        onClose={() => setRightDrawerOpen(false)}
-        sx={{
-          '& .MuiDrawer-paper': {
-            width: 500,
-          },
-        }}
-      >
-        <DrawerHeader>
-          <span className="text-lg font-medium">Details</span>
-          <IconButton onClick={() => setRightDrawerOpen(false)}>
-            <MdClose />
-          </IconButton>
-        </DrawerHeader>
-      </Drawer>
+      {rightDrawerContent && (
+        <Drawer
+          anchor="right"
+          open={rightDrawerOpen}
+          onClose={() => setRightDrawerOpen(false)}
+          sx={{ '& .MuiDrawer-paper': { width: 500 } }}>
+          <DrawerHeader>
+            <span>Details</span>
+            <IconButton onClick={() => setRightDrawerOpen(false)}>
+              <MdClose />
+            </IconButton>
+          </DrawerHeader>
+          <Box className="p-4">
+            {rightDrawerContent}
+          </Box>
+        </Drawer>
+      )}
     </Box>
   );
 };
+
 
 export default Layout;
