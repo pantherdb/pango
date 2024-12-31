@@ -400,35 +400,4 @@ export class AnnotationService {
         return stats
     }
 
-
-    buildAnnotationLine(buckets: Bucket[], name) {
-
-        const series = buckets.map((bucket) => {
-            return {
-                name: bucket.key,
-                value: bucket.docCount
-            }
-        })
-
-
-        return [{
-            name,
-            series
-        }]
-    }
-
-    buildPosHistogramLine(buckets: Bucket[]) {
-
-        const stats = buckets.map((bucket) => {
-            return {
-                name: bucket.key,
-                value: bucket.docCount
-            }
-        })
-
-        const sorted = orderBy(stats, ['value'], ['desc'])
-        return sorted
-    }
-
-
 }

@@ -25,48 +25,6 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
     'unknown': 0,
   };
 
-  aspectPieOptions = {
-    view: [100, 100],
-    gradient: true,
-    legend: false,
-    showLabels: false,
-    isDoughnut: true,
-    maxLabelLength: 20,
-    onSelect: this.onSelectAspect.bind(this)
-
-  }
-
-  customColors = Object.keys(this.aspectMap).map((aspect) => {
-    return {
-      name: this.aspectMap[aspect].label,
-      value: this.aspectMap[aspect].color,
-    }
-  });
-
-  customEvidenceColors = Object.keys(this.evidenceTypeMap).map((evidenceType) => {
-    return {
-      name: this.evidenceTypeMap[evidenceType].id,
-      value: this.evidenceTypeMap[evidenceType].color,
-    }
-  });
-
-
-  evidenceTypePieOptions = {
-    view: [100, 100],
-    gradient: true,
-    legend: false,
-    showLabels: false,
-    isDoughnut: true,
-    maxLabelLength: 20,
-    onSelect: this.onSelectEvidenceType.bind(this)
-  }
-
-
-  stats = {
-    aspectPie: [],
-    evidenceTypePie: [],
-  }
-
   private _unsubscribeAll: Subject<any>;
 
   constructor(private annotationService: AnnotationService,) {
@@ -84,11 +42,9 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
             'unknown': 0,
           };
 
-          console.log('annotationStats', annotationStats)
           this.annotationStats.termTypeFrequency.buckets.forEach(bucket => {
             this.knowledgeCount[bucket.key] = bucket.docCount;
           });
-          this.generateStats()
         }
       });
 
@@ -109,50 +65,10 @@ export class SummaryStatsComponent implements OnInit, OnDestroy {
 
         this.annotationPage = annotationPage;
       });
-
   }
 
   ngOnDestroy(): void {
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
-
-  onSelectAspect(event) {
-    this.annotationService.searchCriteria[SearchFilterType.ASPECTS] = [event.name];
-    this.annotationService.updateSearch();
-  }
-
-  onSelectEvidenceType(event) {
-    this.annotationService.searchCriteria[SearchFilterType.EVIDENCE_TYPES] = [event.name];
-    this.annotationService.updateSearch();
-  }
-
-  onSelectSlimTerm(event) {
-    if (event.extra?.id) {
-      this.annotationService.searchCriteria[SearchFilterType.SLIM_TERMS] = [event.extra];
-      this.annotationService.updateSearch();
-    }
-  }
-
-  onSelectTerm(event) {
-    if (event.extra?.id) {
-      this.annotationService.searchCriteria[SearchFilterType.TERMS] = [event.extra];
-      this.annotationService.updateSearch();
-    }
-  }
-
-  generateStats() {
-
-    if (this.annotationStats.aspectFrequency?.buckets) {
-      this.stats.aspectPie = this.annotationService.buildAspectChart(this.annotationStats.aspectFrequency.buckets)
-    }
-
-    if (this.annotationStats.evidenceTypeFrequency?.buckets) {
-      this.stats.evidenceTypePie = this.annotationService.buildAnnotationBar(this.annotationStats.evidenceTypeFrequency.buckets)
-    }
-
-
-
-  }
-
 }
