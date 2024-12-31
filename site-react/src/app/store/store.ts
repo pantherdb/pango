@@ -4,6 +4,9 @@ import { setupListeners } from "@reduxjs/toolkit/query"
 import apiService from "./apiService"
 import selectedAnnotationReducer from './../annotations/annotationsSlice';
 import annotationModalSliceReducer from './../annotations/dialogs/annotationModalSlice';
+import genesReducer from './../genes/genesSlice';
+import annotationsReducer from './../annotations/annotationsSlice';
+
 
 
 // `combineSlices` automatically combines the reducers using
@@ -11,6 +14,8 @@ import annotationModalSliceReducer from './../annotations/dialogs/annotationModa
 const rootReducer = combineSlices(
   {
     selectedAnnotation: selectedAnnotationReducer,
+    genes: genesReducer,
+    annotations: annotationsReducer,
     annotationModal: annotationModalSliceReducer,
     [apiService.reducerPath]: apiService.reducer
   })

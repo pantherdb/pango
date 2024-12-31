@@ -114,3 +114,7 @@ export enum SearchFilterType {
   GENES = 'genes',
   ASPECTS = 'aspects',
 };
+
+export interface GenesApiResponse {
+  genes: Gene[];
+}

@@ -4,6 +4,7 @@ import { Box, Drawer, Button, Chip, Tooltip } from '@mui/material';
 import { MdCancel } from 'react-icons/md';
 import { SearchFilterType } from '../annotations/models/annotation';
 import Genes from '../genes/Genes';
+import SummaryStats from '../genes/GeneStats';
 
 const Home: React.FC = () => {
   const [searchCriteria, setSearchCriteria] = useState({
@@ -100,8 +101,7 @@ const Home: React.FC = () => {
       </div>
 
       <Box className="min-h-[500px] mb-[200px]">
-        {/*     <SummaryStats />
-        <AnnotationGroup /> */}
+        <SummaryStats />
         <Genes />
       </Box>
     </Box>
