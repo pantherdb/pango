@@ -19,6 +19,7 @@
 
       <div fxLayout="row" fxLayoutAlign="start center" class="q-100-p mb-24">
         <div *ngFor="let aspect of pangoDataService.aspectOption.options" class="aspect-item"
+          matTooltip="{{aspect.description}}" [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500"
           [ngClass]="{'selected': selectedAspects.includes(aspect.id)}" (click)="toggleAspect(aspect.id)">
 
           <mat-checkbox [checked]="selectedAspects.includes(aspect.id)" (change)="toggleAspect(aspect.id)"
