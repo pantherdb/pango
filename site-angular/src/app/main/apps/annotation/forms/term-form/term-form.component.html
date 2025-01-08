@@ -3,7 +3,7 @@
     matTooltip="Explore the human genome by functional category, and find all genes in a given category. Browse the graph of categories, and click to filter the list of annotations to include only those in the selected functional category."
     [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500" appearance="outline"
     class="pango-sm pango-white pango-form-field w-100-p">
-    <mat-label>Filter by category, or click on a category below</mat-label>
+    <mat-label>Add filter(s) by typing category here, or clicking a category below</mat-label>
     <mat-chip-list #slimTermChipList>
       <mat-chip class="pango-form-chip" *ngFor="let slimTerm of annotationService.searchCriteria.slimTerms"
         [selectable]="true" [removable]="true" (removed)="remove(slimTerm, SearchFilterType.SLIM_TERMS)" fxLayout="row"
