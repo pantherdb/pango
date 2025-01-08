@@ -1,13 +1,10 @@
 import type React from 'react';
 import { useState } from 'react';
 import { styled } from '@mui/material/styles';
-import type {
-  AppBarProps as MuiAppBarProps
-} from '@mui/material';
+import type { AppBarProps as MuiAppBarProps } from '@mui/material';
 import {
   Box,
   Drawer,
-  Button,
   IconButton,
   useTheme,
   useMediaQuery,
@@ -28,28 +25,24 @@ interface LayoutProps {
   rightDrawerContent?: React.ReactNode;
 }
 
-
-
-interface MainProps {
-  open: boolean;
-  rightOpen?: boolean;
-}
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+}));
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({ theme, open }) => ({
-  backgroundColor: '#FFFFFF',
-  height: '50px',
-  minHeight: '50px',
-  borderBottom: `3px solid ${theme.palette.secondary.main}`,
-  color: theme.palette.secondary.main,
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
     width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
+    marginLeft: drawerWidth,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
@@ -57,15 +50,18 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const Main = styled('main')<MainProps>(({ theme, open, rightOpen }) => ({
+const Main = styled('main', {
+  shouldForwardProp: (prop) => prop !== 'open' && prop !== 'rightOpen'
+})<{ open?: boolean; rightOpen?: boolean }>(({ theme, open, rightOpen }) => ({
   flexGrow: 1,
-  marginLeft: 0,
+  padding: 0,
   transition: theme.transitions.create('margin', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  marginLeft: `-${drawerWidth}px`,
   ...(open && {
-    marginLeft: `${drawerWidth}px`,
+    marginLeft: 0,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
@@ -79,31 +75,19 @@ const Main = styled('main')<MainProps>(({ theme, open, rightOpen }) => ({
 const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [leftDrawerOpen, setLeftDrawerOpen] = useState(!isMobile);
+  const [leftDrawerOpen, setLeftDrawerOpen] = useState(true);
   const [rightDrawerOpen, setRightDrawerOpen] = useState(false);
 
-  const handleDrawerToggle = () => {
-    setLeftDrawerOpen(!leftDrawerOpen);
-  };
-
-  const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: theme.spacing(2),
-    borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-  }));
-
   return (
-    <Box className="flex w-full min-h-screen">
+    <Box sx={{ display: 'flex' }}>
       <AppBar position="fixed" open={leftDrawerOpen}>
-        <Toolbar className="min-h-[50px]">
+        <Toolbar>
           <IconButton
             color="inherit"
-            aria-label="toggle drawer"
-            onClick={handleDrawerToggle}
+            aria-label="open drawer"
+            onClick={() => setLeftDrawerOpen(!leftDrawerOpen)}
             edge="start"
-            className={leftDrawerOpen ? 'hidden' : ''}
+            sx={{ mr: 2, ...(leftDrawerOpen && { display: 'none' }) }}
           >
             <MdMenu />
           </IconButton>
@@ -113,35 +97,30 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
         </Toolbar>
       </AppBar>
 
-      {leftDrawerContent && (
-        <Drawer
-          variant={isMobile ? 'temporary' : 'persistent'}
-          anchor="left"
-          open={leftDrawerOpen}
-          onClose={handleDrawerToggle}
-          sx={{
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
             width: drawerWidth,
-            '& .MuiDrawer-paper': {
-              width: drawerWidth
-            }
-          }}>
-          <DrawerHeader>
-            <span>Filter Options</span>
-            <IconButton onClick={handleDrawerToggle}>
-              <MdClose />
-            </IconButton>
-          </DrawerHeader>
-          <Box className="p-4">
-            {leftDrawerContent}
-          </Box>
-        </Drawer>
-      )}
+            boxSizing: 'border-box',
+          },
+        }}
+        variant={isMobile ? 'temporary' : 'persistent'}
+        anchor="left"
+        open={leftDrawerOpen}
+      >
+        <DrawerHeader>
+          <IconButton onClick={() => setLeftDrawerOpen(false)}>
+            <MdClose />
+          </IconButton>
+        </DrawerHeader>
+        {leftDrawerContent}
+      </Drawer>
 
       <Main open={leftDrawerOpen} rightOpen={rightDrawerOpen}>
-        <Toolbar />
-        <Box className="p-4">
-          <Outlet />
-        </Box>
+        <DrawerHeader />
+        <Outlet />
       </Main>
 
       {rightDrawerContent && (
@@ -149,21 +128,24 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
           anchor="right"
           open={rightDrawerOpen}
           onClose={() => setRightDrawerOpen(false)}
-          sx={{ '& .MuiDrawer-paper': { width: 500 } }}>
+          sx={{
+            width: 500,
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: 500,
+            },
+          }}
+        >
           <DrawerHeader>
-            <span>Details</span>
             <IconButton onClick={() => setRightDrawerOpen(false)}>
               <MdClose />
             </IconButton>
           </DrawerHeader>
-          <Box className="p-4">
-            {rightDrawerContent}
-          </Box>
+          {rightDrawerContent}
         </Drawer>
       )}
     </Box>
   );
 };
-
 
 export default Layout;

@@ -1,38 +1,6 @@
 <div class="pango-form-section" fxLayout="column" fxLayoutAlign="start start" name="filterForm"
   [formGroup]="filterForm">
-  <div class="pango-section-body w-100-p">
-    <!--  <div class="w-100-p">
-      <div class="pango-section-header-sm" fxLayout="row" fxLayoutAlign="start center">
-        <div class="pango-section-heading">
-          <h4 matTooltip="Filter to find either known characteristics, or ones that are not yet known"
-            [matTooltipPosition]="'above'" [matTooltipShowDelay]="3000">Select Knowledge Status</h4>
-        </div>
-        <span fxFlex></span>
-      </div>
-      <div class="pango-box-radio-group w-100-p" fxLayout="row" fxLayoutAlign="start center">
-        <div class="pango-box-radio-item pango-sm" fxFlex="50" fxLayout="column" fxLayoutAlign="center center"
-          *ngFor="let termType of pangoDataService.termTypeOption.options"
-          (click)="toggleSelection(SearchFilterType.TERM_TYPES, termType.id)"
-          [ngClass]="{'pango-active': annotationService.searchCriteria[SearchFilterType.TERM_TYPES]?.[0] === termType.id}"
-          matTooltip="{{termType.description}}" [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
-          {{termType.label}}<br>
-          <small>{{termType.hint}}</small>
-          <fa-icon class="pango-icon pango-selected-icon" [icon]="['far', 'check-circle']"></fa-icon>
-        </div>
-      </div>
-      <div class="pango-box-radio-group w-100-p" fxLayout="row" fxLayoutAlign="start center">
-        <div class="pango-box-radio-item pango-sm" fxFlex="50" fxLayout="column" fxLayoutAlign="center center"
-          *ngFor="let evidenceType of pangoDataService.evidenceTypeOption.options"
-          (click)="toggleSelection(SearchFilterType.EVIDENCE_TYPES, evidenceType.id)"
-          [ngClass]="{'pango-active': annotationService.searchCriteria[SearchFilterType.EVIDENCE_TYPES]?.[0] === evidenceType.id}"
-          matTooltip="{{evidenceType.description}}" [matTooltipPosition]="'below'" [matTooltipShowDelay]="1500">
-          {{evidenceType.label}}<br>
-          <small>{{evidenceType.hint}}</small>
-          <fa-icon class="pango-icon pango-selected-icon" [icon]="['far', 'check-circle']"></fa-icon>
-
-        </div>
-      </div>
-    </div> -->
+  <div class="pango-section-body w-100-p">\
     <div class="w-100-p">
       <div class="pango-section-header-sm" fxLayout="row" fxLayoutAlign="start center">
         <div class="pango-section-heading">
@@ -55,13 +23,6 @@
           {{aspect.label}}
         </div>
       </div>
-      <!--     <mat-radio-group class="w-100-p" formControlName="aspects" fxLayout="column" fxLayoutAlign="start stretch">
-        <mat-radio-button *ngFor="let aspect of pangoDataService.aspectOption.options" matTooltip="{{aspect.description}}"
-          [matTooltipPosition]="'right'" [matTooltipShowDelay]="1500" class="pango-radio-button-flat pango-xxs mb-4"
-          [value]="aspect.id">
-          {{aspect.label}}
-        </mat-radio-button>
-      </mat-radio-group> -->
     </div>
   </div>
 </div>

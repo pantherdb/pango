@@ -1,15 +1,36 @@
 <div class="w-100-p" fxLayout="row" fxLayoutAlign="start stretch">
-  <div class="pango-form-section  pango-terms-stats h-100-p" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch">
+  <div class="pango-form-section pango-terms-stats h-100-p" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch">
     <div class="pango-section-header" fxLayout="row" fxLayoutAlign="start center">
       <div class="pango-section-heading">
-        <h3>GO Function Category Distribution </h3>
+        <h3>GO Function Category Distribution</h3>
+      </div>
+      <span fxFlex></span>
+    </div>
+
+    <div class="pango-section-body pango-terms-cell" fxLayout="column" fxLayoutAlign="start stretch">
+      <pango-term-form></pango-term-form>
+
+      <div class="pango-section-heading">
+        <h5>Show/Hide GO Aspects for Category List Display <br>
+          <small>(display only - does not filter results)</small>
+        </h5>
       </div>
       <span fxFlex></span>
 
-    </div>
-    <div class="pango-section-body pango-terms-cell" fxLayout="column" fxLayoutAlign="start stretch">
+      <div fxLayout="row" fxLayoutAlign="start center" class="q-100-p mb-24">
+        <div *ngFor="let aspect of pangoDataService.aspectOption.options" class="aspect-item"
+          [ngClass]="{'selected': selectedAspects.includes(aspect.id)}" (click)="toggleAspect(aspect.id)">
 
-      <pango-term-form> </pango-term-form>
+          <mat-checkbox [checked]="selectedAspects.includes(aspect.id)" (change)="toggleAspect(aspect.id)"
+            (click)="$event.stopPropagation()">
+          </mat-checkbox>
+
+          <img [src]="'assets/images/activity/' + aspect.icon + '.png'" [alt]="aspect.label">
+
+          <span>{{aspect.shorthand}}</span>
+        </div>
+      </div>
+
       <div class="pango-activity-term-row" fxLayout="column">
         <div *ngFor="let item of slimTermFrequency" class="w-100-p pango-term-cell" (click)="selectSlimTerm(item)"
           fxLayout="row" fxLayoutAlign="start center">
@@ -17,16 +38,18 @@
             fxLayoutAlign="center center">
             <span>{{item.aspectShorthand}}</span>
           </mat-chip>
+
           <div class="" fxFlex="100px" fxLayout="column" fxLayoutAlign="start start">
             <div class="pango-cell-title w-100-p">
-              <span class="pango-cell-description pango-truncate"> {{item.label}}</span>
+              <span class="pango-cell-description pango-truncate">{{item.label}}</span>
               <span class="pango-cell-description-2 pango-truncate">{{item.displayId}}</span>
             </div>
           </div>
+
           <div fxFlex="" class="pango-bar-container">
-            <div class="pango-stat-bar" [style.background-color]="item.color" [style.width]='item.width'>
+            <div class="pango-stat-bar" [style.background-color]="item.color" [style.width]="item.width">
             </div>
-            <div class="pango-cell-count" [style.left]='item.countPos'>
+            <div class="pango-cell-count" [style.left]="item.countPos">
               {{ item.count }} genes
             </div>
           </div>
