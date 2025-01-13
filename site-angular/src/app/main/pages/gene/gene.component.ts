@@ -33,6 +33,8 @@ export class GeneComponent implements OnInit, OnDestroy {
   @ViewChild('rightDrawer', { static: true })
   rightDrawer: MatDrawer;
 
+  amigoGPUrl = environment.amigoGPUrl;
+
   leftPanelMenu;
 
   annotations: Annotation[];

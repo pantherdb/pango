@@ -8,17 +8,15 @@
       <div *ngIf="annotation" class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
         <div class="pango-gene-summary w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
           <h1 class="pango-heading">
-            All annotations and evidence for
             <span class="pango-highlight">
               {{annotation.geneSymbol}}
-            </span>
+            </span>: PAN-GO functions and evidence
           </h1>
           <div class="w-100-p" fxLayout="row" fxLayoutAlign="start space-between">
             <div class="pango-gene-detail-col" fxLayout="column" fxLayoutAlign="start start">
               <h2>
-                Gene Details
+                Gene Information
               </h2>
-
               <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
                 <div class="pango-title mr-8">
                   Gene:
@@ -44,6 +42,16 @@
                   <a [href]="taxonApiUrl+annotation.taxonId" target="_blank">
                     {{annotation.taxonLabel}}
                   </a>
+                </div>
+              </div>
+
+              <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                <div class="pango-title mr-8">
+                  GO annotations from all sources
+                </div>
+                <div class=" pango-description">
+                  <a href="{{amigoGPUrl}}{{annotation.gene}}" target="_blank">
+                    {{annotation.gene}}</a>
                 </div>
               </div>
             </div>

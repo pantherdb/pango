@@ -3,6 +3,7 @@ export const environment = {
   annotationResultsSize: 50,
   pangoGraphQLUrl: 'http://34.235.126.222/api/graphql', // 'https://functionome.geneontology.org/api/graphql',
   amigoTermUrl: "http://amigo.geneontology.org/amigo/term/",
+  amigoGPUrl: "http://amigo.geneontology.org/amigo/gene_product/",
   pubmedUrl: "https://www.ncbi.nlm.nih.gov/pubmed/",
   taxonApiUrl: 'https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=',
   ucscUrl: 'https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr',
