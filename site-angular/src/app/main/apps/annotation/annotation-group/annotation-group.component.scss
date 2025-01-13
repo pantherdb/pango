@@ -51,6 +51,20 @@ $accent: map-get($theme, accent);
     }
   }
 
+  .pango-section-header {
+    height: 60px;
+    background-color: #fff;
+    border-top-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+
+    .pango-section-heading {
+      padding-left: 12px;
+      font-size: 24px;
+      line-height: 30px;
+      color: #555;
+    }
+  }
+
   .pango-evidence-type {
     position: relative;
     @include deep-width(30px);

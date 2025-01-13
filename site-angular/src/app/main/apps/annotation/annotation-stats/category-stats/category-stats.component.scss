@@ -24,8 +24,8 @@ pango-term-form {
   }
 
   &.selected {
-    border-color: #2196f3;
-    background: #e3f2fd;
+    border-color: rgba(map-get($accent, default), 0.9);
+    //background: #e3f2fd;
   }
 
   img {

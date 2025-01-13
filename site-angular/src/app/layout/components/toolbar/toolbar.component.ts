@@ -13,7 +13,7 @@ import { ApiVersion, PangoGraphQLService } from '@pango.search/services/graphql.
 export class PangoToolbarComponent {
     showLoadingBar: boolean;
     ApiVersion = ApiVersion;
-    currentVersion: ApiVersion = ApiVersion.V2024;
+    currentVersion: ApiVersion = ApiVersion.V2023;
 
     constructor(
         public pangoUtilService: PangoUtilService,

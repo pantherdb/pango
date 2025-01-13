@@ -1,29 +1,12 @@
 <div *ngIf="genes && dataSource" class="w-100-p h-100-p p-12" fxLayout="row" fxLayoutAlign="start start">
 
   <div class="w-100-p h-100-p " fxLayout="column" fxLayoutAlign="start stretch">
-    <!--     <div class="legend">
-          <div fxFlex="40px" matTooltip="{{evidenceTypeMap[item.evidenceType]?.iconTooltip}}"
-                  [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
-        <span class="pango-evidence-type D" fxLayout="column" fxLayoutAlign="center center">
-          <fa-icon class="pango-icon" [icon]="['fas', 'flask']"></fa-icon>
-          <span class="pango-label">
-            D
-          </span>
-        </span>
+    <div class="pango-section-header w-100-p" fxLayout="row" fxLayoutAlign="start center">
+      <div class="pango-section-heading">
+        <span>Results (<strong>{{annotationPage?.total}}</strong> <small>genes</small>)</span>
       </div>
-      = Direct Evidence
-
-          <div fxFlex="40px" matTooltip="{{evidenceTypeMap[item.evidenceType]?.iconTooltip}}"
-                  [matTooltipPosition]="'above'" [matTooltipShowDelay]="1500">
-        <span class="pango-evidence-type H" fxLayout="column" fxLayoutAlign="center center">
-          <fa-icon class="pango-icon" [icon]="['fas', 'flask']"></fa-icon>
-          <span class="pango-label">
-            H
-          </span>
-        </span>
-      </div>
-      = Homology Evidence
-    </div> -->
+      <span fxFlex></span>
+    </div>
     <table mat-table [dataSource]="dataSource" class="pango-annotation-table">
       <ng-container matColumnDef="expand">
         <th mat-header-cell *matHeaderCellDef class="pango-expand-cell">

@@ -15,7 +15,7 @@
               {{geneCount}}
             </div>
 
-            <div *ngIf="!geneCount" class="pango-loader"></div>
+            <div *ngIf="geneCount===null" class="pango-loader"></div>
             <div class="pango-stat-label">
               Genes
             </div>

@@ -15,7 +15,8 @@ export enum ApiVersion {
 })
 export class PangoGraphQLService {
   graphQLUrl = environment.pangoGraphQLUrl;
-  private currentVersion: ApiVersion = ApiVersion.V2024;
+  private readonly LATEST_VERSION = ApiVersion.V2023;
+  private currentVersion: ApiVersion = this.LATEST_VERSION;
   private readonly VERSION_PARAM = 'apiVersion';
 
   constructor(
@@ -46,7 +47,7 @@ export class PangoGraphQLService {
   private updateQueryParam(version: ApiVersion) {
     const queryParams = { ...this.route.snapshot.queryParams };
 
-    if (version === ApiVersion.V2024) {
+    if (version === this.LATEST_VERSION) {
       // Remove param if it's the default version
       delete queryParams[this.VERSION_PARAM];
     } else {

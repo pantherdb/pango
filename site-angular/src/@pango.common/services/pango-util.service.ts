@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { pangoData } from '@pango.common/data/config';
 
 @Injectable({
   providedIn: 'root'
