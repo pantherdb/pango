@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { pangoData } from '@pango.common/data/config';
-import { SearchFilterType } from '@pango.search/models/search-criteria';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AnnotationStats, GeneStats } from '../../models/annotation';

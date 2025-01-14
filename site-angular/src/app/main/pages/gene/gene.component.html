@@ -113,7 +113,23 @@
             </div>
           </div>
         </div>
-        <pango-summary-stats></pango-summary-stats>
+        <div class="pango-stat-count mr-20" fxLayout="column" fxLayoutAlign="start center">
+          <div class="pango-stat-number">
+            {{knowledgeCount['known']}}
+          </div>
+          <div class="pango-stat-label">
+            Annotations
+          </div>
+          <small>(functional characteristics)</small>
+        </div>
+        <div class="pango-stat-count mr-20" fxLayout="column" fxLayoutAlign="start center">
+          <div class="pango-stat-number">
+            {{knowledgeCount['unknown']}}
+          </div>
+          <div class="pango-stat-label">
+            Unknown function aspects
+          </div>
+        </div>
         <pango-annotation-table [annotations]="annotations" [options]="tableOptions" [maxReferences]="maxReferences"
           [maxEvidences]="maxEvidences" class="w-100-p"></pango-annotation-table>
       </div>

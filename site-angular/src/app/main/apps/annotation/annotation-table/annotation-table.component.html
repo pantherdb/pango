@@ -1,37 +1,4 @@
 <div *ngIf="annotationPage && dataSource" class="w-100-p h-100-p p-12" fxLayout="row" fxLayoutAlign="start start">
-  <!--  <div class="pango-sidemenu" fxLayout="column" fxLayoutAlign="start center">
-    <div class="pango-sidemenu-header" fxLayout="row" fxLayoutAlign="center center">
-      Tools
-    </div>
-    <button mat-icon-button color="" class="pango-rounded-button"
-      [ngClass]="{'pango-active': pangoMenuService.selectedRightPanel === RightPanel.annotationSearch}"
-      (click)="openAnnotationSearch()" matTooltip="Search and Filter" [matTooltipPosition]="'after'"
-      [matTooltipShowDelay]="1500">
-      <fa-icon [icon]="['fas', 'filter']"></fa-icon>
-      <div class="pango-label">
-        Filter
-      </div>
-    </button>
-    <button mat-icon-button color="" class="pango-rounded-button"
-      [ngClass]="{'pango-active': pangoMenuService.selectedRightPanel === RightPanel.annotationSummary}"
-      (click)="openAnnotationSummary()" matTooltip="annotations summary" [matTooltipPosition]="'after'"
-      [matTooltipShowDelay]="1500">
-      <fa-icon [icon]="['fas', 'list']"></fa-icon>
-      <div class="pango-label">
-        Summary
-      </div>
-    </button>
-    <button mat-icon-button color="" class="pango-rounded-button"
-      [ngClass]="{'pango-active': pangoMenuService.selectedRightPanel === RightPanel.annotationStats}"
-      (click)="openAnnotationStats()" matTooltip="Results Statistics" [matTooltipPosition]="'after'"
-      [matTooltipShowDelay]="1500">
-      <fa-icon [icon]="['fas', 'chart-bar']"></fa-icon>
-      <div class="pango-label">
-        Stats
-      </div>
-    </button>
-  </div> -->
-
   <div *ngIf="selectedGP" class="pango-gene-summary w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
     <div fxLayout="column" fxLayoutAlign="start center">
       <div fxLayout="row" fxLayoutAlign="start center">

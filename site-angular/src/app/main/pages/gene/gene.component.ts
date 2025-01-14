@@ -7,10 +7,9 @@ import { RightPanel, LeftPanel } from '@pango.common/models/menu-panels';
 import { PangoMenuService } from '@pango.common/services/pango-menu.service';
 import { SearchType } from '@pango.search/models/search-criteria';
 import { PangoUtils } from '@pango/utils/pango-utils';
-import { Annotation } from 'app/main/apps/annotation/models/annotation';
+import { Annotation, AnnotationStats } from 'app/main/apps/annotation/models/annotation';
 import { AnnotationPage } from 'app/main/apps/annotation/models/page';
 import { AnnotationService } from 'app/main/apps/annotation/services/annotation.service';
-import { Gene } from 'app/main/apps/gene/models/gene.model';
 import { environment } from 'environments/environment';
 import { orderBy } from 'lodash';
 import { Subject, takeUntil } from 'rxjs';
@@ -32,6 +31,11 @@ export class GeneComponent implements OnInit, OnDestroy {
 
   @ViewChild('rightDrawer', { static: true })
   rightDrawer: MatDrawer;
+
+  knowledgeCount = {
+    known: 0,
+    unknown: 0,
+  };
 
   amigoGPUrl = environment.amigoGPUrl;
 
@@ -107,6 +111,16 @@ export class GeneComponent implements OnInit, OnDestroy {
           this.hgncId = PangoUtils.getHGNC(this.annotation.longId);
         } else {
           this.annotation = null
+        }
+      });
+
+    this.annotationService.onAnnotationsAggsChanged
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((annotationStats: AnnotationStats) => {
+        if (annotationStats) {
+          annotationStats.termTypeFrequency.buckets.forEach(bucket => {
+            this.knowledgeCount[bucket.key] = bucket.docCount;
+          });
         }
       });
 
