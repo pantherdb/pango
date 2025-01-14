@@ -113,23 +113,27 @@
             </div>
           </div>
         </div>
-        <div class="pango-stat-count mr-20" fxLayout="column" fxLayoutAlign="start center">
-          <div class="pango-stat-number">
-            {{knowledgeCount['known']}}
+        <div class="stat-header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="48px">
+          <div class="title-block" fxFlex="250px">
+            <h2>Function summary</h2>
           </div>
-          <div class="pango-stat-label">
-            Annotations
+
+          <div class="stat-block" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+            <div class="number">{{knowledgeCount['known']}}</div>
+            <div class="label-group">
+              <div class="label">Annotations</div>
+              <div class="sublabel">(functional characteristics)</div>
+            </div>
           </div>
-          <small>(functional characteristics)</small>
+
+          <div class="stat-block" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+            <div class="number">{{knowledgeCount['known']}}</div>
+            <div class="label-group">
+              <div class="label">Unknown function aspects</div>
+            </div>
+          </div>
         </div>
-        <div class="pango-stat-count mr-20" fxLayout="column" fxLayoutAlign="start center">
-          <div class="pango-stat-number">
-            {{knowledgeCount['unknown']}}
-          </div>
-          <div class="pango-stat-label">
-            Unknown function aspects
-          </div>
-        </div>
+
         <pango-annotation-table [annotations]="annotations" [options]="tableOptions" [maxReferences]="maxReferences"
           [maxEvidences]="maxEvidences" class="w-100-p"></pango-annotation-table>
       </div>

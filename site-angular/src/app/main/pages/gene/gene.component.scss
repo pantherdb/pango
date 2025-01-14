@@ -22,21 +22,65 @@ $pango-background: map-get($mat-blue-grey, 50);
     }
   }
 
-  pango-summary-stats {
-    display: block;
-    //@include deep-height(300px !important);
-  }
-
-  pango-gene-form {
-    // @include deep-width(300px !important);
-  }
-
   pango-annotation-detail {
     @include deep-width(500px !important);
   }
-  pango-annotation-summary,
-  pango-annotation-stats {
-    @include deep-width(600px !important);
+
+  .stat-header {
+    padding: 24px 32px;
+    background: linear-gradient(to right, #f8f9fa, #ffffff);
+    border-radius: 12px;
+    border-left: 4px solid #4a90e2;
+
+    .title-block {
+      h2 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+        color: #2c3e50;
+        letter-spacing: -0.5px;
+      }
+    }
+
+    .stat-block {
+      position: relative;
+      padding-left: 24px;
+
+      &:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        right: 24px;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 32px;
+        width: 1px;
+        background: #e0e6ed;
+      }
+
+      .number {
+        font-size: 36px;
+        font-weight: 700;
+        color: #4a90e2;
+        margin-right: 16px;
+        min-width: 60px;
+        text-align: center;
+      }
+
+      .label-group {
+        .label {
+          font-size: 16px;
+          font-weight: 500;
+          color: #2c3e50;
+          margin-bottom: 4px;
+        }
+
+        .sublabel {
+          font-size: 13px;
+          color: #7f8c8d;
+          font-weight: 400;
+        }
+      }
+    }
   }
 }
 

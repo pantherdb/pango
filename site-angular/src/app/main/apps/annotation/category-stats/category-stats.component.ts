@@ -3,9 +3,9 @@ import { pangoData } from '@pango.common/data/config';
 import { SearchFilterType } from '@pango.search/models/search-criteria';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { GeneStats, Term } from '../../models/annotation';
-import { AnnotationPage } from '../../models/page';
-import { AnnotationService } from '../../services/annotation.service';
+import { GeneStats, Term } from '../models/annotation';
+import { AnnotationPage } from '../models/page';
+import { AnnotationService } from '../services/annotation.service';
 import { PangoDataService } from '@pango.common/services/pango-data.service';
 
 @Component({
