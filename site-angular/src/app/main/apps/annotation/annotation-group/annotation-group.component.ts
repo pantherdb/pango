@@ -132,33 +132,10 @@ export class AnnotationGroupComponent implements OnInit, OnDestroy, OnChanges {
     this.annotationService.onAnnotationChanged.next(row);
   }
 
-  selectGene(gene: string) {
-
-  }
-
   ngOnDestroy(): void {
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
 
-  openAnnotationSearch() {
-    this.pangoMenuService.selectRightPanel(RightPanel.annotationSearch);
-    this.pangoMenuService.openRightDrawer()
-  }
-
-  openAnnotationTable() {
-    this.pangoMenuService.selectRightPanel(RightPanel.annotationTable);
-    this.pangoMenuService.closeRightDrawer()
-  }
-
-  openAnnotationSummary() {
-    this.pangoMenuService.selectRightPanel(RightPanel.annotationSummary);
-    this.pangoMenuService.openRightDrawer()
-  }
-
-  openAnnotationStats() {
-    this.pangoMenuService.selectRightPanel(RightPanel.annotationStats);
-    this.pangoMenuService.openRightDrawer();
-  }
 }
 

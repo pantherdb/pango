@@ -1,139 +1,192 @@
-import type React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Tooltip, CircularProgress } from '@mui/material';
-import { MdExpandMore, MdChevronRight } from 'react-icons/md';
-import { FaFlask } from 'react-icons/fa';
-//import { toggleExpand } from '../store/geneSlice';
-import { useAppDispatch } from '../hooks';
+import type { FC } from 'react';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  CircularProgress,
+  TablePagination,
+  Tooltip
+} from '@mui/material';
+import { FaFlask, FaCaretRight, FaCaretDown } from 'react-icons/fa';
 import { useGetGenesQuery } from './genesApiSlice';
-import type { Term } from './models/gene';
-import type { Gene } from './models/gene';
-import { EVIDENCE_TYPE_MAP } from './data/config';
+import type { Term, Gene } from './models/gene';
+import { EVIDENCE_TYPE_MAP } from '@/@pango.core/data/config';
+import { ENVIRONMENT } from '@/@pango.core/data/constants';
 
 interface GenesProps {
   pageNumber?: number;
   pageSize?: number;
 }
 
-const Genes: React.FC<GenesProps> = ({ pageNumber = 1, pageSize = 50 }) => {
+const Genes: FC<GenesProps> = ({ pageNumber = 1, pageSize = 50 }) => {
   const { data, isLoading, error } = useGetGenesQuery({ pageNumber, pageSize });
   const genes = data?.genes ?? [];
-  const dispatch = useAppDispatch();
 
-  if (isLoading) return <CircularProgress />;
-  if (error) return <p>Error loading genes</p>;
-
-  const getUniprotLink = (gene: string) => {
-    const geneId = gene?.split(':');
-    return geneId.length > 1 ? `https://uniprot.org/uniprot/${geneId[1]}` : gene;
+  const handleExpandClick = (gene: Gene) => {
+    gene.expanded = !gene.expanded;
+    gene.maxTerms = gene.expanded ? 500 : 2;
   };
 
-  const getUcscLink = (gene: Gene) => {
-    return `https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&position=chr${gene.coordinatesChrNum}:${gene.coordinatesStart}-${gene.coordinatesEnd}`;
+  const getUniprotLink = (gene: Gene) => {
+    const geneId = gene.gene?.split(':');
+    return geneId.length > 1 ? `${ENVIRONMENT.uniprotUrl}${geneId[1]}` : gene.gene;
   };
 
-  const renderTerms = (terms: Term[] = [], gene: Gene) => {
-    if (!terms?.length) return null;
-
-    return (
-      <div className="space-y-2">
-        {terms.slice(0, gene.maxTerms).map((term, idx) => (
-          <div key={idx} className={`border rounded-lg p-2 ${term.evidenceType === 'D' ? 'bg-green-50' : 'bg-red-50'}`}>
-            <div className="flex items-center">
-              <Tooltip title={EVIDENCE_TYPE_MAP[term.evidenceType].iconTooltip}>
-                <div className="relative w-8 h-8 rounded-full flex items-center justify-center mr-2">
-                  <FaFlask className={term.evidenceType === 'D' ? 'text-green-600' : 'text-red-600'} size={16} />
-                  <span className="absolute right-0 bottom-0 text-xs font-bold">
-                    {EVIDENCE_TYPE_MAP[term.evidenceType].shorthand}
-                  </span>
+  const renderTerms = (terms: Term[], gene: Gene) => (
+    <>
+      {terms.slice(0, gene.maxTerms).map((term, idx) => (
+        <div key={idx} className="w-full">
+          <div className={`flex items-center p-2 border rounded-md my-1 
+            ${term.evidenceType === 'direct' ? 'bg-green-50' : 'bg-red-50'}
+            border-gray-300`}>
+            <div className="w-10">
+              <Tooltip
+                title={<span>{EVIDENCE_TYPE_MAP[term.evidenceType]?.iconTooltip}</span>}
+                placement="top"
+              >
+                <div className="relative w-[30px] h-[30px] rounded-full border">
+                  <div className="flex flex-col items-center">
+                    <FaFlask className={`text-base ${term.evidenceType === 'direct' ?
+                      'text-green-500' : 'text-red-500'}`} />
+                    <span className="absolute right-[1px] bottom-0 text-xs font-bold
+                      ${term.evidenceType === 'direct' ? 'text-green-700' : 'text-red-700'}">
+                      {EVIDENCE_TYPE_MAP[term.evidenceType]?.shorthand}
+                    </span>
+                  </div>
                 </div>
               </Tooltip>
-              <div className="flex-1">
-                <span className="text-sm">{term.label}</span>
-                {term.displayId && (
-                  <span className="text-gray-500 italic ml-2">
-                    <a href={`https://amigo.geneontology.org/amigo/term/${term.id}`} target="_blank" rel="noopener noreferrer">
-                      {term.displayId}
-                    </a>
-                  </span>
-                )}
-              </div>
+            </div>
+            <div className="flex-1">
+              <span className="mr-1 text-black font-normal">{term.label}</span>
+              {term.displayId && (
+                <a
+                  href={`${ENVIRONMENT.amigoTermUrl}${term.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="italic text-gray-600"
+                >
+                  {term.displayId}
+                </a>
+              )}
             </div>
           </div>
-        ))}
-        {terms.length > gene.maxTerms && (
-          <div className="text-sm text-blue-600 cursor-pointer">
+        </div>
+      ))}
+      {terms.length > gene.maxTerms && (
+        <div className="mt-2">
+          <button
+            onClick={() => handleExpandClick(gene)}
+            className="text-blue-600 hover:text-blue-800"
+          >
             — View {terms.length - gene.maxTerms} more terms
-          </div>
-        )}
-      </div>
-    );
-  };
+          </button>
+        </div>
+      )}
+    </>
+  );
+
+  if (isLoading) return (
+    <div className="absolute inset-0 bg-gray-600/40 z-[1000] flex items-center justify-center">
+      <CircularProgress />
+    </div>
+  );
+  if (error) return <div>Error loading genes</div>;
 
   return (
-    <TableContainer component={Paper} className="w-full">
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell width={40}></TableCell>
-            <TableCell>
-              <Tooltip title="Information about the gene and the protein(s) it encodes">
-                <span>Gene</span>
-              </Tooltip>
-            </TableCell>
-            <TableCell>
-              <Tooltip title="Molecular level protein function">
-                <span>Molecular Function</span>
-              </Tooltip>
-            </TableCell>
-            <TableCell>
-              <Tooltip title="System functions at cellular level">
-                <span>Biological Process</span>
-              </Tooltip>
-            </TableCell>
-            <TableCell>
-              <Tooltip title="Location of protein activity">
-                <span>Cellular Component</span>
-              </Tooltip>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {genes.map((gene) => (
-            <TableRow key={gene.gene}>
-              <TableCell></TableCell>
-              <TableCell>
-                <div className="space-y-1">
-                  <div>
-                    <a href={`/gene/${gene.gene}`} className="text-blue-600 hover:underline">
-                      {gene.geneSymbol}
-                    </a>
-                    (<a href={`/taxon/${gene.taxonId}`} className="text-blue-600 hover:underline">
-                      {gene.taxonAbbr}
-                    </a>)
-                  </div>
-                  <div className="text-gray-600">{gene.geneName}</div>
-                  <div>
-                    <a href={getUniprotLink(gene.gene)} className="text-blue-600 hover:underline">
-                      {gene.gene}
-                    </a>
-                  </div>
-                  {gene.coordinatesChrNum && (
-                    <div className="bg-purple-800 px-2 py-1 inline-block">
-                      <a href={getUcscLink(gene)} className="text-yellow-300 text-xs">
-                        chr{gene.coordinatesChrNum}:{gene.coordinatesStart}-{gene.coordinatesEnd}
-                      </a>
-                    </div>
-                  )}
-                </div>
-              </TableCell>
-              <TableCell>{renderTerms(gene.mfs, gene)}</TableCell>
-              <TableCell>{renderTerms(gene.bps, gene)}</TableCell>
-              <TableCell>{renderTerms(gene.ccs, gene)}</TableCell>
+    <div className="w-full p-3">
+      <div className="h-[60px] bg-white rounded-tl-xl rounded-br-xl mb-4">
+        <h2 className="text-2xl leading-[30px] text-gray-600 pl-3">
+          Results (<strong>{data?.total || 0}</strong> <small>genes</small>)
+        </h2>
+      </div>
+      <TableContainer component={Paper} className="border border-gray-300">
+        <Table>
+          <TableHead>
+            <TableRow className="h-[35px] sticky top-[31px] z-[1] 
+              border-t border-b border-pangodark bg-white">
+              <TableCell width={50} className="p-0"></TableCell>
+              {['Gene', 'Molecular Function', 'Biological Process', 'Cellular Component'].map((header) => (
+                <TableCell key={header}
+                  className="p-2.5 text-xs font-bold uppercase border-r border-gray-400 
+                  max-w-[450px] whitespace-nowrap">
+                  <Tooltip title={<span>{header}</span>}>
+                    <span>{header}</span>
+                  </Tooltip>
+                </TableCell>
+              ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {genes.map((gene: Gene) => (
+              <TableRow key={gene.gene}>
+                <TableCell className="p-0 w-10">
+                  <button
+                    onClick={() => handleExpandClick(gene)}
+                    className="p-2 text-pangodark"
+                  >
+                    {gene.expanded ? <FaCaretDown /> : <FaCaretRight />}
+                  </button>
+                </TableCell>
+                <TableCell className="align-top border-r border-gray-300 max-w-[450px]">
+                  <div className="flex flex-col gap-1">
+                    <div className="text-gray-700 font-bold">
+                      <a href={`/gene/${gene.gene}`} className="cursor-pointer">
+                        {gene.geneSymbol}
+                      </a>
+                      (
+                      <a href={`${ENVIRONMENT.taxonApiUrl}${gene.taxonId}`}
+                        className="cursor-pointer">
+                        {gene.taxonAbbr}
+                      </a>
+                      )
+                    </div>
+                    <div className="text-gray-600 text-xs">{gene.geneName}</div>
+                    <div className="text-xs">
+                      <a href={getUniprotLink(gene)}>{gene.gene}</a>
+                    </div>
+                    {gene.coordinatesChrNum && (
+                      <div className="bg-[#523684] text-[#edd776] px-1 py-0.5 inline-block">
+                        <a
+                          href={`${ENVIRONMENT.ucscUrl}${gene.coordinatesChrNum}:${gene.coordinatesStart}-${gene.coordinatesEnd}`}
+                          className="text-[10px]"
+                        >
+                          chr{gene.coordinatesChrNum}:{gene.coordinatesStart}-{gene.coordinatesEnd}
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </TableCell>
+                <TableCell className="align-top border-r border-gray-300 w-1/5 p-2">
+                  {renderTerms(gene.mfs, gene)}
+                </TableCell>
+                <TableCell className="align-top border-r border-gray-300 w-1/5 p-2">
+                  {renderTerms(gene.bps, gene)}
+                </TableCell>
+                <TableCell className="align-top border-r border-gray-300 w-1/5 p-2">
+                  {renderTerms(gene.ccs, gene)}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <TablePagination
+          component="div"
+          count={data?.total || 0}
+          page={pageNumber - 1}
+          rowsPerPage={pageSize}
+          onPageChange={(_, newPage) => {
+            // Handle page change
+          }}
+          onRowsPerPageChange={(event) => {
+            // Handle rows per page change
+          }}
+        />
+      </TableContainer>
+    </div>
   );
 };
 

@@ -55,7 +55,6 @@
                 </div>
               </div>
             </div>
-
             <div class="pango-links-col" fxLayout="column" fxLayoutAlign="start start">
               <h2>
                 External Links
@@ -117,22 +116,23 @@
           <div class="title-block" fxFlex="250px">
             <h2>Function summary</h2>
           </div>
-
-          <div class="stat-block" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+          <div class="stat-block" fxLayout="row" fxLayoutAlign="start center">
             <div class="number">{{knowledgeCount['known']}}</div>
             <div class="label-group">
               <div class="label">Annotations</div>
               <div class="sublabel">(functional characteristics)</div>
             </div>
           </div>
-
-          <div class="stat-block" fxLayout="row" fxLayoutAlign="start center" fxFlex>
-            <div class="number">{{knowledgeCount['known']}}</div>
+          <div class="stat-block" fxLayout="row" fxLayoutAlign="start center">
+            <div class="number">{{knowledgeCount['unknown']}}</div>
             <div class="label-group">
               <div class="label">Unknown function aspects</div>
             </div>
           </div>
         </div>
+
+        <pango-gene-summary-table [summary]="annotation"></pango-gene-summary-table>
+
 
         <pango-annotation-table [annotations]="annotations" [options]="tableOptions" [maxReferences]="maxReferences"
           [maxEvidences]="maxEvidences" class="w-100-p"></pango-annotation-table>

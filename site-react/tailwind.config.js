@@ -1,3 +1,4 @@
+import { pangoColors } from './src/@pango.core/theme/theme';
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -5,7 +6,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        pangodark: pangoColors.pangodark,
+        pangoAccent: pangoColors.pangoAccent,
+      },
+    },
   },
   plugins: [],
 }

@@ -32,13 +32,9 @@ const SummaryStats: React.FC = () => {
     value: number;
     label: string;
     sublabel?: string;
-    icon: React.ReactNode;
     loading?: boolean;
-  }> = ({ value, label, sublabel, icon, loading }) => (
+  }> = ({ value, label, sublabel, loading }) => (
     <Paper className="p-6 mr-5 bg-[#daead6] rounded-xl w-[250px] h-[120px] flex flex-col items-center justify-center">
-      <Box className="flex items-center mb-2">
-        {icon}
-      </Box>
       {loading ? (
         <CircularProgress size={40} className="my-4" />
       ) : (
@@ -66,24 +62,15 @@ const SummaryStats: React.FC = () => {
 
         <Box className="flex flex-row flex-wrap gap-4 p-2">
           <StatCard
-            value={geneCount?.total || 0}
-            label="Genes"
-            icon={<FaDna size={24} className="text-blue-grey-500" />}
-            loading={countLoading}
-          />
-
-          <StatCard
             value={knowledgeCount.known}
             label="Annotations"
             sublabel="(functional characteristics)"
-            icon={<FaChartBar size={24} className="text-blue-grey-500" />}
             loading={statsLoading}
           />
 
           <StatCard
             value={knowledgeCount.unknown}
             label="Unknown function aspects"
-            icon={<FaQuestion size={24} className="text-blue-grey-500" />}
             loading={statsLoading}
           />
         </Box>

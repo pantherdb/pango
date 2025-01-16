@@ -72,10 +72,7 @@ export class GeneComponent implements OnInit, OnDestroy {
     ]
   }
 
-
-
   private _unsubscribeAll: Subject<any>;
-
 
   constructor(private route: ActivatedRoute,
     public pangoMenuService: PangoMenuService,
@@ -104,6 +101,7 @@ export class GeneComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((annotationPage: AnnotationPage) => {
         if (annotationPage && annotationPage.annotations.length > 0) {
+          console.log(annotationPage)
           this.annotation = annotationPage.annotations[0];
 
           const sortedAnnotations = orderBy(annotationPage.annotations, item => this.aspectOrder[item.term.aspect])
@@ -123,7 +121,6 @@ export class GeneComponent implements OnInit, OnDestroy {
           });
         }
       });
-
   }
 
   ngOnDestroy(): void {
@@ -132,23 +129,19 @@ export class GeneComponent implements OnInit, OnDestroy {
   }
 
   getAGRLink() {
-
     if (this.hgncId) {
       return environment.agrPrefixUrl + this.hgncId;
     }
 
     return environment.agrPrefixUrl;
-
   }
 
   getHGNCLink() {
-
     if (this.hgncId) {
       return environment.hgncPrefixUrl + this.hgncId;
     }
 
     return environment.hgncPrefixUrl;
-
   }
 
   getUcscLink(element: Annotation) {
@@ -167,8 +160,6 @@ export class GeneComponent implements OnInit, OnDestroy {
   }
 
   getFamilyLink(element: Annotation) {
-
     return `${environment.pantherFamilyUrl}book=${encodeURIComponent(element.pantherFamily)}&seq=${encodeURIComponent(element.longId)}`
   }
-
 }

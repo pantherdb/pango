@@ -11,6 +11,7 @@ import { TermFormComponent } from './annotation/forms/term-form/term-form.compon
 import { GeneFormComponent } from './annotation/forms/gene-form/gene-form.component';
 import { OverrepFormComponent } from './gene/overrep-form/overrep-form.component';
 import { CategoryStatsComponent } from './annotation/category-stats/category-stats.component';
+import { GeneSummaryTableComponent } from './gene/gene-summary-table/gene-summary-table.component';
 
 const routes = [];
 
@@ -24,7 +25,8 @@ const routes = [];
         GeneFormComponent,
         TermFormComponent,
         AnnotationGroupComponent,
-        OverrepFormComponent
+        OverrepFormComponent,
+        GeneSummaryTableComponent
     ],
     imports: [
         RouterModule.forChild(routes),
@@ -43,7 +45,8 @@ const routes = [];
         CategoryStatsComponent,
         GeneFormComponent,
         TermFormComponent,
-        OverrepFormComponent
+        OverrepFormComponent,
+        GeneSummaryTableComponent
     ],
     providers: []
 })

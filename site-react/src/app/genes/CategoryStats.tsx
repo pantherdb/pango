@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { useAppSelector } from "../hooks";
 import type { RootState } from "../store/store";
 import { useGetGenesStatsQuery } from "./genesApiSlice";
-import { ASPECT_MAP } from "./data/config";
+import { ASPECT_MAP } from "@/@pango.core/data/config";
 
 interface CategoryItem {
   id: string;

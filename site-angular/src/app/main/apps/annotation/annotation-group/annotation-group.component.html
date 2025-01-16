@@ -19,7 +19,6 @@
           </button>
         </td>
       </ng-container>
-
       <ng-container matColumnDef="gene">
         <th mat-header-cell *matHeaderCellDef class="pango-gene-cell">
           <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
@@ -89,10 +88,6 @@
                   </span>
                 </div>
                 <div fxFlex="">
-                  <!--     <span class="pango-circle-chip pango-chip-xs pango-aspect {{aspectMap[item.aspect]?.shorthand}}"
-                  fxLayout="column" fxLayoutAlign="center center">
-                  {{aspectMap[item.aspect]?.shorthand}}
-                </span> -->
                   <span class="pango-cell-description mr-4"> {{item.label}}
                     <span *ngIf="item.displayId" class="pango-cell-description-2">
                       <a href="{{amigoTermUrl}}{{item.id}}" target="_blank">{{item.displayId}}</a>
@@ -136,10 +131,6 @@
                   </span>
                 </div>
                 <div fxFlex="">
-                  <!--     <span class="pango-circle-chip pango-chip-xs pango-aspect {{aspectMap[item.aspect]?.shorthand}}"
-                  fxLayout="column" fxLayoutAlign="center center">
-                  {{aspectMap[item.aspect]?.shorthand}}
-                </span> -->
                   <span class="pango-cell-description mr-4"> {{item.label}}
                     <span *ngIf="item.displayId" class="pango-cell-description-2">
                       <a href="{{amigoTermUrl}}{{item.id}}" target="_blank">{{item.displayId}}</a>
