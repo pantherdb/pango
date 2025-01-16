@@ -12,55 +12,10 @@ $accent: map-get($theme, accent);
 
   border-bottom: 2px solid $pango-primary-color;
 
-  .pango-announcement {
-    padding: 0 10px 0 10px;
-    //background-color: rgb(168, 225, 238);
-    @include deep-height(30px);
-    color: inherit;
-    position: relative;
-    padding: 5px !important;
-    margin-bottom: 0 !important;
-    // border:none!
-    .pango-announcement-header {
-      @include deep-height(100%);
-    }
-
-    pango-version-banner {
-      margin: 5px 0;
-      padding: 5px;
-      display: block;
-      .pango-version-banner {
-        height: 40px;
-      }
-    }
-  }
-
   a {
     color: $pango-accent-color;
     &:hover {
       color: lighten($pango-accent-color, 10);
-    }
-  }
-
-  .pango-version-banner {
-    padding: 4px 16px;
-    text-align: center;
-    font-size: 14px;
-    font-style: normal;
-
-    &.pango-version-2024 {
-      color: #e3f2fd; /* light blue */
-      background-color: #259433;
-    }
-
-    &.pango-version-2023 {
-      color: #fff3e0; /* light orange */
-      background-color: #d46d05;
-    }
-
-    .pango-version-link {
-      color: inherit;
-      text-decoration: underline;
     }
   }
 
@@ -74,74 +29,11 @@ $accent: map-get($theme, accent);
 
     mat-toolbar-row {
       @include deep-height(40px);
-
-      &.pango-subtoolbar {
-        button {
-          margin-right: 8px;
-          height: 30px;
-          line-height: 30px;
-          padding-left: 8px;
-          padding-right: 8px;
-          font-size: 12px;
-        }
-      }
     }
     .pango-friends-logo {
       .pango-logo {
         padding: 5px;
       }
-    }
-
-    mat-toolbar-row {
-      @include deep-height(40px);
-
-      &.pango-subtoolbar {
-        button {
-          margin-right: 8px;
-          height: 30px;
-          line-height: 30px;
-          padding-left: 8px;
-          padding-right: 8px;
-          font-size: 12px;
-        }
-      }
-    }
-
-    .pango-apps-button {
-      margin-right: 12px;
-      //background-color: #aaeaf6;
-      border-radius: 0 !important;
-      @include deep-height(50px);
-      @include deep-width(50px);
-      line-height: 55px;
-      color: map-get($primary, default);
-
-      mat-icon {
-        @include pango-icon-size(30px);
-      }
-    }
-
-    .pango-cam-title {
-      max-width: 400px !important;
-    }
-
-    .pango-cam-heading-section {
-      height: 100%;
-
-      .pango-section-label {
-        font-size: 12px;
-        color: #555;
-      }
-    }
-
-    .pango-title {
-      strong {
-        font-size: 12px;
-      }
-    }
-
-    .pango-title-truncate {
-      max-width: 200px;
     }
 
     .loading-bar {
@@ -161,7 +53,6 @@ $accent: map-get($theme, accent);
       height: 40px;
     }
 
-    //@include deep-width(130px);
     .pango-main-logo,
     .pango-sub-logo {
       cursor: pointer;

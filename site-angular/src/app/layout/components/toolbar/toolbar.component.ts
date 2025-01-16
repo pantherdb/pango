@@ -59,10 +59,6 @@ export class PangoToolbarComponent {
         }
     }
 
-    search(value): void {
-        console.log(value);
-    }
-
     openLeftDrawer() {
         this.pangoMenuService.openLeftDrawer();
     }

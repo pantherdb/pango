@@ -1,149 +1,103 @@
 import type React from 'react';
 import { useState } from 'react';
-import { styled } from '@mui/material/styles';
-import type { AppBarProps as MuiAppBarProps } from '@mui/material';
-import {
-  Box,
-  Drawer,
-  IconButton,
-  useTheme,
-  useMediaQuery,
-  AppBar as MuiAppBar,
-  Toolbar
-} from '@mui/material';
-import { MdClose, MdMenu } from 'react-icons/md';
-import { Link, Outlet } from 'react-router-dom';
-
-const drawerWidth = 380;
-
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
-}
+import { Box, Drawer, IconButton } from '@mui/material';
+import { MdClose } from 'react-icons/md';
+import { Outlet } from 'react-router-dom';
+import PangoToolbar from './Toolbar';
 
 interface LayoutProps {
   leftDrawerContent?: React.ReactNode;
   rightDrawerContent?: React.ReactNode;
 }
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const Main = styled('main', {
-  shouldForwardProp: (prop) => prop !== 'open' && prop !== 'rightOpen'
-})<{ open?: boolean; rightOpen?: boolean }>(({ theme, open, rightOpen }) => ({
-  flexGrow: 1,
-  padding: 0,
-  transition: theme.transitions.create('margin', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  marginLeft: `-${drawerWidth}px`,
-  ...(open && {
-    marginLeft: 0,
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-  ...(rightOpen && {
-    marginRight: '500px',
-  }),
-}));
+const drawerWidth = 380;
 
 const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(true);
   const [rightDrawerOpen, setRightDrawerOpen] = useState(false);
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <AppBar position="fixed" open={leftDrawerOpen}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={() => setLeftDrawerOpen(!leftDrawerOpen)}
-            edge="start"
-            sx={{ mr: 2, ...(leftDrawerOpen && { display: 'none' }) }}
-          >
-            <MdMenu />
-          </IconButton>
-          <Link to="/" className="no-underline hover:text-gray-600 text-2xl md:text-3xl">
-            <strong>PAN-GO:</strong> Human Functionome
-          </Link>
-        </Toolbar>
-      </AppBar>
+    <Box className="flex flex-col h-screen w-full">
+      <PangoToolbar
+        openLeftDrawer={() => setLeftDrawerOpen(true)}
+        showLoadingBar={false}
+      />
 
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant={isMobile ? 'temporary' : 'persistent'}
-        anchor="left"
-        open={leftDrawerOpen}
-      >
-        <DrawerHeader>
-          <IconButton onClick={() => setLeftDrawerOpen(false)}>
-            <MdClose />
-          </IconButton>
-        </DrawerHeader>
-        {leftDrawerContent}
-      </Drawer>
-
-      <Main open={leftDrawerOpen} rightOpen={rightDrawerOpen}>
-        <DrawerHeader />
-        <Outlet />
-      </Main>
-
-      {rightDrawerContent && (
-        <Drawer
-          anchor="right"
-          open={rightDrawerOpen}
-          onClose={() => setRightDrawerOpen(false)}
+      <Box className="flex flex-1 w-full fixed" style={{ top: 50, bottom: 0 }}>
+        <Box
           sx={{
-            width: 500,
-            flexShrink: 0,
-            '& .MuiDrawer-paper': {
-              width: 500,
-            },
+            width: leftDrawerOpen ? drawerWidth : 0,
+            height: '100%',
+            transition: theme => theme.transitions.create('width', {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
+            overflow: 'hidden'
           }}
         >
-          <DrawerHeader>
-            <IconButton onClick={() => setRightDrawerOpen(false)}>
-              <MdClose />
-            </IconButton>
-          </DrawerHeader>
-          {rightDrawerContent}
-        </Drawer>
-      )}
+          <Drawer
+            variant="persistent"
+            anchor="left"
+            open={leftDrawerOpen}
+            sx={{
+              height: '100%',
+              '& .MuiDrawer-paper': {
+                position: 'static',
+                width: drawerWidth,
+                height: '100%',
+                overflow: 'auto'
+              },
+            }}
+          >
+            <Box className="flex justify-end p-1">
+              <IconButton onClick={() => setLeftDrawerOpen(false)}>
+                <MdClose />
+              </IconButton>
+            </Box>
+            {leftDrawerContent}
+          </Drawer>
+        </Box>
+
+        <Box className="flex-1 overflow-auto">
+          <Outlet />
+        </Box>
+
+        <Box
+          sx={{
+            width: rightDrawerOpen ? 500 : 0,
+            height: '100%',
+            transition: theme => theme.transitions.create('width', {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
+            overflow: 'hidden'
+          }}
+        >
+          {rightDrawerContent && (
+            <Drawer
+              variant="persistent"
+              anchor="right"
+              open={rightDrawerOpen}
+              sx={{
+                height: '100%',
+                '& .MuiDrawer-paper': {
+                  position: 'static',
+                  width: 500,
+                  height: '100%',
+                  overflow: 'auto'
+                },
+              }}
+            >
+              <Box className="flex justify-end p-1">
+                <IconButton onClick={() => setRightDrawerOpen(false)}>
+                  <MdClose />
+                </IconButton>
+              </Box>
+              {rightDrawerContent}
+            </Drawer>
+          )}
+        </Box>
+      </Box>
     </Box>
   );
 };

@@ -1,7 +1,4 @@
 <div class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
-  <!--   <ng-container *ngIf="currentVersion !== ApiVersion.V2023">
-    <pango-version-banner> </pango-version-banner>
-  </ng-container> -->
   <mat-toolbar fxLayout="row" fxLayoutAlign="start center">
     <mat-progress-bar *ngIf="showLoadingBar" class="loading-bar" color="accent" mode="indeterminate"></mat-progress-bar>
     <a (click)="openLeftDrawer()" class="pango-bars mr-8" aria-label="Close dialog">
@@ -27,8 +24,6 @@
       </div>
     </div>
     <div class="pango-br pl-12 pr-12" fxHide.lt-md fxLayout="row" fxLayoutAlign="start center">
-      <!-- <a mat-button [routerLink]="['/download']">Export</a> -->
-
       <a mat-button class="pango-icon-button" [matMenuTriggerFor]="exportMenu">
         Download
       </a>
@@ -39,12 +34,6 @@
         <a mat-menu-item href="https://functionome.org/download/export_annotations.json.gz" class="">
           As JSON
         </a>
-        <!--   <a mat-menu-item href="http://data.pantherdb.org/ftp/downloads/pango/export_annotations.zip" class="">
-          As CSV
-        </a>
-        <a mat-menu-item href="http://data.pantherdb.org/ftp/downloads/pango/export_annotations.json.gz" class="">
-          As JSON
-        </a> -->
       </mat-menu>
 
       <a mat-button [href]="pangoUtilService.getVersionedLink('/about')">About</a>
