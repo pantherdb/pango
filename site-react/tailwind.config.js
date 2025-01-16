@@ -8,8 +8,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        pangodark: pangoColors.pangodark,
-        pangoAccent: pangoColors.pangoAccent,
+        primary: pangoColors.pangodark,
+        accent: pangoColors.pangoAccent,
       },
     },
   },

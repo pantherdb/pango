@@ -29,6 +29,7 @@
     "axios": "^1.7.2",
     "framer-motion": "^11.11.17",
     "graphql-request": "^7.0.1",
+    "panther-overrep-form": "^0.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.52.0",

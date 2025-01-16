@@ -10,7 +10,6 @@ import { debounceTime, distinctUntilChanged, filter, switchMap, takeUntil } from
 import { AnnotationPage } from '../../models/page';
 import { AnnotationService } from '../../services/annotation.service';
 import { Annotation, AutocompleteFilterArgs, AutocompleteType } from '../../models/annotation';
-import { SelectionModel } from '@angular/cdk/collections';
 import { PangoDataService } from '@pango.common/services/pango-data.service';
 import { pangoData } from '@pango.common/data/config';
 
@@ -64,14 +63,7 @@ export class GeneFormComponent implements OnInit, OnDestroy {
 
   createFilterForm() {
     return new UntypedFormGroup({
-      slimTerms: new UntypedFormControl(),
       genes: new UntypedFormControl(),
-    });
-  }
-
-  clear() {
-    this.searchInput.forEach((item) => {
-      item.nativeElement.value = null;
     });
   }
 

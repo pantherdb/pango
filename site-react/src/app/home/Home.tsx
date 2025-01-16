@@ -5,6 +5,8 @@ import { MdCancel } from 'react-icons/md';
 import { SearchFilterType } from '../annotations/models/annotation';
 import Genes from '../genes/Genes';
 import SummaryStats from '../genes/GeneStats';
+import GeneForm from '../genes/forms/GeneForm';
+import OverrepForm from '../genes/forms/OverrepForm';
 
 const Home: React.FC = () => {
   const [searchCriteria, setSearchCriteria] = useState({
@@ -47,9 +49,8 @@ const Home: React.FC = () => {
               that have been assigned based on expert review and integration of available experimental evidence
               in 6,333 families of protein-coding genes.
             </h2>
-            {/*   <VersionBanner /> */}
             <div className="mt-3 flex items-center">
-              {/*    <GeneForm /> */}
+              <GeneForm />
               <h3 className="ml-3 text-xs text-white">
                 See any missing or incorrect functions?
                 <a href="https://help.geneontology.org/"
@@ -66,7 +67,7 @@ const Home: React.FC = () => {
               PAN-GO Enrichment Analysis
               <span className="ml-2">ⓘ</span>
             </h2>
-            {/*      <OverrepForm /> */}
+            <OverrepForm />
           </div>
         </div>
       </div>

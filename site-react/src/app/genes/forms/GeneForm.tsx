@@ -1,110 +1,130 @@
 import type React from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { TextField, FormControl, FormLabel, Button, Autocomplete, Chip } from '@mui/material';
-import type { SerializedError } from '@reduxjs/toolkit';
-import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { useState, useEffect } from 'react';
+import { Autocomplete, TextField, Chip, Tooltip, Paper } from '@mui/material';
+import { IoClose } from 'react-icons/io5';
+import { useGetAutocompleteQuery } from '@/app/annotations/annotationsApiSlice';
+import { AutocompleteType } from '../models/gene';
 
-export interface IFormInput {
-  title: string;
-  destination: string[];
-  description: string;
+interface Gene {
+  gene: string;
+  geneSymbol: string;
+  geneName: string;
 }
 
 interface GeneFormProps {
-  onSubmit: (success: boolean) => void;
-  onCancel: () => void;
+  maxGenes?: number;
 }
 
-export const getErrorMessage = (error: FetchBaseQueryError | SerializedError): string => {
-  if ('status' in error) {
-    if ('data' in error && typeof error.data === 'object' && error.data !== null) {
-      return (error.data as { message?: string }).message || 'Unknown server error';
-    }
-    return 'Server error';
-  }
-  return error.message || 'Unknown error';
-};
+const GeneForm: React.FC<GeneFormProps> = ({ maxGenes = 10 }) => {
+  const [open, setOpen] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [debouncedValue, setDebouncedValue] = useState('');
+  const [selectedGenes, setSelectedGenes] = useState<Gene[]>([]);
 
-const GeneForm: React.FC<GeneFormProps> = ({ onSubmit, onCancel }) => {
-  const { register, handleSubmit, control, formState: { errors } } = useForm<IFormInput>();
-  const [createGene, { isLoading, isError, error }] = useCreateGeneMutation();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedValue(inputValue);
+    }, 300);
 
-  const onSubmitForm = async (data: IFormInput) => {
-    try {
-      console.log("Submitting form data:", data);
-      await createGene(data).unwrap();
-      onSubmit(true); // Indicate successful submission
-    } catch (err) {
-      console.error("Submission error:", err);
-      onSubmit(false); // Indicate submission failure
+    return () => clearTimeout(timer);
+  }, [inputValue]);
+
+  const { data: suggestions = [], isFetching } = useGetAutocompleteQuery({
+    type: AutocompleteType.GENE,
+    keyword: debouncedValue
+  }, {
+    skip: !debouncedValue || debouncedValue.length < 2
+  });
+
+  const handleSelect = (_: unknown, gene: Gene | null) => {
+    if (gene && selectedGenes.length < maxGenes) {
+      setSelectedGenes(prev => [...prev, gene]);
+      setInputValue('');
+      setOpen(false);
     }
   };
 
+  const handleDelete = (geneToDelete: Gene) => {
+    setSelectedGenes(prev => prev.filter(gene => gene.gene !== geneToDelete.gene));
+  };
+
   return (
-    <div className="flex flex-auto flex-col p-2">
-      <form
-        id="geneForm"
-        name="geneForm"
-        noValidate
-        className="mt-2 flex w-full flex-col justify-center"
-        onSubmit={handleSubmit(onSubmitForm)}
+    <Paper className="w-full bg-white">
+      <Tooltip
+        title="Find all functional characteristics for a gene of interest"
+        placement="top"
+        enterDelay={1500}
       >
-        <FormControl fullWidth margin="normal">
-          <FormLabel>Title</FormLabel>
-          <TextField
-            {...register('title', { required: true })}
-            variant="outlined"
-            error={!!errors.title}
-            helperText={errors.title ? 'Title is required' : ''}
-          />
-        </FormControl>
-        <FormControl fullWidth margin="normal">
-          <FormLabel>Destination</FormLabel>
-          <Controller
-            name="destination"
-            control={control}
-            render={({ field }) => (
-              <Autocomplete
-                multiple
-                freeSolo
-                options={[]}
-                value={field.value || []}
-                onChange={(event, newValue) => field.onChange(newValue)}
-                renderTags={(value: readonly string[], getTagProps) =>
-                  value.map((option: string, index: number) => {
-                    const { key, ...tagProps } = getTagProps({ index });
-                    return <Chip key={key} variant="outlined" label={option} {...tagProps} />;
-                  })
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    variant="outlined"
-                    placeholder="Add destinations"
-                  />
-                )}
-              />
-            )}
-          />
-        </FormControl>
-        <FormControl fullWidth margin="normal">
-          <FormLabel>Description</FormLabel>
-          <TextField
-            {...register('description')}
-            variant="outlined"
-            multiline
-            rows={3}
-          />
-        </FormControl>
-        {isError && <p className="error">An error occurred: {getErrorMessage(error)}</p>}
-        <div className="flex justify-end mt-4">
-          <Button variant="outlined" onClick={onCancel} disabled={isLoading}>Cancel</Button>
-          <Button variant="outlined" color="primary" type="submit" disabled={isLoading} className="ml-2">
-            {isLoading ? 'Submitting...' : 'Submit'}
-          </Button>
-        </div>
-      </form>
-    </div>
+        <Autocomplete
+          open={open}
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          options={suggestions}
+          value={null}
+          inputValue={inputValue}
+          onInputChange={(_, newValue) => {
+            setInputValue(newValue);
+            if (newValue.length >= 2) setOpen(true);
+          }}
+          onChange={handleSelect}
+          getOptionLabel={(option: Gene) => option.gene}
+          loading={isFetching}
+          filterOptions={(x) => x}
+          disabled={selectedGenes.length >= maxGenes}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Filter by Gene"
+              variant="outlined"
+              InputProps={{
+                ...params.InputProps,
+                sx: { bgcolor: 'white' },
+                startAdornment: (
+                  <>
+                    {selectedGenes.map((gene) => (
+                      <Chip
+                        key={gene.gene}
+                        size="small"
+                        label={
+                          <div className="flex flex-col py-0.5">
+                            <div className="flex items-center gap-1">
+                              <span>{gene.gene}</span>
+                              <span className="text-xs">({gene.geneSymbol})</span>
+                            </div>
+                            <span className="text-xs text-gray-600">{gene.geneName}</span>
+                          </div>
+                        }
+                        onDelete={() => handleDelete(gene)}
+                        deleteIcon={<IoClose size={16} />}
+                        className="mx-1"
+                      />
+                    ))}
+                    {params.InputProps.startAdornment}
+                  </>
+                )
+              }}
+            />
+          )}
+          renderOption={(optionProps, option: Gene) => {
+            const { key, ...props } = optionProps;
+            return (
+              <li key={option.gene} {...props}>
+                <div className="flex flex-col w-full p-2">
+                  <div className="flex justify-between">
+                    <span>{option.gene}</span>
+                    <span className="text-sm text-gray-600">({option.geneSymbol})</span>
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    {option.geneName}
+                  </div>
+                </div>
+              </li>
+            );
+          }}
+          noOptionsText="Type to search genes..."
+        />
+      </Tooltip>
+    </Paper>
   );
 };
 

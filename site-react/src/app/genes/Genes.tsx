@@ -149,7 +149,7 @@ const Genes: FC<GenesProps> = ({ pageNumber = 1, pageSize = 50 }) => {
                       <a href={getUniprotLink(gene)}>{gene.gene}</a>
                     </div>
                     {gene.coordinatesChrNum && (
-                      <div className="bg-[#523684] text-[#edd776] px-1 py-0.5 inline-block">
+                      <div className="bg-purple-800 text-accent-500 px-1 py-0.5 inline-block">
                         <a
                           href={`${ENVIRONMENT.ucscUrl}${gene.coordinatesChrNum}:${gene.coordinatesStart}-${gene.coordinatesEnd}`}
                           className="text-[10px]"

@@ -58,8 +58,8 @@ const annotationsApi = apiService.enhanceEndpoints({
           keyword
         }),
       }),
-      transformResponse: (response: { data?: { slimTermsAutocomplete: any }; errors?: ApiResponseError[] }) => {
-        return transformResponse<{ slimTermsAutocomplete: any }>(response).slimTermsAutocomplete;
+      transformResponse: (response: { data?: { autocomplete: any }; errors?: ApiResponseError[] }) => {
+        return transformResponse<{ autocomplete: any }>(response).autocomplete;
       },
       providesTags: ['autocomplete']
     }),
