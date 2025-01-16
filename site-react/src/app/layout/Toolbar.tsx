@@ -1,6 +1,6 @@
 import type React from 'react';
 import { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Button, Menu, MenuItem, Box } from '@mui/material';
+import { AppBar, Toolbar as MuiToolbar, IconButton, Button, Menu, MenuItem, Box, LinearProgress } from '@mui/material';
 import { FaBars, FaGithub } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ interface ToolbarProps {
   showLoadingBar?: boolean;
 }
 
-const PangoToolbar: React.FC<ToolbarProps> = ({ openLeftDrawer, showLoadingBar }) => {
+const Toolbar: React.FC<ToolbarProps> = ({ openLeftDrawer, showLoadingBar }) => {
   const [exportMenuAnchor, setExportMenuAnchor] = useState<null | HTMLElement>(null);
 
   const handleExportMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -30,7 +30,7 @@ const PangoToolbar: React.FC<ToolbarProps> = ({ openLeftDrawer, showLoadingBar }
         width: '100%'
       }}
     >
-      <Toolbar className="px-2 min-h-[50px]">
+      <MuiToolbar className="px-2 min-h-[50px]">
         {showLoadingBar && (
           <Box className="absolute top-0 left-0 right-0 w-full">
             <LinearProgress color="secondary" />
@@ -46,15 +46,15 @@ const PangoToolbar: React.FC<ToolbarProps> = ({ openLeftDrawer, showLoadingBar }
           <FaBars />
         </IconButton>
 
-        <Box className="flex items-center h-full w-[180px]">
-          <Link to="/" className="no-underline hover:text-accent-light">
-            <span className="text-xl font-bold mr-1">PAN-GO</span>
-            <span className="text-xl">Human Functionome</span>
+        <Box className="flex items-center h-full  text-accent-700">
+          <Link to="/" className="no-underline hover:text-accent-200">
+            <span className="text-2xl font-bold mr-1">PAN-GO</span>
+            <span className="text-2xl">Human Functionome</span>
           </Link>
         </Box>
 
         <Box className="hidden md:flex flex-1 justify-end items-center">
-          <Box className="flex items-center border-r border-accent/30 pr-3">
+          <Box className="flex items-center border-r border-accent/30 pr-3 text-accent-700">
             <IconButton
               color="inherit"
               href="https://github.com/pantherdb/pango"
@@ -68,6 +68,7 @@ const PangoToolbar: React.FC<ToolbarProps> = ({ openLeftDrawer, showLoadingBar }
           <Box className="flex items-center px-3 border-r border-accent/30">
             <Button
               color="inherit"
+              className='!text-accent-700 hover:text-accent-200'
               onClick={handleExportMenu}
             >
               Download
@@ -88,6 +89,7 @@ const PangoToolbar: React.FC<ToolbarProps> = ({ openLeftDrawer, showLoadingBar }
             <Button
               color="inherit"
               component={Link}
+              className='!text-accent-700 hover:text-accent-200'
               to="/about"
             >
               About
@@ -107,9 +109,9 @@ const PangoToolbar: React.FC<ToolbarProps> = ({ openLeftDrawer, showLoadingBar }
             </Box>
           </Box>
         </Box>
-      </Toolbar>
+      </MuiToolbar>
     </AppBar>
   );
 };
 
-export default PangoToolbar;
+export default Toolbar;

@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { Box, Drawer, IconButton } from '@mui/material';
 import { MdClose } from 'react-icons/md';
 import { Outlet } from 'react-router-dom';
-import PangoToolbar from './Toolbar';
+import Toolbar from './Toolbar';
+import Footer from './Footer';
 
 interface LayoutProps {
   leftDrawerContent?: React.ReactNode;
@@ -18,7 +19,7 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
 
   return (
     <Box className="flex flex-col h-screen w-full">
-      <PangoToolbar
+      <Toolbar
         openLeftDrawer={() => setLeftDrawerOpen(true)}
         showLoadingBar={false}
       />
@@ -60,6 +61,7 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
 
         <Box className="flex-1 overflow-auto">
           <Outlet />
+          <Footer />
         </Box>
 
         <Box

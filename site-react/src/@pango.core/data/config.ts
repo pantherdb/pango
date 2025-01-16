@@ -1,3 +1,5 @@
+import { getColor } from "./colors";
+
 export const ASPECT_MAP = {
   'molecular function': {
     id: 'molecular function',
@@ -5,7 +7,7 @@ export const ASPECT_MAP = {
     shorthand: 'MF',
     label: 'Molecular Function',
     description: 'What a protein encoded by the gene does at the molecular level',
-    //  color: getColor('green', 500)
+    color: getColor('green', 500)
   },
   'biological process': {
     id: 'biological process',
@@ -13,7 +15,7 @@ export const ASPECT_MAP = {
     shorthand: 'BP',
     label: 'Biological Process',
     description: '“System” functions, at the level of the cell or whole organism, that the gene helps to carry out, usually together with other genes',
-    // color: getColor('brown', 500)
+    color: getColor('brown', 500)
   },
   'cellular component': {
     id: 'cellular component',
@@ -21,7 +23,7 @@ export const ASPECT_MAP = {
     shorthand: 'CC',
     label: 'Cellular Component',
     description: 'The part of a cell where a protein encoded by the gene performs its molecular function',
-    //  color: getColor('purple', 500)
+    color: getColor('purple', 500)
   }
 }
 
@@ -31,16 +33,16 @@ export const TERM_TYPE_MAP = {
     id: 'known',
     label: 'Known Aspects',
     hint: 'all',
-    description: "Show only annotations of known functions",
-    // color: getColor('green', 500)
+    description: "Show only genes of known functions",
+    color: getColor('green', 500)
   },
 
   'unknown': {
     id: 'unknown',
     label: 'Unknown Aspects',
     hint: '',
-    description: "Show only “placeholder” annotations indicating unknown function aspects",
-    // color: getColor('red', 500)
+    description: "Show only “placeholder” genes indicating unknown function aspects",
+    color: getColor('red', 500)
   },
 }
 
@@ -49,8 +51,8 @@ export const EVIDENCE_TYPE_MAP = {
     id: 'direct',
     label: 'Known Aspects',
     hint: 'direct evidence',
-    description: 'Annotations supported by experimental evidence directly for that gene',
-    //color: getColor('green', 500),
+    description: 'Genes supported by experimental evidence directly for that gene',
+    color: getColor('green', 500),
     shorthand: 'D',
     iconTooltip: 'Direct evidence: This characteristic is supported by experimental evidence directly for this gene, and evolutionary modeling including information about related genes'
   },
@@ -58,8 +60,8 @@ export const EVIDENCE_TYPE_MAP = {
     id: 'homology',
     label: 'Known Aspects',
     hint: 'homology evidence',
-    description: 'Annotations supported only by experimental evidence for a homologous gene',
-    //color: getColor('red', 500),
+    description: 'Genes supported only by experimental evidence for a homologous gene',
+    color: getColor('red', 500),
     shorthand: 'H',
     iconTooltip: 'Homolog evidence: This characteristic is supported by experimental evidence for a homologous gene, using evolutionary modeling.'
 
@@ -68,8 +70,8 @@ export const EVIDENCE_TYPE_MAP = {
     id: 'n/a',
     label: 'Unknown Aspects',
     hint: 'unknown evidence',
-    description: "Evidence is not applicable to “placeholder” annotations indicating unknown function aspects",
-    //color: getColor('cyan', 500),
+    description: "Evidence is not applicable to “placeholder” genes indicating unknown function aspects",
+    color: getColor('cyan', 500),
     shorthand: 'na',
     iconTooltip: ''
   },
@@ -80,4 +82,3 @@ export const ASPECT_ORDER = {
   'biological process': 2,
   'cellular component': 3
 };
-

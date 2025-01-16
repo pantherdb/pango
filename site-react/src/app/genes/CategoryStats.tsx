@@ -1,9 +1,19 @@
-import { Paper, Typography, Chip } from "@mui/material";
-import { Box } from "@mui/system";
+import type React from 'react';
+import { useState } from 'react';
+import { Checkbox, Tooltip } from '@mui/material';
 import { useAppSelector } from "../hooks";
 import type { RootState } from "../store/store";
 import { useGetGenesStatsQuery } from "./genesApiSlice";
 import { ASPECT_MAP } from "@/@pango.core/data/config";
+
+interface AspectOption {
+  id: string;
+  label: string;
+  shorthand: string;
+  description: string;
+  color: string;
+  icon: string;
+}
 
 interface CategoryItem {
   id: string;
@@ -18,26 +28,33 @@ interface CategoryItem {
 }
 
 const CategoryStats: React.FC = () => {
+  const [selectedAspects, setSelectedAspects] = useState<string[]>(Object.values(ASPECT_MAP).map(aspect => aspect.id));
   const geneFilter = useAppSelector((state: RootState) => state.genes.filterArgs);
   const { data: geneStats } = useGetGenesStatsQuery(geneFilter);
+
+  const toggleAspect = (aspectId: string) => {
+    setSelectedAspects(prev =>
+      prev.includes(aspectId)
+        ? prev.filter(id => id !== aspectId)
+        : [...prev, aspectId]
+    );
+  };
 
   const buildCategoryBar = (buckets: any[]): CategoryItem[] => {
     if (!buckets?.length) return [];
 
-    const sortedBuckets = [...buckets].sort((a, b) => b.docCount - a.docCount);
-    const longest = sortedBuckets[0].docCount;
+    const filteredBuckets = buckets.filter(bucket =>
+      selectedAspects.includes(bucket.meta.aspect)
+    );
+
+    const sortedBuckets = [...filteredBuckets].sort((a, b) => b.docCount - a.docCount);
+    const longest = sortedBuckets[0]?.docCount || 0;
 
     return sortedBuckets.map((bucket) => {
       const ratio = bucket.docCount / longest;
-      let countPos;
-
-      if (ratio < 0.20) {
-        countPos = `${ratio * 100}%`;
-      } else if (ratio < 0.90) {
-        countPos = `${(ratio - 0.15) * 100}%`;
-      } else {
-        countPos = `${(ratio - 0.30) * 100}%`;
-      }
+      const countPos = ratio < 0.20 ? `${ratio * 100}%`
+        : ratio < 0.90 ? `${(ratio - 0.15) * 100}%`
+          : `${(ratio - 0.30) * 100}%`;
 
       return {
         ...bucket.meta,
@@ -51,66 +68,106 @@ const CategoryStats: React.FC = () => {
     });
   };
 
-  const slimTermFrequency = geneStats?.slimTermFrequency?.buckets ?
-    buildCategoryBar(geneStats.slimTermFrequency.buckets) : [];
+  const slimTermFrequency = geneStats?.slimTermFrequency?.buckets
+    ? buildCategoryBar(geneStats.slimTermFrequency.buckets)
+    : [];
 
   return (
-    <Box className="w-full">
-      <Paper className="h-full">
-        <Box className="p-4 border-b border-gray-200">
-          <Typography variant="h6">
-            GO Function Category Distribution
-          </Typography>
-        </Box>
+    <div className="w-full">
+      <div className="h-full">
+        <div className="p-4 border-b border-gray-200">
+          <h3 className="font-medium">GO Function Category Distribution</h3>
+        </div>
 
-        <Box className="p-4">
+        <div className="p-4">
+          <h5 className="mb-4">Show/hide GO aspects in category list below</h5>
+
+          <div className="flex flex-wrap gap-4 mb-6">
+            {Object.values(ASPECT_MAP).map((aspect: AspectOption) => (
+              <Tooltip
+                key={aspect.id}
+                title={aspect.description}
+                placement="top"
+                enterDelay={1500}
+              >
+                <div
+                  className="flex items-center gap-2 p-2 rounded cursor-pointer"
+                  style={{
+                    backgroundColor: selectedAspects.includes(aspect.id)
+                      ? `${aspect.color}50`
+                      : '#EEEEEE'
+                  }}
+                  onClick={() => toggleAspect(aspect.id)}
+                >
+                  <Checkbox
+                    checked={selectedAspects.includes(aspect.id)}
+                    onChange={() => toggleAspect(aspect.id)}
+                    onClick={(e) => e.stopPropagation()}
+                    size="small"
+                    sx={{
+                      color: `${aspect.color}50`,
+                      '&.Mui-checked': {
+                        color: aspect.color,
+                      },
+                    }}
+                  />
+                  <img
+                    src={`assets/images/activity/${aspect.icon}.png`}
+                    alt={aspect.label}
+                    className="w-6 h-6"
+                  />
+                  <span className="text-sm">{aspect.shorthand}</span>
+                </div>
+              </Tooltip>
+            ))}
+          </div>
+
           {slimTermFrequency.map((item) => (
-            <Box
+            <div
               key={item.id}
               className="flex items-center py-2 border-b border-gray-300 cursor-pointer hover:bg-gray-50"
             >
-              <Chip
-                label={item.aspectShorthand}
-                className="mr-4 text-[8px] font-bold"
-                size="small"
+              <div
+                className="mr-4 rounded-full text-xs font-extrabold h-9 w-9 flex items-center justify-center"
                 style={{
-                  border: `1px solid ${item.color}`,
+                  border: `1px solid ${item.color}50`,
                   color: item.color,
-                  height: '18px',
-                  width: '18px',
-                  padding: '2px'
+                  backgroundColor: `${item.color}20`
                 }}
-              />
+              >
+                {item.aspectShorthand}
+              </div>
 
-              <Box className="w-[100px]">
-                <Typography className="text-[12px] truncate">
-                  {item.label}
-                </Typography>
-                <Typography className="text-[8px] text-gray-500 italic truncate">
+              <div className="w-[100px]">
+                <div className="text-xs truncate">{item.label}</div>
+                <div className="text-xs text-gray-500 italic truncate">
                   {item.displayId}
-                </Typography>
-              </Box>
+                </div>
+              </div>
 
-              <Box className="flex-1 relative h-5">
-                <Box
-                  className="h-5 absolute"
+              <div className="flex-1 relative h-9">
+                <div
+                  className="h-full absolute"
                   style={{
                     backgroundColor: item.color,
                     width: item.width
                   }}
                 />
-                <Box
-                  className="absolute px-1 text-[8px] bg-gray-100 border border-gray-800 rounded-lg"
-                  style={{ left: item.countPos, top: '5px' }}
+                <div
+                  className="absolute px-2 py-1 text-xs bg-white border border-gray-300 rounded-lg transform -translate-y-1/2"
+                  style={{
+                    left: item.countPos,
+                    top: '50%'
+                  }}
                 >
                   {item.count} genes
-                </Box>
-              </Box>
-            </Box>
+                </div>
+              </div>
+            </div>
           ))}
-        </Box>
-      </Paper>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 };
 
