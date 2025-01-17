@@ -16,19 +16,35 @@ import { useGetGenesQuery } from './genesApiSlice';
 import type { Term, Gene } from './models/gene';
 import { EVIDENCE_TYPE_MAP } from '@/@pango.core/data/config';
 import { ENVIRONMENT } from '@/@pango.core/data/constants';
+import { useAppSelector } from '../hooks';
+import type { RootState } from '../store/store';
 
 interface GenesProps {
-  pageNumber?: number;
-  pageSize?: number;
+  page?: number;
+  size?: number;
 }
 
-const Genes: FC<GenesProps> = ({ pageNumber = 1, pageSize = 50 }) => {
-  const { data, isLoading, error } = useGetGenesQuery({ pageNumber, pageSize });
+const Genes: FC<GenesProps> = ({ page = 0, size = 20 }) => {
+  const search = useAppSelector((state: RootState) => state.search);
+  const filter = {
+    geneIds: search.genes.map(g => g.gene),
+    slimTermIds: search.slimTerms.map(t => t.id)
+  };
+
+  const { data, isLoading, error } = useGetGenesQuery({
+    page,
+    size,
+    filter
+  });
+
   const genes = data?.genes ?? [];
+
+  console.log('Genes:', genes);
 
   const handleExpandClick = (gene: Gene) => {
     gene.expanded = !gene.expanded;
     gene.maxTerms = gene.expanded ? 500 : 2;
+
   };
 
   const getUniprotLink = (gene: Gene) => {
@@ -176,8 +192,8 @@ const Genes: FC<GenesProps> = ({ pageNumber = 1, pageSize = 50 }) => {
         <TablePagination
           component="div"
           count={data?.total || 0}
-          page={pageNumber - 1}
-          rowsPerPage={pageSize}
+          page={page - 1}
+          rowsPerPage={size}
           onPageChange={(_, newPage) => {
             // Handle page change
           }}

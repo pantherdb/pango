@@ -108,13 +108,6 @@ export interface GeneStats {
   slimTermFrequency: Frequency;
 }
 
-export enum SearchFilterType {
-  TERMS = 'terms',
-  SLIM_TERMS = "slimTerms",
-  GENES = 'genes',
-  ASPECTS = 'aspects',
-};
-
 export interface GenesApiResponse {
   genes: Gene[];
 }

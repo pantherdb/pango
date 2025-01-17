@@ -9,13 +9,22 @@ import type { GeneStats } from '../annotations/models/annotation';
 export const addTagTypes = ['gene', 'gene-stats'] as const;
 
 const genesApi = apiService.enhanceEndpoints({
-  addTagTypes: addTagTypes
+  addTagTypes: ['gene', 'gene-stats']
 }).injectEndpoints({
   endpoints: (builder) => ({
     getGenes: builder.query({
-      query: () => ({
+      query: ({ page, size, filter }) => ({
         ...baseGraphQLRequest,
-        body: createGraphQLBody(GET_GENES_QUERY, { filter: { appType: 'self_care' } }),
+        body: createGraphQLBody(GET_GENES_QUERY, {
+          filterArgs: {
+            geneIds: filter?.geneIds,
+            slimTermIds: filter?.slimTermIds
+          },
+          pageArgs: {
+            page,
+            size
+          }
+        }),
       }),
       providesTags: ['gene'],
       transformResponse: (response: { data?: GenesApiResponse; errors?: ApiResponseError[] }): GenesApiResponse => {
@@ -26,21 +35,29 @@ const genesApi = apiService.enhanceEndpoints({
         };
       }
     }),
-
     getGenesCount: builder.query({
-      query: () => ({
+      query: ({ filter }) => ({
         ...baseGraphQLRequest,
-        body: createGraphQLBody(GET_GENES_COUNT_QUERY),
+        body: createGraphQLBody(GET_GENES_COUNT_QUERY, {
+          filterArgs: {
+            geneIds: filter?.geneIds,
+            slimTermIds: filter?.slimTermIds
+          }
+        }),
       }),
       transformResponse: (response: { data?: { genesCount: { total: number } } }) =>
         response.data?.genesCount || { total: 0 },
       providesTags: ['gene']
     }),
-
     getGenesStats: builder.query({
-      query: () => ({
+      query: ({ filter }) => ({
         ...baseGraphQLRequest,
-        body: createGraphQLBody(GET_GENES_STATS_QUERY),
+        body: createGraphQLBody(GET_GENES_STATS_QUERY, {
+          filterArgs: {
+            geneIds: filter?.geneIds,
+            slimTermIds: filter?.slimTermIds
+          }
+        }),
       }),
       transformResponse: (response: { data?: { geneStats: GeneStats } }) =>
         response.data?.geneStats,

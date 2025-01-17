@@ -55,7 +55,11 @@ const annotationsApi = apiService.enhanceEndpoints({
         ...baseGraphQLRequest,
         body: createGraphQLBody(GET_AUTOCOMPLETE_QUERY, {
           autocompleteType: type,
-          keyword
+          keyword,
+          filterArgs: {
+            geneIds: [],
+            slimTermIds: []
+          },
         }),
       }),
       transformResponse: (response: { data?: { autocomplete: any }; errors?: ApiResponseError[] }) => {

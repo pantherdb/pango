@@ -6,7 +6,7 @@ import { store } from "./app/store/store"
 import "./index.css"
 import './styles/app-base.css';
 import './styles/app-components.css';
-import './styles/app-utilities.css';
+//import './styles/app-utilities.css';
 
 const container = document.getElementById("root")
 

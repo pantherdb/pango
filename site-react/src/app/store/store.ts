@@ -7,6 +7,7 @@ import annotationModalSliceReducer from './../annotations/dialogs/annotationModa
 import { geneSlice } from './../genes/genesSlice';
 import { annotationSlice } from './../annotations/annotationsSlice';
 import { drawerSlice } from "@/@pango.core/components/drawer/drawerSlice";
+import { searchSlice } from "@/features/search/searchSlice";
 
 
 
@@ -15,9 +16,11 @@ import { drawerSlice } from "@/@pango.core/components/drawer/drawerSlice";
 const rootReducer = combineSlices(
   {
     selectedAnnotation: selectedAnnotationReducer,
+    search: searchSlice.reducer,
     genes: geneSlice.reducer,
     annotations: annotationSlice.reducer,
     drawer: drawerSlice.reducer,
+
     annotationModal: annotationModalSliceReducer,
     [apiService.reducerPath]: apiService.reducer
   })

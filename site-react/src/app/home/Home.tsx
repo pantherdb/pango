@@ -1,19 +1,17 @@
 import type React from 'react';
 import { useState } from 'react';
-import { Box, Drawer, Button, Chip, Tooltip } from '@mui/material';
-import { MdCancel } from 'react-icons/md';
-import { SearchFilterType } from '../annotations/models/annotation';
+import { Box, Chip, Tooltip } from '@mui/material';
 import Genes from '../genes/Genes';
 import SummaryStats from '../genes/GeneStats';
 import GeneForm from '../genes/forms/GeneForm';
 import OverrepForm from '../genes/forms/OverrepForm';
+import { SearchFilterType } from '@/features/search/search';
 
 const Home: React.FC = () => {
   const [searchCriteria, setSearchCriteria] = useState({
     filtersCount: 0,
     [SearchFilterType.GENES]: [],
     [SearchFilterType.SLIM_TERMS]: [],
-    [SearchFilterType.ASPECTS]: [],
   });
 
   const clearAllFilters = () => {
@@ -21,7 +19,6 @@ const Home: React.FC = () => {
       filtersCount: 0,
       [SearchFilterType.GENES]: [],
       [SearchFilterType.SLIM_TERMS]: [],
-      [SearchFilterType.ASPECTS]: [],
     });
   };
 

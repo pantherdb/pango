@@ -1,25 +1,27 @@
+
+// GeneForm updated to use search state
 import type React from 'react';
 import { useState, useEffect } from 'react';
 import { Autocomplete, TextField, Chip, Tooltip, Paper } from '@mui/material';
 import { IoClose } from 'react-icons/io5';
 import { useGetAutocompleteQuery } from '@/app/annotations/annotationsApiSlice';
+import type { Gene } from '../models/gene';
 import { AutocompleteType } from '../models/gene';
-
-interface Gene {
-  gene: string;
-  geneSymbol: string;
-  geneName: string;
-}
+import { SearchFilterType } from '@/features/search/search';
+import { addItem, removeItem } from '@/features/search/searchSlice';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import type { RootState } from '@/app/store/store';
 
 interface GeneFormProps {
   maxGenes?: number;
 }
 
 const GeneForm: React.FC<GeneFormProps> = ({ maxGenes = 10 }) => {
+  const dispatch = useAppDispatch();
+  const selectedGenes = useAppSelector((state: RootState) => state.search.genes);
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [debouncedValue, setDebouncedValue] = useState('');
-  const [selectedGenes, setSelectedGenes] = useState<Gene[]>([]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -38,14 +40,14 @@ const GeneForm: React.FC<GeneFormProps> = ({ maxGenes = 10 }) => {
 
   const handleSelect = (_: unknown, gene: Gene | null) => {
     if (gene && selectedGenes.length < maxGenes) {
-      setSelectedGenes(prev => [...prev, gene]);
+      dispatch(addItem({ type: SearchFilterType.GENES, item: gene }));
       setInputValue('');
       setOpen(false);
     }
   };
 
   const handleDelete = (geneToDelete: Gene) => {
-    setSelectedGenes(prev => prev.filter(gene => gene.gene !== geneToDelete.gene));
+    dispatch(removeItem({ type: SearchFilterType.GENES, id: geneToDelete.gene }));
   };
 
   return (

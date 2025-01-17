@@ -29,9 +29,13 @@ interface CategoryItem {
 
 const CategoryStats: React.FC = () => {
   const [selectedAspects, setSelectedAspects] = useState<string[]>(Object.values(ASPECT_MAP).map(aspect => aspect.id));
-  const geneFilter = useAppSelector((state: RootState) => state.genes.filterArgs);
-  const { data: geneStats } = useGetGenesStatsQuery(geneFilter);
+  const search = useAppSelector((state: RootState) => state.search);
+  const filter = {
+    geneIds: search.genes.map(g => g.gene),
+    slimTermIds: search.slimTerms.map(t => t.id)
+  };
 
+  const { data: geneStats } = useGetGenesStatsQuery({ filter });
   const toggleAspect = (aspectId: string) => {
     setSelectedAspects(prev =>
       prev.includes(aspectId)

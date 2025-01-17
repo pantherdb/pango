@@ -108,12 +108,7 @@ export interface AnnotationStats {
   slimTermFrequency: Frequency;
 }
 
-export enum SearchFilterType {
-  TERMS = 'terms',
-  SLIM_TERMS = "slimTerms",
-  GENES = 'genes',
-  ASPECTS = 'aspects',
-};
+
 
 export interface AnnotationsApiResponse {
   annotations: Annotation[];
