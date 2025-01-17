@@ -5,16 +5,16 @@ import { ThemeProvider } from '@emotion/react';
 import { CssBaseline } from '@mui/material';
 import theme from './@pango.core/theme/theme';
 import Home from './app/home/Home';
-import CategoryStats from './app/genes/CategoryStats';
 
 import { defineCustomElements } from 'panther-overrep-form/loader';
+import LeftDrawerContent from './app/home/LeftDrawer';
 defineCustomElements(window);
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout
-      leftDrawerContent={<CategoryStats />}
+      leftDrawerContent={<LeftDrawerContent />}
     />,
     children: [
       { path: '', element: <Home /> },

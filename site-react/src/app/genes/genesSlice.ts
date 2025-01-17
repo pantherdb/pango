@@ -19,7 +19,7 @@ const initialState: GeneState = {
   error: null
 };
 
-const geneSlice = createSlice({
+export const geneSlice = createSlice({
   name: 'gene',
   initialState,
   reducers: {
@@ -36,4 +36,3 @@ const geneSlice = createSlice({
 });
 
 export const { setFilterArgs, resetFilterArgs, setStats } = geneSlice.actions;
-export default geneSlice.reducer;

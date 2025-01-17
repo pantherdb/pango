@@ -5,6 +5,9 @@ import { MdClose } from 'react-icons/md';
 import { Outlet } from 'react-router-dom';
 import Toolbar from './Toolbar';
 import Footer from './Footer';
+import { selectLeftDrawerOpen, selectRightDrawerOpen, setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../hooks';
 
 interface LayoutProps {
   leftDrawerContent?: React.ReactNode;
@@ -14,13 +17,14 @@ interface LayoutProps {
 const drawerWidth = 380;
 
 const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }) => {
-  const [leftDrawerOpen, setLeftDrawerOpen] = useState(true);
-  const [rightDrawerOpen, setRightDrawerOpen] = useState(false);
+
+  const leftDrawerOpen = useSelector(selectLeftDrawerOpen);
+  const rightDrawerOpen = useSelector(selectRightDrawerOpen);
+
 
   return (
     <Box className="flex flex-col h-screen w-full">
       <Toolbar
-        openLeftDrawer={() => setLeftDrawerOpen(true)}
         showLoadingBar={false}
       />
 
@@ -50,11 +54,7 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
               },
             }}
           >
-            <Box className="flex justify-end p-1">
-              <IconButton onClick={() => setLeftDrawerOpen(false)}>
-                <MdClose />
-              </IconButton>
-            </Box>
+
             {leftDrawerContent}
           </Drawer>
         </Box>
@@ -90,11 +90,6 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
                 },
               }}
             >
-              <Box className="flex justify-end p-1">
-                <IconButton onClick={() => setRightDrawerOpen(false)}>
-                  <MdClose />
-                </IconButton>
-              </Box>
               {rightDrawerContent}
             </Drawer>
           )}

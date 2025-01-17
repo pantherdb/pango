@@ -35,33 +35,37 @@ const Home: React.FC = () => {
 
   return (
     <Box className="w-full flex flex-col">
-      <div className="bg-gradient-to-r from-[#00174f] to-[rgba(0,23,79,0.5)] bg-cover bg-top relative h-[350px] min-w-[800px] max-h-[400px] p-5"
+      <div className="bg-gradient-to-r from-[#00174f] to-[rgba(0,23,79,0.5)] bg-cover bg-top relative h-[350px] min-w-[800px] max-h-[400px] p-5 pt-10"
         style={{
           backgroundImage: `linear-gradient(to right, #00174f, rgba(0,23,79,0.8), rgba(0,23,79,0.5)), url('/assets/images/gene.jpeg')`
         }}>
         <div className="flex">
-          <div className="w-3/5">
-            <h1 className="text-2xl font-bold tracking-wider text-white mb-2">
+          <div className="w-3/5 flex-col">
+            <h1 className="text-4xl font-bold tracking-wider text-white mb-4">
               Functions of Human Genes
             </h1>
-            <h2 className="text-sm font-medium tracking-wide text-white max-w-lg">
+            <h2 className="text-lg leading-7 font-medium tracking-wider text-white mb-10 max-w-2xl">
               The table below shows, for each human protein-coding gene, the set of functional characteristics
               that have been assigned based on expert review and integration of available experimental evidence
-              in 6,333 families of protein-coding genes.
+              in 6,333 families of protein-coding genes.(<a className='text-accent-500 hover:text-accent-200'> Read
+                More </a>). Each
+              characteristic is linked to the experimental evidence supporting
             </h2>
-            <div className="mt-3 flex items-center">
-              <GeneForm />
-              <h3 className="ml-3 text-xs text-white">
+            <div className='flex items-center'>
+              <div className='w-[300px] mr-4'>
+                <GeneForm />
+              </div>
+
+              <h3 className="text-xs text-white">
                 See any missing or incorrect functions?
                 <a href="https://help.geneontology.org/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#69f0ae] hover:text-[#81ffc0] ml-1">
+                  className="text-accent-500 hover:text-accent-200">
                   Let us know!
                 </a>
               </h3>
-            </div>
-          </div>
+            </div>    </div>
           <div className="w-2/5 p-3">
             <h2 className="text-white text-sm font-medium">
               PAN-GO Enrichment Analysis

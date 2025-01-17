@@ -4,8 +4,9 @@ import { setupListeners } from "@reduxjs/toolkit/query"
 import apiService from "./apiService"
 import selectedAnnotationReducer from './../annotations/annotationsSlice';
 import annotationModalSliceReducer from './../annotations/dialogs/annotationModalSlice';
-import genesReducer from './../genes/genesSlice';
-import annotationsReducer from './../annotations/annotationsSlice';
+import { geneSlice } from './../genes/genesSlice';
+import { annotationSlice } from './../annotations/annotationsSlice';
+import { drawerSlice } from "@/@pango.core/components/drawer/drawerSlice";
 
 
 
@@ -14,8 +15,9 @@ import annotationsReducer from './../annotations/annotationsSlice';
 const rootReducer = combineSlices(
   {
     selectedAnnotation: selectedAnnotationReducer,
-    genes: genesReducer,
-    annotations: annotationsReducer,
+    genes: geneSlice.reducer,
+    annotations: annotationSlice.reducer,
+    drawer: drawerSlice.reducer,
     annotationModal: annotationModalSliceReducer,
     [apiService.reducerPath]: apiService.reducer
   })

@@ -3,14 +3,16 @@ import { useState } from 'react';
 import { IconButton, Button, Menu, MenuItem, LinearProgress } from '@mui/material';
 import { FaBars, FaGithub } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../hooks';
+import { toggleLeftDrawer } from '@/@pango.core/components/drawer/drawerSlice';
 
 interface ToolbarProps {
-  openLeftDrawer: () => void;
   showLoadingBar?: boolean;
 }
 
-const Toolbar: React.FC<ToolbarProps> = ({ openLeftDrawer, showLoadingBar }) => {
+const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
   const [exportMenuAnchor, setExportMenuAnchor] = useState<null | HTMLElement>(null);
+  const dispatch = useAppDispatch();
 
   const handleExportMenu = (event: React.MouseEvent<HTMLElement>) => {
     setExportMenuAnchor(event.currentTarget);
@@ -31,7 +33,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ openLeftDrawer, showLoadingBar }) => 
 
         <IconButton
           color="inherit"
-          onClick={openLeftDrawer}
+          onClick={() => dispatch(toggleLeftDrawer())}
           className="mr-2"
           size="large"
         >
@@ -39,11 +41,11 @@ const Toolbar: React.FC<ToolbarProps> = ({ openLeftDrawer, showLoadingBar }) => 
         </IconButton>
 
         <div className="flex items-center h-full ">
-          <Link to="/" className="no-underline hover:text-accent-200">
-            <span className="text-2xl font-bold mr-1">PAN-GO</span>
+          <Link to="/" className="no-underline text-accent-500 hover:text-accent-200">
+            <span className="text-3xl font-bold mr-2">PAN-GO</span>
           </Link>
-          <Link to="/" className="no-underline hover:text-accent-200">
-            <span className="text-2xl">Human Functionome</span>
+          <Link to="/" className="no no-underline text-accent-500 hover:text-accent-200">
+            <span className="text-3xl">Human Functionome</span>
           </Link>
         </div>
 

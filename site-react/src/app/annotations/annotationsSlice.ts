@@ -25,7 +25,7 @@ const initialState: AnnotationState = {
   error: null
 };
 
-const annotationSlice = createSlice({
+export const annotationSlice = createSlice({
   name: 'annotation',
   initialState,
   reducers: {
