@@ -1,6 +1,6 @@
 import type React from 'react';
 import { useState } from 'react';
-import { AppBar, Toolbar as MuiToolbar, IconButton, Button, Menu, MenuItem, Box, LinearProgress } from '@mui/material';
+import { IconButton, Button, Menu, MenuItem, LinearProgress } from '@mui/material';
 import { FaBars, FaGithub } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -21,20 +21,12 @@ const Toolbar: React.FC<ToolbarProps> = ({ openLeftDrawer, showLoadingBar }) => 
   };
 
   return (
-    <AppBar
-      position="fixed"
-      className="border-b-2 border-primary"
-      sx={{
-        zIndex: 1300,
-        backgroundColor: 'primary.main',
-        width: '100%'
-      }}
-    >
-      <MuiToolbar className="px-2 min-h-[50px]">
+    <div className="fixed top-0 left-0 w-full h-[50px] bg-primary-500 text-accent-500 z-50">
+      <div className="px-2 h-[50px] flex items-center relative">
         {showLoadingBar && (
-          <Box className="absolute top-0 left-0 right-0 w-full">
+          <div className="absolute top-0 left-0 right-0 w-full">
             <LinearProgress color="secondary" />
-          </Box>
+          </div>
         )}
 
         <IconButton
@@ -46,15 +38,17 @@ const Toolbar: React.FC<ToolbarProps> = ({ openLeftDrawer, showLoadingBar }) => 
           <FaBars />
         </IconButton>
 
-        <Box className="flex items-center h-full  text-accent-700">
+        <div className="flex items-center h-full ">
           <Link to="/" className="no-underline hover:text-accent-200">
             <span className="text-2xl font-bold mr-1">PAN-GO</span>
+          </Link>
+          <Link to="/" className="no-underline hover:text-accent-200">
             <span className="text-2xl">Human Functionome</span>
           </Link>
-        </Box>
+        </div>
 
-        <Box className="hidden md:flex flex-1 justify-end items-center">
-          <Box className="flex items-center border-r border-accent/30 pr-3 text-accent-700">
+        <div className="hidden md:flex flex-1 justify-end items-center">
+          <div className="flex items-center pr-3 text-accent-500">
             <IconButton
               color="inherit"
               href="https://github.com/pantherdb/pango"
@@ -63,12 +57,12 @@ const Toolbar: React.FC<ToolbarProps> = ({ openLeftDrawer, showLoadingBar }) => 
             >
               <FaGithub />
             </IconButton>
-          </Box>
+          </div>
 
-          <Box className="flex items-center px-3 border-r border-accent/30">
+          <div className="flex items-center px-3 border-l border-accent-200">
             <Button
               color="inherit"
-              className='!text-accent-700 hover:text-accent-200'
+              className="!text-xl !text-accent-500 hover:text-accent-200"
               onClick={handleExportMenu}
             >
               Download
@@ -89,28 +83,28 @@ const Toolbar: React.FC<ToolbarProps> = ({ openLeftDrawer, showLoadingBar }) => 
             <Button
               color="inherit"
               component={Link}
-              className='!text-accent-700 hover:text-accent-200'
+              className="!text-xl !text-accent-500 hover:text-accent-200"
               to="/about"
             >
               About
             </Button>
-          </Box>
+          </div>
 
-          <Box className="flex items-center">
-            <Box className="flex items-center p-1 border-l border-accent/30">
+          <div className="flex items-center">
+            <div className="flex items-center px-4 border-l border-accent-200">
               <a href="http://geneontology.org/" target="_blank" rel="noopener noreferrer">
-                <img src="/assets/images/logos/go-logo-yellow.png" alt="GO Logo" className="h-10" />
+                <img src="/assets/images/logos/go-logo-yellow.png" alt="GO Logo" className="h-11" />
               </a>
-            </Box>
-            <Box className="flex items-center p-1 border-l border-accent/30">
+            </div>
+            <div className="flex items-center px-4 border-l border-accent-200">
               <a href="http://pantherdb.org" target="_blank" rel="noopener noreferrer">
-                <img src="/assets/images/logos/panther-logo-yellow.png" alt="Panther Logo" className="h-10" />
+                <img src="/assets/images/logos/panther-logo-yellow.png" alt="Panther Logo" className="h-11" />
               </a>
-            </Box>
-          </Box>
-        </Box>
-      </MuiToolbar>
-    </AppBar>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
