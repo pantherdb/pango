@@ -4,16 +4,10 @@ import { Checkbox, Tooltip } from '@mui/material';
 import { useAppSelector } from "../hooks";
 import type { RootState } from "../store/store";
 import { useGetGenesStatsQuery } from "./genesApiSlice";
+import type { AspectType } from "@/@pango.core/data/config";
 import { ASPECT_MAP } from "@/@pango.core/data/config";
+import TermForm from './forms/TermForm';
 
-interface AspectOption {
-  id: string;
-  label: string;
-  shorthand: string;
-  description: string;
-  color: string;
-  icon: string;
-}
 
 interface CategoryItem {
   id: string;
@@ -83,11 +77,15 @@ const CategoryStats: React.FC = () => {
           <h3 className="font-medium">GO Function Category Distribution</h3>
         </div>
 
+        <div className='w-[full p-4'>
+          <TermForm />
+        </div>
+
         <div className="p-4">
           <h5 className="mb-4">Show/hide GO aspects in category list below</h5>
 
           <div className="flex flex-wrap gap-4 mb-6">
-            {Object.values(ASPECT_MAP).map((aspect: AspectOption) => (
+            {Object.values(ASPECT_MAP).map((aspect: AspectType) => (
               <Tooltip
                 key={aspect.id}
                 title={aspect.description}

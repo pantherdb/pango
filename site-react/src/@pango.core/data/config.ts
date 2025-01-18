@@ -1,6 +1,33 @@
 import { getColor } from "./colors";
 
-export const ASPECT_MAP = {
+export interface TermType {
+  id: string;
+  label: string;
+  hint: string;
+  description: string;
+  color: string | null;
+}
+
+export interface AspectType {
+  id: string;
+  icon: string;
+  shorthand: string;
+  label: string;
+  description: string;
+  color: string | null;
+}
+
+export interface EvidenceType {
+  id: string;
+  label: string;
+  hint: string;
+  description: string;
+  color: string | null;
+  shorthand: string;
+  iconTooltip: string;
+}
+
+export const ASPECT_MAP: { [key: string]: AspectType } = {
   'molecular function': {
     id: 'molecular function',
     icon: 'coverage-4',
@@ -27,7 +54,7 @@ export const ASPECT_MAP = {
   }
 }
 
-export const TERM_TYPE_MAP = {
+export const TERM_TYPE_MAP: { [key: string]: TermType } = {
 
   'known': {
     id: 'known',
@@ -46,7 +73,7 @@ export const TERM_TYPE_MAP = {
   },
 }
 
-export const EVIDENCE_TYPE_MAP = {
+export const EVIDENCE_TYPE_MAP: { [key: string]: EvidenceType } = {
   'direct': {
     id: 'direct',
     label: 'Known Aspects',

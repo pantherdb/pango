@@ -23,7 +23,7 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
 
 
   return (
-    <Box className="flex flex-col h-screen w-full">
+    <Box className="flex flex-col h-screen w-full bg-gray-300">
       <Toolbar
         showLoadingBar={false}
       />
@@ -59,10 +59,10 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
           </Drawer>
         </Box>
 
-        <Box className="flex-1 overflow-auto">
+        <div className="flex-1 overflow-auto">
           <Outlet />
           <Footer />
-        </Box>
+        </div>
 
         <Box
           sx={{

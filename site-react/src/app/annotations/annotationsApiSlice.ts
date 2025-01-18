@@ -69,10 +69,27 @@ const annotationsApi = apiService.enhanceEndpoints({
     }),
 
     getSlimTermsAutocomplete: builder.query({
-      query: ({ keyword }: { keyword: string }) => ({
+      query: ({ type, keyword }: { type: AutocompleteType, keyword: string }) => ({
         ...baseGraphQLRequest,
-        body: createGraphQLBody(GET_SLIM_TERMS_AUTOCOMPLETE_QUERY, { keyword }),
+        body: createGraphQLBody(GET_SLIM_TERMS_AUTOCOMPLETE_QUERY,
+          {
+            autocompleteType: type,
+            keyword,
+            filterArgs: {
+              geneIds: [],
+              slimTermIds: [],
+              termIds: [],
+              termTypeIds: [],
+              evidenceTypeIds: [],
+              aspectIds: [],
+              withGeneIds: [],
+              referenceIds: []
+            },
+          }),
       }),
+      transformResponse: (response: { data?: { slimTermsAutocomplete: any }; errors?: ApiResponseError[] }) => {
+        return transformResponse<{ slimTermsAutocomplete: any }>(response).slimTermsAutocomplete;
+      },
       providesTags: ['autocomplete']
     })
   }),

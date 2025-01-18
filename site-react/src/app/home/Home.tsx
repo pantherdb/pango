@@ -2,7 +2,6 @@ import type React from 'react';
 import { useState } from 'react';
 import { Box, Chip, Tooltip } from '@mui/material';
 import Genes from '../genes/Genes';
-import SummaryStats from '../genes/GeneStats';
 import GeneForm from '../genes/forms/GeneForm';
 import OverrepForm from '../genes/forms/OverrepForm';
 import { SearchFilterType } from '@/features/search/search';
@@ -103,7 +102,6 @@ const Home: React.FC = () => {
       </div>
 
       <Box className="min-h-[500px] mb-[200px]">
-        <SummaryStats />
         <Genes />
       </Box>
     </Box>

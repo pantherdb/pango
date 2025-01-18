@@ -83,6 +83,8 @@ export interface Gene {
   evidence: Evidence[];
   groups: string[];
   detailedGroups: Group[];
+  expanded: boolean;
+  maxTerms: number;
 }
 
 export interface Bucket {
