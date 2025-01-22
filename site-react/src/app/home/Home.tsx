@@ -6,6 +6,8 @@ import GeneForm from '../genes/forms/GeneForm';
 import OverrepForm from '../genes/forms/OverrepForm';
 import { SearchFilterType } from '@/features/search/search';
 
+// TODO: Add filters component
+
 const Home: React.FC = () => {
   const [searchCriteria, setSearchCriteria] = useState({
     filtersCount: 0,

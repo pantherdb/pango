@@ -17,9 +17,24 @@ const annotationsApi = apiService.enhanceEndpoints({
 }).injectEndpoints({
   endpoints: (builder) => ({
     getAnnotations: builder.query({
-      query: () => ({
+      query: ({ filterArgs, pageArgs }) => ({
         ...baseGraphQLRequest,
-        body: createGraphQLBody(GET_ANNOTATIONS_QUERY, { filter: { appType: 'self_care' } }),
+        body: createGraphQLBody(GET_ANNOTATIONS_QUERY, {
+          filterArgs: {
+            geneIds: filterArgs?.geneIds || [],
+            termIds: [],
+            termTypeIds: [],
+            slimTermIds: [],
+            evidenceTypeIds: [],
+            aspectIds: [],
+            withGeneIds: [],
+            referenceIds: []
+          },
+          pageArgs: {
+            page: pageArgs?.page || 0,
+            size: pageArgs?.size || 50
+          }
+        }),
       }),
       providesTags: ['annotation'],
       transformResponse: (response: { data?: AnnotationsApiResponse; errors?: ApiResponseError[] }): AnnotationsApiResponse => {
@@ -39,9 +54,20 @@ const annotationsApi = apiService.enhanceEndpoints({
     }),
 
     getAnnotationStats: builder.query({
-      query: () => ({
+      query: ({ filterArgs }) => ({
         ...baseGraphQLRequest,
-        body: createGraphQLBody(GET_ANNOTATION_STATS_QUERY),
+        body: createGraphQLBody(GET_ANNOTATION_STATS_QUERY, {
+          filterArgs: {
+            geneIds: filterArgs?.geneIds || [],
+            termIds: [],
+            termTypeIds: [],
+            slimTermIds: [],
+            evidenceTypeIds: [],
+            aspectIds: [],
+            withGeneIds: [],
+            referenceIds: []
+          }
+        }),
       }),
       transformResponse: (response: { data?: { annotationStats: AnnotationStats }; errors?: ApiResponseError[] }) => {
         const transformedResponse = transformResponse<{ annotationStats: AnnotationStats }>(response);

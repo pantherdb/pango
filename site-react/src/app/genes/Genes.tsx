@@ -154,10 +154,10 @@ const Genes: FC<GenesProps> = ({ page = 0, size = 20 }) => {
             page={page}
             rowsPerPage={size}
             onPageChange={(_, newPage) => {
-              // Handle page change
+              // TODO: Handle page change
             }}
             onRowsPerPageChange={(event) => {
-              // Handle rows per page change
+              // TODO: Handle rows per page change
             }}
           />
         )}

@@ -8,6 +8,7 @@ import type { AspectType } from "@/@pango.core/data/config";
 import { ASPECT_MAP } from "@/@pango.core/data/config";
 import TermForm from './forms/TermForm';
 
+// TODO: Add filters component click
 
 interface CategoryItem {
   id: string;

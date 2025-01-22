@@ -17,8 +17,8 @@ const genesApi = apiService.enhanceEndpoints({
         ...baseGraphQLRequest,
         body: createGraphQLBody(GET_GENES_QUERY, {
           filterArgs: {
-            geneIds: filter?.geneIds,
-            slimTermIds: filter?.slimTermIds
+            geneIds: filter?.geneIds || [],
+            slimTermIds: filter?.slimTermIds || []
           },
           pageArgs: {
             page,
