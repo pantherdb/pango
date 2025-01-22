@@ -3,7 +3,7 @@ SHELL := /bin/bash
 export PANTHER_VERSION ?= 15.0
 export DEBUG_INDENT ?= 0
 
-%/all: %/full_go_annotated.json %/human_iba_annotations.json %/human_iba_gene_info.json %/taxon_lkp.json
+%/all: %/full_go_annotated.json %/human_iba_annotations.json %/human_iba_gene_info.json %/taxon_lkp.json %/export_annotations.touch
 	echo "Done"
 
 .PRECIOUS: %/resources/gene_association.paint_human.gaf
@@ -119,6 +119,11 @@ export DEBUG_INDENT ?= 0
 .PRECIOUS: %/full_go_annotated.json
 %/full_go_annotated.json: %/goslim_generic.tsv %/full_go.json
 	python3 annotate_is_goslim_json_ontology.py --debug_indent $(DEBUG_INDENT) -g $*/goslim_generic.tsv -p $*/full_go.json > $@
+
+.PRECIOUS: %/export_annotations.touch
+%/export_annotations.touch: %/human_iba_annotations.json %/full_go_annotated.json %/human_iba_gene_info.json
+	python3 export_annotations.py -a $< -t $*/full_go_annotated.json -g $*/human_iba_gene_info.json -j $*/export_annotations.json -s $*/export_annotations.tsv
+	touch $@
 
 tests:
 	pytest test.py
