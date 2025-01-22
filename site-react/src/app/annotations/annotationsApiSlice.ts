@@ -8,7 +8,9 @@ import {
   GET_AUTOCOMPLETE_QUERY,
   GET_SLIM_TERMS_AUTOCOMPLETE_QUERY
 } from './services/annotationsQueryService';
-import type { AnnotationsApiResponse, AnnotationStats, AutocompleteType } from './models/annotation';
+import type { AnnotationsApiResponse, AnnotationStats, AutocompleteType, Group } from './models/annotation';
+
+import groupsData from '@/@pango.core/data//groups.json';
 
 export const addTagTypes = ['annotation', 'annotation-stats', 'autocomplete'] as const;
 
@@ -37,8 +39,27 @@ const annotationsApi = apiService.enhanceEndpoints({
         }),
       }),
       providesTags: ['annotation'],
-      transformResponse: (response: { data?: AnnotationsApiResponse; errors?: ApiResponseError[] }): AnnotationsApiResponse => {
-        return transformResponse<AnnotationsApiResponse>(response);
+      transformResponse: (response: {
+        data?: AnnotationsApiResponse;
+        errors?: ApiResponseError[]
+      }): AnnotationsApiResponse => {
+        const transformedResponse = transformResponse<AnnotationsApiResponse>(response);
+
+        if (!transformedResponse?.annotations) {
+          return transformedResponse;
+        }
+
+        const annotationsWithDetails = transformedResponse.annotations.map(annotation => ({
+          ...annotation,
+          detailedGroups: annotation.groups.map(group =>
+            groupsData.find(g => g.shorthand === group) as Group
+          )
+        }));
+
+        return {
+          ...transformedResponse,
+          annotations: annotationsWithDetails
+        };
       }
     }),
 

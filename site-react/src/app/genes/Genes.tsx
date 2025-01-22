@@ -8,6 +8,8 @@ import { ENVIRONMENT } from '@/@pango.core/data/constants';
 import { useAppSelector } from '../hooks';
 import type { RootState } from '../store/store';
 
+// TODO: Add expand genes
+
 interface GenesProps {
   page?: number;
   size?: number;
@@ -20,10 +22,10 @@ const Genes: FC<GenesProps> = ({ page = 0, size = 20 }) => {
     slimTermIds: search.slimTerms.map(t => t.id)
   };
 
-  const { data, isLoading, error } = useGetGenesQuery({ page, size, filter });
+  const { data: geneData, isLoading, error } = useGetGenesQuery({ page, size, filter });
   const { data: countData } = useGetGenesCountQuery({ filter });
 
-  const genes = data?.genes ?? [];
+  const genes = geneData?.genes ?? [];
   const geneCount = countData?.total || 0;
 
   const cols = ['Gene', 'Molecular Functions', 'Biological Processes', 'Cellular Components'];
@@ -122,7 +124,8 @@ const Genes: FC<GenesProps> = ({ page = 0, size = 20 }) => {
                   <td className="p-3 border-r border-gray-300">
                     <div className="space-y-1">
                       <div className="font-bold">
-                        <a href={`/gene/${gene.gene}`}>{gene.geneSymbol}</a>
+
+                        <a href={`/gene/${gene.gene}`} target="_blank" rel="noreferrer">{gene.geneSymbol}</a>
                         (<a href={`${ENVIRONMENT.taxonApiUrl}${gene.taxonId}`}>{gene.taxonAbbr}</a>)
                       </div>
                       <div className="text-sm text-gray-600">{gene.geneName}</div>

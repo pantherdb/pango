@@ -8,6 +8,7 @@ import Home from './app/home/Home';
 
 import { defineCustomElements } from 'panther-overrep-form/loader';
 import LeftDrawerContent from './app/home/LeftDrawer';
+import Gene from './app/genes/Gene';
 defineCustomElements(window);
 
 const router = createBrowserRouter([
@@ -20,6 +21,16 @@ const router = createBrowserRouter([
       { path: '', element: <Home /> },
       // Other routes without drawers
       //{ path: 'gene/:id', element: <Gene /> }
+    ],
+  },
+
+  {
+    path: 'gene/:id',
+    element: <Layout
+      rightDrawerContent={<LeftDrawerContent />}
+    />,
+    children: [
+      { path: '', element: <Gene /> },
     ],
   },
 ]);

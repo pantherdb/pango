@@ -1,20 +1,22 @@
-
 import { ENVIRONMENT } from '@/@pango.core/data/constants';
 import { useParams } from 'react-router-dom';
 import { useGetAnnotationsQuery, useGetAnnotationStatsQuery } from '../annotations/annotationsApiSlice';
 import type { Annotation } from '../annotations/models/annotation';
 import { FiExternalLink } from 'react-icons/fi';
+import AnnotationTable from '../annotations/AnnotationTable';
 
 const Gene: React.FC = () => {
-  const { geneId } = useParams<{ geneId: string }>();
+  const { id: geneId } = useParams<{ id: string }>();
 
   const filterArgs = { geneIds: [geneId] };
   const pageArgs = { page: 0, size: 200 };
   const { data: annotationsData } = useGetAnnotationsQuery({ filterArgs, pageArgs });
   const { data: statsData } = useGetAnnotationStatsQuery({ filterArgs, pageArgs });
 
-  // Get the first annotation for gene details
-  const annotation = annotationsData?.annotations?.[0];
+  const annotations = annotationsData?.annotations || [];
+
+
+  const annotation = annotations && annotations.length > 0 ? annotations[0] : null;
   const stats = statsData?.termTypeFrequency?.buckets || [];
 
   const knowledgeCount = {
@@ -36,62 +38,63 @@ const Gene: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-gray-50">
+    <div className="w-full bg-blue-gray-50"> {/* matches $pango-background */}
       <div className="p-3">
-        {/* Gene Header */}
-        <h1 className="text-2xl mb-6">
-          <span className="font-bold">{annotation.geneSymbol}</span>: PAN-GO functions and evidence
-        </h1>
+        {/* Gene Header Section */}
+        <div className="pango-gene-summary w-full px-3 py-4"> {/* matching padding: 12px */}
+          <h1 className="font-normal text-2xl">
+            <span className="font-bold">{annotation.geneSymbol}</span>: PAN-GO functions and evidence
+          </h1>
 
-        {/* Gene Information Grid */}
-        <div className="grid grid-cols-2 gap-x-24 mb-8">
-          {/* Gene Information Column */}
-          <div>
-            <h2 className="text-xl font-semibold mb-4">Gene Information</h2>
-            <div className="space-y-2">
-              <InfoRow label="Gene" value={annotation.geneSymbol} />
-              <InfoRow label="Protein" value={annotation.geneName} />
-              <InfoRow
-                label="Organism"
-                value={annotation.taxonLabel}
-                href={`${ENVIRONMENT}${annotation.taxonId}`}
-              />
-              <InfoRow
-                label="GO annotations from all sources"
-                value={annotation.gene}
-                href={`${ENVIRONMENT}${annotation.gene}`}
-              />
+          <div className="flex justify-between w-full">
+            {/* Gene Information Column */}
+            <div className="w-[300px] mr-[100px]"> {/* matching .pango-gene-detail-col */}
+              <h2 className="text-xl font-semibold mb-4">Gene Information</h2>
+              <div className="space-y-1">
+                <InfoRow label="Gene" value={annotation.geneSymbol} />
+                <InfoRow label="Protein" value={annotation.geneName} />
+                <InfoRow
+                  label="Organism"
+                  value={annotation.taxonLabel}
+                  href={`${ENVIRONMENT}${annotation.taxonId}`}
+                />
+                <InfoRow
+                  label="GO annotations from all sources"
+                  value={annotation.gene}
+                  href={`${ENVIRONMENT}${annotation.gene}`}
+                />
+              </div>
             </div>
-          </div>
 
-          {/* External Links Column */}
-          <div>
-            <h2 className="text-xl font-semibold mb-4">External Links</h2>
-            <div className="space-y-2">
-              <InfoRow
-                label="UniProt ID"
-                value={annotation.gene}
-                href={getUniprotLink(annotation.gene)}
-              />
-              <InfoRow
-                label="PANTHER Tree Viewer"
-                value={annotation.pantherFamily}
-                href={getFamilyLink(annotation)}
-              />
-              <InfoRow
-                label="UCSC Genome Browser"
-                value={`chr${annotation.coordinatesChrNum}:${annotation.coordinatesStart}-${annotation.coordinatesEnd}`}
-                href={`${ENVIRONMENT}chr${annotation.coordinatesChrNum}:${annotation.coordinatesStart}-${annotation.coordinatesEnd}`}
-              />
+            {/* External Links Column */}
+            <div className="w-[300px]"> {/* matching .pango-links-col */}
+              <h2 className="text-xl font-semibold mb-4">External Links</h2>
+              <div className="space-y-1">
+                <InfoRow
+                  label="UniProt ID"
+                  value={annotation.gene}
+                  href={getUniprotLink(annotation.gene)}
+                />
+                <InfoRow
+                  label="PANTHER Tree Viewer"
+                  value={annotation.pantherFamily}
+                  href={getFamilyLink(annotation)}
+                />
+                <InfoRow
+                  label="UCSC Genome Browser"
+                  value={`chr${annotation.coordinatesChrNum}:${annotation.coordinatesStart}-${annotation.coordinatesEnd}`}
+                  href={`${ENVIRONMENT}chr${annotation.coordinatesChrNum}:${annotation.coordinatesStart}-${annotation.coordinatesEnd}`}
+                />
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Stats Section */}
-        <div className="bg-gradient-to-r from-blue-gray-50 to-white p-6 rounded-lg mb-8">
+        {/* Stats Header */}
+        <div className="stat-header py-6 px-4 bg-gradient-to-r from-[#eceff1] to-white">
           <div className="flex items-center gap-12">
-            <div className="w-60">
-              <h2 className="text-2xl font-semibold m-0">Function summary</h2>
+            <div className="w-[250px]"> {/* matching fxFlex="250px" */}
+              <h2 className="text-2xl font-semibold tracking-tight m-0">Function summary</h2>
             </div>
 
             <StatBlock
@@ -106,6 +109,9 @@ const Gene: React.FC = () => {
             />
           </div>
         </div>
+        <div className="w-full">
+          <AnnotationTable annotations={annotations} />
+        </div>
       </div>
     </div>
   );
@@ -118,20 +124,22 @@ interface InfoRowProps {
 }
 
 const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => (
-  <div className="flex items-center text-sm">
-    <span className="mr-2 text-gray-700">{label}:</span>
+  <div className="flex items-center p-[5px]"> {/* matching .pango-term-row padding */}
+    <span className="text-xs pr-2 text-gray-700"> {/* matching .pango-title */}
+      {label}:
+    </span>
     {href ? (
       <a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-blue-600 hover:text-blue-800 flex items-center gap-1"
+        className="text-xs text-gray-500 hover:text-gray-700 flex items-center gap-1"
       >
         {value}
         <FiExternalLink className="w-3 h-3" />
       </a>
     ) : (
-      <span className="text-gray-600">{value}</span>
+      <span className="text-xs text-gray-500">{value}</span> /* matching .pango-description */
     )}
   </div>
 );
@@ -143,13 +151,13 @@ interface StatBlockProps {
 }
 
 const StatBlock: React.FC<StatBlockProps> = ({ number, label, sublabel }) => (
-  <div className="flex items-center pl-6">
-    <span className="text-5xl font-bold text-blue-600 mr-4 min-w-[60px] text-center">
+  <div className="flex items-center pl-6"> {/* matching .stat-block */}
+    <span className="text-5xl font-bold text-[#1976d2] mr-4 min-w-[60px] text-center">
       {number}
     </span>
-    <div>
+    <div className="label-group">
       <div className="text-base font-medium mb-1">{label}</div>
-      {sublabel && <div className="text-sm text-gray-600">{sublabel}</div>}
+      {sublabel && <div className="text-sm font-normal text-gray-600">{sublabel}</div>}
     </div>
   </div>
 );
