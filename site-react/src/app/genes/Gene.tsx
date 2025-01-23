@@ -38,17 +38,17 @@ const Gene: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-blue-gray-50"> {/* matches $pango-background */}
+    <div className="w-full bg-slate-200">
       <div className="p-3">
         {/* Gene Header Section */}
-        <div className="pango-gene-summary w-full px-3 py-4"> {/* matching padding: 12px */}
+        <div className="pango-gene-summary w-full px-3 py-4">
           <h1 className="font-normal text-2xl">
             <span className="font-bold">{annotation.geneSymbol}</span>: PAN-GO functions and evidence
           </h1>
 
-          <div className="flex justify-between w-full">
+          <div className="flex  w-full">
             {/* Gene Information Column */}
-            <div className="w-[300px] mr-[100px]"> {/* matching .pango-gene-detail-col */}
+            <div className="w-[300px] mr-[100px]">
               <h2 className="text-xl font-semibold mb-4">Gene Information</h2>
               <div className="space-y-1">
                 <InfoRow label="Gene" value={annotation.geneSymbol} />
@@ -67,7 +67,7 @@ const Gene: React.FC = () => {
             </div>
 
             {/* External Links Column */}
-            <div className="w-[300px]"> {/* matching .pango-links-col */}
+            <div className="w-[300px]">
               <h2 className="text-xl font-semibold mb-4">External Links</h2>
               <div className="space-y-1">
                 <InfoRow
@@ -91,9 +91,9 @@ const Gene: React.FC = () => {
         </div>
 
         {/* Stats Header */}
-        <div className="stat-header py-6 px-4 bg-gradient-to-r from-[#eceff1] to-white">
+        <div className="stat-header py-6 px-4 bg-gradient-to-r from-slate-100 to-white">
           <div className="flex items-center gap-12">
-            <div className="w-[250px]"> {/* matching fxFlex="250px" */}
+            <div className="w-[250px]">
               <h2 className="text-2xl font-semibold tracking-tight m-0">Function summary</h2>
             </div>
 
@@ -109,7 +109,7 @@ const Gene: React.FC = () => {
             />
           </div>
         </div>
-        <div className="w-full">
+        <div className="w-full bg-white py-4">
           <AnnotationTable annotations={annotations} />
         </div>
       </div>
@@ -124,8 +124,8 @@ interface InfoRowProps {
 }
 
 const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => (
-  <div className="flex items-center p-[5px]"> {/* matching .pango-term-row padding */}
-    <span className="text-xs pr-2 text-gray-700"> {/* matching .pango-title */}
+  <div className="flex items-center p-[5px]">
+    <span className="text-xs pr-2 text-gray-700">
       {label}:
     </span>
     {href ? (
@@ -133,13 +133,13 @@ const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => (
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-xs text-gray-500 hover:text-gray-700 flex items-center gap-1"
+        className="text-gray-500 hover:text-gray-700 flex items-center gap-1"
       >
         {value}
         <FiExternalLink className="w-3 h-3" />
       </a>
     ) : (
-      <span className="text-xs text-gray-500">{value}</span> /* matching .pango-description */
+      <span className="text-gray-500">{value}</span>
     )}
   </div>
 );
@@ -151,7 +151,7 @@ interface StatBlockProps {
 }
 
 const StatBlock: React.FC<StatBlockProps> = ({ number, label, sublabel }) => (
-  <div className="flex items-center pl-6"> {/* matching .stat-block */}
+  <div className="flex items-center pl-6">
     <span className="text-5xl font-bold text-[#1976d2] mr-4 min-w-[60px] text-center">
       {number}
     </span>

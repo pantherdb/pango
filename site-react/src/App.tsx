@@ -9,6 +9,7 @@ import Home from './app/home/Home';
 import { defineCustomElements } from 'panther-overrep-form/loader';
 import LeftDrawerContent from './app/home/LeftDrawer';
 import Gene from './app/genes/Gene';
+import RightDrawerContent from './app/home/RightDrawer';
 defineCustomElements(window);
 
 const router = createBrowserRouter([
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
   {
     path: 'gene/:id',
     element: <Layout
-      rightDrawerContent={<LeftDrawerContent />}
+      rightDrawerContent={<RightDrawerContent />}
     />,
     children: [
       { path: '', element: <Gene /> },

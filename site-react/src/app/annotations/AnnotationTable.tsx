@@ -3,33 +3,9 @@ import { ENVIRONMENT } from '@/@pango.core/data/constants';
 import type React from 'react';
 import { BiInfoCircle } from 'react-icons/bi';
 import type { Annotation } from './models/annotation';
-
-interface Term {
-  aspect: string;
-  label: string;
-  displayId?: string;
-  id: string;
-}
-
-interface Evidence {
-  withGeneId?: {
-    gene: string;
-    geneSymbol: string;
-    taxonId: string;
-    taxonAbbr: string;
-  };
-  references: Array<{
-    pmid: string;
-    title: string;
-    date: string;
-  }>;
-}
-
-interface DetailedGroup {
-  id: string;
-  label: string;
-}
-
+import { setRightDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
+import { useAppDispatch } from '../hooks';
+import { setSelectedAnnotation } from './selectedAnnotationSlice';
 
 
 interface AnnotationTableProps {
@@ -43,6 +19,14 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
   maxReferences = 2,
   maxEvidences = 2,
 }) => {
+
+  const dispatch = useAppDispatch();
+
+  const handleRowClick = (annotation: Annotation) => {
+    dispatch(setSelectedAnnotation(annotation));
+    dispatch(setRightDrawerOpen(true));
+  };
+
   const getPubmedArticleUrl = (pmid: string): string => {
     if (!pmid) return '';
     const id = pmid?.split(':');
@@ -94,7 +78,8 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
         </thead>
         <tbody>
           {annotations.map((row, idx) => (
-            <tr key={idx} className="border-b border-gray-200">
+            <tr key={idx} className="border-b border-gray-200"
+              onClick={() => handleRowClick(row)}>
               <td className="p-2 text-sm border-r border-gray-200">
                 <div className="w-full">
                   <div className="flex items-center">

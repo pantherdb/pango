@@ -11,6 +11,7 @@ import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
 const LeftDrawerContent: React.FC = () => {
   const dispatch = useAppDispatch()
   const onClearFilters = () => {
+    // TODO implement clear filters
   }
 
   return (

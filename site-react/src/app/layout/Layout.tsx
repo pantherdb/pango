@@ -1,13 +1,10 @@
 import type React from 'react';
-import { useState } from 'react';
-import { Box, Drawer, IconButton } from '@mui/material';
-import { MdClose } from 'react-icons/md';
+import { Box, Drawer } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import Toolbar from './Toolbar';
 import Footer from './Footer';
-import { selectLeftDrawerOpen, selectRightDrawerOpen, setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
-import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../hooks';
+import { selectLeftDrawerOpen, selectRightDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
+import { useAppSelector } from '../hooks';
 
 interface LayoutProps {
   leftDrawerContent?: React.ReactNode;
@@ -18,9 +15,8 @@ const drawerWidth = 380;
 
 const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }) => {
 
-  const leftDrawerOpen = useSelector(selectLeftDrawerOpen);
-  const rightDrawerOpen = useSelector(selectRightDrawerOpen);
-
+  const leftDrawerOpen = useAppSelector(selectLeftDrawerOpen);
+  const rightDrawerOpen = useAppSelector(selectRightDrawerOpen);
 
   return (
     <Box className="flex flex-col h-screen w-full bg-gray-300">
@@ -40,23 +36,25 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
             overflow: 'hidden'
           }}
         >
-          <Drawer
-            variant="persistent"
-            anchor="left"
-            open={leftDrawerOpen}
-            sx={{
-              height: '100%',
-              '& .MuiDrawer-paper': {
-                position: 'static',
-                width: drawerWidth,
+          {leftDrawerContent && (
+            <Drawer
+              variant="persistent"
+              anchor="left"
+              open={leftDrawerOpen}
+              sx={{
                 height: '100%',
-                overflow: 'auto'
-              },
-            }}
-          >
+                '& .MuiDrawer-paper': {
+                  position: 'static',
+                  width: drawerWidth,
+                  height: '100%',
+                  overflow: 'auto'
+                },
+              }}
+            >
 
-            {leftDrawerContent}
-          </Drawer>
+              {leftDrawerContent}
+            </Drawer>
+          )}
         </Box>
 
         <div className="flex-1 overflow-auto">

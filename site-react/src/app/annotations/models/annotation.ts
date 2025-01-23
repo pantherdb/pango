@@ -1,3 +1,5 @@
+import type { Gene } from "@/app/genes/models/gene";
+
 export enum GOAspect {
   MOLECULAR_FUNCTION = 'molecular function',
   BIOLOGICAL_PROCESS = 'biological process',
@@ -60,8 +62,8 @@ export interface Reference {
 }
 
 export interface Evidence {
-  with_gene_ids: Gene;
-  reference: Reference[];
+  withGeneId: Gene;
+  references: Reference[];
 }
 
 export interface Annotation {
