@@ -4,6 +4,8 @@ import { useGetAnnotationsQuery, useGetAnnotationStatsQuery } from '../annotatio
 import type { Annotation } from '../annotations/models/annotation';
 import { FiExternalLink } from 'react-icons/fi';
 import AnnotationTable from '../annotations/AnnotationTable';
+import GeneSummary from './GeneSummary';
+import { transformTerms } from './services/genesService';
 
 const Gene: React.FC = () => {
   const { id: geneId } = useParams<{ id: string }>();
@@ -19,6 +21,7 @@ const Gene: React.FC = () => {
   const annotation = annotations && annotations.length > 0 ? annotations[0] : null;
   const stats = statsData?.termTypeFrequency?.buckets || [];
 
+
   const knowledgeCount = {
     known: stats.find(b => b.key === 'known')?.docCount || 0,
     unknown: stats.find(b => b.key === 'unknown')?.docCount || 0,
@@ -27,6 +30,11 @@ const Gene: React.FC = () => {
   if (!annotation) {
     return <div className="p-4">Loading...</div>;
   }
+
+  const terms = annotations.map((annotation: Annotation) => annotation.term);
+
+  const groupedTerms = transformTerms(terms, 100);
+
 
   const getUniprotLink = (gene: string) => {
     const geneId = gene.split(':');
@@ -109,9 +117,15 @@ const Gene: React.FC = () => {
             />
           </div>
         </div>
-        <div className="w-full bg-white py-4">
-          <AnnotationTable annotations={annotations} />
-        </div>
+        {annotations.length > 0 && (
+          <>
+            <div className="w-full bg-white py-4">
+              <GeneSummary groupedTerms={groupedTerms} />
+            </div>
+            <div className="w-full bg-white py-4">
+              <AnnotationTable annotations={annotations} />
+            </div></>
+        )}
       </div>
     </div>
   );

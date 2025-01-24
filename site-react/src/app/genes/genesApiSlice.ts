@@ -29,6 +29,8 @@ const genesApi = apiService.enhanceEndpoints({
       providesTags: ['gene'],
       transformResponse: (response: { data?: GenesApiResponse; errors?: ApiResponseError[] }): GenesApiResponse => {
         const transformedResponse = transformResponse<GenesApiResponse>(response);
+
+        console.log('transformedResponse', transformedResponse);
         return {
           ...transformedResponse,
           genes: transformGenes(transformedResponse.genes)

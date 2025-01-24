@@ -18,6 +18,10 @@ code {
 
 @layer base {
   a {
-    @apply underline text-primary-400 hover:text-primary-200;
+    @apply underline text-primary-600 hover:text-primary-300;
+  }
+
+  td {
+    @apply align-top;
   }
 }

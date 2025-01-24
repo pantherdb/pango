@@ -1,26 +1,43 @@
+import type { Gene, GroupedTerms } from "../models/gene";
 import { GOAspect } from "../models/gene";
 
-export const transformGenes = (genes: any[]) => {
-  const groupTerms = (terms: any[]) => {
-    return terms.reduce((acc, term) => {
-      const aspect = term.aspect?.toLowerCase();
-      if (!acc[aspect]) {
-        acc[aspect] = [];
-      }
-      acc[aspect].push(term);
-      return acc;
-    }, {});
-  };
 
+const groupTermsByAspect = (terms: any[]) => {
+  return terms.reduce((acc, term) => {
+    const aspect = term.aspect?.toLowerCase();
+    if (!acc[aspect]) {
+      acc[aspect] = [];
+    }
+    acc[aspect].push(term);
+    return acc;
+  }, {});
+};
+
+export const transformTerms = (terms: any[], maxTerms = 2): GroupedTerms => {
+  const grouped = groupTermsByAspect(terms);
+  return {
+    mfs: grouped[GOAspect.MOLECULAR_FUNCTION] || [],
+    bps: grouped[GOAspect.BIOLOGICAL_PROCESS] || [],
+    ccs: grouped[GOAspect.CELLULAR_COMPONENT] || [],
+    maxTerms,
+    expanded: false
+  };
+};
+
+export const transformGenes = (genes: any[]): Gene[] => {
   return genes.map(gene => {
-    const groupedTerms = groupTerms(gene.terms);
-    return {
-      ...gene,
-      mfs: groupedTerms[GOAspect.MOLECULAR_FUNCTION] || [],
-      bps: groupedTerms[GOAspect.BIOLOGICAL_PROCESS] || [],
-      ccs: groupedTerms[GOAspect.CELLULAR_COMPONENT] || [],
+    const grouped = groupTermsByAspect(gene.terms);
+
+    const groupedTerms: GroupedTerms = {
+      mfs: grouped[GOAspect.MOLECULAR_FUNCTION] || [],
+      bps: grouped[GOAspect.BIOLOGICAL_PROCESS] || [],
+      ccs: grouped[GOAspect.CELLULAR_COMPONENT] || [],
       maxTerms: 2,
       expanded: false
+    }
+    return {
+      ...gene,
+      groupedTerms
     };
   });
 };

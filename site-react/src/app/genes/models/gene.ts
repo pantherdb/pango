@@ -49,7 +49,14 @@ export interface Term {
   aspect: string;
   isGoSlim: boolean;
   evidenceType: string;
+}
 
+export interface GroupedTerms {
+  mfs: Term[];
+  bps: Term[];
+  ccs: Term[];
+  maxTerms: number;
+  expanded: boolean
 }
 
 export interface Reference {
@@ -85,6 +92,9 @@ export interface Gene {
   detailedGroups: Group[];
   expanded: boolean;
   maxTerms: number;
+
+  // derived
+  groupedTerms: GroupedTerms;
 }
 
 export interface Bucket {

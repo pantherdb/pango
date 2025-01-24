@@ -79,7 +79,7 @@ export const EVIDENCE_TYPE_MAP: { [key: string]: EvidenceType } = {
     label: 'Known Aspects',
     hint: 'direct evidence',
     description: 'Genes supported by experimental evidence directly for that gene',
-    color: getColor('green', 500),
+    color: getColor('green', 700),
     shorthand: 'D',
     iconTooltip: 'Direct evidence: This characteristic is supported by experimental evidence directly for this gene, and evolutionary modeling including information about related genes'
   },
@@ -88,7 +88,7 @@ export const EVIDENCE_TYPE_MAP: { [key: string]: EvidenceType } = {
     label: 'Known Aspects',
     hint: 'homology evidence',
     description: 'Genes supported only by experimental evidence for a homologous gene',
-    color: getColor('red', 500),
+    color: getColor('red', 700),
     shorthand: 'H',
     iconTooltip: 'Homolog evidence: This characteristic is supported by experimental evidence for a homologous gene, using evolutionary modeling.'
 
@@ -98,7 +98,7 @@ export const EVIDENCE_TYPE_MAP: { [key: string]: EvidenceType } = {
     label: 'Unknown Aspects',
     hint: 'unknown evidence',
     description: "Evidence is not applicable to “placeholder” genes indicating unknown function aspects",
-    color: getColor('cyan', 500),
+    color: getColor('grey', 700),
     shorthand: 'na',
     iconTooltip: ''
   },
