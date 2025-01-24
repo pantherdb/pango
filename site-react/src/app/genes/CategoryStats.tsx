@@ -1,28 +1,20 @@
 import type React from 'react';
 import { useState } from 'react';
 import { Checkbox, Tooltip } from '@mui/material';
-import { useAppSelector } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import type { RootState } from "../store/store";
 import { useGetGenesStatsQuery } from "./genesApiSlice";
 import type { AspectType } from "@/@pango.core/data/config";
 import { ASPECT_MAP } from "@/@pango.core/data/config";
 import TermForm from './forms/TermForm';
+import { buildCategoryBar } from './services/genesService';
+import { SearchFilterType } from '@/features/search/search';
+import { addItem } from '@/features/search/searchSlice';
 
 // TODO: Add filters component click
 
-interface CategoryItem {
-  id: string;
-  aspect: string;
-  label: string;
-  displayId: string;
-  count: number;
-  color: string;
-  aspectShorthand: string;
-  width: string;
-  countPos: string;
-}
-
 const CategoryStats: React.FC = () => {
+  const dispatch = useAppDispatch();
   const [selectedAspects, setSelectedAspects] = useState<string[]>(Object.values(ASPECT_MAP).map(aspect => aspect.id));
   const search = useAppSelector((state: RootState) => state.search);
   const filter = {
@@ -39,37 +31,12 @@ const CategoryStats: React.FC = () => {
     );
   };
 
-  const buildCategoryBar = (buckets: any[]): CategoryItem[] => {
-    if (!buckets?.length) return [];
 
-    const filteredBuckets = buckets.filter(bucket =>
-      selectedAspects.includes(bucket.meta.aspect)
-    );
-
-    const sortedBuckets = [...filteredBuckets].sort((a, b) => b.docCount - a.docCount);
-    const longest = sortedBuckets[0]?.docCount || 0;
-
-    return sortedBuckets.map((bucket) => {
-      const ratio = bucket.docCount / longest;
-      const countPos = ratio < 0.20 ? `${ratio * 100}%`
-        : ratio < 0.90 ? `${(ratio - 0.15) * 100}%`
-          : `${(ratio - 0.30) * 100}%`;
-
-      return {
-        ...bucket.meta,
-        name: bucket.key,
-        count: bucket.docCount,
-        color: ASPECT_MAP[bucket.meta.aspect]?.color,
-        aspectShorthand: ASPECT_MAP[bucket.meta.aspect]?.shorthand,
-        width: `${ratio * 100}%`,
-        countPos
-      };
-    });
-  };
 
   const slimTermFrequency = geneStats?.slimTermFrequency?.buckets
-    ? buildCategoryBar(geneStats.slimTermFrequency.buckets)
+    ? buildCategoryBar(geneStats.slimTermFrequency.buckets, selectedAspects)
     : [];
+
 
   return (
     <div className="w-full">
@@ -129,6 +96,7 @@ const CategoryStats: React.FC = () => {
             <div
               key={item.id}
               className="flex items-center py-2 border-b border-gray-300 cursor-pointer hover:bg-gray-50"
+              onClick={() => dispatch(addItem({ type: SearchFilterType.SLIM_TERMS, item }))}
             >
               <div
                 className="mr-4 rounded-full text-xs font-extrabold h-9 w-9 flex items-center justify-center"
@@ -140,14 +108,12 @@ const CategoryStats: React.FC = () => {
               >
                 {item.aspectShorthand}
               </div>
-
               <div className="w-[100px]">
                 <div className="text-xs truncate">{item.label}</div>
                 <div className="text-xs text-gray-500 italic truncate">
                   {item.displayId}
                 </div>
               </div>
-
               <div className="flex-1 relative h-9">
                 <div
                   className="h-full absolute"

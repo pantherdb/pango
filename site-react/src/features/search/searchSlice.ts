@@ -36,9 +36,19 @@ export const searchSlice = createSlice({
   reducers: {
     addItem: (state, action: PayloadAction<{ type: SearchFilterType; item: Term | Gene }>) => {
       const { type, item } = action.payload;
-      (state[type] as any).push(item);
-      updateFiltersAndTooltips(state);
+      const list = state[type] as any[];
+
+      // Check for duplicates
+      const isDuplicate = type === SearchFilterType.GENES
+        ? list.some(existing => existing.gene === (item as Gene).gene)
+        : list.some(existing => existing.id === (item as Term).id);
+
+      if (!isDuplicate) {
+        list.push(item);
+        updateFiltersAndTooltips(state);
+      }
     },
+
     removeItem: (state, action: PayloadAction<{ type: SearchFilterType; id: string }>) => {
       const { type, id } = action.payload;
       if (type === SearchFilterType.GENES) {

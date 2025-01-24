@@ -1,3 +1,5 @@
+import type { Term } from "./term";
+
 export enum GOAspect {
   MOLECULAR_FUNCTION = 'molecular function',
   BIOLOGICAL_PROCESS = 'biological process',
@@ -9,9 +11,9 @@ export enum AutocompleteType {
   SLIM_TERM = "slim_term",
 }
 
-export interface UniqueGenes {
-  aspect: string
-}
+
+
+
 export interface AutocompleteFilterArgs {
   autocompleteType: AutocompleteType;
 }
@@ -40,15 +42,6 @@ export interface Group {
   label: string
   id: string
   shorthand: string
-}
-
-export interface Term {
-  id: string;
-  label: string;
-  displayId: string;
-  aspect: string;
-  isGoSlim: boolean;
-  evidenceType: string;
 }
 
 export interface GroupedTerms {

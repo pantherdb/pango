@@ -9,3 +9,11 @@ export interface Term {
   evidenceType: string;
 
 }
+
+export interface CategoryItem extends Term {
+  count: number;
+  color: string;
+  aspectShorthand: string;
+  width: string;
+  countPos: string;
+}

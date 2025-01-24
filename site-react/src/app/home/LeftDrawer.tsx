@@ -6,13 +6,11 @@ import {
 import CategoryStats from '../genes/CategoryStats';
 import { useAppDispatch } from '../hooks';
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
+import { clearSearch } from '@/features/search/searchSlice';
 
 
 const LeftDrawerContent: React.FC = () => {
   const dispatch = useAppDispatch()
-  const onClearFilters = () => {
-    // TODO implement clear filters
-  }
 
   return (
     <div className="h-full flex flex-col">
@@ -24,7 +22,7 @@ const LeftDrawerContent: React.FC = () => {
             color="error"
             size="small"
             className="rounded-md min-w-[100px]"
-            onClick={onClearFilters}
+            onClick={() => dispatch(clearSearch())}
           >
             Clear All Filters
           </Button>

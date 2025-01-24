@@ -36,8 +36,6 @@ const TermForm: React.FC<TermFormProps> = ({ maxTerms = 10 }) => {
     skip: !debouncedValue || debouncedValue.length < 2
   });
 
-  console.log(suggestions);
-
   const handleSelect = (_: unknown, term: Term | null) => {
     if (term && selectedTerms.length < maxTerms) {
       dispatch(addItem({ type: SearchFilterType.SLIM_TERMS, item: term }));
