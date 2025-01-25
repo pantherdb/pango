@@ -1,12 +1,12 @@
-import type { FC } from 'react';
 import { TablePagination, CircularProgress, Tooltip } from '@mui/material';
 import { FaCaretRight, FaCaretDown } from 'react-icons/fa';
 import { useGetGenesCountQuery, useGetGenesQuery } from './genesApiSlice';
 import type { Gene } from './models/gene';
 import { ENVIRONMENT } from '@/@pango.core/data/constants';
-import { useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import type { RootState } from '../store/store';
 import Terms from './Terms';
+import { setPage, setPageSize } from '@/features/search/searchSlice';
 
 // TODO: Add expand genes
 
@@ -15,8 +15,11 @@ interface GenesProps {
   size?: number;
 }
 
-const Genes: FC<GenesProps> = ({ page = 0, size = 20 }) => {
+const Genes: FC<GenesProps> = () => {
+  const { page, size } = useAppSelector((state: RootState) => state.search.pagination);
   const search = useAppSelector((state: RootState) => state.search);
+  const dispatch = useAppDispatch();
+
   const filter = {
     geneIds: search.genes.map(g => g.gene),
     slimTermIds: search.slimTerms.map(t => t.id)
@@ -40,6 +43,16 @@ const Genes: FC<GenesProps> = ({ page = 0, size = 20 }) => {
     return geneId.length > 1 ? `${ENVIRONMENT.uniprotUrl}${geneId[1]}` : gene.gene;
   };
 
+
+  const handlePageChange = (_: unknown, newPage: number) => {
+    dispatch(setPage(newPage));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleRowsPerPageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setPageSize(parseInt(event.target.value, 10)));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
 
   if (isLoading) return (
@@ -121,19 +134,15 @@ const Genes: FC<GenesProps> = ({ page = 0, size = 20 }) => {
             </tbody>
           </table>
         </div>
-
         {geneCount > 0 && (
           <TablePagination
             component="div"
             count={geneCount}
             page={page}
             rowsPerPage={size}
-            onPageChange={(_, newPage) => {
-              // TODO: Handle page change
-            }}
-            onRowsPerPageChange={(event) => {
-              // TODO: Handle rows per page change
-            }}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleRowsPerPageChange}
+            rowsPerPageOptions={[10, 20, 50, 100]}
           />
         )}
       </div>

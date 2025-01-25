@@ -1,4 +1,3 @@
-
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { SearchFilterType } from './search';
@@ -17,6 +16,10 @@ interface SearchState extends SearchStateMap {
     slimTerms: string;
     genes: string;
   };
+  pagination: {
+    page: number;
+    size: number;
+  };
 }
 
 const initialState: SearchState = {
@@ -27,6 +30,10 @@ const initialState: SearchState = {
   tooltips: {
     slimTerms: '',
     genes: '',
+  },
+  pagination: {
+    page: 0,
+    size: 20
   }
 };
 
@@ -37,14 +44,13 @@ export const searchSlice = createSlice({
     addItem: (state, action: PayloadAction<{ type: SearchFilterType; item: Term | Gene }>) => {
       const { type, item } = action.payload;
       const list = state[type] as any[];
-
-      // Check for duplicates
       const isDuplicate = type === SearchFilterType.GENES
         ? list.some(existing => existing.gene === (item as Gene).gene)
         : list.some(existing => existing.id === (item as Term).id);
 
       if (!isDuplicate) {
         list.push(item);
+        state.pagination.page = 0;
         updateFiltersAndTooltips(state);
       }
     },
@@ -56,13 +62,25 @@ export const searchSlice = createSlice({
       } else {
         state[type] = state[type].filter(item => item.id !== id);
       }
+      state.pagination.page = 0;
       updateFiltersAndTooltips(state);
     },
+
     clearSearch: (state) => {
       return { ...initialState, type: state.type };
     },
+
     setSearchType: (state, action: PayloadAction<SearchState['type']>) => {
       state.type = action.payload;
+    },
+
+    setPage: (state, action: PayloadAction<number>) => {
+      state.pagination.page = action.payload;
+    },
+
+    setPageSize: (state, action: PayloadAction<number>) => {
+      state.pagination.size = action.payload;
+      state.pagination.page = 0;
     }
   }
 });
@@ -75,5 +93,5 @@ const updateFiltersAndTooltips = (state: SearchState) => {
   state.filtersCount = state.slimTerms.length + state.genes.length;
 };
 
-export const { addItem, removeItem, clearSearch, setSearchType } = searchSlice.actions;
+export const { addItem, removeItem, clearSearch, setSearchType, setPage, setPageSize } = searchSlice.actions;
 export default searchSlice.reducer;

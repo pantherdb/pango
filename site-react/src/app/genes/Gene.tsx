@@ -1,6 +1,6 @@
 import { ENVIRONMENT } from '@/@pango.core/data/constants';
 import { useParams } from 'react-router-dom';
-import { useGetAnnotationsQuery, useGetAnnotationStatsQuery } from '../annotations/annotationsApiSlice';
+import { useGetAnnotationsQuery } from '../annotations/annotationsApiSlice';
 import type { Annotation } from '../annotations/models/annotation';
 import { FiExternalLink } from 'react-icons/fi';
 import AnnotationTable from '../annotations/AnnotationTable';
@@ -13,29 +13,19 @@ const Gene: React.FC = () => {
   const filterArgs = { geneIds: [geneId] };
   const pageArgs = { page: 0, size: 200 };
   const { data: annotationsData } = useGetAnnotationsQuery({ filterArgs, pageArgs });
-  const { data: statsData } = useGetAnnotationStatsQuery({ filterArgs, pageArgs });
 
   const annotations = annotationsData?.annotations || [];
 
-
   const annotation = annotations && annotations.length > 0 ? annotations[0] : null;
-  const stats = statsData?.termTypeFrequency?.buckets || [];
-
-
-  const knowledgeCount = {
-    known: stats.find(b => b.key === 'known')?.docCount || 0,
-    unknown: stats.find(b => b.key === 'unknown')?.docCount || 0,
-  };
 
   if (!annotation) {
     return <div className="p-4">Loading...</div>;
   }
 
+  const knownTermTypes = annotations.filter(a => a.termType === 'known').length;
+  const unknownTermTypes = annotations.filter(a => a.termType === 'unknown').length;
 
   const groupedTerms = transformTerms(annotations, 100);
-
-  console.log('groupedTerms', groupedTerms);
-
 
   const getUniprotLink = (gene: string) => {
     const geneId = gene.split(':');
@@ -107,13 +97,13 @@ const Gene: React.FC = () => {
             </div>
 
             <StatBlock
-              number={knowledgeCount.known}
+              number={knownTermTypes}
               label="Annotations"
               sublabel="(functional characteristics)"
             />
 
             <StatBlock
-              number={knowledgeCount.unknown}
+              number={unknownTermTypes}
               label="Unknown function aspects"
             />
           </div>

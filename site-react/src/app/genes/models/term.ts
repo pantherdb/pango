@@ -1,3 +1,8 @@
+export enum TermType {
+  KNOWN = 'known',
+  UNKNOWN = 'unknown',
+}
+
 export interface Term {
   id: string;
   label: string;

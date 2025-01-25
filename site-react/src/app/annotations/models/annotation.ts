@@ -1,5 +1,5 @@
 import type { Gene } from "@/app/genes/models/gene";
-import type { Term } from "@/app/genes/models/term";
+import type { Term, TermType } from "@/app/genes/models/term";
 
 export enum GOAspect {
   MOLECULAR_FUNCTION = 'molecular function',
@@ -73,6 +73,7 @@ export interface Annotation {
   coordinatesEnd: number
   coordinatesStrand: number
   term: Term;
+  termType: TermType;
   slimTerms: Term[];
   evidenceType: string;
   evidence: Evidence[];

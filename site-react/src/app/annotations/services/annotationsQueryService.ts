@@ -23,6 +23,7 @@ export const GET_ANNOTATIONS_QUERY = print(gql`
         label
         displayId
       }
+      termType
       slimTerms {
         aspect
         id
