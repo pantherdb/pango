@@ -31,9 +31,10 @@ const Gene: React.FC = () => {
     return <div className="p-4">Loading...</div>;
   }
 
-  const terms = annotations.map((annotation: Annotation) => annotation.term);
 
-  const groupedTerms = transformTerms(terms, 100);
+  const groupedTerms = transformTerms(annotations, 100);
+
+  console.log('groupedTerms', groupedTerms);
 
 
   const getUniprotLink = (gene: string) => {
@@ -99,10 +100,10 @@ const Gene: React.FC = () => {
         </div>
 
         {/* Stats Header */}
-        <div className="stat-header py-6 px-4 bg-gradient-to-r from-slate-100 to-white">
+        <div className="py-6 px-4 bg-gradient-to-r from-slate-100 to-white">
           <div className="flex items-center gap-12">
             <div className="w-[250px]">
-              <h2 className="text-2xl font-semibold tracking-tight m-0">Function summary</h2>
+              <h2 className="text-2xl font-semibold tracking-tight m-0">Function Summary</h2>
             </div>
 
             <StatBlock
@@ -118,13 +119,17 @@ const Gene: React.FC = () => {
           </div>
         </div>
         {annotations.length > 0 && (
-          <>
-            <div className="w-full bg-white py-4">
-              <GeneSummary groupedTerms={groupedTerms} />
-            </div>
-            <div className="w-full bg-white py-4">
-              <AnnotationTable annotations={annotations} />
-            </div></>
+          <div className="w-full bg-white py-4">
+            <GeneSummary groupedTerms={groupedTerms} />
+          </div>
+        )}
+        <div className="py-6 px-4 bg-gradient-to-r from-slate-100 to-white">
+          <h2 className="text-2xl font-semibold tracking-tight m-0">Function Details</h2>
+        </div>
+        {annotations.length > 0 && (
+          <div className="w-full bg-white py-4">
+            <AnnotationTable annotations={annotations} />
+          </div>
         )}
       </div>
     </div>

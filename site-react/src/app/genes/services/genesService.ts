@@ -1,6 +1,7 @@
 import { ASPECT_MAP } from "@/@pango.core/data/config";
 import type { Bucket, CategoryItem, Gene, GroupedTerms } from "../models/gene";
 import { GOAspect } from "../models/gene";
+import type { Annotation } from "@/app/annotations/models/annotation";
 
 
 const groupTermsByAspect = (terms: any[]) => {
@@ -14,7 +15,16 @@ const groupTermsByAspect = (terms: any[]) => {
   }, {});
 };
 
-export const transformTerms = (terms: any[], maxTerms = 2): GroupedTerms => {
+export const transformTerms = (annotations: Annotation[], maxTerms = 2): GroupedTerms => {
+
+  const terms = annotations.map((annotation: Annotation) => {
+    return {
+      ...annotation.term,
+      evidenceType: annotation.evidenceType,
+    }
+  });
+
+
   const grouped = groupTermsByAspect(terms);
   return {
     mfs: grouped[GOAspect.MOLECULAR_FUNCTION] || [],

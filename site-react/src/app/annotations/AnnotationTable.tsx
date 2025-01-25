@@ -38,7 +38,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
       <table className="w-full border border-gray-200">
         <thead>
           <tr className="bg-white h-8 border-b border-primary-light">
-            <th className="px-3 py-2 text-xs font-bold uppercase text-gray-600 w-64">
+            <th className="w-64">
               <div className="flex items-center">
                 <span>Term</span>
                 <BiInfoCircle
@@ -47,7 +47,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                 />
               </div>
             </th>
-            <th className="px-3 py-2 text-xs font-bold uppercase text-gray-600">
+            <th className="">
               <div className="flex items-center">
                 <span>GO Function Category</span>
                 <BiInfoCircle
@@ -56,7 +56,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                 />
               </div>
             </th>
-            <th className="px-3 py-2 text-xs font-bold uppercase text-gray-600">
+            <th className="">
               <div className="flex items-center">
                 <span>Evidence</span>
                 <BiInfoCircle
@@ -65,7 +65,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                 />
               </div>
             </th>
-            <th className="px-3 py-2 text-xs font-bold uppercase text-gray-600 w-40">
+            <th className="w-40">
               <div className="flex items-center">
                 <span>Contributors</span>
                 <BiInfoCircle

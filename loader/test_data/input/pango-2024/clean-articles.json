@@ -1,0 +1,781 @@
+[
+  {
+    "pmid":"PMID:8138176",
+    "title":"Mutations in rik1, clr2, clr3 and clr4 genes asymmetrically derepress the silent mating-type loci in fission yeast.",
+    "date":"1994 Jan",
+    "authors":[
+      "Ekwall K",
+      "Ruusala T"
+    ]
+  },
+  {
+    "pmid":"PMID:11884604",
+    "title":"Functional divergence between histone deacetylases in fission yeast by distinct cellular localization and in vivo specificity.",
+    "date":"2002 Apr",
+    "authors":[
+      "Bjerling P",
+      "Silverstein RA",
+      "Thon G",
+      "Caudy A",
+      "Grewal S",
+      "Ekwall K"
+    ]
+  },
+  {
+    "pmid":"PMID:14644449",
+    "title":"Hsp105 but not Hsp70 family proteins suppress the aggregation of heat-denatured protein in the presence of ADP.",
+    "date":"2003 Dec 4",
+    "authors":[
+      "Yamagishi N",
+      "Ishihara K",
+      "Saito Y",
+      "Hatayama T"
+    ]
+  },
+  {
+    "pmid":"PMID:19372552",
+    "title":"HDAC2 regulates chromatin plasticity and enhances DNA vulnerability.",
+    "date":"2009 Apr",
+    "authors":[
+      "Marchion DC",
+      "Bicaku E",
+      "Turner JG",
+      "Schmitt ML",
+      "Morelli DR",
+      "Munster PN"
+    ]
+  },
+  {
+    "pmid":"PMID:28855441",
+    "title":"MicroRNA-182 Promotes Lipoprotein Lipase Expression and Atherogenesisby Targeting Histone Deacetylase 9 in Apolipoprotein E-Knockout Mice.",
+    "date":"2017 Dec 25",
+    "authors":[
+      "Cheng HP",
+      "Gong D",
+      "Zhao ZW",
+      "He PP",
+      "Yu XH",
+      "Ye Q",
+      "Huang C",
+      "Zhang X",
+      "Chen LY",
+      "Xie W",
+      "Zhang M",
+      "Li L",
+      "Xia XD",
+      "Ouyang XP",
+      "Tan YL",
+      "Wang ZB",
+      "Tian GP",
+      "Zheng XL",
+      "Yin WD",
+      "Tang CK"
+    ]
+  },
+  {
+    "pmid":"PMID:12590135",
+    "title":"The histone deacetylase 9 gene encodes multiple protein isoforms.",
+    "date":"2003 May 2",
+    "authors":[
+      "Petrie K",
+      "Guidez F",
+      "Howell L",
+      "Healy L",
+      "Waxman S",
+      "Greaves M",
+      "Zelent A"
+    ]
+  },
+  {
+    "pmid":"PMID:18640983",
+    "title":"Structure and biochemical properties of fission yeast Arp2\/3 complex lacking the Arp2 subunit.",
+    "date":"2008 Sep 26",
+    "authors":[
+      "Nolen BJ",
+      "Pollard TD"
+    ]
+  },
+  {
+    "pmid":"PMID:17289569",
+    "title":"SHREC, an effector complex for heterochromatic transcriptional silencing.",
+    "date":"2007 Feb 9",
+    "authors":[
+      "Sugiyama T",
+      "Cam HP",
+      "Sugiyama R",
+      "Noma K",
+      "Zofall M",
+      "Kobayashi R",
+      "Grewal SI"
+    ]
+  },
+  {
+    "pmid":"PMID:23770133",
+    "title":"Decreased levels of miR-224 and the passenger strand of miR-221 increase MBD2, suppressing maspin and promoting colorectal tumor growth and metastasis in mice.",
+    "date":"2013 Oct",
+    "authors":[
+      "Yuan K",
+      "Xie K",
+      "Fox J",
+      "Zeng H",
+      "Gao H",
+      "Huang C",
+      "Wu M"
+    ]
+  },
+  {
+    "pmid":"PMID:19057576",
+    "title":"Neprilysin gene expression requires binding of the amyloid precursor protein intracellular domain to its promoter: implications for Alzheimer disease.",
+    "date":"2009 Jan",
+    "authors":[
+      "Belyaev ND",
+      "Nalivaeva NN",
+      "Makova NZ",
+      "Turner AJ"
+    ]
+  },
+  {
+    "pmid":"PMID:18687675",
+    "title":"Sulf loss influences N-, 2-O-, and 6-O-sulfation of multiple heparan sulfate proteoglycans and modulates fibroblast growth factor signaling.",
+    "date":"2008 Oct 10",
+    "authors":[
+      "Lamanna WC",
+      "Frese MA",
+      "Balleininger M",
+      "Dierks T"
+    ]
+  },
+  {
+    "pmid":"PMID:15024750",
+    "title":"Differential mRNA expression and protein localization of the SAP90\/PSD-95-associated proteins (SAPAPs) in the nervous system of the mouse.",
+    "date":"2004 Apr 19",
+    "authors":[
+      "Welch JM",
+      "Wang D",
+      "Feng G"
+    ]
+  },
+  {
+    "pmid":"PMID:19666466",
+    "title":"Characterization of the human sulfatase Sulf1 and its high affinity heparin\/heparan sulfate interaction domain.",
+    "date":"2009 Oct 9",
+    "authors":[
+      "Frese MA",
+      "Milz F",
+      "Dick M",
+      "Lamanna WC",
+      "Dierks T"
+    ]
+  },
+  {
+    "pmid":"PMID:21170036",
+    "title":"Fates-shifted is an F-box protein that targets Bicoid for degradation and regulates developmental fate determination in Drosophila embryos.",
+    "date":"2011 Jan",
+    "authors":[
+      "Liu J",
+      "Ma J"
+    ]
+  },
+  {
+    "pmid":"PMID:28245922",
+    "title":"An Hdac1\/Rpd3-Poised Circuit Balances Continual Self-Renewal and Rapid Restriction of Developmental Potential during Asymmetric Stem Cell Division.",
+    "date":"2017 Feb 27",
+    "authors":[
+      "Janssens DH",
+      "Hamm DC",
+      "Anhezini L",
+      "Xiao Q",
+      "Siller KH",
+      "Siegrist SE",
+      "Harrison MM",
+      "Lee CY"
+    ]
+  },
+  {
+    "pmid":"PMID:9103205",
+    "title":"Crystal structure of the nucleotide exchange factor GrpE bound to the ATPase domain of the molecular chaperone DnaK.",
+    "date":"1997 Apr 18",
+    "authors":[
+      "Harrison CJ",
+      "Hayer-Hartl M",
+      "Di Liberto M",
+      "Hartl F",
+      "Kuriyan J"
+    ]
+  },
+  {
+    "pmid":"PMID:25775468",
+    "title":"Differential distribution of Shank and GKAP at the postsynaptic density.",
+    "date":"2015",
+    "authors":[
+      "Tao-Cheng JH",
+      "Yang Y",
+      "Reese TS",
+      "Dosemeci A"
+    ]
+  },
+  {
+    "pmid":"PMID:11895481",
+    "title":"Identification of a novel nonlysosomal sulphatase expressed in the floor plate, choroid plexus and cartilage.",
+    "date":"2002 Feb",
+    "authors":[
+      "Ohto T",
+      "Uchida H",
+      "Yamazaki H",
+      "Keino-Masu K",
+      "Matsui A",
+      "Masu M"
+    ]
+  },
+  {
+    "pmid":"PMID:17713528",
+    "title":"Cortico-striatal synaptic defects and OCD-like behaviours in Sapap3-mutant mice.",
+    "date":"2007 Aug 23",
+    "authors":[
+      "Welch JM",
+      "Lu J",
+      "Rodriguiz RM",
+      "Trotta NC",
+      "Peca J",
+      "Ding JD",
+      "Feliciano C",
+      "Chen M",
+      "Adams JP",
+      "Luo J",
+      "Dudek SM",
+      "Weinberg RJ",
+      "Calakos N",
+      "Wetsel WC",
+      "Feng G"
+    ]
+  },
+  {
+    "pmid":"PMID:18850004",
+    "title":"HDAC4 represses p21(WAF1\/Cip1) expression in human cancer cells through a Sp1-dependent, p53-independent mechanism.",
+    "date":"2009 Jan 15",
+    "authors":[
+      "Mottet D",
+      "Pirotte S",
+      "Lamour V",
+      "Hagedorn M",
+      "Javerzat S",
+      "Bikfalvi A",
+      "Bellahcène A",
+      "Verdin E",
+      "Castronovo V"
+    ]
+  },
+  {
+    "pmid":"PMID:16079916",
+    "title":"Genomewide analysis of nucleosome density histone acetylation and HDAC function in fission yeast.",
+    "date":"2005 Aug 17",
+    "authors":[
+      "Wirén M",
+      "Silverstein RA",
+      "Sinha I",
+      "Walfridsson J",
+      "Lee HM",
+      "Laurenson P",
+      "Pillus L",
+      "Robyr D",
+      "Grunstein M",
+      "Ekwall K"
+    ]
+  },
+  {
+    "pmid":"PMID:19520866",
+    "title":"Functional consequences of the subdomain organization of the sulfs.",
+    "date":"2009 Aug 7",
+    "authors":[
+      "Tang R",
+      "Rosen SD"
+    ]
+  },
+  {
+    "pmid":"PMID:26598555",
+    "title":"VE-cadherin facilitates BMP-induced endothelial cell permeability and signaling.",
+    "date":"2016 Jan 1",
+    "authors":[
+      "Benn A",
+      "Bredow C",
+      "Casanova I",
+      "Vukičević S",
+      "Knaus P"
+    ]
+  },
+  {
+    "pmid":"PMID:21724833",
+    "title":"Identification of PTPN23 as a novel regulator of cell invasion in mammary epithelial cells from a loss-of-function screen of the 'PTP-ome'.",
+    "date":"2011 Jul 1",
+    "authors":[
+      "Lin G",
+      "Aranda V",
+      "Muthuswamy SK",
+      "Tonks NK"
+    ]
+  },
+  {
+    "pmid":"PMID:22328512",
+    "title":"GKAP-DLC2 interaction organizes the postsynaptic scaffold complex to enhance synaptic NMDA receptor activity.",
+    "date":"2012 Apr 15",
+    "authors":[
+      "Moutin E",
+      "Raynaud F",
+      "Fagni L",
+      "Perroy J"
+    ]
+  },
+  {
+    "pmid":"PMID:23548744",
+    "title":"PHYTOCHROME INTERACTING FACTOR3 associates with the histone deacetylase HDA15 in repression of chlorophyll biosynthesis and photosynthesis in etiolated Arabidopsis seedlings.",
+    "date":"2013 Apr",
+    "authors":[
+      "Liu X",
+      "Chen CY",
+      "Wang KC",
+      "Luo M",
+      "Tai R",
+      "Yuan L",
+      "Zhao M",
+      "Yang S",
+      "Tian G",
+      "Cui Y",
+      "Hsieh HL",
+      "Wu K"
+    ]
+  },
+  {
+    "pmid":"PMID:11535832",
+    "title":"Cloning and characterization of a histone deacetylase, HDAC9.",
+    "date":"2001 Sep 11",
+    "authors":[
+      "Zhou X",
+      "Marks PA",
+      "Rifkind RA",
+      "Richon VM"
+    ]
+  },
+  {
+    "pmid":"PMID:11741539",
+    "title":"Reconstitution of human Arp2\/3 complex reveals critical roles of individual subunits in complex structure and activity.",
+    "date":"2001 Nov",
+    "authors":[
+      "Gournier H",
+      "Goley ED",
+      "Niederstrasser H",
+      "Trinh T",
+      "Welch MD"
+    ]
+  },
+  {
+    "pmid":"PMID:21642440",
+    "title":"Actin filament bundling by fimbrin is important for endocytosis, cytokinesis, and polarization in fission yeast.",
+    "date":"2011 Jul 29",
+    "authors":[
+      "Skau CT",
+      "Courson DS",
+      "Bestul AJ",
+      "Winkelman JD",
+      "Rock RS",
+      "Sirotkin V",
+      "Kovar DR"
+    ]
+  },
+  {
+    "pmid":"PMID:20304803",
+    "title":"Circadian control of XPA and excision repair of cisplatin-DNA damage by cryptochrome and HERC2 ubiquitin ligase.",
+    "date":"2010 Mar 16",
+    "authors":[
+      "Kang TH",
+      "Lindsey-Boltz LA",
+      "Reardon JT",
+      "Sancar A"
+    ]
+  },
+  {
+    "pmid":"PMID:11124122",
+    "title":"The Drosophila Polycomb Group proteins ESC and E(Z) are present in a complex containing the histone-binding protein p55 and the histone deacetylase RPD3.",
+    "date":"2001 Jan",
+    "authors":[
+      "Tie F",
+      "Furuyama T",
+      "Prasad-Sinha J",
+      "Jane E",
+      "Harte PJ"
+    ]
+  },
+  {
+    "pmid":"PMID:24413532",
+    "title":"Differential regulation of estrogen receptor α expression in breast cancer cells by metastasis-associated protein 1.",
+    "date":"2014 Mar 1",
+    "authors":[
+      "Kang HJ",
+      "Lee MH",
+      "Kang HL",
+      "Kim SH",
+      "Ahn JR",
+      "Na H",
+      "Na TY",
+      "Kim YN",
+      "Seong JK",
+      "Lee MO"
+    ]
+  },
+  {
+    "pmid":"PMID:12368295",
+    "title":"Cloning and characterization of two extracellular heparin-degrading endosulfatases in mice and humans.",
+    "date":"2002 Dec 20",
+    "authors":[
+      "Morimoto-Tomita M",
+      "Uchimura K",
+      "Werb Z",
+      "Hemmerich S",
+      "Rosen SD"
+    ]
+  },
+  {
+    "pmid":"PMID:10869435",
+    "title":"Regulation of histone deacetylase 4 and 5 and transcriptional activity by 14-3-3-dependent cellular localization.",
+    "date":"2000 Jul 5",
+    "authors":[
+      "Grozinger CM",
+      "Schreiber SL"
+    ]
+  },
+  {
+    "pmid":"PMID:18454196",
+    "title":"Drosophila histone deacetylase-3 controls imaginal disc size through suppression of apoptosis.",
+    "date":"2008 Feb 29",
+    "authors":[
+      "Zhu CC",
+      "Bornemann DJ",
+      "Zhitomirsky D",
+      "Miller EL",
+      "O'Connor MB",
+      "Simon JA"
+    ]
+  },
+  {
+    "pmid":"PMID:10458167",
+    "title":"Trigger factor and DnaK cooperate in folding of newly synthesized proteins.",
+    "date":"1999 Aug 12",
+    "authors":[
+      "Deuerling E",
+      "Schulze-Specking A",
+      "Tomoyasu T",
+      "Mogk A",
+      "Bukau B"
+    ]
+  },
+  {
+    "pmid":"PMID:32499524",
+    "title":"The Mi-2 nucleosome remodeler and the Rpd3 histone deacetylase are involved in piRNA-guided heterochromatin formation.",
+    "date":"2020 Jun 4",
+    "authors":[
+      "Mugat B",
+      "Nicot S",
+      "Varela-Chavez C",
+      "Jourdan C",
+      "Sato K",
+      "Basyuk E",
+      "Juge F",
+      "Siomi MC",
+      "Pélisson A",
+      "Chambeyron S"
+    ]
+  },
+  {
+    "pmid":"PMID:29618061",
+    "title":"Histone deacetylation promotes transcriptional silencing at facultative heterochromatin.",
+    "date":"2018 Jun 20",
+    "authors":[
+      "Watts BR",
+      "Wittmann S",
+      "Wery M",
+      "Gautier C",
+      "Kus K",
+      "Birot A",
+      "Heo DH",
+      "Kilchert C",
+      "Morillon A",
+      "Vasiljeva L"
+    ]
+  },
+  {
+    "pmid":"PMID:8001791",
+    "title":"Three additional linkage groups that repress transcription and meiotic recombination in the mating-type region of Schizosaccharomyces pombe.",
+    "date":"1994 Sep",
+    "authors":[
+      "Thon G",
+      "Cohen A",
+      "Klar AJ"
+    ]
+  },
+  {
+    "pmid":"PMID:2203539",
+    "title":"The E. coli dnaK gene product, the hsp70 homolog, can reactivate heat-inactivated RNA polymerase in an ATP hydrolysis-dependent manner.",
+    "date":"1990 Sep 7",
+    "authors":[
+      "Skowyra D",
+      "Georgopoulos C",
+      "Zylicz M"
+    ]
+  },
+  {
+    "pmid":"PMID:35294879",
+    "title":"Extracellular endosulfatase Sulf-2 harbors a chondroitin\/dermatan sulfate chain that modulates its enzyme activity.",
+    "date":"2022 Mar 15",
+    "authors":[
+      "El Masri R",
+      "Seffouh A",
+      "Roelants C",
+      "Seffouh I",
+      "Gout E",
+      "Pérard J",
+      "Dalonneau F",
+      "Nishitsuji K",
+      "Noborn F",
+      "Nikpour M",
+      "Larson G",
+      "Crétinon Y",
+      "Friedel-Arboleas M",
+      "Uchimura K",
+      "Daniel R",
+      "Lortat-Jacob H",
+      "Filhol O",
+      "Vivès RR"
+    ]
+  },
+  {
+    "pmid":"PMID:12686563",
+    "title":"Loss of HSulf-1 up-regulates heparin-binding growth factor signaling in cancer.",
+    "date":"2003 Jun 20",
+    "authors":[
+      "Lai J",
+      "Chien J",
+      "Staub J",
+      "Avula R",
+      "Greene EL",
+      "Matthews TA",
+      "Smith DI",
+      "Kaufmann SH",
+      "Roberts LR",
+      "Shridhar V"
+    ]
+  },
+  {
+    "pmid":"PMID:7937953",
+    "title":"The ATP hydrolysis-dependent reaction cycle of the Escherichia coli Hsp70 system DnaK, DnaJ, and GrpE.",
+    "date":"1994 Oct 25",
+    "authors":[
+      "Szabo A",
+      "Langer T",
+      "Schröder H",
+      "Flanagan J",
+      "Bukau B",
+      "Hartl FU"
+    ]
+  },
+  {
+    "pmid":"PMID:19640847",
+    "title":"Fragile X mental retardation protein regulates the levels of scaffold proteins and glutamate receptors in postsynaptic densities.",
+    "date":"2009 Sep 18",
+    "authors":[
+      "Schütt J",
+      "Falley K",
+      "Richter D",
+      "Kreienkamp HJ",
+      "Kindler S"
+    ]
+  },
+  {
+    "pmid":"PMID:22045728",
+    "title":"Effects of phosphorylation and neuronal activity on the control of synapse formation by synapsin I.",
+    "date":"2011 Nov 1",
+    "authors":[
+      "Perlini LE",
+      "Botti F",
+      "Fornasiero EF",
+      "Giannandrea M",
+      "Bonanomi D",
+      "Amendola M",
+      "Naldini L",
+      "Benfenati F",
+      "Valtorta F"
+    ]
+  },
+  {
+    "pmid":"PMID:19136623",
+    "title":"Phosphorylation of Swi6\/HP1 regulates transcriptional gene silencing at heterochromatin.",
+    "date":"2009 Jan 1",
+    "authors":[
+      "Shimada A",
+      "Dohke K",
+      "Sadaie M",
+      "Shinmyozu K",
+      "Nakayama J",
+      "Urano T",
+      "Murakami Y"
+    ]
+  },
+  {
+    "pmid":"PMID:25922987",
+    "title":"Regulation of flowering time by the histone deacetylase HDA5 in Arabidopsis.",
+    "date":"2015 Jun",
+    "authors":[
+      "Luo M",
+      "Tai R",
+      "Yu CW",
+      "Yang S",
+      "Chen CY",
+      "Lin WD",
+      "Schmidt W",
+      "Wu K"
+    ]
+  },
+  {
+    "pmid":"PMID:30664629",
+    "title":"Cognitive impairment and autistic-like behaviour in SAPAP4-deficient mice.",
+    "date":"2019 Jan 16",
+    "authors":[
+      "Schob C",
+      "Morellini F",
+      "Ohana O",
+      "Bakota L",
+      "Hrynchak MV",
+      "Brandt R",
+      "Brockmann MD",
+      "Cichon N",
+      "Hartung H",
+      "Hanganu-Opatz IL",
+      "Kraus V",
+      "Scharf S",
+      "Herrmans-Borgmeyer I",
+      "Schweizer M",
+      "Kuhl D",
+      "Wöhr M",
+      "Vörckel KJ",
+      "Calzada-Wack J",
+      "Fuchs H",
+      "Gailus-Durner V",
+      "Hrabě de Angelis M",
+      "Garner CC",
+      "Kreienkamp HJ",
+      "Kindler S"
+    ]
+  },
+  {
+    "pmid":"PMID:7900997",
+    "title":"DnaK, DnaJ and GrpE form a cellular chaperone machinery capable of repairing heat-induced protein damage.",
+    "date":"1993 Nov",
+    "authors":[
+      "Schröder H",
+      "Langer T",
+      "Hartl FU",
+      "Bukau B"
+    ]
+  },
+  {
+    "pmid":"PMID:11493709",
+    "title":"Essential role of Drosophila Hdac1 in homeotic gene silencing.",
+    "date":"2001 Aug 14",
+    "authors":[
+      "Chang YL",
+      "Peng YH",
+      "Pan IC",
+      "Sun DS",
+      "King B",
+      "Huang DH"
+    ]
+  },
+  {
+    "pmid":"PMID:16246721",
+    "title":"The nucleation and maintenance of heterochromatin by a histone deacetylase in fission yeast.",
+    "date":"2005 Oct 28",
+    "authors":[
+      "Yamada T",
+      "Fischle W",
+      "Sugiyama T",
+      "Allis CD",
+      "Grewal SI"
+    ]
+  },
+  {
+    "pmid":"PMID:25100589",
+    "title":"Synapsin regulates activity-dependent outgrowth of synaptic boutons at the Drosophila neuromuscular junction.",
+    "date":"2014 Aug 6",
+    "authors":[
+      "Vasin A",
+      "Zueva L",
+      "Torrez C",
+      "Volfson D",
+      "Littleton JT",
+      "Bykhovskaia M"
+    ]
+  },
+  {
+    "pmid":"PMID:23293289",
+    "title":"Regulated tissue fluidity steers zebrafish body elongation.",
+    "date":"2013 Feb 1",
+    "authors":[
+      "Lawton AK",
+      "Nandi A",
+      "Stulberg MJ",
+      "Dray N",
+      "Sneddon MW",
+      "Pontius W",
+      "Emonet T",
+      "Holley SA"
+    ]
+  },
+  {
+    "pmid":"PMID:19278297",
+    "title":"Regulation of embryonic cell adhesion by the prion protein.",
+    "date":"2009 Mar 10",
+    "authors":[
+      "Málaga-Trillo E",
+      "Solis GP",
+      "Schrock Y",
+      "Geiss C",
+      "Luncz L",
+      "Thomanetz V",
+      "Stuermer CA"
+    ]
+  },
+  {
+    "pmid":"PMID:24013500",
+    "title":"A conserved ncRNA-binding protein recruits silencing factors to heterochromatin through an RNAi-independent mechanism.",
+    "date":"2013 Sep 1",
+    "authors":[
+      "Marina DB",
+      "Shankar S",
+      "Natarajan P",
+      "Finn KJ",
+      "Madhani HD"
+    ]
+  },
+  {
+    "pmid":"PMID:25915022",
+    "title":"The Xist lncRNA interacts directly with SHARP to silence transcription through HDAC3.",
+    "date":"2015 May 14",
+    "authors":[
+      "McHugh CA",
+      "Chen CK",
+      "Chow A",
+      "Surka CF",
+      "Tran C",
+      "McDonel P",
+      "Pandya-Jones A",
+      "Blanco M",
+      "Burghard C",
+      "Moradian A",
+      "Sweredoski MJ",
+      "Shishkin AA",
+      "Su J",
+      "Lander ES",
+      "Hess S",
+      "Plath K",
+      "Guttman M"
+    ]
+  }
+]

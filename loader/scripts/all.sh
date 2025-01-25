@@ -92,7 +92,8 @@ process_dataset() {
     fi
     
     echo "Starting processing pipeline for $prefix..."
-
+    echo "python3 -m src.clean_annotations -a \"$annotations_fp\" -t \"$terms_fp\" -tax \"$taxon_fp\" -art \"$CLEAN_ARTICLES\" -g \"$genes_fp\" -o \"$clean_annotations_fp\""
+    
     echo "Getting articles..."
     python3 -m src.get_articles \
         -a "$annotations_fp" \
@@ -107,7 +108,9 @@ process_dataset() {
         -art "$CLEAN_ARTICLES" \
         -g "$genes_fp" \
         -o "$clean_annotations_fp"
-    
+
+
+       
     echo "Generating gene annotations..."
     python3 -m src.generate_gene_annotations \
         -a "$clean_annotations_fp" \

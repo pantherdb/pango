@@ -1,4 +1,5 @@
 import type { Gene } from "@/app/genes/models/gene";
+import type { Term } from "@/app/genes/models/term";
 
 export enum GOAspect {
   MOLECULAR_FUNCTION = 'molecular function',
@@ -44,15 +45,7 @@ export interface Group {
   shorthand: string
 }
 
-export interface Term {
-  id: string;
-  label: string;
-  displayId: string;
-  aspect: string;
-  isGoSlim: boolean;
-  evidenceType: string;
 
-}
 
 export interface Reference {
   pmid: string;

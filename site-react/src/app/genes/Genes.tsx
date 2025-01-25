@@ -62,10 +62,10 @@ const Genes: FC<GenesProps> = ({ page = 0, size = 20 }) => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-t border-accent-700">
+              <tr className="">
                 <th className="w-10"></th>
                 {cols.map(header => (
-                  <th key={header} className="p-3 text-left text-xs text-primary-400 font-bold uppercase border-r border-gray-300">
+                  <th key={header} className="">
                     <Tooltip title={header}>
                       <span>{header}</span>
                     </Tooltip>

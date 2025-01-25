@@ -1,0 +1,42 @@
+[
+  {
+    "taxon_id":"3702",
+    "taxon_label":"Arabidopsis thaliana",
+    "taxon_abbr":"Ath"
+  },
+  {
+    "taxon_id":"7955",
+    "taxon_label":"Danio rerio",
+    "taxon_abbr":"Dre"
+  },
+  {
+    "taxon_id":"7227",
+    "taxon_label":"Drosophila melanogaster",
+    "taxon_abbr":"Dme"
+  },
+  {
+    "taxon_id":"83333",
+    "taxon_label":"Escherichia coli",
+    "taxon_abbr":"Eco"
+  },
+  {
+    "taxon_id":"9606",
+    "taxon_label":"Homo sapiens",
+    "taxon_abbr":"Hsa"
+  },
+  {
+    "taxon_id":"284812",
+    "taxon_label":"Schizosaccharomyces pombe",
+    "taxon_abbr":"Spo"
+  },
+  {
+    "taxon_id":"10090",
+    "taxon_label":"Mus musculus",
+    "taxon_abbr":"Mmu"
+  },
+  {
+    "taxon_id":"10116",
+    "taxon_label":"Rattus norvegicus",
+    "taxon_abbr":"Rno"
+  }
+]
