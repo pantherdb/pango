@@ -1,3 +1,4 @@
+import type React from 'react';
 import { TablePagination, CircularProgress, Tooltip } from '@mui/material';
 import { FaCaretRight, FaCaretDown } from 'react-icons/fa';
 import { useGetGenesCountQuery, useGetGenesQuery } from './genesApiSlice';
@@ -7,15 +8,15 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 import type { RootState } from '../store/store';
 import Terms from './Terms';
 import { setPage, setPageSize } from '@/features/search/searchSlice';
-
-// TODO: Add expand genes
+import { useState } from 'react';
 
 interface GenesProps {
   page?: number;
   size?: number;
 }
 
-const Genes: FC<GenesProps> = () => {
+const Genes: React.FC<GenesProps> = () => {
+  const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({});
   const { page, size } = useAppSelector((state: RootState) => state.search.pagination);
   const search = useAppSelector((state: RootState) => state.search);
   const dispatch = useAppDispatch();
@@ -34,15 +35,16 @@ const Genes: FC<GenesProps> = () => {
   const cols = ['Gene', 'Molecular Functions', 'Biological Processes', 'Cellular Components'];
 
   const handleExpandClick = (gene: Gene) => {
-    gene.expanded = !gene.expanded;
-    gene.maxTerms = gene.expanded ? 500 : 2;
+    setExpandedRows(prev => ({
+      ...prev,
+      [gene.gene]: !prev[gene.gene]
+    }));
   };
 
   const getUniprotLink = (gene: Gene) => {
     const geneId = gene.gene?.split(':');
     return geneId.length > 1 ? `${ENVIRONMENT.uniprotUrl}${geneId[1]}` : gene.gene;
   };
-
 
   const handlePageChange = (_: unknown, newPage: number) => {
     dispatch(setPage(newPage));
@@ -53,7 +55,6 @@ const Genes: FC<GenesProps> = () => {
     dispatch(setPageSize(parseInt(event.target.value, 10)));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
 
   if (isLoading) return (
     <div className="fixed inset-0 bg-gray-600/40 flex items-center justify-center">
@@ -75,10 +76,10 @@ const Genes: FC<GenesProps> = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="">
+              <tr>
                 <th className="w-10"></th>
                 {cols.map(header => (
-                  <th key={header} className="">
+                  <th key={header}>
                     <Tooltip title={header}>
                       <span>{header}</span>
                     </Tooltip>
@@ -92,7 +93,7 @@ const Genes: FC<GenesProps> = () => {
                   <td className="p-3">
                     <button onClick={() => handleExpandClick(gene)}
                       className="text-gray-700">
-                      {gene.expanded ? <FaCaretDown /> : <FaCaretRight />}
+                      {expandedRows[gene.gene] ? <FaCaretDown /> : <FaCaretRight />}
                     </button>
                   </td>
                   <td className="p-3 border-r border-gray-300">
@@ -106,13 +107,12 @@ const Genes: FC<GenesProps> = () => {
                         <a href={getUniprotLink(gene)}>{gene.gene}</a>
                       </div>
                       {gene.coordinatesChrNum && (
-                        <div className="inline-block px-2 py-0.5 bg-purple-800  text-xs">
+                        <div className="inline-block px-2 py-0.5 bg-purple-800 text-xs">
                           <a className="text-accent-500" href={`${ENVIRONMENT.ucscUrl}${gene.coordinatesChrNum}:${gene.coordinatesStart}-${gene.coordinatesEnd}`}>
                             chr{gene.coordinatesChrNum}:{gene.coordinatesStart}-{gene.coordinatesEnd}
                           </a>
                         </div>
                       )}
-
                       <div className="text-sm">
                         <a href={`/gene/${gene.gene}`} target="_blank" rel="noreferrer">
                           View all functions and evidence
@@ -121,13 +121,25 @@ const Genes: FC<GenesProps> = () => {
                     </div>
                   </td>
                   <td className="p-3 border-r w-1/5 border-gray-300">
-                    <Terms terms={gene.groupedTerms?.mfs} maxTerms={gene.groupedTerms?.maxTerms} onToggleExpand={handleExpandClick} />
+                    <Terms
+                      terms={gene.groupedTerms?.mfs}
+                      maxTerms={expandedRows[gene.gene] ? 500 : 2}
+                      onToggleExpand={() => handleExpandClick(gene)}
+                    />
                   </td>
                   <td className="p-3 border-r w-1/5 border-gray-300">
-                    <Terms terms={gene.groupedTerms?.bps} maxTerms={gene.groupedTerms?.maxTerms} onToggleExpand={handleExpandClick} />
+                    <Terms
+                      terms={gene.groupedTerms?.bps}
+                      maxTerms={expandedRows[gene.gene] ? 500 : 2}
+                      onToggleExpand={() => handleExpandClick(gene)}
+                    />
                   </td>
                   <td className="p-3 border-r w-1/5 border-gray-300">
-                    <Terms terms={gene.groupedTerms?.ccs} maxTerms={gene.groupedTerms?.maxTerms} onToggleExpand={handleExpandClick} />
+                    <Terms
+                      terms={gene.groupedTerms?.ccs}
+                      maxTerms={expandedRows[gene.gene] ? 500 : 2}
+                      onToggleExpand={() => handleExpandClick(gene)}
+                    />
                   </td>
                 </tr>
               ))}

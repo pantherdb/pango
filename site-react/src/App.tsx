@@ -20,8 +20,6 @@ const router = createBrowserRouter([
     />,
     children: [
       { path: '', element: <Home /> },
-      // Other routes without drawers
-      //{ path: 'gene/:id', element: <Gene /> }
     ],
   },
 

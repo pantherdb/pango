@@ -2,7 +2,6 @@ import type { Action, Middleware, ThunkAction } from "@reduxjs/toolkit"
 import { combineSlices, configureStore } from "@reduxjs/toolkit"
 import { setupListeners } from "@reduxjs/toolkit/query"
 import apiService from "./apiService"
-import annotationModalSliceReducer from './../annotations/dialogs/annotationModalSlice';
 import { geneSlice } from './../genes/genesSlice';
 import { annotationSlice } from './../annotations/annotationsSlice';
 import { drawerSlice } from "@/@pango.core/components/drawer/drawerSlice";
@@ -21,8 +20,6 @@ const rootReducer = combineSlices(
     annotations: annotationSlice.reducer,
     selectedAnnotation: selectedAnnotationSlice.reducer,
     drawer: drawerSlice.reducer,
-
-    annotationModal: annotationModalSliceReducer,
     [apiService.reducerPath]: apiService.reducer
   })
 

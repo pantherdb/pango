@@ -1,14 +1,17 @@
 import type React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Chip, Tooltip } from '@mui/material';
 import Genes from '../genes/Genes';
 import GeneForm from '../genes/forms/GeneForm';
 import OverrepForm from '../genes/forms/OverrepForm';
 import { SearchFilterType } from '@/features/search/search';
+import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
+import { useAppDispatch } from '../hooks';
 
 // TODO: Add filters component
 
 const Home: React.FC = () => {
+  const dispatch = useAppDispatch();
   const [searchCriteria, setSearchCriteria] = useState({
     filtersCount: 0,
     [SearchFilterType.GENES]: [],
@@ -30,6 +33,10 @@ const Home: React.FC = () => {
       filtersCount: prev.filtersCount - 1
     }));
   };
+
+  useEffect(() => {
+    dispatch(setLeftDrawerOpen(true));
+  }, [dispatch]);
 
   return (
     <Box className="w-full flex flex-col">

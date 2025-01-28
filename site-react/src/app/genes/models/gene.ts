@@ -12,8 +12,6 @@ export enum AutocompleteType {
 }
 
 
-
-
 export interface AutocompleteFilterArgs {
   autocompleteType: AutocompleteType;
 }

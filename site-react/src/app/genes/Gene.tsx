@@ -6,9 +6,17 @@ import { FiExternalLink } from 'react-icons/fi';
 import AnnotationTable from '../annotations/AnnotationTable';
 import GeneSummary from './GeneSummary';
 import { transformTerms } from './services/genesService';
+import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../hooks';
 
 const Gene: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { id: geneId } = useParams<{ id: string }>();
+
+  useEffect(() => {
+    dispatch(setLeftDrawerOpen(false));
+  }, [dispatch]);
 
   const filterArgs = { geneIds: [geneId] };
   const pageArgs = { page: 0, size: 200 };
@@ -35,6 +43,8 @@ const Gene: React.FC = () => {
   const getFamilyLink = (element: Annotation) => {
     return `${ENVIRONMENT}book=${encodeURIComponent(element.pantherFamily)}&seq=${encodeURIComponent(element.longId)}`;
   };
+
+
 
   return (
     <div className="w-full bg-slate-200">

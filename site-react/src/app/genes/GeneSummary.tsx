@@ -9,10 +9,7 @@ interface GeneSummaryProps {
 }
 
 const GeneSummary: React.FC<GeneSummaryProps> = ({ groupedTerms }) => {
-  function handleExpandClick(): void {
-    // TODO: Implement expand click handler
-    throw new Error('Function not implemented.');
-  }
+  function handleExpandClick(): void { }
 
   return (
     <div className="border border-gray-300 rounded-lg bg-white">

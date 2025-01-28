@@ -1,6 +1,7 @@
 import { ENVIRONMENT } from '@/@pango.core/data/constants';
 import type React from 'react';
 import ontology from '@/@pango.core/data/ontologyOptions.json';
+import { useEffect, useRef } from 'react';
 
 declare global {
   namespace JSX {
@@ -24,14 +25,22 @@ declare global {
 }
 
 // TODO:  OverrepForm component values should work
-
 const OverrepForm = () => {
-
+  const formRef = useRef<any>(null);
   const ontologyOptions = ontology.ontology;
   const exampleGenes = ontology.genes;
   const submitUrl = ENVIRONMENT.overrepApiUrl;
+
+  useEffect(() => {
+    if (formRef.current) {
+      formRef.current.ontologyOptions = ontologyOptions;
+      formRef.current.exampleGenes = exampleGenes;
+    }
+  }, [ontologyOptions, exampleGenes]);
+
   return (
     <overrep-form
+      ref={formRef}
       submit-url={submitUrl}
       species="HUMAN"
       test-type="FISHER"
@@ -39,10 +48,8 @@ const OverrepForm = () => {
       style={{
         '--overrep-height': '270px',
         '--overrep-width': '100%',
-        '--overrep-font-size': '12px'
+        '--overrep-font-size': '12px',
       } as React.CSSProperties}
-      ontologyOptions={ontologyOptions}
-      exampleGenes={exampleGenes}
     />
   );
 };

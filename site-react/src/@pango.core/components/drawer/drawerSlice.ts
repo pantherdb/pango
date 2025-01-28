@@ -8,7 +8,7 @@ interface DrawerState {
 }
 
 const initialState: DrawerState = {
-  leftDrawerOpen: false,
+  leftDrawerOpen: true,
   rightDrawerOpen: false,
 };
 
