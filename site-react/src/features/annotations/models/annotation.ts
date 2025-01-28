@@ -1,6 +1,6 @@
-import type { TermType } from "@/@pango.core/data/config";
+
 import type { Gene } from "@/features/genes/models/gene";
-import type { Term } from "@/features/terms/models/term";
+import type { Term, TermType } from "@/features/terms/models/term";
 
 
 export enum GOAspect {

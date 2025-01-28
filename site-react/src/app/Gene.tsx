@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from './hooks';
+import { TermType } from '@/features/terms/models/term';
 
 
 const Gene: React.FC = () => {
@@ -31,8 +32,8 @@ const Gene: React.FC = () => {
     return <div className="p-4">Loading...</div>;
   }
 
-  const knownTermTypes = annotations.filter(a => a.termType === 'known').length;
-  const unknownTermTypes = annotations.filter(a => a.termType === 'unknown').length;
+  const knownTermTypes = annotations.filter(a => a.termType === TermType.KNOWN).length;
+  const unknownTermTypes = annotations.filter(a => a.termType === TermType.UNKNOWN).length;
 
   const groupedTerms = transformTerms(annotations, 100);
 

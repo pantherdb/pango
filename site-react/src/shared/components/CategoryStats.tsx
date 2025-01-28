@@ -1,7 +1,7 @@
 import type React from 'react';
 import { useState } from 'react';
 import { Checkbox, Tooltip } from '@mui/material';
-import type { AspectType } from "@/@pango.core/data/config";
+import type { AspectMapType } from "@/@pango.core/data/config";
 import { ASPECT_MAP } from "@/@pango.core/data/config";
 import { SearchFilterType } from '@/features/search/search';
 import { addItem } from '@/features/search/searchSlice';
@@ -11,7 +11,7 @@ import { useGetGenesStatsQuery } from '@/features/genes/slices/genesApiSlice';
 import TermForm from '@/features/terms/components/TermForm';
 import type { RootState } from '@/app/store/store';
 
-// TODO: Add filters component click
+// TODO: Prettification
 
 const CategoryStats: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -51,7 +51,7 @@ const CategoryStats: React.FC = () => {
           <h5 className="mb-4">Show/hide GO aspects in category list below</h5>
 
           <div className="flex flex-wrap gap-4 mb-6">
-            {Object.values(ASPECT_MAP).map((aspect: AspectType) => (
+            {Object.values(ASPECT_MAP).map((aspect: AspectMapType) => (
               <Tooltip
                 key={aspect.id}
                 title={aspect.description}

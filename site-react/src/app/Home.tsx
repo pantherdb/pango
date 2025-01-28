@@ -1,38 +1,17 @@
 import type React from 'react';
-import { useEffect, useState } from 'react';
-import { Box, Chip, Tooltip } from '@mui/material';
+import { useEffect } from 'react';
+import { Box, } from '@mui/material';
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
 import GeneForm from '@/features/genes/components/forms/GeneForm';
 import OverrepForm from '@/features/genes/components/forms/OverrepForm';
 import Genes from '@/features/genes/components/Genes';
-import { SearchFilterType } from '@/features/search/search';
 import { useAppDispatch } from './hooks';
+import FilterSummary from '@/features/search/components/FilterSummary';
 
 // TODO: Add filters component
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [searchCriteria, setSearchCriteria] = useState({
-    filtersCount: 0,
-    [SearchFilterType.GENES]: [],
-    [SearchFilterType.SLIM_TERMS]: [],
-  });
-
-  const clearAllFilters = () => {
-    setSearchCriteria({
-      filtersCount: 0,
-      [SearchFilterType.GENES]: [],
-      [SearchFilterType.SLIM_TERMS]: [],
-    });
-  };
-
-  const removeFilter = (filterType: SearchFilterType) => {
-    setSearchCriteria(prev => ({
-      ...prev,
-      [filterType]: [],
-      filtersCount: prev.filtersCount - 1
-    }));
-  };
 
   useEffect(() => {
     dispatch(setLeftDrawerOpen(true));
@@ -82,32 +61,7 @@ const Home: React.FC = () => {
       </div>
 
       <div className="sticky top-0 z-10 bg-white shadow-md px-3 h-[30px] flex items-center">
-        {searchCriteria.filtersCount === 0 ? (
-          <span className="text-gray-500 italic text-xs">
-            No Filters selected: You can filter the list to find a specific gene or function category.
-          </span>
-        ) : (
-          <div className="flex items-center gap-2">
-            <small className="mr-3 text-xs">Filtered By:</small>
-            <Chip
-              label="Clear All"
-              onDelete={clearAllFilters}
-              className="h-6 text-xs"
-              color="error"
-              size="small"
-            />
-            {searchCriteria[SearchFilterType.GENES].length > 0 && (
-              <Tooltip title="Click to remove genes filter" placement="bottom">
-                <Chip
-                  label={`Genes (${searchCriteria[SearchFilterType.GENES].length})`}
-                  onDelete={() => removeFilter(SearchFilterType.GENES)}
-                  className="h-6 text-xs"
-                  size="small"
-                />
-              </Tooltip>
-            )}
-          </div>
-        )}
+        <FilterSummary />
       </div>
 
       <Box className="min-h-[500px] mb-[200px]">

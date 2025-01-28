@@ -1,6 +1,6 @@
 import type React from "react";
-import type { Annotation } from "./models/annotation";
 import { ASPECT_MAP } from "@/@pango.core/data/config";
+import type { Annotation } from "../models/annotation";
 
 
 interface Props {
