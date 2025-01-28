@@ -1,14 +1,15 @@
-import { ENVIRONMENT } from '@/@pango.core/data/constants';
-import { useParams } from 'react-router-dom';
-import { useGetAnnotationsQuery } from '../annotations/annotationsApiSlice';
-import type { Annotation } from '../annotations/models/annotation';
-import { FiExternalLink } from 'react-icons/fi';
-import AnnotationTable from '../annotations/AnnotationTable';
-import GeneSummary from './GeneSummary';
-import { transformTerms } from './services/genesService';
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
+import { ENVIRONMENT } from '@/@pango.core/data/constants';
+import AnnotationTable from '@/features/annotations/components/AnnotationTable';
+import type { Annotation } from '@/features/annotations/models/annotation';
+import { useGetAnnotationsQuery } from '@/features/annotations/slices/annotationsApiSlice';
+import GeneSummary from '@/features/genes/components/GeneSummary';
+import { transformTerms } from '@/features/genes/services/genesService';
 import { useEffect } from 'react';
-import { useAppDispatch } from '../hooks';
+import { FiExternalLink } from 'react-icons/fi';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch } from './hooks';
+
 
 const Gene: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -43,8 +44,6 @@ const Gene: React.FC = () => {
   const getFamilyLink = (element: Annotation) => {
     return `${ENVIRONMENT}book=${encodeURIComponent(element.pantherFamily)}&seq=${encodeURIComponent(element.longId)}`;
   };
-
-
 
   return (
     <div className="w-full bg-slate-200">

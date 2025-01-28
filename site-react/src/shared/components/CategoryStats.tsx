@@ -1,15 +1,15 @@
 import type React from 'react';
 import { useState } from 'react';
 import { Checkbox, Tooltip } from '@mui/material';
-import { useAppDispatch, useAppSelector } from "../hooks";
-import type { RootState } from "../store/store";
-import { useGetGenesStatsQuery } from "./genesApiSlice";
 import type { AspectType } from "@/@pango.core/data/config";
 import { ASPECT_MAP } from "@/@pango.core/data/config";
-import TermForm from './forms/TermForm';
-import { buildCategoryBar } from './services/genesService';
 import { SearchFilterType } from '@/features/search/search';
 import { addItem } from '@/features/search/searchSlice';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { buildCategoryBar } from '@/features/genes/services/genesService';
+import { useGetGenesStatsQuery } from '@/features/genes/slices/genesApiSlice';
+import TermForm from '@/features/terms/components/TermForm';
+import type { RootState } from '@/app/store/store';
 
 // TODO: Add filters component click
 
@@ -30,8 +30,6 @@ const CategoryStats: React.FC = () => {
         : [...prev, aspectId]
     );
   };
-
-
 
   const slimTermFrequency = geneStats?.slimTermFrequency?.buckets
     ? buildCategoryBar(geneStats.slimTermFrequency.buckets, selectedAspects)

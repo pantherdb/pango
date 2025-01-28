@@ -2,11 +2,11 @@ import type { Action, Middleware, ThunkAction } from "@reduxjs/toolkit"
 import { combineSlices, configureStore } from "@reduxjs/toolkit"
 import { setupListeners } from "@reduxjs/toolkit/query"
 import apiService from "./apiService"
-import { geneSlice } from './../genes/genesSlice';
-import { annotationSlice } from './../annotations/annotationsSlice';
-import { drawerSlice } from "@/@pango.core/components/drawer/drawerSlice";
-import { searchSlice } from "@/features/search/searchSlice";
-import { selectedAnnotationSlice } from "../annotations/selectedAnnotationSlice";
+import { drawerSlice } from "@/@pango.core/components/drawer/drawerSlice"
+import { annotationSlice } from "@/features/annotations/slices/annotationsSlice"
+import { selectedAnnotationSlice } from "@/features/annotations/slices/selectedAnnotationSlice"
+import { geneSlice } from "@/features/genes/slices/genesSlice"
+import { searchSlice } from "@/features/search/searchSlice"
 
 
 

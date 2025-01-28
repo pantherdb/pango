@@ -2,10 +2,10 @@ import { ASPECT_MAP } from '@/@pango.core/data/config';
 import { ENVIRONMENT } from '@/@pango.core/data/constants';
 import type React from 'react';
 import { BiInfoCircle } from 'react-icons/bi';
-import type { Annotation } from './models/annotation';
 import { setRightDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
-import { useAppDispatch } from '../hooks';
-import { setSelectedAnnotation } from './selectedAnnotationSlice';
+import { useAppDispatch } from '@/app/hooks';
+import type { Annotation } from '../models/annotation';
+import { setSelectedAnnotation } from '../slices/selectedAnnotationSlice';
 
 
 interface AnnotationTableProps {

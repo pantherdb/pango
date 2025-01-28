@@ -1,4 +1,5 @@
-import type { Term } from "./term";
+import type { Term, GroupedTerms } from "@/features/terms/models/term";
+
 
 export enum GOAspect {
   MOLECULAR_FUNCTION = 'molecular function',
@@ -40,14 +41,6 @@ export interface Group {
   label: string
   id: string
   shorthand: string
-}
-
-export interface GroupedTerms {
-  mfs: Term[];
-  bps: Term[];
-  ccs: Term[];
-  maxTerms: number;
-  expanded: boolean
 }
 
 export interface Reference {

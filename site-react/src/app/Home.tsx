@@ -1,12 +1,12 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { Box, Chip, Tooltip } from '@mui/material';
-import Genes from '../genes/Genes';
-import GeneForm from '../genes/forms/GeneForm';
-import OverrepForm from '../genes/forms/OverrepForm';
-import { SearchFilterType } from '@/features/search/search';
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
-import { useAppDispatch } from '../hooks';
+import GeneForm from '@/features/genes/components/forms/GeneForm';
+import OverrepForm from '@/features/genes/components/forms/OverrepForm';
+import Genes from '@/features/genes/components/Genes';
+import { SearchFilterType } from '@/features/search/search';
+import { useAppDispatch } from './hooks';
 
 // TODO: Add filters component
 

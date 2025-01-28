@@ -1,6 +1,6 @@
 import type React from 'react';
 import Terms from './Terms';
-import type { GroupedTerms } from './models/gene';
+import type { GroupedTerms } from '../models/term';
 
 
 interface TermCellsProps {

@@ -3,10 +3,10 @@ import {
   Button,
   Tooltip,
 } from '@mui/material';
-import CategoryStats from '../genes/CategoryStats';
 import { useAppDispatch } from '../hooks';
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
 import { clearSearch } from '@/features/search/searchSlice';
+import CategoryStats from '@/shared/components/CategoryStats';
 
 
 const LeftDrawerContent: React.FC = () => {

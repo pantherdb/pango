@@ -1,6 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type { Annotation } from "./models/annotation";
+import type { Annotation } from "../models/annotation";
 
 
 interface SelectedAnnotationState {

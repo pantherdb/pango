@@ -1,14 +1,13 @@
 import type React from 'react';
 import {
-  Button,
-  Tooltip,
+  Button
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { setRightDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
-import AnnotationDetails from '../annotations/AnnotationDetails';
-import { setSelectedAnnotation } from '../annotations/selectedAnnotationSlice';
+import { setSelectedAnnotation } from '@/features/annotations/slices/selectedAnnotationSlice';
+import AnnotationDetails from '@/features/annotations/components/AnnotationDetails';
 
-
+// TODO style left drawer
 const RightDrawerContent: React.FC = () => {
   const dispatch = useAppDispatch()
   const selectedAnnotation = useAppSelector((state) => state.selectedAnnotation.selectedAnnotation);

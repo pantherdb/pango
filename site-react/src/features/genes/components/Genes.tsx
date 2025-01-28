@@ -1,14 +1,14 @@
 import type React from 'react';
 import { TablePagination, CircularProgress, Tooltip } from '@mui/material';
 import { FaCaretRight, FaCaretDown } from 'react-icons/fa';
-import { useGetGenesCountQuery, useGetGenesQuery } from './genesApiSlice';
-import type { Gene } from './models/gene';
-import { ENVIRONMENT } from '@/@pango.core/data/constants';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import type { RootState } from '../store/store';
-import Terms from './Terms';
 import { setPage, setPageSize } from '@/features/search/searchSlice';
 import { useState } from 'react';
+import { ENVIRONMENT } from '@/@pango.core/data/constants';
+import { useAppSelector, useAppDispatch } from '@/app/hooks';
+import type { Gene } from '../models/gene';
+import { useGetGenesQuery, useGetGenesCountQuery } from '../slices/genesApiSlice';
+import type { RootState } from '@/app/store/store';
+import Terms from '@/features/terms/components/Terms';
 
 interface GenesProps {
   page?: number;

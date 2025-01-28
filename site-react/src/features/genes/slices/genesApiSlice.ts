@@ -1,11 +1,9 @@
 import type { ApiResponseError } from '@/@pango.core/utils/api';
 import { baseGraphQLRequest, createGraphQLBody, transformResponse } from '@/@pango.core/utils/api';
-import apiService from '../store/apiService';
-import { GET_GENES_QUERY, GET_GENES_COUNT_QUERY, GET_GENES_STATS_QUERY } from './services/genesQueryService';
-import type { GenesApiResponse } from './models/gene';
-import { transformGenes } from './services/genesService';
-import type { GeneStats } from '../annotations/models/annotation';
-
+import apiService from '@/app/store/apiService';
+import type { GenesApiResponse, GeneStats } from '../models/gene';
+import { GET_GENES_QUERY, GET_GENES_COUNT_QUERY, GET_GENES_STATS_QUERY } from '../services/genesQueryService';
+import { transformGenes } from '../services/genesService';
 export const addTagTypes = ['gene', 'gene-stats'] as const;
 
 const genesApi = apiService.enhanceEndpoints({

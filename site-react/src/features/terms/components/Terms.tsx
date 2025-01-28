@@ -3,7 +3,7 @@ import { FaFlask } from 'react-icons/fa';
 import { Tooltip } from '@mui/material';
 import { EVIDENCE_TYPE_MAP } from '@/@pango.core/data/config';
 import { ENVIRONMENT } from '@/@pango.core/data/constants';
-import type { Term } from './models/term';
+import type { Term } from '../models/term';
 
 interface TermsProps {
   terms: Term[];

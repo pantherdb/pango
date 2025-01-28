@@ -1,7 +1,6 @@
+import TermCells from '@/features/terms/components/TermCells';
+import type { GroupedTerms } from '@/features/terms/models/term';
 import type React from 'react';
-import type { GroupedTerms } from './models/gene';
-import TermCells from './TermCells';
-
 
 
 interface GeneSummaryProps {

@@ -1,6 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import type { FilterArgs, AnnotationStats } from './models/annotation';
+import type { FilterArgs, AnnotationStats } from '../models/annotation';
 
 interface AnnotationState {
   filterArgs: FilterArgs;

@@ -22,3 +22,11 @@ export interface CategoryItem extends Term {
   width: string;
   countPos: string;
 }
+
+export interface GroupedTerms {
+  mfs: Term[];
+  bps: Term[];
+  ccs: Term[];
+  maxTerms: number;
+  expanded: boolean
+}

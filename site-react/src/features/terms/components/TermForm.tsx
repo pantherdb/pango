@@ -2,13 +2,13 @@ import type React from 'react';
 import { useState, useEffect } from 'react';
 import { Autocomplete, TextField, Chip, Tooltip, Paper } from '@mui/material';
 import { IoClose } from 'react-icons/io5';
-import { useGetSlimTermsAutocompleteQuery } from '@/app/annotations/annotationsApiSlice';
-import type { Term } from '../models/term';
 import { SearchFilterType } from '@/features/search/search';
 import { addItem, removeItem } from '@/features/search/searchSlice';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import type { RootState } from '@/app/store/store';
-import { AutocompleteType } from '../models/gene';
+import { AutocompleteType } from '@/features/annotations/models/annotation';
+import { useGetSlimTermsAutocompleteQuery } from '@/features/annotations/slices/annotationsApiSlice';
+import type { Term } from '../models/term';
 
 interface TermFormProps {
   maxTerms?: number;

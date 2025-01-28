@@ -4,12 +4,13 @@ import Layout from './app/layout/Layout';
 import { ThemeProvider } from '@emotion/react';
 import { CssBaseline } from '@mui/material';
 import theme from './@pango.core/theme/theme';
-import Home from './app/home/Home';
 
 import { defineCustomElements } from 'panther-overrep-form/loader';
-import LeftDrawerContent from './app/home/LeftDrawer';
-import Gene from './app/genes/Gene';
-import RightDrawerContent from './app/home/RightDrawer';
+import Gene from './app/Gene';
+import LeftDrawerContent from './app/layout/LeftDrawer';
+import RightDrawerContent from './app/layout/RightDrawer';
+import Home from './app/Home';
+import About from './app/About';
 defineCustomElements(window);
 
 const router = createBrowserRouter([
@@ -22,7 +23,6 @@ const router = createBrowserRouter([
       { path: '', element: <Home /> },
     ],
   },
-
   {
     path: 'gene/:id',
     element: <Layout
@@ -30,6 +30,13 @@ const router = createBrowserRouter([
     />,
     children: [
       { path: '', element: <Gene /> },
+    ],
+  },
+  {
+    path: 'about',
+    element: <Layout />,
+    children: [
+      { path: '', element: <About /> },
     ],
   },
 ]);

@@ -1,16 +1,14 @@
 import type { ApiResponseError } from '@/@pango.core/utils/api';
 import { baseGraphQLRequest, createGraphQLBody, transformResponse } from '@/@pango.core/utils/api';
-import apiService from '../store/apiService';
+import groupsData from '@/@pango.core/data//groups.json';
+import apiService from '@/app/store/apiService';
+import type { AnnotationsApiResponse, Group, AnnotationStats, AutocompleteType } from '../models/annotation';
 import {
   GET_ANNOTATIONS_QUERY,
   GET_ANNOTATIONS_COUNT_QUERY,
-  GET_ANNOTATION_STATS_QUERY,
-  GET_AUTOCOMPLETE_QUERY,
+  GET_ANNOTATION_STATS_QUERY, GET_AUTOCOMPLETE_QUERY,
   GET_SLIM_TERMS_AUTOCOMPLETE_QUERY
-} from './services/annotationsQueryService';
-import type { AnnotationsApiResponse, AnnotationStats, AutocompleteType, Group } from './models/annotation';
-
-import groupsData from '@/@pango.core/data//groups.json';
+} from '../services/annotationsQueryService';
 
 export const addTagTypes = ['annotation', 'annotation-stats', 'autocomplete'] as const;
 

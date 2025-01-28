@@ -2,13 +2,13 @@ import type React from 'react';
 import { useState, useEffect } from 'react';
 import { Autocomplete, TextField, Chip, Tooltip, Paper } from '@mui/material';
 import { IoClose } from 'react-icons/io5';
-import { useGetAutocompleteQuery } from '@/app/annotations/annotationsApiSlice';
-import type { Gene } from '../models/gene';
-import { AutocompleteType } from '../models/gene';
 import { SearchFilterType } from '@/features/search/search';
 import { addItem, removeItem } from '@/features/search/searchSlice';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import type { RootState } from '@/app/store/store';
+import type { Gene } from '../../models/gene';
+import { AutocompleteType } from '../../models/gene';
+import { useGetAutocompleteQuery } from '@/features/annotations/slices/annotationsApiSlice';
 
 interface GeneFormProps {
   maxGenes?: number;

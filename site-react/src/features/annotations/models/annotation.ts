@@ -1,5 +1,7 @@
-import type { Gene } from "@/app/genes/models/gene";
-import type { Term, TermType } from "@/app/genes/models/term";
+import type { TermType } from "@/@pango.core/data/config";
+import type { Gene } from "@/features/genes/models/gene";
+import type { Term } from "@/features/terms/models/term";
+
 
 export enum GOAspect {
   MOLECULAR_FUNCTION = 'molecular function',
