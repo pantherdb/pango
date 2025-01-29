@@ -1,26 +1,27 @@
-import type React from "react";
-import { ASPECT_MAP } from "@/@pango.core/data/config";
-import type { Annotation } from "../models/annotation";
-
+import type React from 'react';
+import { BsBookmark, BsInfoCircle } from 'react-icons/bs';
+import { MdCategory, MdGroups } from 'react-icons/md';
+import type { Annotation } from '../models/annotation';
+import { ASPECT_MAP } from '@/@pango.core/data/config';
+import { FaDna } from 'react-icons/fa';
 
 interface Props {
   annotation: Annotation;
 }
 
-
 export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
+  if (!annotation) return null;
 
-  console.log('Ann', annotation);
   const getAspectChip = (aspect: string) => {
     const aspectInfo = ASPECT_MAP[aspect];
     if (!aspectInfo) return null;
 
     return (
       <span
-        className="ml-2 text-[10px] font-bold h-6 w-6 rounded border flex items-center justify-center"
+        className="ml-2 px-2 py-1 text-xs font-semibold rounded-full border"
         style={{
-          borderColor: aspectInfo.color || undefined,
-          color: aspectInfo.color || undefined,
+          borderColor: aspectInfo.color,
+          color: aspectInfo.color,
         }}
       >
         {aspectInfo.shorthand}
@@ -28,80 +29,105 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
     );
   };
 
-  if (!annotation) return null;
+  const Section = ({ title, icon, children }: { title: string; icon: React.ReactNode; children: React.ReactNode }) => (
+    <div className="mb-6">
+      <div className="flex items-center gap-2 mb-3">
+        {icon}
+        <h2 className="text-lg font-semibold text-gray-700">{title}</h2>
+      </div>
+      {children}
+      <div className="mt-4 border-b border-gray-200" />
+    </div>
+  );
 
   return (
-    <div className="flex flex-col w-full h-full max-w-[500px]">
-      <div className="flex-1 overflow-auto">
-        <div className="flex flex-col w-full">
-          <section className="border-b border-gray-400 p-2.5 text-xs">
-            <div className="text-gray-600 text-lg font-bold py-3">Gene</div>
-            <div className="py-1">
-              <div className="font-bold text-xs">
-                <a href={`/gene/${annotation.gene}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">
-                  {annotation.gene}
-                </a>
-              </div>
-              <div className="text-xs">{annotation.geneSymbol}</div>
-              <div className="text-sm">{annotation.geneName}</div>
-            </div>
-          </section>
+    <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg">
+      <div className="bg-gray-50 p-4 rounded-t-lg">
+        <h1 className="text-xl font-bold text-gray-800">Annotation Details</h1>
+      </div>
+      <div className="p-6">
+        <Section title="Gene" icon={<FaDna className="w-5 h-5 text-blue-500" />}>
+          <div className="space-y-2">
+            <a
+              href={`/gene/${annotation.gene}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 font-semibold block transition-colors"
+            >
+              {annotation.gene}
+            </a>
+            <div className="text-sm text-gray-600">{annotation.geneSymbol}</div>
+            <div className="text-sm">{annotation.geneName}</div>
+          </div>
+        </Section>
 
-          <section className="border-b border-gray-400 p-2.5 text-xs">
-            <div className="text-gray-600 text-lg font-bold py-3">Term</div>
-            <div className="flex items-center font-bold text-xs">
-              {annotation.term.id}
-              {getAspectChip(annotation.term.aspect)}
-            </div>
-            <div className="text-xs mt-1">{annotation.term.label}</div>
-          </section>
+        <Section title="Term" icon={<BsBookmark className="w-5 h-5 text-green-500" />}>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="font-semibold">{annotation.term.id}</span>
+            {getAspectChip(annotation.term.aspect)}
+          </div>
+          <div className="text-sm text-gray-700">{annotation.term.label}</div>
+        </Section>
 
-          <section className="border-b border-gray-400 p-2.5 text-xs">
-            <div className="text-gray-600 text-lg font-bold py-3">GO Function Categories</div>
+        <Section title="GO Function Categories" icon={<MdCategory className="w-5 h-5 text-purple-500" />}>
+          <div className="space-y-3">
             {annotation.slimTerms.map((term, index) => (
-              <div key={index} className="py-1">
-                <div className="flex items-center font-bold text-xs">
-                  {term.id}
+              <div key={index} className="p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="font-semibold">{term.id}</span>
                   {getAspectChip(term.aspect)}
                 </div>
-                <div className="text-xs mt-1">{term.label}</div>
+                <div className="text-sm text-gray-700">{term.label}</div>
               </div>
             ))}
-          </section>
+          </div>
+        </Section>
 
-          <section className="border-b border-gray-400 p-2.5 text-xs">
-            <div className="text-gray-600 text-lg font-bold py-3">Group</div>
-            <div>{annotation.group}</div>
-          </section>
+        <Section title="Group" icon={<MdGroups className="w-5 h-5 text-amber-500" />}>
+          <div className="space-y-2">
+            {annotation.detailedGroups.map((group, index) => (
+              group && (
+                <a
+                  key={index}
+                  href={group.id}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 block transition-colors"
+                >
+                  {group.label}
+                </a>
+              )
+            ))}
+          </div>
+        </Section>
 
-          <section className="border-b border-gray-400 p-2.5 text-xs">
-            <div className="flex items-center">
-              <div className="text-gray-600 text-lg font-bold py-3">
-                Evidence ({annotation.evidence?.length})
-              </div>
-            </div>
+        <Section
+          title={`Evidence (${annotation.evidence?.length})`}
+          icon={<BsInfoCircle className="w-5 h-5 text-indigo-500" />}
+        >
+          <div className="space-y-4">
             {annotation.evidence.map((item, index) => (
-              <div key={index} className="py-1">
-                <div>
-                  {item.withGeneId?.gene} ({item.withGeneId?.geneSymbol})<br />
-                  ({item.withGeneId?.geneName})
+              <div key={index} className="bg-gray-50 p-4 rounded-lg">
+                <div className="font-semibold mb-2">
+                  {item.withGeneId?.gene} ({item.withGeneId?.geneSymbol})
+                  <div className="text-sm font-normal text-gray-600">
+                    {item.withGeneId?.geneName}
+                  </div>
                 </div>
                 {item.references?.map((reference, refIndex) => (
-                  <div key={refIndex} className="pl-8 py-1">
-                    <div className="font-bold text-xs">{reference.pmid}</div>
-                    <div className="text-xs">{reference.title}</div>
-                    <div className="text-sm">{reference.date}</div>
-                    {reference.authors.map((author, authorIndex) => (
-                      <div key={authorIndex} className="text-xs">
-                        {author}
-                      </div>
-                    ))}
+                  <div key={refIndex} className="ml-4 mt-3 p-3 bg-white rounded-lg shadow-sm border border-gray-200">
+                    <div className="font-semibold text-blue-600">{reference.pmid}</div>
+                    <div className="text-sm my-1">{reference.title}</div>
+                    <div className="text-xs text-gray-500">{reference.date}</div>
+                    <div className="mt-2 text-xs text-gray-600">
+                      {reference.authors.join(', ')}
+                    </div>
                   </div>
                 ))}
               </div>
             ))}
-          </section>
-        </div>
+          </div>
+        </Section>
       </div>
     </div>
   );

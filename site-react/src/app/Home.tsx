@@ -8,8 +8,6 @@ import Genes from '@/features/genes/components/Genes';
 import { useAppDispatch } from './hooks';
 import FilterSummary from '@/features/search/components/FilterSummary';
 
-// TODO: Add filters component
-
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
 

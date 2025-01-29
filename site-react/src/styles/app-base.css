@@ -140,8 +140,8 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active
 {
-    transitionDelay: 9999s;
-    transitionProperty: background-color, color;
+    transition-delay: 9999s;
+    transition-property: background-color, color;
 }
 
 :focus {

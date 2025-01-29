@@ -23,8 +23,6 @@ declare global {
     }
   }
 }
-
-// TODO:  OverrepForm component values should work
 const OverrepForm = () => {
   const formRef = useRef<any>(null);
   const ontologyOptions = ontology.ontology;

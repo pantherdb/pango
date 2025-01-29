@@ -14,6 +14,8 @@ interface TermFormProps {
   maxTerms?: number;
 }
 
+// TODO autocomplete wrapping
+
 const TermForm: React.FC<TermFormProps> = ({ maxTerms = 10 }) => {
   const dispatch = useAppDispatch();
   const selectedTerms = useAppSelector((state: RootState) => state.search.slimTerms);
@@ -47,6 +49,50 @@ const TermForm: React.FC<TermFormProps> = ({ maxTerms = 10 }) => {
   const handleDelete = (termToDelete: Term) => {
     dispatch(removeItem({ type: SearchFilterType.SLIM_TERMS, id: termToDelete.id }));
   };
+
+  const renderOption = (option: Term) => {
+    return (
+      <div
+        key={option.id}
+        className="flex options-center py-2 border-b border-gray-300 cursor-pointer hover:bg-gray-50"
+      >
+        <div
+          className="mr-4 rounded-full text-xs font-extrabold h-9 w-9 flex options-center justify-center"
+          style={{
+            border: `1px solid ${option.color}50`,
+            color: option.color,
+            backgroundColor: `${option.color}20`
+          }}
+        >
+          {option.aspectShorthand}
+        </div>
+        <div className="w-[100px]">
+          <div className="text-xs truncate">{option.label}</div>
+          <div className="text-xs text-gray-500 italic truncate">
+            {option.displayId}
+          </div>
+        </div>
+        <div className="flex-1 relative h-9">
+          <div
+            className="h-full absolute"
+            style={{
+              backgroundColor: option.color,
+              width: option.width
+            }}
+          />
+          <div
+            className="absolute px-2 py-1 text-xs bg-white border border-gray-300 rounded-lg transform -translate-y-1/2"
+            style={{
+              left: option.countPos,
+              top: '50%'
+            }}
+          >
+            {option.count} genes
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <Paper className="w-full bg-white">

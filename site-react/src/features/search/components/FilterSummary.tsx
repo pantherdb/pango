@@ -32,11 +32,9 @@ const FilterSummary = () => {
   return (
     <div className="flex items-center gap-2">
       <small className="mr-3 text-xs">Filtered By:</small>
-      <Chip
-        label="Clear All"
-        onDelete={clearAllFilters}
-        className="h-6 text-xs"
-        color="error"
+      <Chip onClick={clearAllFilters}
+        label="Clear All Filters"
+        className="!h-7 !text-xs !bg-accent-300"
         size="small"
       />
       {search.genes.length > 0 && (
@@ -44,7 +42,7 @@ const FilterSummary = () => {
           <Chip
             label={`Genes (${search.genes.length})`}
             onDelete={() => removeFilter(SearchFilterType.GENES)}
-            className="h-6 text-xs"
+            className="!h-7 !text-xs"
             size="small"
           />
         </Tooltip>
@@ -52,9 +50,9 @@ const FilterSummary = () => {
       {search.slimTerms.length > 0 && (
         <Tooltip title="Click to remove slim terms filter" placement="bottom">
           <Chip
-            label={`Slim Terms (${search.slimTerms.length})`}
+            label={`Categories (${search.slimTerms.length})`}
             onDelete={() => removeFilter(SearchFilterType.SLIM_TERMS)}
-            className="h-6 text-xs"
+            className="!h-7 !text-xs"
             size="small"
           />
         </Tooltip>

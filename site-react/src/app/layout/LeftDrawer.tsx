@@ -8,7 +8,7 @@ import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
 import { clearSearch } from '@/features/search/searchSlice';
 import CategoryStats from '@/shared/components/CategoryStats';
 
-
+// TODO clear filter so aspect selection
 const LeftDrawerContent: React.FC = () => {
   const dispatch = useAppDispatch()
 
@@ -19,9 +19,8 @@ const LeftDrawerContent: React.FC = () => {
         <div className="ml-auto flex gap-2">
           <Button
             variant="outlined"
-            color="error"
             size="small"
-            className="rounded-md min-w-[100px]"
+            className="!h-8 !text-xs !bg-accent-300 rounded-md min-w-[100px]"
             onClick={() => dispatch(clearSearch())}
           >
             Clear All Filters
@@ -35,7 +34,7 @@ const LeftDrawerContent: React.FC = () => {
               variant="outlined"
               color="primary"
               size="small"
-              className="rounded-md"
+              className="!h-8 !text-xs rounded-md"
               onClick={() => dispatch(setLeftDrawerOpen(false))}
               aria-label="Close dialog"
             >

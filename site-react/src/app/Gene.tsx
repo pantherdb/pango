@@ -48,10 +48,10 @@ const Gene: React.FC = () => {
 
   return (
     <div className="w-full bg-slate-200">
-      <div className="p-3">
+      <div className="p-3 max-w-[1000px] mx-auto">
         {/* Gene Header Section */}
         <div className="pango-gene-summary w-full px-3 py-4">
-          <h1 className="font-normal text-2xl">
+          <h1 className="font-normal text-2xl mb-6">
             <span className="font-bold">{annotation.geneSymbol}</span>: PAN-GO functions and evidence
           </h1>
 

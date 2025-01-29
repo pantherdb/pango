@@ -5,7 +5,7 @@ export interface TermMapType {
   label: string;
   hint: string;
   description: string;
-  color: string | null;
+  color: string;
 }
 
 export interface AspectMapType {
@@ -14,7 +14,7 @@ export interface AspectMapType {
   shorthand: string;
   label: string;
   description: string;
-  color: string | null;
+  color: string;
 }
 
 export interface EvidenceMapType {
@@ -22,7 +22,7 @@ export interface EvidenceMapType {
   label: string;
   hint: string;
   description: string;
-  color: string | null;
+  color: string;
   shorthand: string;
   iconTooltip: string;
 }
@@ -34,7 +34,7 @@ export const ASPECT_MAP: { [key: string]: AspectMapType } = {
     shorthand: 'MF',
     label: 'Molecular Function',
     description: 'What a protein encoded by the gene does at the molecular level',
-    color: getColor('green', 500)
+    color: getColor('green', 500) || '#000000'
   },
   'biological process': {
     id: 'biological process',
@@ -42,7 +42,7 @@ export const ASPECT_MAP: { [key: string]: AspectMapType } = {
     shorthand: 'BP',
     label: 'Biological Process',
     description: '“System” functions, at the level of the cell or whole organism, that the gene helps to carry out, usually together with other genes',
-    color: getColor('brown', 500)
+    color: getColor('brown', 500) || '#000000'
   },
   'cellular component': {
     id: 'cellular component',
@@ -50,7 +50,7 @@ export const ASPECT_MAP: { [key: string]: AspectMapType } = {
     shorthand: 'CC',
     label: 'Cellular Component',
     description: 'The part of a cell where a protein encoded by the gene performs its molecular function',
-    color: getColor('purple', 500)
+    color: getColor('purple', 500) || '#000000'
   }
 }
 
@@ -61,7 +61,7 @@ export const TERM_TYPE_MAP: { [key: string]: TermMapType } = {
     label: 'Known Aspects',
     hint: 'all',
     description: "Show only genes of known functions",
-    color: getColor('green', 500)
+    color: getColor('green', 500) || '#000000'
   },
 
   'unknown': {
@@ -69,7 +69,7 @@ export const TERM_TYPE_MAP: { [key: string]: TermMapType } = {
     label: 'Unknown Aspects',
     hint: '',
     description: "Show only “placeholder” genes indicating unknown function aspects",
-    color: getColor('red', 500)
+    color: getColor('red', 500) || '#000000'
   },
 }
 
@@ -79,7 +79,7 @@ export const EVIDENCE_TYPE_MAP: { [key: string]: EvidenceMapType } = {
     label: 'Known Aspects',
     hint: 'direct evidence',
     description: 'Genes supported by experimental evidence directly for that gene',
-    color: getColor('green', 700),
+    color: getColor('green', 700) || '#000000',
     shorthand: 'D',
     iconTooltip: 'Direct evidence: This characteristic is supported by experimental evidence directly for this gene, and evolutionary modeling including information about related genes'
   },
@@ -88,7 +88,7 @@ export const EVIDENCE_TYPE_MAP: { [key: string]: EvidenceMapType } = {
     label: 'Known Aspects',
     hint: 'homology evidence',
     description: 'Genes supported only by experimental evidence for a homologous gene',
-    color: getColor('red', 700),
+    color: getColor('red', 700) || '#000000',
     shorthand: 'H',
     iconTooltip: 'Homolog evidence: This characteristic is supported by experimental evidence for a homologous gene, using evolutionary modeling.'
 
@@ -98,7 +98,7 @@ export const EVIDENCE_TYPE_MAP: { [key: string]: EvidenceMapType } = {
     label: 'Unknown Aspects',
     hint: 'unknown evidence',
     description: "Evidence is not applicable to “placeholder” genes indicating unknown function aspects",
-    color: getColor('grey', 700),
+    color: getColor('grey', 700) || '#000000',
     shorthand: 'na',
     iconTooltip: ''
   },
