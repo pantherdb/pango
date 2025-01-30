@@ -9,6 +9,7 @@ import type { Gene } from '../models/gene';
 import { useGetGenesQuery, useGetGenesCountQuery } from '../slices/genesApiSlice';
 import type { RootState } from '@/app/store/store';
 import Terms from '@/features/terms/components/Terms';
+import { VersionedLink } from '@/shared/components/VersionedLink';
 
 interface GenesProps {
   page?: number;
@@ -99,7 +100,9 @@ const Genes: React.FC<GenesProps> = () => {
                   <td className="p-3 border-r border-gray-300">
                     <div className="space-y-1">
                       <div className="font-bold">
-                        <a href={`/gene/${gene.gene}`} target="_blank" rel="noreferrer">{gene.geneSymbol} </a>
+                        <VersionedLink to={`/gene/${gene.gene}`} target="_blank" rel="noreferrer">
+                          {gene.geneSymbol}
+                        </VersionedLink>
                         (<a href={`${ENVIRONMENT.taxonApiUrl}${gene.taxonId}`} target="_blank" rel="noopener noreferrer">{gene.taxonAbbr}</a>)
                       </div>
                       <div className="text-sm text-gray-600">{gene.geneName}</div>
@@ -118,9 +121,9 @@ const Genes: React.FC<GenesProps> = () => {
                         </div>
                       )}
                       <div className="text-sm">
-                        <a href={`/gene/${gene.gene}`} target="_blank" rel="noreferrer">
+                        <VersionedLink to={`/gene/${gene.gene}`} target="_blank" rel="noreferrer">
                           View all functions and evidence
-                        </a>
+                        </VersionedLink>
                       </div>
                     </div>
                   </td>

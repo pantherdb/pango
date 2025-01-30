@@ -7,6 +7,8 @@ import { useAppDispatch } from '@/app/hooks';
 import type { Annotation } from '../models/annotation';
 import { setSelectedAnnotation } from '../slices/selectedAnnotationSlice';
 
+// TODO: Add tooltips
+
 interface AnnotationTableProps {
   annotations: Annotation[];
   maxReferences?: number;

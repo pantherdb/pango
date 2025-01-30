@@ -5,6 +5,7 @@ import { FaBars, FaGithub } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../hooks';
 import { toggleLeftDrawer } from '@/@pango.core/components/drawer/drawerSlice';
+import { VersionedLink } from '@/shared/components/VersionedLink';
 
 interface ToolbarProps {
   showLoadingBar?: boolean;
@@ -41,12 +42,12 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
         </IconButton>
 
         <div className="flex items-center h-full ">
-          <Link to="/" className="no-underline text-accent-500 hover:text-accent-200">
+          <VersionedLink to="/" className="no-underline text-accent-500 hover:text-accent-200">
             <span className="text-3xl font-bold mr-2">PAN-GO</span>
-          </Link>
-          <Link to="/" className="no no-underline text-accent-500 hover:text-accent-200">
+          </VersionedLink>
+          <VersionedLink to="/" className="no-underline text-accent-500 hover:text-accent-200">
             <span className="text-3xl">Human Functionome</span>
-          </Link>
+          </VersionedLink>
         </div>
 
         <div className="hidden md:flex flex-1 justify-end items-center">

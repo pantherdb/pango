@@ -2,10 +2,10 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { SearchFilterType } from './search';
 import type { Gene } from '../genes/models/gene';
-import type { Term } from '../terms/models/term';
+import type { CategoryTerm, Term } from '../terms/models/term';
 
 type SearchStateMap = {
-  [SearchFilterType.SLIM_TERMS]: Term[];
+  [SearchFilterType.SLIM_TERMS]: CategoryTerm[];
   [SearchFilterType.GENES]: Gene[];
 };
 
