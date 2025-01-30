@@ -18,7 +18,7 @@ export interface AutocompleteFilterArgs {
 }
 
 export interface GeneFilterArgs {
-  termIds: string[];
+  geneIds: string[];
   slimTermIds: string[];
 }
 

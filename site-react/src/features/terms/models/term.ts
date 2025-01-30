@@ -15,7 +15,7 @@ export interface Term {
 
 }
 
-export interface CategoryItem extends Term {
+export interface CategoryTerm extends Term {
   count: number;
   color: string;
   aspectShorthand: string;

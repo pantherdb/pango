@@ -1,10 +1,9 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import type { GeneFilterArgs, GeneStats } from './models/gene';
+import type { GeneFilterArgs } from '../models/gene';
 
 interface GeneState {
   filterArgs: GeneFilterArgs;
-  stats: GeneStats | null;
   loading: boolean;
   error: string | null;
 }
@@ -14,7 +13,6 @@ const initialState: GeneState = {
     geneIds: [],
     slimTermIds: []
   },
-  stats: null,
   loading: false,
   error: null
 };
@@ -29,10 +27,7 @@ export const geneSlice = createSlice({
     resetFilterArgs: (state) => {
       state.filterArgs = initialState.filterArgs;
     },
-    setStats: (state, action: PayloadAction<GeneStats>) => {
-      state.stats = action.payload;
-    }
   }
 });
 
-export const { setFilterArgs, resetFilterArgs, setStats } = geneSlice.actions;
+export const { setFilterArgs, resetFilterArgs } = geneSlice.actions;

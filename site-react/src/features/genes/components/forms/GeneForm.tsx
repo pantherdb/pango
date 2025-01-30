@@ -1,6 +1,6 @@
 import type React from 'react';
 import { useState, useEffect } from 'react';
-import { Autocomplete, TextField, Chip, Tooltip, Paper } from '@mui/material';
+import { Autocomplete, TextField, Chip, Tooltip } from '@mui/material';
 import { IoClose } from 'react-icons/io5';
 import { SearchFilterType } from '@/features/search/search';
 import { addItem, removeItem } from '@/features/search/searchSlice';
@@ -10,11 +10,9 @@ import type { Gene } from '../../models/gene';
 import { AutocompleteType } from '../../models/gene';
 import { useGetAutocompleteQuery } from '@/features/annotations/slices/annotationsApiSlice';
 
-interface GeneFormProps {
-  maxGenes?: number;
-}
 
-const GeneForm: React.FC<GeneFormProps> = ({ maxGenes = 10 }) => {
+
+const GeneForm: React.FC<{ maxGenes?: number }> = ({ maxGenes = 10 }) => {
   const dispatch = useAppDispatch();
   const selectedGenes = useAppSelector((state: RootState) => state.search.genes);
   const [open, setOpen] = useState(false);
@@ -25,7 +23,6 @@ const GeneForm: React.FC<GeneFormProps> = ({ maxGenes = 10 }) => {
     const timer = setTimeout(() => {
       setDebouncedValue(inputValue);
     }, 300);
-
     return () => clearTimeout(timer);
   }, [inputValue]);
 
@@ -36,9 +33,9 @@ const GeneForm: React.FC<GeneFormProps> = ({ maxGenes = 10 }) => {
     skip: !debouncedValue || debouncedValue.length < 2
   });
 
-  const handleSelect = (_: unknown, gene: Gene | null) => {
-    if (gene && selectedGenes.length < maxGenes) {
-      dispatch(addItem({ type: SearchFilterType.GENES, item: gene }));
+  const handleSelect = (_: unknown, newValue: Gene | null) => {
+    if (newValue && selectedGenes.length < maxGenes) {
+      dispatch(addItem({ type: SearchFilterType.GENES, item: newValue }));
       setInputValue('');
       setOpen(false);
     }
@@ -48,83 +45,95 @@ const GeneForm: React.FC<GeneFormProps> = ({ maxGenes = 10 }) => {
     dispatch(removeItem({ type: SearchFilterType.GENES, id: geneToDelete.gene }));
   };
 
-  return (
-    <Paper className="w-full bg-white">
-      <Tooltip
-        title="Find all functional characteristics for a gene of interest"
-        placement="top"
-        enterDelay={1500}
-      >
-        <Autocomplete
-          open={open}
-          onOpen={() => setOpen(true)}
-          onClose={() => setOpen(false)}
-          options={suggestions}
-          value={null}
-          inputValue={inputValue}
-          onInputChange={(_, newValue) => {
-            setInputValue(newValue);
-            if (newValue.length >= 2) setOpen(true);
-          }}
-          onChange={handleSelect}
-          getOptionLabel={(option: Gene) => option.gene}
-          loading={isFetching}
-          filterOptions={(x) => x}
-          disabled={selectedGenes.length >= maxGenes}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Filter by Gene"
-              variant="outlined"
-              InputProps={{
-                ...params.InputProps,
-                sx: { bgcolor: 'white' },
-                startAdornment: (
-                  <>
-                    {selectedGenes.map((gene) => (
-                      <Chip
-                        key={gene.gene}
-                        size="small"
-                        label={
-                          <div className="flex flex-col py-0.5">
-                            <div className="flex items-center gap-1">
-                              <span>{gene.gene}</span>
-                              <span className="text-xs">({gene.geneSymbol})</span>
-                            </div>
-                            <span className="text-xs text-gray-600">{gene.geneName}</span>
-                          </div>
-                        }
-                        onDelete={() => handleDelete(gene)}
-                        deleteIcon={<IoClose size={16} />}
-                        className="mx-1"
-                      />
-                    ))}
-                    {params.InputProps.startAdornment}
-                  </>
-                )
-              }}
-            />
-          )}
-          renderOption={(optionProps, option: Gene) => {
-            const { key, ...props } = optionProps;
-            return (
-              <li key={option.gene} {...props}>
-                <div className="flex flex-col w-full p-2">
-                  <div className="flex justify-between">
-                    <span>{option.gene}</span>
-                    <span className="text-sm text-gray-600">({option.geneSymbol})</span>
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    {option.geneName}
-                  </div>
+  const renderTags = (tagValue: Gene[], getTagProps: any) =>
+    tagValue.map((option, index) => (
+      <Chip
+        {...getTagProps({ index })}
+        key={option.gene}
+        label={
+          <Tooltip title={`${option.gene} (${option.geneName})`} placement="top" enterDelay={2000}>
+            <div className="text-xs w-full flex flex-col items-start">
+              <div className="w-full flex items-center">
+                <div className="text-xs mr-1">
+                  {option.gene}
                 </div>
-              </li>
-            );
-          }}
-          noOptionsText="Type to search genes..."
-        />
-      </Tooltip>
-    </Paper>
+                <div className="font-bold">
+                  <strong>({option.geneSymbol})</strong>
+                </div>
+              </div>
+              <div className=" text-gray-500 w-full">
+                {option.geneName}
+              </div>
+            </div>
+          </Tooltip>
+        }
+        onDelete={() => handleDelete(option)}
+        deleteIcon={<IoClose size={16} />}
+        size="small"
+        className="h-7"
+      />
+    ));
+
+  const renderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: Gene) => (
+    <li {...props} key={option.gene}>
+      <div className="flex flex-col w-full p-2">
+        <div className="flex justify-between">
+          <span>{option.gene}</span>
+          <span className="text-sm text-gray-600">({option.geneSymbol})</span>
+        </div>
+        <div className="text-sm text-gray-500">{option.geneName}</div>
+      </div>
+    </li>
+  );
+
+  return (
+    <div className="w-full p-2">
+      <Autocomplete
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        multiple
+        freeSolo
+        clearIcon={null}
+        options={suggestions}
+        value={selectedGenes}
+        inputValue={inputValue}
+        onInputChange={(_, newValue) => {
+          setInputValue(newValue);
+          if (newValue.length >= 2) setOpen(true);
+        }}
+        onChange={(_, __, reason, details) => {
+          if (reason === 'selectOption' && details?.option) {
+            handleSelect(null, details.option as Gene);
+          }
+        }}
+        getOptionLabel={(option) => {
+          if (typeof option === 'string') return option;
+          return option.gene || '';
+        }}
+        loading={isFetching}
+        filterOptions={(x) => x}
+        disabled={selectedGenes.length >= maxGenes}
+        renderTags={renderTags}
+        renderOption={renderOption}
+        noOptionsText="Type to search genes..."
+        ListboxProps={{
+          className: 'bg-accent-50 max-h-[300px] overflow-y-auto',
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Filter by Gene"
+            placeholder="Type to search genes..."
+            variant="outlined"
+            InputProps={{
+              ...params.InputProps,
+              sx: { bgcolor: 'white' }
+            }}
+          />
+        )}
+      />
+    </div>
   );
 };
 

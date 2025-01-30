@@ -7,6 +7,7 @@ import { annotationSlice } from "@/features/annotations/slices/annotationsSlice"
 import { selectedAnnotationSlice } from "@/features/annotations/slices/selectedAnnotationSlice"
 import { geneSlice } from "@/features/genes/slices/genesSlice"
 import { searchSlice } from "@/features/search/searchSlice"
+import { termsSlice } from "@/features/terms/slices/termsSlice"
 
 
 
@@ -17,6 +18,7 @@ const rootReducer = combineSlices(
     //selectedAnnotation: selectedAnnotationReducer,
     search: searchSlice.reducer,
     genes: geneSlice.reducer,
+    terms: termsSlice.reducer,
     annotations: annotationSlice.reducer,
     selectedAnnotation: selectedAnnotationSlice.reducer,
     drawer: drawerSlice.reducer,

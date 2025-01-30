@@ -9,6 +9,7 @@ import type { RootState } from '@/app/store/store';
 import { AutocompleteType } from '@/features/annotations/models/annotation';
 import { useGetSlimTermsAutocompleteQuery } from '@/features/annotations/slices/annotationsApiSlice';
 import type { Term } from '../models/term';
+import { ASPECT_MAP } from '@/@pango.core/data/config';
 
 interface TermFormProps {
   maxTerms?: number;
@@ -50,47 +51,30 @@ const TermForm: React.FC<TermFormProps> = ({ maxTerms = 10 }) => {
     dispatch(removeItem({ type: SearchFilterType.SLIM_TERMS, id: termToDelete.id }));
   };
 
-  const renderOption = (option: Term) => {
+  const renderOption = (optionProps: any, term: Term) => {
+    const { key, ...props } = optionProps;
+    console.log(term)
     return (
-      <div
-        key={option.id}
-        className="flex options-center py-2 border-b border-gray-300 cursor-pointer hover:bg-gray-50"
-      >
-        <div
-          className="mr-4 rounded-full text-xs font-extrabold h-9 w-9 flex options-center justify-center"
+      <li key={term.id}  {...props} className="py-2 last:mb-0 flex items-center">
+        <span
+          className="inline-flex items-center justify-center h-6 w-6 rounded-full text-xs font-bold border"
           style={{
-            border: `1px solid ${option.color}50`,
-            color: option.color,
-            backgroundColor: `${option.color}20`
-          }}
-        >
-          {option.aspectShorthand}
+            borderColor: ASPECT_MAP[term.aspect]?.color,
+            color: ASPECT_MAP[term.aspect]?.color,
+            backgroundColor: `${ASPECT_MAP[term.aspect]?.color}20`
+          }}>
+          {ASPECT_MAP[term.aspect]?.shorthand}
+        </span>
+        <div className="ml-2">
+          <span className="text-sm">{term.label}</span>
+          {term.displayId && (
+            <div
+              className="ml-2 text-gray-500 hover:text-gray-700 text-xs italic">
+              {term.displayId}
+            </div>
+          )}
         </div>
-        <div className="w-[100px]">
-          <div className="text-xs truncate">{option.label}</div>
-          <div className="text-xs text-gray-500 italic truncate">
-            {option.displayId}
-          </div>
-        </div>
-        <div className="flex-1 relative h-9">
-          <div
-            className="h-full absolute"
-            style={{
-              backgroundColor: option.color,
-              width: option.width
-            }}
-          />
-          <div
-            className="absolute px-2 py-1 text-xs bg-white border border-gray-300 rounded-lg transform -translate-y-1/2"
-            style={{
-              left: option.countPos,
-              top: '50%'
-            }}
-          >
-            {option.count} genes
-          </div>
-        </div>
-      </div>
+      </li>
     )
   }
 
@@ -151,22 +135,7 @@ const TermForm: React.FC<TermFormProps> = ({ maxTerms = 10 }) => {
               }}
             />
           )}
-          renderOption={(optionProps, option: Term) => {
-            const { key, ...props } = optionProps;
-            return (
-              <li key={option.id} {...props}>
-                <div className="flex flex-col w-full p-2">
-                  <div className="flex justify-between">
-                    <span>{option.id}</span>
-                    <span className="text-sm text-gray-600">({option.label})</span>
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    {option.id}
-                  </div>
-                </div>
-              </li>
-            );
-          }}
+          renderOption={renderOption}
           noOptionsText="Type to search terms..."
         />
       </Tooltip>

@@ -1,15 +1,14 @@
 import type React from 'react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Checkbox, Tooltip } from '@mui/material';
 import type { AspectMapType } from "@/@pango.core/data/config";
 import { ASPECT_MAP } from "@/@pango.core/data/config";
 import { SearchFilterType } from '@/features/search/search';
 import { addItem } from '@/features/search/searchSlice';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { buildCategoryBar } from '@/features/genes/services/genesService';
 import { useGetGenesStatsQuery } from '@/features/genes/slices/genesApiSlice';
-import TermForm from '@/features/terms/components/TermForm';
 import type { RootState } from '@/app/store/store';
+import TermFilterForm from '@/features/terms/components/TermFilterForm';
 
 // TODO: Prettification
 
@@ -23,6 +22,14 @@ const CategoryStats: React.FC = () => {
   };
 
   const { data: geneStats } = useGetGenesStatsQuery({ filter });
+  const categories = useAppSelector(state => state.terms.functionCategories);
+
+  const filteredCategories = useMemo(() =>
+    categories.filter(cat => selectedAspects.includes(cat.aspect)),
+    [categories, selectedAspects]
+  );
+
+
   const toggleAspect = (aspectId: string) => {
     setSelectedAspects(prev =>
       prev.includes(aspectId)
@@ -31,9 +38,7 @@ const CategoryStats: React.FC = () => {
     );
   };
 
-  const slimTermFrequency = geneStats?.slimTermFrequency?.buckets
-    ? buildCategoryBar(geneStats.slimTermFrequency.buckets, selectedAspects)
-    : [];
+
 
 
   return (
@@ -44,7 +49,7 @@ const CategoryStats: React.FC = () => {
         </div>
 
         <div className='w-[full p-4'>
-          <TermForm />
+          <TermFilterForm />
         </div>
 
         <div className="p-4">
@@ -90,7 +95,7 @@ const CategoryStats: React.FC = () => {
             ))}
           </div>
 
-          {slimTermFrequency.map((item) => (
+          {filteredCategories.map((item) => (
             <div
               key={item.id}
               className="flex items-center py-2 border-b border-gray-300 cursor-pointer hover:bg-gray-50"

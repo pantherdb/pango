@@ -15,21 +15,20 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "types": ["vitest/globals"],
+    "baseUrl": ".",  
     "paths": {
       "@/*": ["./src/*"]
     },   
 
-
-
-    /* Bundler mode */
+    /* Extra */
     "allowImportingTsExtensions": true,
     "moduleDetection": "force",
-
-    /* Linting */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
+
+
   },
   "include": ["src"]
 

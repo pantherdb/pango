@@ -84,6 +84,7 @@ export const GET_SLIM_TERMS_AUTOCOMPLETE_QUERY = print(gql`
       id
       aspect
       count
+      displayId
     }
   }
 `);
