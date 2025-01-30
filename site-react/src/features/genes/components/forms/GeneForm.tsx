@@ -51,7 +51,7 @@ const GeneForm: React.FC<{ maxGenes?: number }> = ({ maxGenes = 10 }) => {
         {...getTagProps({ index })}
         key={option.gene}
         label={
-          <Tooltip title={`${option.gene} (${option.geneName})`} placement="top" enterDelay={2000}>
+          <Tooltip title={`${option.gene} (${option.geneName})`} placement="top" enterDelay={2000} arrow>
             <div className="text-xs w-full flex flex-col items-start">
               <div className="w-full flex items-center">
                 <div className="text-xs mr-1">

@@ -10,6 +10,7 @@ import { useGetGenesQuery, useGetGenesCountQuery } from '../slices/genesApiSlice
 import type { RootState } from '@/app/store/store';
 import Terms from '@/features/terms/components/Terms';
 import { VersionedLink } from '@/shared/components/VersionedLink';
+import { ANNOTATION_COLS } from '@/@pango.core/data/config';
 
 interface GenesProps {
   page?: number;
@@ -28,12 +29,11 @@ const Genes: React.FC<GenesProps> = () => {
   }), [search.genes, search.slimTerms]);
 
   const { data: geneData, isLoading, error } = useGetGenesQuery({ page, size, filter });
-  const { data: countData } = useGetGenesCountQuery({ filter });
+  const { data: countData, isLoading: geneCountLoading } = useGetGenesCountQuery({ filter });
 
   const genes = geneData?.genes ?? [];
   const geneCount = countData?.total || 0;
 
-  const cols = ['Gene', 'Molecular Functions', 'Biological Processes', 'Cellular Components'];
 
   const handleExpandClick = (gene: Gene) => {
     setExpandedRows(prev => ({
@@ -69,7 +69,7 @@ const Genes: React.FC<GenesProps> = () => {
     <div className="w-full p-3">
       <div className="h-20 bg-white flex items-center  rounded-t-3xl">
         <h2 className="text-4xl font-medium text-gray-600 pl-3">
-          Results (<strong>{geneCount || 'Loading...'}</strong> genes)
+          Results (<strong>{geneCount}</strong>) <small>genes</small>
         </h2>
       </div>
 
@@ -79,10 +79,10 @@ const Genes: React.FC<GenesProps> = () => {
             <thead>
               <tr>
                 <th className="w-10"></th>
-                {cols.map(header => (
-                  <th key={header}>
-                    <Tooltip title={header}>
-                      <span>{header}</span>
+                {ANNOTATION_COLS.map(col => (
+                  <th key={col.id}>
+                    <Tooltip enterDelay={1500} placement="top" title={col.tooltip} arrow>
+                      <span>{col.label}</span>
                     </Tooltip>
                   </th>
                 ))}

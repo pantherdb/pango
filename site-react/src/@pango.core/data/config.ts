@@ -109,3 +109,32 @@ export const ASPECT_ORDER = {
   'biological process': 2,
   'cellular component': 3
 };
+
+interface AnnotationCol {
+  label: string;
+  id: string;
+  tooltip: string;
+}
+
+export const ANNOTATION_COLS: AnnotationCol[] = [
+  {
+    "label": "Gene",
+    "id": "gene",
+    "tooltip": "Information about the gene and the protein(s) it encodes, and links to more details."
+  },
+  {
+    "label": "Molecular Functions",
+    "id": "mfs",
+    "tooltip": "What a protein encoded by a gene does at the molecular level. Click on a GO identifier for more information about a GO term."
+  },
+  {
+    "label": "Biological Processes",
+    "id": "bps",
+    "tooltip": "System functions, at the level of the cell or whole organism, that the gene helps to carry out. Click on a GO identifier for more information about a GO term."
+  },
+  {
+    "label": "Cellular Components",
+    "id": "ccs",
+    "tooltip": "The part of a cell where the protein encoded by the gene is active. Click on a GO identifier for more information about a GO term."
+  }
+]

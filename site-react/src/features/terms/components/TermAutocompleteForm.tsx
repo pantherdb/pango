@@ -82,6 +82,7 @@ const TermForm: React.FC<TermFormProps> = ({ maxTerms = 10 }) => {
         title="Find all functional characteristics for a term of interest"
         placement="top"
         enterDelay={1500}
+        arrow
       >
         <Autocomplete
           open={open}

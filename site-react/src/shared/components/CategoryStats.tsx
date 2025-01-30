@@ -43,13 +43,15 @@ const CategoryStats: React.FC = () => {
         <div className="p-4">
           <h5 className="mb-4">Show/hide GO aspects in category list below</h5>
 
-          <div className="flex flex-wrap gap-4 mb-6">
+          <div className="flex gap-4 mb-6 w-full">
             {Object.values(ASPECT_MAP).map((aspect: AspectMapType) => (
               <Tooltip
                 key={aspect.id}
                 title={aspect.description}
                 placement="top"
                 enterDelay={1500}
+                arrow
+                className='flex-grow'
               >
                 <div
                   className="flex items-center gap-2 p-2 rounded cursor-pointer"
@@ -75,9 +77,9 @@ const CategoryStats: React.FC = () => {
                   <img
                     src={`assets/images/activity/${aspect.icon}.png`}
                     alt={aspect.label}
-                    className="w-6 h-6"
+                    className="h-10 -ml-4"
                   />
-                  <span className="text-sm">{aspect.shorthand}</span>
+                  <span className="text-2xl">{aspect.shorthand}</span>
                 </div>
               </Tooltip>
             ))}

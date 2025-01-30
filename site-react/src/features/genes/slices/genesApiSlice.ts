@@ -1,6 +1,6 @@
 import type { ApiResponseError } from '@/@pango.core/utils/api';
 import { transformResponse } from '@/@pango.core/utils/api';
-import apiService, { createVersionedGraphQLRequest } from '@/app/store/apiService';
+import apiService, { createGraphQLRequest } from '@/app/store/apiService';
 import type { GenesApiResponse, GeneStats } from '../models/gene';
 import { GET_GENES_QUERY, GET_GENES_COUNT_QUERY, GET_GENES_STATS_QUERY } from '../services/genesQueryService';
 import { transformGenes } from '../services/genesService';
@@ -12,7 +12,7 @@ const genesApi = apiService.enhanceEndpoints({
   endpoints: (builder) => ({
     getGenes: builder.query({
       query: ({ page, size, filter }) =>
-        createVersionedGraphQLRequest(GET_GENES_QUERY, {
+        createGraphQLRequest(GET_GENES_QUERY, {
           filterArgs: {
             geneIds: filter?.geneIds || [],
             slimTermIds: filter?.slimTermIds || []
@@ -33,7 +33,7 @@ const genesApi = apiService.enhanceEndpoints({
     }),
     getGenesCount: builder.query({
       query: ({ filter }) => (
-        createVersionedGraphQLRequest(GET_GENES_COUNT_QUERY, {
+        createGraphQLRequest(GET_GENES_COUNT_QUERY, {
           filterArgs: {
             geneIds: filter?.geneIds,
             slimTermIds: filter?.slimTermIds
@@ -45,7 +45,7 @@ const genesApi = apiService.enhanceEndpoints({
     }),
     getGenesStats: builder.query({
       query: ({ filter }) => (
-        createVersionedGraphQLRequest(GET_GENES_STATS_QUERY, {
+        createGraphQLRequest(GET_GENES_STATS_QUERY, {
           filterArgs: {
             geneIds: filter?.geneIds,
             slimTermIds: filter?.slimTermIds

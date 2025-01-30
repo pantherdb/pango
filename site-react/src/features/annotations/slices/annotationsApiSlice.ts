@@ -1,7 +1,7 @@
 import type { ApiResponseError } from '@/@pango.core/utils/api';
 import { transformResponse } from '@/@pango.core/utils/api';
 import groupsData from '@/@pango.core/data//groups.json';
-import apiService, { createVersionedGraphQLRequest } from '@/app/store/apiService';
+import apiService, { createGraphQLRequest } from '@/app/store/apiService';
 import type { AnnotationsApiResponse, Group, AnnotationStats, AutocompleteType } from '../models/annotation';
 import {
   GET_ANNOTATIONS_QUERY,
@@ -18,7 +18,7 @@ const annotationsApi = apiService.enhanceEndpoints({
   endpoints: (builder) => ({
     getAnnotations: builder.query({
       query: ({ filterArgs, pageArgs }) => (
-        createVersionedGraphQLRequest(GET_ANNOTATIONS_QUERY, {
+        createGraphQLRequest(GET_ANNOTATIONS_QUERY, {
           filterArgs: {
             geneIds: filterArgs?.geneIds || [],
             termIds: [],
@@ -61,7 +61,7 @@ const annotationsApi = apiService.enhanceEndpoints({
 
     getAnnotationsCount: builder.query({
       query: () => (
-        createVersionedGraphQLRequest(GET_ANNOTATIONS_COUNT_QUERY)
+        createGraphQLRequest(GET_ANNOTATIONS_COUNT_QUERY)
       ),
       transformResponse: (response: { data?: { genesCount: { total: number } }; errors?: ApiResponseError[] }) => {
         const transformedResponse = transformResponse<{ genesCount: { total: number } }>(response);
@@ -71,7 +71,7 @@ const annotationsApi = apiService.enhanceEndpoints({
 
     getAnnotationStats: builder.query({
       query: ({ filterArgs }) => (
-        createVersionedGraphQLRequest(GET_ANNOTATION_STATS_QUERY, {
+        createGraphQLRequest(GET_ANNOTATION_STATS_QUERY, {
           filterArgs: {
             geneIds: filterArgs?.geneIds || [],
             termIds: [],
@@ -92,7 +92,7 @@ const annotationsApi = apiService.enhanceEndpoints({
 
     getAutocomplete: builder.query({
       query: ({ type, keyword }: { type: AutocompleteType, keyword: string }) => (
-        createVersionedGraphQLRequest(GET_AUTOCOMPLETE_QUERY, {
+        createGraphQLRequest(GET_AUTOCOMPLETE_QUERY, {
           autocompleteType: type,
           keyword,
           filterArgs: {
@@ -108,7 +108,7 @@ const annotationsApi = apiService.enhanceEndpoints({
 
     getSlimTermsAutocomplete: builder.query({
       query: ({ type, keyword }: { type: AutocompleteType, keyword: string }) => (
-        createVersionedGraphQLRequest(GET_SLIM_TERMS_AUTOCOMPLETE_QUERY,
+        createGraphQLRequest(GET_SLIM_TERMS_AUTOCOMPLETE_QUERY,
           {
             autocompleteType: type,
             keyword,

@@ -28,7 +28,8 @@ const LeftDrawerContent: React.FC = () => {
           <Tooltip
             title="Expand your viewing space by hiding the filter panel and focus on the results. To bring back the panel, simply click the menu icon [hamburger icon] located at the top left corner."
             placement="top"
-            enterDelay={3000}
+            enterDelay={2000}
+            arrow
           >
             <Button
               variant="outlined"

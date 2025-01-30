@@ -38,7 +38,7 @@ const FilterSummary = () => {
         size="small"
       />
       {search.genes.length > 0 && (
-        <Tooltip title="Click to remove genes filter" placement="bottom">
+        <Tooltip title={search.tooltips.genes} enterDelay={1500} placement="bottom" arrow>
           <Chip
             label={`Genes (${search.genes.length})`}
             onDelete={() => removeFilter(SearchFilterType.GENES)}
@@ -48,7 +48,7 @@ const FilterSummary = () => {
         </Tooltip>
       )}
       {search.slimTerms.length > 0 && (
-        <Tooltip title="Click to remove slim terms filter" placement="bottom">
+        <Tooltip title={search.tooltips.slimTerms} enterDelay={1500} placement="bottom" arrow>
           <Chip
             label={`Categories (${search.slimTerms.length})`}
             onDelete={() => removeFilter(SearchFilterType.SLIM_TERMS)}

@@ -34,7 +34,6 @@ export const useApiVersion = () => {
 	};
 };
 
-// Custom base query with version header
 const baseQueryWithVersion: BaseQueryFn = async (args, api, extraOptions) => {
 	const searchParams = new URLSearchParams(window.location.search);
 	const version = searchParams.get(VERSION_PARAM) as ApiVersion || LATEST_VERSION;
@@ -59,7 +58,7 @@ export const apiService = createApi({
 });
 
 // GraphQL specific utilities
-export const createVersionedGraphQLRequest = (
+export const createGraphQLRequest = (
 	query: string,
 	variables?: Record<string, any>
 ) => ({
