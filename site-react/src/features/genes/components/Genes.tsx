@@ -2,7 +2,7 @@ import type React from 'react';
 import { TablePagination, CircularProgress, Tooltip } from '@mui/material';
 import { FaCaretRight, FaCaretDown } from 'react-icons/fa';
 import { setPage, setPageSize } from '@/features/search/searchSlice';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ENVIRONMENT } from '@/@pango.core/data/constants';
 import { useAppSelector, useAppDispatch } from '@/app/hooks';
 import type { Gene } from '../models/gene';
@@ -21,10 +21,11 @@ const Genes: React.FC<GenesProps> = () => {
   const search = useAppSelector((state: RootState) => state.search);
   const dispatch = useAppDispatch();
 
-  const filter = {
+
+  const filter = useMemo(() => ({
     geneIds: search.genes.map(g => g.gene),
     slimTermIds: search.slimTerms.map(t => t.id)
-  };
+  }), [search.genes, search.slimTerms]);
 
   const { data: geneData, isLoading, error } = useGetGenesQuery({ page, size, filter });
   const { data: countData } = useGetGenesCountQuery({ filter });

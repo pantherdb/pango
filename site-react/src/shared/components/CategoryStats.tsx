@@ -16,14 +16,19 @@ const CategoryStats: React.FC = () => {
   const dispatch = useAppDispatch();
   const [selectedAspects, setSelectedAspects] = useState<string[]>(Object.values(ASPECT_MAP).map(aspect => aspect.id));
   const search = useAppSelector((state: RootState) => state.search);
-  const filter = {
+  const filter = useMemo(() => ({
     geneIds: search.genes.map(g => g.gene),
     slimTermIds: search.slimTerms.map(t => t.id)
-  };
+  }), [search.genes, search.slimTerms]);
 
-  const { data: geneStats } = useGetGenesStatsQuery({ filter });
+  useGetGenesStatsQuery(
+    { filter },
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
+
   const categories = useAppSelector(state => state.terms.functionCategories);
-
   const filteredCategories = useMemo(() =>
     categories.filter(cat => selectedAspects.includes(cat.aspect)),
     [categories, selectedAspects]
@@ -37,8 +42,6 @@ const CategoryStats: React.FC = () => {
         : [...prev, aspectId]
     );
   };
-
-
 
 
   return (

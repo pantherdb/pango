@@ -1,8 +1,8 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { SearchFilterType } from './search';
-import type { Gene } from '@/app/genes/models/gene';
-import type { Term } from '@/app/genes/models/term';
+import type { Gene } from '../genes/models/gene';
+import type { Term } from '../terms/models/term';
 
 type SearchStateMap = {
   [SearchFilterType.SLIM_TERMS]: Term[];
@@ -57,12 +57,14 @@ export const searchSlice = createSlice({
 
     removeItem: (state, action: PayloadAction<{ type: SearchFilterType; id: string }>) => {
       const { type, id } = action.payload;
+
       if (type === SearchFilterType.GENES) {
         state[type] = state[type].filter(item => item.gene !== id);
       } else {
         state[type] = state[type].filter(item => item.id !== id);
       }
       state.pagination.page = 0;
+
       updateFiltersAndTooltips(state);
     },
 

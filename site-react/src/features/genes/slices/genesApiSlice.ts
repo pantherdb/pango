@@ -30,7 +30,6 @@ const genesApi = apiService.enhanceEndpoints({
       transformResponse: (response: { data?: GenesApiResponse; errors?: ApiResponseError[] }): GenesApiResponse => {
         const transformedResponse = transformResponse<GenesApiResponse>(response);
 
-        console.log('transformedResponse', transformedResponse);
         return {
           ...transformedResponse,
           genes: transformGenes(transformedResponse.genes)
