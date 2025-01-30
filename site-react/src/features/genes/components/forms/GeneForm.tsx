@@ -75,14 +75,12 @@ const GeneForm: React.FC<{ maxGenes?: number }> = ({ maxGenes = 10 }) => {
     ));
 
   const renderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: Gene) => (
-    <li {...props} key={option.gene}>
-      <div className="flex flex-col w-full p-2">
-        <div className="flex justify-between">
-          <span>{option.gene}</span>
-          <span className="text-sm text-gray-600">({option.geneSymbol})</span>
-        </div>
-        <div className="text-sm text-gray-500">{option.geneName}</div>
+    <li {...props} key={option.gene} className="cursor-pointer flex flex-col  p-4 border-b border-primary-300 hover:bg-primary-100 hover:font-bold">
+      <div className="flex justify-between">
+        <span>{option.gene}</span>
+        <span className="text-sm text-gray-600">({option.geneSymbol})</span>
       </div>
+      <div className="text-sm text-gray-500">{option.geneName}</div>
     </li>
   );
 

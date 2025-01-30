@@ -9,12 +9,10 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import type { RootState } from '@/app/store/store';
 import type { CategoryTerm, Term } from '../models/term';
 
-// TODO delete not delting
-
 const renderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: CategoryTerm) => {
   const { key, ...otherProps } = props;
   return (
-    <li key={option.id} {...otherProps} className="flex items-center justify-between p-2 hover:bg-primary-100">
+    <li key={option.id} {...otherProps} className="cursor-pointer flex items-center justify-between p-4 border-b border-primary-300 hover:bg-primary-100 hover:font-bold">
       <div className="flex items-center gap-2">
         <span
           className="flex items-center justify-center h-6 w-6 rounded-full text-xs font-bold border"
@@ -34,7 +32,7 @@ const renderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: Catego
           )}
         </div>
       </div>
-      <span className="text-xs text-gray-500">{option.count}</span>
+      <span className="text-xs text-gray-500">{option.count} genes</span>
     </li>
   );
 };
@@ -97,7 +95,7 @@ const TermForm: React.FC<{ maxTerms?: number }> = ({ maxTerms = 10 }) => {
                 }}>
                 {option.aspectShorthand}
               </span>
-              <span className="text-xs">{option.id}</span>
+              {option.displayId && <span className="text-xs">{option.displayId}</span>}
               <span className="text-xs text-gray-600">({option.label})</span>
             </span>
           </Tooltip>

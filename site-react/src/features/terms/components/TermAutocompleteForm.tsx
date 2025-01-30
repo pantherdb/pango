@@ -15,8 +15,6 @@ interface TermFormProps {
   maxTerms?: number;
 }
 
-// TODO autocomplete wrapping
-
 const TermForm: React.FC<TermFormProps> = ({ maxTerms = 10 }) => {
   const dispatch = useAppDispatch();
   const selectedTerms = useAppSelector((state: RootState) => state.search.slimTerms);

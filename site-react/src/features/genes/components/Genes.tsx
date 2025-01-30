@@ -21,7 +21,6 @@ const Genes: React.FC<GenesProps> = () => {
   const search = useAppSelector((state: RootState) => state.search);
   const dispatch = useAppDispatch();
 
-
   const filter = useMemo(() => ({
     geneIds: search.genes.map(g => g.gene),
     slimTermIds: search.slimTerms.map(t => t.id)
@@ -67,7 +66,7 @@ const Genes: React.FC<GenesProps> = () => {
 
   return (
     <div className="w-full p-3">
-      <div className="h-16 bg-white flex items-center mb-4">
+      <div className="h-20 bg-white flex items-center  rounded-t-3xl">
         <h2 className="text-4xl font-medium text-gray-600 pl-3">
           Results (<strong>{geneCount || 'Loading...'}</strong> genes)
         </h2>
@@ -101,15 +100,19 @@ const Genes: React.FC<GenesProps> = () => {
                     <div className="space-y-1">
                       <div className="font-bold">
                         <a href={`/gene/${gene.gene}`} target="_blank" rel="noreferrer">{gene.geneSymbol} </a>
-                        (<a href={`${ENVIRONMENT.taxonApiUrl}${gene.taxonId}`}>{gene.taxonAbbr}</a>)
+                        (<a href={`${ENVIRONMENT.taxonApiUrl}${gene.taxonId}`} target="_blank" rel="noopener noreferrer">{gene.taxonAbbr}</a>)
                       </div>
                       <div className="text-sm text-gray-600">{gene.geneName}</div>
                       <div className="text-sm">
                         <a href={getUniprotLink(gene)}>{gene.gene}</a>
                       </div>
+
+
                       {gene.coordinatesChrNum && (
                         <div className="inline-block px-2 py-0.5 bg-purple-800 text-xs">
-                          <a className="text-accent-500" href={`${ENVIRONMENT.ucscUrl}${gene.coordinatesChrNum}:${gene.coordinatesStart}-${gene.coordinatesEnd}`}>
+                          <a className="text-accent-500" href={`${ENVIRONMENT.ucscUrl}${gene.coordinatesChrNum}:${gene.coordinatesStart}-${gene.coordinatesEnd}`}
+                            target="_blank"
+                            rel="noopener noreferrer">
                             chr{gene.coordinatesChrNum}:{gene.coordinatesStart}-{gene.coordinatesEnd}
                           </a>
                         </div>

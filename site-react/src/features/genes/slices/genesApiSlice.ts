@@ -4,8 +4,6 @@ import apiService from '@/app/store/apiService';
 import type { GenesApiResponse, GeneStats } from '../models/gene';
 import { GET_GENES_QUERY, GET_GENES_COUNT_QUERY, GET_GENES_STATS_QUERY } from '../services/genesQueryService';
 import { transformGenes } from '../services/genesService';
-import { setFunctionCategories } from '@/features/terms/slices/termsSlice';
-import { transformCategoryTerms } from '@/features/terms/services/termsService';
 export const addTagTypes = ['gene', 'gene-stats'] as const;
 
 const genesApi = apiService.enhanceEndpoints({
@@ -60,19 +58,7 @@ const genesApi = apiService.enhanceEndpoints({
           }
         }),
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-
-          const categoryTerms = transformCategoryTerms(data?.slimTermFrequency?.buckets || []);
-
-          dispatch(setFunctionCategories(categoryTerms || []));
-        } catch (err) {
-          console.error('Failed to fetch stats:', err);
-        }
-      },
-      transformResponse: (response: { data?: { geneStats: GeneStats } }) =>
-        response.data?.geneStats,
+      transformResponse: (response: { data?: { geneStats: GeneStats } }) => response.data?.geneStats,
       providesTags: ['gene-stats']
     })
   }),

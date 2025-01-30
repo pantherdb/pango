@@ -1,15 +1,36 @@
 import type React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Box, } from '@mui/material';
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
 import GeneForm from '@/features/genes/components/forms/GeneForm';
 import OverrepForm from '@/features/genes/components/forms/OverrepForm';
 import Genes from '@/features/genes/components/Genes';
-import { useAppDispatch } from './hooks';
+import { useAppDispatch, useAppSelector } from './hooks';
 import FilterSummary from '@/features/search/components/FilterSummary';
+import type { RootState } from './store/store';
+import { useGetGenesStatsQuery } from '@/features/genes/slices/genesApiSlice';
+import { transformCategoryTerms } from '@/features/terms/services/termsService';
+import { setFunctionCategories } from '@/features/terms/slices/termsSlice';
+import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
+
+  const search = useAppSelector((state: RootState) => state.search);
+  const filter = useMemo(() => ({
+    geneIds: search.genes.map(g => g.gene),
+    slimTermIds: search.slimTerms.map(t => t.id)
+  }), [search.genes, search.slimTerms]);
+
+
+  const { data: statsData, isSuccess } = useGetGenesStatsQuery({ filter });
+
+  useEffect(() => {
+    if (isSuccess && statsData) {
+      const categoryTerms = transformCategoryTerms(statsData.slimTermFrequency?.buckets || []);
+      dispatch(setFunctionCategories(categoryTerms));
+    }
+  }, [statsData, isSuccess, dispatch]);
 
   useEffect(() => {
     dispatch(setLeftDrawerOpen(true));
@@ -29,9 +50,10 @@ const Home: React.FC = () => {
             <h2 className="text-lg leading-7 font-medium tracking-wider text-white mb-10 max-w-2xl">
               The table below shows, for each human protein-coding gene, the set of functional characteristics
               that have been assigned based on expert review and integration of available experimental evidence
-              in 6,333 families of protein-coding genes.(<a className='text-accent-500 hover:text-accent-200'> Read
-                More </a>). Each
-              characteristic is linked to the experimental evidence supporting
+              in 6,333 families of protein-coding genes.
+              ( <Link to="/about" className="text-accent-500 hover:text-accent-200"> Read More</Link> ).
+
+              Each characteristic is linked to the experimental evidence supporting
             </h2>
             <div className='flex items-center'>
               <div className='w-[300px] mr-4'>
@@ -43,7 +65,7 @@ const Home: React.FC = () => {
                 <a href="https://help.geneontology.org/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-accent-500 hover:text-accent-200">
+                  className="text-accent-500 hover:text-accent-200 px-1">
                   Let us know!
                 </a>
               </h3>

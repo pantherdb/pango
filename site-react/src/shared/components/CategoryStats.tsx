@@ -6,27 +6,12 @@ import { ASPECT_MAP } from "@/@pango.core/data/config";
 import { SearchFilterType } from '@/features/search/search';
 import { addItem } from '@/features/search/searchSlice';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { useGetGenesStatsQuery } from '@/features/genes/slices/genesApiSlice';
-import type { RootState } from '@/app/store/store';
 import TermFilterForm from '@/features/terms/components/TermFilterForm';
-
-// TODO: Prettification
 
 const CategoryStats: React.FC = () => {
   const dispatch = useAppDispatch();
   const [selectedAspects, setSelectedAspects] = useState<string[]>(Object.values(ASPECT_MAP).map(aspect => aspect.id));
-  const search = useAppSelector((state: RootState) => state.search);
-  const filter = useMemo(() => ({
-    geneIds: search.genes.map(g => g.gene),
-    slimTermIds: search.slimTerms.map(t => t.id)
-  }), [search.genes, search.slimTerms]);
 
-  useGetGenesStatsQuery(
-    { filter },
-    {
-      refetchOnMountOrArgChange: true,
-    }
-  );
 
   const categories = useAppSelector(state => state.terms.functionCategories);
   const filteredCategories = useMemo(() =>

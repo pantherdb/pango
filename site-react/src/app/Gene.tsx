@@ -39,11 +39,11 @@ const Gene: React.FC = () => {
 
   const getUniprotLink = (gene: string) => {
     const geneId = gene.split(':');
-    return geneId.length > 1 ? `${ENVIRONMENT}${geneId[1]}` : gene;
+    return geneId.length > 1 ? `${ENVIRONMENT.uniprotUrl}${geneId[1]}` : gene;
   };
 
   const getFamilyLink = (element: Annotation) => {
-    return `${ENVIRONMENT}book=${encodeURIComponent(element.pantherFamily)}&seq=${encodeURIComponent(element.longId)}`;
+    return `${ENVIRONMENT.pantherFamilyUrl}book=${encodeURIComponent(element.pantherFamily)}&seq=${encodeURIComponent(element.longId)}`;
   };
 
   return (
@@ -65,12 +65,12 @@ const Gene: React.FC = () => {
                 <InfoRow
                   label="Organism"
                   value={annotation.taxonLabel}
-                  href={`${ENVIRONMENT}${annotation.taxonId}`}
+                  href={`${ENVIRONMENT.taxonApiUrl}${annotation.taxonId}`}
                 />
                 <InfoRow
                   label="GO annotations from all sources"
                   value={annotation.gene}
-                  href={`${ENVIRONMENT}${annotation.gene}`}
+                  href={`${ENVIRONMENT.amigoGPUrl}${annotation.gene}`}
                 />
               </div>
             </div>
@@ -92,7 +92,7 @@ const Gene: React.FC = () => {
                 <InfoRow
                   label="UCSC Genome Browser"
                   value={`chr${annotation.coordinatesChrNum}:${annotation.coordinatesStart}-${annotation.coordinatesEnd}`}
-                  href={`${ENVIRONMENT}chr${annotation.coordinatesChrNum}:${annotation.coordinatesStart}-${annotation.coordinatesEnd}`}
+                  href={`${ENVIRONMENT.ucscUrl}chr${annotation.coordinatesChrNum}:${annotation.coordinatesStart}-${annotation.coordinatesEnd}`}
                 />
               </div>
             </div>
