@@ -50,7 +50,7 @@ const FilterSummary = () => {
       {search.slimTerms.length > 0 && (
         <Tooltip title={search.tooltips.slimTerms} enterDelay={1500} placement="bottom" arrow>
           <Chip
-            label={`Categories (${search.slimTerms.length})`}
+            label={`Function Categories (${search.slimTerms.length})`}
             onDelete={() => removeFilter(SearchFilterType.SLIM_TERMS)}
             className="!h-7 !text-xs"
             size="small"

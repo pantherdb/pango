@@ -176,4 +176,6 @@ fi
 echo "All folders processed successfully!"
 
 
-# bash scripts/all.sh  -i ./downloads/input -a ./downloads/clean-articles.json
+# -- bash scripts/all.sh  -i ./downloads/input -a ./downloads/clean-articles.json -o downloads/output
+
+# -- bash scripts/all.sh  -i test_data/input/ -a test_data/clean-articles.json  -o test_data/output
