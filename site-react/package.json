@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "start": "vite  --host 0.0.0.0 --port 4208",
+    "start:development": "vite --mode development --host 0.0.0.0 --port 4208",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",

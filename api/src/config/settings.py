@@ -4,8 +4,8 @@ from typing import Optional
 from enum import Enum
 
 class ApiVersion(str, Enum):
-    V2023 = "pango-2023"
-    V2024 = "pango-2024"
+    V1 = "pango-1"
+    V2 = "pango-2"
     LATEST = "latest"
 
 class Settings(BaseSettings):
@@ -28,7 +28,7 @@ class Settings(BaseSettings):
         """Simply prepends the version to the full index name"""
         version = version or self.DEFAULT_API_VERSION
         if version == ApiVersion.LATEST:
-            version = ApiVersion.V2024 
+            version = ApiVersion.V1 
         
         return f"{version}-{index_name}"
 

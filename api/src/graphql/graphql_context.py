@@ -11,5 +11,5 @@ class GraphQLContext(BaseContext):
         """Get versioned index name"""
         version = self.version
         if version == ApiVersion.LATEST:
-            version = ApiVersion.V2024
+            version = ApiVersion.V2
         return f"{version.value}-{base_index}"

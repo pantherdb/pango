@@ -1,5 +1,9 @@
 #!/bin/bash
 indices=(
+  "pango-1-pango-genes"
+  "pango-2-pango-annotations"
+  "pango-1-pango-annotations"
+  "pango-2-pango-genes"
 )
 
 for index in "${indices[@]}"; do
