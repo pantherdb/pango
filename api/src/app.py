@@ -6,12 +6,12 @@ from strawberry.tools import merge_types
 from src.config.settings import settings
 from src.graphql.graphql_context import GraphQLContext
 from src.middleware.version_manager import VersionManager
-from src.graphql.annotation_schema import AnnotationQuery
+from src.graphql.annotation_schema import FunctionomeQuery
 from fastapi.middleware.cors import CORSMiddleware
 
 #Queries = merge_types("Queries", AnnotationQuery))
 
-schema = strawberry.Schema(query=AnnotationQuery, config=StrawberryConfig(auto_camel_case=True))
+schema = strawberry.Schema(query=FunctionomeQuery, config=StrawberryConfig(auto_camel_case=True))
 
 def create_app():     
 

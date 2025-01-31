@@ -2,10 +2,12 @@
 # import asyncio
 import pprint
 import typing
+from src.models.base_model import AutocompleteType
+from src.models.gene_model import Gene
 from src.models.term_model import Term
 from src.resolvers.annotation_stats_resolver import get_response_meta
-from src.resolvers.annotation_resolver import get_annotations_query, get_genes_query
-from src.models.annotation_model import Annotation, AnnotationFilterArgs, AnnotationStats, AutocompleteType, Bucket, Frequency, Gene, GeneFilterArgs
+from src.resolvers.annotation_resolver import get_annotations_query
+from src.models.annotation_model import AnnotationFilterArgs,  GeneFilterArgs
 from src.config.settings import settings
 from src.config.es import  es
 

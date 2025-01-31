@@ -1,0 +1,60 @@
+{
+  "ontology": [
+    {
+      "label": "biological process PAN-GO",
+      "id": "biological_process_IBA"
+    },
+    {
+      "label": "molecular function PAN-GO",
+      "id": "molecular_function_IBA"
+    },
+    {
+      "label": "cellular component PAN-GO",
+      "id": "cellular_component_IBA"
+    }
+  ],
+  "genes": [
+    "AKT1",
+    "BDNF",
+    "CCKAR",
+    "CHI3L1",
+    "CHRNA7",
+    "CLDN5",
+    "CNR1",
+    "COMT",
+    "DPYSL2",
+    "DTNBP1",
+    "EGF",
+    "GABRA1",
+    "GABRB2",
+    "GAD1",
+    "GRIK3",
+    "GRM3",
+    "IL10",
+    "MCHR1",
+    "MLC1",
+    "NEUROG1",
+    "NOS1",
+    "NOS1AP",
+    "NOTCH4",
+    "NPY",
+    "NRG1",
+    "OLIG2",
+    "PDE4B",
+    "PLA2G4A",
+    "PLXNA2",
+    "PPP3CC",
+    "PRODH",
+    "RELN",
+    "RGS4",
+    "RTN4",
+    "SNAP25",
+    "SRR",
+    "SYN2",
+    "TNF",
+    "TP53",
+    "UFD1L",
+    "XBP1",
+    "YWHAE"
+  ]
+}

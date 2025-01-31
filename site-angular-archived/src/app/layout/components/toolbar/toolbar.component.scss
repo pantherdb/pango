@@ -1,0 +1,78 @@
+@import "src/@pango/scss/pango";
+@import "src/@pango.common/scss/pango.common";
+
+$primary: map-get($theme, primary);
+$accent: map-get($theme, accent);
+
+:host {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  z-index: 4;
+
+  border-bottom: 2px solid $pango-primary-color;
+
+  a {
+    color: $pango-accent-color;
+    &:hover {
+      color: lighten($pango-accent-color, 10);
+    }
+  }
+
+  .mat-toolbar {
+    padding: 0 10px 0 5px;
+    background-color: $pango-primary-color;
+    color: $pango-accent-color;
+    @include deep-height(50px);
+    color: inherit;
+    position: relative;
+
+    mat-toolbar-row {
+      @include deep-height(40px);
+    }
+    .pango-friends-logo {
+      .pango-logo {
+        padding: 5px;
+      }
+    }
+
+    .loading-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+    }
+  }
+
+  .pango-logo {
+    height: 100%;
+    padding: 5px 0;
+
+    img {
+      height: 40px;
+    }
+
+    .pango-main-logo,
+    .pango-sub-logo {
+      cursor: pointer;
+      font-size: 20px;
+      text-decoration: none !important;
+      text-align: left;
+      color: $pango-accent-color;
+
+      &:hover {
+        color: darken($pango-accent-color, 10);
+      }
+    }
+
+    .pango-main-logo {
+      margin-right: 4px;
+      font-weight: bold;
+    }
+
+    .pango-sub-logo {
+      font-weight: normal;
+    }
+  }
+}

@@ -1,0 +1,151 @@
+<div class="w-100-p" fxLayout="row" fxLayoutAlign="start start">
+  <mat-drawer-container class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start start" autosize>
+
+    <mat-drawer #leftDrawer class="pango-right-drawer" mode="side" position="start" opened="true">
+
+    </mat-drawer>
+    <mat-drawer-content #scrollbarRef class="pango-section-body w-100-p">
+      <div *ngIf="annotation" class="w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+        <div class="pango-gene-summary w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+          <h1 class="pango-heading">
+            <span class="pango-highlight">
+              {{annotation.geneSymbol}}
+            </span>: PAN-GO functions and evidence
+          </h1>
+          <div class="w-100-p" fxLayout="row" fxLayoutAlign="start space-between">
+            <div class="pango-gene-detail-col" fxLayout="column" fxLayoutAlign="start start">
+              <h2>
+                Gene Information
+              </h2>
+              <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                <div class="pango-title mr-8">
+                  Gene:
+                </div>
+                <div class=" pango-description">
+                  {{annotation.geneSymbol}}
+                </div>
+              </div>
+              <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                <div class="pango-title mr-8">
+                  Protein:
+                </div>
+                <div class=" pango-description">
+                  {{annotation.geneName}}
+                </div>
+              </div>
+
+              <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                <div class="pango-title mr-8">
+                  Organism
+                </div>
+                <div class=" pango-description">
+                  <a [href]="taxonApiUrl+annotation.taxonId" target="_blank">
+                    {{annotation.taxonLabel}}
+                  </a>
+                </div>
+              </div>
+
+              <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                <div class="pango-title mr-8">
+                  GO annotations from all sources
+                </div>
+                <div class=" pango-description">
+                  <a href="{{amigoGPUrl}}{{annotation.gene}}" target="_blank">
+                    {{annotation.gene}}</a>
+                </div>
+              </div>
+            </div>
+            <div class="pango-links-col" fxLayout="column" fxLayoutAlign="start start">
+              <h2>
+                External Links
+              </h2>
+              <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                <div class="pango-title mr-8">
+                  UniProt ID:
+                </div>
+                <div class=" pango-description">
+                  <a href="{{getUniprotLink(annotation.gene)}}" target="_blank">
+                    {{annotation.gene}}
+                  </a>
+                </div>
+              </div>
+              <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                <div class="pango-title mr-8">
+                  PANTHER Tree Viewer:
+                </div>
+                <div class=" pango-description">
+                  <a (click)="$event.stopPropagation()" [href]="getFamilyLink(annotation)" target="_blank">
+                    {{annotation.pantherFamily}}
+                  </a>
+                </div>
+              </div>
+              <div class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                <div class="pango-title mr-8">
+                  UCSC Genome Browser:
+                </div>
+                <div class=" pango-description">
+                  <a (click)="$event.stopPropagation()" [href]="getUcscLink(annotation)" target="_blank">
+                    chr{{annotation.coordinatesChrNum}}:{{annotation.coordinatesStart}}-{{annotation.coordinatesEnd}}
+                  </a>
+                </div>
+              </div>
+              <div *ngIf="hgncId" class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                <div class="pango-title mr-8">
+                  Alliance of Genome Resources:
+                </div>
+                <div class=" pango-description">
+                  <a [href]="getAGRLink()" target="_blank">
+                    {{hgncId}}
+                  </a>
+                </div>
+              </div>
+              <div *ngIf="hgncId" class="pango-term-row" fxLayout="row" fxLayoutAlign="start center">
+                <div class="pango-title mr-8">
+                  HUGO Gene Nomenclature Committee:
+                </div>
+                <div class=" pango-description">
+                  <a [href]="getHGNCLink()" target="_blank">
+                    {{hgncId}}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="48px">
+          <div class="title-block" fxFlex="250px">
+            <h2>Function summary</h2>
+          </div>
+          <div class="stat-block" fxLayout="row" fxLayoutAlign="start center">
+            <div class="number">{{knowledgeCount['known']}}</div>
+            <div class="label-group">
+              <div class="label">Annotations</div>
+              <div class="sublabel">(functional characteristics)</div>
+            </div>
+          </div>
+          <div class="stat-block" fxLayout="row" fxLayoutAlign="start center">
+            <div class="number">{{knowledgeCount['unknown']}}</div>
+            <div class="label-group">
+              <div class="label">Unknown function aspects</div>
+            </div>
+          </div>
+        </div>
+
+        <pango-gene-summary-table [summary]="annotation"></pango-gene-summary-table>
+
+
+        <pango-annotation-table [annotations]="annotations" [options]="tableOptions" [maxReferences]="maxReferences"
+          [maxEvidences]="maxEvidences" class="w-100-p"></pango-annotation-table>
+      </div>
+      <div class="w-100-p">
+        <pango-footer></pango-footer>
+      </div>
+    </mat-drawer-content>
+    <mat-drawer #rightDrawer class="pango-right-drawer" mode="over" position="end">
+      <div class="h-100-p" [ngSwitch]="pangoMenuService.selectedRightPanel">
+        <pango-annotation-detail [panelDrawer]="rightDrawer" *ngSwitchCase="RightPanel.annotationDetail">
+        </pango-annotation-detail>
+      </div>
+    </mat-drawer>
+  </mat-drawer-container>
+</div>

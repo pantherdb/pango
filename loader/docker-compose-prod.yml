@@ -1,0 +1,69 @@
+version: "3.8"
+services:
+  elasticsearch:
+    # Adjusted memory for a 4GB machine
+    mem_limit: 2.5G
+    mem_reservation: 512M
+    cpus: 0.8
+
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.5.0
+    container_name: elasticsearch
+
+    environment:
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - discovery.type=single-node
+      # Added performance optimization settings
+      - bootstrap.memory_lock=true
+      - cluster.name=docker-cluster
+      - network.host=0.0.0.0
+      # Conservative thread pool settings
+      - thread_pool.write.queue_size=500
+      - thread_pool.search.queue_size=1000
+
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+
+    cap_add:
+      - IPC_LOCK
+
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+
+    ports:
+      - 9200:9200
+      - 9300:9300
+
+    # Added healthcheck
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          'curl -s http://localhost:9200/_cluster/health | grep -vq ''"status":"red"''',
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+    restart: unless-stopped
+
+    deploy:
+      resources:
+        limits:
+          memory: 2.5G
+        reservations:
+          memory: 512M
+
+    logging:
+      options:
+        max-size: "100m"
+        max-file: "5"
+
+volumes:
+  elasticsearch-data:
+    driver: local

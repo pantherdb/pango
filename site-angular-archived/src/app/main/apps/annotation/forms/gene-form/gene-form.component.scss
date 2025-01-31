@@ -1,0 +1,85 @@
+@import "src/@pango/scss/pango";
+@import "src/@pango.common/scss/pango.common";
+
+:host {
+  display: block;
+
+  .pango-checkbox {
+    font-size: 12px;
+  }
+
+  mat-chip {
+    font-size: 12px;
+    font-weight: normal;
+  }
+
+  .pango-filter-form {
+    padding-bottom: 200px;
+
+    .pango-form-section {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  mat-chip {
+    font-size: 12px;
+    font-weight: normal;
+    //@include deep-height(25px);
+    max-width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    .pango-chip-label {
+      padding: 0 8px 0 4px;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &.pango-form-chip {
+      padding: 0;
+      //@include deep-height(20px);
+      font-size: 10px;
+
+      height: auto !important;
+      line-height: 18px !important;
+      white-space: normal !important;
+
+      .pango-gene-id {
+        font-size: 10px;
+        //margin-right:
+      }
+
+      .pango-gene-label {
+        font-size: 12px;
+        //margin-right:
+      }
+      .pango-gene-description {
+        font-size: 10px;
+        //margin-right:
+      }
+
+      .pango-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 25px;
+        width: 25px;
+        border-radius: 50%;
+        color: #777;
+        font-size: 14px;
+      }
+
+      @include pango-chip-color(#bbc9cc);
+    }
+  }
+
+  .pango-form-row {
+    .pango-form-field {
+      @include deep-width(300px);
+    }
+  }
+}

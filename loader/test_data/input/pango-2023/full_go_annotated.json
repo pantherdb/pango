@@ -1,0 +1,110 @@
+[
+  {
+    "ID":"GO:0002088",
+    "LABEL":"lens development in camera-type eye",
+    "hasOBONamespace":"biological_process",
+    "is_goslim":false
+  },
+  {
+    "ID":"GO:0002376",
+    "LABEL":"immune system process",
+    "hasOBONamespace":"biological_process",
+    "is_goslim":true
+  },
+  {
+    "ID":"GO:0005102",
+    "LABEL":"signaling receptor binding",
+    "hasOBONamespace":"molecular_function",
+    "is_goslim":true
+  },
+  {
+    "ID":"GO:0005634",
+    "LABEL":"nucleus",
+    "hasOBONamespace":"cellular_component",
+    "is_goslim":true
+  },
+  {
+    "ID":"GO:0005654",
+    "LABEL":"nucleoplasm",
+    "hasOBONamespace":"cellular_component",
+    "is_goslim":true
+  },
+  {
+    "ID":"GO:0005737",
+    "LABEL":"cytoplasm",
+    "hasOBONamespace":"cellular_component",
+    "is_goslim":true
+  },
+  {
+    "ID":"GO:0005794",
+    "LABEL":"Golgi apparatus",
+    "hasOBONamespace":"cellular_component",
+    "is_goslim":true
+  },
+  {
+    "ID":"GO:0005847",
+    "LABEL":"mRNA cleavage and polyadenylation specificity factor complex",
+    "hasOBONamespace":"cellular_component",
+    "is_goslim":false
+  },
+  {
+    "ID":"GO:0006355",
+    "LABEL":"regulation of transcription, DNA-templated",
+    "hasOBONamespace":"biological_process",
+    "is_goslim":true
+  },
+  {
+    "ID":"GO:0006955",
+    "LABEL":"immune response",
+    "hasOBONamespace":"biological_process",
+    "is_goslim":false
+  },
+  {
+    "ID":"GO:0031856",
+    "LABEL":"parathyroid hormone receptor binding",
+    "hasOBONamespace":"molecular_function",
+    "is_goslim":false
+  },
+  {
+    "ID":"GO:0032588",
+    "LABEL":"trans-Golgi network membrane",
+    "hasOBONamespace":"cellular_component",
+    "is_goslim":false
+  },
+  {
+    "ID":"GO:0032991",
+    "LABEL":"protein-containing complex",
+    "hasOBONamespace":"cellular_component",
+    "is_goslim":true
+  },
+  {
+    "ID":"GO:0045944",
+    "LABEL":"positive regulation of transcription by RNA polymerase II",
+    "hasOBONamespace":"biological_process",
+    "is_goslim":false
+  },
+  {
+    "ID":"GO:0048856",
+    "LABEL":"anatomical structure development",
+    "hasOBONamespace":"biological_process",
+    "is_goslim":true
+  },
+  {
+    "ID":"GO:0071339",
+    "LABEL":"MLL1 complex",
+    "hasOBONamespace":"cellular_component",
+    "is_goslim":false
+  },
+  {
+    "ID":"UNKNOWN:0001",
+    "LABEL":"Unknown molecular function",
+    "hasOBONamespace":"molecular_function",
+    "is_goslim":false
+  },
+  {
+    "ID":"UNKNOWN:0002",
+    "LABEL":"Unknown biological process",
+    "hasOBONamespace":"biological_process",
+    "is_goslim":false
+  }
+]

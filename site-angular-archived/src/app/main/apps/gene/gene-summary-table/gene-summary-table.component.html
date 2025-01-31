@@ -1,0 +1,36 @@
+<div class="w-100-p h-100-p p-12" fxLayout="row" fxLayoutAlign="start start">
+  <div class="w-100-p">
+    <div fxLayout="row">
+      <div *ngFor="let key of ['mfs', 'bps', 'ccs']" class="pango-terms-cell" fxFlex="33">
+        <div class="w-100-p h-100-p" fxLayout="row" fxLayoutAlign="start center">
+          <div class="h-100-p" fxLayout="column" fxLayoutAlign="center start">
+            <div [matTooltip]="aspectMap[summaryKeys[key]].description">
+              {{aspectMap[summaryKeys[key]].label}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row">
+      <div *ngFor="let key of ['mfs', 'bps', 'ccs']" class="pango-terms-cell" fxFlex="33">
+        <ng-container *ngFor="let item of summary[key]">
+          <div class="w-100-p">
+            <div class="pango-cell-title w-100-p" [ngStyle]="{'color': aspectMap[summaryKeys[key]].color}"
+              fxLayout="row" fxLayoutAlign="start center">
+              <div fxFlex="40px">
+                <span class="pango-evidence-type" fxLayout="column" fxLayoutAlign="center center">
+                  <fa-icon [icon]="['fas', aspectMap[summaryKeys[key]].icon]"></fa-icon>
+                  <span class="pango-label">{{aspectMap[summaryKeys[key]].shorthand}}</span>
+                </span>
+              </div>
+              <div fxFlex>
+                <span class="pango-cell-description mr-4">{{item.label}}</span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

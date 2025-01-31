@@ -2,8 +2,9 @@
 # import asyncio
 import pprint
 import typing
-from src.resolvers.annotation_resolver import get_annotations_query, get_genes_query
-from src.models.annotation_model import  AnnotationFilterArgs, AnnotationStats, Bucket, Entity, Frequency, GeneFilterArgs, ResultCount
+from src.models.base_model import Bucket, Entity, ResultCount
+from src.resolvers.annotation_resolver import get_annotations_query
+from src.models.annotation_model import  AnnotationFilterArgs, AnnotationStats, Frequency
 from src.config.es import  es
 
 async def get_annotations_count(annotation_index:str, filter_args:AnnotationFilterArgs):
@@ -16,20 +17,7 @@ async def get_annotations_count(annotation_index:str, filter_args:AnnotationFilt
 
     results = ResultCount(total=resp['count'])
         
-    return results   
-
-
-async def get_genes_count(gene_index:str, filter_args:GeneFilterArgs):
-
-    query = await get_genes_query(filter_args)
-    resp = await es.count(
-          index=gene_index,
-          query=query
-    )
-    
-    results = ResultCount(total=resp['count'])
-        
-    return results  
+    return results     
 
 
 async def get_annotations_stats(annotation_index:str, filter_args:AnnotationFilterArgs):

@@ -1,0 +1,28 @@
+
+@media all {
+    .page-break-after,
+    .page-break-before {
+        display: none;
+    }
+}
+
+@media print {
+    html, body {
+        height: auto !important;
+        overflow: initial !important;
+        background: none
+    }
+
+    .page-break-after {
+        display: block;
+        page-break-after: always;
+        position: relative;
+    }
+
+    .page-break-before {
+        display: block;
+        page-break-before: always;
+        position: relative;
+    }
+
+}

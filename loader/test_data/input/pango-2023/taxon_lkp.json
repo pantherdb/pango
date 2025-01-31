@@ -1,0 +1,27 @@
+[
+  {
+    "taxon_id":"9606",
+    "taxon_label":"Homo sapiens",
+    "taxon_abbr":"Hsa"
+  },
+  {
+    "taxon_id":"10090",
+    "taxon_label":"Mus musculus",
+    "taxon_abbr":"Mmu"
+  },
+  {
+    "taxon_id":"10116",
+    "taxon_label":"Rattus norvegicus",
+    "taxon_abbr":"Rno"
+  },
+  {
+    "taxon_id":"284812",
+    "taxon_label":"Schizosaccharomyces pombe",
+    "taxon_abbr":"Spo"
+  },
+  {
+    "taxon_id":"559292",
+    "taxon_label":"Saccharomyces cerevisiae",
+    "taxon_abbr":"Sce"
+  }
+]
