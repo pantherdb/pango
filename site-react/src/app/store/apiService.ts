@@ -5,11 +5,11 @@ import { useSearchParams } from 'react-router-dom';
 import { useCallback } from 'react';
 
 export enum ApiVersion {
-	V2023 = 'pango-2023',
-	V2024 = 'pango-2024',
+	V1 = 'pango-1',
+	V2 = 'pango-2',
 }
 
-const LATEST_VERSION = ApiVersion.V2023;
+const LATEST_VERSION = ApiVersion.V1;
 const VERSION_PARAM = 'apiVersion';
 
 export const useApiVersion = () => {
