@@ -10,7 +10,53 @@ import { FiExternalLink } from 'react-icons/fi';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from './hooks';
 import { TermType } from '@/features/terms/models/term';
+import { ASPECT_ORDER } from '@/@pango.core/data/config';
 
+
+interface InfoRowProps {
+  label: string;
+  value: string;
+  href?: string;
+}
+
+const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => (
+  <div className="flex items-center p-[5px]">
+    <span className="text-xs pr-2 text-gray-700">
+      {label}:
+    </span>
+    {href ? (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-500 hover:text-gray-700 flex items-center gap-1"
+      >
+        {value}
+        <FiExternalLink className="w-3 h-3" />
+      </a>
+    ) : (
+      <span className="text-gray-500">{value}</span>
+    )}
+  </div>
+);
+
+interface StatBlockProps {
+  number: number;
+  label: string;
+  sublabel?: string;
+}
+
+const StatBlock: React.FC<StatBlockProps> = ({ number, label, sublabel }) => (
+  <div className="flex items-center pl-6">
+    <span className="text-5xl font-bold text-[#1976d2] mr-4 min-w-[60px] text-center">
+      {number}
+    </span>
+    <div className="label-group">
+      <div className="text-base font-medium mb-1">{label}</div>
+      {sublabel && <div className="text-sm font-normal text-gray-600">{sublabel}</div>}
+    </div>
+  </div>
+);
 
 const Gene: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +70,12 @@ const Gene: React.FC = () => {
   const pageArgs = { page: 0, size: 200 };
   const { data: annotationsData } = useGetAnnotationsQuery({ filterArgs, pageArgs });
 
-  const annotations = annotationsData?.annotations || [];
+
+  const annotations = [...(annotationsData?.annotations || [])].sort((a, b) => {
+    const aspectA = a.term?.aspect?.toLowerCase() || '';
+    const aspectB = b.term?.aspect?.toLowerCase() || '';
+    return (ASPECT_ORDER[aspectA] || 999) - (ASPECT_ORDER[aspectB] || 999);
+  });
 
   const annotation = annotations && annotations.length > 0 ? annotations[0] : null;
 
@@ -89,11 +140,13 @@ const Gene: React.FC = () => {
                   value={annotation.pantherFamily}
                   href={getFamilyLink(annotation)}
                 />
-                <InfoRow
-                  label="UCSC Genome Browser"
-                  value={`chr${annotation.coordinatesChrNum}:${annotation.coordinatesStart}-${annotation.coordinatesEnd}`}
-                  href={`${ENVIRONMENT.ucscUrl}chr${annotation.coordinatesChrNum}:${annotation.coordinatesStart}-${annotation.coordinatesEnd}`}
-                />
+                {annotation.coordinatesChrNum &&
+                  <InfoRow
+                    label="UCSC Genome Browser"
+                    value={`chr${annotation.coordinatesChrNum}:${annotation.coordinatesStart}-${annotation.coordinatesEnd}`}
+                    href={`${ENVIRONMENT.ucscUrl}${annotation.coordinatesChrNum}:${annotation.coordinatesStart}-${annotation.coordinatesEnd}`}
+                  />
+                }
               </div>
             </div>
           </div>
@@ -136,49 +189,6 @@ const Gene: React.FC = () => {
   );
 };
 
-interface InfoRowProps {
-  label: string;
-  value: string;
-  href?: string;
-}
 
-const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => (
-  <div className="flex items-center p-[5px]">
-    <span className="text-xs pr-2 text-gray-700">
-      {label}:
-    </span>
-    {href ? (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-gray-500 hover:text-gray-700 flex items-center gap-1"
-      >
-        {value}
-        <FiExternalLink className="w-3 h-3" />
-      </a>
-    ) : (
-      <span className="text-gray-500">{value}</span>
-    )}
-  </div>
-);
-
-interface StatBlockProps {
-  number: number;
-  label: string;
-  sublabel?: string;
-}
-
-const StatBlock: React.FC<StatBlockProps> = ({ number, label, sublabel }) => (
-  <div className="flex items-center pl-6">
-    <span className="text-5xl font-bold text-[#1976d2] mr-4 min-w-[60px] text-center">
-      {number}
-    </span>
-    <div className="label-group">
-      <div className="text-base font-medium mb-1">{label}</div>
-      {sublabel && <div className="text-sm font-normal text-gray-600">{sublabel}</div>}
-    </div>
-  </div>
-);
 
 export default Gene;

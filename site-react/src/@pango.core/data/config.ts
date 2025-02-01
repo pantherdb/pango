@@ -104,7 +104,7 @@ export const EVIDENCE_TYPE_MAP: { [key: string]: EvidenceMapType } = {
   },
 }
 
-export const ASPECT_ORDER = {
+export const ASPECT_ORDER: Record<string, number> = {
   'molecular function': 1,
   'biological process': 2,
   'cellular component': 3
