@@ -107,7 +107,7 @@ const Genes: React.FC<GenesProps> = () => {
                       </div>
                       <div className="text-sm text-gray-600">{gene.geneName}</div>
                       <div className="text-sm">
-                        <a href={getUniprotLink(gene)}>{gene.gene}</a>
+                        <a href={getUniprotLink(gene)} target="_blank" rel="noopener noreferrer">{gene.gene}</a>
                       </div>
 
 

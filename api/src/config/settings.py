@@ -4,6 +4,7 @@ from typing import Optional
 from enum import Enum
 
 class ApiVersion(str, Enum):
+    V_TEST = "pango-test"
     V1 = "pango-1"
     V2 = "pango-2"
     LATEST = "latest"

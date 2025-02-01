@@ -1,5 +1,4 @@
 export const ENVIRONMENT = {
-  pangoGraphQLUrl: 'http://34.235.126.222/api/graphql', //'http://localhost:5000/graphql',//'https://functionome.geneontology.org/api/graphql',
   amigoTermUrl: "http://amigo.geneontology.org/amigo/term/",
   amigoGPUrl: "http://amigo.geneontology.org/amigo/gene_product/",
   pubmedUrl: "https://www.ncbi.nlm.nih.gov/pubmed/",

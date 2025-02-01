@@ -8,6 +8,7 @@
     "start": "vite --mode development --host 0.0.0.0 --port 4208",
     "start:staging": "vite --mode staging --host 0.0.0.0 --port 4208",
     "build": "tsc && vite build",
+    "build:staging": "rm -rf dist && tsc && vite build --mode staging",
     "preview": "vite preview",
     "test": "vitest run",
     "format": "prettier --write .",
