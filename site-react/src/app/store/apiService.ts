@@ -1,4 +1,3 @@
-// src/services/apiVersionService.ts
 import type { BaseQueryFn } from '@reduxjs/toolkit/query/react';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { useSearchParams } from 'react-router-dom';

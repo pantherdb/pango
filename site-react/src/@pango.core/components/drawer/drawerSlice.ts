@@ -1,4 +1,3 @@
-// features/drawer/drawerSlice.ts
 import type { RootState } from '@/app/store/store';
 import { createSlice } from '@reduxjs/toolkit';
 

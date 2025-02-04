@@ -15,6 +15,13 @@ export const getHGNC = (longId: string): string | null => {
 
 }
 
+export const getGeneAccession = (gene: string) => {
+  if (!gene) return null;
+
+  const geneId = gene.split(':');
+  return geneId.length > 1 ? geneId[1] : null;
+};
+
 export const getUniprotLink = (gene: string) => {
   if (!gene) return ENVIRONMENT.uniprotUrl;
 
@@ -46,3 +53,10 @@ export const getHGNCLink = (hgncId: string) => {
   return ENVIRONMENT.hgncPrefixUrl + hgncId;
 }
 
+export const getNCBIGeneLink = (geneSymbol: string) => {
+  if (!geneSymbol) return ENVIRONMENT.ncbiGeneUrl;
+
+  return `${ENVIRONMENT.ncbiGeneUrl}(${geneSymbol}%5BPreferred%20Symbol%5D)%20AND%209606%5BTaxonomy%20ID%5D`
+
+
+}

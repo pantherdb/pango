@@ -44,7 +44,7 @@ const Home: React.FC = () => {
         }}>
         <div className="flex">
           <div className="w-3/5 flex-col">
-            <h1 className="text-4xl font-bold tracking-wider text-white mb-4">
+            <h1 className="text-5xl font-bold tracking-wider text-white mb-4">
               Functions of Human Genes
             </h1>
             <h2 className="text-lg leading-7 font-medium tracking-wider text-white mb-10 max-w-2xl">
@@ -60,7 +60,7 @@ const Home: React.FC = () => {
                 <GeneForm />
               </div>
 
-              <h3 className="text-xs text-white">
+              <h3 className="text-white">
                 See any missing or incorrect functions?
                 <a href="https://help.geneontology.org/"
                   target="_blank"

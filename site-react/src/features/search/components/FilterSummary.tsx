@@ -23,7 +23,7 @@ const FilterSummary = () => {
 
   if (search.filtersCount === 0) {
     return (
-      <span className="text-gray-500 italic text-xs">
+      <span className="text-gray-500 italic">
         No Filters selected: You can filter the list to find a specific gene or function category.
       </span>
     );
@@ -31,10 +31,10 @@ const FilterSummary = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <small className="mr-3 text-xs">Filtered By:</small>
+      <small className="mr-3">Filtered By:</small>
       <Chip onClick={clearAllFilters}
         label="Clear All Filters"
-        className="!h-7 !text-xs !bg-accent-300"
+        className="!h-7 !text-xs !bg-accent-200"
         size="small"
       />
       {search.genes.length > 0 && (

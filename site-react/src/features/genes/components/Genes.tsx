@@ -11,6 +11,7 @@ import Terms from '@/features/terms/components/Terms';
 import { VersionedLink } from '@/shared/components/VersionedLink';
 import { ANNOTATION_COLS } from '@/@pango.core/data/config';
 import { getUniprotLink, getUCSCBrowserLink } from '@/@pango.core/services/linksService';
+import { FiExternalLink } from 'react-icons/fi';
 
 interface GenesProps {
   page?: number;
@@ -100,11 +101,14 @@ const Genes: React.FC<GenesProps> = () => {
                       </div>
                       <div className="text-gray-600">{gene.geneName}</div>
                       <div className="">
-                        <a href={getUniprotLink(gene.gene)} target="_blank" rel="noopener noreferrer">{gene.gene}</a>
+                        <a href={getUniprotLink(gene.gene)} target="_blank" rel="noopener noreferrer">
+                          {gene?.gene.replace('UniProtKB', 'UniProt')}
+                        </a>
                       </div>
                       {gene.coordinatesChrNum && (
-                        <div className="inline-block px-2 py-0.5 bg-purple-800 text-sm">
-                          <a className="text-accent-500" href={getUCSCBrowserLink(gene)}
+                        <div className="inline-block px-2 pl-0 py-0.5 ">
+                          UCSC Browser:
+                          <a className="pl-1" href={getUCSCBrowserLink(gene)}
                             target="_blank"
                             rel="noopener noreferrer">
                             chr{gene.coordinatesChrNum}:{gene.coordinatesStart}-{gene.coordinatesEnd}

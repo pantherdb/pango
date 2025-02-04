@@ -1,14 +1,12 @@
 import { ASPECT_MAP } from '@/@pango.core/data/config';
 import { ENVIRONMENT } from '@/@pango.core/data/constants';
 import type React from 'react';
-import { BiInfoCircle } from 'react-icons/bi';
 import { setRightDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
 import { useAppDispatch } from '@/app/hooks';
 import type { Annotation } from '../models/annotation';
 import { setSelectedAnnotation } from '../slices/selectedAnnotationSlice';
 import TermLink from '@/features/terms/components/TermLink';
-
-// TODO: Add tooltips
+import { Tooltip } from '@mui/material';
 
 interface AnnotationTableProps {
   annotations: Annotation[];
@@ -41,38 +39,46 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
           <tr className="bg-white h-8 border-b border-primary-light">
             <th className="w-64">
               <div className="flex items-center">
-                <span>Term</span>
-                <BiInfoCircle
-                  className="ml-2"
+                <Tooltip
                   title="The annotated functional characteristic of the gene. These are as specific as possible."
-                />
+                  placement="top"
+                  enterDelay={1500}
+                  arrow>
+                  <span>Term</span>
+                </Tooltip>
               </div>
             </th>
             <th className="">
               <div className="flex items-center">
-                <span>GO Function Category</span>
-                <BiInfoCircle
-                  className="ml-2"
-                  title="The high-level category(ies) of the annotated GO term"
-                />
+                <Tooltip
+                  title="The high-level category(ies) of the annotated GO term."
+                  placement="top"
+                  enterDelay={1500}
+                  arrow>
+                  <span>GO Function Category</span>
+                </Tooltip>
               </div>
             </th>
             <th className="">
               <div className="flex items-center">
-                <span>Evidence</span>
-                <BiInfoCircle
-                  className="ml-2"
+                <Tooltip
                   title="The evidence for the annotated GO term"
-                />
+                  placement="top"
+                  enterDelay={1500}
+                  arrow>
+                  <span>Evidence</span>
+                </Tooltip>
               </div>
             </th>
             <th className="w-40">
               <div className="flex items-center">
-                <span>Contributors</span>
-                <BiInfoCircle
-                  className="ml-2"
-                  title="The GO Consortium groups that created the annotations"
-                />
+                <Tooltip
+                  title="The GO Consortium groups that created the annotations."
+                  placement="top"
+                  enterDelay={1500}
+                  arrow>
+                  <span>Contributors</span>
+                </Tooltip>
               </div>
             </th>
           </tr>
@@ -102,7 +108,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                 {row.slimTerms.map((term, termIdx) => (
                   <div key={termIdx} className="mb-1 last:mb-0 flex items-center">
                     <span
-                      className="inline-flex items-center justify-center !h-8 !w-8 rounded-full text-xs font-bold border"
+                      className="inline-flex items-center justify-center !h-8 !w-8 rounded-full font-bold border"
                       style={{
                         borderColor: ASPECT_MAP[term.aspect]?.color,
                         color: ASPECT_MAP[term.aspect]?.color,
@@ -135,13 +141,13 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                             className=" text-sm">
                             {ref.pmid}
                           </a>
-                          <div className="text-xs text-gray-600">
+                          <div className="text-gray-600">
                             {ref.title} <span className="text-gray-500">({ref.date})</span>
                           </div>
                         </div>
                       ))}
                       {evidence.references.length > maxReferences && (
-                        <button className=" text-xs mt-1">
+                        <button className="mt-1">
                           + {evidence.references.length - maxReferences} more reference(s)
                         </button>
                       )}
@@ -149,7 +155,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                   </div>
                 ))}
                 {row.evidence.length > maxEvidences && (
-                  <button className=" text-xs">
+                  <button className="">
                     + {row.evidence.length - maxEvidences} more evidence
                   </button>
                 )}

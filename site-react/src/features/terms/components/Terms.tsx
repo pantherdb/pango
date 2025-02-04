@@ -2,7 +2,6 @@ import type React from 'react';
 import { FaFlask } from 'react-icons/fa';
 import { Tooltip } from '@mui/material';
 import { EVIDENCE_TYPE_MAP } from '@/@pango.core/data/config';
-import { ENVIRONMENT } from '@/@pango.core/data/constants';
 import type { Term } from '../models/term';
 import TermLink from './TermLink';
 

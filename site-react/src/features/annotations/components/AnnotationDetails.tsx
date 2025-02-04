@@ -56,8 +56,8 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
             >
               {annotation.gene}
             </a>
-            <div className="text-sm text-gray-600">{annotation.geneSymbol}</div>
-            <div className="text-sm">{annotation.geneName}</div>
+            <div className=" text-gray-600">{annotation.geneSymbol}</div>
+            <div className="">{annotation.geneName}</div>
           </div>
         </Section>
 
@@ -66,7 +66,7 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
             <span className="font-semibold">{annotation.term.id}</span>
             {getAspectChip(annotation.term.aspect)}
           </div>
-          <div className="text-sm text-gray-700">{annotation.term.label}</div>
+          <div className=" text-gray-700">{annotation.term.label}</div>
         </Section>
 
         <Section title="GO Function Categories" icon={<MdCategory className="w-5 h-5 text-purple-500" />}>
@@ -77,7 +77,7 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
                   <span className="font-semibold">{term.id}</span>
                   {getAspectChip(term.aspect)}
                 </div>
-                <div className="text-sm text-gray-700">{term.label}</div>
+                <div className=" text-gray-700">{term.label}</div>
               </div>
             ))}
           </div>
@@ -110,14 +110,14 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
               <div key={index} className="bg-gray-50 p-4 rounded-lg">
                 <div className="font-semibold mb-2">
                   {item.withGeneId?.gene} ({item.withGeneId?.geneSymbol})
-                  <div className="text-sm font-normal text-gray-600">
+                  <div className=" font-normal text-gray-600">
                     {item.withGeneId?.geneName}
                   </div>
                 </div>
                 {item.references?.map((reference, refIndex) => (
                   <div key={refIndex} className="ml-4 mt-3 p-3 bg-white rounded-lg shadow-sm border border-gray-200">
                     <div className="font-semibold text-blue-600">{reference.pmid}</div>
-                    <div className="text-sm my-1">{reference.title}</div>
+                    <div className=" my-1">{reference.title}</div>
                     <div className="text-xs text-gray-500">{reference.date}</div>
                     <div className="mt-2 text-xs text-gray-600">
                       {reference.authors.join(', ')}

@@ -2,7 +2,7 @@ import type React from 'react';
 import Terms from './Terms';
 import type { GroupedTerms } from '../models/term';
 
-
+// TODO shrinking width of flex on term aspect
 interface TermCellsProps {
   groupedTerms: GroupedTerms;
   onToggleExpand: () => void;

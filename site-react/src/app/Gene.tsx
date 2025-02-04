@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch } from './hooks';
 import { TermType } from '@/features/terms/models/term';
 import { ASPECT_ORDER } from '@/@pango.core/data/config';
-import { getAGRLink, getFamilyLink, getHGNC, getHGNCLink, getUCSCBrowserLink, getUniprotLink } from '@/@pango.core/services/linksService';
+import { getAGRLink, getFamilyLink, getHGNC, getHGNCLink, getNCBIGeneLink, getUCSCBrowserLink, getUniprotLink } from '@/@pango.core/services/linksService';
 
 
 interface InfoRowProps {
@@ -20,8 +20,8 @@ interface InfoRowProps {
 }
 
 const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => (
-  <div className="flex items-center p-[5px]">
-    <span className="text-xs pr-2 text-gray-700">
+  <div className="flex items-center p-1">
+    <span className="pr-2 font-semibold text-gray-600">
       {label}:
     </span>
     {href ? (
@@ -29,13 +29,13 @@ const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => (
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-gray-500 hover:text-gray-700 flex items-center gap-1"
+        className="flex items-center"
       >
         {value}
         <FiExternalLink className="w-3 h-3" />
       </a>
     ) : (
-      <span className="text-gray-500">{value}</span>
+      <span className="">{value}</span>
     )}
   </div>
 );
@@ -48,12 +48,12 @@ interface StatBlockProps {
 
 const StatBlock: React.FC<StatBlockProps> = ({ number, label, sublabel }) => (
   <div className="flex items-center pl-6">
-    <span className="text-5xl font-bold text-[#1976d2] mr-4 min-w-[60px] text-center">
+    <span className="text-5xl font-bold text-sky-700 mr-4 ">
       {number}
     </span>
     <div className="label-group">
       <div className="text-base font-medium mb-1">{label}</div>
-      {sublabel && <div className="text-sm font-normal text-gray-600">{sublabel}</div>}
+      {sublabel && <div className="font-normal text-gray-600">{sublabel}</div>}
     </div>
   </div>
 );
@@ -79,6 +79,7 @@ const Gene: React.FC = () => {
 
   const annotation = annotations && annotations.length > 0 ? annotations[0] : null;
   const hgncId = getHGNC(annotation?.longId || '');
+  //const geneAccession = getGeneAccession(annotation?.gene || '');
 
   if (!annotation) {
     return <div className="p-4">Loading...</div>;
@@ -89,36 +90,41 @@ const Gene: React.FC = () => {
   const groupedTerms = transformTerms(annotations, 150);
 
   return (
-    <div className="w-full bg-slate-200">
+    <div className="w-full bg-slate-100">
       <div className="p-3 max-w-[1000px] mx-auto">
         {/* Gene Header Section */}
-        <div className="pango-gene-summary w-full px-3 py-4">
-          <h1 className="font-normal text-2xl mb-6">
+        <div className="pango-gene-summary w-full px-3 py-4 pb-10">
+          <h1 className="font-normal text-4xl mb-10">
             <span className="font-bold">{annotation.geneSymbol}</span>: PAN-GO functions and evidence
           </h1>
 
           <div className="flex  w-full">
             {/* Gene Information Column */}
             <div className="w-[300px] mr-[100px]">
-              <h2 className="text-xl font-semibold mb-4">Gene Information</h2>
-              <div className="space-y-1">
+              <h2 className="text-2xl font-semibold mb-4">Gene Information</h2>
+              <div className="">
                 <InfoRow label="Gene" value={annotation.geneSymbol} />
                 <InfoRow label="Protein" value={annotation.geneName} />
                 <InfoRow
                   label="GO annotations from all sources"
-                  value={annotation.gene}
+                  value={annotation?.gene.replace('UniProtKB', 'UniProt')}
                   href={ENVIRONMENT.amigoGPUrl + annotation.gene}
+                />
+                <InfoRow
+                  label="PAN-GO evolutionary model for this family"
+                  value={annotation.pantherFamily}
+                  href={ENVIRONMENT.pantreeUrl + annotation.pantherFamily}
                 />
               </div>
             </div>
 
             {/* External Links Column */}
             <div className="w-[300px]">
-              <h2 className="text-xl font-semibold mb-4">External Links</h2>
-              <div className="space-y-1">
+              <h2 className="text-2xl font-semibold mb-4">External Links</h2>
+              <div className="">
                 <InfoRow
                   label="UniProt ID"
-                  value={annotation.gene}
+                  value={annotation?.gene.replace('UniProtKB', 'UniProt')}
                   href={getUniprotLink(annotation.gene)}
                 />
                 <InfoRow
@@ -152,7 +158,7 @@ const Gene: React.FC = () => {
                 <InfoRow
                   label="NCBI Gene"
                   value={annotation.geneSymbol}
-                  href={ENVIRONMENT.ncbiGeneUrl + annotation.geneSymbol}
+                  href={getNCBIGeneLink(annotation.geneSymbol)}
                 />
               </div>
             </div>
@@ -179,21 +185,16 @@ const Gene: React.FC = () => {
           </div>
         </div>
         {annotations.length > 0 && (
-          <div className="w-full bg-white py-4">
+          <div className="w-full bg-white">
             <GeneSummary groupedTerms={groupedTerms} />
           </div>
         )}
         <div className="py-6 px-4 bg-gradient-to-r from-slate-100 to-white">
-          <h2 className="text-2xl font-semibold tracking-tight m-0">Function Details (
-            <a href={ENVIRONMENT.pantreeUrl + annotation.pantherFamily}
-              target="_blank" rel="noopener noreferrer"
-              className="text-lg font-normal">
-              PAN-GO evolutionary model for this family
-            </a>)
+          <h2 className="text-2xl font-semibold tracking-tight m-0">Function Details
           </h2>
         </div>
         {annotations.length > 0 && (
-          <div className="w-full bg-white py-4">
+          <div className="w-full bg-white">
             <AnnotationTable annotations={annotations} />
           </div>
         )}

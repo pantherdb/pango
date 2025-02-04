@@ -16,13 +16,13 @@ const GeneSummary: React.FC<GeneSummaryProps> = ({ groupedTerms }) => {
         <table className="w-full">
           <thead>
             <tr className="border-b border-t border-accent-700">
-              <th className="p-3 text-left text-xs font-bold uppercase border-r border-gray-300">
+              <th className="">
                 Molecular Functions
               </th>
-              <th className="p-3 text-left text-xs font-bold uppercase border-r border-gray-300">
+              <th className="">
                 Biological Processes
               </th>
-              <th className="p-3 text-left text-xs font-bold uppercase border-r border-gray-300">
+              <th className="">
                 Cellular Components
               </th>
             </tr>

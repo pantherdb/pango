@@ -1,6 +1,6 @@
 import type React from 'react';
 import { useMemo, useState } from 'react';
-import { Checkbox, Tooltip } from '@mui/material';
+import { Button, Checkbox, Tooltip } from '@mui/material';
 import type { AspectMapType } from "@/@pango.core/data/config";
 import { ASPECT_MAP } from "@/@pango.core/data/config";
 import { SearchFilterType } from '@/features/search/search';
@@ -101,13 +101,16 @@ const CategoryStats: React.FC = () => {
               >
                 {item.aspectShorthand}
               </div>
-              <div className="w-[100px]">
-                <div className="text-xs truncate">{item.label}</div>
-                <div className="text-xs text-gray-500 italic truncate">
-                  {item.displayId}
+              <Tooltip
+                title={item.label}
+                placement="top"
+                enterDelay={1500}
+                arrow>
+                <div className="w-[100px]">
+                  <div className="line-clamp-2">{item.label}</div>
                 </div>
-              </div>
-              <div className="flex-1 relative h-9">
+              </Tooltip>
+              <div className="flex-1 relative h-12">
                 <div
                   className="h-full absolute"
                   style={{
@@ -115,14 +118,21 @@ const CategoryStats: React.FC = () => {
                     width: item.width
                   }}
                 />
+
+
                 <div
-                  className="absolute px-2 py-1 text-xs bg-white border border-gray-300 rounded-lg transform -translate-y-1/2"
+                  className="absolute  transform -translate-y-1/2 "
                   style={{
                     left: item.countPos,
                     top: '50%'
                   }}
                 >
-                  {item.count} genes
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    className="!h-full !bg-primary-50 rounded-md w-full hover:!bg-primary-100"
+                  >{item.count} genes
+                  </Button>
                 </div>
               </div>
             </div>
