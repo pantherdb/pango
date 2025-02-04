@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../hooks';
 import { toggleLeftDrawer } from '@/@pango.core/components/drawer/drawerSlice';
 import { VersionedLink } from '@/shared/components/VersionedLink';
+import { ENVIRONMENT } from '@/@pango.core/data/constants';
 
 interface ToolbarProps {
   showLoadingBar?: boolean;
@@ -75,14 +76,19 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
               open={Boolean(exportMenuAnchor)}
               onClose={handleCloseExportMenu}
             >
-              <MenuItem component="a" href="https://functionome.org/download/export_annotations.zip">
-                As CSV
+              <MenuItem component="a" href={ENVIRONMENT.downloadAllDataCSVUrl}>
+                All data as CSV
               </MenuItem>
-              <MenuItem component="a" href="https://functionome.org/download/export_annotations.json.gz">
-                As JSON
+              <MenuItem component="a" href={ENVIRONMENT.downloadAllDataJSONUrl}>
+                All data as JSON
+              </MenuItem>
+              <MenuItem component="a" href={ENVIRONMENT.downloadAnnotationsGAFUrl}>
+                Annotations as GAF
+              </MenuItem>
+              <MenuItem component="a" href={ENVIRONMENT.downloadEvolutionaryModelsGAFUrl} target='_blank' rel='noopener noreferrer'>
+                Evolutionary models as GAF
               </MenuItem>
             </Menu>
-
             <Button
               color="inherit"
               component={Link}

@@ -31,7 +31,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
   const getPubmedArticleUrl = (pmid: string): string => {
     if (!pmid) return '';
     const id = pmid?.split(':');
-    return id.length > 0 ? `${ENVIRONMENT.pubmedUrl}${id[1]}` : '';
+    return id.length > 0 ? ENVIRONMENT.pubmedUrl + id[1] : '';
   };
 
   return (
@@ -122,7 +122,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                     {evidence.withGeneId && (
                       <div className="text-sm mb-1">
                         {evidence.withGeneId.gene} ({evidence.withGeneId.geneSymbol})
-                        (<a href={`${ENVIRONMENT.taxonApiUrl}${evidence.withGeneId.taxonId}`} target="_blank" rel="noopener noreferrer"
+                        (<a href={ENVIRONMENT.taxonApiUrl + evidence.withGeneId.taxonId} target="_blank" rel="noopener noreferrer"
                           className="">
                           {evidence.withGeneId.taxonAbbr}
                         </a>)

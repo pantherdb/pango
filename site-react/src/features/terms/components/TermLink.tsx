@@ -8,7 +8,9 @@ interface TermLinkProps {
 
 const TermLink: React.FC<TermLinkProps> = ({ term }) => {
   return term.displayId ? (
-    <a href={`${ENVIRONMENT.amigoTermUrl}${term.id}`} target="_blank" rel="noopener noreferrer" className="no-underline">
+    <a href={ENVIRONMENT.amigoTermUrl + term.id}
+      target="_blank"
+      rel="noopener noreferrer" className="no-underline">
       {term.label}
     </a>
   ) : (

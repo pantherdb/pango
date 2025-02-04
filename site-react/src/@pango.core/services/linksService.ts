@@ -19,7 +19,7 @@ export const getUniprotLink = (gene: string) => {
   if (!gene) return ENVIRONMENT.uniprotUrl;
 
   const geneId = gene.split(':');
-  return geneId.length > 1 ? `${ENVIRONMENT.uniprotUrl}${geneId[1]}` : ENVIRONMENT.uniprotUrl;
+  return geneId.length > 1 ? ENVIRONMENT.uniprotUrl + geneId[1] : ENVIRONMENT.uniprotUrl;
 };
 
 export const getFamilyLink = (element: Annotation) => {

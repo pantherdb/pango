@@ -86,10 +86,7 @@ const Gene: React.FC = () => {
 
   const knownTermTypes = annotations.filter(a => a.termType === TermType.KNOWN).length;
   const unknownTermTypes = annotations.filter(a => a.termType === TermType.UNKNOWN).length;
-
-  const groupedTerms = transformTerms(annotations, 100);
-
-
+  const groupedTerms = transformTerms(annotations, 150);
 
   return (
     <div className="w-full bg-slate-200">
@@ -110,10 +107,8 @@ const Gene: React.FC = () => {
                 <InfoRow
                   label="GO annotations from all sources"
                   value={annotation.gene}
-                  href={`${ENVIRONMENT.amigoGPUrl}${annotation.gene}`}
+                  href={ENVIRONMENT.amigoGPUrl + annotation.gene}
                 />
-
-
               </div>
             </div>
 
@@ -154,6 +149,11 @@ const Gene: React.FC = () => {
                     />
                   </>
                 )}
+                <InfoRow
+                  label="NCBI Gene"
+                  value={annotation.geneSymbol}
+                  href={ENVIRONMENT.ncbiGeneUrl + annotation.geneSymbol}
+                />
               </div>
             </div>
           </div>
@@ -184,7 +184,13 @@ const Gene: React.FC = () => {
           </div>
         )}
         <div className="py-6 px-4 bg-gradient-to-r from-slate-100 to-white">
-          <h2 className="text-2xl font-semibold tracking-tight m-0">Function Details</h2>
+          <h2 className="text-2xl font-semibold tracking-tight m-0">Function Details (
+            <a href={ENVIRONMENT.pantreeUrl + annotation.pantherFamily}
+              target="_blank" rel="noopener noreferrer"
+              className="text-lg font-normal">
+              PAN-GO evolutionary model for this family
+            </a>)
+          </h2>
         </div>
         {annotations.length > 0 && (
           <div className="w-full bg-white py-4">
