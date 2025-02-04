@@ -21,7 +21,7 @@ code {
     @apply underline text-primary-600 hover:text-primary-300;
   } 
   
-  tr {
+  thead tr {
     @apply  border-b border-t border-accent-700
   }
 

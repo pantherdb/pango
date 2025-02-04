@@ -6,6 +6,7 @@ import { setRightDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
 import { useAppDispatch } from '@/app/hooks';
 import type { Annotation } from '../models/annotation';
 import { setSelectedAnnotation } from '../slices/selectedAnnotationSlice';
+import TermLink from '@/features/terms/components/TermLink';
 
 // TODO: Add tooltips
 
@@ -79,10 +80,10 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
         <tbody className="divide-y divide-gray-200">
           {annotations.map((row, idx) => (
             <tr key={idx} onClick={() => handleRowClick(row)} className="hover:bg-gray-50 cursor-pointer">
-              <td className="px-3 py-2">
+              <td className="px-3 py-2 min-w-[250px]">
                 <div className="flex items-center">
                   <span
-                    className="inline-flex items-center justify-center h-6 w-6 rounded-full text-xs font-bold border"
+                    className="inline-flex items-center justify-center !h-8 !w-8 rounded-full text-xs font-bold border"
                     style={{
                       borderColor: ASPECT_MAP[row.term.aspect]?.color,
                       color: ASPECT_MAP[row.term.aspect]?.color,
@@ -91,21 +92,17 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                     {ASPECT_MAP[row.term.aspect]?.shorthand}
                   </span>
                   <div className="ml-2">
-                    <span className="text-sm">{row.term.label}</span>
-                    {row.term.displayId && (
-                      <a href={`${ENVIRONMENT.amigoTermUrl}${row.term.id}`} target="_blank" rel="noopener noreferrer"
-                        className="ml-2 text-gray-500 hover:text-gray-700 text-xs italic">
-                        {row.term.displayId}
-                      </a>
-                    )}
+                    <div className="ml-2">
+                      <TermLink term={row.term} />
+                    </div>
                   </div>
                 </div>
               </td>
-              <td className="px-3 py-2">
+              <td className="px-3 py-2  min-w-[220px]">
                 {row.slimTerms.map((term, termIdx) => (
                   <div key={termIdx} className="mb-1 last:mb-0 flex items-center">
                     <span
-                      className="inline-flex items-center justify-center h-6 w-6 rounded-full text-xs font-bold border"
+                      className="inline-flex items-center justify-center !h-8 !w-8 rounded-full text-xs font-bold border"
                       style={{
                         borderColor: ASPECT_MAP[term.aspect]?.color,
                         color: ASPECT_MAP[term.aspect]?.color,
@@ -114,13 +111,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                       {ASPECT_MAP[term.aspect]?.shorthand}
                     </span>
                     <div className="ml-2">
-                      <span className="text-sm">{term.label}</span>
-                      {term.displayId && (
-                        <a href={`${ENVIRONMENT.amigoTermUrl}${term.id}`} target="_blank" rel="noopener noreferrer"
-                          className="ml-2 text-gray-500 hover:text-gray-700 text-xs italic">
-                          {term.displayId}
-                        </a>
-                      )}
+                      <TermLink term={term} />
                     </div>
                   </div>
                 ))}

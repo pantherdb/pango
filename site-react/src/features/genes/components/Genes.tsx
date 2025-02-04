@@ -72,7 +72,6 @@ const Genes: React.FC<GenesProps> = () => {
           Results (<strong>{geneCount}</strong>) <small>genes</small>
         </h2>
       </div>
-
       <div className="border border-gray-300 rounded-lg bg-white">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -91,28 +90,25 @@ const Genes: React.FC<GenesProps> = () => {
             <tbody>
               {genes.map((gene: Gene) => (
                 <tr key={gene.gene} className="border-b border-gray-300">
-                  <td className="p-3">
+                  <td className="p-3 pt-6">
                     <button onClick={() => handleExpandClick(gene)}
-                      className="text-gray-700">
+                      className="text-gray-700 text-lg">
                       {expandedRows[gene.gene] ? <FaCaretDown /> : <FaCaretRight />}
                     </button>
                   </td>
                   <td className="p-3 border-r border-gray-300">
                     <div className="space-y-1">
-                      <div className="font-bold">
+                      <div className="font-bold text-lg">
                         <VersionedLink to={`/gene/${gene.gene}`} className="mr-1" target="_blank" rel="noreferrer">
                           {gene.geneSymbol}
                         </VersionedLink>
-                        (<a href={`${ENVIRONMENT.taxonApiUrl}${gene.taxonId}`} target="_blank" rel="noopener noreferrer">{gene.taxonAbbr}</a>)
                       </div>
-                      <div className="text-sm text-gray-600">{gene.geneName}</div>
-                      <div className="text-sm">
+                      <div className="text-gray-600">{gene.geneName}</div>
+                      <div className="">
                         <a href={getUniprotLink(gene)} target="_blank" rel="noopener noreferrer">{gene.gene}</a>
                       </div>
-
-
                       {gene.coordinatesChrNum && (
-                        <div className="inline-block px-2 py-0.5 bg-purple-800 text-xs">
+                        <div className="inline-block px-2 py-0.5 bg-purple-800 text-sm">
                           <a className="text-accent-500" href={`${ENVIRONMENT.ucscUrl}${gene.coordinatesChrNum}:${gene.coordinatesStart}-${gene.coordinatesEnd}`}
                             target="_blank"
                             rel="noopener noreferrer">

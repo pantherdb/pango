@@ -10,7 +10,6 @@ export const GET_ANNOTATIONS_QUERY = print(gql`
       longId
       pantherFamily
       taxonAbbr
-      taxonLabel
       taxonId
       coordinatesChrNum
       coordinatesStart
@@ -38,8 +37,8 @@ export const GET_ANNOTATIONS_QUERY = print(gql`
           geneName
           geneSymbol
           taxonAbbr
-          taxonLabel
           taxonId
+          taxonLabel
           coordinatesChrNum
           coordinatesStart
           coordinatesEnd

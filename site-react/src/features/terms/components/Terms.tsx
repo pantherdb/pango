@@ -4,6 +4,7 @@ import { Tooltip } from '@mui/material';
 import { EVIDENCE_TYPE_MAP } from '@/@pango.core/data/config';
 import { ENVIRONMENT } from '@/@pango.core/data/constants';
 import type { Term } from '../models/term';
+import TermLink from './TermLink';
 
 interface TermsProps {
   terms: Term[];
@@ -30,15 +31,7 @@ export const Terms: React.FC<TermsProps> = ({ terms, maxTerms, onToggleExpand })
             </Tooltip>
           </div>
           <div className="flex-1">
-            <span className="mr-1">{term.label}</span>
-            {term.displayId && (
-              <a href={`${ENVIRONMENT.amigoTermUrl}${term.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="italic text-gray-600">
-                {term.displayId}
-              </a>
-            )}
+            <TermLink term={term} />
           </div>
         </div>
       </div>

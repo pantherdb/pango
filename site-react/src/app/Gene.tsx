@@ -114,11 +114,6 @@ const Gene: React.FC = () => {
                 <InfoRow label="Gene" value={annotation.geneSymbol} />
                 <InfoRow label="Protein" value={annotation.geneName} />
                 <InfoRow
-                  label="Organism"
-                  value={annotation.taxonLabel}
-                  href={`${ENVIRONMENT.taxonApiUrl}${annotation.taxonId}`}
-                />
-                <InfoRow
                   label="GO annotations from all sources"
                   value={annotation.gene}
                   href={`${ENVIRONMENT.amigoGPUrl}${annotation.gene}`}
