@@ -1,7 +1,6 @@
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
 import { ENVIRONMENT } from '@/@pango.core/data/constants';
 import AnnotationTable from '@/features/annotations/components/AnnotationTable';
-import type { Annotation } from '@/features/annotations/models/annotation';
 import { useGetAnnotationsQuery } from '@/features/annotations/slices/annotationsApiSlice';
 import GeneSummary from '@/features/genes/components/GeneSummary';
 import { transformTerms } from '@/features/genes/services/genesService';
@@ -11,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch } from './hooks';
 import { TermType } from '@/features/terms/models/term';
 import { ASPECT_ORDER } from '@/@pango.core/data/config';
+import { getAGRLink, getFamilyLink, getHGNC, getHGNCLink, getUCSCBrowserLink, getUniprotLink } from '@/@pango.core/services/linksService';
 
 
 interface InfoRowProps {
@@ -78,6 +78,7 @@ const Gene: React.FC = () => {
   });
 
   const annotation = annotations && annotations.length > 0 ? annotations[0] : null;
+  const hgncId = getHGNC(annotation?.longId || '');
 
   if (!annotation) {
     return <div className="p-4">Loading...</div>;
@@ -88,14 +89,7 @@ const Gene: React.FC = () => {
 
   const groupedTerms = transformTerms(annotations, 100);
 
-  const getUniprotLink = (gene: string) => {
-    const geneId = gene.split(':');
-    return geneId.length > 1 ? `${ENVIRONMENT.uniprotUrl}${geneId[1]}` : gene;
-  };
 
-  const getFamilyLink = (element: Annotation) => {
-    return `${ENVIRONMENT.pantherFamilyUrl}book=${encodeURIComponent(element.pantherFamily)}&seq=${encodeURIComponent(element.longId)}`;
-  };
 
   return (
     <div className="w-full bg-slate-200">
@@ -118,6 +112,8 @@ const Gene: React.FC = () => {
                   value={annotation.gene}
                   href={`${ENVIRONMENT.amigoGPUrl}${annotation.gene}`}
                 />
+
+
               </div>
             </div>
 
@@ -135,13 +131,29 @@ const Gene: React.FC = () => {
                   value={annotation.pantherFamily}
                   href={getFamilyLink(annotation)}
                 />
-                {annotation.coordinatesChrNum &&
+                {annotation.coordinatesChrNum && (
                   <InfoRow
                     label="UCSC Genome Browser"
                     value={`chr${annotation.coordinatesChrNum}:${annotation.coordinatesStart}-${annotation.coordinatesEnd}`}
-                    href={`${ENVIRONMENT.ucscUrl}${annotation.coordinatesChrNum}:${annotation.coordinatesStart}-${annotation.coordinatesEnd}`}
+                    href={getUCSCBrowserLink(annotation)}
                   />
-                }
+
+                )}
+
+                {hgncId && (
+                  <>
+                    <InfoRow
+                      label="Alliance of Genome Resources"
+                      value={hgncId}
+                      href={getAGRLink(hgncId)}
+                    />
+                    <InfoRow
+                      label="HUGO Gene Nomenclature Committee"
+                      value={hgncId}
+                      href={getHGNCLink(hgncId)}
+                    />
+                  </>
+                )}
               </div>
             </div>
           </div>

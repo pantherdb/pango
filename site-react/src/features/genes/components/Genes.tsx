@@ -3,7 +3,6 @@ import { TablePagination, CircularProgress, Tooltip } from '@mui/material';
 import { FaCaretRight, FaCaretDown } from 'react-icons/fa';
 import { setPage, setPageSize } from '@/features/search/searchSlice';
 import { useMemo, useState } from 'react';
-import { ENVIRONMENT } from '@/@pango.core/data/constants';
 import { useAppSelector, useAppDispatch } from '@/app/hooks';
 import type { Gene } from '../models/gene';
 import { useGetGenesQuery, useGetGenesCountQuery } from '../slices/genesApiSlice';
@@ -11,6 +10,7 @@ import type { RootState } from '@/app/store/store';
 import Terms from '@/features/terms/components/Terms';
 import { VersionedLink } from '@/shared/components/VersionedLink';
 import { ANNOTATION_COLS } from '@/@pango.core/data/config';
+import { getUniprotLink, getUCSCBrowserLink } from '@/@pango.core/services/linksService';
 
 interface GenesProps {
   page?: number;
@@ -29,7 +29,7 @@ const Genes: React.FC<GenesProps> = () => {
   }), [search.genes, search.slimTerms]);
 
   const { data: geneData, isLoading, error } = useGetGenesQuery({ page, size, filter });
-  const { data: countData, isLoading: geneCountLoading } = useGetGenesCountQuery({ filter });
+  const { data: countData } = useGetGenesCountQuery({ filter });
 
   const genes = geneData?.genes ?? [];
   const geneCount = countData?.total || 0;
@@ -40,11 +40,6 @@ const Genes: React.FC<GenesProps> = () => {
       ...prev,
       [gene.gene]: !prev[gene.gene]
     }));
-  };
-
-  const getUniprotLink = (gene: Gene) => {
-    const geneId = gene.gene?.split(':');
-    return geneId.length > 1 ? `${ENVIRONMENT.uniprotUrl}${geneId[1]}` : gene.gene;
   };
 
   const handlePageChange = (_: unknown, newPage: number) => {
@@ -105,11 +100,11 @@ const Genes: React.FC<GenesProps> = () => {
                       </div>
                       <div className="text-gray-600">{gene.geneName}</div>
                       <div className="">
-                        <a href={getUniprotLink(gene)} target="_blank" rel="noopener noreferrer">{gene.gene}</a>
+                        <a href={getUniprotLink(gene.gene)} target="_blank" rel="noopener noreferrer">{gene.gene}</a>
                       </div>
                       {gene.coordinatesChrNum && (
                         <div className="inline-block px-2 py-0.5 bg-purple-800 text-sm">
-                          <a className="text-accent-500" href={`${ENVIRONMENT.ucscUrl}${gene.coordinatesChrNum}:${gene.coordinatesStart}-${gene.coordinatesEnd}`}
+                          <a className="text-accent-500" href={getUCSCBrowserLink(gene)}
                             target="_blank"
                             rel="noopener noreferrer">
                             chr{gene.coordinatesChrNum}:{gene.coordinatesStart}-{gene.coordinatesEnd}
