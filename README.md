@@ -1,9 +1,11 @@
 # PAN-GO Site and Data Pipeline
 
 ## Introduction
+
 This project streamlines the process of converting specific PAINT IBA release data into a JSON format that can be indexed into Elasticsearch. It comprises four main components: data conversion, data loading, API setup, and front-end site development. Below, you will find a high-level overview of each component, setup instructions, and links to detailed documentation for each part.
 
 ## Prerequisites
+
 - Docker and Docker Compose
 - Python 3.x
 - Node.js and Angular (for the front-end)
@@ -11,6 +13,7 @@ This project streamlines the process of converting specific PAINT IBA release da
 ## Project Components
 
 ### 1. Data Conversion
+
 The Data Conversion component converts data related to a specific PAINT IBA release into JSON files suitable for Elasticsearch. This includes extracting and structuring annotation data from GAF files, managing ontology with ROBOT tools, and preparing gene lists.
 
 **Key Operations:**
@@ -21,6 +24,7 @@ The Data Conversion component converts data related to a specific PAINT IBA rele
 For more detailed steps and usage instructions, visit [Data Conversion README](data_conversion/) 
 
 ### 2. Loader (Elasticsearch Loader)
+
 The Loader component manages the loading of processed data into Elasticsearch, ensuring that the data is accurately indexed and efficiently stored. This involves fetching article metadata, preprocessing annotations, and handling the actual indexing into Elasticsearch.
 
 **Setup and Operation:**
@@ -49,6 +53,7 @@ For more detailed setup and operational instructions, visit [Loader README](load
 
 
 ### 3. API (FastAPI with GraphQL)
+
 The API component is powered by FastAPI and GraphQL, providing a robust interface for handling complex data interactions with Elasticsearch. It offers a high-performance, flexible API setup ideal for both development and production environments.
 
 **Setup and Operation:**
@@ -66,15 +71,16 @@ For further details on setting up and running the API, refer to the [API README]
 
 
 ### 4. Site (Angular Front-End)
-An Angular-based front-end provides a user-friendly interface to interact with the data through web requests to the API.
+
+A modern web application built with React, TypeScript, and Vite provides a user-friendly interface to interact with the data through web requests to the API.
 
 **Development Setup:**
 - Node.js environment setup.
-- Angular CLI for project management.
 
-Front-end development guidelines and setup instructions are detailed at [Site README](site-angular).
+Front-end development guidelines and setup instructions are detailed at [Site's README](site-react).
 
 ## Getting Started
+
 To begin using this pipeline, ensure all prerequisites are installed. Then, clone this repository and follow the setup instructions in each component's detailed documentation:
 
 ```bash
