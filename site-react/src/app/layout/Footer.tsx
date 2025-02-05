@@ -1,16 +1,18 @@
+import { ENVIRONMENT } from '@/@pango.core/data/constants';
 import type React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="footer flex flex-row items-start p-5 bg-gradient-to-r from-[#0e2a3b] to-[#34306b] text-white">
+    <div className="footer flex flex-row items-start p-5 py-10 bg-gradient-to-r from-[#0e2a3b] to-[#34306b] text-white">
       <div className="flex flex-row items-start flex-1">
         <div className="mr-4">
-          <a href="/" className="text-white">Home</a>
+          <Link to="/" className="text-white">Home</Link>
         </div>
         <div className="mr-4">
-          <a href="http://help.geneontology.org" className="text-white" target="_blank" rel="noopener noreferrer">Contact us</a>
+          <a href={ENVIRONMENT.contactUrl} className="text-white" target="_blank" rel="noopener noreferrer">Contact us</a>
         </div>
       </div>
       <span className="flex-grow"></span>

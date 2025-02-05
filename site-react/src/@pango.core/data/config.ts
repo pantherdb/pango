@@ -34,7 +34,7 @@ export const ASPECT_MAP: { [key: string]: AspectMapType } = {
     shorthand: 'MF',
     label: 'Molecular Function',
     description: 'What a protein encoded by the gene does at the molecular level',
-    color: getColor('green', 500) || '#000000'
+    color: getColor('green', 400) || '#000000'
   },
   'biological process': {
     id: 'biological process',
@@ -42,7 +42,7 @@ export const ASPECT_MAP: { [key: string]: AspectMapType } = {
     shorthand: 'BP',
     label: 'Biological Process',
     description: '“System” functions, at the level of the cell or whole organism, that the gene helps to carry out, usually together with other genes',
-    color: getColor('brown', 500) || '#000000'
+    color: getColor('brown', 400) || '#000000'
   },
   'cellular component': {
     id: 'cellular component',
@@ -50,7 +50,7 @@ export const ASPECT_MAP: { [key: string]: AspectMapType } = {
     shorthand: 'CC',
     label: 'Cellular Component',
     description: 'The part of a cell where a protein encoded by the gene performs its molecular function',
-    color: getColor('purple', 500) || '#000000'
+    color: getColor('purple', 400) || '#000000'
   }
 }
 

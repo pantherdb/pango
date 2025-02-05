@@ -86,7 +86,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
         <tbody className="divide-y divide-gray-200">
           {annotations.map((row, idx) => (
             <tr key={idx} onClick={() => handleRowClick(row)} className="hover:bg-gray-50 cursor-pointer">
-              <td className="px-3 py-2 min-w-[250px]">
+              <td className="px-3 py-4 min-w-[250px]">
                 <div className="flex items-center">
                   <span
                     className="inline-flex items-center justify-center !h-8 !w-8 rounded-full text-xs font-bold border"
@@ -104,7 +104,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                   </div>
                 </div>
               </td>
-              <td className="px-3 py-2  min-w-[220px]">
+              <td className="px-3 py-4 min-w-[220px]">
                 {row.slimTerms.map((term, termIdx) => (
                   <div key={termIdx} className="mb-1 last:mb-0 flex items-center">
                     <span
@@ -122,7 +122,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                   </div>
                 ))}
               </td>
-              <td className="px-3 py-2">
+              <td className="px-3 py-5">
                 {row.evidence.slice(0, maxEvidences).map((evidence, evidenceIdx) => (
                   <div key={evidenceIdx} className="mb-2 last:mb-0 pb-2 last:pb-0 border-b last:border-0 border-gray-200">
                     {evidence.withGeneId && (
@@ -160,7 +160,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                   </button>
                 )}
               </td>
-              <td className="px-3 py-2">
+              <td className="px-3 py-5">
                 {row.detailedGroups.map((group, groupIdx) => (
                   group && (
                     <a key={groupIdx} href={group.id} target="_blank" rel="noopener noreferrer"

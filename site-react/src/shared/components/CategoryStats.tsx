@@ -110,7 +110,7 @@ const CategoryStats: React.FC = () => {
                   <div className="line-clamp-2">{item.label}</div>
                 </div>
               </Tooltip>
-              <div className="flex-1 relative h-12">
+              <div className="flex-1 relative h-9">
                 <div
                   className="h-full absolute"
                   style={{
@@ -121,7 +121,7 @@ const CategoryStats: React.FC = () => {
 
 
                 <div
-                  className="absolute  transform -translate-y-1/2 "
+                  className="absolute h-7 transform -translate-y-1/2 "
                   style={{
                     left: item.countPos,
                     top: '50%'

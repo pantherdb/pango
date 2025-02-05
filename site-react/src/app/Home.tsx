@@ -12,6 +12,7 @@ import { useGetGenesStatsQuery } from '@/features/genes/slices/genesApiSlice';
 import { transformCategoryTerms } from '@/features/terms/services/termsService';
 import { setFunctionCategories } from '@/features/terms/slices/termsSlice';
 import { Link } from 'react-router-dom';
+import { ENVIRONMENT } from '@/@pango.core/data/constants';
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -52,8 +53,7 @@ const Home: React.FC = () => {
               that have been assigned based on expert review and integration of available experimental evidence
               in 6,333 families of protein-coding genes.
               ( <Link to="/about" className="text-accent-500 hover:text-accent-200"> Read More</Link> ).
-
-              Each characteristic is linked to the experimental evidence supporting
+              Each characteristic is linked to the experimental evidence supporting it.
             </h2>
             <div className='flex items-center'>
               <div className='w-[300px] mr-4'>
@@ -62,7 +62,7 @@ const Home: React.FC = () => {
 
               <h3 className="text-white">
                 See any missing or incorrect functions?
-                <a href="https://help.geneontology.org/"
+                <a href={ENVIRONMENT.contactUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-accent-500 hover:text-accent-200 px-1">

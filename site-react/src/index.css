@@ -30,7 +30,7 @@ code {
   }
 
   td {
-    @apply align-top;
+    @apply align-top  border-r border-gray-300;
   }
 
 
