@@ -1,5 +1,5 @@
-import { createTheme } from '@mui/material/styles';
-import { componentThemes } from '.';
+import { createTheme } from '@mui/material/styles'
+import { componentThemes } from '.'
 
 export const pangoColors = {
   pangodark: {
@@ -25,8 +25,8 @@ export const pangoColors = {
     700: '#e5b529',
     800: '#e2ae22',
     900: '#dda116',
-  }
-};
+  },
+}
 
 const baseTheme = createTheme({
   palette: {
@@ -47,10 +47,10 @@ const baseTheme = createTheme({
     fontWeightMedium: 500,
     fontWeightBold: 700,
   },
-});
+})
 
 const theme = createTheme(baseTheme, {
   components: componentThemes(baseTheme),
-});
+})
 
-export default theme;
+export default theme

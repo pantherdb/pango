@@ -1,4 +1,4 @@
 export enum SearchFilterType {
-  SLIM_TERMS = "slimTerms",
+  SLIM_TERMS = 'slimTerms',
   GENES = 'genes',
-};
+}

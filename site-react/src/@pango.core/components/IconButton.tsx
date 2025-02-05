@@ -1,25 +1,24 @@
-import Button from "@mui/material/Button";
-import type React from "react";
+import Button from '@mui/material/Button'
+import type React from 'react'
 
 interface IconButtonProps {
-  variant?: 'contained' | 'outlined' | 'text';
-  icon: React.ReactNode;
-  onClick?: () => void;
-  className?: string;
+  variant?: 'contained' | 'outlined' | 'text'
+  icon: React.ReactNode
+  onClick?: () => void
+  className?: string
 }
 
-export const IconButton = (
-  {
-    variant = 'text',
-    icon,
-    onClick,
-    className = ''
-  }: IconButtonProps) => (
-
+export const IconButton = ({
+  variant = 'text',
+  icon,
+  onClick,
+  className = '',
+}: IconButtonProps) => (
   <Button
     variant={variant}
     onClick={onClick}
-    className={`!p-0 border-white !min-w-0 !rounded-full bg-gray-500/50 text-white h-20 w-20 ${className}`}>
+    className={`h-20 w-20 !min-w-0 !rounded-full border-white bg-gray-500/50 !p-0 text-white ${className}`}
+  >
     {icon}
   </Button>
-);
+)

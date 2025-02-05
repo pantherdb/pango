@@ -1,27 +1,39 @@
-import type React from 'react';
-import Terms from './Terms';
-import type { GroupedTerms } from '../models/term';
+import type React from 'react'
+import Terms from './Terms'
+import type { GroupedTerms } from '../models/term'
 
 // TODO shrinking width of flex on term aspect
 interface TermCellsProps {
-  groupedTerms: GroupedTerms;
-  onToggleExpand: () => void;
+  groupedTerms: GroupedTerms
+  onToggleExpand: () => void
 }
 
 const TermCells: React.FC<TermCellsProps> = ({ groupedTerms, onToggleExpand }) => {
   return (
     <>
-      <td className="p-3 border-r w-1/5 border-gray-300">
-        <Terms terms={groupedTerms.mfs} maxTerms={groupedTerms.maxTerms} onToggleExpand={onToggleExpand} />
+      <td className="w-1/5 border-r border-gray-300 p-3">
+        <Terms
+          terms={groupedTerms.mfs}
+          maxTerms={groupedTerms.maxTerms}
+          onToggleExpand={onToggleExpand}
+        />
       </td>
-      <td className="p-3 border-r w-1/5 border-gray-300">
-        <Terms terms={groupedTerms.bps} maxTerms={groupedTerms.maxTerms} onToggleExpand={onToggleExpand} />
+      <td className="w-1/5 border-r border-gray-300 p-3">
+        <Terms
+          terms={groupedTerms.bps}
+          maxTerms={groupedTerms.maxTerms}
+          onToggleExpand={onToggleExpand}
+        />
       </td>
-      <td className="p-3 border-r w-1/5 border-gray-300">
-        <Terms terms={groupedTerms.ccs} maxTerms={groupedTerms.maxTerms} onToggleExpand={onToggleExpand} />
+      <td className="w-1/5 border-r border-gray-300 p-3">
+        <Terms
+          terms={groupedTerms.ccs}
+          maxTerms={groupedTerms.maxTerms}
+          onToggleExpand={onToggleExpand}
+        />
       </td>
     </>
-  );
-};
+  )
+}
 
-export default TermCells;
+export default TermCells

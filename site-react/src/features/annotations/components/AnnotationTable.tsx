@@ -1,17 +1,17 @@
-import { ASPECT_MAP } from '@/@pango.core/data/config';
-import { ENVIRONMENT } from '@/@pango.core/data/constants';
-import type React from 'react';
-import { setRightDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
-import { useAppDispatch } from '@/app/hooks';
-import type { Annotation } from '../models/annotation';
-import { setSelectedAnnotation } from '../slices/selectedAnnotationSlice';
-import TermLink from '@/features/terms/components/TermLink';
-import { Tooltip } from '@mui/material';
+import { ASPECT_MAP } from '@/@pango.core/data/config'
+import { ENVIRONMENT } from '@/@pango.core/data/constants'
+import type React from 'react'
+import { setRightDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
+import { useAppDispatch } from '@/app/hooks'
+import type { Annotation } from '../models/annotation'
+import { setSelectedAnnotation } from '../slices/selectedAnnotationSlice'
+import TermLink from '@/features/terms/components/TermLink'
+import { Tooltip } from '@mui/material'
 
 interface AnnotationTableProps {
-  annotations: Annotation[];
-  maxReferences?: number;
-  maxEvidences?: number;
+  annotations: Annotation[]
+  maxReferences?: number
+  maxEvidences?: number
 }
 
 const AnnotationTable: React.FC<AnnotationTableProps> = ({
@@ -19,31 +19,32 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
   maxReferences = 2,
   maxEvidences = 2,
 }) => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   const handleRowClick = (annotation: Annotation) => {
-    dispatch(setSelectedAnnotation(annotation));
-    dispatch(setRightDrawerOpen(true));
-  };
+    dispatch(setSelectedAnnotation(annotation))
+    dispatch(setRightDrawerOpen(true))
+  }
 
   const getPubmedArticleUrl = (pmid: string): string => {
-    if (!pmid) return '';
-    const id = pmid?.split(':');
-    return id.length > 0 ? ENVIRONMENT.pubmedUrl + id[1] : '';
-  };
+    if (!pmid) return ''
+    const id = pmid?.split(':')
+    return id.length > 0 ? ENVIRONMENT.pubmedUrl + id[1] : ''
+  }
 
   return (
-    <div className="w-full overflow-x-auto rounded-lg shadow-sm border border-gray-200">
+    <div className="w-full overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
       <table className="w-full">
         <thead>
-          <tr className="bg-white h-8 border-b border-primary-light">
+          <tr className="border-primary-light h-8 border-b bg-white">
             <th className="w-64">
               <div className="flex items-center">
                 <Tooltip
                   title="The annotated functional characteristic of the gene. These are as specific as possible."
                   placement="top"
                   enterDelay={1500}
-                  arrow>
+                  arrow
+                >
                   <span>Term</span>
                 </Tooltip>
               </div>
@@ -54,7 +55,8 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                   title="The high-level category(ies) of the annotated GO term."
                   placement="top"
                   enterDelay={1500}
-                  arrow>
+                  arrow
+                >
                   <span>GO Function Category</span>
                 </Tooltip>
               </div>
@@ -65,7 +67,8 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                   title="The evidence for the annotated GO term"
                   placement="top"
                   enterDelay={1500}
-                  arrow>
+                  arrow
+                >
                   <span>Evidence</span>
                 </Tooltip>
               </div>
@@ -76,7 +79,8 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                   title="The GO Consortium groups that created the annotations."
                   placement="top"
                   enterDelay={1500}
-                  arrow>
+                  arrow
+                >
                   <span>Contributors</span>
                 </Tooltip>
               </div>
@@ -85,16 +89,21 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
         </thead>
         <tbody className="divide-y divide-gray-200">
           {annotations.map((row, idx) => (
-            <tr key={idx} onClick={() => handleRowClick(row)} className="hover:bg-gray-50 cursor-pointer">
-              <td className="px-3 py-4 min-w-[250px]">
+            <tr
+              key={idx}
+              onClick={() => handleRowClick(row)}
+              className="cursor-pointer hover:bg-gray-50"
+            >
+              <td className="min-w-[250px] px-3 py-4">
                 <div className="flex items-center">
                   <span
-                    className="inline-flex items-center justify-center !h-8 !w-8 rounded-full text-xs font-bold border"
+                    className="inline-flex !h-8 !w-8 items-center justify-center rounded-full border text-xs font-bold"
                     style={{
                       borderColor: ASPECT_MAP[row.term.aspect]?.color,
                       color: ASPECT_MAP[row.term.aspect]?.color,
-                      backgroundColor: `${ASPECT_MAP[row.term.aspect]?.color}20`
-                    }}>
+                      backgroundColor: `${ASPECT_MAP[row.term.aspect]?.color}20`,
+                    }}
+                  >
                     {ASPECT_MAP[row.term.aspect]?.shorthand}
                   </span>
                   <div className="ml-2">
@@ -104,16 +113,17 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                   </div>
                 </div>
               </td>
-              <td className="px-3 py-4 min-w-[220px]">
+              <td className="min-w-[220px] px-3 py-4">
                 {row.slimTerms.map((term, termIdx) => (
-                  <div key={termIdx} className="mb-1 last:mb-0 flex items-center">
+                  <div key={termIdx} className="mb-1 flex items-center last:mb-0">
                     <span
-                      className="inline-flex items-center justify-center !h-8 !w-8 rounded-full font-bold border"
+                      className="inline-flex !h-8 !w-8 items-center justify-center rounded-full border font-bold"
                       style={{
                         borderColor: ASPECT_MAP[term.aspect]?.color,
                         color: ASPECT_MAP[term.aspect]?.color,
-                        backgroundColor: `${ASPECT_MAP[term.aspect]?.color}20`
-                      }}>
+                        backgroundColor: `${ASPECT_MAP[term.aspect]?.color}20`,
+                      }}
+                    >
                       {ASPECT_MAP[term.aspect]?.shorthand}
                     </span>
                     <div className="ml-2">
@@ -124,21 +134,33 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
               </td>
               <td className="px-3 py-5">
                 {row.evidence.slice(0, maxEvidences).map((evidence, evidenceIdx) => (
-                  <div key={evidenceIdx} className="mb-2 last:mb-0 pb-2 last:pb-0 border-b last:border-0 border-gray-200">
+                  <div
+                    key={evidenceIdx}
+                    className="mb-2 border-b border-gray-200 pb-2 last:mb-0 last:border-0 last:pb-0"
+                  >
                     {evidence.withGeneId && (
-                      <div className="text-sm mb-1">
-                        {evidence.withGeneId.gene} ({evidence.withGeneId.geneSymbol})
-                        (<a href={ENVIRONMENT.taxonApiUrl + evidence.withGeneId.taxonId} target="_blank" rel="noopener noreferrer"
-                          className="">
+                      <div className="mb-1 text-sm">
+                        {evidence.withGeneId.gene} ({evidence.withGeneId.geneSymbol}) (
+                        <a
+                          href={ENVIRONMENT.taxonApiUrl + evidence.withGeneId.taxonId}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className=""
+                        >
                           {evidence.withGeneId.taxonAbbr}
-                        </a>)
+                        </a>
+                        )
                       </div>
                     )}
                     <div className="ml-4">
                       {evidence.references.slice(0, maxReferences).map((ref, refIdx) => (
                         <div key={refIdx} className="mb-1 last:mb-0">
-                          <a href={getPubmedArticleUrl(ref.pmid)} target="_blank" rel="noopener noreferrer"
-                            className=" text-sm">
+                          <a
+                            href={getPubmedArticleUrl(ref.pmid)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm"
+                          >
                             {ref.pmid}
                           </a>
                           <div className="text-gray-600">
@@ -155,27 +177,31 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                   </div>
                 ))}
                 {row.evidence.length > maxEvidences && (
-                  <button className="">
-                    + {row.evidence.length - maxEvidences} more evidence
-                  </button>
+                  <button className="">+ {row.evidence.length - maxEvidences} more evidence</button>
                 )}
               </td>
               <td className="px-3 py-5">
-                {row.detailedGroups.map((group, groupIdx) => (
-                  group && (
-                    <a key={groupIdx} href={group.id} target="_blank" rel="noopener noreferrer"
-                      className=" text-sm block mb-1 last:mb-0">
-                      {group.label}
-                    </a>
-                  )
-                ))}
+                {row.detailedGroups.map(
+                  (group, groupIdx) =>
+                    group && (
+                      <a
+                        key={groupIdx}
+                        href={group.id}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mb-1 block text-sm last:mb-0"
+                      >
+                        {group.label}
+                      </a>
+                    )
+                )}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-  );
-};
+  )
+}
 
-export default AnnotationTable;
+export default AnnotationTable

@@ -1,14 +1,24 @@
 type Shade =
-  | 50 | 100 | 200 | 300 | 400 | 500
-  | 600 | 700 | 800 | 900
-  | "A100" | "A200" | "A400" | "A700";
+  | 50
+  | 100
+  | 200
+  | 300
+  | 400
+  | 500
+  | 600
+  | 700
+  | 800
+  | 900
+  | 'A100'
+  | 'A200'
+  | 'A400'
+  | 'A700'
 
 type Colors = {
   [key: string]: {
-    [shade in Shade]?: string;
-  };
-};
-
+    [shade in Shade]?: string
+  }
+}
 
 const matColors: Colors = {
   red: {
@@ -287,15 +297,14 @@ const matColors: Colors = {
     800: '#37474f',
     900: '#263238',
   },
-};
+}
 
-export default matColors;
-
+export default matColors
 
 export const getColor = (colorName: string, shade: Shade): string | null => {
-  const colorGroup = matColors[colorName];
+  const colorGroup = matColors[colorName]
   if (colorGroup && colorGroup[shade]) {
-    return colorGroup[shade]!;
+    return colorGroup[shade]!
   }
-  return null;
-};
+  return null
+}

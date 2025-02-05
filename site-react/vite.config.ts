@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import react from "@vitejs/plugin-react"
+import react from '@vitejs/plugin-react'
 import path from 'path'
 import tsChecker from 'vite-plugin-checker'
 import { loadEnv } from 'vite'
@@ -14,13 +14,10 @@ export default defineConfig(({ command, mode }) => {
 
   return {
     logLevel: 'info',
-    plugins: [
-      react(),
-      tsChecker({ typescript: true }),
-    ],
+    plugins: [react(), tsChecker({ typescript: true })],
     resolve: {
       alias: {
-        "@": path.resolve(__dirname, "./src"),
+        '@': path.resolve(__dirname, './src'),
       },
     },
     server: {
@@ -28,13 +25,13 @@ export default defineConfig(({ command, mode }) => {
     },
     test: {
       globals: true,
-      environment: "jsdom",
-      setupFiles: "src/setupTests",
+      environment: 'jsdom',
+      setupFiles: 'src/setupTests',
       mockReset: true,
     },
     // Make env variables available
     define: {
-      __APP_ENV__: JSON.stringify(env.APP_ENV)
-    }
+      __APP_ENV__: JSON.stringify(env.APP_ENV),
+    },
   }
 })

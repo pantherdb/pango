@@ -1,4 +1,4 @@
-import type { Theme } from '@mui/material/styles';
+import type { Theme } from '@mui/material/styles'
 
 export const ButtonTheme = (theme: Theme) => ({
   styleOverrides: {
@@ -7,4 +7,4 @@ export const ButtonTheme = (theme: Theme) => ({
       borderRadius: theme.spacing(2),
     },
   },
-});
+})

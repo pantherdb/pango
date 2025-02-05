@@ -1,10 +1,10 @@
-import type { RenderOptions } from "@testing-library/react"
-import { render } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
-import type { PropsWithChildren, ReactElement } from "react"
-import { Provider } from "react-redux"
-import type { AppStore, RootState } from "../app/store/store"
-import { makeStore } from "../app/store/store"
+import type { RenderOptions } from '@testing-library/react'
+import { render } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import type { PropsWithChildren, ReactElement } from 'react'
+import { Provider } from 'react-redux'
+import type { AppStore, RootState } from '../app/store/store'
+import { makeStore } from '../app/store/store'
 
 /**
  * This type extends the default options for
@@ -12,7 +12,7 @@ import { makeStore } from "../app/store/store"
  * additional configuration such as specifying an initial Redux state and
  * a custom store instance.
  */
-interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
+interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   /**
    * Defines a specific portion or the entire initial state for the Redux store.
    * This is particularly useful for initializing the state in a
@@ -43,7 +43,7 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
  */
 export const renderWithProviders = (
   ui: ReactElement,
-  extendedRenderOptions: ExtendedRenderOptions = {},
+  extendedRenderOptions: ExtendedRenderOptions = {}
 ) => {
   const {
     preloadedState = {},
@@ -52,9 +52,7 @@ export const renderWithProviders = (
     ...renderOptions
   } = extendedRenderOptions
 
-  const Wrapper = ({ children }: PropsWithChildren) => (
-    <Provider store={store}>{children}</Provider>
-  )
+  const Wrapper = ({ children }: PropsWithChildren) => <Provider store={store}>{children}</Provider>
 
   // Return an object with the store and all of RTL's query functions
   return {

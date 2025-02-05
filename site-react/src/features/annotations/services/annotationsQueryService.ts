@@ -1,5 +1,5 @@
-import { gql } from '@apollo/client';
-import { print } from 'graphql';
+import { gql } from '@apollo/client'
+import { print } from 'graphql'
 
 export const GET_ANNOTATIONS_QUERY = print(gql`
   query GetAnnotations($filterArgs: AnnotationFilterArgs, $pageArgs: PageArgs) {
@@ -54,8 +54,7 @@ export const GET_ANNOTATIONS_QUERY = print(gql`
       groups
     }
   }
-`);
-
+`)
 
 export const GET_ANNOTATIONS_COUNT_QUERY = print(gql`
   query GetAnnotationsCount($filterArgs: AnnotationFilterArgs) {
@@ -63,10 +62,14 @@ export const GET_ANNOTATIONS_COUNT_QUERY = print(gql`
       total
     }
   }
-`);
+`)
 
 export const GET_AUTOCOMPLETE_QUERY = print(gql`
-  query GetAutocomplete($autocompleteType: AutocompleteType!, $keyword: String!, $filterArgs: GeneFilterArgs) {
+  query GetAutocomplete(
+    $autocompleteType: AutocompleteType!
+    $keyword: String!
+    $filterArgs: GeneFilterArgs
+  ) {
     autocomplete(autocompleteType: $autocompleteType, keyword: $keyword, filterArgs: $filterArgs) {
       gene
       geneName
@@ -74,7 +77,7 @@ export const GET_AUTOCOMPLETE_QUERY = print(gql`
       taxonAbbr
     }
   }
-`);
+`)
 
 export const GET_SLIM_TERMS_AUTOCOMPLETE_QUERY = print(gql`
   query GetSlimTermAutocomplete($keyword: String!, $filterArgs: AnnotationFilterArgs) {
@@ -86,7 +89,7 @@ export const GET_SLIM_TERMS_AUTOCOMPLETE_QUERY = print(gql`
       displayId
     }
   }
-`);
+`)
 
 export const GET_ANNOTATION_STATS_QUERY = print(gql`
   query GetAnnotationsStats($filterArgs: AnnotationFilterArgs) {
@@ -111,4 +114,4 @@ export const GET_ANNOTATION_STATS_QUERY = print(gql`
       }
     }
   }
-`);
+`)

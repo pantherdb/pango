@@ -1,40 +1,38 @@
-import type { Term, GroupedTerms } from "@/features/terms/models/term";
-
+import type { Term, GroupedTerms } from '@/features/terms/models/term'
 
 export enum GOAspect {
   MOLECULAR_FUNCTION = 'molecular function',
   BIOLOGICAL_PROCESS = 'biological process',
-  CELLULAR_COMPONENT = 'cellular component'
+  CELLULAR_COMPONENT = 'cellular component',
 }
 
 export enum AutocompleteType {
   GENE = 'gene',
-  SLIM_TERM = "slim_term",
+  SLIM_TERM = 'slim_term',
 }
 
-
 export interface AutocompleteFilterArgs {
-  autocompleteType: AutocompleteType;
+  autocompleteType: AutocompleteType
 }
 
 export interface GeneFilterArgs {
-  geneIds: string[];
-  slimTermIds: string[];
+  geneIds: string[]
+  slimTermIds: string[]
 }
 
 export interface FilterArgs {
-  termIds: string[];
-  termTypeIds: string[];
-  slimTermIds: string[];
-  evidenceTypeIds: string[];
-  geneIds: string[];
-  aspectIds: string[];
-  withGeneIds: string[];
-  referenceIds: string[];
+  termIds: string[]
+  termTypeIds: string[]
+  slimTermIds: string[]
+  evidenceTypeIds: string[]
+  geneIds: string[]
+  aspectIds: string[]
+  withGeneIds: string[]
+  referenceIds: string[]
 }
 
 export interface GeneCount {
-  total: number;
+  total: number
 }
 
 export interface Group {
@@ -44,41 +42,41 @@ export interface Group {
 }
 
 export interface Reference {
-  pmid: string;
-  title: string;
-  authors: string[];
-  date: string;
+  pmid: string
+  title: string
+  authors: string[]
+  date: string
 }
 
 export interface Evidence {
-  with_gene_ids: Gene;
-  reference: Reference[];
+  with_gene_ids: Gene
+  reference: Reference[]
 }
 
 export interface Gene {
-  gene: string;
-  geneSymbol: string;
-  geneName: string;
-  longId: string;
-  pantherFamily: string;
-  taxonAbbr: string;
-  taxonLabel: string;
-  taxonId: string;
+  gene: string
+  geneSymbol: string
+  geneName: string
+  longId: string
+  pantherFamily: string
+  taxonAbbr: string
+  taxonLabel: string
+  taxonId: string
   coordinatesChrNum: string
   coordinatesStart: number
   coordinatesEnd: number
   coordinatesStrand: number
-  term: Term;
-  slimTerms: Term[];
-  evidenceType: string;
-  evidence: Evidence[];
-  groups: string[];
-  detailedGroups: Group[];
-  expanded: boolean;
-  maxTerms: number;
+  term: Term
+  slimTerms: Term[]
+  evidenceType: string
+  evidence: Evidence[]
+  groups: string[]
+  detailedGroups: Group[]
+  expanded: boolean
+  maxTerms: number
 
   // derived
-  groupedTerms: GroupedTerms;
+  groupedTerms: GroupedTerms
 }
 
 export interface Bucket {
@@ -92,18 +90,18 @@ export interface Frequency {
 }
 
 export interface GeneStats {
-  slimTermFrequency: Frequency;
+  slimTermFrequency: Frequency
 }
 
 export interface GeneStats {
-  distinctGeneCount: number;
-  termFrequency: Frequency;
-  termTypeFrequency: Frequency;
-  aspectFrequency: Frequency;
-  evidenceTypeFrequency: Frequency;
-  slimTermFrequency: Frequency;
+  distinctGeneCount: number
+  termFrequency: Frequency
+  termTypeFrequency: Frequency
+  aspectFrequency: Frequency
+  evidenceTypeFrequency: Frequency
+  slimTermFrequency: Frequency
 }
 
 export interface GenesApiResponse {
-  genes: Gene[];
+  genes: Gene[]
 }

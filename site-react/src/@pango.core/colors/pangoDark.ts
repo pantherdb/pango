@@ -14,6 +14,6 @@ const pangoDark = {
   A400: '#004af6',
   A700: '#0042dd',
   contrastDefaultColor: 'light',
-};
+}
 
-export default pangoDark;
+export default pangoDark

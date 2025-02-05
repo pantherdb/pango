@@ -1,73 +1,76 @@
-import type React from 'react';
-import { useState, useEffect } from 'react';
-import { Autocomplete, TextField, Chip, Tooltip, Paper } from '@mui/material';
-import { IoClose } from 'react-icons/io5';
-import { SearchFilterType } from '@/features/search/search';
-import { addItem, removeItem } from '@/features/search/searchSlice';
-import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import type { RootState } from '@/app/store/store';
-import { AutocompleteType } from '@/features/annotations/models/annotation';
-import { useGetSlimTermsAutocompleteQuery } from '@/features/annotations/slices/annotationsApiSlice';
-import type { Term } from '../models/term';
-import { ASPECT_MAP } from '@/@pango.core/data/config';
+import type React from 'react'
+import { useState, useEffect } from 'react'
+import { Autocomplete, TextField, Chip, Tooltip, Paper } from '@mui/material'
+import { IoClose } from 'react-icons/io5'
+import { SearchFilterType } from '@/features/search/search'
+import { addItem, removeItem } from '@/features/search/searchSlice'
+import { useAppDispatch, useAppSelector } from '@/app/hooks'
+import type { RootState } from '@/app/store/store'
+import { AutocompleteType } from '@/features/annotations/models/annotation'
+import { useGetSlimTermsAutocompleteQuery } from '@/features/annotations/slices/annotationsApiSlice'
+import type { Term } from '../models/term'
+import { ASPECT_MAP } from '@/@pango.core/data/config'
 
 interface TermFormProps {
-  maxTerms?: number;
+  maxTerms?: number
 }
 
 const TermForm: React.FC<TermFormProps> = ({ maxTerms = 10 }) => {
-  const dispatch = useAppDispatch();
-  const selectedTerms = useAppSelector((state: RootState) => state.search.slimTerms);
-  const [open, setOpen] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-  const [debouncedValue, setDebouncedValue] = useState('');
+  const dispatch = useAppDispatch()
+  const selectedTerms = useAppSelector((state: RootState) => state.search.slimTerms)
+  const [open, setOpen] = useState(false)
+  const [inputValue, setInputValue] = useState('')
+  const [debouncedValue, setDebouncedValue] = useState('')
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebouncedValue(inputValue);
-    }, 300);
+      setDebouncedValue(inputValue)
+    }, 300)
 
-    return () => clearTimeout(timer);
-  }, [inputValue]);
+    return () => clearTimeout(timer)
+  }, [inputValue])
 
-  const { data: suggestions = [], isFetching } = useGetSlimTermsAutocompleteQuery({
-    type: AutocompleteType.SLIM_TERM,
-    keyword: debouncedValue
-  }, {
-    skip: !debouncedValue || debouncedValue.length < 2
-  });
+  const { data: suggestions = [], isFetching } = useGetSlimTermsAutocompleteQuery(
+    {
+      type: AutocompleteType.SLIM_TERM,
+      keyword: debouncedValue,
+    },
+    {
+      skip: !debouncedValue || debouncedValue.length < 2,
+    }
+  )
 
   const handleSelect = (_: unknown, term: Term | null) => {
     if (term && selectedTerms.length < maxTerms) {
-      dispatch(addItem({ type: SearchFilterType.SLIM_TERMS, item: term }));
-      setInputValue('');
-      setOpen(false);
+      dispatch(addItem({ type: SearchFilterType.SLIM_TERMS, item: term }))
+      setInputValue('')
+      setOpen(false)
     }
-  };
+  }
 
   const handleDelete = (termToDelete: Term) => {
-    dispatch(removeItem({ type: SearchFilterType.SLIM_TERMS, id: termToDelete.id }));
-  };
+    dispatch(removeItem({ type: SearchFilterType.SLIM_TERMS, id: termToDelete.id }))
+  }
 
   const renderOption = (optionProps: any, term: Term) => {
-    const { key, ...props } = optionProps;
+    const { key, ...props } = optionProps
     console.log(term)
     return (
-      <li key={term.id}  {...props} className="py-2 last:mb-0 flex items-center">
+      <li key={term.id} {...props} className="flex items-center py-2 last:mb-0">
         <span
-          className="inline-flex items-center justify-center h-6 w-6 rounded-full text-xs font-bold border"
+          className="inline-flex h-6 w-6 items-center justify-center rounded-full border text-xs font-bold"
           style={{
             borderColor: ASPECT_MAP[term.aspect]?.color,
             color: ASPECT_MAP[term.aspect]?.color,
-            backgroundColor: `${ASPECT_MAP[term.aspect]?.color}20`
-          }}>
+            backgroundColor: `${ASPECT_MAP[term.aspect]?.color}20`,
+          }}
+        >
           {ASPECT_MAP[term.aspect]?.shorthand}
         </span>
         <div className="ml-2">
           <span className="text-sm">{term.label}</span>
           {term.displayId && (
-            <div
-              className="ml-2 text-gray-500 hover:text-gray-700 text-xs italic">
+            <div className="ml-2 text-xs italic text-gray-500 hover:text-gray-700">
               {term.displayId}
             </div>
           )}
@@ -92,15 +95,15 @@ const TermForm: React.FC<TermFormProps> = ({ maxTerms = 10 }) => {
           value={null}
           inputValue={inputValue}
           onInputChange={(_, newValue) => {
-            setInputValue(newValue);
-            if (newValue.length >= 2) setOpen(true);
+            setInputValue(newValue)
+            if (newValue.length >= 2) setOpen(true)
           }}
           onChange={handleSelect}
           getOptionLabel={(option: Term) => option.label}
           loading={isFetching}
-          filterOptions={(x) => x}
+          filterOptions={x => x}
           disabled={selectedTerms.length >= maxTerms}
-          renderInput={(params) => (
+          renderInput={params => (
             <TextField
               {...params}
               label="Filter by Term"
@@ -110,7 +113,7 @@ const TermForm: React.FC<TermFormProps> = ({ maxTerms = 10 }) => {
                 sx: { bgcolor: 'white' },
                 startAdornment: (
                   <>
-                    {selectedTerms.map((term) => (
+                    {selectedTerms.map(term => (
                       <Chip
                         key={term.id}
                         size="small"
@@ -130,7 +133,7 @@ const TermForm: React.FC<TermFormProps> = ({ maxTerms = 10 }) => {
                     ))}
                     {params.InputProps.startAdornment}
                   </>
-                )
+                ),
               }}
             />
           )}
@@ -139,7 +142,7 @@ const TermForm: React.FC<TermFormProps> = ({ maxTerms = 10 }) => {
         />
       </Tooltip>
     </Paper>
-  );
-};
+  )
+}
 
-export default TermForm;
+export default TermForm

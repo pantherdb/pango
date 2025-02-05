@@ -1,4 +1,4 @@
-import { lighten, type Theme } from "@mui/material/styles";
+import { lighten, type Theme } from '@mui/material/styles'
 
 export const DialogTheme = (theme: Theme) => ({
   styleOverrides: {
@@ -19,6 +19,5 @@ export const DialogTheme = (theme: Theme) => ({
         padding: '12px',
       },
     },
-  }
-
-});
+  },
+})

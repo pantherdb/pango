@@ -14,7 +14,7 @@ const PRIMARY_COLORS = [
   '#cddc39', // Lime
   '#ffeb3b', // Yellow
   '#ffc107', // Amber
-  '#ff5722'  // Deep Orange
-];
+  '#ff5722', // Deep Orange
+]
 
-export default PRIMARY_COLORS;
+export default PRIMARY_COLORS

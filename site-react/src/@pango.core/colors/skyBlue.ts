@@ -14,6 +14,6 @@ const skyBlue = {
   A400: '#a7ecff',
   A700: '#8de6ff',
   contrastDefaultColor: 'dark',
-};
+}
 
-export default skyBlue;
+export default skyBlue

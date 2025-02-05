@@ -1,6 +1,6 @@
-import { ENVIRONMENT } from '@/@pango.core/data/constants';
-import type React from 'react';
-import type { Term } from '../models/term';
+import { ENVIRONMENT } from '@/@pango.core/data/constants'
+import type React from 'react'
+import type { Term } from '../models/term'
 
 interface TermLinkProps {
   term: Term
@@ -8,14 +8,17 @@ interface TermLinkProps {
 
 const TermLink: React.FC<TermLinkProps> = ({ term }) => {
   return term.displayId ? (
-    <a href={ENVIRONMENT.amigoTermUrl + term.id}
+    <a
+      href={ENVIRONMENT.amigoTermUrl + term.id}
       target="_blank"
-      rel="noopener noreferrer" className="no-underline">
+      rel="noopener noreferrer"
+      className="no-underline"
+    >
       {term.label}
     </a>
   ) : (
     <span>{term.label}</span>
-  );
-};
+  )
+}
 
-export default TermLink;
+export default TermLink
