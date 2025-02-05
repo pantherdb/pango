@@ -8,7 +8,7 @@ This project streamlines the process of converting specific PAINT IBA release da
 
 - Docker and Docker Compose
 - Python 3.x
-- Node.js and Angular (for the front-end)
+- Node.js and React (for the front-end)
 
 ## Project Components
 
@@ -70,7 +70,7 @@ The API component is powered by FastAPI and GraphQL, providing a robust interfac
 For further details on setting up and running the API, refer to the [API README](api).
 
 
-### 4. Site (Angular Front-End)
+### 4. Site (React Front-End)
 
 A modern web application built with React, TypeScript, and Vite provides a user-friendly interface to interact with the data through web requests to the API.
 
@@ -87,4 +87,3 @@ To begin using this pipeline, ensure all prerequisites are installed. Then, clon
    git clone https://github.com/pantherdb/pango
    cd pango
 ```
-
