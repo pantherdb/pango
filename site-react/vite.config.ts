@@ -9,8 +9,8 @@ export default defineConfig(({ command, mode }) => {
   // Load env file based on `mode`
   const env = loadEnv(mode, process.cwd(), '')
 
-  console.log('Mode:', mode)
-  console.log('Command:', command)
+  //console.log('Mode:', mode)
+  //console.log('Command:', command)
 
   return {
     logLevel: 'info',

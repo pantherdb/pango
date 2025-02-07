@@ -38,6 +38,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
           onClick={() => dispatch(toggleLeftDrawer())}
           className="mr-2"
           size="large"
+          aria-label="open menu"
         >
           <FaBars />
         </IconButton>

@@ -13,7 +13,7 @@ import Home from './app/Home'
 import About from './app/About'
 defineCustomElements(window)
 
-const router = createBrowserRouter([
+const routes = [
   {
     path: '/',
     element: <Layout leftDrawerContent={<LeftDrawerContent />} />,
@@ -29,7 +29,19 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [{ path: '', element: <About /> }],
   },
-])
+]
+
+const router = createBrowserRouter(routes, {
+  future: {
+    // v7_startTransition: true,
+    // v7_relativeSplatPath: true,
+    // v7_fetcherPersist: true,
+    // v7_normalizeFormMethod: true,
+    // v7_partialHydration: true,
+    // v7_skipActionErrorRevalidation: true,
+  }
+})
+
 
 const App: React.FC = () => {
   return (

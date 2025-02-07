@@ -54,7 +54,6 @@ const TermForm: React.FC<TermFormProps> = ({ maxTerms = 10 }) => {
 
   const renderOption = (optionProps: any, term: Term) => {
     const { key, ...props } = optionProps
-    console.log(term)
     return (
       <li key={term.id} {...props} className="flex items-center py-2 last:mb-0">
         <span

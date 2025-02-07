@@ -11,7 +11,6 @@ import Terms from '@/features/terms/components/Terms'
 import { VersionedLink } from '@/shared/components/VersionedLink'
 import { ANNOTATION_COLS } from '@/@pango.core/data/config'
 import { getUniprotLink, getUCSCBrowserLink } from '@/@pango.core/services/linksService'
-import { FiExternalLink } from 'react-icons/fi'
 
 interface GenesProps {
   page?: number
