@@ -10,7 +10,7 @@ import type { RootState } from '@/app/store/store'
 import Terms from '@/features/terms/components/Terms'
 import { VersionedLink } from '@/shared/components/VersionedLink'
 import { ANNOTATION_COLS } from '@/@pango.core/data/config'
-import { getUniprotLink, getUCSCBrowserLink } from '@/@pango.core/services/linksService'
+import { getUniprotLink, getUCSCBrowserLink, getFamilyLink } from '@/@pango.core/services/linksService'
 
 interface GenesProps {
   page?: number
@@ -97,7 +97,7 @@ const Genes: React.FC<GenesProps> = () => {
                     </button>
                   </td>
                   <td className="border-r border-gray-300 p-3">
-                    <div className="space-y-1">
+                    <div className="space-y-1 flex flex-col">
                       <div className="text-lg font-bold">
                         <VersionedLink
                           to={`/gene/${gene.gene}`}
@@ -119,7 +119,7 @@ const Genes: React.FC<GenesProps> = () => {
                         </a>
                       </div>
                       {gene.coordinatesChrNum && (
-                        <div className="inline-block px-2 py-0.5 pl-0">
+                        <div className="inline-block px-2pl-0">
                           UCSC Browser:
                           <a
                             className="pl-1"
@@ -131,6 +131,17 @@ const Genes: React.FC<GenesProps> = () => {
                             {gene.coordinatesEnd}
                           </a>
                         </div>
+                      )}
+                      {gene.pantherFamily && (
+                        <div className="px-2 pl-0">
+                          <a
+                            href={getFamilyLink(gene)}
+                            target="_blank"
+                            rel="noreferrer">
+                            {gene.pantherFamily}
+                          </a>
+                        </div>
+
                       )}
                       <div className="text-sm">
                         <VersionedLink to={`/gene/${gene.gene}`} target="_blank" rel="noreferrer">

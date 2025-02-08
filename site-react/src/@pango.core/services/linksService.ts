@@ -27,7 +27,7 @@ export const getUniprotLink = (gene: string) => {
   return geneId.length > 1 ? ENVIRONMENT.uniprotUrl + geneId[1] : ENVIRONMENT.uniprotUrl
 }
 
-export const getFamilyLink = (element: Annotation) => {
+export const getFamilyLink = (element: Annotation | Gene) => {
   if (!element.pantherFamily || !element.longId) return ENVIRONMENT.pantherFamilyUrl
 
   return `${ENVIRONMENT.pantherFamilyUrl}book=${encodeURIComponent(element.pantherFamily)}&seq=${encodeURIComponent(element.longId)}`
