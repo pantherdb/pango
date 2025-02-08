@@ -1,4 +1,3 @@
-// src/app/__tests__/Home.test.tsx
 import { describe, it, expect, vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
@@ -6,16 +5,12 @@ import { renderWithProviders } from '@/utils/test-utils'
 import type { RootState } from '@/app/store/store'
 import Home from '@/app/Home'
 
-// --- Mock the RTK Query hook ---
 vi.mock('@/features/genes/slices/genesApiSlice', async () => {
-  const originalModule = (await vi.importActual(
-    '@/features/genes/slices/genesApiSlice'
-  )) as object
+  const originalModule = (await vi.importActual('@/features/genes/slices/genesApiSlice')) as object
 
   return {
     __esModule: true,
     ...originalModule,
-    // Only override the one you need
     useGetGenesStatsQuery: vi.fn(() => ({
       data: {
         slimTermFrequency: {
@@ -47,12 +42,12 @@ describe('Home Component', () => {
       type: 'annotations',
       tooltips: {
         slimTerms: '',
-        genes: ''
+        genes: '',
       },
       pagination: {
         page: 0,
-        size: 0
-      }
+        size: 0,
+      },
     },
   }
 
@@ -76,7 +71,6 @@ describe('Home Component', () => {
       { preloadedState: initialState }
     )
 
-    // Confirm it stored the returned categories in `terms.functionCategories` 
     const { terms } = store.getState()
     expect(terms.functionCategories).toHaveLength(1)
     expect(terms.functionCategories[0].label).toBe('Unknown molecular function')

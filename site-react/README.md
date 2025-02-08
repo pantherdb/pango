@@ -59,7 +59,6 @@ The application will be available at `http://localhost:5173` (default Vite port)
 - `npm run lint:fix` - Fix ESLint issues
 - `npm run type-check` - Check TypeScript types
 
-
 ## 🔧 Configuration
 
 ### Environment Variables
@@ -73,7 +72,7 @@ VITE_API_URL=your_api_url_here
 Access variables in your code:
 
 ```typescript
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_API_URL
 ```
 
 ### Tailwind CSS
@@ -103,12 +102,12 @@ npm run test
 ## 🚀 Deployment
 
 1. Build the project:
-  
+
 ```bash
 npm run build:production
 ```
 
-1. Deploy the `dist` directory to functionome server  or ...
+1. Deploy the `dist` directory to functionome server or ...
 
 ## 🤝 Contributing
 

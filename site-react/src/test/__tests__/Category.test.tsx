@@ -1,4 +1,3 @@
-// CategoryStats.test.tsx
 import { describe, it, expect } from 'vitest'
 import { renderWithProviders } from '@/utils/test-utils'
 import { screen } from '@testing-library/react'
@@ -32,31 +31,24 @@ describe('CategoryStats', () => {
       type: 'annotations',
       tooltips: {
         slimTerms: '',
-        genes: ''
+        genes: '',
       },
       pagination: {
         page: 0,
-        size: 0
-      }
+        size: 0,
+      },
     },
   }
 
   it('renders categories and updates search.slimTerms on click', async () => {
-    const { store } = renderWithProviders(
-      <CategoryStats />,
-      { preloadedState: initialState }
-    )
+    const { store } = renderWithProviders(<CategoryStats />, { preloadedState: initialState })
 
     // Verify category label is visible
-    expect(
-      screen.getByText('Unknown molecular function')
-    ).toBeInTheDocument()
+    expect(screen.getByText('Unknown molecular function')).toBeInTheDocument()
 
-    // Simulate click
     const user = userEvent.setup()
     await user.click(screen.getByText('Unknown molecular function'))
 
-    // Instead of store.getActions(), check the updated state
     const { slimTerms } = store.getState().search
     expect(slimTerms).toHaveLength(1)
     expect(slimTerms[0]).toMatchObject({

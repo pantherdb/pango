@@ -15,12 +15,11 @@ export const ENVIRONMENT = {
   agrPrefixUrl: 'https://www.alliancegenome.org/gene/',
   hgncPrefixUrl: 'https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/',
   ncbiGeneUrl: 'https://www.ncbi.nlm.nih.gov/gene/?term=',
-  pantreeUrl: 'https://pantree.org/tree/family.jsp?accession=',
+  pantreeUrl: 'https://pantree.functionome.org/tree/family.jsp?accession=',
 
   // Downloads
   downloadAllDataCSVUrl: 'https://functionome.org/download/export_annotations.zip',
   downloadAllDataJSONUrl: 'https://functionome.org/download/export_annotations.json.gz',
-  downloadAnnotationsGAFUrl:
-    'http://data.pantherdb.org/ftp/downloads/paint/pango/functionome_release.gaf.gz',
-  downloadEvolutionaryModelsGAFUrl: 'http://data.pantherdb.org/ftp/downloads/paint/pango/IBD.gaf',
+  downloadAnnotationsGAFUrl: 'https://functionome.org/download/functionome_release.gaf.gz',
+  downloadEvolutionaryModelsGAFUrl: 'https://functionome.org/download/IBD.gaf',
 }
