@@ -18,6 +18,7 @@ requests = "^2.32.3"
 strawberry-graphql = "^0.253.0"
 uvicorn = "^0.32.1"
 aiohttp = "^3.11.7"
+gunicorn = "^23.0.0"
 
 
 [build-system]
