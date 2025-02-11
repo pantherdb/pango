@@ -124,7 +124,7 @@ const Gene: React.FC = () => {
               <h2 className="mb-4 text-2xl font-semibold">External Links</h2>
               <div className="">
                 <InfoRow
-                  label="UniProt ID"
+                  label="UniProt"
                   value={annotation?.gene.replace('UniProtKB', 'UniProt')}
                   href={getUniprotLink(annotation.gene)}
                 />

@@ -10,7 +10,7 @@ import type { RootState } from '@/app/store/store'
 import Terms from '@/features/terms/components/Terms'
 import { VersionedLink } from '@/shared/components/VersionedLink'
 import { ANNOTATION_COLS } from '@/@pango.core/data/config'
-import { getUniprotLink, getUCSCBrowserLink, getFamilyLink } from '@/@pango.core/services/linksService'
+import { getUniprotLink, getUCSCBrowserLink } from '@/@pango.core/services/linksService'
 
 interface GenesProps {
   page?: number
@@ -131,17 +131,6 @@ const Genes: React.FC<GenesProps> = () => {
                             {gene.coordinatesEnd}
                           </a>
                         </div>
-                      )}
-                      {gene.pantherFamily && (
-                        <div className="px-2 pl-0">
-                          <a
-                            href={getFamilyLink(gene)}
-                            target="_blank"
-                            rel="noreferrer">
-                            {gene.pantherFamily}
-                          </a>
-                        </div>
-
                       )}
                       <div className="text-sm">
                         <VersionedLink to={`/gene/${gene.gene}`} target="_blank" rel="noreferrer">
