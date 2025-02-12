@@ -1,9 +1,9 @@
 version: "3.8"
 services:
   elasticsearch:
-    mem_limit: 1.5G
-    mem_reservation: 512M
-    cpus: 0.8
+    mem_limit: 1.4G
+    mem_reservation: 256M
+    cpus: 0.7
     image: docker.elastic.co/elasticsearch/elasticsearch:8.5.0
     container_name: elasticsearch
 
@@ -50,9 +50,9 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1.5G
+          memory: 1.4G
         reservations:
-          memory: 512M
+          memory: 256M
 
     logging:
       options:
@@ -62,8 +62,8 @@ services:
   fastapi:
     build: .
     container_name: fastapi
-    mem_limit: 1.2G
-    cpus: 0.5
+    mem_limit: 1G
+    cpus: 0.7
     depends_on:
       - elasticsearch
     ports:
