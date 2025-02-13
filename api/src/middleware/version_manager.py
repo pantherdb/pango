@@ -6,7 +6,6 @@ class VersionManager:
     @staticmethod
     def get_version_from_request(request: Request) -> Optional[ApiVersion]:
         version = request.headers.get("X-API-Version") or request.query_params.get("version")
-        print(f"t: version={version}")
         try:
             return ApiVersion(version) if version else None
         except ValueError:
