@@ -115,7 +115,7 @@ const Genes: React.FC<GenesProps> = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          {gene?.gene.replace('UniProtKB', 'UniProt')}
+                          {gene?.gene}
                         </a>
                       </div>
                       {gene.coordinatesChrNum && (

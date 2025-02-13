@@ -52,3 +52,5 @@ python3 -m src.extract_sample_data \
     -o "$OUTPUT_DIR"
 
 echo "Samples extracted to $OUTPUT_DIR"
+
+# $ bash scripts/extract_sample_data.sh  -i ./downloads/input/pango-1 -a ./downloads/clean-articles.json -o test_data/input/pango-3 -n 10

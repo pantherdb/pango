@@ -33,6 +33,17 @@
         }
       }
     },
+    "coordinates_chr_num": {
+      "type": "text",
+      "analyzer": "ngram_analyzer",
+      "search_analyzer": "standard",
+      "fields": {
+        "keyword": {
+          "type": "keyword",
+          "ignore_above": 3
+        }
+      }
+    },
     "terms": {
       "type": "object",
       "properties": {

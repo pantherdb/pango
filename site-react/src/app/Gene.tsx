@@ -31,8 +31,7 @@ const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => (
     <span className="pr-2 font-semibold text-gray-600">{label}:</span>
     {href ? (
       <a href={href} target="_blank" rel="noopener noreferrer" className="flex items-center">
-        {value}
-        <FiExternalLink className="h-3 w-3" />
+        {value} <FiExternalLink className="h-3 w-3 ml-1" />
       </a>
     ) : (
       <span className="">{value}</span>
@@ -108,7 +107,7 @@ const Gene: React.FC = () => {
                 <InfoRow label="Protein" value={annotation.geneName} />
                 <InfoRow
                   label="GO annotations from all sources"
-                  value={annotation?.gene.replace('UniProtKB', 'UniProt')}
+                  value={annotation?.gene}
                   href={ENVIRONMENT.amigoGPUrl + annotation.gene}
                 />
                 <InfoRow
@@ -125,7 +124,7 @@ const Gene: React.FC = () => {
               <div className="">
                 <InfoRow
                   label="UniProt"
-                  value={annotation?.gene.replace('UniProtKB', 'UniProt')}
+                  value={annotation?.gene}
                   href={getUniprotLink(annotation.gene)}
                 />
                 <InfoRow
