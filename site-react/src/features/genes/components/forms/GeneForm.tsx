@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import type { RootState } from '@/app/store/store'
 import type { Gene } from '../../models/gene'
 import { AutocompleteType } from '../../models/gene'
-import { useGetAutocompleteQuery } from '@/features/annotations/slices/annotationsApiSlice'
+import { useGetAutocompleteQuery } from '../../slices/genesApiSlice'
 
 const GeneForm: React.FC<{ maxGenes?: number }> = ({ maxGenes = 10 }) => {
   const dispatch = useAppDispatch()

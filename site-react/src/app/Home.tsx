@@ -2,7 +2,6 @@ import type React from 'react'
 import { useEffect, useMemo } from 'react'
 import { Box } from '@mui/material'
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
-import GeneForm from '@/features/genes/components/forms/GeneForm'
 import OverrepForm from '@/features/genes/components/forms/OverrepForm'
 import Genes from '@/features/genes/components/Genes'
 import { useAppDispatch, useAppSelector } from './hooks'
@@ -63,9 +62,9 @@ const Home: React.FC = () => {
               ). Each characteristic is linked to the experimental evidence supporting it.
             </h2>
             <div className="flex items-center">
-              <div className="mr-4 w-[300px]">
+              {/*     <div className="mr-4 w-[300px]">
                 <GeneForm />
-              </div>
+              </div> */}
 
               <h3 className="text-white">
                 See any missing or incorrect functions?
@@ -78,7 +77,7 @@ const Home: React.FC = () => {
                   Let us know!
                 </a>
               </h3>
-            </div>{' '}
+            </div>
           </div>
           <div className="w-2/5 p-3">
             <h2 className="text-sm font-medium text-white">

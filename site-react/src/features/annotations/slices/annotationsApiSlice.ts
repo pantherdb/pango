@@ -12,7 +12,6 @@ import {
   GET_ANNOTATIONS_QUERY,
   GET_ANNOTATIONS_COUNT_QUERY,
   GET_ANNOTATION_STATS_QUERY,
-  GET_AUTOCOMPLETE_QUERY,
   GET_SLIM_TERMS_AUTOCOMPLETE_QUERY,
 } from '../services/annotationsQueryService'
 
@@ -106,25 +105,6 @@ const annotationsApi = apiService
         providesTags: ['annotation-stats'],
       }),
 
-      getAutocomplete: builder.query({
-        query: ({ type, keyword }: { type: AutocompleteType; keyword: string }) =>
-          createGraphQLRequest(GET_AUTOCOMPLETE_QUERY, {
-            autocompleteType: type,
-            keyword,
-            filterArgs: {
-              geneIds: [],
-              slimTermIds: [],
-            },
-          }),
-        transformResponse: (response: {
-          data?: { autocomplete: any }
-          errors?: ApiResponseError[]
-        }) => {
-          return transformResponse<{ autocomplete: any }>(response).autocomplete
-        },
-        providesTags: ['autocomplete'],
-      }),
-
       getSlimTermsAutocomplete: builder.query({
         query: ({ type, keyword }: { type: AutocompleteType; keyword: string }) =>
           createGraphQLRequest(GET_SLIM_TERMS_AUTOCOMPLETE_QUERY, {
@@ -157,6 +137,5 @@ export const {
   useGetAnnotationsQuery,
   useGetAnnotationsCountQuery,
   useGetAnnotationStatsQuery,
-  useGetAutocompleteQuery,
   useGetSlimTermsAutocompleteQuery,
 } = annotationsApi
