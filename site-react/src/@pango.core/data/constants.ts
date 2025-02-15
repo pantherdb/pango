@@ -18,8 +18,8 @@ export const ENVIRONMENT = {
   pantreeUrl: 'https://pantree.functionome.org/tree/family.jsp?accession=',
 
   // Downloads
-  downloadAllDataCSVUrl: 'https://functionome.org/download/export_annotations.zip',
-  downloadAllDataJSONUrl: 'https://functionome.org/download/export_annotations.json.gz',
-  downloadAnnotationsGAFUrl: 'https://functionome.org/download/functionome_release.gaf.gz',
-  downloadEvolutionaryModelsGAFUrl: 'https://functionome.org/download/IBD.gaf',
+  downloadAllDataCSVUrl: 'https://functionome.geneontology.org/download/export_annotations.zip',
+  downloadAllDataJSONUrl: 'https://functionome.geneontology.org/download/export_annotations.json.gz',
+  downloadAnnotationsGAFUrl: 'https://functionome.geneontology.org/download/functionome_release.gaf.gz',
+  downloadEvolutionaryModelsGAFUrl: 'https://functionome.geneontology.org/download/IBD.gaf',
 }
