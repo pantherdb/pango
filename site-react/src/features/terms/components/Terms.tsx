@@ -4,8 +4,8 @@ import { Tooltip } from '@mui/material'
 import { ASPECT_MAP, EVIDENCE_TYPE_MAP, EvidenceType } from '@/@pango.core/data/config'
 import type { Term } from '../models/term'
 import TermLink from './TermLink'
-import { GiTreeBranch } from "react-icons/gi";
-import { FiEye, FiX } from "react-icons/fi";
+import { PiEmptyLight } from "react-icons/pi";
+import { TbBinaryTreeFilled } from "react-icons/tb";
 
 interface TermsProps {
   terms: Term[]
@@ -29,20 +29,19 @@ export const Terms: React.FC<TermsProps> = ({ terms, maxTerms, onToggleExpand })
                 <div className="flex justify-center items-center h-10 w-10 text-gray-600">
                   {term.evidenceType === EvidenceType.DIRECT && (
                     <FaFlask
-                      className={`text-3xl`}
+                      className={`text-2xl`}
                     />
                   )}
 
                   {term.evidenceType === EvidenceType.HOMOLOGY && (
-                    <div className={`text-3xl`}>
-                      <GiTreeBranch />
+                    <div className={`text-2xl`}>
+                      <TbBinaryTreeFilled />
                     </div>
                   )}
 
                   {term.evidenceType === EvidenceType.NA && (
-                    <div className="relative text-3xl">
-                      <FiEye className='text-gray-400' />
-                      <FiX className="absolute top-2 left-1 text-red-300" />
+                    <div className="relative text-2xl">
+                      <PiEmptyLight className='text-gray-400' />
                     </div>
                   )}
                 </div>

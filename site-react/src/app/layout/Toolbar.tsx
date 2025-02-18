@@ -1,6 +1,6 @@
 import type React from 'react'
 import { useState, useRef, useEffect } from 'react'
-import { IconButton, Button, Menu, MenuItem, LinearProgress, InputAdornment, TextField } from '@mui/material'
+import { IconButton, Button, Menu, MenuItem, LinearProgress } from '@mui/material'
 import { FaBars, FaGithub, FaSearch } from 'react-icons/fa'
 import { IoMdClose } from 'react-icons/io'
 import { Link } from 'react-router-dom'
@@ -51,7 +51,6 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
             <LinearProgress color="secondary" />
           </div>
         )}
-
         {!showSearch ? (
           <>
             <IconButton
@@ -63,7 +62,6 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
             >
               <FaBars />
             </IconButton>
-
             <div className="flex h-full items-center">
               <VersionedLink to="/" className="text-accent-500 no-underline hover:text-accent-200">
                 <span className="mr-2 text-3xl font-bold">PAN-GO</span>
@@ -72,15 +70,12 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
                 <span className="text-3xl">Human Functionome</span>
               </VersionedLink>
             </div>
-
-            <div className="hidden flex-1 items-center justify-end md:flex">
+            <div className="flex-1 items-center justify-end md:flex">
               <div className="flex items-center pr-3 text-accent-500">
-
-
                 <div className="flex items-center mr-2 relative">
                   <input
                     type="text"
-                    placeholder="Search..."
+                    placeholder="Search Gene..."
                     className="rounded-full h-12 bg-white pl-10 pr-4 py-2"
                     onClick={() => setShowSearch(true)}
                   />
@@ -95,7 +90,6 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
                   <FaGithub />
                 </IconButton>
               </div>
-
               <div className="flex items-center border-l border-accent-200 px-3">
                 <Button
                   color="inherit"
@@ -158,7 +152,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
         ) : (
           <div ref={searchRef} className="flex w-full items-center justify-center space-x-4">
             <div className="text-lg font-semibold text-accent-500">Search Genes</div>
-            <div className="flex w-[800px] ">
+            <div className="flex w-[500px] ">
               <div className='flex-1 relative'>
                 <GeneSearch popoverRef={popoverRef} isOpen={showSearch} onClose={() => setShowSearch(false)} />
               </div>

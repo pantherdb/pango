@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from '../hooks'
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
 import { clearSearch } from '@/features/search/searchSlice'
 import CategoryStats from '@/shared/components/CategoryStats'
-import GeneForm from '@/features/genes/components/forms/GeneForm'
 
 // TODO clear filter so aspect selection
 const LeftDrawerContent: React.FC = () => {
@@ -42,9 +41,6 @@ const LeftDrawerContent: React.FC = () => {
             </Button>
           </Tooltip>
         </div>
-      </div>
-      <div className="mr-4 w-full p-4">
-        <GeneForm />
       </div>
       <CategoryStats />
     </div>

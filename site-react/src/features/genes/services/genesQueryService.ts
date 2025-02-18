@@ -105,29 +105,7 @@ export const GET_AUTOCOMPLETE_QUERY = print(gql`
     autocomplete(autocompleteType: $autocompleteType, keyword: $keyword, filterArgs: $filterArgs) {
       gene
       geneName
-      geneSymbol
-      gene
-      geneName
-      geneSymbol
-      longId
-      pantherFamily
-      coordinatesChrNum
-      coordinatesStart
-      coordinatesEnd
-      coordinatesStrand
-      terms {
-        id
-        aspect
-        label
-        displayId
-        evidenceType
-      }
-      slimTerms {
-        aspect
-        id
-        label
-        displayId
-      }
+      geneSymbol   
     }
   }
 `)

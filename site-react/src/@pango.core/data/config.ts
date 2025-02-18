@@ -51,7 +51,7 @@ export const ASPECT_MAP: { [key: string]: AspectMapType } = {
     shorthand: 'MF',
     label: 'Molecular Function',
     description: 'What a protein encoded by the gene does at the molecular level',
-    color: getColor('lightGreen', 400) || '#000000',
+    color: getColor('lightBlue', 400) || '#000000',
   },
   [AspectType.BIOLOGICAL_PROCESS]: {
     id: AspectType.BIOLOGICAL_PROCESS,
@@ -60,7 +60,7 @@ export const ASPECT_MAP: { [key: string]: AspectMapType } = {
     label: 'Biological Process',
     description:
       '“System” functions, at the level of the cell or whole organism, that the gene helps to carry out, usually together with other genes',
-    color: getColor('cyan', 400) || '#000000',
+    color: getColor('orange', 400) || '#000000',
   },
   [AspectType.CELLULAR_COMPONENT]: {
     id: AspectType.CELLULAR_COMPONENT,
@@ -69,7 +69,7 @@ export const ASPECT_MAP: { [key: string]: AspectMapType } = {
     label: 'Cellular Component',
     description:
       'The part of a cell where a protein encoded by the gene performs its molecular function',
-    color: getColor('deepPurple', 400) || '#000000',
+    color: getColor('green', 400) || '#000000',
   },
 }
 
@@ -79,7 +79,7 @@ export const TERM_TYPE_MAP: { [key: string]: TermMapType } = {
     label: 'Known Aspects',
     hint: 'all',
     description: 'Show only genes of known functions',
-    color: getColor('green', 500) || '#000000',
+    color: getColor('teal', 500) || '#000000',
   },
 
   [TermType.UNKNOWN]: {

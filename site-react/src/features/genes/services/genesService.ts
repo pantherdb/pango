@@ -34,6 +34,9 @@ export const transformTerms = (annotations: Annotation[], maxTerms = 2): Grouped
 
 export const transformGenes = (genes: any[]): Gene[] => {
   return genes.map(gene => {
+    if (!gene.terms) {
+      gene.terms = []
+    }
     const grouped = groupTermsByAspect(gene.terms)
 
     const groupedTerms: GroupedTerms = {

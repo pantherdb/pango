@@ -1,7 +1,6 @@
 import type React from 'react';
 import { useState, useEffect, useRef } from 'react'
 import { TextField, CircularProgress, Popper, Paper, ClickAwayListener } from '@mui/material'
-import type { Gene } from '../models/gene';
 import { AutocompleteType } from '../models/gene';
 import { useGetAutocompleteQuery } from '../slices/genesApiSlice';
 import GeneResults from './GeneResults';
@@ -16,7 +15,6 @@ const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen, onClose, popoverRef }) 
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedValue, setDebouncedValue] = useState('')
   const [showResults, setShowResults] = useState(false)
-  const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({})
   const anchorRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -42,12 +40,7 @@ const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen, onClose, popoverRef }) 
 
   const genes = geneData?.genes ?? []
 
-  const handleExpandRow = (gene: Gene) => {
-    setExpandedRows(prev => ({
-      ...prev,
-      [gene.gene]: !prev[gene.gene],
-    }))
-  }
+  console.log(genes)
 
   const handleClickAway = () => {
     setShowResults(false)
@@ -60,6 +53,7 @@ const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen, onClose, popoverRef }) 
       <div className="w-full animate-[fadeIn_0.3s_ease-in-out] flex-col transition-all duration-300">
         <div ref={anchorRef}>
           <TextField
+            autoComplete="off"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Enter gene name..."
@@ -80,12 +74,10 @@ const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen, onClose, popoverRef }) 
           placement="bottom-start"
           style={{ width: anchorRef.current?.offsetWidth }}
         >
-          <Paper className="mt-1 max-h-[400px] overflow-y-auto shadow-lg">
+          <Paper className="mt-1 max-h-[400px] overflow-y-auto shadow-lg !bg-accent-50">
             {genes.length > 0 ? (
               <GeneResults
                 genes={genes}
-                expandedRows={expandedRows}
-                onExpandRow={handleExpandRow}
               />
             ) : (
               <div className="p-4 text-center text-gray-500">No genes found</div>
