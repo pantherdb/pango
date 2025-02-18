@@ -16,7 +16,7 @@ interface GeneResultsProps {
 const GeneResults: React.FC<GeneResultsProps> = ({ genes, expandedRows, onExpandRow }) => {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full">
+      <table className="w-full text-xs">
         <thead>
           <tr>
             <th className="w-10"></th>
@@ -40,8 +40,8 @@ const GeneResults: React.FC<GeneResultsProps> = ({ genes, expandedRows, onExpand
                   {expandedRows[gene.gene] ? <FaCaretDown /> : <FaCaretRight />}
                 </button>
               </td>
-              <td className="border-r border-gray-300 p-3">
-                <div className="space-y-1 flex flex-col">
+              <td className="border-r border-gray-300 p-3 max-w-[200px]">
+                <div className="space-y-1 flex flex-col text-xs">
                   <div className="text-lg font-bold">
                     <VersionedLink
                       to={`/gene/${gene.gene}`}
@@ -83,21 +83,21 @@ const GeneResults: React.FC<GeneResultsProps> = ({ genes, expandedRows, onExpand
                   </div>
                 </div>
               </td>
-              <td className="w-1/5 border-r border-gray-300 p-3">
+              <td className="flex-1 border-r border-gray-300 p-3">
                 <Terms
                   terms={gene.groupedTerms?.mfs}
                   maxTerms={expandedRows[gene.gene] ? 500 : 2}
                   onToggleExpand={() => onExpandRow(gene)}
                 />
               </td>
-              <td className="w-1/5 border-r border-gray-300 p-3">
+              <td className="flex-1 border-r border-gray-300 p-3">
                 <Terms
                   terms={gene.groupedTerms?.bps}
                   maxTerms={expandedRows[gene.gene] ? 500 : 2}
                   onToggleExpand={() => onExpandRow(gene)}
                 />
               </td>
-              <td className="w-1/5 border-r border-gray-300 p-3">
+              <td className="flex-1 border-r border-gray-300 p-3">
                 <Terms
                   terms={gene.groupedTerms?.ccs}
                   maxTerms={expandedRows[gene.gene] ? 500 : 2}

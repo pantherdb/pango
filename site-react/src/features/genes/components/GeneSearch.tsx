@@ -9,9 +9,10 @@ import GeneResults from './GeneResults';
 interface GeneSearchProps {
   isOpen: boolean;
   onClose: () => void;
+  popoverRef: React.RefObject<HTMLDivElement>;
 }
 
-const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen, onClose }) => {
+const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen, onClose, popoverRef }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedValue, setDebouncedValue] = useState('')
   const [showResults, setShowResults] = useState(false)
@@ -73,6 +74,7 @@ const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen, onClose }) => {
         </div>
 
         <Popper
+          ref={popoverRef}
           open={showResults}
           anchorEl={anchorRef.current}
           placement="bottom-start"

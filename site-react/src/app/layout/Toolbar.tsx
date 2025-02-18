@@ -1,6 +1,6 @@
 import type React from 'react'
 import { useState, useRef, useEffect } from 'react'
-import { IconButton, Button, Menu, MenuItem, LinearProgress } from '@mui/material'
+import { IconButton, Button, Menu, MenuItem, LinearProgress, InputAdornment, TextField } from '@mui/material'
 import { FaBars, FaGithub, FaSearch } from 'react-icons/fa'
 import { IoMdClose } from 'react-icons/io'
 import { Link } from 'react-router-dom'
@@ -18,11 +18,16 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
   const [exportMenuAnchor, setExportMenuAnchor] = useState<null | HTMLElement>(null)
   const [showSearch, setShowSearch] = useState(false)
   const searchRef = useRef<HTMLDivElement>(null)
+  const popoverRef = useRef<HTMLDivElement>(null)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        //setShowSearch(false)
+      }
+
+      if (popoverRef?.current && !popoverRef?.current.contains(event.target as Node)) {
         setShowSearch(false)
       }
     }
@@ -70,14 +75,17 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
 
             <div className="hidden flex-1 items-center justify-end md:flex">
               <div className="flex items-center pr-3 text-accent-500">
-                <IconButton
-                  color="inherit"
-                  onClick={() => setShowSearch(true)}
-                  className="mr-2"
-                  size="large"
-                >
-                  <FaSearch />
-                </IconButton>
+
+
+                <div className="flex items-center mr-2 relative">
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    className="rounded-full h-12 bg-white pl-10 pr-4 py-2"
+                    onClick={() => setShowSearch(true)}
+                  />
+                  <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+                </div>
                 <IconButton
                   color="inherit"
                   href="https://github.com/pantherdb/pango"
@@ -150,9 +158,9 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
         ) : (
           <div ref={searchRef} className="flex w-full items-center justify-center space-x-4">
             <div className="text-lg font-semibold text-accent-500">Search Genes</div>
-            <div className="flex w-[600px] ">
+            <div className="flex w-[800px] ">
               <div className='flex-1 relative'>
-                <GeneSearch isOpen={showSearch} onClose={() => setShowSearch(false)} />
+                <GeneSearch popoverRef={popoverRef} isOpen={showSearch} onClose={() => setShowSearch(false)} />
               </div>
               <IconButton
                 onClick={() => setShowSearch(false)}
@@ -165,7 +173,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
           </div>
         )}
       </div>
-    </div>
+    </div >
   )
 }
 

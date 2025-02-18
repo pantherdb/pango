@@ -1,9 +1,11 @@
 import type React from 'react'
 import { FaFlask } from 'react-icons/fa'
 import { Tooltip } from '@mui/material'
-import { EVIDENCE_TYPE_MAP } from '@/@pango.core/data/config'
+import { ASPECT_MAP, EVIDENCE_TYPE_MAP, EvidenceType } from '@/@pango.core/data/config'
 import type { Term } from '../models/term'
 import TermLink from './TermLink'
+import { GiTreeBranch } from "react-icons/gi";
+import { FiEye, FiX } from "react-icons/fi";
 
 interface TermsProps {
   terms: Term[]
@@ -17,28 +19,32 @@ export const Terms: React.FC<TermsProps> = ({ terms, maxTerms, onToggleExpand })
       {terms.slice(0, maxTerms).map((term, idx) => (
         <div key={idx} className="w-full">
           <div
-            className={`m-2 flex items-center rounded-xl border border-gray-400 p-2`}
+            className={`m-2 flex items-center rounded-xl border border-gray-400 p-1`}
             style={{
-              backgroundColor: EVIDENCE_TYPE_MAP[term.evidenceType]?.color + '10',
+              backgroundColor: ASPECT_MAP[term.aspect]?.color + '20',
             }}
           >
-            <div className="w-12">
+            <div className="w-11">
               <Tooltip title={EVIDENCE_TYPE_MAP[term.evidenceType]?.iconTooltip}>
-                <div className="relative h-11 w-11">
-                  <FaFlask
-                    className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl`}
-                    style={{
-                      color: EVIDENCE_TYPE_MAP[term.evidenceType]?.color + 'A0' || undefined,
-                    }}
-                  />
-                  <span
-                    className={`absolute -bottom-1 right-0.5 text-xl font-bold`}
-                    style={{
-                      color: EVIDENCE_TYPE_MAP[term.evidenceType]?.color || undefined,
-                    }}
-                  >
-                    {EVIDENCE_TYPE_MAP[term.evidenceType]?.shorthand}
-                  </span>
+                <div className="flex justify-center items-center h-10 w-10 text-gray-600">
+                  {term.evidenceType === EvidenceType.DIRECT && (
+                    <FaFlask
+                      className={`text-3xl`}
+                    />
+                  )}
+
+                  {term.evidenceType === EvidenceType.HOMOLOGY && (
+                    <div className={`text-3xl`}>
+                      <GiTreeBranch />
+                    </div>
+                  )}
+
+                  {term.evidenceType === EvidenceType.NA && (
+                    <div className="relative text-3xl">
+                      <FiEye className='text-gray-400' />
+                      <FiX className="absolute top-2 left-1 text-red-300" />
+                    </div>
+                  )}
                 </div>
               </Tooltip>
             </div>
