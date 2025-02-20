@@ -28,13 +28,6 @@ const annotationsApi = apiService
           createGraphQLRequest(GET_ANNOTATIONS_QUERY, {
             filterArgs: {
               geneIds: filterArgs?.geneIds || [],
-              termIds: [],
-              termTypeIds: [],
-              slimTermIds: [],
-              evidenceTypeIds: [],
-              aspectIds: [],
-              withGeneIds: [],
-              referenceIds: [],
             },
             pageArgs: {
               page: pageArgs?.page || 0,
@@ -84,13 +77,6 @@ const annotationsApi = apiService
           createGraphQLRequest(GET_ANNOTATION_STATS_QUERY, {
             filterArgs: {
               geneIds: filterArgs?.geneIds || [],
-              termIds: [],
-              termTypeIds: [],
-              slimTermIds: [],
-              evidenceTypeIds: [],
-              aspectIds: [],
-              withGeneIds: [],
-              referenceIds: [],
             },
           }),
         transformResponse: (response: {
@@ -109,17 +95,7 @@ const annotationsApi = apiService
         query: ({ type, keyword }: { type: AutocompleteType; keyword: string }) =>
           createGraphQLRequest(GET_SLIM_TERMS_AUTOCOMPLETE_QUERY, {
             autocompleteType: type,
-            keyword,
-            filterArgs: {
-              geneIds: [],
-              slimTermIds: [],
-              termIds: [],
-              termTypeIds: [],
-              evidenceTypeIds: [],
-              aspectIds: [],
-              withGeneIds: [],
-              referenceIds: [],
-            },
+            keyword
           }),
         transformResponse: (response: {
           data?: { slimTermsAutocomplete: any }

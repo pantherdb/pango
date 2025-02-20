@@ -73,7 +73,6 @@ class AnnotationStats:
     term_type_frequency: Frequency 
     aspect_frequency: Frequency 
     evidence_type_frequency: Frequency
-    slim_term_frequency: Frequency
 
 @strawberry.input
 class GeneFilterArgs:

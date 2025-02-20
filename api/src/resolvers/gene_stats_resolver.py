@@ -39,16 +39,15 @@ async def get_genes_stats(gene_index:str, filter_args:GeneFilterArgs):
     stats = dict()
     for k, freqs in resp['aggregations'].items():   
         buckets = None
-        if k=='slim_term_frequency' :
-            buckets = list()
-            for freq_bucket in freqs['distinct_slim_term_frequency']['buckets']:     
-
-                buckets.append(Bucket(
+        if k == 'slim_term_frequency':
+          buckets = list()
+          for freq_bucket in freqs['distinct_slim_term_frequency']['buckets']:     
+              buckets.append(Bucket(
                   key=freq_bucket["key"],
                   doc_count=freq_bucket["distinct_genes"]["gene_count"]["value"],
-                  meta = get_response_meta(freq_bucket["docs"])
-                ))
-            stats[k] = Frequency(buckets=buckets)
+                  meta=get_response_meta(freq_bucket["docs"])
+              ))
+          stats[k] = Frequency(buckets=buckets)
         elif k =='distinct_gene_count':
             stats[k] = freqs['value']
         else:
@@ -62,49 +61,49 @@ async def get_genes_stats(gene_index:str, filter_args:GeneFilterArgs):
   
 
 def get_slim_terms_query():
-    
-      slim_term_frequency =  {
-            "nested": {
-              "path": "slim_terms"
-            },
-            "aggs": {
-              "distinct_slim_term_frequency": {
+  
+    slim_term_frequency = {
+        "nested": {
+            "path": "slim_terms"
+        },
+        "aggs": {
+            "distinct_slim_term_frequency": {
                 "terms": {
-                  "field": "slim_terms.label.keyword",
-                  "order": {
-                    "_count": "desc"
-                  },
-                  "size": 200
+                    "field": "slim_terms.label.keyword",
+                    "order": {
+                        "_count": "desc"
+                    },
+                    "size": 200
                 },
                 "aggs": {
-                  "distinct_genes": {
-                    "reverse_nested": {},
-                    "aggs": {
-                      "gene_count": {
-                        "cardinality": {
-                          "field": "gene.keyword"
+                    "distinct_genes": {
+                        "reverse_nested": {},
+                        "aggs": {
+                            "gene_count": {
+                                "value_count": {
+                                    "field": "gene.keyword"
+                                }
+                            }
                         }
-                      }
+                    },
+                    "docs": {
+                        "top_hits": {
+                            "_source": {
+                                "includes": [
+                                    "slim_terms.id",
+                                    "slim_terms.label",
+                                    "slim_terms.aspect"
+                                ]
+                            },
+                            "size": 1
+                        }
                     }
-                  },
-                  "docs": {
-                    "top_hits": {
-                      "_source": {
-                        "includes": [
-                          "slim_terms.id",
-                          "slim_terms.label",
-                          "slim_terms.aspect"
-                        ]
-                      },
-                      "size": 1
-                    }
-                  }
                 }
-              }
             }
-          }
-
-      return slim_term_frequency
+        }
+    }
+    
+    return slim_term_frequency 
 
 def get_response_meta(bucket):
    results = [hit for hit in bucket.get('hits', {}).get('hits', [])]
@@ -121,8 +120,7 @@ def get_response_meta(bucket):
 
 
 async def main():
-    results = await get_genes_stats()
-    pprint.pp(results)
+    pass
 
 if __name__ == "__main__":
 

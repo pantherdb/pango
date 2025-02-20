@@ -167,7 +167,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
           </div>
         )}
       </div>
-    </div >
+    </div>
   )
 }
 
