@@ -4,8 +4,8 @@ indices=(
   "pango-2-pango-annotations"
   "pango-1-pango-annotations"
   "pango-2-pango-genes"
-  pango-test-pango-annotations
-  pango-test-pango-genes
+  "pango-test-pango-annotations"
+  "pango-test-pango-genes"
 )
 
 for index in "${indices[@]}"; do

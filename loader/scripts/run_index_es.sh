@@ -96,3 +96,5 @@ if [[ "$found_folders" = false ]]; then
 fi
 
 echo "All folders indexed successfully!"
+
+# --bash scripts/run_index_es.sh -i downloads/output
