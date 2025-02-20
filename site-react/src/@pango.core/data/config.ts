@@ -1,5 +1,22 @@
 import { getColor } from './colors'
 
+export enum AspectType {
+  MOLECULAR_FUNCTION = 'molecular function',
+  BIOLOGICAL_PROCESS = 'biological process',
+  CELLULAR_COMPONENT = 'cellular component',
+}
+
+export enum TermType {
+  KNOWN = 'known',
+  UNKNOWN = 'unknown',
+}
+
+export enum EvidenceType {
+  DIRECT = 'direct',
+  HOMOLOGY = 'homology',
+  NA = 'n/a',
+}
+
 export interface TermMapType {
   id: string
   label: string
@@ -28,45 +45,45 @@ export interface EvidenceMapType {
 }
 
 export const ASPECT_MAP: { [key: string]: AspectMapType } = {
-  'molecular function': {
-    id: 'molecular function',
+  [AspectType.MOLECULAR_FUNCTION]: {
+    id: AspectType.MOLECULAR_FUNCTION,
     icon: 'coverage-4',
     shorthand: 'MF',
     label: 'Molecular Function',
     description: 'What a protein encoded by the gene does at the molecular level',
-    color: getColor('green', 400) || '#000000',
+    color: getColor('lightBlue', 400) || '#000000',
   },
-  'biological process': {
-    id: 'biological process',
+  [AspectType.BIOLOGICAL_PROCESS]: {
+    id: AspectType.BIOLOGICAL_PROCESS,
     icon: 'coverage-2',
     shorthand: 'BP',
     label: 'Biological Process',
     description:
       '“System” functions, at the level of the cell or whole organism, that the gene helps to carry out, usually together with other genes',
-    color: getColor('brown', 400) || '#000000',
+    color: getColor('orange', 400) || '#000000',
   },
-  'cellular component': {
-    id: 'cellular component',
+  [AspectType.CELLULAR_COMPONENT]: {
+    id: AspectType.CELLULAR_COMPONENT,
     icon: 'coverage-1',
     shorthand: 'CC',
     label: 'Cellular Component',
     description:
       'The part of a cell where a protein encoded by the gene performs its molecular function',
-    color: getColor('purple', 400) || '#000000',
+    color: getColor('green', 400) || '#000000',
   },
 }
 
 export const TERM_TYPE_MAP: { [key: string]: TermMapType } = {
-  known: {
-    id: 'known',
+  [TermType.KNOWN]: {
+    id: TermType.KNOWN,
     label: 'Known Aspects',
     hint: 'all',
     description: 'Show only genes of known functions',
-    color: getColor('green', 500) || '#000000',
+    color: getColor('teal', 500) || '#000000',
   },
 
-  unknown: {
-    id: 'unknown',
+  [TermType.UNKNOWN]: {
+    id: TermType.UNKNOWN,
     label: 'Unknown Aspects',
     hint: '',
     description: 'Show only “placeholder” genes indicating unknown function aspects',
@@ -75,8 +92,8 @@ export const TERM_TYPE_MAP: { [key: string]: TermMapType } = {
 }
 
 export const EVIDENCE_TYPE_MAP: { [key: string]: EvidenceMapType } = {
-  direct: {
-    id: 'direct',
+  [EvidenceType.DIRECT]: {
+    id: EvidenceType.DIRECT,
     label: 'Known Aspects',
     hint: 'direct evidence',
     description: 'Genes supported by experimental evidence directly for that gene',
@@ -85,8 +102,8 @@ export const EVIDENCE_TYPE_MAP: { [key: string]: EvidenceMapType } = {
     iconTooltip:
       'Direct evidence: This characteristic is supported by experimental evidence directly for this gene, and evolutionary modeling including information about related genes',
   },
-  homology: {
-    id: 'homology',
+  [EvidenceType.HOMOLOGY]: {
+    id: EvidenceType.HOMOLOGY,
     label: 'Known Aspects',
     hint: 'homology evidence',
     description: 'Genes supported only by experimental evidence for a homologous gene',
@@ -95,8 +112,8 @@ export const EVIDENCE_TYPE_MAP: { [key: string]: EvidenceMapType } = {
     iconTooltip:
       'Homolog evidence: This characteristic is supported by experimental evidence for a homologous gene, using evolutionary modeling.',
   },
-  'n/a': {
-    id: 'n/a',
+  [EvidenceType.NA]: {
+    id: EvidenceType.NA,
     label: 'Unknown Aspects',
     hint: 'unknown evidence',
     description:

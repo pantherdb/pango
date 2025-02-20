@@ -64,21 +64,6 @@ export const GET_ANNOTATIONS_COUNT_QUERY = print(gql`
   }
 `)
 
-export const GET_AUTOCOMPLETE_QUERY = print(gql`
-  query GetAutocomplete(
-    $autocompleteType: AutocompleteType!
-    $keyword: String!
-    $filterArgs: GeneFilterArgs
-  ) {
-    autocomplete(autocompleteType: $autocompleteType, keyword: $keyword, filterArgs: $filterArgs) {
-      gene
-      geneName
-      geneSymbol
-      taxonAbbr
-    }
-  }
-`)
-
 export const GET_SLIM_TERMS_AUTOCOMPLETE_QUERY = print(gql`
   query GetSlimTermAutocomplete($keyword: String!, $filterArgs: AnnotationFilterArgs) {
     slimTermsAutocomplete(keyword: $keyword, filterArgs: $filterArgs) {

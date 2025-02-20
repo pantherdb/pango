@@ -21,14 +21,8 @@ export interface GeneFilterArgs {
 }
 
 export interface FilterArgs {
-  termIds: string[]
-  termTypeIds: string[]
   slimTermIds: string[]
-  evidenceTypeIds: string[]
   geneIds: string[]
-  aspectIds: string[]
-  withGeneIds: string[]
-  referenceIds: string[]
 }
 
 export interface GeneCount {

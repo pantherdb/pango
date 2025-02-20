@@ -105,47 +105,11 @@ export const GET_AUTOCOMPLETE_QUERY = print(gql`
     autocomplete(autocompleteType: $autocompleteType, keyword: $keyword, filterArgs: $filterArgs) {
       gene
       geneName
-      geneSymbol
-      taxonAbbr
+      geneSymbol   
     }
   }
 `)
 
-export const GET_SLIM_TERMS_AUTOCOMPLETE_QUERY = print(gql`
-  query GetSlimTermAutocomplete($keyword: String!, $filterArgs: GeneFilterArgs) {
-    slimTermsAutocomplete(keyword: $keyword, filterArgs: $filterArgs) {
-      label
-      id
-      aspect
-      count
-    }
-  }
-`)
-
-export const GET_ANNOTATION_STATS_QUERY = print(gql`
-  query GetGenesStats($filterArgs: GeneFilterArgs) {
-    geneStats(filterArgs: $filterArgs) {
-      termTypeFrequency {
-        buckets {
-          docCount
-          key
-        }
-      }
-      slimTermFrequency {
-        buckets {
-          docCount
-          key
-          meta {
-            id
-            aspect
-            label
-            displayId
-          }
-        }
-      }
-    }
-  }
-`)
 
 export const GET_GENES_STATS_QUERY = print(gql`
   query GetGenesStats($filterArgs: GeneFilterArgs) {

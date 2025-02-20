@@ -1,7 +1,6 @@
 # import load_env
 # import asyncio
 import pprint
-import typing
 from src.models.base_model import Bucket, Entity, ResultCount
 from src.resolvers.annotation_resolver import get_annotations_query
 from src.models.annotation_model import  AnnotationFilterArgs, AnnotationStats, Frequency
@@ -44,8 +43,7 @@ async def get_annotations_stats(annotation_index:str, filter_args:AnnotationFilt
             "order":{"_count":"desc"},
             "size": 2
           }
-        },
-        "slim_term_frequency": get_slim_terms_query()        
+        }    
     }
     
 
@@ -81,52 +79,7 @@ async def get_annotations_stats(annotation_index:str, filter_args:AnnotationFilt
         
     return results
   
-
-def get_slim_terms_query():
-    
-      slim_term_frequency =  {
-            "nested": {
-              "path": "slim_terms"
-            },
-            "aggs": {
-              "distinct_slim_term_frequency": {
-                "terms": {
-                  "field": "slim_terms.label.keyword",
-                  "order": {
-                    "_count": "desc"
-                  },
-                  "size": 200
-                },
-                "aggs": {
-                  "distinct_genes": {
-                    "reverse_nested": {},
-                    "aggs": {
-                      "gene_count": {
-                        "cardinality": {
-                          "field": "gene.keyword"
-                        }
-                      }
-                    }
-                  },
-                  "docs": {
-                    "top_hits": {
-                      "_source": {
-                        "includes": [
-                          "slim_terms.id",
-                          "slim_terms.label",
-                          "slim_terms.aspect"
-                        ]
-                      },
-                      "size": 1
-                    }
-                  }
-                }
-              }
-            }
-          }
-
-      return slim_term_frequency
-
+  
 def get_response_meta(bucket):
    results = [hit for hit in bucket.get('hits', {}).get('hits', [])]
 
@@ -142,8 +95,7 @@ def get_response_meta(bucket):
 
 
 async def main():
-    results = await get_annotations_stats()
-    pprint.pp(results)
+    pass
 
 if __name__ == "__main__":
 
