@@ -12,7 +12,6 @@ import {
   GET_ANNOTATIONS_QUERY,
   GET_ANNOTATIONS_COUNT_QUERY,
   GET_ANNOTATION_STATS_QUERY,
-  GET_AUTOCOMPLETE_QUERY,
   GET_SLIM_TERMS_AUTOCOMPLETE_QUERY,
 } from '../services/annotationsQueryService'
 
@@ -29,13 +28,6 @@ const annotationsApi = apiService
           createGraphQLRequest(GET_ANNOTATIONS_QUERY, {
             filterArgs: {
               geneIds: filterArgs?.geneIds || [],
-              termIds: [],
-              termTypeIds: [],
-              slimTermIds: [],
-              evidenceTypeIds: [],
-              aspectIds: [],
-              withGeneIds: [],
-              referenceIds: [],
             },
             pageArgs: {
               page: pageArgs?.page || 0,
@@ -85,13 +77,6 @@ const annotationsApi = apiService
           createGraphQLRequest(GET_ANNOTATION_STATS_QUERY, {
             filterArgs: {
               geneIds: filterArgs?.geneIds || [],
-              termIds: [],
-              termTypeIds: [],
-              slimTermIds: [],
-              evidenceTypeIds: [],
-              aspectIds: [],
-              withGeneIds: [],
-              referenceIds: [],
             },
           }),
         transformResponse: (response: {
@@ -106,40 +91,11 @@ const annotationsApi = apiService
         providesTags: ['annotation-stats'],
       }),
 
-      getAutocomplete: builder.query({
-        query: ({ type, keyword }: { type: AutocompleteType; keyword: string }) =>
-          createGraphQLRequest(GET_AUTOCOMPLETE_QUERY, {
-            autocompleteType: type,
-            keyword,
-            filterArgs: {
-              geneIds: [],
-              slimTermIds: [],
-            },
-          }),
-        transformResponse: (response: {
-          data?: { autocomplete: any }
-          errors?: ApiResponseError[]
-        }) => {
-          return transformResponse<{ autocomplete: any }>(response).autocomplete
-        },
-        providesTags: ['autocomplete'],
-      }),
-
       getSlimTermsAutocomplete: builder.query({
         query: ({ type, keyword }: { type: AutocompleteType; keyword: string }) =>
           createGraphQLRequest(GET_SLIM_TERMS_AUTOCOMPLETE_QUERY, {
             autocompleteType: type,
-            keyword,
-            filterArgs: {
-              geneIds: [],
-              slimTermIds: [],
-              termIds: [],
-              termTypeIds: [],
-              evidenceTypeIds: [],
-              aspectIds: [],
-              withGeneIds: [],
-              referenceIds: [],
-            },
+            keyword
           }),
         transformResponse: (response: {
           data?: { slimTermsAutocomplete: any }
@@ -157,6 +113,5 @@ export const {
   useGetAnnotationsQuery,
   useGetAnnotationsCountQuery,
   useGetAnnotationStatsQuery,
-  useGetAutocompleteQuery,
   useGetSlimTermsAutocompleteQuery,
 } = annotationsApi

@@ -1,18 +1,19 @@
 import type { ApiResponseError } from '@/@pango.core/utils/api'
 import { transformResponse } from '@/@pango.core/utils/api'
 import apiService, { createGraphQLRequest } from '@/app/store/apiService'
-import type { GenesApiResponse, GeneStats } from '../models/gene'
+import type { AutocompleteType, GenesApiResponse, GeneStats } from '../models/gene'
 import {
   GET_GENES_QUERY,
   GET_GENES_COUNT_QUERY,
   GET_GENES_STATS_QUERY,
+  GET_AUTOCOMPLETE_QUERY,
 } from '../services/genesQueryService'
 import { transformGenes } from '../services/genesService'
 export const addTagTypes = ['gene', 'gene-stats'] as const
 
 const genesApi = apiService
   .enhanceEndpoints({
-    addTagTypes: ['gene', 'gene-stats'],
+    addTagTypes: ['gene', 'gene-stats', 'autocomplete'] as const,
   })
   .injectEndpoints({
     endpoints: builder => ({
@@ -64,8 +65,36 @@ const genesApi = apiService
           response.data?.geneStats,
         providesTags: ['gene-stats'],
       }),
+
+      getAutocomplete: builder.query({
+        query: ({ type, keyword }: { type: AutocompleteType; keyword: string }) =>
+          createGraphQLRequest(GET_AUTOCOMPLETE_QUERY, {
+            autocompleteType: type,
+            keyword,
+            filterArgs: {
+              geneIds: [],
+              slimTermIds: [],
+            },
+          }),
+        transformResponse: (response: {
+          data?: { autocomplete: any }
+          errors?: ApiResponseError[]
+        }) => {
+          const transformedResponse = transformResponse<{ autocomplete: any }>(response).autocomplete
+          return {
+            ...transformedResponse,
+            genes: transformGenes(transformedResponse),
+          }
+        },
+        providesTags: ['autocomplete'],
+      }),
     }),
     overrideExisting: false,
   })
 
-export const { useGetGenesQuery, useGetGenesCountQuery, useGetGenesStatsQuery } = genesApi
+export const {
+  useGetGenesQuery,
+  useGetGenesCountQuery,
+  useGetGenesStatsQuery,
+  useGetAutocompleteQuery,
+} = genesApi

@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import type { RootState } from '@/app/store/store'
 import type { Gene } from '../../models/gene'
 import { AutocompleteType } from '../../models/gene'
-import { useGetAutocompleteQuery } from '@/features/annotations/slices/annotationsApiSlice'
+import { useGetAutocompleteQuery } from '../../slices/genesApiSlice'
 
 const GeneForm: React.FC<{ maxGenes?: number }> = ({ maxGenes = 10 }) => {
   const dispatch = useAppDispatch()
@@ -24,7 +24,8 @@ const GeneForm: React.FC<{ maxGenes?: number }> = ({ maxGenes = 10 }) => {
     return () => clearTimeout(timer)
   }, [inputValue])
 
-  const { data: suggestions = [], isFetching } = useGetAutocompleteQuery(
+
+  const { data: geneData = [], isFetching } = useGetAutocompleteQuery(
     {
       type: AutocompleteType.GENE,
       keyword: debouncedValue,
@@ -33,6 +34,9 @@ const GeneForm: React.FC<{ maxGenes?: number }> = ({ maxGenes = 10 }) => {
       skip: !debouncedValue || debouncedValue.length < 2,
     }
   )
+
+  const suggestions = geneData?.genes ?? []
+
 
   const handleSelect = (_: unknown, newValue: Gene | null) => {
     if (newValue && selectedGenes.length < maxGenes) {

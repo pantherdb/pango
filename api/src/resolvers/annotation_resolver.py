@@ -5,6 +5,7 @@ from src.models.base_model import PageArgs
 from src.models.gene_model import Gene
 from src.models.annotation_model import Annotation, AnnotationExport, AnnotationFilterArgs, AnnotationMinimal, GeneFilterArgs
 from src.config.es import  es
+from src.utils import is_valid_filter
 
 async def get_annotation(annotation_index:str, id:str,):
 
@@ -28,7 +29,7 @@ async def get_annotations(annotation_index:str, filter_args:AnnotationFilterArgs
           index=annotation_index,
           filter_path ='took,hits.hits._score,**hits.hits._id**, **hits.hits._source**',
           query=query,
-          from_=page_args.page*page_args.size,
+          from_=page_args.page*page_args.size, 
           size=page_args.size,
     )
 
@@ -93,7 +94,7 @@ async def get_genes_query(filter_args:GeneFilterArgs):
 
   if filter_args != None:
                 
-    if filter_args.slim_term_ids and len(filter_args.slim_term_ids)>0:
+    if is_valid_filter(filter_args.slim_term_ids):
           filters.append({
               "bool": {
                   "must": [
@@ -112,7 +113,7 @@ async def get_genes_query(filter_args:GeneFilterArgs):
               }
           })
         
-    if filter_args.gene_ids != None and len(filter_args.gene_ids)>0:
+    if is_valid_filter(filter_args.gene_ids):
           filters.append(  
             {           
               "terms": {
@@ -153,9 +154,11 @@ async def get_annotations_export(annotation_index:str, filter_args:AnnotationFil
 async def get_annotations_query(filter_args:AnnotationFilterArgs):
   
     filters = list()
+    
+    print ('filter_args', filter_args)
 
-    if filter_args != None:
-      if filter_args.term_ids != None and len(filter_args.term_ids)>0:
+    if filter_args is not None:
+        if is_valid_filter(filter_args.term_ids):
             filters.append(  
               {           
                 "terms": {
@@ -163,15 +166,15 @@ async def get_annotations_query(filter_args:AnnotationFilterArgs):
                 }
               })   
             
-      if filter_args.term_type_ids != None and len(filter_args.term_type_ids)>0:
-        filters.append(  
-          {           
-            "terms": {
-              "term_type": filter_args.term_type_ids
-            }
-          })         
+        if is_valid_filter(filter_args.term_type_ids):
+            filters.append(  
+              {           
+                "terms": {
+                  "term_type": filter_args.term_type_ids
+                }
+              })         
 
-      if filter_args.slim_term_ids != None and len(filter_args.slim_term_ids)>0:
+        if is_valid_filter(filter_args.slim_term_ids):
             filters.append( 
               {
                "nested": {
@@ -184,29 +187,31 @@ async def get_annotations_query(filter_args:AnnotationFilterArgs):
                 }
             })
          
-      if filter_args.gene_ids != None and len(filter_args.gene_ids)>0:
+        if is_valid_filter(filter_args.gene_ids):
             filters.append(  
               {           
                 "terms": {
                   "gene.keyword": filter_args.gene_ids
                 }
               })   
+            
+        if is_valid_filter(filter_args.aspect_ids):
+          print ('pooop', filter_args.aspect_ids)
+          filters.append(  
+            {           
+              "terms": {
+                "term.aspect.keyword": filter_args.aspect_ids
+              }
+            })   
 
-      if filter_args.aspect_ids != None and len(filter_args.aspect_ids)>0:
-            filters.append(  
-              {           
-                "terms": {
-                  "term.aspect.keyword": filter_args.aspect_ids
-                }
-              })   
-
-      if filter_args.evidence_type_ids != None and len(filter_args.evidence_type_ids)>0:
+        if is_valid_filter(filter_args.evidence_type_ids):
             filters.append(  
               {           
                 "terms": {
                   "evidence_type.keyword": filter_args.evidence_type_ids
                 }
               }) 
+            
    
     query = {  
       "bool": {  
