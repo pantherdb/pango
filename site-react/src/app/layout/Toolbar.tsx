@@ -213,6 +213,14 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
                 >
                   Evolutionary models as GAF
                 </MenuItem>
+                <MenuItem
+                  component="a"
+                  href={ENVIRONMENT.downloadOntologyFilesUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ontology Files
+                </MenuItem>
               </Menu>
 
               {renderLogos()}

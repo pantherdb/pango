@@ -2,13 +2,14 @@ import { useMediaQuery, useTheme } from '@mui/material'
 import type { GroupedTerms, Term } from '@/features/terms/models/term'
 import { useState } from 'react'
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
+import TermCells from '@/features/terms/components/TermCells'
 import Terms from '@/features/terms/components/Terms'
 
 interface GeneSummaryProps {
   groupedTerms: GroupedTerms
 }
 
-interface SectionProps {
+interface MobileSectionProps {
   title: string
   terms: Term[]
   maxTerms: number
@@ -16,7 +17,7 @@ interface SectionProps {
   onToggle: () => void
 }
 
-const Section: React.FC<SectionProps> = ({
+const MobileSection: React.FC<MobileSectionProps> = ({
   title,
   terms,
   maxTerms,
@@ -68,34 +69,59 @@ const GeneSummary: React.FC<GeneSummaryProps> = ({ groupedTerms }) => {
     }))
   }
 
-  const sections = [
-    {
-      title: 'Molecular Function',
-      terms: groupedTerms.mfs,
-    },
-    {
-      title: 'Biological Process',
-      terms: groupedTerms.bps,
-    },
-    {
-      title: 'Cellular Component',
-      terms: groupedTerms.ccs,
-    },
-  ]
+  function handleExpandClick(): void { }
+
+  if (isMobile) {
+    const sections = [
+      {
+        title: 'Molecular Function',
+        terms: groupedTerms.mfs,
+      },
+      {
+        title: 'Biological Process',
+        terms: groupedTerms.bps,
+      },
+      {
+        title: 'Cellular Component',
+        terms: groupedTerms.ccs,
+      },
+    ]
+
+    return (
+      <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
+        <div className="divide-y divide-gray-200 px-2">
+          {sections.map(({ title, terms }) => (
+            <MobileSection
+              key={title}
+              title={title}
+              terms={terms || []}
+              maxTerms={groupedTerms.maxTerms || 500}
+              isExpanded={!!expandedSections[title]}
+              onToggle={() => toggleSection(title)}
+            />
+          ))}
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
-      <div className={`divide-y divide-gray-200 ${isMobile ? 'px-2' : 'px-4'}`}>
-        {sections.map(({ title, terms }) => (
-          <Section
-            key={title}
-            title={title}
-            terms={terms || []}
-            maxTerms={groupedTerms.maxTerms || 500}
-            isExpanded={!!expandedSections[title]}
-            onToggle={() => toggleSection(title)}
-          />
-        ))}
+    <div className="rounded-lg border border-gray-300 bg-white">
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-t border-accent-700">
+              <th className="">Molecular Functions</th>
+              <th className="">Biological Processes</th>
+              <th className="">Cellular Components</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b border-gray-300">
+              <TermCells groupedTerms={groupedTerms} onToggleExpand={handleExpandClick} />
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   )

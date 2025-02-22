@@ -19,6 +19,9 @@ import {
   getUCSCBrowserLink,
   getUniprotLink,
 } from '@/@pango.core/services/linksService'
+import theme from '@/@pango.core/theme/theme'
+import { useMediaQuery } from '@mui/system'
+import AnnotationCards from '@/features/annotations/components/AnnotationCards'
 
 interface InfoRowProps {
   label: string
@@ -58,6 +61,7 @@ const StatBlock: React.FC<StatBlockProps> = ({ number, label, sublabel }) => (
 const Gene: React.FC = () => {
   const dispatch = useAppDispatch()
   const { id: geneId } = useParams<{ id: string }>()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   useEffect(() => {
     dispatch(setLeftDrawerOpen(false))
@@ -189,7 +193,12 @@ const Gene: React.FC = () => {
         </div>
         {annotations.length > 0 && (
           <div className="w-full bg-white">
-            <AnnotationTable annotations={annotations} />
+            {isMobile ? (
+              <AnnotationCards annotations={annotations}
+              />
+            ) : (
+              <AnnotationTable annotations={annotations} />
+            )}
           </div>
         )}
       </div>
