@@ -15,7 +15,7 @@ export const transformCategoryTerms = (buckets: Bucket[]): CategoryTerm[] => {
         ? `${ratio * 100}%`
         : ratio < 0.9
           ? `${(ratio - 0.15) * 100}%`
-          : `${(ratio - 0.3) * 100}%`
+          : `${(ratio - 0.33) * 100}%`
 
     return {
       ...bucket.meta,

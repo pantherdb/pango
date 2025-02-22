@@ -14,7 +14,7 @@ const AboutPage: React.FC = () => {
 
   return (
     <div className="w-full bg-gray-50 pt-14">
-      <div className="mx-auto flex max-w-4xl flex-col items-stretch">
+      <div className="p-5 mx-auto flex w-full sm:max-w-4xl flex-col items-stretch">
         <h1 className="mb-6 text-5xl">About page</h1>
 
         <h2 className="mb-8 text-3xl">About the human gene functionome</h2>

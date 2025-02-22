@@ -6,11 +6,11 @@ import { getUniprotLink, getUCSCBrowserLink } from '@/@pango.core/services/links
 import Terms from '@/features/terms/components/Terms';
 import { motion, AnimatePresence } from 'framer-motion';
 
-interface MobileGeneCardProps {
+interface GeneCardProps {
   gene: Gene;
 }
 
-const MobileGeneCard: React.FC<MobileGeneCardProps> = ({ gene }) => {
+const GeneCard: React.FC<GeneCardProps> = ({ gene }) => {
   const [activeTab, setActiveTab] = useState<'all' | 'mf' | 'bp' | 'cc' | null>(null);
 
   const tabs = [
@@ -100,6 +100,11 @@ const MobileGeneCard: React.FC<MobileGeneCardProps> = ({ gene }) => {
             </a>
           </div>
         )}
+        <div className="text-sm mt-1">
+          <VersionedLink to={`/gene/${gene.gene}`} target="_blank" rel="noreferrer">
+            View all functions and evidence
+          </VersionedLink>
+        </div>
       </div>
 
       <div className="border-t border-gray-200">
@@ -137,4 +142,4 @@ const MobileGeneCard: React.FC<MobileGeneCardProps> = ({ gene }) => {
   );
 };
 
-export default MobileGeneCard;
+export default GeneCard;

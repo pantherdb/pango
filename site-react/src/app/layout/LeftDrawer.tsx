@@ -1,14 +1,16 @@
 import type React from 'react'
-import { Button, Tooltip } from '@mui/material'
+import { Button, Tooltip, useMediaQuery } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../hooks'
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
 import { clearSearch } from '@/features/search/searchSlice'
 import CategoryStats from '@/shared/components/CategoryStats'
+import theme from '@/@pango.core/theme/theme'
 
 // TODO clear filter so aspect selection
 const LeftDrawerContent: React.FC = () => {
   const dispatch = useAppDispatch()
   const search = useAppSelector(state => state.search)
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <div className="flex h-full flex-col">
@@ -37,7 +39,7 @@ const LeftDrawerContent: React.FC = () => {
               onClick={() => dispatch(setLeftDrawerOpen(false))}
               aria-label="Close dialog"
             >
-              Close
+              {isMobile ? 'View Results' : 'Close'}
             </Button>
           </Tooltip>
         </div>

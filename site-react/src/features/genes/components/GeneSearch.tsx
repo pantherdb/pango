@@ -1,18 +1,20 @@
 import type React from 'react';
 import { useState, useEffect, useRef } from 'react'
-import { TextField, CircularProgress, Popper, Paper, ClickAwayListener } from '@mui/material'
+import { TextField, CircularProgress, Popper, Paper, ClickAwayListener, useMediaQuery } from '@mui/material'
 import { AutocompleteType } from '../models/gene';
 import { useGetAutocompleteQuery } from '../slices/genesApiSlice';
 import GeneResults from './GeneResults';
+import theme from '@/@pango.core/theme/theme';
 
 interface GeneSearchProps {
   isOpen: boolean;
-  onClose: () => void;
-  popoverRef: React.RefObject<HTMLDivElement>;
+  onClose?: () => void;
+  popoverRef?: React.RefObject<HTMLDivElement>;
 }
 
 const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen, onClose, popoverRef }) => {
   const [searchQuery, setSearchQuery] = useState('')
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const [debouncedValue, setDebouncedValue] = useState('')
   const [showResults, setShowResults] = useState(false)
   const anchorRef = useRef<HTMLDivElement>(null)
@@ -40,10 +42,9 @@ const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen, onClose, popoverRef }) 
 
   const genes = geneData?.genes ?? []
 
-  console.log(genes)
-
   const handleClickAway = () => {
     setShowResults(false)
+    // onClose?.()
   }
 
   if (!isOpen) return null

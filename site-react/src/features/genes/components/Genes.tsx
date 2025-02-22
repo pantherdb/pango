@@ -1,5 +1,5 @@
 import type React from 'react';
-import { TablePagination, CircularProgress, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { TablePagination, CircularProgress, Tooltip, useMediaQuery, useTheme, Button } from '@mui/material';
 import { FaCaretRight, FaCaretDown } from 'react-icons/fa';
 import { setPage, setPageSize } from '@/features/search/searchSlice';
 import { useMemo, useState } from 'react';
@@ -12,10 +12,12 @@ import { VersionedLink } from '@/shared/components/VersionedLink';
 import { ANNOTATION_COLS } from '@/@pango.core/data/config';
 import GeneCard from './GeneCard';
 import { getUniprotLink, getUCSCBrowserLink } from '@/@pango.core/services/linksService';
+import { selectLeftDrawerOpen, setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
 
 const Genes: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isLeftDrawerOpen = useAppSelector((state: RootState) => selectLeftDrawerOpen(state))
   const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({});
 
   const { page, size } = useAppSelector((state: RootState) => state.search.pagination);
@@ -65,10 +67,20 @@ const Genes: React.FC = () => {
 
   return (
     <div className="w-full p-3">
-      <div className="mb-6 flex h-20 items-center rounded-t-3xl bg-white">
-        <h2 className="pl-3 text-4xl font-medium text-gray-600">
+      <div className="mb-6 pr-3 w-fill flex h-20 items-center rounded-t-3xl bg-white">
+        <h2 className="flex-1 pl-3 text-3xl font-medium text-gray-600 sm:text-4xl">
           Results (<strong>{geneCount}</strong>) <small>genes</small>
         </h2>
+
+        {!isLeftDrawerOpen && (
+          <Button
+            variant="outlined"
+            className="min-w-[100px] rounded-md !bg-accent-200"
+            onClick={() => dispatch(setLeftDrawerOpen(true))}
+          >
+            Open Filter
+          </Button>
+        )}
       </div>
 
       {isMobile ? (
@@ -141,6 +153,11 @@ const Genes: React.FC = () => {
                             </a>
                           </div>
                         )}
+                        <div className="text-sm">
+                          <VersionedLink to={`/gene/${gene.gene}`} target="_blank" rel="noreferrer">
+                            View all functions and evidence
+                          </VersionedLink>
+                        </div>
                       </div>
                     </td>
                     <td className="w-1/5 border-r border-gray-300 p-3">

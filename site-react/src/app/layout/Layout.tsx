@@ -1,5 +1,5 @@
 import type React from 'react'
-import { Box, Drawer } from '@mui/material'
+import { Box, Drawer, useTheme, useMediaQuery } from '@mui/material'
 import { Outlet } from 'react-router-dom'
 import Toolbar from './Toolbar'
 import Footer from './Footer'
@@ -18,6 +18,8 @@ interface LayoutProps {
 const drawerWidth = 380
 
 const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }) => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const dispatch = useAppDispatch()
 
   const leftDrawerOpen = useAppSelector(selectLeftDrawerOpen)
@@ -35,7 +37,7 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
         {leftDrawerContent && (
           <Box
             sx={{
-              width: leftDrawerOpen ? drawerWidth : 0,
+              width: leftDrawerOpen ? (isMobile ? '100%' : drawerWidth) : 0,
               height: '100%',
               transition: theme =>
                 theme.transitions.create('width', {
@@ -53,7 +55,7 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
                 height: '100%',
                 '& .MuiDrawer-paper': {
                   position: 'static',
-                  width: drawerWidth,
+                  width: isMobile ? '100%' : drawerWidth,
                   height: '100%',
                   overflow: 'auto',
                 },
@@ -80,7 +82,7 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
             }}
             sx={{
               '& .MuiDrawer-paper': {
-                width: 500,
+                width: isMobile ? '100%' : 500,
                 height: '100%',
                 overflow: 'auto',
                 transition: theme =>

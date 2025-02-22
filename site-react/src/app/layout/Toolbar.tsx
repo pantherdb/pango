@@ -1,7 +1,7 @@
 import type React from 'react'
 import { useState, useRef, useEffect } from 'react'
 import { IconButton, Button, Menu, MenuItem, LinearProgress, useMediaQuery, useTheme, Popper, Paper, ClickAwayListener } from '@mui/material'
-import { FaBars, FaGithub, FaSearch, FaDownload, FaInfoCircle, FaImage } from 'react-icons/fa'
+import { FaBars, FaGithub, FaSearch, FaDownload, FaInfoCircle } from 'react-icons/fa'
 import { IoMdClose } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import { useAppDispatch } from '../hooks'
@@ -16,7 +16,7 @@ interface ToolbarProps {
 
 const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const [exportMenuAnchor, setExportMenuAnchor] = useState<null | HTMLElement>(null)
   const [showSearch, setShowSearch] = useState(false)
   const [showLogos, setShowLogos] = useState(false)
@@ -61,9 +61,9 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
     <div className="flex items-center">
       {isMobile ? (
         <>
-          <IconButton color="inherit" onClick={handleLogosClick} size="large">
+          <button className='!w-11 !p-0' onClick={handleLogosClick}>
             <img src="/assets/images/logos/go-logo-yellow-icon.png" alt="GO Logo" className="h-12" />
-          </IconButton>
+          </button>
           <Popper open={showLogos} anchorEl={logosAnchorEl} placement="bottom-end">
             <ClickAwayListener onClickAway={handleLogosClose}>
               <Paper className="p-4 bg-primary-600">
@@ -99,7 +99,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
   const renderSearch = () => (
     <div className="flex items-center pr-3 text-accent-500">
       {isMobile ? (
-        <IconButton color="inherit" onClick={() => setShowSearch(true)} size="large">
+        <IconButton color="inherit" className='!w-11 !p-0' onClick={() => setShowSearch(true)} size="large">
           <FaSearch />
         </IconButton>
       ) : (
@@ -117,13 +117,13 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
   )
 
   const renderNavigation = () => (
-    <div className="flex items-center border-l border-accent-200 px-3">
+    <div className="flex items-center border-l-0 border-accent-200 px-3 md:border-l">
       {isMobile ? (
         <>
-          <IconButton color="inherit" onClick={handleExportMenu} size="large">
+          <IconButton color="inherit" className='!w-11 !p-0' onClick={handleExportMenu} size="large">
             <FaDownload />
           </IconButton>
-          <IconButton color="inherit" component={Link} to="/about" size="large">
+          <IconButton color="inherit" className='!w-11 !p-0' component={Link} to="/about" size="large">
             <FaInfoCircle />
           </IconButton>
         </>
@@ -169,11 +169,11 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
               <FaBars />
             </IconButton>
             <div className="flex h-full flex-col md:flex-row items-start justify-center md:items-center">
-              <VersionedLink to="/" className="text-accent-500  mr-1 no-underline hover:text-accent-200">
+              <VersionedLink to="/" className="text-accent-500  mr-2 no-underline hover:text-accent-200">
                 <span className="text-2xl md:text-3xl font-bold">PAN-GO</span>
               </VersionedLink>
               <VersionedLink to="/" className="text-accent-500 no-underline hover:text-accent-200">
-                <span className="text-sm md:text-3xl">Human Functionome</span>
+                <span className="text-lg md:text-3xl">Human Functionome</span>
               </VersionedLink>
             </div>
 
@@ -181,6 +181,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
               {renderSearch()}
               <IconButton
                 color="inherit"
+                className='!w-11 !p-0'
                 href="https://github.com/pantherdb/pango"
                 target="_blank"
                 size="large"
@@ -219,7 +220,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
           </>
         ) : (
           <div ref={searchRef} className="flex w-full items-center justify-center space-x-4">
-            <div className="text-lg font-semibold text-accent-500">Search Genes</div>
+            <div className="hidden sm:block text-lg font-semibold text-accent-500">Search Genes</div>
             <div className="flex w-full md:w-[500px]">
               <div className="flex-1 relative">
                 <GeneSearch popoverRef={popoverRef} isOpen={showSearch} onClose={() => setShowSearch(false)} />
