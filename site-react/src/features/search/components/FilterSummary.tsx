@@ -26,7 +26,7 @@ const FilterSummary = () => {
   if (search.filtersCount === 0) {
     return (
       <span className="italic text-gray-500">
-        No Filters selected: You can filter the list to find a specific gene or function category.
+        No Filters selected: You can filter the list to find a specific function category.
       </span>
     )
   }

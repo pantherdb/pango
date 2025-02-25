@@ -7,8 +7,8 @@ import GeneResults from './GeneResults';
 
 interface GeneSearchProps {
   isOpen: boolean;
-  onClose: () => void;
-  popoverRef: React.RefObject<HTMLDivElement>;
+  onClose?: () => void;
+  popoverRef?: React.RefObject<HTMLDivElement>;
 }
 
 const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen, onClose, popoverRef }) => {
@@ -40,10 +40,9 @@ const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen, onClose, popoverRef }) 
 
   const genes = geneData?.genes ?? []
 
-  console.log(genes)
-
   const handleClickAway = () => {
     setShowResults(false)
+    // onClose?.()
   }
 
   if (!isOpen) return null

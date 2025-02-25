@@ -7,6 +7,7 @@ import type { Annotation } from '../models/annotation'
 import { setSelectedAnnotation } from '../slices/selectedAnnotationSlice'
 import TermLink from '@/features/terms/components/TermLink'
 import { Tooltip } from '@mui/material'
+import { getPubmedArticleUrl } from '@/@pango.core/services/linksService'
 
 interface AnnotationTableProps {
   annotations: Annotation[]
@@ -26,11 +27,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
     dispatch(setRightDrawerOpen(true))
   }
 
-  const getPubmedArticleUrl = (pmid: string): string => {
-    if (!pmid) return ''
-    const id = pmid?.split(':')
-    return id.length > 0 ? ENVIRONMENT.pubmedUrl + id[1] : ''
-  }
+
 
   return (
     <div className="w-full overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
@@ -150,6 +147,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                           {evidence.withGeneId.taxonAbbr}
                         </a>
                         )
+                        <div className="font-normal text-gray-600">{evidence.withGeneId.geneName}</div>
                       </div>
                     )}
                     <div className="ml-4">
