@@ -84,11 +84,18 @@ const Home: React.FC = () => {
 
             </div>
           </div>
-          <div className="w-full md:w-2/5 mt-3">
+          <div className="w-full md:w-2/5 mt-1">
             <div className="flex items-center justify-between">
-              <h2 className="flex items-center text-xs md:text-sm font-medium text-white">
+              <h2 className="flex items-center font-medium text-white mb-2">
                 PAN-GO Enrichment Analysis
-                <FiInfo className="ml-2" />
+                <a
+                  href='https://geneontology.org/docs/go-enrichment-analysis/'
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-1 text-accent-500 hover:text-accent-200"
+                >
+                  <FiInfo className="ml-2 text-3xl" />
+                </a>
               </h2>
               {isFormOpen && (
                 <button

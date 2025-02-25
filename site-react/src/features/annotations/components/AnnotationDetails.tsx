@@ -102,7 +102,7 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
         </Section>
 
         <Section title="Group" icon={<MdGroups className="h-5 w-5 text-amber-500" />}>
-          <div className="space-y-2">
+          <div className="space-y-2 flex flex-col">
             {annotation.detailedGroups.map(
               (group, index) =>
                 group && (

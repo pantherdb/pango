@@ -15,12 +15,12 @@ const LeftDrawerContent: React.FC = () => {
   return (
     <div className="flex h-full flex-col">
       <div className="flex items-center border-b border-gray-200 p-4">
-        <span className="text-lg font-medium">Filter Options</span>
+        <span className="text-xl font-bold">Interactive Graph and Filter</span>
         <div className="ml-auto flex gap-2">
           {search.filtersCount > 0 && (
             <Button
               variant="outlined"
-              className="min-w-[100px] rounded-md !bg-accent-200"
+              className="!min-w-[90px] rounded-md !bg-accent-200"
               onClick={() => dispatch(clearSearch())}
             >
               Clear All Filters
