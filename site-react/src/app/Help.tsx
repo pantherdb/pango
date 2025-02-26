@@ -1,60 +1,69 @@
+import { ENVIRONMENT } from '@/@pango.core/data/constants'
 import type React from 'react'
 
 const HelpPage: React.FC = () => {
   return (
-    <div className="min-h-screen w-full bg-gray-50 pt-14">
-      <div className="mx-auto flex w-full flex-col items-stretch p-5 sm:max-w-4xl">
-        <header className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold text-gray-800">
+    <div className="min-h-screen w-full bg-gradient-to-b from-gray-50 to-gray-100 pt-14">
+      <div className="mx-auto flex w-full flex-col items-stretch p-6 md:max-w-6xl">
+        <header className="mb-8 border-b border-gray-200 pb-6">
+          <h1 className="mb-3 text-4xl font-bold text-gray-800">
             Tips for using the PAN-GO Functionome website
           </h1>
-          <p className="text-gray-600">
+          <p className="text-lg text-gray-600">
             Pages on the website include many tooltips for guidance. Try hovering your mouse over
             areas for explanations.
           </p>
         </header>
 
-        <div className="mb-6 rounded-lg bg-white p-6 shadow-md">
-          <h2 className="mb-4 text-xl font-bold text-gray-800">
+        <div className="mb-8 rounded-xl bg-white p-8 shadow-md">
+          <h2 className="mb-6 border-b border-gray-100 pb-2 text-2xl font-bold text-black">
             The home page has a header and two panels.
           </h2>
 
-          <div className="mb-6">
-            <div className="mb-2">
-              <h3 className="inline text-lg font-semibold text-gray-700">The header</h3>
-              <span className="ml-2 text-sm text-gray-500">(box with blue background)</span>
+          <div className="mb-8">
+            <div className="mb-3">
+              <h3 className="inline text-xl font-semibold text-gray-800">The header</h3>
+              <span className="ml-2 rounded-md bg-blue-100 px-2 py-1 text-sm text-blue-800">(box with blue background)</span>
             </div>
-            <p className="mb-2">
+            <p className="mb-3 text-gray-700">
               Has two boxes for searching or using the PAN-GO functionome annotations:
             </p>
-            <ul className="ml-8 list-disc space-y-2">
+            <ul className="ml-8 list-disc space-y-3">
               <li className="text-gray-700">
                 A box for finding functions of a specific gene. Start typing and select from the
                 autocomplete. This will take you to the gene page for the selected gene.
               </li>
               <li className="text-gray-700">
-                A larger box where you can type or paste a list of genes to perform a statistical GO
-                enrichment analysis of the list and find overrepresented GO terms. This box does not
+                A larger box where you can type or paste a list of genes to perform a statistical
+                {' '}<a
+                  className="font-medium"
+                  href={ENVIRONMENT.overrepDocsApiUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  GO enrichment analysis
+                </a>{' '}
+                of the list and find overrepresented GO terms. This box does not
                 have autocomplete.
               </li>
             </ul>
           </div>
 
-          <div className="mb-6">
-            <div className="mb-2">
-              <h3 className="text-lg font-semibold text-gray-700">
+          <div className="mb-8">
+            <div className="mb-3">
+              <h3 className="text-xl font-semibold text-gray-800">
                 The right panel (below the header)
               </h3>
             </div>
-            <p className="mb-2">
+            <p className="mb-3 text-gray-700">
               Is a list of human genes, and all their functional characteristics represented in the
               PAN-GO functionome (if there are many characteristics, you need to click to see them
               all).
             </p>
-            <ul className="ml-8 list-disc space-y-2">
+            <ul className="ml-8 list-disc space-y-3">
               <li className="text-gray-700">
                 You can get detailed information about a gene and its functions (including evidence)
-                by clicking on the gene name in the GENE column (e.g. ABCD3), or the link to View
+                by clicking on the gene name in the GENE column (e.g. <span className="font-mono">ABCD3</span>), or the link to View
                 all annotations and details.
               </li>
               <li className="text-gray-700">
@@ -64,15 +73,15 @@ const HelpPage: React.FC = () => {
             </ul>
           </div>
 
-          <div className="mb-2">
-            <div className="mb-2">
-              <h3 className="text-lg font-semibold text-gray-700">The left panel</h3>
+          <div>
+            <div className="mb-3">
+              <h3 className="text-xl font-semibold text-gray-800">The left panel</h3>
             </div>
-            <p className="mb-2">
+            <p className="mb-3 text-gray-700">
               Is a graphical overview of the high level function categories for the genes in the
               right panel.
             </p>
-            <ul className="ml-8 list-disc space-y-2">
+            <ul className="ml-8 list-disc space-y-3">
               <li className="text-gray-700">
                 The graph is interactive: clicking on a category will filter the genes in the right
                 panel to only show genes in that category, and recalculate the graph based on the
@@ -80,7 +89,7 @@ const HelpPage: React.FC = () => {
               </li>
               <li className="text-gray-700">
                 The graph can be modified to show only categories from one, two or three "aspects"
-                of GO terms, e.g. clicking on the button marked MF will toggle between
+                of GO terms, e.g. clicking on the button marked <span className="font-bold">MF</span> will toggle between
                 showing/hiding GO molecular function terms. This will not change the list of genes
                 in the right panel, and only affects the bars shown in the graph.
               </li>
@@ -104,40 +113,40 @@ const HelpPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="rounded-lg bg-white p-6 shadow-md">
-          <h2 className="mb-4 text-xl font-bold text-gray-800">
+        <div className="rounded-xl bg-white p-8 shadow-md">
+          <h2 className="mb-6 border-b border-gray-100 pb-2 text-2xl font-bold text-black">
             The gene page has multiple sections:
           </h2>
 
-          <div className="mb-6">
-            <h3 className="mb-2 text-lg font-semibold text-gray-700">Gene information</h3>
-            <p className="mb-2">
+          <div className="mb-8">
+            <h3 className="mb-3 text-xl font-semibold text-gray-800">Gene information</h3>
+            <p className="mb-3 text-gray-700">
               Besides the gene name and description of the protein encoded by the gene, there are
               also links to explore:
             </p>
-            <ul className="ml-8 list-disc space-y-2">
+            <ul className="ml-8 list-disc space-y-3">
               <li className="text-gray-700">
-                <span className="font-medium">"GO annotations from all sources":</span> links to the
+                <span className="font-medium text-black">"GO annotations from all sources":</span> links to the
                 GO AmiGO browser which includes not only the PAN-GO annotations, but all other GO
                 annotations in the GO knowledgebase for that gene. These are generally redundant
                 with the PAN-GO annotations, or represent more indirect effects rather than core
                 functions.
               </li>
               <li className="text-gray-700">
-                <span className="font-medium">"PAN-GO evolutionary model for this family":</span>{' '}
+                <span className="font-medium text-black">"PAN-GO evolutionary model for this family":</span>{' '}
                 links to the evolutionary model used to assign the PAN-GO annotations.
               </li>
             </ul>
           </div>
 
-          <div className="mb-6">
-            <h3 className="mb-2 text-lg font-semibold text-gray-700">External links</h3>
-            <p>Provide additional information about the gene at some other useful resources.</p>
+          <div className="mb-8">
+            <h3 className="mb-3 text-xl font-semibold text-gray-800">External links</h3>
+            <p className="text-gray-700"> to additional information about the gene at some other useful resources..</p>
           </div>
 
-          <div className="mb-6">
-            <h3 className="mb-2 text-lg font-semibold text-gray-700">Function summary</h3>
-            <p>
+          <div className="mb-8">
+            <h3 className="mb-3 text-xl font-semibold text-gray-800">Function summary</h3>
+            <p className="text-gray-700">
               Similar to the summary on the home page right panel, it shows the GO terms
               representing the functional characteristics of the gene assigned in the PAN-GO
               functionome.
@@ -145,36 +154,36 @@ const HelpPage: React.FC = () => {
           </div>
 
           <div>
-            <h3 className="mb-2 text-lg font-semibold text-gray-700">Function details</h3>
-            <p className="mb-2">
+            <h3 className="mb-3 text-xl font-semibold text-gray-800">Function details</h3>
+            <p className="mb-3 text-gray-700">
               Shows detailed information about each functional characteristic of the gene in the
               Function summary.
             </p>
             <ul className="ml-8 list-disc space-y-4">
               <li className="text-gray-700">
-                <span className="font-medium">Category.</span> The higher level category (a GO term
+                <span className="font-semibold text-black">Category.</span> The higher level category (a GO term
                 from the GO 'generic subset' ) for the assigned GO term in the first column. Note
                 that terms with multiple parents in different GO branches will be in more than one
                 high level category.
               </li>
               <li className="text-gray-700">
-                <span className="font-medium">Evidence.</span> The evidence for the assigned GO term
+                <span className="font-semibold text-black">Evidence.</span> The evidence for the assigned GO term
                 in the first column. The evidence can be from experiments directly for the human
                 gene, and/or experiments in other organisms. Evidence is organized by the gene (and
                 organism) that was experimentally determined to have the given functional
                 characteristic. For each gene in the list, each scientific paper demonstrating that
                 function is listed. You can click to see that paper in PubMed.
-                <ul className="ml-8 mt-2 list-disc">
-                  <li>
+                <ul className="ml-8 mt-3 list-disc space-y-2">
+                  <li className="text-gray-700">
                     Organisms are listed by a simple code, with the first letter of the genus,
-                    followed by the first two letters of the species, e.g. human is Hsa for Homo
+                    followed by the first two letters of the species, e.g. human is <span className="font-mono font-semibold">Hsa</span> for Homo
                     sapiens. If the three letter code is unfamiliar, click on it to get more
                     information at the NCBI Taxonomy website.
                   </li>
                 </ul>
               </li>
               <li className="text-gray-700">
-                <span className="font-medium">Contributors.</span> These are the GO Consortium
+                <span className="font-medium text-black">Contributors.</span> These are the GO Consortium
                 groups that created the experimental annotations from the papers listed in the
                 Evidence column. These experimental annotations were used to support the PAN-GO
                 annotations.

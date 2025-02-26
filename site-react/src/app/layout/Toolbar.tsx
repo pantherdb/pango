@@ -12,7 +12,7 @@ import {
   Paper,
   ClickAwayListener,
 } from '@mui/material'
-import { FaBars, FaGithub, FaSearch, FaDownload, FaInfoCircle } from 'react-icons/fa'
+import { FaBars, FaGithub, FaSearch, FaDownload, FaInfoCircle, FaQuestion } from 'react-icons/fa'
 import { IoMdClose } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import { useAppDispatch } from '../hooks'
@@ -168,6 +168,15 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
             size="large"
           >
             <FaInfoCircle />
+          </IconButton>
+          <IconButton
+            color="inherit"
+            className="!w-11 !p-0"
+            component={Link}
+            to="/help"
+            size="large"
+          >
+            <FaQuestion />
           </IconButton>
         </>
       ) : (

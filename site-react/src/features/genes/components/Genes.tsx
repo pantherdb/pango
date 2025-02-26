@@ -127,11 +127,11 @@ const Genes: React.FC = () => {
                       </button>
                     </td>
                     <td className="border-r border-gray-300 p-3">
-                      <div className="space-y-2">
+                      <div className="space-y-1">
                         <div className="text-lg font-bold">
                           <VersionedLink
                             to={`/gene/${gene.gene}`}
-                            className="hover:text-blue-600"
+                            className=""
                             target="_blank"
                             rel="noreferrer"
                           >
@@ -142,7 +142,7 @@ const Genes: React.FC = () => {
                         <div>
                           <a
                             href={getUniprotLink(gene.gene)}
-                            className="text-gray-500 hover:text-blue-600"
+                            className=""
                             target="_blank"
                             rel="noopener noreferrer"
                           >
@@ -153,7 +153,7 @@ const Genes: React.FC = () => {
                           <div className="text-sm text-gray-500">
                             UCSC Browser:
                             <a
-                              className="ml-1 hover:text-blue-600"
+                              className="ml-1"
                               href={getUCSCBrowserLink(gene)}
                               target="_blank"
                               rel="noopener noreferrer"

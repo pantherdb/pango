@@ -93,7 +93,7 @@ const Home: React.FC = () => {
               <h2 className="mb-2 flex items-center font-medium text-white">
                 PAN-GO Enrichment Analysis
                 <a
-                  href="https://geneontology.org/docs/go-enrichment-analysis/"
+                  href={ENVIRONMENT.overrepDocsApiUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-1 text-accent-500 hover:text-accent-200"

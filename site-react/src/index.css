@@ -16,8 +16,11 @@ code {
 
 @layer base {
   a {
-    @apply text-primary-600 underline hover:text-primary-300;
+    @apply text-blue-800 hover:text-primary-800 ;
   }
+/*   a:visited {
+    @apply text-purple-900 hover:text-primary-800 ;
+  } */
 
   thead tr {
     @apply border-b border-t border-accent-700;
