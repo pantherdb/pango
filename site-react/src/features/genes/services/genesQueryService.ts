@@ -105,11 +105,10 @@ export const GET_AUTOCOMPLETE_QUERY = print(gql`
     autocomplete(autocompleteType: $autocompleteType, keyword: $keyword, filterArgs: $filterArgs) {
       gene
       geneName
-      geneSymbol   
+      geneSymbol
     }
   }
 `)
-
 
 export const GET_GENES_STATS_QUERY = print(gql`
   query GetGenesStats($filterArgs: GeneFilterArgs) {

@@ -24,7 +24,6 @@ const GeneForm: React.FC<{ maxGenes?: number }> = ({ maxGenes = 10 }) => {
     return () => clearTimeout(timer)
   }, [inputValue])
 
-
   const { data: geneData = [], isFetching } = useGetAutocompleteQuery(
     {
       type: AutocompleteType.GENE,
@@ -36,7 +35,6 @@ const GeneForm: React.FC<{ maxGenes?: number }> = ({ maxGenes = 10 }) => {
   )
 
   const suggestions = geneData?.genes ?? []
-
 
   const handleSelect = (_: unknown, newValue: Gene | null) => {
     if (newValue && selectedGenes.length < maxGenes) {

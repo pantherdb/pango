@@ -4,8 +4,8 @@ import { Tooltip } from '@mui/material'
 import { ASPECT_MAP, EVIDENCE_TYPE_MAP, EvidenceType } from '@/@pango.core/data/config'
 import type { Term } from '../models/term'
 import TermLink from './TermLink'
-import { PiEmptyLight } from "react-icons/pi";
-import { TbBinaryTreeFilled } from "react-icons/tb";
+import { PiEmptyLight } from 'react-icons/pi'
+import { TbBinaryTreeFilled } from 'react-icons/tb'
 
 interface TermsProps {
   terms: Term[]
@@ -26,12 +26,8 @@ export const Terms: React.FC<TermsProps> = ({ terms, maxTerms, onToggleExpand })
           >
             <div className="w-11">
               <Tooltip title={EVIDENCE_TYPE_MAP[term.evidenceType]?.iconTooltip}>
-                <div className="flex justify-center items-center h-10 w-10 text-gray-600">
-                  {term.evidenceType === EvidenceType.DIRECT && (
-                    <FaFlask
-                      className={`text-2xl`}
-                    />
-                  )}
+                <div className="flex h-10 w-10 items-center justify-center text-gray-600">
+                  {term.evidenceType === EvidenceType.DIRECT && <FaFlask className={`text-2xl`} />}
 
                   {term.evidenceType === EvidenceType.HOMOLOGY && (
                     <div className={`text-2xl`}>
@@ -41,7 +37,7 @@ export const Terms: React.FC<TermsProps> = ({ terms, maxTerms, onToggleExpand })
 
                   {term.evidenceType === EvidenceType.NA && (
                     <div className="relative text-2xl">
-                      <PiEmptyLight className='text-gray-400' />
+                      <PiEmptyLight className="text-gray-400" />
                     </div>
                   )}
                 </div>

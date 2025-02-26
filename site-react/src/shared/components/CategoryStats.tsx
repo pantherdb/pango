@@ -28,19 +28,20 @@ const CategoryStats: React.FC = () => {
 
   return (
     <div className="w-full">
-
       <div className="w-full p-2 pb-4 pt-6">
         <TermFilterForm />
       </div>
 
       <div className="border-b border-gray-200 p-4">
-        <h3 className="text-xl md:text-2xl font-medium">Distribution of Genes by Function Category</h3>
+        <h3 className="text-xl font-medium md:text-2xl">
+          Distribution of Genes by Function Category
+        </h3>
       </div>
 
-      <div className="flex items-center w-full p-4 gap-4">
+      <div className="flex w-full items-center gap-4 p-4">
         <div className="">Show/hide GO aspects in graph</div>
 
-        <div className="flex-grow flex gap-2">
+        <div className="flex flex-grow gap-2">
           {Object.values(ASPECT_MAP).map((aspect: AspectMapType) => (
             <Tooltip
               key={aspect.id}
@@ -51,7 +52,7 @@ const CategoryStats: React.FC = () => {
               className="flex-grow"
             >
               <div
-                className="flex cursor-pointer items-center h-16 rounded"
+                className="flex h-16 cursor-pointer items-center rounded"
                 style={{
                   backgroundColor: selectedAspects.includes(aspect.id)
                     ? `${aspect.color}50`
@@ -71,13 +72,13 @@ const CategoryStats: React.FC = () => {
                     },
                   }}
                 />
-                <span className="text-2xl -ml-1">{aspect.shorthand}</span>
+                <span className="-ml-1 text-2xl">{aspect.shorthand}</span>
               </div>
             </Tooltip>
           ))}
         </div>
       </div>
-      <div className="flex flex-col p-4 mb-6">
+      <div className="mb-6 flex flex-col p-4">
         {filteredCategories.map(item => (
           <div
             key={item.id}

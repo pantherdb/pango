@@ -58,7 +58,6 @@ export const getNCBIGeneLink = (geneSymbol: string) => {
   return `${ENVIRONMENT.ncbiGeneUrl}(${geneSymbol}%5BPreferred%20Symbol%5D)%20AND%209606%5BTaxonomy%20ID%5D`
 }
 
-
 export const getPubmedArticleUrl = (pmid: string): string => {
   if (!pmid) return ''
   const id = pmid?.split(':')

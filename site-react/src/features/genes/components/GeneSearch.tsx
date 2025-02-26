@@ -1,14 +1,14 @@
-import type React from 'react';
+import type React from 'react'
 import { useState, useEffect, useRef } from 'react'
 import { TextField, CircularProgress, Popper, Paper, ClickAwayListener } from '@mui/material'
-import { AutocompleteType } from '../models/gene';
-import { useGetAutocompleteQuery } from '../slices/genesApiSlice';
-import GeneResults from './GeneResults';
+import { AutocompleteType } from '../models/gene'
+import { useGetAutocompleteQuery } from '../slices/genesApiSlice'
+import GeneResults from './GeneResults'
 
 interface GeneSearchProps {
-  isOpen: boolean;
-  onClose?: () => void;
-  popoverRef?: React.RefObject<HTMLDivElement>;
+  isOpen: boolean
+  onClose?: () => void
+  popoverRef?: React.RefObject<HTMLDivElement>
 }
 
 const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen, onClose, popoverRef }) => {
@@ -54,14 +54,14 @@ const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen, onClose, popoverRef }) 
           <TextField
             autoComplete="off"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={e => setSearchQuery(e.target.value)}
             placeholder="Enter gene name..."
             variant="outlined"
             fullWidth
             autoFocus
             InputProps={{
               endAdornment: isFetching && <CircularProgress size={20} />,
-              sx: { bgcolor: 'white' }
+              sx: { bgcolor: 'white' },
             }}
           />
         </div>
@@ -73,11 +73,9 @@ const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen, onClose, popoverRef }) 
           placement="bottom-start"
           style={{ width: anchorRef.current?.offsetWidth }}
         >
-          <Paper className="mt-1 max-h-[400px] overflow-y-auto shadow-lg !bg-accent-50">
+          <Paper className="mt-1 max-h-[400px] overflow-y-auto !bg-accent-50 shadow-lg">
             {genes.length > 0 ? (
-              <GeneResults
-                genes={genes}
-              />
+              <GeneResults genes={genes} />
             ) : (
               <div className="p-4 text-center text-gray-500">No genes found</div>
             )}

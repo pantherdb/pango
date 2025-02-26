@@ -1,27 +1,27 @@
-import type React from 'react';
-import { useState } from 'react';
-import type { Gene } from '../models/gene';
-import { VersionedLink } from '@/shared/components/VersionedLink';
-import { getUniprotLink, getUCSCBrowserLink } from '@/@pango.core/services/linksService';
-import Terms from '@/features/terms/components/Terms';
-import { motion, AnimatePresence } from 'framer-motion';
+import type React from 'react'
+import { useState } from 'react'
+import type { Gene } from '../models/gene'
+import { VersionedLink } from '@/shared/components/VersionedLink'
+import { getUniprotLink, getUCSCBrowserLink } from '@/@pango.core/services/linksService'
+import Terms from '@/features/terms/components/Terms'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface GeneCardProps {
-  gene: Gene;
+  gene: Gene
 }
 
 const GeneCard: React.FC<GeneCardProps> = ({ gene }) => {
-  const [activeTab, setActiveTab] = useState<'all' | 'mf' | 'bp' | 'cc' | null>(null);
+  const [activeTab, setActiveTab] = useState<'all' | 'mf' | 'bp' | 'cc' | null>(null)
 
   const tabs = [
     { id: 'all', label: 'All' },
     { id: 'mf', label: `Molecular Function (${gene.groupedTerms?.mfs?.length || 0})` },
     { id: 'bp', label: `Biological Process (${gene.groupedTerms?.bps?.length || 0})` },
-    { id: 'cc', label: `Cellular Component (${gene.groupedTerms?.ccs?.length || 0})` }
-  ] as const;
+    { id: 'cc', label: `Cellular Component (${gene.groupedTerms?.ccs?.length || 0})` },
+  ] as const
 
   const renderContent = () => {
-    if (!activeTab) return null;
+    if (!activeTab) return null
 
     if (activeTab === 'all') {
       return (
@@ -31,7 +31,7 @@ const GeneCard: React.FC<GeneCardProps> = ({ gene }) => {
               <h3 className="mb-2 font-medium text-gray-900">
                 Molecular Function ({gene.groupedTerms.mfs.length})
               </h3>
-              <Terms terms={gene.groupedTerms.mfs} maxTerms={500} onToggleExpand={() => { }} />
+              <Terms terms={gene.groupedTerms.mfs} maxTerms={500} onToggleExpand={() => {}} />
             </div>
           )}
           {gene.groupedTerms?.bps && gene.groupedTerms.bps.length > 0 && (
@@ -39,7 +39,7 @@ const GeneCard: React.FC<GeneCardProps> = ({ gene }) => {
               <h3 className="mb-2 font-medium text-gray-900">
                 Biological Process ({gene.groupedTerms.bps.length})
               </h3>
-              <Terms terms={gene.groupedTerms.bps} maxTerms={500} onToggleExpand={() => { }} />
+              <Terms terms={gene.groupedTerms.bps} maxTerms={500} onToggleExpand={() => {}} />
             </div>
           )}
           {gene.groupedTerms?.ccs && gene.groupedTerms.ccs.length > 0 && (
@@ -47,24 +47,25 @@ const GeneCard: React.FC<GeneCardProps> = ({ gene }) => {
               <h3 className="mb-2 font-medium text-gray-900">
                 Cellular Component ({gene.groupedTerms.ccs.length})
               </h3>
-              <Terms terms={gene.groupedTerms.ccs} maxTerms={500} onToggleExpand={() => { }} />
+              <Terms terms={gene.groupedTerms.ccs} maxTerms={500} onToggleExpand={() => {}} />
             </div>
           )}
         </div>
-      );
+      )
     }
 
-    const terms = activeTab === 'mf' ? gene.groupedTerms?.mfs :
-      activeTab === 'bp' ? gene.groupedTerms?.bps :
-        gene.groupedTerms?.ccs;
+    const terms =
+      activeTab === 'mf'
+        ? gene.groupedTerms?.mfs
+        : activeTab === 'bp'
+          ? gene.groupedTerms?.bps
+          : gene.groupedTerms?.ccs
 
-    return terms && (
-      <Terms terms={terms} maxTerms={500} onToggleExpand={() => { }} />
-    );
-  };
+    return terms && <Terms terms={terms} maxTerms={500} onToggleExpand={() => {}} />
+  }
 
   return (
-    <div className="mb-4 rounded-lg border border-gray-200 bg-white overflow-hidden">
+    <div className="mb-4 overflow-hidden rounded-lg border border-gray-200 bg-white">
       <div className="p-4">
         <div className="text-lg font-bold text-gray-900">
           <VersionedLink
@@ -100,7 +101,7 @@ const GeneCard: React.FC<GeneCardProps> = ({ gene }) => {
             </a>
           </div>
         )}
-        <div className="text-sm mt-1">
+        <div className="mt-1 text-sm">
           <VersionedLink to={`/gene/${gene.gene}`} target="_blank" rel="noreferrer">
             View all functions and evidence
           </VersionedLink>
@@ -108,15 +109,16 @@ const GeneCard: React.FC<GeneCardProps> = ({ gene }) => {
       </div>
 
       <div className="border-t border-gray-200">
-        <div className="flex overflow-x-auto p-2 bg-gray-50">
+        <div className="flex overflow-x-auto bg-gray-50 p-2">
           {tabs.map(tab => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(prev => prev === tab.id ? null : tab.id as any)}
-              className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium mr-2 
-                ${activeTab === tab.id
+              onClick={() => setActiveTab(prev => (prev === tab.id ? null : (tab.id as any)))}
+              className={`mr-2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium ${
+                activeTab === tab.id
                   ? 'bg-blue-600 text-white'
-                  : 'bg-white text-gray-600 hover:bg-gray-100'}`}
+                  : 'bg-white text-gray-600 hover:bg-gray-100'
+              }`}
             >
               {tab.label}
             </button>
@@ -139,7 +141,7 @@ const GeneCard: React.FC<GeneCardProps> = ({ gene }) => {
         </AnimatePresence>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default GeneCard;
+export default GeneCard

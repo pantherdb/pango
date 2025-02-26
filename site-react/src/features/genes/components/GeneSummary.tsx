@@ -30,7 +30,7 @@ const MobileSection: React.FC<MobileSectionProps> = ({
     <div className="border-b border-gray-200 last:border-b-0">
       <button
         onClick={onToggle}
-        className="flex w-full items-center justify-between px-4 py-3 hover:bg-gray-50 transition-colors"
+        className="flex w-full items-center justify-between px-4 py-3 transition-colors hover:bg-gray-50"
       >
         <div className="flex items-center">
           {isExpanded ? (
@@ -69,7 +69,7 @@ const GeneSummary: React.FC<GeneSummaryProps> = ({ groupedTerms }) => {
     }))
   }
 
-  function handleExpandClick(): void { }
+  function handleExpandClick(): void {}
 
   if (isMobile) {
     const sections = [

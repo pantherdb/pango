@@ -19,8 +19,10 @@ export const ENVIRONMENT = {
 
   // Downloads
   downloadAllDataCSVUrl: 'https://functionome.geneontology.org/download/export_annotations.zip',
-  downloadAllDataJSONUrl: 'https://functionome.geneontology.org/download/export_annotations.json.gz',
-  downloadAnnotationsGAFUrl: 'https://functionome.geneontology.org/download/functionome_release.gaf.gz',
+  downloadAllDataJSONUrl:
+    'https://functionome.geneontology.org/download/export_annotations.json.gz',
+  downloadAnnotationsGAFUrl:
+    'https://functionome.geneontology.org/download/functionome_release.gaf.gz',
   downloadEvolutionaryModelsGAFUrl: 'https://functionome.geneontology.org/download/IBD.gaf',
   downloadOntologyFilesUrl: 'https://release.geneontology.org/2022-03-22/ontology/index.html',
 }

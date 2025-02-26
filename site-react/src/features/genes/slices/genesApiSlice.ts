@@ -80,7 +80,9 @@ const genesApi = apiService
           data?: { autocomplete: any }
           errors?: ApiResponseError[]
         }) => {
-          const transformedResponse = transformResponse<{ autocomplete: any }>(response).autocomplete
+          const transformedResponse = transformResponse<{ autocomplete: any }>(
+            response
+          ).autocomplete
           return {
             ...transformedResponse,
             genes: transformGenes(transformedResponse),

@@ -1,28 +1,38 @@
-import type React from 'react';
-import { TablePagination, CircularProgress, Tooltip, useMediaQuery, useTheme, Button } from '@mui/material';
-import { FaCaretRight, FaCaretDown } from 'react-icons/fa';
-import { setPage, setPageSize } from '@/features/search/searchSlice';
-import { useMemo, useState } from 'react';
-import { useAppSelector, useAppDispatch } from '@/app/hooks';
-import type { Gene } from '../models/gene';
-import { useGetGenesQuery, useGetGenesCountQuery } from '../slices/genesApiSlice';
-import type { RootState } from '@/app/store/store';
-import Terms from '@/features/terms/components/Terms';
-import { VersionedLink } from '@/shared/components/VersionedLink';
-import { ANNOTATION_COLS } from '@/@pango.core/data/config';
-import GeneCard from './GeneCard';
-import { getUniprotLink, getUCSCBrowserLink } from '@/@pango.core/services/linksService';
-import { selectLeftDrawerOpen, setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice';
+import type React from 'react'
+import {
+  TablePagination,
+  CircularProgress,
+  Tooltip,
+  useMediaQuery,
+  useTheme,
+  Button,
+} from '@mui/material'
+import { FaCaretRight, FaCaretDown } from 'react-icons/fa'
+import { setPage, setPageSize } from '@/features/search/searchSlice'
+import { useMemo, useState } from 'react'
+import { useAppSelector, useAppDispatch } from '@/app/hooks'
+import type { Gene } from '../models/gene'
+import { useGetGenesQuery, useGetGenesCountQuery } from '../slices/genesApiSlice'
+import type { RootState } from '@/app/store/store'
+import Terms from '@/features/terms/components/Terms'
+import { VersionedLink } from '@/shared/components/VersionedLink'
+import { ANNOTATION_COLS } from '@/@pango.core/data/config'
+import GeneCard from './GeneCard'
+import { getUniprotLink, getUCSCBrowserLink } from '@/@pango.core/services/linksService'
+import {
+  selectLeftDrawerOpen,
+  setLeftDrawerOpen,
+} from '@/@pango.core/components/drawer/drawerSlice'
 
 const Genes: React.FC = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const isLeftDrawerOpen = useAppSelector((state: RootState) => selectLeftDrawerOpen(state))
-  const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({});
+  const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({})
 
-  const { page, size } = useAppSelector((state: RootState) => state.search.pagination);
-  const search = useAppSelector((state: RootState) => state.search);
-  const dispatch = useAppDispatch();
+  const { page, size } = useAppSelector((state: RootState) => state.search.pagination)
+  const search = useAppSelector((state: RootState) => state.search)
+  const dispatch = useAppDispatch()
 
   const filter = useMemo(
     () => ({
@@ -30,44 +40,44 @@ const Genes: React.FC = () => {
       slimTermIds: search.slimTerms.map(t => t.id),
     }),
     [search.genes, search.slimTerms]
-  );
+  )
 
-  const { data: geneData, isLoading, error } = useGetGenesQuery({ page, size, filter });
-  const { data: countData } = useGetGenesCountQuery({ filter });
+  const { data: geneData, isLoading, error } = useGetGenesQuery({ page, size, filter })
+  const { data: countData } = useGetGenesCountQuery({ filter })
 
-  const genes = geneData?.genes ?? [];
-  const geneCount = countData?.total || 0;
+  const genes = geneData?.genes ?? []
+  const geneCount = countData?.total || 0
 
   const handleExpandClick = (gene: Gene) => {
     setExpandedRows(prev => ({
       ...prev,
       [gene.gene]: !prev[gene.gene],
-    }));
-  };
+    }))
+  }
 
   const handlePageChange = (_: unknown, newPage: number) => {
-    dispatch(setPage(newPage));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+    dispatch(setPage(newPage))
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const handleRowsPerPageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setPageSize(parseInt(event.target.value, 10)));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+    dispatch(setPageSize(parseInt(event.target.value, 10)))
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   if (isLoading) {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-gray-600/40">
         <CircularProgress />
       </div>
-    );
+    )
   }
 
-  if (error) return <div>Error loading genes</div>;
+  if (error) return <div>Error loading genes</div>
 
   return (
     <div className="w-full p-3">
-      <div className="mb-6 pr-3 w-fill flex h-20 items-center rounded-t-3xl bg-white">
+      <div className="w-fill mb-6 flex h-20 items-center rounded-t-3xl bg-white pr-3">
         <h2 className="flex-1 pl-3 text-3xl font-medium text-gray-600 sm:text-4xl">
           Results (<strong>{geneCount}</strong>) <small>genes</small>
         </h2>
@@ -201,7 +211,7 @@ const Genes: React.FC = () => {
         />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Genes;
+export default Genes

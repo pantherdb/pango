@@ -27,8 +27,6 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
     dispatch(setRightDrawerOpen(true))
   }
 
-
-
   return (
     <div className="w-full overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
       <table className="w-full">
@@ -147,7 +145,9 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                           {evidence.withGeneId.taxonAbbr}
                         </a>
                         )
-                        <div className="font-normal text-gray-600">{evidence.withGeneId.geneName}</div>
+                        <div className="font-normal text-gray-600">
+                          {evidence.withGeneId.geneName}
+                        </div>
                       </div>
                     )}
                     <div className="ml-4">

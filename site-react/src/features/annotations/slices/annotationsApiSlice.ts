@@ -95,7 +95,7 @@ const annotationsApi = apiService
         query: ({ type, keyword }: { type: AutocompleteType; keyword: string }) =>
           createGraphQLRequest(GET_SLIM_TERMS_AUTOCOMPLETE_QUERY, {
             autocompleteType: type,
-            keyword
+            keyword,
           }),
         transformResponse: (response: {
           data?: { slimTermsAutocomplete: any }
