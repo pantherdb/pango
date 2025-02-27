@@ -14,16 +14,16 @@ const LeftDrawerContent: React.FC = () => {
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex items-center border-b border-gray-200 p-4">
-        <span className="text-xl font-bold">Interactive Graph and Filter</span>
-        <div className="ml-auto flex gap-2">
+      <div className="flex items-center border-b border-gray-200 p-3 pr-1">
+        <span className="text-sm font-bold">Interactive Graph and Filter</span>
+        <div className="ml-auto flex gap-1">
           {search.filtersCount > 0 && (
             <Button
               variant="outlined"
-              className="!min-w-[90px] rounded-md !bg-accent-200"
+              className="!min-w-[90px] rounded-md !bg-accent-200 !text-sm"
               onClick={() => dispatch(clearSearch())}
             >
-              Clear All Filters
+              Clear Filters
             </Button>
           )}
           <Tooltip
@@ -35,7 +35,7 @@ const LeftDrawerContent: React.FC = () => {
             <Button
               variant="outlined"
               color="primary"
-              className="rounded-md"
+              className="rounded-md !text-sm"
               onClick={() => dispatch(setLeftDrawerOpen(false))}
               aria-label="Close dialog"
             >

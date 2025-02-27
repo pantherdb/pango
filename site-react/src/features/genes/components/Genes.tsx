@@ -77,8 +77,8 @@ const Genes: React.FC = () => {
 
   return (
     <div className="w-full p-3">
-      <div className="w-fill mb-6 flex h-20 items-center rounded-t-3xl bg-white pr-3">
-        <h2 className="flex-1 pl-3 text-3xl font-medium text-gray-600 sm:text-4xl">
+      <div className="w-fill mb-6 flex h-20 items-center rounded-t-2xl bg-white pr-3">
+        <h2 className="flex-1 pl-3 text-2xl font-medium text-gray-600 sm:text-3xl">
           Results (<strong>{geneCount}</strong>) <small>genes</small>
         </h2>
 
@@ -126,8 +126,8 @@ const Genes: React.FC = () => {
                         {expandedRows[gene.gene] ? <FaCaretDown /> : <FaCaretRight />}
                       </button>
                     </td>
-                    <td className="border-r border-gray-300 p-3">
-                      <div className="space-y-1">
+                    <td className="p-2">
+                      <div className="space-y-1 text-sm">
                         <div className="text-lg font-bold">
                           <VersionedLink
                             to={`/gene/${gene.gene}`}
@@ -163,28 +163,28 @@ const Genes: React.FC = () => {
                             </a>
                           </div>
                         )}
-                        <div className="text-sm">
+                        <div className="">
                           <VersionedLink to={`/gene/${gene.gene}`} target="_blank" rel="noreferrer">
                             View all functions and evidence
                           </VersionedLink>
                         </div>
                       </div>
                     </td>
-                    <td className="w-1/5 border-r border-gray-300 p-3">
+                    <td className="w-[23%] p-2">
                       <Terms
                         terms={gene.groupedTerms?.mfs}
                         maxTerms={expandedRows[gene.gene] ? 500 : 2}
                         onToggleExpand={() => handleExpandClick(gene)}
                       />
                     </td>
-                    <td className="w-1/5 border-r border-gray-300 p-3">
+                    <td className="w-[20%] p-2">
                       <Terms
                         terms={gene.groupedTerms?.bps}
                         maxTerms={expandedRows[gene.gene] ? 500 : 2}
                         onToggleExpand={() => handleExpandClick(gene)}
                       />
                     </td>
-                    <td className="w-1/5 border-r border-gray-300 p-3">
+                    <td className="w-[23%] p-2">
                       <Terms
                         terms={gene.groupedTerms?.ccs}
                         maxTerms={expandedRows[gene.gene] ? 500 : 2}

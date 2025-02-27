@@ -235,7 +235,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
               >
                 <span className="text-lg font-bold md:text-2xl">PAN-GO</span>
               </VersionedLink>
-              <VersionedLink to="/" className="text-accent-500 no-underline hover:text-accent-200">
+              <VersionedLink to="/" className="-mt-2 text-accent-500 no-underline hover:text-accent-200 md:mt-0">
                 <span className="text-sm md:text-2xl">Human Functionome</span>
               </VersionedLink>
             </div>

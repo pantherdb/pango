@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  font-size: 16px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
@@ -27,7 +31,7 @@ code {
   }
 
   th {
-    @apply h-10 border-r border-gray-300 p-3 text-left font-bold uppercase text-primary-200;
+    @apply h-10 border-r border-gray-300 p-3 text-xs text-left font-bold uppercase text-primary-300;
   }
 
   td {

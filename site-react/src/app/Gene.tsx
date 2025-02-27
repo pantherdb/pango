@@ -4,7 +4,7 @@ import AnnotationTable from '@/features/annotations/components/AnnotationTable'
 import { useGetAnnotationsQuery } from '@/features/annotations/slices/annotationsApiSlice'
 import GeneSummary from '@/features/genes/components/GeneSummary'
 import { transformTerms } from '@/features/genes/services/genesService'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { FiExternalLink } from 'react-icons/fi'
 import { useParams } from 'react-router-dom'
 import { useAppDispatch } from './hooks'
@@ -98,19 +98,19 @@ const Gene: React.FC = () => {
 
   return (
     <div className="w-full bg-slate-100">
-      <div className="mx-auto max-w-[1000px] p-3">
+      <div className="mx-auto max-w-6xl p-3">
         {/* Gene Header Section */}
         <div className="pango-gene-summary w-full px-3 py-4 pb-6 md:pb-10">
-          <h1 className="mb-6 text-2xl font-normal md:mb-10 md:text-4xl">
+          <h1 className="mb-6 text-xl font-normal md:mb-10 md:text-4xl">
             <span className="font-bold">{annotation.geneSymbol}</span>: PAN-GO functions and
             evidence
           </h1>
 
           <div className="flex w-full flex-col md:flex-row">
             {/* Gene Information Column */}
-            <div className="mb-6 w-full md:mb-0 md:mr-[100px] md:w-[300px]">
-              <h2 className="mb-4 text-xl font-semibold md:text-2xl">Gene Information</h2>
-              <div className="">
+            <div className="mb-6 w-full md:mb-0 md:gap-4 md:w-1/2">
+              <h2 className="mb-4 text-lg font-semibold md:text-2xl">Gene Information</h2>
+              <div className="text-sm md:text-base">
                 <InfoRow label="Gene" value={annotation.geneSymbol} />
                 <InfoRow label="Protein" value={annotation.geneName} />
                 <InfoRow
@@ -127,9 +127,9 @@ const Gene: React.FC = () => {
             </div>
 
             {/* External Links Column */}
-            <div className="w-full md:w-[300px]">
-              <h2 className="mb-4 text-xl font-semibold md:text-2xl">External Links</h2>
-              <div className="">
+            <div className="w-full md:mb-0 md:w-1/2">
+              <h2 className="mb-4 text-lg font-semibold md:text-2xl">External Links</h2>
+              <div className="text-sm md:text-base">
                 <InfoRow
                   label="UniProt"
                   value={annotation?.gene}
@@ -173,20 +173,18 @@ const Gene: React.FC = () => {
         </div>
 
         {/* Stats Header */}
-        <div className="bg-gradient-to-r from-slate-100 to-white px-4 py-6">
-          <div className="flex items-center gap-2 md:gap-12">
+        <div className="bg-gradient-to-r from-slate-100 to-white px-2 py-6">
+          <div className="flex items-center gap-1 md:gap-12">
             <div className="min-w-[110px] md:w-[250px]">
-              <h2 className="m-0 text-xl font-semibold tracking-tight md:text-2xl">
+              <h2 className="m-0 text font-semibold tracking-tight md:text-2xl">
                 Function Summary
               </h2>
             </div>
-
             <StatBlock
               number={knownTermTypes}
               label="Annotations"
               sublabel="(functional characteristics)"
             />
-
             <StatBlock number={unknownTermTypes} label="Unknown function aspects" />
           </div>
         </div>
@@ -196,7 +194,7 @@ const Gene: React.FC = () => {
           </div>
         )}
         <div className="bg-gradient-to-r from-slate-100 to-white px-4 py-6">
-          <h2 className="m-0 text-xl font-semibold tracking-tight md:text-2xl">Function Details</h2>
+          <h2 className="m-0 text-lg font-semibold tracking-tight md:text-2xl">Function Details</h2>
         </div>
         {annotations.length > 0 && (
           <div className="w-full bg-white">

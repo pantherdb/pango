@@ -32,14 +32,14 @@ const CategoryStats: React.FC = () => {
         <TermFilterForm />
       </div>
 
-      <div className="border-b border-gray-200 p-4">
-        <h3 className="text-xl font-medium md:text-xl">
+      <div className="border-b border-gray-200 p-2">
+        <h3 className="font-medium md:text-lg">
           Distribution of Genes by Function Category
         </h3>
       </div>
 
-      <div className="flex w-full items-center gap-4 p-4">
-        <div className="">Show/hide GO aspects in graph</div>
+      <div className="flex w-full items-center gap-2 p-2">
+        <div className="text-xs">Show/hide GO aspects in graph</div>
 
         <div className="flex flex-grow gap-2">
           {Object.values(ASPECT_MAP).map((aspect: AspectMapType) => (
@@ -52,7 +52,7 @@ const CategoryStats: React.FC = () => {
               className="flex-grow"
             >
               <div
-                className="flex h-16 cursor-pointer items-center rounded"
+                className="flex h-11 cursor-pointer items-center rounded"
                 style={{
                   backgroundColor: selectedAspects.includes(aspect.id)
                     ? `${aspect.color}50`
@@ -72,21 +72,21 @@ const CategoryStats: React.FC = () => {
                     },
                   }}
                 />
-                <span className="-ml-1 text-xl">{aspect.shorthand}</span>
+                <span className="-ml-1">{aspect.shorthand}</span>
               </div>
             </Tooltip>
           ))}
         </div>
       </div>
-      <div className="mb-6 flex flex-col p-4">
+      <div className="mb-6 flex flex-col p-2">
         {filteredCategories.map(item => (
           <div
             key={item.id}
-            className="flex cursor-pointer items-center border-b border-gray-300 py-2 hover:bg-gray-50"
+            className="flex cursor-pointer items-center border-b border-gray-300 py-1 hover:bg-gray-50"
             onClick={() => dispatch(addItem({ type: SearchFilterType.SLIM_TERMS, item }))}
           >
             <div
-              className="mr-4 flex h-9 w-9 items-center justify-center rounded-full text-xs font-extrabold"
+              className="mr-2 flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold"
               style={{
                 border: `1px solid ${item.color}50`,
                 color: item.color,
@@ -96,11 +96,11 @@ const CategoryStats: React.FC = () => {
               {item.aspectShorthand}
             </div>
             <Tooltip title={item.label} placement="top" enterDelay={1500} arrow>
-              <div className="w-[100px] text-xs">
+              <div className="w-[120px] text-xs">
                 <div className="line-clamp-2">{item.label}</div>
               </div>
             </Tooltip>
-            <div className="relative h-9 flex-1">
+            <div className="relative h-7 flex-1">
               <div
                 className="absolute h-full"
                 style={{
@@ -110,16 +110,15 @@ const CategoryStats: React.FC = () => {
               />
 
               <div
-                className="absolute h-7 w-28 -translate-y-1/2 transform"
+                className="absolute h-5 w-20 -translate-y-1/2 transform top-1/2"
                 style={{
-                  left: item.countPos,
-                  top: '50%',
+                  left: item.countPos
                 }}
               >
                 <Button
                   variant="outlined"
                   size="small"
-                  className="!h-full w-full rounded-md !bg-primary-50 text-xs hover:!bg-primary-100"
+                  className="!-mt-1.5 !h-full w-full rounded-md !bg-primary-50 !text-2xs hover:!bg-primary-100"
                 >
                   {item.count} genes
                 </Button>
