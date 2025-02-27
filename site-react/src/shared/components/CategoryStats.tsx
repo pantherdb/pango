@@ -33,7 +33,7 @@ const CategoryStats: React.FC = () => {
       </div>
 
       <div className="border-b border-gray-200 p-4">
-        <h3 className="text-xl font-medium md:text-2xl">
+        <h3 className="text-xl font-medium md:text-xl">
           Distribution of Genes by Function Category
         </h3>
       </div>
@@ -72,7 +72,7 @@ const CategoryStats: React.FC = () => {
                     },
                   }}
                 />
-                <span className="-ml-1 text-2xl">{aspect.shorthand}</span>
+                <span className="-ml-1 text-xl">{aspect.shorthand}</span>
               </div>
             </Tooltip>
           ))}
@@ -96,7 +96,7 @@ const CategoryStats: React.FC = () => {
               {item.aspectShorthand}
             </div>
             <Tooltip title={item.label} placement="top" enterDelay={1500} arrow>
-              <div className="w-[100px]">
+              <div className="w-[100px] text-xs">
                 <div className="line-clamp-2">{item.label}</div>
               </div>
             </Tooltip>
@@ -110,7 +110,7 @@ const CategoryStats: React.FC = () => {
               />
 
               <div
-                className="absolute h-7 -translate-y-1/2 transform"
+                className="absolute h-7 w-28 -translate-y-1/2 transform"
                 style={{
                   left: item.countPos,
                   top: '50%',
@@ -119,7 +119,7 @@ const CategoryStats: React.FC = () => {
                 <Button
                   variant="outlined"
                   size="small"
-                  className="!h-full w-full rounded-md !bg-primary-50 hover:!bg-primary-100"
+                  className="!h-full w-full rounded-md !bg-primary-50 text-xs hover:!bg-primary-100"
                 >
                   {item.count} genes
                 </Button>

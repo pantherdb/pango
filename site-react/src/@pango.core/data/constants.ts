@@ -27,4 +27,5 @@ export const ENVIRONMENT = {
   downloadOntologyFilesUrl: 'https://release.geneontology.org/2022-03-22/ontology/index.html',
 
   overrepDocsApiUrl: 'https://geneontology.org/docs/go-enrichment-analysis/',
+  paperUrl: 'https://www.nature.com/articles/s41586-025-08592-0',
 }

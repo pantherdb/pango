@@ -25,7 +25,7 @@ const FilterSummary = () => {
 
   if (search.filtersCount === 0) {
     return (
-      <span className="italic text-gray-500">
+      <span className="text-[10px] italic text-gray-500 md:text-base">
         No Filters selected: You can filter the list to find a specific function category.
       </span>
     )

@@ -72,29 +72,29 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
     <div className="flex items-center">
       {isMobile ? (
         <>
-          <button className="!w-11 !p-0" onClick={handleLogosClick}>
+          <button className="!w-8 !p-0" onClick={handleLogosClick}>
             <img
               src="/assets/images/logos/go-logo-yellow-icon.png"
               alt="GO Logo"
-              className="h-12"
+              className="h-full"
             />
           </button>
           <Popper open={showLogos} anchorEl={logosAnchorEl} placement="bottom-end">
             <ClickAwayListener onClickAway={handleLogosClose}>
               <Paper className="bg-primary-600 p-4">
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-2">
                   <a href="http://geneontology.org/" target="_blank" rel="noopener noreferrer">
                     <img
                       src="/assets/images/logos/go-logo-yellow.png"
                       alt="GO Logo"
-                      className="h-10"
+                      className="h-8"
                     />
                   </a>
                   <a href="http://pantherdb.org" target="_blank" rel="noopener noreferrer">
                     <img
                       src="/assets/images/logos/panther-logo-yellow.png"
                       alt="Panther Logo"
-                      className="h-10"
+                      className="h-8"
                     />
                   </a>
                 </div>
@@ -106,7 +106,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
         <>
           <div className="flex items-center border-l border-accent-200 px-4">
             <a href="http://geneontology.org/" target="_blank" rel="noopener noreferrer">
-              <img src="/assets/images/logos/go-logo-yellow.png" alt="GO Logo" className="h-11" />
+              <img src="/assets/images/logos/go-logo-yellow.png" alt="GO Logo" className="h-8" />
             </a>
           </div>
           <div className="flex items-center border-l border-accent-200 px-4">
@@ -114,7 +114,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
               <img
                 src="/assets/images/logos/panther-logo-yellow.png"
                 alt="Panther Logo"
-                className="h-11"
+                className="h-8"
               />
             </a>
           </div>
@@ -128,9 +128,9 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
       {isMobile ? (
         <IconButton
           color="inherit"
-          className="!w-11 !p-0"
+          className="!w-8 !p-0"
           onClick={() => setShowSearch(true)}
-          size="large"
+          size="medium"
         >
           <FaSearch />
         </IconButton>
@@ -139,7 +139,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
           <input
             type="text"
             placeholder="Search Gene..."
-            className="h-12 rounded-full bg-white py-2 pl-10 pr-4"
+            className="h-8 rounded-full bg-white py-2 pl-8 pr-4"
             onClick={() => setShowSearch(true)}
           />
           <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-500" />
@@ -149,32 +149,32 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
   )
 
   const renderNavigation = () => (
-    <div className="flex items-center border-l-0 border-accent-200 px-3 md:border-l">
+    <div className="flex items-center border-l-0 border-accent-200 px-2 md:border-l">
       {isMobile ? (
         <>
           <IconButton
             color="inherit"
-            className="!w-11 !p-0"
+            className="!w-8 !p-0"
             onClick={handleExportMenu}
-            size="large"
+            size="medium"
           >
             <FaDownload />
           </IconButton>
           <IconButton
             color="inherit"
-            className="!w-11 !p-0"
+            className="!w-8 !p-0"
             component={Link}
             to="/about"
-            size="large"
+            size="medium"
           >
             <FaInfoCircle />
           </IconButton>
           <IconButton
             color="inherit"
-            className="!w-11 !p-0"
+            className="!w-8 !p-0"
             component={Link}
             to="/help"
-            size="large"
+            size="medium"
           >
             <FaQuestion />
           </IconButton>
@@ -183,7 +183,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
         <>
           <Button
             color="inherit"
-            className="!text-xl !text-accent-500 hover:text-accent-200"
+            className="!text-accent-500 hover:text-accent-200"
             onClick={handleExportMenu}
           >
             Download
@@ -191,7 +191,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
           <Button
             color="inherit"
             component={Link}
-            className="!text-xl !text-accent-500 hover:text-accent-200"
+            className="!text-accent-500 hover:text-accent-200"
             to="/about"
           >
             About
@@ -199,7 +199,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
           <Button
             color="inherit"
             component={Link}
-            className="!text-xl !text-accent-500 hover:text-accent-200"
+            className="!text-accent-500 hover:text-accent-200"
             to="/help"
           >
             Help
@@ -211,7 +211,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
 
   return (
     <div className="fixed left-0 top-0 z-50 h-[50px] w-full bg-primary-500 text-accent-500">
-      <div className="relative flex h-[50px] items-center px-2">
+      <div className="relative flex h-full items-center px-2">
         {showLoadingBar && (
           <div className="absolute left-0 right-0 top-0 w-full">
             <LinearProgress color="secondary" />
@@ -223,20 +223,20 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
               color="inherit"
               onClick={() => dispatch(toggleLeftDrawer())}
               className="mr-2"
-              size="large"
+              size="medium"
               aria-label="open menu"
             >
               <FaBars />
             </IconButton>
-            <div className="flex h-full flex-col items-start justify-center md:flex-row md:items-center">
+            <div className="flex flex-col items-start justify-center md:flex-row md:items-center">
               <VersionedLink
                 to="/"
                 className="mr-2 text-accent-500 no-underline hover:text-accent-200"
               >
-                <span className="text-2xl font-bold md:text-3xl">PAN-GO</span>
+                <span className="text-lg font-bold md:text-2xl">PAN-GO</span>
               </VersionedLink>
               <VersionedLink to="/" className="text-accent-500 no-underline hover:text-accent-200">
-                <span className="text-lg md:text-3xl">Human Functionome</span>
+                <span className="text-sm md:text-2xl">Human Functionome</span>
               </VersionedLink>
             </div>
 
@@ -244,10 +244,10 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
               {renderSearch()}
               <IconButton
                 color="inherit"
-                className="!w-11 !p-0"
+                className="!w-8 !p-0"
                 href="https://github.com/pantherdb/pango"
                 target="_blank"
-                size="large"
+                size="medium"
               >
                 <FaGithub />
               </IconButton>
@@ -294,7 +294,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
             <div className="hidden text-lg font-semibold text-accent-500 sm:block">
               Search Genes
             </div>
-            <div className="flex w-full md:w-[500px]">
+            <div className="flex w-full md:w-3/5">
               <div className="relative flex-1">
                 <GeneSearch
                   popoverRef={popoverRef}
@@ -302,7 +302,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
                   onClose={() => setShowSearch(false)}
                 />
               </div>
-              <IconButton onClick={() => setShowSearch(false)} color="inherit" size="large">
+              <IconButton onClick={() => setShowSearch(false)} color="inherit" size="medium">
                 <IoMdClose />
               </IconButton>
             </div>

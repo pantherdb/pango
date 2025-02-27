@@ -15,7 +15,7 @@ interface LayoutProps {
   rightDrawerContent?: React.ReactNode
 }
 
-const drawerWidth = 380
+const drawerWidth = 420
 
 const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }) => {
   const theme = useTheme()

@@ -4,7 +4,7 @@ import type React from 'react'
 const HelpPage: React.FC = () => {
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-gray-50 to-gray-100 pt-14">
-      <div className="mx-auto flex w-full flex-col items-stretch p-6 md:max-w-6xl">
+      <div className="mx-auto flex w-full flex-col items-stretch p-6 md:max-w-6xl md:text-xl">
         <header className="mb-8 border-b border-gray-200 pb-6">
           <h1 className="mb-3 text-4xl font-bold text-gray-800">
             Tips for using the PAN-GO Functionome website
@@ -23,7 +23,9 @@ const HelpPage: React.FC = () => {
           <div className="mb-8">
             <div className="mb-3">
               <h3 className="inline text-xl font-semibold text-gray-800">The header</h3>
-              <span className="ml-2 rounded-md bg-blue-100 px-2 py-1 text-sm text-blue-800">(box with blue background)</span>
+              <span className="ml-2 rounded-md bg-blue-100 px-2 py-1 text-sm text-blue-800">
+                (box with blue background)
+              </span>
             </div>
             <p className="mb-3 text-gray-700">
               Has two boxes for searching or using the PAN-GO functionome annotations:
@@ -34,8 +36,8 @@ const HelpPage: React.FC = () => {
                 autocomplete. This will take you to the gene page for the selected gene.
               </li>
               <li className="text-gray-700">
-                A larger box where you can type or paste a list of genes to perform a statistical
-                {' '}<a
+                A larger box where you can type or paste a list of genes to perform a statistical{' '}
+                <a
                   className="font-medium"
                   href={ENVIRONMENT.overrepDocsApiUrl}
                   target="_blank"
@@ -43,8 +45,7 @@ const HelpPage: React.FC = () => {
                 >
                   GO enrichment analysis
                 </a>{' '}
-                of the list and find overrepresented GO terms. This box does not
-                have autocomplete.
+                of the list and find overrepresented GO terms. This box does not have autocomplete.
               </li>
             </ul>
           </div>
@@ -63,8 +64,9 @@ const HelpPage: React.FC = () => {
             <ul className="ml-8 list-disc space-y-3">
               <li className="text-gray-700">
                 You can get detailed information about a gene and its functions (including evidence)
-                by clicking on the gene name in the GENE column (e.g. <span className="font-mono">ABCD3</span>), or the link to View
-                all annotations and details.
+                by clicking on the gene name in the GENE column (e.g.{' '}
+                <span className="font-mono">ABCD3</span>), or the link to View all annotations and
+                details.
               </li>
               <li className="text-gray-700">
                 Each characteristic (GO term) is labeled with the type of evidence used to support
@@ -89,9 +91,10 @@ const HelpPage: React.FC = () => {
               </li>
               <li className="text-gray-700">
                 The graph can be modified to show only categories from one, two or three "aspects"
-                of GO terms, e.g. clicking on the button marked <span className="font-bold">MF</span> will toggle between
-                showing/hiding GO molecular function terms. This will not change the list of genes
-                in the right panel, and only affects the bars shown in the graph.
+                of GO terms, e.g. clicking on the button marked{' '}
+                <span className="font-bold">MF</span> will toggle between showing/hiding GO
+                molecular function terms. This will not change the list of genes in the right panel,
+                and only affects the bars shown in the graph.
               </li>
               <li className="text-gray-700">
                 The categories are high level GO terms (GO subsets) that categorize the exact GO
@@ -126,14 +129,16 @@ const HelpPage: React.FC = () => {
             </p>
             <ul className="ml-8 list-disc space-y-3">
               <li className="text-gray-700">
-                <span className="font-medium text-black">"GO annotations from all sources":</span> links to the
-                GO AmiGO browser which includes not only the PAN-GO annotations, but all other GO
-                annotations in the GO knowledgebase for that gene. These are generally redundant
-                with the PAN-GO annotations, or represent more indirect effects rather than core
-                functions.
+                <span className="font-medium text-black">"GO annotations from all sources":</span>{' '}
+                links to the GO AmiGO browser which includes not only the PAN-GO annotations, but
+                all other GO annotations in the GO knowledgebase for that gene. These are generally
+                redundant with the PAN-GO annotations, or represent more indirect effects rather
+                than core functions.
               </li>
               <li className="text-gray-700">
-                <span className="font-medium text-black">"PAN-GO evolutionary model for this family":</span>{' '}
+                <span className="font-medium text-black">
+                  "PAN-GO evolutionary model for this family":
+                </span>{' '}
                 links to the evolutionary model used to assign the PAN-GO annotations.
               </li>
             </ul>
@@ -141,7 +146,10 @@ const HelpPage: React.FC = () => {
 
           <div className="mb-8">
             <h3 className="mb-3 text-xl font-semibold text-gray-800">External links</h3>
-            <p className="text-gray-700"> to additional information about the gene at some other useful resources..</p>
+            <p className="text-gray-700">
+              {' '}
+              to additional information about the gene at some other useful resources..
+            </p>
           </div>
 
           <div className="mb-8">
@@ -161,32 +169,33 @@ const HelpPage: React.FC = () => {
             </p>
             <ul className="ml-8 list-disc space-y-4">
               <li className="text-gray-700">
-                <span className="font-semibold text-black">Category.</span> The higher level category (a GO term
-                from the GO 'generic subset' ) for the assigned GO term in the first column. Note
-                that terms with multiple parents in different GO branches will be in more than one
-                high level category.
+                <span className="font-semibold text-black">Category.</span> The higher level
+                category (a GO term from the GO 'generic subset' ) for the assigned GO term in the
+                first column. Note that terms with multiple parents in different GO branches will be
+                in more than one high level category.
               </li>
               <li className="text-gray-700">
-                <span className="font-semibold text-black">Evidence.</span> The evidence for the assigned GO term
-                in the first column. The evidence can be from experiments directly for the human
-                gene, and/or experiments in other organisms. Evidence is organized by the gene (and
-                organism) that was experimentally determined to have the given functional
-                characteristic. For each gene in the list, each scientific paper demonstrating that
-                function is listed. You can click to see that paper in PubMed.
+                <span className="font-semibold text-black">Evidence.</span> The evidence for the
+                assigned GO term in the first column. The evidence can be from experiments directly
+                for the human gene, and/or experiments in other organisms. Evidence is organized by
+                the gene (and organism) that was experimentally determined to have the given
+                functional characteristic. For each gene in the list, each scientific paper
+                demonstrating that function is listed. You can click to see that paper in PubMed.
                 <ul className="ml-8 mt-3 list-disc space-y-2">
                   <li className="text-gray-700">
                     Organisms are listed by a simple code, with the first letter of the genus,
-                    followed by the first two letters of the species, e.g. human is <span className="font-mono font-semibold">Hsa</span> for Homo
-                    sapiens. If the three letter code is unfamiliar, click on it to get more
-                    information at the NCBI Taxonomy website.
+                    followed by the first two letters of the species, e.g. human is{' '}
+                    <span className="font-mono font-semibold">Hsa</span> for Homo sapiens. If the
+                    three letter code is unfamiliar, click on it to get more information at the NCBI
+                    Taxonomy website.
                   </li>
                 </ul>
               </li>
               <li className="text-gray-700">
-                <span className="font-medium text-black">Contributors.</span> These are the GO Consortium
-                groups that created the experimental annotations from the papers listed in the
-                Evidence column. These experimental annotations were used to support the PAN-GO
-                annotations.
+                <span className="font-medium text-black">Contributors.</span> These are the GO
+                Consortium groups that created the experimental annotations from the papers listed
+                in the Evidence column. These experimental annotations were used to support the
+                PAN-GO annotations.
               </li>
             </ul>
           </div>

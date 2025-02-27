@@ -17,14 +17,16 @@ const AboutPage: React.FC = () => {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-gray-50 to-gray-100 pt-14">
-      <div className="mx-auto flex w-full flex-col items-stretch p-6 md:max-w-6xl">
+      <div className="mx-auto flex w-full flex-col items-stretch p-6 md:max-w-6xl md:text-xl">
         <div className="mb-8 border-b border-gray-200 pb-4">
-          <h1 className="text-4xl font-bold text-gray-800">About the PAN-GO human gene functionome</h1>
-          <p className="mt-2 font-semibold text-indigo-600 text-xl">Version: 1.0</p>
+          <h1 className="text-3xl font-bold text-gray-800 md:text-5xl">
+            About the PAN-GO human gene functionome
+          </h1>
+          <p className="mt-2 text-xl font-semibold text-indigo-600">Version: 1.0</p>
         </div>
 
         <div className="mb-8 rounded-lg bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-xl font-semibold text-gray-700">Data Sources</h2>
+          <h2 className="mb-4 text-2xl font-semibold text-gray-700">Data Sources</h2>
           <ul className="mb-4 list-disc space-y-2 pl-6 text-gray-600">
             <li>GO annotations and ontology from GO release 2022-03-22</li>
             <li>Phylogenetic trees from PANTHER version 15.0</li>
@@ -38,7 +40,7 @@ const AboutPage: React.FC = () => {
             Ontology annotations") for human protein-coding genes, as determined by the PAN-GO
             (Phylogenetic ANnotation using Gene Ontology) project, a collaboration between the{' '}
             <a
-              className="font-medium "
+              className="font-medium"
               href="http://geneontology.org/"
               target="_blank"
               rel="noopener noreferrer"
@@ -47,7 +49,7 @@ const AboutPage: React.FC = () => {
             </a>{' '}
             and the{' '}
             <a
-              className="font-medium "
+              className="font-medium"
               href="https://www.pantherdb.org/"
               target="_blank"
               rel="noopener noreferrer"
@@ -60,21 +62,32 @@ const AboutPage: React.FC = () => {
             the human gene itself, or on an evolutionarily related (homologous) gene, or both. If
             there is direct evidence for the human gene, the annotation is labeled with a{' '}
             <span className="inline-flex items-center font-bold text-black">
-              flask icon <FaFlask className="text-xl ml-1" />
-            </span>; otherwise it is labeled with a{' '}
+              flask icon <FaFlask className="ml-1 text-xl" />
+            </span>
+            ; otherwise it is labeled with a{' '}
             <span className="inline-flex items-center font-bold text-black">
-              tree icon <TbBinaryTreeFilled className="text-xl ml-1" />
-            </span> (for homology-based). The list of
-            publications providing the experimental evidence is provided for each annotation.
+              tree icon <TbBinaryTreeFilled className="ml-1 text-xl" />
+            </span>{' '}
+            (for homology-based). The list of publications providing the experimental evidence is
+            provided for each annotation.
           </p>
 
           <div className="rounded-md bg-gray-50 p-4">
             <p className="leading-relaxed text-gray-700">
-              A detailed description of the process used to create the PAN-GO functionome, as well as
-              an analysis of its contents, has been published in:
+              A detailed description of the process used to create the PAN-GO functionome, as well
+              as an analysis of its contents, has been published in:
               <br />
-              <span className="mt-2 block font-medium italic">Feuermann et al., A compendium of human gene functions derived from evolutionary
-                modelling, 2025.</span>
+              <span className="mt-2 block font-medium italic">
+                <a
+                  className="font-medium"
+                  href={ENVIRONMENT.paperUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Feuermann et al., A compendium of human gene functions derived from evolutionary
+                  modelling, 2025.{' '}
+                </a>
+              </span>
             </p>
           </div>
 
@@ -89,13 +102,14 @@ const AboutPage: React.FC = () => {
             some functional characteristics that have been experimentally verified, and we encourage
             the scientific community to{' '}
             <a
-              className="font-medium "
+              className="font-medium"
               href={ENVIRONMENT.contactUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
               suggest improvements
-            </a>.
+            </a>
+            .
           </p>
         </div>
       </div>
