@@ -22,6 +22,7 @@ import {
 import theme from '@/@pango.core/theme/theme'
 import { useMediaQuery } from '@mui/system'
 import AnnotationCards from '@/features/annotations/components/AnnotationCards'
+import { handleExternalLinkClick } from '@/analytics'
 
 interface InfoRowProps {
   label: string
@@ -29,23 +30,27 @@ interface InfoRowProps {
   href?: string
 }
 
-const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => (
-  <div className="flex flex-wrap items-center p-1">
-    <span className="pr-2 font-semibold text-gray-600">{label}:</span>
-    {href ? (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center break-all"
-      >
-        {value} <FiExternalLink className="ml-1 h-3 w-3 flex-shrink-0" />
-      </a>
-    ) : (
-      <span className="break-all">{value}</span>
-    )}
-  </div>
-)
+const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => {
+
+  return (
+    <div className="flex flex-wrap items-center p-1">
+      <span className="pr-2 font-semibold text-gray-600">{label}:</span>
+      {href ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => handleExternalLinkClick(href)}
+          className="flex items-center break-all"
+        >
+          {value} <FiExternalLink className="ml-1 h-3 w-3 flex-shrink-0" />
+        </a>
+      ) : (
+        <span className="break-all">{value}</span>
+      )}
+    </div>
+  )
+}
 
 interface StatBlockProps {
   number: number

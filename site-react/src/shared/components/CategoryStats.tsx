@@ -7,6 +7,7 @@ import { SearchFilterType } from '@/features/search/search'
 import { addItem } from '@/features/search/searchSlice'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import TermFilterForm from '@/features/terms/components/TermFilterForm'
+import { trackEvent } from '@/analytics'
 
 const CategoryStats: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -25,6 +26,11 @@ const CategoryStats: React.FC = () => {
       prev.includes(aspectId) ? prev.filter(id => id !== aspectId) : [...prev, aspectId]
     )
   }
+
+  const handleCategoryClick = (item: any) => {
+    dispatch(addItem({ type: SearchFilterType.SLIM_TERMS, item }));
+    trackEvent('Search', 'Functionome Category Selection', item.label, item.id);
+  };
 
   return (
     <div className="w-full">
@@ -83,7 +89,7 @@ const CategoryStats: React.FC = () => {
           <div
             key={item.id}
             className="flex cursor-pointer items-center border-b border-gray-300 py-2 hover:bg-gray-50"
-            onClick={() => dispatch(addItem({ type: SearchFilterType.SLIM_TERMS, item }))}
+            onClick={() => handleCategoryClick(item)}
           >
             <div
               className="mr-4 flex h-9 w-9 items-center justify-center rounded-full text-xs font-extrabold"
