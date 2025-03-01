@@ -1,6 +1,7 @@
 import type React from 'react'
 import { useEffect, useMemo, useState } from 'react'
-import { Box, useMediaQuery } from '@mui/material'
+import Box from '@mui/material/Box'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
 import OverrepForm from '@/features/genes/components/forms/OverrepForm'
 import Genes from '@/features/genes/components/Genes'

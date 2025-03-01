@@ -1,10 +1,12 @@
 import type React from 'react'
-import { Button, Tooltip, useMediaQuery } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../hooks'
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
 import { clearSearch } from '@/features/search/searchSlice'
 import CategoryStats from '@/shared/components/CategoryStats'
 import theme from '@/@pango.core/theme/theme'
+import useMediaQuery from '@mui/system/useMediaQuery'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
 
 // TODO clear filter so aspect selection
 const LeftDrawerContent: React.FC = () => {

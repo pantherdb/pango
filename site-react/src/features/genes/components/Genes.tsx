@@ -23,6 +23,7 @@ import {
   selectLeftDrawerOpen,
   setLeftDrawerOpen,
 } from '@/@pango.core/components/drawer/drawerSlice'
+import { handleExternalLinkClick } from '@/analytics'
 
 const Genes: React.FC = () => {
   const theme = useTheme()
@@ -142,6 +143,7 @@ const Genes: React.FC = () => {
                         <div>
                           <a
                             href={getUniprotLink(gene.gene)}
+                            onClick={() => handleExternalLinkClick(getUniprotLink(gene.gene))}
                             className=""
                             target="_blank"
                             rel="noopener noreferrer"
@@ -155,6 +157,7 @@ const Genes: React.FC = () => {
                             <a
                               className="ml-1"
                               href={getUCSCBrowserLink(gene)}
+                              onClick={() => handleExternalLinkClick(getUCSCBrowserLink(gene))}
                               target="_blank"
                               rel="noopener noreferrer"
                             >

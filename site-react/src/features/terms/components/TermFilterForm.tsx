@@ -1,13 +1,16 @@
 import type React from 'react'
 import { useState, useMemo } from 'react'
-import type { AutocompleteChangeReason, AutocompleteChangeDetails } from '@mui/material'
-import { Autocomplete, TextField, Chip, Tooltip } from '@mui/material'
 import { IoClose } from 'react-icons/io5'
 import { SearchFilterType } from '@/features/search/search'
 import { addItem, removeItem } from '@/features/search/searchSlice'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import type { RootState } from '@/app/store/store'
 import type { CategoryTerm, Term } from '../models/term'
+import type { AutocompleteChangeDetails, AutocompleteChangeReason } from '@mui/material/Autocomplete'
+import Chip from '@mui/material/Chip'
+import Tooltip from '@mui/material/Tooltip'
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
 
 const renderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: CategoryTerm) => {
   const { key, ...otherProps } = props
