@@ -30,9 +30,9 @@ const CategoryStats: React.FC = () => {
   }
 
   const handleCategoryClick = (item: any) => {
-    dispatch(addItem({ type: SearchFilterType.SLIM_TERMS, item }));
-    trackEvent('Search', 'Functionome Category Selection', item.label, item.id);
-  };
+    dispatch(addItem({ type: SearchFilterType.SLIM_TERMS, item }))
+    trackEvent('Search', 'Functionome Category Selection', item.label, item.id)
+  }
 
   return (
     <div className="w-full">
@@ -41,9 +41,7 @@ const CategoryStats: React.FC = () => {
       </div>
 
       <div className="border-b border-gray-200 p-2">
-        <h3 className="font-medium md:text-lg">
-          Distribution of Genes by Function Category
-        </h3>
+        <h3 className="font-medium md:text-lg">Distribution of Genes by Function Category</h3>
       </div>
 
       <div className="flex w-full items-center gap-2 p-2">
@@ -118,9 +116,9 @@ const CategoryStats: React.FC = () => {
               />
 
               <div
-                className="absolute h-5 w-20 -translate-y-1/2 transform top-1/2"
+                className="absolute top-1/2 h-5 w-20 -translate-y-1/2 transform"
                 style={{
-                  left: item.countPos
+                  left: item.countPos,
                 }}
               >
                 <Button

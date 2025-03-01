@@ -1,4 +1,3 @@
-
 import type { GroupedTerms, Term } from '@/features/terms/models/term'
 import { useState } from 'react'
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
@@ -71,7 +70,7 @@ const GeneSummary: React.FC<GeneSummaryProps> = ({ groupedTerms }) => {
     }))
   }
 
-  function handleExpandClick(): void { }
+  function handleExpandClick(): void {}
 
   if (isMobile) {
     const sections = [

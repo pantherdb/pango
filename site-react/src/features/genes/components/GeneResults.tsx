@@ -8,7 +8,7 @@ interface GeneResultsProps {
 
 const GeneResults: React.FC<GeneResultsProps> = ({ genes }) => {
   const onHandleGeneClick = (gene: Gene) => {
-    trackEvent('Search', 'Gene Selection', gene.gene);
+    trackEvent('Search', 'Gene Selection', gene.gene)
   }
 
   return (

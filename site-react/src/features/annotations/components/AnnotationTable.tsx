@@ -35,8 +35,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
       <table className="w-full">
         <thead>
           <tr className="border-primary-light h-8 border-b bg-white">
-            <th className="w-8">
-            </th>
+            <th className="w-8"></th>
             <th className="w-64">
               <div className="flex items-center">
                 <Tooltip

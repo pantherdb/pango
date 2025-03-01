@@ -31,7 +31,6 @@ interface InfoRowProps {
 }
 
 const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => {
-
   return (
     <div className="flex flex-wrap items-center p-1">
       <span className="pr-2 font-semibold text-gray-600">{label}:</span>
@@ -113,7 +112,7 @@ const Gene: React.FC = () => {
 
           <div className="flex w-full flex-col md:flex-row">
             {/* Gene Information Column */}
-            <div className="mb-6 w-full md:mb-0 md:gap-4 md:w-1/2">
+            <div className="mb-6 w-full md:mb-0 md:w-1/2 md:gap-4">
               <h2 className="mb-4 text-lg font-semibold md:text-2xl">Gene Information</h2>
               <div className="text-sm md:text-base">
                 <InfoRow label="Gene" value={annotation.geneSymbol} />
@@ -181,7 +180,7 @@ const Gene: React.FC = () => {
         <div className="bg-gradient-to-r from-slate-100 to-white px-2 py-6">
           <div className="flex items-center gap-1 md:gap-12">
             <div className="min-w-[110px] md:w-[250px]">
-              <h2 className="m-0 text font-semibold tracking-tight md:text-2xl">
+              <h2 className="text m-0 font-semibold tracking-tight md:text-2xl">
                 Function Summary
               </h2>
             </div>

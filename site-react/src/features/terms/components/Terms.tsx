@@ -17,8 +17,9 @@ export const Terms: React.FC<TermsProps> = ({ terms, maxTerms, onToggleExpand })
   return (
     <>
       {terms.slice(0, maxTerms).map((term, idx) => (
-        <div key={idx}
-          className='w-full mb-2 flex items-center rounded-xl border border-gray-400 p-1'
+        <div
+          key={idx}
+          className="mb-2 flex w-full items-center rounded-xl border border-gray-400 p-1"
           style={{
             backgroundColor: ASPECT_MAP[term.aspect]?.color + '20',
           }}
@@ -48,7 +49,7 @@ export const Terms: React.FC<TermsProps> = ({ terms, maxTerms, onToggleExpand })
         </div>
       ))}
       {terms.length > maxTerms && (
-        <button onClick={onToggleExpand} className="text-sm mt-2 text-blue-600 hover:text-blue-800">
+        <button onClick={onToggleExpand} className="mt-2 text-sm text-blue-600 hover:text-blue-800">
           — View {terms.length - maxTerms} more terms
         </button>
       )}

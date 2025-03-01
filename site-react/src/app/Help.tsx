@@ -3,10 +3,10 @@ import type React from 'react'
 
 const HelpPage: React.FC = () => {
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-gray-50 to-gray-100 pt-14">
-      <div className="mx-auto flex w-full flex-col items-stretch p-6 md:max-w-6xl">
-        <header className="mb-8 border-b border-gray-200 pb-6">
-          <h1 className="mb-3 text-2xl font-bold text-gray-800">
+    <div className="min-h-screen w-full bg-gradient-to-b from-gray-50 to-gray-100 py-6">
+      <div className="mx-auto flex w-full flex-col items-stretch p-2 md:max-w-5xl">
+        <header className="mb-4 border-b border-gray-200 pb-6">
+          <h1 className="mb-3 text-2xl font-bold text-gray-800 md:text-4xl">
             Tips for using the PAN-GO Functionome website
           </h1>
           <p className="text-gray-600">
@@ -15,12 +15,12 @@ const HelpPage: React.FC = () => {
           </p>
         </header>
 
-        <div className="mb-8 rounded-xl bg-white p-8 shadow-md">
-          <h2 className="mb-6 border-b border-gray-100 pb-2 text-xl font-bold text-black">
+        <div className="mb-10">
+          <h2 className="mb-4 border-b border-primary-300 pb-2 text-xl font-bold text-primary-500 md:text-2xl">
             The home page has a header and two panels.
           </h2>
 
-          <div className="mb-8">
+          <div className="mb-4">
             <div className="mb-3">
               <h3 className="inline text-lg font-semibold text-gray-800">The header</h3>
               <span className="ml-2 rounded-md bg-blue-100 px-2 py-1 text-sm text-blue-800">
@@ -50,7 +50,7 @@ const HelpPage: React.FC = () => {
             </ul>
           </div>
 
-          <div className="mb-8">
+          <div className="mb-4">
             <div className="mb-3">
               <h3 className="text-lg font-semibold text-gray-800">
                 The right panel (below the header)
@@ -116,12 +116,12 @@ const HelpPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="rounded-xl bg-white p-8 shadow-md">
-          <h2 className="mb-6 border-b border-gray-100 pb-2 text-xl font-bold text-black">
+        <div className="mb-10">
+          <h2 className="mb-4 border-b border-primary-300 pb-2 text-xl font-bold text-primary-500 md:text-2xl">
             The gene page has multiple sections:
           </h2>
 
-          <div className="mb-8">
+          <div className="mb-4">
             <h3 className="mb-3 text-lg font-semibold text-gray-800">Gene information</h3>
             <p className="mb-3 text-gray-700">
               Besides the gene name and description of the protein encoded by the gene, there are
@@ -144,7 +144,7 @@ const HelpPage: React.FC = () => {
             </ul>
           </div>
 
-          <div className="mb-8">
+          <div className="mb-4">
             <h3 className="mb-3 text-lg font-semibold text-gray-800">External links</h3>
             <p className="text-gray-700">
               {' '}
@@ -152,7 +152,7 @@ const HelpPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="mb-8">
+          <div className="mb-4">
             <h3 className="mb-3 text-lg font-semibold text-gray-800">Function summary</h3>
             <p className="text-gray-700">
               Similar to the summary on the home page right panel, it shows the GO terms

@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import tsChecker from 'vite-plugin-checker'
 import { loadEnv } from 'vite'
-import { visualizer } from 'rollup-plugin-visualizer';
+import { visualizer } from 'rollup-plugin-visualizer'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -16,7 +16,8 @@ export default defineConfig(({ command, mode }) => {
   return {
     logLevel: 'info',
     plugins: [
-      react(), tsChecker({ typescript: true }),
+      react(),
+      tsChecker({ typescript: true }),
       visualizer({
         filename: 'dist/stats-treemap.html',
         template: 'treemap', // or 'sunburst' / 'network'
@@ -34,15 +35,15 @@ export default defineConfig(({ command, mode }) => {
         template: 'network', // or 'sunburst' / 'network'
         gzipSize: true,
         brotliSize: true,
-      })
+      }),
     ],
 
     build: {
       rollupOptions: {
         output: {
           manualChunks(id) {
-            if (id.includes('@mui')) return 'mui';
-            if (id.includes('framer-motion')) return 'framer-motion';
+            if (id.includes('@mui')) return 'mui'
+            if (id.includes('framer-motion')) return 'framer-motion'
           },
         },
       },

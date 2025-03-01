@@ -6,7 +6,10 @@ import { addItem, removeItem } from '@/features/search/searchSlice'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import type { RootState } from '@/app/store/store'
 import type { CategoryTerm, Term } from '../models/term'
-import type { AutocompleteChangeDetails, AutocompleteChangeReason } from '@mui/material/Autocomplete'
+import type {
+  AutocompleteChangeDetails,
+  AutocompleteChangeReason,
+} from '@mui/material/Autocomplete'
 import Chip from '@mui/material/Chip'
 import Tooltip from '@mui/material/Tooltip'
 import Autocomplete from '@mui/material/Autocomplete'

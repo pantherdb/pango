@@ -10,14 +10,14 @@ export const transformCategoryTerms = (buckets: Bucket[]): CategoryTerm[] => {
 
   return sortedBuckets.map(bucket => {
     const ratio = bucket.docCount / longest
-    let countPos: string;
+    let countPos: string
 
     if (ratio < 0.2) {
-      countPos = `${ratio * 100}%`;
+      countPos = `${ratio * 100}%`
     } else if (ratio < 0.9) {
-      countPos = `${(ratio - 0.20) * 100}%`;
+      countPos = `${(ratio - 0.2) * 100}%`
     } else {
-      countPos = `${(ratio - 0.40) * 100}%`;
+      countPos = `${(ratio - 0.4) * 100}%`
     }
 
     const width = `${ratio * 100}%`

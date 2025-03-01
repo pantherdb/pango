@@ -123,7 +123,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
   )
 
   const renderSearch = () => (
-    <div className="flex items-center pr-3 text-accent-500">
+    <div className="flex items-center text-accent-500 md:pr-2">
       {isMobile ? (
         <IconButton
           color="inherit"
@@ -134,7 +134,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
           <FaSearch />
         </IconButton>
       ) : (
-        <div className="relative mr-2 flex items-center">
+        <div className="relative mr-1 flex items-center">
           <input
             type="text"
             placeholder="Search Gene..."
@@ -148,7 +148,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
   )
 
   const renderNavigation = () => (
-    <div className="flex items-center border-l-0 border-accent-200 px-2 md:border-l">
+    <div className="flex items-center border-l-0 border-accent-200 md:border-l md:px-2">
       {isMobile ? (
         <>
           <IconButton
@@ -234,8 +234,11 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
               >
                 <span className="text-lg font-bold md:text-2xl">PAN-GO</span>
               </VersionedLink>
-              <VersionedLink to="/" className="-mt-2 text-accent-500 no-underline hover:text-accent-200 md:mt-0">
-                <span className="text-sm md:text-2xl">Human Functionome</span>
+              <VersionedLink
+                to="/"
+                className="-mt-2 text-accent-500 no-underline hover:text-accent-200 md:mt-0"
+              >
+                <span className="text-xs sm:text-sm md:text-2xl">Human Functionome</span>
               </VersionedLink>
             </div>
 
@@ -243,7 +246,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
               {renderSearch()}
               <IconButton
                 color="inherit"
-                className="!w-8 !p-0"
+                className="!w-8 !p-0 md:!mr-2"
                 onClick={() => handleExternalLinkClick('https://github.com/pantherdb/pango')}
                 href="https://github.com/pantherdb/pango"
                 target="_blank"
@@ -259,22 +262,33 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
                 open={Boolean(exportMenuAnchor)}
                 onClose={handleCloseExportMenu}
               >
-                <MenuItem component="a" href={ENVIRONMENT.downloadAllDataCSVUrl}
-                  onClick={() => handleExternalLinkClick(ENVIRONMENT.downloadAllDataCSVUrl)}>
+                <MenuItem
+                  component="a"
+                  href={ENVIRONMENT.downloadAllDataCSVUrl}
+                  onClick={() => handleExternalLinkClick(ENVIRONMENT.downloadAllDataCSVUrl)}
+                >
                   All data as CSV
                 </MenuItem>
-                <MenuItem component="a" href={ENVIRONMENT.downloadAllDataJSONUrl}
-                  onClick={() => handleExternalLinkClick(ENVIRONMENT.downloadAllDataJSONUrl)}>
+                <MenuItem
+                  component="a"
+                  href={ENVIRONMENT.downloadAllDataJSONUrl}
+                  onClick={() => handleExternalLinkClick(ENVIRONMENT.downloadAllDataJSONUrl)}
+                >
                   All data as JSON
                 </MenuItem>
-                <MenuItem component="a" href={ENVIRONMENT.downloadAnnotationsGAFUrl}
-                  onClick={() => handleExternalLinkClick(ENVIRONMENT.downloadAnnotationsGAFUrl)}>
+                <MenuItem
+                  component="a"
+                  href={ENVIRONMENT.downloadAnnotationsGAFUrl}
+                  onClick={() => handleExternalLinkClick(ENVIRONMENT.downloadAnnotationsGAFUrl)}
+                >
                   Annotations as GAF
                 </MenuItem>
                 <MenuItem
                   component="a"
                   href={ENVIRONMENT.downloadEvolutionaryModelsGAFUrl}
-                  onClick={() => handleExternalLinkClick(ENVIRONMENT.downloadEvolutionaryModelsGAFUrl)}
+                  onClick={() =>
+                    handleExternalLinkClick(ENVIRONMENT.downloadEvolutionaryModelsGAFUrl)
+                  }
                   target="_blank"
                   rel="noopener noreferrer"
                 >

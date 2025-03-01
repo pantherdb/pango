@@ -23,7 +23,7 @@ interface LayoutProps {
 const drawerWidth = 420
 
 const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }) => {
-  const location = useLocation();
+  const location = useLocation()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const dispatch = useAppDispatch()
@@ -35,14 +35,13 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
     dispatch(setRightDrawerOpen(false))
   }
 
+  useEffect(() => {
+    initGA('G-245RCHN2PQ')
+  }, [])
 
   useEffect(() => {
-    initGA('G-245RCHN2PQ');
-  }, []);
-
-  useEffect(() => {
-    trackPageView(location.pathname + location.search);
-  }, [location]);
+    trackPageView(location.pathname + location.search)
+  }, [location])
 
   return (
     <Box className="flex h-screen w-full flex-col bg-gray-300">

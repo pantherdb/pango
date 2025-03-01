@@ -16,17 +16,16 @@ const AboutPage: React.FC = () => {
   // TODO: Change links to actual paper links
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-gray-50 to-gray-100 pt-14">
+    <div className="min-h-screen w-full bg-gradient-to-b from-gray-50 to-gray-100 py-10">
       <div className="mx-auto flex w-full flex-col items-stretch p-6 md:max-w-6xl">
-        <div className="mb-8 border-b border-gray-200 pb-4">
-          <h1 className="text-2xl font-bold text-gray-800 md:text-3xl">
+        <div className="mb-4 border-b border-gray-300 pb-4">
+          <h1 className="text-2xl font-bold text-gray-800 md:text-4xl">
             About the PAN-GO human gene functionome
           </h1>
-          <p className="mt-2 text-xl font-semibold text-green-600">Version: 1.0</p>
         </div>
 
-        <div className="mb-8 rounded-lg bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-xl font-semibold text-gray-700">Data Sources</h2>
+        <div className="mb-10">
+          <p className="mt-2 text-xl font-semibold text-green-600">Version: 1.0</p>
           <ul className="mb-4 list-disc space-y-2 pl-6 text-gray-600">
             <li>GO annotations and ontology from GO release 2022-03-22</li>
             <li>Phylogenetic trees from PANTHER version 15.0</li>
@@ -34,7 +33,7 @@ const AboutPage: React.FC = () => {
           </ul>
         </div>
 
-        <div className="space-y-6 rounded-lg bg-white p-6 shadow-sm">
+        <div className="mb-10 space-y-6">
           <p className="leading-relaxed text-gray-700">
             The PAN-GO functionome is the set of all annotated functional characteristics ("Gene
             Ontology annotations") for human protein-coding genes, as determined by the PAN-GO
@@ -77,7 +76,7 @@ const AboutPage: React.FC = () => {
               A detailed description of the process used to create the PAN-GO functionome, as well
               as an analysis of its contents, has been published in:
               <br />
-              <span className="mt-2 block font-medium italic">
+              <span className="mt-2 block font-medium">
                 <a
                   className="font-medium"
                   href={ENVIRONMENT.paperUrl}
@@ -85,7 +84,7 @@ const AboutPage: React.FC = () => {
                   rel="noopener noreferrer"
                 >
                   Feuermann et al., A compendium of human gene functions derived from evolutionary
-                  modelling, 2025.{' '}
+                  modelling, <span className="italic">Nature</span> 2025.{' '}
                 </a>
               </span>
             </p>
