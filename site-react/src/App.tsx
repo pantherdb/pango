@@ -2,7 +2,7 @@ import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './app/layout/Layout'
 import { ThemeProvider } from '@emotion/react'
-import { CssBaseline } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline'
 import theme from './@pango.core/theme/theme'
 
 import { defineCustomElements } from 'panther-overrep-form/loader'
