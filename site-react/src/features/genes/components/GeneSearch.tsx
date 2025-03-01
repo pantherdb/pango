@@ -1,9 +1,13 @@
 import type React from 'react'
 import { useState, useEffect, useRef } from 'react'
-import { TextField, CircularProgress, Popper, Paper, ClickAwayListener } from '@mui/material'
 import { AutocompleteType } from '../models/gene'
 import { useGetAutocompleteQuery } from '../slices/genesApiSlice'
 import GeneResults from './GeneResults'
+import ClickAwayListener from '@mui/material/ClickAwayListener'
+import TextField from '@mui/material/TextField'
+import CircularProgress from '@mui/material/CircularProgress'
+import Paper from '@mui/material/Paper'
+import Popper from '@mui/material/Popper'
 
 interface GeneSearchProps {
   isOpen: boolean

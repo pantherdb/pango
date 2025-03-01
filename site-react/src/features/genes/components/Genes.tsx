@@ -1,12 +1,4 @@
 import type React from 'react'
-import {
-  TablePagination,
-  CircularProgress,
-  Tooltip,
-  useMediaQuery,
-  useTheme,
-  Button,
-} from '@mui/material'
 import { FaCaretRight, FaCaretDown } from 'react-icons/fa'
 import { setPage, setPageSize } from '@/features/search/searchSlice'
 import { useMemo, useState } from 'react'
@@ -24,6 +16,12 @@ import {
   setLeftDrawerOpen,
 } from '@/@pango.core/components/drawer/drawerSlice'
 import { handleExternalLinkClick } from '@/analytics'
+import useTheme from '@mui/material/styles/useTheme'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import CircularProgress from '@mui/material/CircularProgress'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import TablePagination from '@mui/material/TablePagination'
 
 const Genes: React.FC = () => {
   const theme = useTheme()

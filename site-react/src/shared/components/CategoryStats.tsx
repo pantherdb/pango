@@ -1,6 +1,5 @@
 import type React from 'react'
 import { useMemo, useState } from 'react'
-import { Button, Checkbox, Tooltip } from '@mui/material'
 import type { AspectMapType } from '@/@pango.core/data/config'
 import { ASPECT_MAP } from '@/@pango.core/data/config'
 import { SearchFilterType } from '@/features/search/search'
@@ -8,6 +7,9 @@ import { addItem } from '@/features/search/searchSlice'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import TermFilterForm from '@/features/terms/components/TermFilterForm'
 import { trackEvent } from '@/analytics'
+import Tooltip from '@mui/material/Tooltip'
+import Checkbox from '@mui/material/Checkbox'
+import Button from '@mui/material/Button'
 
 const CategoryStats: React.FC = () => {
   const dispatch = useAppDispatch()

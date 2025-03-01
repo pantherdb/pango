@@ -59,15 +59,13 @@ const Home: React.FC = () => {
             </h1>
             <h2 className="mb-10 max-w-2xl pr-4 text-base font-medium leading-6 tracking-wider text-white">
               The functionome describes the known functions of all human protein-coding genes, using
-              terms from the Gene Ontology to describe each functional characteristic
-              <Link to="/about" className="text-accent-500 hover:text-accent-200 mx-1">
+              terms from the Gene Ontology to describe each functional characteristic{' '}(
+              <Link to="/about" className="text-accent-500 hover:text-accent-200">
                 read more
-              </Link>.
-              Detailed information for a gene can be found by clicking on the gene name in the table
+              </Link>).{' '}Detailed information for a gene can be found by clicking on the gene name in the table
               below, or by using the search box to find a specific gene. The interactive
               graph/filter shows how the genes in the table are distributed among functional
-              categories and can be used to browse genes by category
-              (<Link to="/help" className="text-accent-500 hover:text-accent-200 mx-1">
+              categories and can be used to browse genes by category{' '}(<Link to="/help" className="text-accent-500 hover:text-accent-200">
                 more help
               </Link>).
             </h2>

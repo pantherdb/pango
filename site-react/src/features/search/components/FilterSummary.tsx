@@ -1,7 +1,8 @@
-import { Chip, Tooltip } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import { SearchFilterType } from '../search'
 import { clearSearch, removeItem } from '../searchSlice'
+import Chip from '@mui/material/Chip'
+import Tooltip from '@mui/material/Tooltip'
 
 const FilterSummary = () => {
   const dispatch = useAppDispatch()

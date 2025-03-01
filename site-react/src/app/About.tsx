@@ -17,16 +17,16 @@ const AboutPage: React.FC = () => {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-gray-50 to-gray-100 pt-14">
-      <div className="mx-auto flex w-full flex-col items-stretch p-6 md:max-w-6xl md:text-xl">
+      <div className="mx-auto flex w-full flex-col items-stretch p-6 md:max-w-6xl">
         <div className="mb-8 border-b border-gray-200 pb-4">
-          <h1 className="text-3xl font-bold text-gray-800 md:text-5xl">
+          <h1 className="text-2xl font-bold text-gray-800 md:text-3xl">
             About the PAN-GO human gene functionome
           </h1>
-          <p className="mt-2 text-xl font-semibold text-indigo-600">Version: 1.0</p>
+          <p className="mt-2 text-xl font-semibold text-green-600">Version: 1.0</p>
         </div>
 
         <div className="mb-8 rounded-lg bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-2xl font-semibold text-gray-700">Data Sources</h2>
+          <h2 className="mb-4 text-xl font-semibold text-gray-700">Data Sources</h2>
           <ul className="mb-4 list-disc space-y-2 pl-6 text-gray-600">
             <li>GO annotations and ontology from GO release 2022-03-22</li>
             <li>Phylogenetic trees from PANTHER version 15.0</li>

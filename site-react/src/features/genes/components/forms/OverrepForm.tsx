@@ -49,16 +49,17 @@ const OverrepForm = () => {
       textarea-rows="3"
       style={
         {
-          '--overrep-height': '270px',
+          '--overrep-height': '280px',
           '--overrep-width': '100%',
           '--overrep-font-size': '12px',
           '--overrep-button-border-radius': '20px',
           '--overrep-button-width': '120px',
           '--overrep-button-height': '35px',
           '--overrep-button-border': '1px solid #BBBBBB',
-          '--overrep-select-height': '35px',
+          '--overrep-select-height': '36px',
           //'--overrep-primary-color': theme.palette.primary.main,
           '--overrep-hint-font-size': '10px',
+          '--overrep-input-padding': '6px',
         } as React.CSSProperties
       }
     />

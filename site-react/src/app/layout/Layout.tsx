@@ -1,5 +1,4 @@
 import type React from 'react'
-import { Box, Drawer, useTheme, useMediaQuery } from '@mui/material'
 import { Outlet, useLocation } from 'react-router-dom'
 import Toolbar from './Toolbar'
 import Footer from './Footer'
@@ -11,6 +10,10 @@ import {
 import { useAppDispatch, useAppSelector } from '../hooks'
 import { initGA, trackPageView } from '@/analytics'
 import { useEffect } from 'react'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import useTheme from '@mui/material/styles/useTheme'
+import Box from '@mui/material/Box'
+import Drawer from '@mui/material/Drawer'
 
 interface LayoutProps {
   leftDrawerContent?: React.ReactNode

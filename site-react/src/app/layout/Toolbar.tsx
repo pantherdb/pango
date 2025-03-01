@@ -1,17 +1,5 @@
 import type React from 'react'
 import { useState, useRef, useEffect } from 'react'
-import {
-  IconButton,
-  Button,
-  Menu,
-  MenuItem,
-  LinearProgress,
-  useMediaQuery,
-  useTheme,
-  Popper,
-  Paper,
-  ClickAwayListener,
-} from '@mui/material'
 import { FaBars, FaGithub, FaSearch, FaDownload, FaInfoCircle, FaQuestion } from 'react-icons/fa'
 import { IoMdClose } from 'react-icons/io'
 import { Link } from 'react-router-dom'
@@ -21,6 +9,16 @@ import { VersionedLink } from '@/shared/components/VersionedLink'
 import { ENVIRONMENT } from '@/@pango.core/data/constants'
 import GeneSearch from '@/features/genes/components/GeneSearch'
 import { handleExternalLinkClick } from '@/analytics'
+import useTheme from '@mui/material/styles/useTheme'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import ClickAwayListener from '@mui/material/ClickAwayListener'
+import Popper from '@mui/material/Popper'
+import Paper from '@mui/material/Paper'
+import IconButton from '@mui/material/IconButton'
+import Button from '@mui/material/Button'
+import LinearProgress from '@mui/material/LinearProgress'
+import MenuItem from '@mui/material/MenuItem'
+import Menu from '@mui/material/Menu'
 
 interface ToolbarProps {
   showLoadingBar?: boolean

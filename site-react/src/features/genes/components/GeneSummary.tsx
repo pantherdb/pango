@@ -1,9 +1,11 @@
-import { useMediaQuery, useTheme } from '@mui/material'
+
 import type { GroupedTerms, Term } from '@/features/terms/models/term'
 import { useState } from 'react'
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
 import TermCells from '@/features/terms/components/TermCells'
 import Terms from '@/features/terms/components/Terms'
+import useTheme from '@mui/material/styles/useTheme'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 interface GeneSummaryProps {
   groupedTerms: GroupedTerms
@@ -69,7 +71,7 @@ const GeneSummary: React.FC<GeneSummaryProps> = ({ groupedTerms }) => {
     }))
   }
 
-  function handleExpandClick(): void {}
+  function handleExpandClick(): void { }
 
   if (isMobile) {
     const sections = [

@@ -4,25 +4,25 @@ import type React from 'react'
 const HelpPage: React.FC = () => {
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-gray-50 to-gray-100 pt-14">
-      <div className="mx-auto flex w-full flex-col items-stretch p-6 md:max-w-6xl md:text-xl">
+      <div className="mx-auto flex w-full flex-col items-stretch p-6 md:max-w-6xl">
         <header className="mb-8 border-b border-gray-200 pb-6">
-          <h1 className="mb-3 text-4xl font-bold text-gray-800">
+          <h1 className="mb-3 text-2xl font-bold text-gray-800">
             Tips for using the PAN-GO Functionome website
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-gray-600">
             Pages on the website include many tooltips for guidance. Try hovering your mouse over
             areas for explanations.
           </p>
         </header>
 
         <div className="mb-8 rounded-xl bg-white p-8 shadow-md">
-          <h2 className="mb-6 border-b border-gray-100 pb-2 text-2xl font-bold text-black">
+          <h2 className="mb-6 border-b border-gray-100 pb-2 text-xl font-bold text-black">
             The home page has a header and two panels.
           </h2>
 
           <div className="mb-8">
             <div className="mb-3">
-              <h3 className="inline text-xl font-semibold text-gray-800">The header</h3>
+              <h3 className="inline text-lg font-semibold text-gray-800">The header</h3>
               <span className="ml-2 rounded-md bg-blue-100 px-2 py-1 text-sm text-blue-800">
                 (box with blue background)
               </span>
@@ -52,7 +52,7 @@ const HelpPage: React.FC = () => {
 
           <div className="mb-8">
             <div className="mb-3">
-              <h3 className="text-xl font-semibold text-gray-800">
+              <h3 className="text-lg font-semibold text-gray-800">
                 The right panel (below the header)
               </h3>
             </div>
@@ -77,7 +77,7 @@ const HelpPage: React.FC = () => {
 
           <div>
             <div className="mb-3">
-              <h3 className="text-xl font-semibold text-gray-800">The left panel</h3>
+              <h3 className="text-lg font-semibold text-gray-800">The left panel</h3>
             </div>
             <p className="mb-3 text-gray-700">
               Is a graphical overview of the high level function categories for the genes in the
@@ -117,12 +117,12 @@ const HelpPage: React.FC = () => {
         </div>
 
         <div className="rounded-xl bg-white p-8 shadow-md">
-          <h2 className="mb-6 border-b border-gray-100 pb-2 text-2xl font-bold text-black">
+          <h2 className="mb-6 border-b border-gray-100 pb-2 text-xl font-bold text-black">
             The gene page has multiple sections:
           </h2>
 
           <div className="mb-8">
-            <h3 className="mb-3 text-xl font-semibold text-gray-800">Gene information</h3>
+            <h3 className="mb-3 text-lg font-semibold text-gray-800">Gene information</h3>
             <p className="mb-3 text-gray-700">
               Besides the gene name and description of the protein encoded by the gene, there are
               also links to explore:
@@ -145,7 +145,7 @@ const HelpPage: React.FC = () => {
           </div>
 
           <div className="mb-8">
-            <h3 className="mb-3 text-xl font-semibold text-gray-800">External links</h3>
+            <h3 className="mb-3 text-lg font-semibold text-gray-800">External links</h3>
             <p className="text-gray-700">
               {' '}
               to additional information about the gene at some other useful resources..
@@ -153,7 +153,7 @@ const HelpPage: React.FC = () => {
           </div>
 
           <div className="mb-8">
-            <h3 className="mb-3 text-xl font-semibold text-gray-800">Function summary</h3>
+            <h3 className="mb-3 text-lg font-semibold text-gray-800">Function summary</h3>
             <p className="text-gray-700">
               Similar to the summary on the home page right panel, it shows the GO terms
               representing the functional characteristics of the gene assigned in the PAN-GO
@@ -162,7 +162,7 @@ const HelpPage: React.FC = () => {
           </div>
 
           <div>
-            <h3 className="mb-3 text-xl font-semibold text-gray-800">Function details</h3>
+            <h3 className="mb-3 text-lg font-semibold text-gray-800">Function details</h3>
             <p className="mb-3 text-gray-700">
               Shows detailed information about each functional characteristic of the gene in the
               Function summary.

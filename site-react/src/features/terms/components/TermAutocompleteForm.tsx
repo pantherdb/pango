@@ -1,6 +1,5 @@
 import type React from 'react'
 import { useState, useEffect } from 'react'
-import { Autocomplete, TextField, Chip, Tooltip, Paper } from '@mui/material'
 import { IoClose } from 'react-icons/io5'
 import { SearchFilterType } from '@/features/search/search'
 import { addItem, removeItem } from '@/features/search/searchSlice'
@@ -10,6 +9,11 @@ import { AutocompleteType } from '@/features/annotations/models/annotation'
 import { useGetSlimTermsAutocompleteQuery } from '@/features/annotations/slices/annotationsApiSlice'
 import type { Term } from '../models/term'
 import { ASPECT_MAP } from '@/@pango.core/data/config'
+import Tooltip from '@mui/material/Tooltip'
+import Paper from '@mui/material/Paper'
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
+import Chip from '@mui/material/Chip'
 
 interface TermFormProps {
   maxTerms?: number

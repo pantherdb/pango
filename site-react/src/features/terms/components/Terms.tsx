@@ -1,11 +1,11 @@
 import type React from 'react'
 import { FaFlask } from 'react-icons/fa'
-import { Tooltip } from '@mui/material'
 import { ASPECT_MAP, EVIDENCE_TYPE_MAP, EvidenceType } from '@/@pango.core/data/config'
 import type { Term } from '../models/term'
 import TermLink from './TermLink'
 import { PiEmptyLight } from 'react-icons/pi'
 import { TbBinaryTreeFilled } from 'react-icons/tb'
+import Tooltip from '@mui/material/Tooltip'
 
 interface TermsProps {
   terms: Term[]
