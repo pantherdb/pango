@@ -34,7 +34,7 @@ const FilterSummary = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <small className="mr-3">Filtered By:</small>
+      <small className="mr-2 text-xs md:text-sm">Filtered By:</small>
       <Chip
         onClick={clearAllFilters}
         label="Clear All Filters"

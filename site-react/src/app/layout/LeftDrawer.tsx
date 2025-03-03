@@ -17,12 +17,12 @@ const LeftDrawerContent: React.FC = () => {
   return (
     <div className="flex h-full flex-col">
       <div className="flex items-center border-b border-gray-200 p-3 pr-1">
-        <span className="text-sm font-bold">Interactive Graph and Filter</span>
+        <span className="text-xs font-bold md:text-sm">Interactive Graph and Filter</span>
         <div className="ml-auto flex gap-1">
           {search.filtersCount > 0 && (
             <Button
               variant="outlined"
-              className="!min-w-[90px] rounded-md !bg-accent-200 !text-sm"
+              className="rounded-md !bg-accent-200 !text-xs !px-2"
               onClick={() => dispatch(clearSearch())}
             >
               Clear Filters
@@ -37,7 +37,7 @@ const LeftDrawerContent: React.FC = () => {
             <Button
               variant="outlined"
               color="primary"
-              className="rounded-md !text-sm"
+              className="rounded-md !text-xs !px-2"
               onClick={() => dispatch(setLeftDrawerOpen(false))}
               aria-label="Close dialog"
             >

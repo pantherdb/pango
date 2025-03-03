@@ -75,9 +75,9 @@ const Genes: React.FC = () => {
   if (error) return <div>Error loading genes</div>
 
   return (
-    <div className="w-full p-3">
+    <div className="w-full pt-3 p-1 md:p-3">
       <div className="w-fill mb-6 flex h-20 items-center rounded-t-2xl bg-white pr-3">
-        <h2 className="flex-1 pl-3 text-2xl font-medium text-gray-600 sm:text-3xl">
+        <h2 className="flex-1 pl-3 text-xl font-medium text-gray-600 sm:text-3xl">
           Results (<strong>{geneCount}</strong>) <small>genes</small>
         </h2>
 
@@ -93,7 +93,7 @@ const Genes: React.FC = () => {
       </div>
 
       {isMobile ? (
-        <div className="space-y-4">
+        <div className="space-y-2">
           {genes.map((gene: Gene) => (
             <GeneCard key={gene.gene} gene={gene} />
           ))}

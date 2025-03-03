@@ -25,13 +25,13 @@ const GeneCard: React.FC<GeneCardProps> = ({ gene }) => {
 
     if (activeTab === 'all') {
       return (
-        <div className="space-y-6">
+        <div className="space-y-4">
           {gene.groupedTerms?.mfs && gene.groupedTerms.mfs.length > 0 && (
             <div>
               <h3 className="mb-2 font-medium text-gray-900">
                 Molecular Function ({gene.groupedTerms.mfs.length})
               </h3>
-              <Terms terms={gene.groupedTerms.mfs} maxTerms={500} onToggleExpand={() => {}} />
+              <Terms terms={gene.groupedTerms.mfs} maxTerms={500} onToggleExpand={() => { }} />
             </div>
           )}
           {gene.groupedTerms?.bps && gene.groupedTerms.bps.length > 0 && (
@@ -39,7 +39,7 @@ const GeneCard: React.FC<GeneCardProps> = ({ gene }) => {
               <h3 className="mb-2 font-medium text-gray-900">
                 Biological Process ({gene.groupedTerms.bps.length})
               </h3>
-              <Terms terms={gene.groupedTerms.bps} maxTerms={500} onToggleExpand={() => {}} />
+              <Terms terms={gene.groupedTerms.bps} maxTerms={500} onToggleExpand={() => { }} />
             </div>
           )}
           {gene.groupedTerms?.ccs && gene.groupedTerms.ccs.length > 0 && (
@@ -47,7 +47,7 @@ const GeneCard: React.FC<GeneCardProps> = ({ gene }) => {
               <h3 className="mb-2 font-medium text-gray-900">
                 Cellular Component ({gene.groupedTerms.ccs.length})
               </h3>
-              <Terms terms={gene.groupedTerms.ccs} maxTerms={500} onToggleExpand={() => {}} />
+              <Terms terms={gene.groupedTerms.ccs} maxTerms={500} onToggleExpand={() => { }} />
             </div>
           )}
         </div>
@@ -61,12 +61,12 @@ const GeneCard: React.FC<GeneCardProps> = ({ gene }) => {
           ? gene.groupedTerms?.bps
           : gene.groupedTerms?.ccs
 
-    return terms && <Terms terms={terms} maxTerms={500} onToggleExpand={() => {}} />
+    return terms && <Terms terms={terms} maxTerms={500} onToggleExpand={() => { }} />
   }
 
   return (
     <div className="mb-4 overflow-hidden rounded-lg border border-gray-200 bg-white">
-      <div className="p-4">
+      <div className="p-2">
         <div className="text-lg font-bold text-gray-900">
           <VersionedLink
             to={`/gene/${gene.gene}`}
@@ -114,11 +114,10 @@ const GeneCard: React.FC<GeneCardProps> = ({ gene }) => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(prev => (prev === tab.id ? null : (tab.id as any)))}
-              className={`mr-2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium ${
-                activeTab === tab.id
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white text-gray-600 hover:bg-gray-100'
-              }`}
+              className={`mr-2 whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium ${activeTab === tab.id
+                ? 'bg-primary-400 text-white'
+                : 'bg-primary-50 text-gray-600 hover:bg-gray-100'
+                }`}
             >
               {tab.label}
             </button>

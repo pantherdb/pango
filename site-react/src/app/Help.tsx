@@ -4,7 +4,7 @@ import type React from 'react'
 const HelpPage: React.FC = () => {
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-gray-50 to-gray-100 py-6">
-      <div className="mx-auto flex w-full flex-col items-stretch p-2 md:max-w-5xl">
+      <div className="mx-auto flex w-full flex-col items-stretch p-4 md:max-w-5xl">
         <header className="mb-4 border-b border-gray-200 pb-6">
           <h1 className="mb-3 text-2xl font-bold text-gray-800 md:text-4xl">
             Tips for using the PAN-GO Functionome website

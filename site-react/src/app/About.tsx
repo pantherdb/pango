@@ -13,11 +13,9 @@ const AboutPage: React.FC = () => {
     dispatch(setLeftDrawerOpen(false))
   }, [dispatch])
 
-  // TODO: Change links to actual paper links
-
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-gray-50 to-gray-100 py-10">
-      <div className="mx-auto flex w-full flex-col items-stretch p-6 md:max-w-6xl">
+    <div className="min-h-screen w-full bg-gradient-to-b from-gray-50 to-gray-100 py-6">
+      <div className="mx-auto flex w-full flex-col items-stretch p-4 md:max-w-6xl">
         <div className="mb-4 border-b border-gray-300 pb-4">
           <h1 className="text-2xl font-bold text-gray-800 md:text-4xl">
             About the PAN-GO human gene functionome

@@ -47,17 +47,17 @@ const Home: React.FC = () => {
   return (
     <Box className="flex w-full flex-col">
       <div
-        className="relative h-auto min-w-0 bg-gradient-to-r from-[#00174f] to-[rgba(0,23,79,0.5)] bg-cover bg-top p-6 py-6 md:p-5 md:pt-10"
+        className="relative h-auto min-w-0 bg-gradient-to-r from-[#00174f] to-[rgba(0,23,79,0.5)] bg-cover bg-top p-3 py-4 md:p-5 md:pt-10"
         style={{
           backgroundImage: `linear-gradient(to right, #00174f, rgba(0,23,79,0.8), rgba(0,23,79,0.5)), url('/assets/images/gene.jpeg')`,
         }}
       >
         <div className="flex flex-col gap-6 md:flex-row md:gap-0">
           <div className="w-full flex-col md:w-3/5">
-            <h1 className="mb-4 text-2xl font-bold tracking-wider text-white md:text-4xl">
+            <h1 className="mb-2 text-xl font-bold leading-5 tracking-wider text-white md:text-4xl">
               Functions of Human Genes
             </h1>
-            <h2 className="mb-10 max-w-2xl pr-4 text-base font-medium leading-6 tracking-wider text-white">
+            <h2 className="mb-2 max-w-2xl pr-4 text-sm font-medium tracking-wider text-white md:text-sm md:mb-10 md:leading-6">
               The functionome describes the known functions of all human protein-coding genes, using
               terms from the Gene Ontology to describe each functional characteristic (
               <Link to="/about" className="text-accent-500 hover:text-accent-200">
@@ -76,7 +76,7 @@ const Home: React.FC = () => {
               <div className="mb-1 mt-4 w-full md:hidden">
                 <GeneSearch isOpen={true} />
               </div>
-              <h3 className="text-sm text-white md:text-base">
+              <h3 className="text-xs text-white md:text-base">
                 See any missing or incorrect functions?
                 <a
                   href={ENVIRONMENT.contactUrl}
@@ -91,7 +91,7 @@ const Home: React.FC = () => {
           </div>
           <div className="mt-1 w-full md:w-2/5">
             <div className="flex items-center justify-between">
-              <h2 className="mb-2 flex items-center font-medium text-white">
+              <h2 className="text-sm mb-2 flex items-center font-medium text-white md:text-base">
                 PAN-GO Enrichment Analysis
                 <a
                   href={ENVIRONMENT.overrepDocsApiUrl}
@@ -99,7 +99,7 @@ const Home: React.FC = () => {
                   rel="noopener noreferrer"
                   className="px-1 text-accent-500 hover:text-accent-200"
                 >
-                  <FiInfo className="ml-2 text-3xl" />
+                  <FiInfo className="ml-2 text-2xl" />
                 </a>
               </h2>
               {isFormOpen && (
@@ -117,7 +117,7 @@ const Home: React.FC = () => {
               {!isFormOpen ? (
                 <button
                   onClick={() => setIsFormOpen(true)}
-                  className="mt-2 w-full rounded border border-white/30 p-3 text-left text-white/70 hover:border-white/50"
+                  className="mt-1 w-full rounded border border-white/30 p-3 text-left text-white/70 hover:border-white/50"
                 >
                   Click to perform enrichment analysis...
                 </button>

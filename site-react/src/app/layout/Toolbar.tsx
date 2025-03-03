@@ -75,7 +75,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
             <img
               src="/assets/images/logos/go-logo-yellow-icon.png"
               alt="GO Logo"
-              className="h-full"
+              className="!h-6"
             />
           </button>
           <Popper open={showLogos} anchorEl={logosAnchorEl} placement="bottom-end">
@@ -103,9 +103,9 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
         </>
       ) : (
         <>
-          <div className="flex items-center border-l border-accent-200 px-4">
+          <div className="flex items-center border-l border-accent-200 px-2">
             <a href="http://geneontology.org/" target="_blank" rel="noopener noreferrer">
-              <img src="/assets/images/logos/go-logo-yellow.png" alt="GO Logo" className="h-8" />
+              <img src="/assets/images/logos/go-logo-yellow.png" alt="GO Logo" className="h-7" />
             </a>
           </div>
           <div className="flex items-center border-l border-accent-200 px-4">
@@ -113,7 +113,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
               <img
                 src="/assets/images/logos/panther-logo-yellow.png"
                 alt="Panther Logo"
-                className="h-8"
+                className="h-7"
               />
             </a>
           </div>
@@ -127,7 +127,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
       {isMobile ? (
         <IconButton
           color="inherit"
-          className="!w-8 !p-0"
+          className="!w-5 !p-0 !mx-1.5"
           onClick={() => setShowSearch(true)}
           size="medium"
         >
@@ -153,7 +153,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
         <>
           <IconButton
             color="inherit"
-            className="!w-8 !p-0"
+            className="!w-5 !p-0 !mx-1.5"
             onClick={handleExportMenu}
             size="medium"
           >
@@ -161,7 +161,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
           </IconButton>
           <IconButton
             color="inherit"
-            className="!w-8 !p-0"
+            className="!w-5 !p-0 !mx-1.5"
             component={Link}
             to="/about"
             size="medium"
@@ -170,7 +170,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
           </IconButton>
           <IconButton
             color="inherit"
-            className="!w-8 !p-0"
+            className="!w-5 !p-0 !mx-1.5"
             component={Link}
             to="/help"
             size="medium"
@@ -210,7 +210,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
 
   return (
     <div className="fixed left-0 top-0 z-50 h-[50px] w-full bg-primary-500 text-accent-500">
-      <div className="relative flex h-full items-center px-2">
+      <div className="relative flex h-full items-center px-1 md:px-2">
         {showLoadingBar && (
           <div className="absolute left-0 right-0 top-0 w-full">
             <LinearProgress color="secondary" />
@@ -221,7 +221,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
             <IconButton
               color="inherit"
               onClick={() => dispatch(toggleLeftDrawer())}
-              className="mr-2"
+              className="mr-2 md:mr-1"
               size="medium"
               aria-label="open menu"
             >
@@ -230,7 +230,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
             <div className="flex flex-col items-start justify-center md:flex-row md:items-center">
               <VersionedLink
                 to="/"
-                className="mr-2 text-accent-500 no-underline hover:text-accent-200"
+                className="text-accent-500 no-underline hover:text-accent-200 md:mr-2"
               >
                 <span className="text-lg font-bold md:text-2xl">PAN-GO</span>
               </VersionedLink>
@@ -238,7 +238,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
                 to="/"
                 className="-mt-2 text-accent-500 no-underline hover:text-accent-200 md:mt-0"
               >
-                <span className="text-xs sm:text-sm md:text-2xl">Human Functionome</span>
+                <span className="text-xs md:text-2xl">Human Functionome</span>
               </VersionedLink>
             </div>
 
@@ -246,7 +246,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
               {renderSearch()}
               <IconButton
                 color="inherit"
-                className="!w-8 !p-0 md:!mr-2"
+                className="!w-5 !p-0 !mx-1.5 md:!mr-2"
                 onClick={() => handleExternalLinkClick('https://github.com/pantherdb/pango')}
                 href="https://github.com/pantherdb/pango"
                 target="_blank"
