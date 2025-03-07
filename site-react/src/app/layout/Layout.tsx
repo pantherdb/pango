@@ -1,6 +1,5 @@
 import type React from 'react'
-import { Box, Drawer, useTheme, useMediaQuery } from '@mui/material'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import Toolbar from './Toolbar'
 import Footer from './Footer'
 import {
@@ -9,15 +8,22 @@ import {
   setRightDrawerOpen,
 } from '@/@pango.core/components/drawer/drawerSlice'
 import { useAppDispatch, useAppSelector } from '../hooks'
+import { initGA, trackPageView } from '@/analytics'
+import { useEffect } from 'react'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import useTheme from '@mui/material/styles/useTheme'
+import Box from '@mui/material/Box'
+import Drawer from '@mui/material/Drawer'
 
 interface LayoutProps {
   leftDrawerContent?: React.ReactNode
   rightDrawerContent?: React.ReactNode
 }
 
-const drawerWidth = 380
+const drawerWidth = 420
 
 const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }) => {
+  const location = useLocation()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const dispatch = useAppDispatch()
@@ -28,6 +34,14 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
   const handleRightDrawerClose = () => {
     dispatch(setRightDrawerOpen(false))
   }
+
+  useEffect(() => {
+    initGA('G-245RCHN2PQ')
+  }, [])
+
+  useEffect(() => {
+    trackPageView(location.pathname + location.search)
+  }, [location])
 
   return (
     <Box className="flex h-screen w-full flex-col bg-gray-300">

@@ -1,6 +1,5 @@
 import type React from 'react'
 import { useState, useEffect } from 'react'
-import { Autocomplete, TextField, Chip, Tooltip } from '@mui/material'
 import { IoClose } from 'react-icons/io5'
 import { SearchFilterType } from '@/features/search/search'
 import { addItem, removeItem } from '@/features/search/searchSlice'
@@ -9,6 +8,10 @@ import type { RootState } from '@/app/store/store'
 import type { Gene } from '../../models/gene'
 import { AutocompleteType } from '../../models/gene'
 import { useGetAutocompleteQuery } from '../../slices/genesApiSlice'
+import Tooltip from '@mui/material/Tooltip'
+import Chip from '@mui/material/Chip'
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
 
 const GeneForm: React.FC<{ maxGenes?: number }> = ({ maxGenes = 10 }) => {
   const dispatch = useAppDispatch()
@@ -24,7 +27,6 @@ const GeneForm: React.FC<{ maxGenes?: number }> = ({ maxGenes = 10 }) => {
     return () => clearTimeout(timer)
   }, [inputValue])
 
-
   const { data: geneData = [], isFetching } = useGetAutocompleteQuery(
     {
       type: AutocompleteType.GENE,
@@ -36,7 +38,6 @@ const GeneForm: React.FC<{ maxGenes?: number }> = ({ maxGenes = 10 }) => {
   )
 
   const suggestions = geneData?.genes ?? []
-
 
   const handleSelect = (_: unknown, newValue: Gene | null) => {
     if (newValue && selectedGenes.length < maxGenes) {

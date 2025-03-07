@@ -8,7 +8,6 @@ import TermLink from '@/features/terms/components/TermLink'
 import { ENVIRONMENT } from '@/@pango.core/data/constants'
 import { getPubmedArticleUrl } from '@/@pango.core/services/linksService'
 
-
 const Section = ({
   title,
   icon,
@@ -33,7 +32,6 @@ interface Props {
 
 export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
   if (!annotation) return null
-
 
   return (
     <div className="w-full rounded-lg bg-white shadow-lg">
@@ -102,7 +100,7 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
         </Section>
 
         <Section title="Group" icon={<MdGroups className="h-5 w-5 text-amber-500" />}>
-          <div className="space-y-2 flex flex-col">
+          <div className="flex flex-col space-y-2">
             {annotation.detailedGroups.map(
               (group, index) =>
                 group && (
@@ -140,8 +138,7 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
                     >
                       {evidence.withGeneId.taxonAbbr}
                     </a>
-                    )
-                    <div className="font-normal text-gray-600">{evidence.withGeneId.geneName}</div>
+                    )<div className="font-normal text-gray-600">{evidence.withGeneId.geneName}</div>
                   </div>
                 )}
                 {evidence.references.map((reference, refIdx) => (

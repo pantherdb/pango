@@ -1,7 +1,8 @@
-import { Chip, Tooltip } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import { SearchFilterType } from '../search'
 import { clearSearch, removeItem } from '../searchSlice'
+import Chip from '@mui/material/Chip'
+import Tooltip from '@mui/material/Tooltip'
 
 const FilterSummary = () => {
   const dispatch = useAppDispatch()
@@ -25,7 +26,7 @@ const FilterSummary = () => {
 
   if (search.filtersCount === 0) {
     return (
-      <span className="italic text-gray-500">
+      <span className="text-2xs italic text-gray-500 md:text-base">
         No Filters selected: You can filter the list to find a specific function category.
       </span>
     )
@@ -33,11 +34,11 @@ const FilterSummary = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <small className="mr-3">Filtered By:</small>
+      <small className="mr-2 text-xs md:text-sm">Filtered By:</small>
       <Chip
         onClick={clearAllFilters}
         label="Clear All Filters"
-        className="!h-7 !bg-accent-200 !text-xs"
+        className="!h-6 !bg-accent-200 !text-xs"
         size="small"
       />
       {search.genes.length > 0 && (
@@ -45,7 +46,7 @@ const FilterSummary = () => {
           <Chip
             label={`Genes (${search.genes.length})`}
             onDelete={() => removeFilter(SearchFilterType.GENES)}
-            className="!h-7 !text-xs"
+            className="!h-6 !text-xs"
             size="small"
           />
         </Tooltip>
@@ -55,7 +56,7 @@ const FilterSummary = () => {
           <Chip
             label={`Function Categories (${search.slimTerms.length})`}
             onDelete={() => removeFilter(SearchFilterType.SLIM_TERMS)}
-            className="!h-7 !text-xs"
+            className="!h-6 !text-xs"
             size="small"
           />
         </Tooltip>

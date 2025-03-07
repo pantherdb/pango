@@ -1,12 +1,15 @@
 import type React from 'react'
 import { useMemo, useState } from 'react'
-import { Button, Checkbox, Tooltip } from '@mui/material'
 import type { AspectMapType } from '@/@pango.core/data/config'
 import { ASPECT_MAP } from '@/@pango.core/data/config'
 import { SearchFilterType } from '@/features/search/search'
 import { addItem } from '@/features/search/searchSlice'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import TermFilterForm from '@/features/terms/components/TermFilterForm'
+import { trackEvent } from '@/analytics'
+import Tooltip from '@mui/material/Tooltip'
+import Checkbox from '@mui/material/Checkbox'
+import Button from '@mui/material/Button'
 
 const CategoryStats: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -26,21 +29,25 @@ const CategoryStats: React.FC = () => {
     )
   }
 
+  const handleCategoryClick = (item: any) => {
+    dispatch(addItem({ type: SearchFilterType.SLIM_TERMS, item }))
+    trackEvent('Search', 'Functionome Category Selection', item.label, item.id)
+  }
+
   return (
     <div className="w-full">
-
       <div className="w-full p-2 pb-4 pt-6">
         <TermFilterForm />
       </div>
 
-      <div className="border-b border-gray-200 p-4">
-        <h3 className="text-xl md:text-2xl font-medium">Distribution of Genes by Function Category</h3>
+      <div className="border-b border-gray-200 p-2">
+        <h3 className="font-medium md:text-lg">Distribution of Genes by Function Category</h3>
       </div>
 
-      <div className="flex items-center w-full p-4 gap-4">
-        <div className="">Show/hide GO aspects in graph</div>
+      <div className="flex w-full items-center gap-2 p-2">
+        <div className="text-xs">Show/hide GO aspects in graph</div>
 
-        <div className="flex-grow flex gap-2">
+        <div className="flex flex-grow gap-2">
           {Object.values(ASPECT_MAP).map((aspect: AspectMapType) => (
             <Tooltip
               key={aspect.id}
@@ -51,7 +58,7 @@ const CategoryStats: React.FC = () => {
               className="flex-grow"
             >
               <div
-                className="flex cursor-pointer items-center h-16 rounded"
+                className="flex h-11 cursor-pointer items-center rounded"
                 style={{
                   backgroundColor: selectedAspects.includes(aspect.id)
                     ? `${aspect.color}50`
@@ -71,21 +78,21 @@ const CategoryStats: React.FC = () => {
                     },
                   }}
                 />
-                <span className="text-2xl -ml-1">{aspect.shorthand}</span>
+                <span className="-ml-1">{aspect.shorthand}</span>
               </div>
             </Tooltip>
           ))}
         </div>
       </div>
-      <div className="flex flex-col p-4 mb-6">
+      <div className="mb-6 flex flex-col p-2">
         {filteredCategories.map(item => (
           <div
             key={item.id}
-            className="flex cursor-pointer items-center border-b border-gray-300 py-2 hover:bg-gray-50"
-            onClick={() => dispatch(addItem({ type: SearchFilterType.SLIM_TERMS, item }))}
+            className="flex cursor-pointer items-center border-b border-gray-300 py-1 hover:bg-gray-50"
+            onClick={() => handleCategoryClick(item)}
           >
             <div
-              className="mr-4 flex h-9 w-9 items-center justify-center rounded-full text-xs font-extrabold"
+              className="mr-2 flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold"
               style={{
                 border: `1px solid ${item.color}50`,
                 color: item.color,
@@ -95,11 +102,11 @@ const CategoryStats: React.FC = () => {
               {item.aspectShorthand}
             </div>
             <Tooltip title={item.label} placement="top" enterDelay={1500} arrow>
-              <div className="w-[100px]">
+              <div className="w-[120px] text-xs">
                 <div className="line-clamp-2">{item.label}</div>
               </div>
             </Tooltip>
-            <div className="relative h-9 flex-1">
+            <div className="relative h-7 flex-1">
               <div
                 className="absolute h-full"
                 style={{
@@ -109,16 +116,15 @@ const CategoryStats: React.FC = () => {
               />
 
               <div
-                className="absolute h-7 -translate-y-1/2 transform"
+                className="absolute top-1/2 h-5 w-20 -translate-y-1/2 transform"
                 style={{
                   left: item.countPos,
-                  top: '50%',
                 }}
               >
                 <Button
                   variant="outlined"
                   size="small"
-                  className="!h-full w-full rounded-md !bg-primary-50 hover:!bg-primary-100"
+                  className="!-mt-1.5 !h-full w-full rounded-md !bg-primary-50 !text-2xs hover:!bg-primary-100"
                 >
                   {item.count} genes
                 </Button>

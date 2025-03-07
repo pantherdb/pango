@@ -2,7 +2,7 @@ import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './app/layout/Layout'
 import { ThemeProvider } from '@emotion/react'
-import { CssBaseline } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline'
 import theme from './@pango.core/theme/theme'
 
 import { defineCustomElements } from 'panther-overrep-form/loader'
@@ -11,6 +11,7 @@ import LeftDrawerContent from './app/layout/LeftDrawer'
 import RightDrawerContent from './app/layout/RightDrawer'
 import Home from './app/Home'
 import About from './app/About'
+import Help from './app/Help'
 defineCustomElements(window)
 
 const routes = [
@@ -28,6 +29,11 @@ const routes = [
     path: 'about',
     element: <Layout />,
     children: [{ path: '', element: <About /> }],
+  },
+  {
+    path: 'help',
+    element: <Layout />,
+    children: [{ path: '', element: <Help /> }],
   },
 ]
 

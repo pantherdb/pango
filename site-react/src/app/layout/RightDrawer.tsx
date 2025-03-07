@@ -1,9 +1,9 @@
 import type React from 'react'
-import { Button } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../hooks'
 import { setRightDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
 import { setSelectedAnnotation } from '@/features/annotations/slices/selectedAnnotationSlice'
 import AnnotationDetails from '@/features/annotations/components/AnnotationDetails'
+import Button from '@mui/material/Button'
 
 // TODO style left drawer
 const RightDrawerContent: React.FC = () => {

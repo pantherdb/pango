@@ -4,7 +4,7 @@ import AnnotationTable from '@/features/annotations/components/AnnotationTable'
 import { useGetAnnotationsQuery } from '@/features/annotations/slices/annotationsApiSlice'
 import GeneSummary from '@/features/genes/components/GeneSummary'
 import { transformTerms } from '@/features/genes/services/genesService'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { FiExternalLink } from 'react-icons/fi'
 import { useParams } from 'react-router-dom'
 import { useAppDispatch } from './hooks'
@@ -22,6 +22,7 @@ import {
 import theme from '@/@pango.core/theme/theme'
 import { useMediaQuery } from '@mui/system'
 import AnnotationCards from '@/features/annotations/components/AnnotationCards'
+import { handleExternalLinkClick } from '@/analytics'
 
 interface InfoRowProps {
   label: string
@@ -29,18 +30,26 @@ interface InfoRowProps {
   href?: string
 }
 
-const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => (
-  <div className="flex items-center p-1 flex-wrap">
-    <span className="pr-2 font-semibold text-gray-600">{label}:</span>
-    {href ? (
-      <a href={href} target="_blank" rel="noopener noreferrer" className="flex items-center break-all">
-        {value} <FiExternalLink className="h-3 w-3 ml-1 flex-shrink-0" />
-      </a>
-    ) : (
-      <span className="break-all">{value}</span>
-    )}
-  </div>
-)
+const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => {
+  return (
+    <div className="flex flex-wrap items-center p-1">
+      <span className="pr-2 font-semibold text-gray-600">{label}:</span>
+      {href ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => handleExternalLinkClick(href)}
+          className="flex items-center break-all"
+        >
+          {value} <FiExternalLink className="ml-1 h-3 w-3 flex-shrink-0" />
+        </a>
+      ) : (
+        <span className="break-all">{value}</span>
+      )}
+    </div>
+  )
+}
 
 interface StatBlockProps {
   number: number
@@ -49,10 +58,10 @@ interface StatBlockProps {
 }
 
 const StatBlock: React.FC<StatBlockProps> = ({ number, label, sublabel }) => (
-  <div className="flex items-center pl-2 md:pl-6 w-full md:w-auto">
-    <span className="mr-4 text-3xl md:text-5xl font-bold text-sky-700">{number}</span>
+  <div className="flex w-full items-center pl-2 md:w-auto md:pl-6">
+    <span className="mr-4 text-3xl font-bold text-sky-700 md:text-5xl">{number}</span>
     <div className="label-group">
-      <div className="mb-1 text-sm md:text-base font-medium">{label}</div>
+      <div className="mb-1 text-sm font-medium md:text-base">{label}</div>
       {sublabel && <div className="text-sm font-normal text-gray-600">{sublabel}</div>}
     </div>
   </div>
@@ -93,19 +102,19 @@ const Gene: React.FC = () => {
 
   return (
     <div className="w-full bg-slate-100">
-      <div className="mx-auto max-w-[1000px] p-3">
+      <div className="mx-auto max-w-6xl p-3">
         {/* Gene Header Section */}
         <div className="pango-gene-summary w-full px-3 py-4 pb-6 md:pb-10">
-          <h1 className="mb-6 md:mb-10 text-2xl md:text-4xl font-normal">
+          <h1 className="mb-6 text-xl font-normal md:mb-10 md:text-4xl">
             <span className="font-bold">{annotation.geneSymbol}</span>: PAN-GO functions and
             evidence
           </h1>
 
           <div className="flex w-full flex-col md:flex-row">
             {/* Gene Information Column */}
-            <div className="mb-6 md:mb-0 md:mr-[100px] w-full md:w-[300px]">
-              <h2 className="mb-4 text-xl md:text-2xl font-semibold">Gene Information</h2>
-              <div className="">
+            <div className="mb-6 w-full md:mb-0 md:w-1/2 md:gap-4">
+              <h2 className="mb-4 text-lg font-semibold md:text-2xl">Gene Information</h2>
+              <div className="text-sm md:text-base">
                 <InfoRow label="Gene" value={annotation.geneSymbol} />
                 <InfoRow label="Protein" value={annotation.geneName} />
                 <InfoRow
@@ -122,9 +131,9 @@ const Gene: React.FC = () => {
             </div>
 
             {/* External Links Column */}
-            <div className="w-full md:w-[300px]">
-              <h2 className="mb-4 text-xl md:text-2xl font-semibold">External Links</h2>
-              <div className="">
+            <div className="w-full md:mb-0 md:w-1/2">
+              <h2 className="mb-4 text-lg font-semibold md:text-2xl">External Links</h2>
+              <div className="text-sm md:text-base">
                 <InfoRow
                   label="UniProt"
                   value={annotation?.gene}
@@ -168,18 +177,18 @@ const Gene: React.FC = () => {
         </div>
 
         {/* Stats Header */}
-        <div className="bg-gradient-to-r from-slate-100 to-white px-4 py-6">
-          <div className="flex items-center gap-2 md:gap-12">
+        <div className="bg-gradient-to-r from-slate-100 to-white px-2 py-6">
+          <div className="flex items-center gap-1 md:gap-12">
             <div className="min-w-[110px] md:w-[250px]">
-              <h2 className="m-0 text-xl md:text-2xl font-semibold tracking-tight">Function Summary</h2>
+              <h2 className="text m-0 font-semibold tracking-tight md:text-2xl">
+                Function Summary
+              </h2>
             </div>
-
             <StatBlock
               number={knownTermTypes}
               label="Annotations"
               sublabel="(functional characteristics)"
             />
-
             <StatBlock number={unknownTermTypes} label="Unknown function aspects" />
           </div>
         </div>
@@ -189,13 +198,12 @@ const Gene: React.FC = () => {
           </div>
         )}
         <div className="bg-gradient-to-r from-slate-100 to-white px-4 py-6">
-          <h2 className="m-0 text-xl md:text-2xl font-semibold tracking-tight">Function Details</h2>
+          <h2 className="m-0 text-lg font-semibold tracking-tight md:text-2xl">Function Details</h2>
         </div>
         {annotations.length > 0 && (
           <div className="w-full bg-white">
             {isMobile ? (
-              <AnnotationCards annotations={annotations}
-              />
+              <AnnotationCards annotations={annotations} />
             ) : (
               <AnnotationTable annotations={annotations} />
             )}

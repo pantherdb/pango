@@ -11,21 +11,21 @@ interface TermCellsProps {
 const TermCells: React.FC<TermCellsProps> = ({ groupedTerms, onToggleExpand }) => {
   return (
     <>
-      <td className="w-1/5 border-r border-gray-300 p-3">
+      <td className="w-1/5 border-r border-gray-300 p-2">
         <Terms
           terms={groupedTerms.mfs}
           maxTerms={groupedTerms.maxTerms}
           onToggleExpand={onToggleExpand}
         />
       </td>
-      <td className="w-1/5 border-r border-gray-300 p-3">
+      <td className="w-1/5 border-r border-gray-300 p-2">
         <Terms
           terms={groupedTerms.bps}
           maxTerms={groupedTerms.maxTerms}
           onToggleExpand={onToggleExpand}
         />
       </td>
-      <td className="w-1/5 border-r border-gray-300 p-3">
+      <td className="w-1/5 border-r border-gray-300 p-2">
         <Terms
           terms={groupedTerms.ccs}
           maxTerms={groupedTerms.maxTerms}

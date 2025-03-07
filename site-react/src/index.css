@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  font-size: 16px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
@@ -16,15 +20,18 @@ code {
 
 @layer base {
   a {
-    @apply text-primary-600 underline hover:text-primary-300;
+    @apply text-blue-800 hover:text-primary-800;
   }
+  /*   a:visited {
+    @apply text-purple-900 hover:text-primary-800 ;
+  } */
 
   thead tr {
     @apply border-b border-t border-accent-700;
   }
 
   th {
-    @apply h-10 border-r border-gray-300 p-3 text-left font-bold uppercase text-primary-200;
+    @apply h-10 border-r border-gray-300 p-3 text-left text-xs font-bold uppercase text-primary-300;
   }
 
   td {

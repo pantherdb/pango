@@ -1,4 +1,4 @@
-import { ASPECT_MAP } from '@/@pango.core/data/config'
+import { ASPECT_MAP, EVIDENCE_TYPE_MAP, EvidenceType } from '@/@pango.core/data/config'
 import { ENVIRONMENT } from '@/@pango.core/data/constants'
 import type React from 'react'
 import { setRightDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
@@ -6,8 +6,11 @@ import { useAppDispatch } from '@/app/hooks'
 import type { Annotation } from '../models/annotation'
 import { setSelectedAnnotation } from '../slices/selectedAnnotationSlice'
 import TermLink from '@/features/terms/components/TermLink'
-import { Tooltip } from '@mui/material'
+import Tooltip from '@mui/material/Tooltip'
 import { getPubmedArticleUrl } from '@/@pango.core/services/linksService'
+import { FaFlask } from 'react-icons/fa'
+import { PiEmptyLight } from 'react-icons/pi'
+import { TbBinaryTreeFilled } from 'react-icons/tb'
 
 interface AnnotationTableProps {
   annotations: Annotation[]
@@ -27,13 +30,12 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
     dispatch(setRightDrawerOpen(true))
   }
 
-
-
   return (
     <div className="w-full overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
       <table className="w-full">
         <thead>
           <tr className="border-primary-light h-8 border-b bg-white">
+            <th className="w-8"></th>
             <th className="w-64">
               <div className="flex items-center">
                 <Tooltip
@@ -91,10 +93,29 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
               onClick={() => handleRowClick(row)}
               className="cursor-pointer hover:bg-gray-50"
             >
-              <td className="min-w-[250px] px-3 py-4">
+              <td className="w-10 px-2 py-4">
+                <Tooltip title={EVIDENCE_TYPE_MAP[row.evidenceType]?.iconTooltip}>
+                  <div className="flex h-8 w-8 items-center justify-center text-gray-600">
+                    {row.evidenceType === EvidenceType.DIRECT && <FaFlask className={`text-2xl`} />}
+
+                    {row.evidenceType === EvidenceType.HOMOLOGY && (
+                      <div className={`text-2xl`}>
+                        <TbBinaryTreeFilled />
+                      </div>
+                    )}
+
+                    {row.evidenceType === EvidenceType.NA && (
+                      <div className="relative text-2xl">
+                        <PiEmptyLight className="text-gray-400" />
+                      </div>
+                    )}
+                  </div>
+                </Tooltip>
+              </td>
+              <td className="min-w-[250px] p-3">
                 <div className="flex items-center">
                   <span
-                    className="inline-flex !h-8 !w-8 items-center justify-center rounded-full border text-xs font-bold"
+                    className="inline-flex !h-8 !w-8 items-center justify-center rounded-full border text-sm font-bold"
                     style={{
                       borderColor: ASPECT_MAP[row.term.aspect]?.color,
                       color: ASPECT_MAP[row.term.aspect]?.color,
@@ -110,11 +131,11 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                   </div>
                 </div>
               </td>
-              <td className="min-w-[220px] px-3 py-4">
+              <td className="min-w-[220px] p-3">
                 {row.slimTerms.map((term, termIdx) => (
                   <div key={termIdx} className="mb-1 flex items-center last:mb-0">
                     <span
-                      className="inline-flex !h-8 !w-8 items-center justify-center rounded-full border font-bold"
+                      className="inline-flex !h-8 !w-8 items-center justify-center rounded-full border text-sm font-bold"
                       style={{
                         borderColor: ASPECT_MAP[term.aspect]?.color,
                         color: ASPECT_MAP[term.aspect]?.color,
@@ -129,7 +150,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                   </div>
                 ))}
               </td>
-              <td className="px-3 py-5">
+              <td className="px-3 py-4">
                 {row.evidence.slice(0, maxEvidences).map((evidence, evidenceIdx) => (
                   <div
                     key={evidenceIdx}
@@ -147,7 +168,9 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                           {evidence.withGeneId.taxonAbbr}
                         </a>
                         )
-                        <div className="font-normal text-gray-600">{evidence.withGeneId.geneName}</div>
+                        <div className="font-normal text-gray-600">
+                          {evidence.withGeneId.geneName}
+                        </div>
                       </div>
                     )}
                     <div className="ml-4">
@@ -178,7 +201,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                   <button className="">+ {row.evidence.length - maxEvidences} more evidence</button>
                 )}
               </td>
-              <td className="px-3 py-5">
+              <td className="px-3 py-4">
                 {row.detailedGroups.map(
                   (group, groupIdx) =>
                     group && (
