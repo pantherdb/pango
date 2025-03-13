@@ -5,10 +5,17 @@ import type { CategoryTerm } from '../models/term'
 export const transformCategoryTerms = (buckets: Bucket[]): CategoryTerm[] => {
   if (!buckets?.length) return []
 
-  const sortedBuckets = [...buckets].sort((a, b) => b.docCount - a.docCount)
-  const longest = sortedBuckets[0]?.docCount || 0
+  // Separate known and unknown buckets
+  const knownBuckets = buckets.filter(bucket => !bucket.meta?.id.startsWith('UNKNOWN:'))
+  const unknownBuckets = buckets.filter(bucket => bucket.meta?.id.startsWith('UNKNOWN:'))
 
-  return sortedBuckets.map(bucket => {
+  const sortedKnownBuckets = [...knownBuckets].sort((a, b) => b.docCount - a.docCount)
+  const sortedUnknownBuckets = [...unknownBuckets].sort((a, b) => b.docCount - a.docCount)
+
+  // Find the highest count from all buckets for ratio calculation
+  const longest = buckets.reduce((max, bucket) => Math.max(max, bucket.docCount), 0)
+
+  const transformBucket = (bucket: Bucket): CategoryTerm => {
     const ratio = bucket.docCount / longest
     let countPos: string
 
@@ -31,5 +38,10 @@ export const transformCategoryTerms = (buckets: Bucket[]): CategoryTerm[] => {
       width,
       countPos,
     }
-  })
+  }
+
+  return [
+    ...sortedKnownBuckets.map(transformBucket),
+    ...sortedUnknownBuckets.map(transformBucket)
+  ]
 }
