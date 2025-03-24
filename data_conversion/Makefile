@@ -122,7 +122,7 @@ export DEBUG_INDENT ?= 0
 
 .PRECIOUS: %/export_annotations.touch
 %/export_annotations.touch: %/human_iba_annotations.json %/full_go_annotated.json %/human_iba_gene_info.json
-	python3 export_annotations.py -a $< -t $*/full_go_annotated.json -g $*/human_iba_gene_info.json -j $*/export_annotations.json -s $*/export_annotations.tsv
+	python3 export_annotations.py -a $< -t $*/full_go_annotated.json -g $*/human_iba_gene_info.json -j $*/export_annotations.json -s $*/export_annotations.tsv -u $*/uniprot-functionome_xrefs.tsv
 	touch $@
 
 tests:

@@ -1,7 +1,7 @@
 import argparse
 import json
 import csv
-from typing import Dict
+from typing import Dict, List
 
 
 parser = argparse.ArgumentParser()
@@ -10,17 +10,19 @@ parser.add_argument('-t', '--terms_file', help="Terms JSON file")
 parser.add_argument('-g', '--gene_info_file', help="Gene info JSON file")
 parser.add_argument('-j', '--output_file', help="Output JSON file")
 parser.add_argument('-s', '--output_tsv', help="Output TSV file")
+parser.add_argument('-u', '--output_stats', help="Output stats TSV file")
 
 
-def merge_gene_data(gene_annots: Dict, terms: Dict, gene_infos: Dict, output_json: str, output_tsv: str):
+def merge_gene_data(gene_annots: List, terms: List, gene_infos: List, output_json: str, output_tsv: str):
 
     # Create lookup dictionaries for efficient matching
     terms_dict = {term['ID']: term for term in terms}
-    gene_info_dict = {gene['gene']: gene for gene in gene_info}
+    gene_info_dict = {gene['gene']: gene for gene in gene_infos}
+    gene_annot_counts = {annot['gene']: 0 for annot in gene_annots}
 
     # Merge the data
     merged_data = []
-    for annotation in gene_annotations:
+    for annotation in gene_annots:
         gene = annotation['gene']
         term = annotation['term']
 
@@ -34,6 +36,8 @@ def merge_gene_data(gene_annots: Dict, terms: Dict, gene_infos: Dict, output_jso
                 'term_label': terms_dict[term]['LABEL']
             }
             merged_data.append(merged_entry)
+            if term.startswith("GO:"):
+                gene_annot_counts[gene] += 1
 
     # Write output to JSON file
     with open(output_json, 'w') as f:
@@ -47,6 +51,17 @@ def merge_gene_data(gene_annots: Dict, terms: Dict, gene_infos: Dict, output_jso
 
     print(f"Merged data written to {output_json} and {output_tsv}")
     print(f"Total entries merged: {len(merged_data)}")
+
+    # Write out gene annot stats
+    with open(args.output_stats, 'w') as f:
+        writer = csv.writer(f, delimiter='\t')
+        writer.writerow(['UniProt current', 'UniProt functionome', 'additional information to display'])
+        for gene, count in gene_annot_counts.items():
+            if count == 1:
+                count_str = "1 GO annotation"
+            else:
+                count_str = "{} GO annotations".format(count)
+            writer.writerow([gene, gene, count_str])
 
 
 if __name__ == "__main__":
