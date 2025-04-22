@@ -1,14 +1,70 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PAN-GO - Human Functionome</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary Meta Tags -->
+  <title>PAN-GO - Human Gene Functionome</title>
+  <meta name="title" content="PAN-GO - Human Functionome">
+  <meta name="description"
+    content="Explore the PAN-GO functionome - The functionome describes the known functions of all human protein-coding genes, using terms from the Gene Ontology to describe each functional characteristic">
+  <meta name="keywords"
+    content="gene ontology, human genes, functionome, PAN-GO, phylogenetic annotation, protein-coding genes, gene functions, GO terms, biological functions, nature paper">
+  <meta name="author" content="The Gene Ontology Consortium">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://functionome.geneontology.org/">
+  <meta property="og:title" content="PAN-GO - Human Gene Functionome">
+  <meta property="og:description"
+    content="Search and explore the functions of human protein-coding genes with comprehensive Gene Ontology annotations based on experimental evidence and phylogenetic analysis.">
+  <meta property="og:image" content="https://functionome.geneontology.org/assets/images/pango-og-image.jpg">
+
+
+  <link rel="canonical" href="https://functionome.geneontology.org/">
+
+  <link rel="preload" href="/assets/images/gene.jpeg" as="image">
+  <link rel="preload" href="/src/main.tsx" as="script">
+
+  <!-- Favicon and App icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Structured Data for Google -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Dataset",
+      "name": "PAN-GO Human Gene Functionome",
+      "description": "A comprehensive database of human protein-coding genes and their functional characteristics annotated using Gene Ontology terms with phylogenetic analysis and experimental evidence.",
+      "url": "https://functionome.geneontology.org",
+      "keywords": ["Gene Ontology", "human genes", "functionome", "protein functions", "phylogenetic annotation"],
+      "creator": {
+        "@type": "Organization",
+        "name": "PAN-GO Project",
+        "url": "https://functionome.geneontology.org/about"
+      },
+      "version": "1.0",
+      "isAccessibleForFree": true
+    }
+    </script>
+
+  <meta name="application-name" content="PAN-GO Functionome">
+</head>
+<body>
+  <noscript>
+    <div
+      style="padding: 20px; text-align: center; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; margin: 20px;">
+      You need to enable JavaScript to access the PAN-GO Human Gene Functionome. This application provides interactive
+      tools to explore gene functions and requires JavaScript to operate.
+    </div>
+  </noscript>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
 </html>
