@@ -23,6 +23,7 @@ import theme from '@/@pango.core/theme/theme'
 import { useMediaQuery } from '@mui/system'
 import AnnotationCards from '@/features/annotations/components/AnnotationCards'
 import { handleExternalLinkClick } from '@/analytics'
+import FeedbackBanner from '@/shared/components/FeedbackBanner'
 
 interface InfoRowProps {
   label: string
@@ -192,6 +193,8 @@ const Gene: React.FC = () => {
             <StatBlock number={unknownTermTypes} label="Unknown function aspects" />
           </div>
         </div>
+
+        <FeedbackBanner />
         {annotations.length > 0 && (
           <div className="w-full bg-white">
             <GeneSummary groupedTerms={groupedTerms} />
