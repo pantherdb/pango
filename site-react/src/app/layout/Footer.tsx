@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <div className="footer flex flex-row items-start bg-gradient-to-r from-[#0e2a3b] to-[#34306b] p-5 py-10 text-white">
+    <div className="h-[300px] flex flex-row items-start bg-gradient-to-r  from-[#0e2a3b] to-[#34306b] p-4 py-10 md:px-24 text-white">
       <div className="flex flex-1 flex-row items-start">
         <div className="mr-4">
           <Link to="/" className="text-white">

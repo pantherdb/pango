@@ -24,6 +24,7 @@ import { useMediaQuery } from '@mui/system'
 import AnnotationCards from '@/features/annotations/components/AnnotationCards'
 import { handleExternalLinkClick } from '@/analytics'
 import FeedbackBanner from '@/shared/components/FeedbackBanner'
+import FloatingFeedback from '@/shared/components/FloatingFeedback'
 
 interface InfoRowProps {
   label: string
@@ -194,7 +195,8 @@ const Gene: React.FC = () => {
           </div>
         </div>
 
-        <FeedbackBanner />
+
+        <FeedbackBanner geneSymbol={geneId || ''} />
         {annotations.length > 0 && (
           <div className="w-full bg-white">
             <GeneSummary groupedTerms={groupedTerms} />
@@ -213,6 +215,8 @@ const Gene: React.FC = () => {
           </div>
         )}
       </div>
+
+      <FloatingFeedback />
     </div>
   )
 }
