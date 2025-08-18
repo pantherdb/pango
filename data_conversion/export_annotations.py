@@ -58,10 +58,11 @@ def merge_gene_data(gene_annots: List, terms: List, gene_infos: List, output_jso
         writer.writerow(['UniProt current', 'UniProt functionome', 'additional information to display'])
         for gene, count in gene_annot_counts.items():
             if count == 1:
-                count_str = "1 GO annotation"
+                count_str = "1 GO annotation based on evolutionary models"
             else:
-                count_str = "{} GO annotations".format(count)
-            writer.writerow([gene, gene, count_str])
+                count_str = "{} GO annotations based on evolutionary models".format(count)
+            uniprot_id = gene.replace("UniProtKB:", "")
+            writer.writerow([uniprot_id, uniprot_id, count_str])
 
 
 if __name__ == "__main__":
