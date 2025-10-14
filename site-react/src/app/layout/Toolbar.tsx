@@ -19,6 +19,7 @@ import Button from '@mui/material/Button'
 import LinearProgress from '@mui/material/LinearProgress'
 import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
+import { VersionedButton } from '@/shared/components/VersionedButton'
 
 interface ToolbarProps {
   showLoadingBar?: boolean
@@ -188,22 +189,22 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
           >
             Download
           </Button>
-          <Button
+          <VersionedButton
             color="inherit"
             component={Link}
             className="!text-accent-500 hover:text-accent-200"
             to="/about"
           >
             About
-          </Button>
-          <Button
+          </VersionedButton>
+          <VersionedButton
             color="inherit"
             component={Link}
             className="!text-accent-500 hover:text-accent-200"
             to="/help"
           >
             Help
-          </Button>
+          </VersionedButton>
         </>
       )}
     </div>
