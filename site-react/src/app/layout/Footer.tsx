@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
         </div>
         <div className="mr-4">
           <a
-            href={config.contactUrl}
+            href={config.CONTACT_URL}
             className="text-white"
             target="_blank"
             rel="noopener noreferrer"

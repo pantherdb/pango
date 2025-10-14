@@ -13,8 +13,8 @@ const FloatingFeedback: React.FC<FloatingFeedbackProps> = ({ geneSymbol }) => {
   const [open, setOpen] = useState(false)
 
   const url = geneSymbol
-    ? `${config.contactPrefillUrl}&entry.1624035027=${geneSymbol}&entry.15683129=${geneSymbol}&entry.168426483=${geneSymbol}&entry.391072423=${geneSymbol}`
-    : config.contactUrl
+    ? `${config.CONTACT_PREFILL_URL}&entry.1624035027=${geneSymbol}&entry.15683129=${geneSymbol}&entry.168426483=${geneSymbol}&entry.391072423=${geneSymbol}`
+    : config.CONTACT_URL
 
   return (
     <>

@@ -31,7 +31,7 @@ const OverrepForm = () => {
   const formRef = useRef<any>(null)
   const ontologyOptions = ontology.ontology
   const exampleGenes = ontology.genes
-  const submitUrl = config.overrepApiUrl
+  const submitUrl = config.OVERREP_API_URL
 
   useEffect(() => {
     if (formRef.current) {

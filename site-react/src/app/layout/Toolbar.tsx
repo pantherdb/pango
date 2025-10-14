@@ -265,30 +265,30 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
               >
                 <MenuItem
                   component="a"
-                  href={config.downloadAllDataCSVUrl}
-                  onClick={() => handleExternalLinkClick(config.downloadAllDataCSVUrl)}
+                  href={config.DOWNLOAD_ALL_DATA_CSV_URL}
+                  onClick={() => handleExternalLinkClick(config.DOWNLOAD_ALL_DATA_CSV_URL)}
                 >
                   All data as CSV
                 </MenuItem>
                 <MenuItem
                   component="a"
-                  href={config.downloadAllDataJSONUrl}
-                  onClick={() => handleExternalLinkClick(config.downloadAllDataJSONUrl)}
+                  href={config.DOWNLOAD_ALL_DATA_JSON_URL}
+                  onClick={() => handleExternalLinkClick(config.DOWNLOAD_ALL_DATA_JSON_URL)}
                 >
                   All data as JSON
                 </MenuItem>
                 <MenuItem
                   component="a"
-                  href={config.downloadAnnotationsGAFUrl}
-                  onClick={() => handleExternalLinkClick(config.downloadAnnotationsGAFUrl)}
+                  href={config.DOWNLOAD_ANNOTATIONS_GAF_URL}
+                  onClick={() => handleExternalLinkClick(config.DOWNLOAD_ANNOTATIONS_GAF_URL)}
                 >
                   Annotations as GAF
                 </MenuItem>
                 <MenuItem
                   component="a"
-                  href={config.downloadEvolutionaryModelsGAFUrl}
+                  href={config.DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL}
                   onClick={() =>
-                    handleExternalLinkClick(config.downloadEvolutionaryModelsGAFUrl)
+                    handleExternalLinkClick(config.DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL)
                   }
                   target="_blank"
                   rel="noopener noreferrer"
@@ -297,8 +297,8 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
                 </MenuItem>
                 <MenuItem
                   component="a"
-                  href={config.downloadOntologyFilesUrl}
-                  onClick={() => handleExternalLinkClick(config.downloadOntologyFilesUrl)}
+                  href={config.DOWNLOAD_ONTOLOGY_FILES_URL}
+                  onClick={() => handleExternalLinkClick(config.DOWNLOAD_ONTOLOGY_FILES_URL)}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

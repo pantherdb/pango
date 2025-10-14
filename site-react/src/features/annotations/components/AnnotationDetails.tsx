@@ -132,7 +132,7 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
                   <div className="mb-2 font-medium">
                     {evidence.withGeneId.gene} ({evidence.withGeneId.geneSymbol}) (
                     <a
-                      href={config.taxonApiUrl + evidence.withGeneId.taxonId}
+                      href={config.TAXON_API_URL + evidence.withGeneId.taxonId}
                       target="_blank"
                       rel="noopener noreferrer"
                       className=""

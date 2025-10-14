@@ -161,7 +161,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                       <div className="mb-1 text-sm">
                         {evidence.withGeneId.gene} ({evidence.withGeneId.geneSymbol}) (
                         <a
-                          href={config.taxonApiUrl + evidence.withGeneId.taxonId}
+                          href={config.TAXON_API_URL + evidence.withGeneId.taxonId}
                           target="_blank"
                           rel="noopener noreferrer"
                           className=""

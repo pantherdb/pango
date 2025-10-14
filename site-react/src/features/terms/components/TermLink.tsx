@@ -11,7 +11,7 @@ const TermLink: React.FC<TermLinkProps> = ({ term }) => {
   const config = useConfig()
   return term.displayId ? (
     <a
-      href={config.amigoTermUrl + term.id}
+      href={config.AMIGO_TERM_URL + term.id}
       onClick={() => handleGOTermLinkClick(term.id)}
       target="_blank"
       rel="noopener noreferrer"

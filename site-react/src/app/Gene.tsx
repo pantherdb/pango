@@ -123,12 +123,12 @@ const Gene: React.FC = () => {
                 <InfoRow
                   label="GO annotations from all sources"
                   value={annotation?.gene}
-                  href={config.amigoGPUrl + annotation.gene}
+                  href={config.AMIGO_GP_URL + annotation.gene}
                 />
                 <InfoRow
                   label="PAN-GO evolutionary model for this family"
                   value={annotation.pantherFamily}
-                  href={config.pantreeUrl + annotation.pantherFamily}
+                  href={config.PANTREE_URL + annotation.pantherFamily}
                 />
               </div>
             </div>

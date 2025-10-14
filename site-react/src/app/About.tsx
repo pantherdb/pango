@@ -78,7 +78,7 @@ const AboutPage: React.FC = () => {
               <span className="mt-2 block font-medium">
                 <a
                   className="font-medium"
-                  href={config.paperUrl}
+                  href={config.PAPER_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -101,7 +101,7 @@ const AboutPage: React.FC = () => {
             the scientific community to{' '}
             <a
               className="font-medium"
-              href={config.contactUrl}
+              href={config.CONTACT_URL}
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -30,7 +30,7 @@ const AnnotationCards: React.FC<AnnotationCardsProps> = ({
   const getPubmedArticleUrl = (pmid: string): string => {
     if (!pmid) return ''
     const id = pmid?.split(':')
-    return id.length > 0 ? config.pubmedUrl + id[1] : ''
+    return id.length > 0 ? config.PUBMED_URL + id[1] : ''
   }
 
   return (

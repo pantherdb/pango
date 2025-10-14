@@ -81,7 +81,7 @@ const Home: React.FC = () => {
               <h3 className="text-xs text-white md:text-base">
                 See any missing or incorrect functions?
                 <a
-                  href={config.contactUrl}
+                  href={config.CONTACT_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-1 text-accent-500 hover:text-accent-200"
@@ -96,7 +96,7 @@ const Home: React.FC = () => {
               <h2 className="text-sm mb-2 flex items-center font-medium text-white md:text-base">
                 PAN-GO Enrichment Analysis
                 <a
-                  href={config.overrepDocsApiUrl}
+                  href={config.OVERREP_DOCS_API_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-1 text-accent-500 hover:text-accent-200"

@@ -40,7 +40,7 @@ const HelpPage: React.FC = () => {
                 A larger box where you can type or paste a list of genes to perform a statistical{' '}
                 <a
                   className="font-medium"
-                  href={config.overrepDocsApiUrl}
+                  href={config.OVERREP_DOCS_API_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
