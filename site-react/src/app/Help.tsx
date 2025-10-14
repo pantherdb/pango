@@ -1,7 +1,8 @@
-import { ENVIRONMENT } from '@/@pango.core/data/constants'
+import { useConfig } from '@/@pango.core/data/useConfig'
 import type React from 'react'
 
 const HelpPage: React.FC = () => {
+  const config = useConfig()
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-gray-50 to-gray-100 py-6">
       <div className="mx-auto flex w-full flex-col items-stretch p-4 md:max-w-5xl">
@@ -39,7 +40,7 @@ const HelpPage: React.FC = () => {
                 A larger box where you can type or paste a list of genes to perform a statistical{' '}
                 <a
                   className="font-medium"
-                  href={ENVIRONMENT.overrepDocsApiUrl}
+                  href={config.overrepDocsApiUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

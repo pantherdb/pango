@@ -8,7 +8,7 @@ export enum ApiVersion {
   V2 = 'pango-2',
 }
 
-const LATEST_VERSION = ApiVersion.V1
+const LATEST_VERSION = ApiVersion.V2
 const VERSION_PARAM = 'apiVersion'
 
 export const useApiVersion = () => {

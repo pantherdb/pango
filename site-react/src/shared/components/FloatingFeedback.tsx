@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { FiExternalLink, FiX, FiAlertCircle } from 'react-icons/fi'
 import { FcFeedback } from 'react-icons/fc'
-import { ENVIRONMENT } from '@/@pango.core/data/constants'
+import { useConfig } from '@/@pango.core/data/useConfig'
 import { handleExternalLinkClick } from '@/analytics'
 
 interface FloatingFeedbackProps {
@@ -9,11 +9,12 @@ interface FloatingFeedbackProps {
 }
 
 const FloatingFeedback: React.FC<FloatingFeedbackProps> = ({ geneSymbol }) => {
+  const config = useConfig()
   const [open, setOpen] = useState(false)
 
   const url = geneSymbol
-    ? `${ENVIRONMENT.contactPrefillUrl}&entry.1624035027=${geneSymbol}&entry.15683129=${geneSymbol}&entry.168426483=${geneSymbol}&entry.391072423=${geneSymbol}`
-    : ENVIRONMENT.contactUrl
+    ? `${config.contactPrefillUrl}&entry.1624035027=${geneSymbol}&entry.15683129=${geneSymbol}&entry.168426483=${geneSymbol}&entry.391072423=${geneSymbol}`
+    : config.contactUrl
 
   return (
     <>

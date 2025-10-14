@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { useAppDispatch } from '../hooks'
 import { toggleLeftDrawer } from '@/@pango.core/components/drawer/drawerSlice'
 import { VersionedLink } from '@/shared/components/VersionedLink'
-import { ENVIRONMENT } from '@/@pango.core/data/constants'
+import { useConfig } from '@/@pango.core/data/useConfig'
 import GeneSearch from '@/features/genes/components/GeneSearch'
 import { handleExternalLinkClick } from '@/analytics'
 import useTheme from '@mui/material/styles/useTheme'
@@ -25,6 +25,7 @@ interface ToolbarProps {
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
+  const config = useConfig()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const [exportMenuAnchor, setExportMenuAnchor] = useState<null | HTMLElement>(null)
@@ -264,30 +265,30 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
               >
                 <MenuItem
                   component="a"
-                  href={ENVIRONMENT.downloadAllDataCSVUrl}
-                  onClick={() => handleExternalLinkClick(ENVIRONMENT.downloadAllDataCSVUrl)}
+                  href={config.downloadAllDataCSVUrl}
+                  onClick={() => handleExternalLinkClick(config.downloadAllDataCSVUrl)}
                 >
                   All data as CSV
                 </MenuItem>
                 <MenuItem
                   component="a"
-                  href={ENVIRONMENT.downloadAllDataJSONUrl}
-                  onClick={() => handleExternalLinkClick(ENVIRONMENT.downloadAllDataJSONUrl)}
+                  href={config.downloadAllDataJSONUrl}
+                  onClick={() => handleExternalLinkClick(config.downloadAllDataJSONUrl)}
                 >
                   All data as JSON
                 </MenuItem>
                 <MenuItem
                   component="a"
-                  href={ENVIRONMENT.downloadAnnotationsGAFUrl}
-                  onClick={() => handleExternalLinkClick(ENVIRONMENT.downloadAnnotationsGAFUrl)}
+                  href={config.downloadAnnotationsGAFUrl}
+                  onClick={() => handleExternalLinkClick(config.downloadAnnotationsGAFUrl)}
                 >
                   Annotations as GAF
                 </MenuItem>
                 <MenuItem
                   component="a"
-                  href={ENVIRONMENT.downloadEvolutionaryModelsGAFUrl}
+                  href={config.downloadEvolutionaryModelsGAFUrl}
                   onClick={() =>
-                    handleExternalLinkClick(ENVIRONMENT.downloadEvolutionaryModelsGAFUrl)
+                    handleExternalLinkClick(config.downloadEvolutionaryModelsGAFUrl)
                   }
                   target="_blank"
                   rel="noopener noreferrer"
@@ -296,8 +297,8 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
                 </MenuItem>
                 <MenuItem
                   component="a"
-                  href={ENVIRONMENT.downloadOntologyFilesUrl}
-                  onClick={() => handleExternalLinkClick(ENVIRONMENT.downloadOntologyFilesUrl)}
+                  href={config.downloadOntologyFilesUrl}
+                  onClick={() => handleExternalLinkClick(config.downloadOntologyFilesUrl)}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

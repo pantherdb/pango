@@ -2,11 +2,12 @@ import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
 import type React from 'react'
 import { useEffect } from 'react'
 import { useAppDispatch } from './hooks'
-import { ENVIRONMENT } from '@/@pango.core/data/constants'
+import { useConfig } from '@/@pango.core/data/useConfig'
 import { FaFlask } from 'react-icons/fa'
 import { TbBinaryTreeFilled } from 'react-icons/tb'
 
 const AboutPage: React.FC = () => {
+  const config = useConfig()
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -23,10 +24,10 @@ const AboutPage: React.FC = () => {
         </div>
 
         <div className="mb-10">
-          <p className="mt-2 text-xl font-semibold text-green-600">Version: 1.0</p>
+          <p className="mt-2 text-xl font-semibold text-green-600">Version: {config.APP_VERSION}</p>
           <ul className="mb-4 list-disc space-y-2 pl-6 text-gray-600">
-            <li>GO annotations and ontology from GO release 2022-03-22</li>
-            <li>Phylogenetic trees from PANTHER version 15.0</li>
+            <li>GO annotations and ontology from GO release {config.GO_RELEASE}</li>
+            <li>Phylogenetic trees from PANTHER version {config.PANTHER_VERSION}</li>
             <li>All data can be downloaded from the Downloads menu in the header.</li>
           </ul>
         </div>
@@ -77,7 +78,7 @@ const AboutPage: React.FC = () => {
               <span className="mt-2 block font-medium">
                 <a
                   className="font-medium"
-                  href={ENVIRONMENT.paperUrl}
+                  href={config.paperUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -100,7 +101,7 @@ const AboutPage: React.FC = () => {
             the scientific community to{' '}
             <a
               className="font-medium"
-              href={ENVIRONMENT.contactUrl}
+              href={config.contactUrl}
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -1,21 +1,22 @@
-import { ENVIRONMENT } from '@/@pango.core/data/constants'
+import { useConfig } from '@/@pango.core/data/useConfig'
+import { VersionedLink } from '@/shared/components/VersionedLink'
 import type React from 'react'
-import { Link } from 'react-router-dom'
 
 const Footer: React.FC = () => {
+  const config = useConfig()
   const currentYear = new Date().getFullYear()
 
   return (
     <div className="h-[300px] flex flex-row items-start bg-gradient-to-r  from-[#0e2a3b] to-[#34306b] p-4 py-10 md:px-24 text-white">
       <div className="flex flex-1 flex-row items-start">
         <div className="mr-4">
-          <Link to="/" className="text-white">
+          <VersionedLink to="/" className="text-white">
             Home
-          </Link>
+          </VersionedLink>
         </div>
         <div className="mr-4">
           <a
-            href={ENVIRONMENT.contactUrl}
+            href={config.contactUrl}
             className="text-white"
             target="_blank"
             rel="noopener noreferrer"

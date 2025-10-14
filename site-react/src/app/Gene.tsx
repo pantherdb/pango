@@ -1,5 +1,5 @@
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
-import { ENVIRONMENT } from '@/@pango.core/data/constants'
+import { useConfig } from '@/@pango.core/data/useConfig'
 import AnnotationTable from '@/features/annotations/components/AnnotationTable'
 import { useGetAnnotationsQuery } from '@/features/annotations/slices/annotationsApiSlice'
 import GeneSummary from '@/features/genes/components/GeneSummary'
@@ -70,6 +70,7 @@ const StatBlock: React.FC<StatBlockProps> = ({ number, label, sublabel }) => (
 )
 
 const Gene: React.FC = () => {
+  const config = useConfig()
   const dispatch = useAppDispatch()
   const { id: geneId } = useParams<{ id: string }>()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
@@ -122,12 +123,12 @@ const Gene: React.FC = () => {
                 <InfoRow
                   label="GO annotations from all sources"
                   value={annotation?.gene}
-                  href={ENVIRONMENT.amigoGPUrl + annotation.gene}
+                  href={config.amigoGPUrl + annotation.gene}
                 />
                 <InfoRow
                   label="PAN-GO evolutionary model for this family"
                   value={annotation.pantherFamily}
-                  href={ENVIRONMENT.pantreeUrl + annotation.pantherFamily}
+                  href={config.pantreeUrl + annotation.pantherFamily}
                 />
               </div>
             </div>
@@ -216,7 +217,7 @@ const Gene: React.FC = () => {
         )}
       </div>
 
-      <FloatingFeedback />
+      <FloatingFeedback geneSymbol={annotation.geneSymbol} />
     </div>
   )
 }

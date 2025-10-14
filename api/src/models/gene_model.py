@@ -11,9 +11,9 @@ class Gene:
     gene_name: typing.Optional[str]
     long_id: typing.Optional[str] =  None
     panther_family: typing.Optional[str] =  None
-    taxon_abbr: typing.Optional[str]
-    taxon_label: typing.Optional[str]
-    taxon_id: typing.Optional[str]
+    taxon_abbr: typing.Optional[str] = None
+    taxon_label: typing.Optional[str] = None
+    taxon_id: typing.Optional[str] = None
     coordinates_chr_num:typing.Optional[str] =  None
     coordinates_start:typing.Optional[int] =  None
     coordinates_end:typing.Optional[int] =  None

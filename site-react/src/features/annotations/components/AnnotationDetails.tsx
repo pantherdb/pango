@@ -5,7 +5,7 @@ import type { Annotation } from '../models/annotation'
 import { ASPECT_MAP } from '@/@pango.core/data/config'
 import { FaDna } from 'react-icons/fa'
 import TermLink from '@/features/terms/components/TermLink'
-import { ENVIRONMENT } from '@/@pango.core/data/constants'
+import { useConfig } from '@/@pango.core/data/useConfig'
 import { getPubmedArticleUrl } from '@/@pango.core/services/linksService'
 
 const Section = ({
@@ -31,6 +31,7 @@ interface Props {
 }
 
 export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
+  const config = useConfig()
   if (!annotation) return null
 
   return (
@@ -131,7 +132,7 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
                   <div className="mb-2 font-medium">
                     {evidence.withGeneId.gene} ({evidence.withGeneId.geneSymbol}) (
                     <a
-                      href={ENVIRONMENT.taxonApiUrl + evidence.withGeneId.taxonId}
+                      href={config.taxonApiUrl + evidence.withGeneId.taxonId}
                       target="_blank"
                       rel="noopener noreferrer"
                       className=""

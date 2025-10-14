@@ -1,5 +1,5 @@
 import { ASPECT_MAP, EVIDENCE_TYPE_MAP, EvidenceType } from '@/@pango.core/data/config'
-import { ENVIRONMENT } from '@/@pango.core/data/constants'
+import { useConfig } from '@/@pango.core/data/useConfig'
 import type React from 'react'
 import { setRightDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
 import { useAppDispatch } from '@/app/hooks'
@@ -23,6 +23,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
   maxReferences = 2,
   maxEvidences = 2,
 }) => {
+  const config = useConfig()
   const dispatch = useAppDispatch()
 
   const handleRowClick = (annotation: Annotation) => {
@@ -160,7 +161,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                       <div className="mb-1 text-sm">
                         {evidence.withGeneId.gene} ({evidence.withGeneId.geneSymbol}) (
                         <a
-                          href={ENVIRONMENT.taxonApiUrl + evidence.withGeneId.taxonId}
+                          href={config.taxonApiUrl + evidence.withGeneId.taxonId}
                           target="_blank"
                           rel="noopener noreferrer"
                           className=""
