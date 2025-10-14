@@ -3,12 +3,14 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { useSearchParams } from 'react-router-dom'
 import { useCallback } from 'react'
 
-export enum ApiVersion {
-  V1 = 'pango-1',
-  V2 = 'pango-2',
-}
+export const ApiVersions = {
+  V1: import.meta.env.VITE_PANGO_API_VERSION_1 || 'pango-1',
+  V2: import.meta.env.VITE_PANGO_API_VERSION_2 || 'pango-2',
+} as const
 
-const LATEST_VERSION = ApiVersion.V2
+export type ApiVersion = typeof ApiVersions[keyof typeof ApiVersions]
+
+const LATEST_VERSION = (import.meta.env.VITE_PANGO_API_VERSION as ApiVersion) || ApiVersions.V2
 const VERSION_PARAM = 'apiVersion'
 
 export const useApiVersion = () => {

@@ -1,3 +1,6 @@
+import type { ApiVersion } from '@/app/store/apiService'
+import { ApiVersions } from '@/app/store/apiService'
+
 // Base configuration - shared across all versions
 export const BASE_CONFIG = {
   contactUrl:
@@ -20,7 +23,7 @@ export const BASE_CONFIG = {
 
 // Version-specific configurations
 const VERSION_CONFIGS = {
-  'pango-1': {
+  [ApiVersions.V1]: {
     // Downloads
     downloadAllDataCSVUrl: 'https://functionome.geneontology.org/download/export_annotations.zip',
     downloadAllDataJSONUrl:
@@ -38,7 +41,7 @@ const VERSION_CONFIGS = {
     PANTHER_VERSION: '15.0',
   },
 
-  'pango-2': {
+  [ApiVersions.V2]: {
     // Downloads
     downloadAllDataCSVUrl: 'https://functionome.geneontology.org/download/export_annotations.zip',
     downloadAllDataJSONUrl:
@@ -57,16 +60,17 @@ const VERSION_CONFIGS = {
   },
 }
 
-type ApiVersion = 'pango-1' | 'pango-2'
+// Get default version from .env
+const DEFAULT_VERSION = (import.meta.env.VITE_PANGO_API_VERSION as ApiVersion) || ApiVersions.V2
 
-export const getConfig = (version: ApiVersion = 'pango-2') => ({
+export const getConfig = (version: ApiVersion = DEFAULT_VERSION) => ({
   ...BASE_CONFIG,
   ...VERSION_CONFIGS[version],
 })
 
 export const getCurrentConfig = () => {
   const searchParams = new URLSearchParams(window.location.search)
-  const version = (searchParams.get('apiVersion') as ApiVersion) || 'pango-2'
+  const version = (searchParams.get('apiVersion') as ApiVersion) || DEFAULT_VERSION
   return getConfig(version)
 }
 
