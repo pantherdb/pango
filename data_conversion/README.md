@@ -5,6 +5,14 @@ Specify a destination `{target}` folder and run from `data_conversion`:
 ```
 make {target}/all
 ```
+You can also specify 
+```
+PANTHER_VERSION=19.0 \
+HUMAN_IBA_GAF=IBA_GAFs_pango/gene_association.paint_human_validated.gaf \
+GO_PARENT_CHILD_TSV=goparentchild.tsv \
+GO_OBO=go.obo \
+make {target}/data_conversion_all
+```
 ## Annotations
 Produce JSON file `human_iba_annotations.json` containing annotations from a GAF file.
 ### Prepare goslim_generic.tsv input
@@ -37,7 +45,27 @@ Scripts to produce source files:
 * [extractfromgoobo_relation.pl](https://github.com/pantherdb/fullgo_paint_update/blob/master/scripts/extractfromgoobo_relation.pl) -> `goparentchild.tsv`
 * [robot_go_aspects.slurm](https://github.com/pantherdb/fullgo_paint_update/blob/master/scripts/robot_go_aspects.slurm) -> `go_aspects.tsv`
 
-**NOTE:** `createGAF_human_exp_references.pl` will add extra data columns to provide experimental references and group info, technically creating an invalid GAF formatted file that should only be consumed by `iba_exp_refs_to_json.py`.
+#### Note about `createGAF_human_exp_references.pl` 
+This will add extra data columns to provide experimental references and group info, technically creating an invalid GAF formatted file that should only be consumed by `iba_exp_refs_to_json.py`. This format follows the [GAF 2.2 spec](https://geneontology.org/docs/go-annotation-file-gaf-format-2.2/) but splits out IBAs that have multiple exp evidence genes in the with/from into separate lines.
+
+An example IBA line with a with/from value:
+```
+PTN008501429|WB:WBGene00006746|FB:FBgn0015773|FB:FBgn0015774
+```
+Will now be three IBA lines having with/from values of:
+```
+PTN008501429|WB:WBGene00006746
+PTN008501429|FB:FBgn0015773
+PTN008501429|FB:FBgn0015774
+```
+
+The script also appends five columns to carry over the experimental annotation PMID and contributing group along with the basic details of the exp evidence gene:
+* Col 18 - Exp annotation reference PMID(s)
+* Col 19 - Exp gene symbol
+* Col 20 - Exp gene definition
+* Col 21 - Exp gene taxon
+* Col 22 - Exp annotation contributing group(s)
+
 ## Ontology
 Produce JSON file `full_go_annotated.json`.
 ```
