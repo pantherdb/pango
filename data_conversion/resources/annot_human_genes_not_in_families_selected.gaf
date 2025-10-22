@@ -1,141 +1,141 @@
-UniProtKB	A0A0C5B5G6	MT-RNR1	enables	GO:0003677	PMID:29983246	IDA		F			protein	taxon:9606		UniProt		
-UniProtKB	A0A0C5B5G6	MT-RNR1	located_in	GO:0005634	PMID:29983246	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	A0A0C5B5G6	MT-RNR1	involved_in	GO:0006357	PMID:29983246	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	A0A0U1RRE5	NBDY	located_in	GO:0000932	PMID:27918561	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	A0A0U1RRE5	NBDY	involved_in	GO:0000956	PMID:27918561	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	A0A1B0GTB2	TUNAR	located_in	GO:0005783	PMID:34513312	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	A0A1B0GTB2	TUNAR	involved_in	GO:0032469	PMID:34513312	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	A0A1B0GVQ0	SPAAR	located_in	GO:0031902	PMID:28024296	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	A6NCN2	KRT87P	located_in	GO:0005615	PMID:23580065	HDA		C			protein	taxon:9606		UniProt		
-UniProtKB	A6NI61	MYMK	located_in	GO:0005886	PMID:28681861	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	A6NI61	MYMK	involved_in	GO:0007520	PMID:28681861	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	I0J062	PANO1	located_in	GO:0005730	PMID:22094112	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	O00631	SLN	located_in	GO:0016529	PMID:9575189	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	O14599	BPY2	located_in	GO:0005634	PMID:12724276	IDA		C			protein	taxon:9606		HGNC-UCL		
-UniProtKB	O14599	BPY2	involved_in	GO:0007283	PMID:12724276	IMP		P			protein	taxon:9606		HGNC-UCL		
-UniProtKB	P05113	IL5	located_in	GO:0005576	PMID:20041150	IDA		C			protein	taxon:9606		BHF-UCL		
-UniProtKB	P07476	IVL	enables	GO:0060090	PMID:1601889	EXP		F			protein	taxon:9606		DisProt		
-UniProtKB	P07476	IVL	located_in	GO:0001533	PMID:10908733	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	P09669	COX6C	located_in	GO:0031966	PMID:30030519	IDA		C			protein	taxon:9606		ComplexPortal		
-UniProtKB	P09669	COX6C	located_in	GO:0005751	PMID:30030519	IPI		C			protein	taxon:9606		ComplexPortal		
-UniProtKB	P0C7M3	SFTA3	located_in	GO:0005615	PMID:24743970	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	P0C7M3	SFTA3	located_in	GO:0005615	PMID:29955092	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	P0DJI8	SAA1	involved_in	GO:0048246	PMID:7561109	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	P0DJI8	SAA1	involved_in	GO:0048247	PMID:7636186	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	P0DMC3	APELA	involved_in	GO:0060183	PMID:25639753	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	P0DMC3	APELA	located_in	GO:0005576	PMID:28137936	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	P0DMC3	APELA	located_in	GO:0005576	PMID:24316148	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	P0DMC3	APELA	enables	GO:0005179	PMID:28137936	IMP		F			protein	taxon:9606		UniProt		
-UniProtKB	P0DMC3	APELA	enables	GO:0005179	PMID:25639753	IMP		F			protein	taxon:9606		UniProt		
-UniProtKB	P0DMC3	APELA	involved_in	GO:0060183	PMID:28137936	IMP		P			protein	taxon:9606		UniProt		
-UniProtKB	P0DPK4	NOTCH2NLC	involved_in	GO:0021987	PMID:29856954	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	P0DPK4	NOTCH2NLC	involved_in	GO:0021987	PMID:29561261	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	P0DPK4	NOTCH2NLC	located_in	GO:0005576	PMID:29856954	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	P13232	IL7	located_in	GO:0005576	PMID:11418668	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	P13232	IL7	involved_in	GO:0019221	PMID:11418668	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	P13232	IL7	enables	GO:0005125	PMID:11418668	IDA		F			protein	taxon:9606		UniProt		
-UniProtKB	P14151	SELL	involved_in	GO:0016339	PMID:28011641	IMP		P			protein	taxon:9606		UniProt		
-UniProtKB	P22301	IL10	located_in	GO:0005615	PMID:21323571	IDA		C			protein	taxon:9606		BHF-UCL		
-UniProtKB	P22301	IL10	located_in	GO:0005615	PMID:10443688	IDA		C			protein	taxon:9606		BHF-UCL		
-UniProtKB	P22528	SPRR1B	located_in	GO:0001533	PMID:10908733	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	P22531	SPRR2E	enables	GO:0030280	PMID:9722562	IDA		F			protein	taxon:9606		CAFA		
-UniProtKB	P22531	SPRR2E	enables	GO:0030280	PMID:7543090	IDA		F			protein	taxon:9606		CAFA		
-UniProtKB	P22531	SPRR2E	located_in	GO:0001533	PMID:9722562	IDA		C			protein	taxon:9606		CAFA		
-UniProtKB	P22531	SPRR2E	located_in	GO:0001533	PMID:7543090	IDA		C			protein	taxon:9606		CAFA		
-UniProtKB	P29459	IL12A	located_in	GO:0005615	PMID:16456693	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	P29459	IL12A	contributes_to	GO:0005125	PMID:1674604	IDA		F			protein	taxon:9606		UniProt		
-UniProtKB	P35225	IL13	involved_in	GO:0042116	PMID:30634164	IGI		P			protein	taxon:9606		ARUK-UCL		
-UniProtKB	P35225	IL13	located_in	GO:0005576	PMID:20041150	IDA		C			protein	taxon:9606		BHF-UCL		
-UniProtKB	P35321	SPRR1A	enables	GO:0030280	PMID:7543090	IDA		F			protein	taxon:9606		CAFA		
-UniProtKB	P35321	SPRR1A	located_in	GO:0001533	PMID:7543090	IDA		C			protein	taxon:9606		CAFA		
-UniProtKB	P35321	SPRR1A	located_in	GO:0001533	PMID:10908733	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	P35326	SPRR2A	enables	GO:0008289	PMID:34735226	IDA		F			protein	taxon:9606		UniProt		
-UniProtKB	P35326	SPRR2A	involved_in	GO:0050830	PMID:34735226	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	P35326	SPRR2A	is_active_in	GO:0005576	PMID:34735226	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	P50135	HNMT	is_active_in	GO:0005829	PMID:23505051	IDA		C			protein	taxon:9606		ARUK-UCL		
-UniProtKB	P50135	HNMT	enables	GO:0046539	PMID:26206890	IDA		F			protein	taxon:9606		UniProt		
-UniProtKB	P50135	HNMT	located_in	GO:0005829	GO_REF:0000052	IDA		C			protein	taxon:9606		HPA		
-UniProtKB	P58557	YBEY	enables	GO:0004521	PMID:28153719	IDA		F			protein	taxon:9606		UniProt		
-UniProtKB	P58557	YBEY	located_in	GO:0005634	PMID:22042635	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	P59103	DAOA	located_in	GO:0005794	PMID:12364586	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	P59103	DAOA	enables	GO:0008047	PMID:12364586	IDA		F			protein	taxon:9606		UniProt		
-UniProtKB	P60568	IL2	enables	GO:0005125	PMID:10072077	IDA		F			protein	taxon:9606		MGI		
-UniProtKB	P60568	IL2	enables	GO:0005125	PMID:1830926	IDA		F			protein	taxon:9606		MGI		
-UniProtKB	P60568	IL2	involved_in	GO:0002366	PMID:16204630	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	P62945	RPL41	part_of	GO:0022625	PMID:25957688	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	P62945	RPL41	part_of	GO:0022625	PMID:25957688	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	P62945	RPL41	involved_in	GO:0002181	PMID:25957688	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	P62945	RPL41	located_in	GO:0022625	PMID:25901680	IPI		C			protein	taxon:9606		ComplexPortal		
-UniProtKB	P62945	RPL41	located_in	GO:0022625	PMID:25901680	IPI		C			protein	taxon:9606		ComplexPortal		
-UniProtKB	P62945	RPL41	part_of	GO:0022625	PMID:12962325	HDA		C			protein	taxon:9606		UniProt		
-UniProtKB	P62945	RPL41	part_of	GO:0022625	PMID:12962325	HDA		C			protein	taxon:9606		UniProt		
-UniProtKB	Q14116	IL18	enables	GO:0005125	PMID:25500532	IDA		F			protein	taxon:9606		UniProt		
-UniProtKB	Q14116	IL18	enables	GO:0005125	PMID:14528293	IDA		F			protein	taxon:9606		UniProt		
-UniProtKB	Q14116	IL18	involved_in	GO:0035655	PMID:25500532	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q14116	IL18	located_in	GO:0005615	PMID:21323571	IDA		C			protein	taxon:9606		BHF-UCL		
-UniProtKB	Q14116	IL18	involved_in	GO:0035655	PMID:21321938	IDA		P			protein	taxon:9606		BHF-UCL		
-UniProtKB	Q14116	IL18	involved_in	GO:0006954	PMID:21147091	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q14116	IL18	involved_in	GO:0042088	PMID:8766574	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q16552	IL17A	involved_in	GO:0097400	PMID:21350122	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q30KQ6	DEFB114	enables	GO:0001530	PMID:23482568	IDA		F			protein	taxon:9606		UniProt		
-UniProtKB	Q30KQ6	DEFB114	involved_in	GO:0045087	PMID:23482568	IMP		P			protein	taxon:9606		UniProt		
-UniProtKB	Q30KQ6	DEFB114	involved_in	GO:0045087	PMID:23482568	IMP		P			protein	taxon:9606		UniProt		
-UniProtKB	Q5T230	UTF1	enables	GO:0003713	PMID:9748258	IDA		F			protein	taxon:9606		UniProt		
-UniProtKB	Q5T230	UTF1	located_in	GO:0005634	PMID:18281244	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	Q6P9F0	CCDC62	involved_in	GO:0045944	PMID:19126643	IDA		P			protein	taxon:9606		ParkinsonsUK-UCL		
-UniProtKB	Q6P9F0	CCDC62	located_in	GO:0005634	PMID:19126643	IDA		C			protein	taxon:9606		ParkinsonsUK-UCL		
-UniProtKB	Q6P9F0	CCDC62	involved_in	GO:0045944	PMID:18563714	IPI		P			protein	taxon:9606		ParkinsonsUK-UCL		
-UniProtKB	Q6P9F0	CCDC62	enables	GO:0030374	PMID:18563714	IPI		F			protein	taxon:9606		ParkinsonsUK-UCL		
-UniProtKB	Q6PCB0	VWA1	part_of	GO:0062023	PMID:25037231	HDA		C			protein	taxon:9606		BHF-UCL		
-UniProtKB	Q6PCB0	VWA1	located_in	GO:0062023	PMID:28327460	HDA		C			protein	taxon:9606		BHF-UCL		
-UniProtKB	Q6PRD7	CEMP1	located_in	GO:0005634	PMID:21465469	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	Q6PRD7	CEMP1	involved_in	GO:0042476	PMID:21929512	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q6UWK7	GPR15L	involved_in	GO:0048247	PMID:28936214	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q6UWK7	GPR15L	involved_in	GO:0048247	PMID:28936214	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q6UWK7	GPR15L	located_in	GO:0005576	PMID:25585381	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	Q6UWK7	GPR15L	located_in	GO:0005576	PMID:25351403	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	Q6UXX9	RSPO2	involved_in	GO:0060173	PMID:29769720	IMP		P			protein	taxon:9606		UniProt		
-UniProtKB	Q7Z7B7	DEFB132	located_in	GO:0005615	PMID:18343807	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	Q7Z7B8	DEFB128	involved_in	GO:0050829	PMID:15625724	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q7Z7B8	DEFB128	involved_in	GO:0050830	PMID:15625724	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q86UQ8	NFE4	enables	GO:0003712	PMID:11003662	IDA		F			protein	taxon:9606		GO_Central		
-UniProtKB	Q86UQ8	NFE4	enables	GO:0003712	PMID:15273251	IMP		F			protein	taxon:9606		GO_Central		
-UniProtKB	Q86UQ8	NFE4	enables	GO:0003712	PMID:16263792	IMP		F			protein	taxon:9606		GO_Central		
-UniProtKB	Q86UQ8	NFE4	involved_in	GO:0045944	PMID:11003662	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q86UQ8	NFE4	located_in	GO:0005634	PMID:11003662	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	Q86UQ8	NFE4	involved_in	GO:0045944	PMID:15273251	IMP		P			protein	taxon:9606		UniProt		
-UniProtKB	Q8IZN7	DEFB107A	enables	GO:0008289	DOI:10.1016/j.ijms.2006.01.054	IMP		F			protein	taxon:9606		UniProt		
-UniProtKB	Q8N104	DEFB106A	enables	GO:0001530	PMID:24189797	IDA		F			protein	taxon:9606		UniProt		
-UniProtKB	Q8N104	DEFB106A	involved_in	GO:0045087	PMID:24189797	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q8TAD2	IL17D	located_in	GO:0005615	PMID:12097364	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	Q8TAD2	IL17D	enables	GO:0005125	PMID:12097364	IDA		F			protein	taxon:9606		UniProt		
-UniProtKB	Q8TAD2	IL17D	involved_in	GO:0006954	PMID:12097364	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q8TF63	DCANP1	located_in	GO:0005654	GO_REF:0000052	IDA		C			protein	taxon:9606		HPA		
-UniProtKB	Q8WTQ1	DEFB104A	involved_in	GO:0045087	PMID:11481241	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q8WTQ1	DEFB104A	involved_in	GO:0045087	PMID:11481241	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q8WWG1	NRG4	enables	GO:0048018	PMID:23033483	IDA		F			protein	taxon:9606		MGI		
-UniProtKB	Q8WXC3	PYDC1	involved_in	GO:0045087	PMID:12656673	IDA		P			protein	taxon:9606		HGNC-UCL		
-UniProtKB	Q8WXC3	PYDC1	involved_in	GO:0045087	PMID:12656673	IDA		P			protein	taxon:9606		HGNC-UCL		
-UniProtKB	Q8WXC3	PYDC1	located_in	GO:0005829	PMID:12656673	IDA		C			protein	taxon:9606		HGNC-UCL		
-UniProtKB	Q96HY6	DDRGK1	located_in	GO:0005789	PMID:20228063	IDA		C			protein	taxon:9606		MGI		
-UniProtKB	Q96HY6	DDRGK1	located_in	GO:0005789	PMID:32160526	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	Q96HY6	DDRGK1	involved_in	GO:0071569	PMID:32160526	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q96HY6	DDRGK1	located_in	GO:0005783	GO_REF:0000052	IDA		C			protein	taxon:9606		HPA		
-UniProtKB	Q96JX3	SERAC1	located_in	GO:0044233	PMID:22683713	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	Q96JX3	SERAC1	involved_in	GO:0036148	PMID:22683713	IMP		P			protein	taxon:9606		UniProt		
-UniProtKB	Q96KF2	PRAC1	located_in	GO:0005654	GO_REF:0000052	IDA		C			protein	taxon:9606		HPA		
-UniProtKB	Q96KW9	SPACA7	located_in	GO:0001669	PMID:22495889	IDA		C			protein	taxon:9606		MGI		
-UniProtKB	Q96PD4	IL17F	involved_in	GO:0097400	PMID:21350122	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q96PD4	IL17F	enables	GO:0005125	PMID:11591732	IDA		F			protein	taxon:9606		UniProt		
-UniProtKB	Q9BUF7	CRB3	involved_in	GO:0072659	PMID:17332497	IDA		P			protein	taxon:9606		BHF-UCL		
-UniProtKB	Q9BYW3	DEFB126	involved_in	GO:0061844	PMID:19373462	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q9BYW3	DEFB126	involved_in	GO:0061844	PMID:19373462	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q9H1M4	DEFB127	involved_in	GO:0061844	PMID:19373462	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q9H1M4	DEFB127	involved_in	GO:0061844	PMID:19373462	IDA		P			protein	taxon:9606		UniProt		
-UniProtKB	Q9HAC7	SUGCT	located_in	GO:0005739	PMID:23893049	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	Q9HAC7	SUGCT	enables	GO:0047369	PMID:23893049	IDA		F			protein	taxon:9606		UniProt		
-UniProtKB	Q9NPH9	IL26	located_in	GO:0005615	PMID:18483078	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	Q9NPH9	IL26	enables	GO:0005125	PMID:18483078	IDA		F			protein	taxon:9606		UniProt		
-UniProtKB	Q9NRK6	ABCB10	located_in	GO:0005739	PMID:22655043	IDA		C			protein	taxon:9606		UniProt		
-UniProtKB	Q9NUQ7	UFSP2	enables	GO:0071567	PMID:32160526	IMP		F			protein	taxon:9606		UniProt		
-UniProtKB	Q9NUQ7	UFSP2	enables	GO:0071567	PMID:25219498	IMP		F			protein	taxon:9606		UniProt		
+UniProtKB	A0A0C5B5G6	MT-RNR1	enables	GO:0003677	PMID:29983246	IDA		F			protein	taxon:9606	20210329	UniProt				
+UniProtKB	A0A0C5B5G6	MT-RNR1	located_in	GO:0005634	PMID:29983246	IDA		C			protein	taxon:9606	20210329	UniProt				
+UniProtKB	A0A0C5B5G6	MT-RNR1	involved_in	GO:0006357	PMID:29983246	IDA		P			protein	taxon:9606	20210329	UniProt				
+UniProtKB	A0A0U1RRE5	NBDY	located_in	GO:0000932	PMID:27918561	IDA		C			protein	taxon:9606	20170113	UniProt				
+UniProtKB	A0A0U1RRE5	NBDY	involved_in	GO:0000956	PMID:27918561	IDA		P			protein	taxon:9606	20170116	UniProt				
+UniProtKB	A0A1B0GTB2	TUNAR	located_in	GO:0005783	PMID:34513312	IDA		C			protein	taxon:9606	20220211	UniProt				
+UniProtKB	A0A1B0GTB2	TUNAR	involved_in	GO:0032469	PMID:34513312	IDA		P			protein	taxon:9606	20220211	UniProt				
+UniProtKB	A0A1B0GVQ0	SPAAR	located_in	GO:0031902	PMID:28024296	IDA		C			protein	taxon:9606	20170110	UniProt				
+UniProtKB	A6NCN2	KRT87P	located_in	GO:0005615	PMID:23580065	HDA		C			protein	taxon:9606	20131220	UniProt				
+UniProtKB	A6NI61	MYMK	located_in	GO:0005886	PMID:28681861	IDA		C			protein	taxon:9606	20171005	UniProt				
+UniProtKB	A6NI61	MYMK	involved_in	GO:0007520	PMID:28681861	IDA		P			protein	taxon:9606	20171005	UniProt				
+UniProtKB	I0J062	PANO1	located_in	GO:0005730	PMID:22094112	IDA		C			protein	taxon:9606	20141205	UniProt				
+UniProtKB	O00631	SLN	located_in	GO:0016529	PMID:9575189	IDA		C			protein	taxon:9606	20061024	UniProt				
+UniProtKB	O14599	BPY2	located_in	GO:0005634	PMID:12724276	IDA		C			protein	taxon:9606	20061024	HGNC-UCL				
+UniProtKB	O14599	BPY2	involved_in	GO:0007283	PMID:12724276	IMP		P			protein	taxon:9606	20061024	HGNC-UCL				
+UniProtKB	P05113	IL5	located_in	GO:0005576	PMID:20041150	IDA		C			protein	taxon:9606	20120622	BHF-UCL				
+UniProtKB	P07476	IVL	enables	GO:0060090	PMID:1601889	EXP		F			protein	taxon:9606	20251021	DisProt				
+UniProtKB	P07476	IVL	located_in	GO:0001533	PMID:10908733	IDA		C			protein	taxon:9606	20060403	UniProt				
+UniProtKB	P09669	COX6C	located_in	GO:0031966	PMID:30030519	IDA		C			protein	taxon:9606	20250715	ComplexPortal				
+UniProtKB	P09669	COX6C	located_in	GO:0005751	PMID:30030519	IPI		C			protein	taxon:9606	20251021	ComplexPortal				
+UniProtKB	P0C7M3	SFTA3	located_in	GO:0005615	PMID:24743970	IDA		C			protein	taxon:9606	20181008	UniProt				
+UniProtKB	P0C7M3	SFTA3	located_in	GO:0005615	PMID:29955092	IDA		C			protein	taxon:9606	20181008	UniProt				
+UniProtKB	P0DJI8	SAA1	involved_in	GO:0048246	PMID:7561109	IDA		P			protein	taxon:9606	20120718	UniProt				
+UniProtKB	P0DJI8	SAA1	involved_in	GO:0048247	PMID:7636186	IDA		P			protein	taxon:9606	20120718	UniProt				
+UniProtKB	P0DMC3	APELA	involved_in	GO:0060183	PMID:25639753	IDA		P			protein	taxon:9606	20170512	UniProt				
+UniProtKB	P0DMC3	APELA	located_in	GO:0005576	PMID:28137936	IDA		C			protein	taxon:9606	20170512	UniProt				
+UniProtKB	P0DMC3	APELA	located_in	GO:0005576	PMID:24316148	IDA		C			protein	taxon:9606	20140113	UniProt				
+UniProtKB	P0DMC3	APELA	enables	GO:0005179	PMID:28137936	IMP		F			protein	taxon:9606	20170512	UniProt				
+UniProtKB	P0DMC3	APELA	enables	GO:0005179	PMID:25639753	IMP		F			protein	taxon:9606	20170512	UniProt				
+UniProtKB	P0DMC3	APELA	involved_in	GO:0060183	PMID:28137936	IMP		P			protein	taxon:9606	20170512	UniProt				
+UniProtKB	P0DPK4	NOTCH2NLC	involved_in	GO:0021987	PMID:29856954	IDA		P			protein	taxon:9606	20180710	UniProt				
+UniProtKB	P0DPK4	NOTCH2NLC	involved_in	GO:0021987	PMID:29561261	IDA		P			protein	taxon:9606	20180710	UniProt				
+UniProtKB	P0DPK4	NOTCH2NLC	located_in	GO:0005576	PMID:29856954	IDA		C			protein	taxon:9606	20180710	UniProt				
+UniProtKB	P13232	IL7	located_in	GO:0005576	PMID:11418668	IDA		C			protein	taxon:9606	20171110	UniProt				
+UniProtKB	P13232	IL7	involved_in	GO:0019221	PMID:11418668	IDA		P			protein	taxon:9606	20171110	UniProt				
+UniProtKB	P13232	IL7	enables	GO:0005125	PMID:11418668	IDA		F			protein	taxon:9606	20171110	UniProt				
+UniProtKB	P14151	SELL	involved_in	GO:0016339	PMID:28011641	IMP		P			protein	taxon:9606	20171124	UniProt				
+UniProtKB	P22301	IL10	located_in	GO:0005615	PMID:21323571	IDA		C			protein	taxon:9606	20160712	BHF-UCL				
+UniProtKB	P22301	IL10	located_in	GO:0005615	PMID:10443688	IDA		C			protein	taxon:9606	20080130	BHF-UCL				
+UniProtKB	P22528	SPRR1B	located_in	GO:0001533	PMID:10908733	IDA		C			protein	taxon:9606	20060331	UniProt				
+UniProtKB	P22531	SPRR2E	enables	GO:0030280	PMID:9722562	IDA		F			protein	taxon:9606	20161020	CAFA				
+UniProtKB	P22531	SPRR2E	enables	GO:0030280	PMID:7543090	IDA		F			protein	taxon:9606	20161020	CAFA				
+UniProtKB	P22531	SPRR2E	located_in	GO:0001533	PMID:9722562	IDA		C			protein	taxon:9606	20161020	CAFA				
+UniProtKB	P22531	SPRR2E	located_in	GO:0001533	PMID:7543090	IDA		C			protein	taxon:9606	20161020	CAFA				
+UniProtKB	P29459	IL12A	located_in	GO:0005615	PMID:16456693	IDA		C			protein	taxon:9606	20071025	UniProt				
+UniProtKB	P29459	IL12A	contributes_to	GO:0005125	PMID:1674604	IDA		F			protein	taxon:9606	20071025	UniProt				
+UniProtKB	P35225	IL13	involved_in	GO:0042116	PMID:30634164	IGI		P			protein	taxon:9606	20191220	ARUK-UCL				
+UniProtKB	P35225	IL13	located_in	GO:0005576	PMID:20041150	IDA		C			protein	taxon:9606	20120622	BHF-UCL				
+UniProtKB	P35321	SPRR1A	enables	GO:0030280	PMID:7543090	IDA		F			protein	taxon:9606	20161020	CAFA				
+UniProtKB	P35321	SPRR1A	located_in	GO:0001533	PMID:7543090	IDA		C			protein	taxon:9606	20161020	CAFA				
+UniProtKB	P35321	SPRR1A	located_in	GO:0001533	PMID:10908733	IDA		C			protein	taxon:9606	20060331	UniProt				
+UniProtKB	P35326	SPRR2A	enables	GO:0008289	PMID:34735226	IDA		F			protein	taxon:9606	20211221	UniProt				
+UniProtKB	P35326	SPRR2A	involved_in	GO:0050830	PMID:34735226	IDA		P			protein	taxon:9606	20211221	UniProt				
+UniProtKB	P35326	SPRR2A	is_active_in	GO:0005576	PMID:34735226	IDA		C			protein	taxon:9606	20211221	UniProt				
+UniProtKB	P50135	HNMT	is_active_in	GO:0005829	PMID:23505051	IDA		C			protein	taxon:9606	20200430	ARUK-UCL				
+UniProtKB	P50135	HNMT	enables	GO:0046539	PMID:26206890	IDA		F			protein	taxon:9606	20160614	UniProt				
+UniProtKB	P50135	HNMT	located_in	GO:0005829	GO_REF:0000052	IDA		C			protein	taxon:9606	20251021	HPA				
+UniProtKB	P58557	YBEY	enables	GO:0004521	PMID:28153719	IDA		F			protein	taxon:9606	20180912	UniProt				
+UniProtKB	P58557	YBEY	located_in	GO:0005634	PMID:22042635	IDA		C			protein	taxon:9606	20120618	UniProt				
+UniProtKB	P59103	DAOA	located_in	GO:0005794	PMID:12364586	IDA		C			protein	taxon:9606	20120523	UniProt				
+UniProtKB	P59103	DAOA	enables	GO:0008047	PMID:12364586	IDA		F			protein	taxon:9606	20251021	UniProt				
+UniProtKB	P60568	IL2	enables	GO:0005125	PMID:10072077	IDA		F			protein	taxon:9606	20101104	MGI				
+UniProtKB	P60568	IL2	enables	GO:0005125	PMID:1830926	IDA		F			protein	taxon:9606	20101104	MGI				
+UniProtKB	P60568	IL2	involved_in	GO:0002366	PMID:16204630	IDA		P			protein	taxon:9606	20170425	UniProt				
+UniProtKB	P62945	RPL41	part_of	GO:0022625	PMID:25957688	IDA		C			protein	taxon:9606	20180110	UniProt				
+UniProtKB	P62945	RPL41	part_of	GO:0022625	PMID:25957688	IDA		C			protein	taxon:9606	20180110	UniProt				
+UniProtKB	P62945	RPL41	involved_in	GO:0002181	PMID:25957688	IDA		P			protein	taxon:9606	20180110	UniProt				
+UniProtKB	P62945	RPL41	located_in	GO:0022625	PMID:25901680	IPI		C			protein	taxon:9606	20250731	ComplexPortal				
+UniProtKB	P62945	RPL41	located_in	GO:0022625	PMID:25901680	IPI		C			protein	taxon:9606	20250731	ComplexPortal				
+UniProtKB	P62945	RPL41	part_of	GO:0022625	PMID:12962325	HDA		C			protein	taxon:9606	20110923	UniProt				
+UniProtKB	P62945	RPL41	part_of	GO:0022625	PMID:12962325	HDA		C			protein	taxon:9606	20110923	UniProt				
+UniProtKB	Q14116	IL18	enables	GO:0005125	PMID:25500532	IDA		F			protein	taxon:9606	20231130	UniProt				
+UniProtKB	Q14116	IL18	enables	GO:0005125	PMID:14528293	IDA		F			protein	taxon:9606	20231130	UniProt				
+UniProtKB	Q14116	IL18	involved_in	GO:0035655	PMID:25500532	IDA		P			protein	taxon:9606	20231130	UniProt				
+UniProtKB	Q14116	IL18	located_in	GO:0005615	PMID:21323571	IDA		C			protein	taxon:9606	20160712	BHF-UCL				
+UniProtKB	Q14116	IL18	involved_in	GO:0035655	PMID:21321938	IDA		P			protein	taxon:9606	20160725	BHF-UCL				
+UniProtKB	Q14116	IL18	involved_in	GO:0006954	PMID:21147091	IDA		P			protein	taxon:9606	20251021	UniProt				
+UniProtKB	Q14116	IL18	involved_in	GO:0042088	PMID:8766574	IDA		P			protein	taxon:9606	20020618	UniProt				
+UniProtKB	Q16552	IL17A	involved_in	GO:0097400	PMID:21350122	IDA		P			protein	taxon:9606	20200605	UniProt				
+UniProtKB	Q30KQ6	DEFB114	enables	GO:0001530	PMID:23482568	IDA		F			protein	taxon:9606	20130617	UniProt				
+UniProtKB	Q30KQ6	DEFB114	involved_in	GO:0045087	PMID:23482568	IMP		P			protein	taxon:9606	20170510	UniProt				
+UniProtKB	Q30KQ6	DEFB114	involved_in	GO:0045087	PMID:23482568	IMP		P			protein	taxon:9606	20170510	UniProt				
+UniProtKB	Q5T230	UTF1	enables	GO:0003713	PMID:9748258	IDA		F			protein	taxon:9606	20070108	UniProt				
+UniProtKB	Q5T230	UTF1	located_in	GO:0005634	PMID:18281244	IDA		C			protein	taxon:9606	20080310	UniProt				
+UniProtKB	Q6P9F0	CCDC62	involved_in	GO:0045944	PMID:19126643	IDA		P			protein	taxon:9606	20151124	ParkinsonsUK-UCL				
+UniProtKB	Q6P9F0	CCDC62	located_in	GO:0005634	PMID:19126643	IDA		C			protein	taxon:9606	20141006	ParkinsonsUK-UCL				
+UniProtKB	Q6P9F0	CCDC62	involved_in	GO:0045944	PMID:18563714	IPI		P			protein	taxon:9606	20161102	ParkinsonsUK-UCL				
+UniProtKB	Q6P9F0	CCDC62	enables	GO:0030374	PMID:18563714	IPI		F			protein	taxon:9606	20251021	ParkinsonsUK-UCL				
+UniProtKB	Q6PCB0	VWA1	part_of	GO:0062023	PMID:25037231	HDA		C			protein	taxon:9606	20251021	BHF-UCL				
+UniProtKB	Q6PCB0	VWA1	located_in	GO:0062023	PMID:28327460	HDA		C			protein	taxon:9606	20251021	BHF-UCL				
+UniProtKB	Q6PRD7	CEMP1	located_in	GO:0005634	PMID:21465469	IDA		C			protein	taxon:9606	20170823	UniProt				
+UniProtKB	Q6PRD7	CEMP1	involved_in	GO:0042476	PMID:21929512	IDA		P			protein	taxon:9606	20170822	UniProt				
+UniProtKB	Q6UWK7	GPR15L	involved_in	GO:0048247	PMID:28936214	IDA		P			protein	taxon:9606	20171026	UniProt				
+UniProtKB	Q6UWK7	GPR15L	involved_in	GO:0048247	PMID:28936214	IDA		P			protein	taxon:9606	20171026	UniProt				
+UniProtKB	Q6UWK7	GPR15L	located_in	GO:0005576	PMID:25585381	IDA		C			protein	taxon:9606	20150218	UniProt				
+UniProtKB	Q6UWK7	GPR15L	located_in	GO:0005576	PMID:25351403	IDA		C			protein	taxon:9606	20150218	UniProt				
+UniProtKB	Q6UXX9	RSPO2	involved_in	GO:0060173	PMID:29769720	IMP		P			protein	taxon:9606	20180926	UniProt				
+UniProtKB	Q7Z7B7	DEFB132	located_in	GO:0005615	PMID:18343807	IDA		C			protein	taxon:9606	20170421	UniProt				
+UniProtKB	Q7Z7B8	DEFB128	involved_in	GO:0050829	PMID:15625724	IDA		P			protein	taxon:9606	20170424	UniProt				
+UniProtKB	Q7Z7B8	DEFB128	involved_in	GO:0050830	PMID:15625724	IDA		P			protein	taxon:9606	20170424	UniProt				
+UniProtKB	Q86UQ8	NFE4	enables	GO:0003712	PMID:11003662	IDA		F			protein	taxon:9606	20200618	GO_Central				
+UniProtKB	Q86UQ8	NFE4	enables	GO:0003712	PMID:15273251	IMP		F			protein	taxon:9606	20200618	GO_Central				
+UniProtKB	Q86UQ8	NFE4	enables	GO:0003712	PMID:16263792	IMP		F			protein	taxon:9606	20200618	GO_Central				
+UniProtKB	Q86UQ8	NFE4	involved_in	GO:0045944	PMID:11003662	IDA		P			protein	taxon:9606	20170920	UniProt				
+UniProtKB	Q86UQ8	NFE4	located_in	GO:0005634	PMID:11003662	IDA		C			protein	taxon:9606	20170915	UniProt				
+UniProtKB	Q86UQ8	NFE4	involved_in	GO:0045944	PMID:15273251	IMP		P			protein	taxon:9606	20170920	UniProt				
+UniProtKB	Q8IZN7	DEFB107A	enables	GO:0008289	DOI:10.1016/j.ijms.2006.01.054	IMP		F			protein	taxon:9606	20170510	UniProt				
+UniProtKB	Q8N104	DEFB106A	enables	GO:0001530	PMID:24189797	IDA		F			protein	taxon:9606	20170510	UniProt				
+UniProtKB	Q8N104	DEFB106A	involved_in	GO:0045087	PMID:24189797	IDA		P			protein	taxon:9606	20170510	UniProt				
+UniProtKB	Q8TAD2	IL17D	located_in	GO:0005615	PMID:12097364	IDA		C			protein	taxon:9606	20170816	UniProt				
+UniProtKB	Q8TAD2	IL17D	enables	GO:0005125	PMID:12097364	IDA		F			protein	taxon:9606	20170816	UniProt				
+UniProtKB	Q8TAD2	IL17D	involved_in	GO:0006954	PMID:12097364	IDA		P			protein	taxon:9606	20170816	UniProt				
+UniProtKB	Q8TF63	DCANP1	located_in	GO:0005654	GO_REF:0000052	IDA		C			protein	taxon:9606	20251021	HPA				
+UniProtKB	Q8WTQ1	DEFB104A	involved_in	GO:0045087	PMID:11481241	IDA		P			protein	taxon:9606	20170410	UniProt				
+UniProtKB	Q8WTQ1	DEFB104A	involved_in	GO:0045087	PMID:11481241	IDA		P			protein	taxon:9606	20170410	UniProt				
+UniProtKB	Q8WWG1	NRG4	enables	GO:0048018	PMID:23033483	IDA		F			protein	taxon:9606	20220309	MGI				
+UniProtKB	Q8WXC3	PYDC1	involved_in	GO:0045087	PMID:12656673	IDA		P			protein	taxon:9606	20071022	HGNC-UCL				
+UniProtKB	Q8WXC3	PYDC1	involved_in	GO:0045087	PMID:12656673	IDA		P			protein	taxon:9606	20071022	HGNC-UCL				
+UniProtKB	Q8WXC3	PYDC1	located_in	GO:0005829	PMID:12656673	IDA		C			protein	taxon:9606	20071022	HGNC-UCL				
+UniProtKB	Q96HY6	DDRGK1	located_in	GO:0005789	PMID:20228063	IDA		C			protein	taxon:9606	20141215	MGI				
+UniProtKB	Q96HY6	DDRGK1	located_in	GO:0005789	PMID:32160526	IDA		C			protein	taxon:9606	20200526	UniProt				
+UniProtKB	Q96HY6	DDRGK1	involved_in	GO:0071569	PMID:32160526	IDA		P			protein	taxon:9606	20200526	UniProt				
+UniProtKB	Q96HY6	DDRGK1	located_in	GO:0005783	GO_REF:0000052	IDA		C			protein	taxon:9606	20241022	HPA				
+UniProtKB	Q96JX3	SERAC1	located_in	GO:0044233	PMID:22683713	IDA		C			protein	taxon:9606	20171114	UniProt				
+UniProtKB	Q96JX3	SERAC1	involved_in	GO:0036148	PMID:22683713	IMP		P			protein	taxon:9606	20171114	UniProt				
+UniProtKB	Q96KF2	PRAC1	located_in	GO:0005654	GO_REF:0000052	IDA		C			protein	taxon:9606	20241022	HPA				
+UniProtKB	Q96KW9	SPACA7	located_in	GO:0001669	PMID:22495889	IDA		C			protein	taxon:9606	20120831	MGI				
+UniProtKB	Q96PD4	IL17F	involved_in	GO:0097400	PMID:21350122	IDA		P			protein	taxon:9606	20200605	UniProt				
+UniProtKB	Q96PD4	IL17F	enables	GO:0005125	PMID:11591732	IDA		F			protein	taxon:9606	20040723	UniProt				
+UniProtKB	Q9BUF7	CRB3	involved_in	GO:0072659	PMID:17332497	IDA		P			protein	taxon:9606	20110307	BHF-UCL				
+UniProtKB	Q9BYW3	DEFB126	involved_in	GO:0061844	PMID:19373462	IDA		P			protein	taxon:9606	20170425	UniProt				
+UniProtKB	Q9BYW3	DEFB126	involved_in	GO:0061844	PMID:19373462	IDA		P			protein	taxon:9606	20170425	UniProt				
+UniProtKB	Q9H1M4	DEFB127	involved_in	GO:0061844	PMID:19373462	IDA		P			protein	taxon:9606	20170425	UniProt				
+UniProtKB	Q9H1M4	DEFB127	involved_in	GO:0061844	PMID:19373462	IDA		P			protein	taxon:9606	20170425	UniProt				
+UniProtKB	Q9HAC7	SUGCT	located_in	GO:0005739	PMID:23893049	IDA		C			protein	taxon:9606	20130902	UniProt				
+UniProtKB	Q9HAC7	SUGCT	enables	GO:0047369	PMID:23893049	IDA		F			protein	taxon:9606	20130902	UniProt				
+UniProtKB	Q9NPH9	IL26	located_in	GO:0005615	PMID:18483078	IDA		C			protein	taxon:9606	20100517	UniProt				
+UniProtKB	Q9NPH9	IL26	enables	GO:0005125	PMID:18483078	IDA		F			protein	taxon:9606	20100517	UniProt				
+UniProtKB	Q9NRK6	ABCB10	located_in	GO:0005739	PMID:22655043	IDA		C			protein	taxon:9606	20210126	UniProt				
+UniProtKB	Q9NUQ7	UFSP2	enables	GO:0071567	PMID:32160526	IMP		F			protein	taxon:9606	20200527	UniProt				
+UniProtKB	Q9NUQ7	UFSP2	enables	GO:0071567	PMID:25219498	IMP		F			protein	taxon:9606	20141120	UniProt				
