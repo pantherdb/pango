@@ -1,13 +1,13 @@
+from typing import Optional
 import strawberry
-from pydantic import  typing
 
 @strawberry.type
 class Term:
     id: str
-    label: typing.Optional[str] = ""
-    display_id: typing.Optional[str] = ""
-    aspect: typing.Optional[str] = ""
-    is_goslim: typing.Optional[bool] = False
-    count: typing.Optional[int] = 0
-    evidence_type:typing.Optional[str] = None
+    label: Optional[str] = ""
+    display_id: Optional[str] = ""
+    aspect: Optional[str] = ""
+    is_goslim: Optional[bool] = False
+    count: Optional[int] = 0
+    evidence_type:Optional[str] = None
     

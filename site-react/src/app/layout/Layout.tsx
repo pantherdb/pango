@@ -2,6 +2,7 @@ import type React from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Toolbar from './Toolbar'
 import Footer from './Footer'
+import VersionBanner from './VersionBanner'
 import {
   selectLeftDrawerOpen,
   selectRightDrawerOpen,
@@ -45,9 +46,14 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
 
   return (
     <Box className="flex h-screen w-full flex-col bg-gray-300">
-      <Toolbar showLoadingBar={false} />
+      <div className="fixed left-0 top-0 z-50 w-full">
+        <Toolbar showLoadingBar={false} />
+      </div>
+      <div className="fixed left-0 top-12 z-50 w-full">
+        <VersionBanner />
+      </div>
 
-      <Box className="fixed flex w-full flex-1" style={{ top: 50, bottom: 0 }}>
+      <Box className="fixed flex w-full flex-1" style={{ top: 89, bottom: 0 }}>
         {leftDrawerContent && (
           <Box
             sx={{

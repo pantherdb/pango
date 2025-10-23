@@ -1,4 +1,4 @@
-import typing
+from typing import List, Optional
 import strawberry
 
 from src.models.base_model import Frequency
@@ -7,20 +7,20 @@ from src.models.term_model import Term
 @strawberry.type
 class Gene:
     gene: str
-    gene_symbol: typing.Optional[str]
-    gene_name: typing.Optional[str]
-    long_id: typing.Optional[str] =  None
-    panther_family: typing.Optional[str] =  None
-    taxon_abbr: typing.Optional[str] = None
-    taxon_label: typing.Optional[str] = None
-    taxon_id: typing.Optional[str] = None
-    coordinates_chr_num:typing.Optional[str] =  None
-    coordinates_start:typing.Optional[int] =  None
-    coordinates_end:typing.Optional[int] =  None
-    coordinates_strand: typing.Optional[int] =  None
-    terms: typing.List[Term]
-    slim_terms: typing.List[Term]
-    term_count: typing.Optional[int]
+    gene_symbol: Optional[str]
+    gene_name: Optional[str]
+    long_id: Optional[str] =  None
+    panther_family: Optional[str] =  None
+    taxon_abbr: Optional[str] = None
+    taxon_label: Optional[str] = None
+    taxon_id: Optional[str] = None
+    coordinates_chr_num:Optional[str] =  None
+    coordinates_start:Optional[int] =  None
+    coordinates_end:Optional[int] =  None
+    coordinates_strand: Optional[int] =  None
+    terms: List[Term]
+    slim_terms: List[Term]
+    term_count: Optional[int]
     
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
