@@ -128,3 +128,22 @@ export const GET_GENES_STATS_QUERY = print(gql`
     }
   }
 `)
+
+export const GET_TERM_STATS_QUERY = print(gql`
+  query GetTermStats($filterArgs: GeneFilterArgs) {
+    termStats(filterArgs: $filterArgs) {
+      termFrequency {
+        buckets {
+          docCount
+          key
+          meta {
+            id
+            aspect
+            label
+            displayId
+          }
+        }
+      }
+    }
+  }
+`)

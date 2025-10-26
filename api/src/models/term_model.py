@@ -1,5 +1,6 @@
 from typing import Optional
 import strawberry
+from src.models.base_model import Frequency
 
 @strawberry.type
 class Term:
@@ -10,4 +11,9 @@ class Term:
     is_goslim: Optional[bool] = False
     count: Optional[int] = 0
     evidence_type:Optional[str] = None
+
+
+@strawberry.type
+class TermStats:
+    term_frequency: Frequency
     

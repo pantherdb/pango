@@ -5,9 +5,9 @@ from src.models.base_model import AutocompleteType, PageArgs, ResultCount
 from src.models.gene_model import Gene, GeneStats
 from src.config.settings import settings
 from src.graphql.graphql_context import GraphQLContext
-from src.models.term_model import Term
+from src.models.term_model import Term, TermStats
 from src.resolvers.annotation_stats_resolver import get_annotations_count
-from src.resolvers.gene_stats_resolver import get_genes_count, get_genes_stats
+from src.resolvers.gene_stats_resolver import get_genes_count, get_genes_stats, get_terms_stats
 from src.resolvers.autocomplete_resolver import get_autocomplete, get_slim_term_autocomplete_query_multi
 from src.resolvers.annotation_resolver import get_annotation, get_annotations, get_annotations_export, get_genes
 from src.models.annotation_model import Annotation, AnnotationExport, AnnotationFilterArgs, AnnotationStats, GeneFilterArgs
@@ -55,6 +55,9 @@ class FunctionomeQuery:
     async def gene_stats(self, info:Info, filter_args:Optional[GeneFilterArgs]=None) -> GeneStats:
         return await get_genes_stats(FunctionomeQuery._get_genes_index(info.context), filter_args)    
         
+    @strawberry.field
+    async def term_stats(self, info:Info, filter_args:Optional[GeneFilterArgs]=None) -> TermStats:
+        return await get_terms_stats(FunctionomeQuery._get_genes_index(info.context), filter_args)
 
     @strawberry.field
     async def autocomplete(self, info:Info, autocomplete_type: AutocompleteType,  keyword:str, filter_args:Optional[GeneFilterArgs]=None,) -> List[Gene]:

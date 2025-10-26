@@ -3,6 +3,7 @@
 import pprint
 from src.models.base_model import Bucket, Entity, ResultCount
 from src.models.gene_model import GeneStats
+from src.models.term_model import TermStats
 from src.models.annotation_model import  Frequency, GeneFilterArgs
 from src.resolvers.annotation_resolver import get_genes_query
 from src.config.es import  es
@@ -59,6 +60,131 @@ async def get_genes_stats(gene_index:str, filter_args:GeneFilterArgs):
         
     return results
   
+
+async def get_terms_stats(gene_index:str, filter_args:GeneFilterArgs):
+    
+    query = await get_genes_query(filter_args)
+    
+    # First, let's check if we have matching documents and see the data structure
+    test_resp = await es.search(
+          index=gene_index,
+          query=query,
+          size=1,
+          _source=["gene", "terms"]
+    )
+    pprint.pprint({"test_query_hits": test_resp.get('hits', {}).get('hits', [])})  # DEBUG
+    
+    aggs = {           
+        "term_frequency": get_terms_query()        
+    }
+    
+
+    resp = await es.search(
+          index=gene_index,
+          filter_path ='took,hits.total.value,aggregations',
+          query=query,
+          aggs=aggs,
+          size=0,
+    )
+
+    pprint.pprint({"aggregation_response": resp})  # DEBUG: Print the response
+
+    stats = dict()
+    for k, freqs in resp['aggregations'].items():   
+        if k == 'term_frequency':
+          buckets = list()
+          for freq_bucket in freqs['buckets']:     
+              buckets.append(Bucket(
+                  key=freq_bucket["key"],
+                  doc_count=freq_bucket["gene_count"]["value"],
+                  meta=get_term_response_meta(freq_bucket["docs"])
+              ))
+          stats[k] = Frequency(buckets=buckets)
+        else:
+            buckets = [Bucket( key=bucket["key"], doc_count=bucket["doc_count"])
+                        for bucket in freqs['buckets']]
+            stats[k] = Frequency(buckets=buckets)
+                         
+    results = TermStats(**stats)
+        
+    return results
+
+
+def get_terms_query():
+    # Try using script-based aggregation since terms is an object array
+    term_frequency = {
+        "terms": {
+            "script": {
+                "source": """
+                    if (params['_source']['terms'] != null) {
+                        def labels = [];
+                        for (term in params['_source']['terms']) {
+                            if (term.label != null) {
+                                labels.add(term.label);
+                            }
+                        }
+                        return labels;
+                    }
+                    return [];
+                """,
+                "lang": "painless"
+            },
+            "order": {
+                "_count": "desc"
+            },
+            "size": 200
+        },
+        "aggs": {
+            "gene_count": {
+                "value_count": {
+                    "field": "gene.keyword"
+                }
+            },
+            "docs": {
+                "top_hits": {
+                    "_source": {
+                        "includes": [
+                            "terms"
+                        ]
+                    },
+                    "size": 1
+                }
+            }
+        }
+    }
+    
+    return term_frequency
+
+
+def get_term_response_meta(bucket):
+   results = [hit for hit in bucket.get('hits', {}).get('hits', [])]
+
+   if len(results) > 0:
+      source = results[0]["_source"]
+      # terms is an array, find the term matching the bucket key
+      if "terms" in source and source["terms"]:
+          terms_list = source["terms"]
+          # Find the term with matching label to bucket key
+          for term in terms_list:
+              if term.get("label") == bucket.get("key"):
+                  idx = term["id"]
+                  return Entity(
+                    id=idx, 
+                    label=term["label"], 
+                    aspect=term.get("aspect", ""),
+                    display_id= idx if idx.startswith("GO") else '')
+          # If no match found, just return the first term
+          if terms_list:
+              term = terms_list[0]
+              idx = term["id"]
+              return Entity(
+                id=idx, 
+                label=term["label"], 
+                aspect=term.get("aspect", ""),
+                display_id= idx if idx.startswith("GO") else '')
+
+   return None
+
 
 def get_slim_terms_query():
   

@@ -1,0 +1,104 @@
+services:
+  elasticsearch:
+    mem_limit: 1.4G
+    mem_reservation: 256M
+    cpus: 0.7
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.5.0
+    container_name: elasticsearch
+
+    environment:
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - cluster.name=docker-cluster
+      - network.host=0.0.0.0
+      - thread_pool.write.queue_size=500
+      - thread_pool.search.queue_size=1000
+
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+
+    cap_add:
+      - IPC_LOCK
+
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          'curl -s http://localhost:9200/_cluster/health | grep -vq ''"status":"red"''',
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+    restart: unless-stopped
+
+    logging:
+      options:
+        max-size: "100m"
+        max-file: "5"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.5.0
+    container_name: kibana
+    mem_limit: 1G
+    mem_reservation: 256M
+    cpus: 0.5
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - SERVER_NAME=kibana.local
+      - SERVER_PUBLICBASEURL=http://localhost:5601
+      - XPACK_SECURITY_ENABLED=false
+    ports:
+      - "5601:5601"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s -I http://localhost:5601 | grep -q 'HTTP/1.1 302 Found'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: "100m"
+        max-file: "5"
+
+  fastapi:
+    build: .
+    container_name: fastapi
+    mem_limit: 1G
+    cpus: 0.7
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5000:5000"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+    restart: unless-stopped
+    environment:
+      - PANGO_ES_URL=http://elasticsearch:9200
+      - PANGO_ANNOTATIONS_INDEX=${PANGO_ANNOTATIONS_INDEX}
+      - PANGO_GENES_INDEX=${PANGO_GENES_INDEX}
+      - HOST_URL=${HOST_URL}
+      - HOST_PORT=${HOST_PORT}
+
+volumes:
+  elasticsearch-data:
+    driver: local

@@ -45,10 +45,12 @@
       }
     },
     "terms": {
-      "type": "object",
+      "type": "nested",
       "properties": {
         "id": {
           "type": "text",
+          "analyzer": "ngram_analyzer",
+          "search_analyzer": "standard",
           "fields": {
             "keyword": {
               "type": "keyword",
@@ -58,6 +60,8 @@
         },
         "label": {
           "type": "text",
+          "analyzer": "ngram_analyzer",
+          "search_analyzer": "standard",
           "fields": {
             "keyword": {
               "type": "keyword",
