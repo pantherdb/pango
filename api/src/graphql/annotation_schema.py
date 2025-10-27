@@ -57,7 +57,7 @@ class FunctionomeQuery:
         
     @strawberry.field
     async def term_stats(self, info:Info, filter_args:Optional[GeneFilterArgs]=None) -> TermStats:
-        return await get_terms_stats(FunctionomeQuery._get_genes_index(info.context), filter_args)
+        return await get_terms_stats(FunctionomeQuery._get_annotations_index(info.context), filter_args)
 
     @strawberry.field
     async def autocomplete(self, info:Info, autocomplete_type: AutocompleteType,  keyword:str, filter_args:Optional[GeneFilterArgs]=None,) -> List[Gene]:

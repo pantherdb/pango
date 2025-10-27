@@ -60,15 +60,22 @@ async def get_genes_stats(gene_index:str, filter_args:GeneFilterArgs):
     return results
   
 
-async def get_terms_stats(gene_index:str, filter_args:GeneFilterArgs):
+async def get_terms_stats(annotation_index:str, filter_args:GeneFilterArgs):
+    from src.resolvers.annotation_resolver import get_annotations_query
+    from src.models.annotation_model import AnnotationFilterArgs
     
-    query = await get_genes_query(filter_args)
+    annotation_filter = AnnotationFilterArgs(
+        slim_term_ids=filter_args.slim_term_ids if filter_args else None,
+        gene_ids=filter_args.gene_ids if filter_args else None
+    )
+    
+    query = await get_annotations_query(annotation_filter)
     aggs = {           
         "term_frequency": get_terms_query()        
     }
     
     resp = await es.search(
-          index=gene_index,
+          index=annotation_index,
           filter_path ='took,hits.total.value,aggregations',
           query=query,
           aggs=aggs,
@@ -82,7 +89,7 @@ async def get_terms_stats(gene_index:str, filter_args:GeneFilterArgs):
           for freq_bucket in freqs['buckets']:     
               buckets.append(Bucket(
                   key=freq_bucket["key"],
-                  doc_count=freq_bucket["gene_count"]["value"],
+                  doc_count=freq_bucket["distinct_genes"]["value"],
                   meta=get_term_response_meta(freq_bucket["docs"])
               ))
           stats[k] = Frequency(buckets=buckets)
@@ -97,32 +104,17 @@ async def get_terms_stats(gene_index:str, filter_args:GeneFilterArgs):
 
 
 def get_terms_query():
-    # Try using script-based aggregation since terms is an object array
     term_frequency = {
         "terms": {
-            "script": {
-                "source": """
-                    if (params['_source']['terms'] != null) {
-                        def labels = [];
-                        for (term in params['_source']['terms']) {
-                            if (term.label != null) {
-                                labels.add(term.label);
-                            }
-                        }
-                        return labels;
-                    }
-                    return [];
-                """,
-                "lang": "painless"
-            },
+            "field": "term.label.keyword",
             "order": {
                 "_count": "desc"
             },
             "size": 200
         },
         "aggs": {
-            "gene_count": {
-                "value_count": {
+            "distinct_genes": {
+                "cardinality": {
                     "field": "gene.keyword"
                 }
             },
@@ -130,7 +122,9 @@ def get_terms_query():
                 "top_hits": {
                     "_source": {
                         "includes": [
-                            "terms"
+                            "term.id",
+                            "term.label",
+                            "term.aspect"
                         ]
                     },
                     "size": 1
@@ -147,27 +141,14 @@ def get_term_response_meta(bucket):
 
    if len(results) > 0:
       source = results[0]["_source"]
-      # terms is an array, find the term matching the bucket key
-      if "terms" in source and source["terms"]:
-          terms_list = source["terms"]
-          # Find the term with matching label to bucket key
-          for term in terms_list:
-              if term.get("label") == bucket.get("key"):
-                  idx = term["id"]
-                  return Entity(
-                    id=idx, 
-                    label=term["label"], 
-                    aspect=term.get("aspect", ""),
-                    display_id= idx if idx.startswith("GO") else '')
-          # If no match found, just return the first term
-          if terms_list:
-              term = terms_list[0]
-              idx = term["id"]
-              return Entity(
-                id=idx, 
-                label=term["label"], 
-                aspect=term.get("aspect", ""),
-                display_id= idx if idx.startswith("GO") else '')
+      if "term" in source and source["term"]:
+          term = source["term"]
+          idx = term["id"]
+          return Entity(
+            id=idx, 
+            label=term["label"], 
+            aspect=term.get("aspect", ""),
+            display_id= idx if idx.startswith("GO") else '')
 
    return None
 

@@ -2,6 +2,8 @@ import type React from 'react'
 import { useMemo, useState, useEffect } from 'react'
 import type { AspectMapType } from '@/@pango.core/data/config'
 import { ASPECT_MAP } from '@/@pango.core/data/config'
+import { SearchFilterType } from '@/features/search/search'
+import { addItem } from '@/features/search/searchSlice'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import TermFilterForm from '@/features/terms/components/TermFilterForm'
 import { trackEvent } from '@/analytics'
@@ -93,15 +95,18 @@ const CategoryStats: React.FC = () => {
     )
   }
 
-  const handleCategoryClick = (item: any) => {
-    // If clicking the same category, collapse it
+  const handleCategoryExpand = (item: any) => {
     if (expandedCategoryId === item.id) {
       dispatch(clearExpandedCategory())
     } else {
-      // Expand the new category (will fetch term stats via useEffect)
       dispatch(setExpandedCategory({ categoryId: item.id, terms: [] }))
     }
     trackEvent('Search', 'Functionome Category Selection', item.label, item.id)
+  }
+
+  const handleCategoryClick = (term: Term) => {
+    dispatch(addItem({ type: SearchFilterType.SLIM_TERMS, item: term }))
+    trackEvent('Search', 'Child Term Selection', `${term.label} (${term.id})`)
   }
 
   return (
@@ -161,15 +166,13 @@ const CategoryStats: React.FC = () => {
             <div key={item.id}>
               <div
                 className="flex cursor-pointer items-center border-b border-gray-300 py-1 hover:bg-gray-50"
-                onClick={() => handleCategoryClick(item)}
+
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handleCategoryClick(item)
+                }}
               >
-                <div className="mr-1 flex items-center">
-                  {isExpanded ? (
-                    <FiChevronDown className="h-4 w-4 text-gray-600" />
-                  ) : (
-                    <FiChevronRight className="h-4 w-4 text-gray-600" />
-                  )}
-                </div>
+
                 <div
                   className="mr-2 flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold"
                   style={{
@@ -183,8 +186,20 @@ const CategoryStats: React.FC = () => {
                 <Tooltip title={item.label} placement="top" enterDelay={1500} arrow>
                   <div className="w-[120px] text-xs">
                     <div className="line-clamp-2">{item.label}</div>
+
                   </div>
                 </Tooltip>
+                <div className="mr-1 flex items-center"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleCategoryExpand(item);
+                  }}>
+                  {isExpanded ? (
+                    <FiChevronDown className="h-4 w-4 text-gray-600" />
+                  ) : (
+                    <FiChevronRight className="h-4 w-4 text-gray-600" />
+                  )}
+                </div>
                 <div className="relative h-7 flex-1">
                   <div
                     className="absolute h-full"
@@ -213,30 +228,31 @@ const CategoryStats: React.FC = () => {
 
               {/* Render child terms when expanded */}
               {isExpanded && childTerms.length > 0 && (
-                <div className="ml-12 border-l-4 border-gray-300 bg-gradient-to-r from-gray-100 to-gray-50 pl-4">
+                <div className="ml-6 bg-gray-50">
                   {childTerms.map(term => (
                     <div
                       key={term.id}
-                      className="flex items-center border-b border-gray-200 py-1 opacity-75"
+                      className="flex cursor-pointer items-center border-b border-gray-200 py-1 hover:bg-gray-100"
+
                     >
                       <div
-                        className="mr-2 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold opacity-70"
+                        className="mr-2 flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold"
                         style={{
-                          border: `1px solid ${term.color}40`,
+                          border: `1px solid ${term.color}50`,
                           color: term.color,
-                          backgroundColor: `${term.color}15`,
+                          backgroundColor: `${term.color}20`,
                         }}
                       >
                         {term.aspectShorthand}
                       </div>
                       <Tooltip title={term.label} placement="top" enterDelay={1500} arrow>
-                        <div className="w-[120px] text-xs text-gray-600">
+                        <div className="w-[120px] text-xs">
                           <div className="line-clamp-2">{term.label}</div>
                         </div>
                       </Tooltip>
-                      <div className="relative h-5 flex-1">
+                      <div className="relative h-6 flex-1">
                         <div
-                          className="absolute h-full opacity-50"
+                          className="absolute h-full"
                           style={{
                             backgroundColor: term.color,
                             width: term.width,
@@ -244,7 +260,7 @@ const CategoryStats: React.FC = () => {
                         />
 
                         <div
-                          className="absolute top-1/2 h-4 w-20 -translate-y-1/2 transform"
+                          className="absolute top-1/2 h-5 w-20 -translate-y-1/2 transform"
                           style={{
                             left: term.countPos,
                           }}
@@ -252,8 +268,7 @@ const CategoryStats: React.FC = () => {
                           <Button
                             variant="outlined"
                             size="small"
-                            disabled
-                            className="!-mt-1 !h-full w-full rounded-md !bg-gray-100 !text-2xs !opacity-60"
+                            className="!-mt-1.5 !h-full w-full rounded-md !bg-primary-50 !text-2xs hover:!bg-primary-100"
                           >
                             {term.count} genes
                           </Button>
