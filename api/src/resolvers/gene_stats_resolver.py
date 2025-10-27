@@ -1,6 +1,5 @@
 # import load_env
 # import asyncio
-import pprint
 from src.models.base_model import Bucket, Entity, ResultCount
 from src.models.gene_model import GeneStats
 from src.models.term_model import TermStats
@@ -64,21 +63,10 @@ async def get_genes_stats(gene_index:str, filter_args:GeneFilterArgs):
 async def get_terms_stats(gene_index:str, filter_args:GeneFilterArgs):
     
     query = await get_genes_query(filter_args)
-    
-    # First, let's check if we have matching documents and see the data structure
-    test_resp = await es.search(
-          index=gene_index,
-          query=query,
-          size=1,
-          _source=["gene", "terms"]
-    )
-    pprint.pprint({"test_query_hits": test_resp.get('hits', {}).get('hits', [])})  # DEBUG
-    
     aggs = {           
         "term_frequency": get_terms_query()        
     }
     
-
     resp = await es.search(
           index=gene_index,
           filter_path ='took,hits.total.value,aggregations',
@@ -86,8 +74,6 @@ async def get_terms_stats(gene_index:str, filter_args:GeneFilterArgs):
           aggs=aggs,
           size=0,
     )
-
-    pprint.pprint({"aggregation_response": resp})  # DEBUG: Print the response
 
     stats = dict()
     for k, freqs in resp['aggregations'].items():   
