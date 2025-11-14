@@ -23,16 +23,16 @@ export const BASE_CONFIG = {
 // Version-specific configurations
 const VERSION_CONFIGS = {
   [ApiVersions.V1]: {
-    PANTREE_URL: 'https://pantree.functionome.org/tree/family.jsp?accession=',
-    PANTHER_FAMILY_URL: 'https://enrichment.functionome.org/treeViewer/treeViewer.jsp?',
-    OVERREP_API_URL: 'https://enrichment.functionome.org/webservices/go/overrep.jsp',
+    PANTREE_URL: 'https://pantree-v1.functionome.org/tree/family.jsp?accession=',
+    PANTHER_FAMILY_URL: 'https://enrichment-v1.functionome.org/treeViewer/treeViewer.jsp?',
+    OVERREP_API_URL: 'https://enrichment-v1.functionome.org/webservices/go/overrep.jsp',
     // Downloads
-    DOWNLOAD_ALL_DATA_CSV_URL: 'https://functionome.geneontology.org/download/export_annotations.zip',
+    DOWNLOAD_ALL_DATA_CSV_URL: 'https://functionome.geneontology.org/download/v1/export_annotations.zip',
     DOWNLOAD_ALL_DATA_JSON_URL:
-      'https://functionome.geneontology.org/download/export_annotations.json.gz',
+      'https://functionome.geneontology.org/download/v1/export_annotations.json.gz',
     DOWNLOAD_ANNOTATIONS_GAF_URL:
-      'https://functionome.geneontology.org/download/functionome_release.gaf.gz',
-    DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL: 'https://functionome.geneontology.org/download/IBD.gaf',
+      'https://functionome.geneontology.org/download/v1/functionome_release.gaf.gz',
+    DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL: 'https://functionome.geneontology.org/download/v1/IBD.gaf',
     DOWNLOAD_ONTOLOGY_FILES_URL: 'https://release.geneontology.org/2022-03-22/ontology/index.html',
 
     // Version metadata
@@ -46,13 +46,13 @@ const VERSION_CONFIGS = {
     PANTHER_FAMILY_URL: 'https://enrichment.functionome.org/treeViewer/treeViewer.jsp?',
     OVERREP_API_URL: 'https://enrichment.functionome.org/webservices/go/overrep.jsp',
     // Downloads
-    DOWNLOAD_ALL_DATA_CSV_URL: 'https://functionome.geneontology.org/download/2025-10-12_2.0.5/export_annotations.zip',
+    DOWNLOAD_ALL_DATA_CSV_URL: 'https://functionome.geneontology.org/download/export_annotations.zip',
     DOWNLOAD_ALL_DATA_JSON_URL:
-      'https://functionome.geneontology.org/download/2025-10-12_2.0.5/export_annotations.json.gz',
+      'https://functionome.geneontology.org/download/export_annotations.json.gz',
     DOWNLOAD_ANNOTATIONS_GAF_URL:
-      'https://functionome.geneontology.org/download/2025-10-12_2.0.5/functionome_release.gaf.gz',
-    DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL: 'https://functionome.geneontology.org/download/2025-10-12_2.0.5/IBD.gaf',
-    DOWNLOAD_ONTOLOGY_FILES_URL: 'https://ftp.ebi.ac.uk/pub/contrib/goa/goex/current/ontology/',
+      'https://functionome.geneontology.org/download/functionome_release.gaf.gz',
+    DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL: 'https://functionome.geneontology.org/download/IBD.gaf',
+    DOWNLOAD_ONTOLOGY_FILES_URL: 'https://ftp.ebi.ac.uk/pub/contrib/goa/goex/releases/2025-10-06/ontology/',
 
     // Version metadata
     APP_VERSION: '2.0',
