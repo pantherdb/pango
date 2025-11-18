@@ -4,6 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["PANTHERDB.org <pantherfeedback@yahoo.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -15,11 +16,17 @@ pydantic = "^2.10.1"
 pydantic-settings = "^2.6.1"
 python-dotenv = "^1.0.1"
 requests = "^2.32.3"
-strawberry-graphql = "^0.260.2"
 uvicorn = "^0.32.1"
 aiohttp = "^3.11.7"
 gunicorn = "^23.0.0"
+pytest = "^8.4.1"
+strawberry-graphql = {extras = ["cli"], version = "^0.284.1"}
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-asyncio = "^0.23.0"
+httpx = "^0.27.0"
+pytest-mock = "^3.12.0"
 
 [build-system]
 requires = ["poetry-core"]

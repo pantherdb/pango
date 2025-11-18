@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { useAppDispatch } from '../hooks'
 import { toggleLeftDrawer } from '@/@pango.core/components/drawer/drawerSlice'
 import { VersionedLink } from '@/shared/components/VersionedLink'
-import { ENVIRONMENT } from '@/@pango.core/data/constants'
+import { useConfig } from '@/@pango.core/data/useConfig'
 import GeneSearch from '@/features/genes/components/GeneSearch'
 import { handleExternalLinkClick } from '@/analytics'
 import useTheme from '@mui/material/styles/useTheme'
@@ -19,12 +19,14 @@ import Button from '@mui/material/Button'
 import LinearProgress from '@mui/material/LinearProgress'
 import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
+import { VersionedButton } from '@/shared/components/VersionedButton'
 
 interface ToolbarProps {
   showLoadingBar?: boolean
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
+  const config = useConfig()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const [exportMenuAnchor, setExportMenuAnchor] = useState<null | HTMLElement>(null)
@@ -187,22 +189,22 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
           >
             Download
           </Button>
-          <Button
+          <VersionedButton
             color="inherit"
             component={Link}
             className="!text-accent-500 hover:text-accent-200"
             to="/about"
           >
             About
-          </Button>
-          <Button
+          </VersionedButton>
+          <VersionedButton
             color="inherit"
             component={Link}
             className="!text-accent-500 hover:text-accent-200"
             to="/help"
           >
             Help
-          </Button>
+          </VersionedButton>
         </>
       )}
     </div>
@@ -264,30 +266,30 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
               >
                 <MenuItem
                   component="a"
-                  href={ENVIRONMENT.downloadAllDataCSVUrl}
-                  onClick={() => handleExternalLinkClick(ENVIRONMENT.downloadAllDataCSVUrl)}
+                  href={config.DOWNLOAD_ALL_DATA_CSV_URL}
+                  onClick={() => handleExternalLinkClick(config.DOWNLOAD_ALL_DATA_CSV_URL)}
                 >
                   All data as CSV
                 </MenuItem>
                 <MenuItem
                   component="a"
-                  href={ENVIRONMENT.downloadAllDataJSONUrl}
-                  onClick={() => handleExternalLinkClick(ENVIRONMENT.downloadAllDataJSONUrl)}
+                  href={config.DOWNLOAD_ALL_DATA_JSON_URL}
+                  onClick={() => handleExternalLinkClick(config.DOWNLOAD_ALL_DATA_JSON_URL)}
                 >
                   All data as JSON
                 </MenuItem>
                 <MenuItem
                   component="a"
-                  href={ENVIRONMENT.downloadAnnotationsGAFUrl}
-                  onClick={() => handleExternalLinkClick(ENVIRONMENT.downloadAnnotationsGAFUrl)}
+                  href={config.DOWNLOAD_ANNOTATIONS_GAF_URL}
+                  onClick={() => handleExternalLinkClick(config.DOWNLOAD_ANNOTATIONS_GAF_URL)}
                 >
                   Annotations as GAF
                 </MenuItem>
                 <MenuItem
                   component="a"
-                  href={ENVIRONMENT.downloadEvolutionaryModelsGAFUrl}
+                  href={config.DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL}
                   onClick={() =>
-                    handleExternalLinkClick(ENVIRONMENT.downloadEvolutionaryModelsGAFUrl)
+                    handleExternalLinkClick(config.DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL)
                   }
                   target="_blank"
                   rel="noopener noreferrer"
@@ -296,8 +298,8 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
                 </MenuItem>
                 <MenuItem
                   component="a"
-                  href={ENVIRONMENT.downloadOntologyFilesUrl}
-                  onClick={() => handleExternalLinkClick(ENVIRONMENT.downloadOntologyFilesUrl)}
+                  href={config.DOWNLOAD_ONTOLOGY_FILES_URL}
+                  onClick={() => handleExternalLinkClick(config.DOWNLOAD_ONTOLOGY_FILES_URL)}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

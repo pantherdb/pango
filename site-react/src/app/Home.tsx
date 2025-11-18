@@ -12,12 +12,14 @@ import { useGetGenesStatsQuery } from '@/features/genes/slices/genesApiSlice'
 import { transformCategoryTerms } from '@/features/terms/services/termsService'
 import { setFunctionCategories } from '@/features/terms/slices/termsSlice'
 import { Link } from 'react-router-dom'
-import { ENVIRONMENT } from '@/@pango.core/data/constants'
+import { useConfig } from '@/@pango.core/data/useConfig'
 import { FiInfo, FiX } from 'react-icons/fi'
 import theme from '@/@pango.core/theme/theme'
 import GeneSearch from '@/features/genes/components/GeneSearch'
+import { VersionedLink } from '@/shared/components/VersionedLink'
 
 const Home: React.FC = () => {
+  const config = useConfig()
   const dispatch = useAppDispatch()
   const [isFormOpen, setIsFormOpen] = useState(false)
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
@@ -60,16 +62,16 @@ const Home: React.FC = () => {
             <h2 className="mb-2 max-w-2xl pr-4 text-sm font-medium tracking-wider text-white md:text-sm md:mb-10 md:leading-6">
               The functionome describes the known functions of all human protein-coding genes, using
               terms from the Gene Ontology to describe each functional characteristic (
-              <Link to="/about" className="text-accent-500 hover:text-accent-200">
+              <VersionedLink to="/about" className="text-accent-500 hover:text-accent-200">
                 read more
-              </Link>
+              </VersionedLink>
               ). Detailed information for a gene can be found by clicking on the gene name in the
               table below, or by using the search box to find a specific gene. The interactive
               graph/filter shows how the genes in the table are distributed among functional
               categories and can be used to browse genes by category (
-              <Link to="/help" className="text-accent-500 hover:text-accent-200">
+              <VersionedLink to="/help" className="text-accent-500 hover:text-accent-200">
                 more help
-              </Link>
+              </VersionedLink>
               ).
             </h2>
             <div className="flex flex-wrap items-center gap-2">
@@ -79,7 +81,7 @@ const Home: React.FC = () => {
               <h3 className="text-xs text-white md:text-base">
                 See any missing or incorrect functions?
                 <a
-                  href={ENVIRONMENT.contactUrl}
+                  href={config.CONTACT_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-1 text-accent-500 hover:text-accent-200"
@@ -94,7 +96,7 @@ const Home: React.FC = () => {
               <h2 className="text-sm mb-2 flex items-center font-medium text-white md:text-base">
                 PAN-GO Enrichment Analysis
                 <a
-                  href={ENVIRONMENT.overrepDocsApiUrl}
+                  href={config.OVERREP_DOCS_API_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-1 text-accent-500 hover:text-accent-200"

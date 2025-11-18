@@ -1,5 +1,5 @@
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
-import { ENVIRONMENT } from '@/@pango.core/data/constants'
+import { useConfig } from '@/@pango.core/data/useConfig'
 import AnnotationTable from '@/features/annotations/components/AnnotationTable'
 import { useGetAnnotationsQuery } from '@/features/annotations/slices/annotationsApiSlice'
 import GeneSummary from '@/features/genes/components/GeneSummary'
@@ -23,6 +23,8 @@ import theme from '@/@pango.core/theme/theme'
 import { useMediaQuery } from '@mui/system'
 import AnnotationCards from '@/features/annotations/components/AnnotationCards'
 import { handleExternalLinkClick } from '@/analytics'
+import FeedbackBanner from '@/shared/components/FeedbackBanner'
+import FloatingFeedback from '@/shared/components/FloatingFeedback'
 
 interface InfoRowProps {
   label: string
@@ -68,6 +70,7 @@ const StatBlock: React.FC<StatBlockProps> = ({ number, label, sublabel }) => (
 )
 
 const Gene: React.FC = () => {
+  const config = useConfig()
   const dispatch = useAppDispatch()
   const { id: geneId } = useParams<{ id: string }>()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
@@ -120,12 +123,12 @@ const Gene: React.FC = () => {
                 <InfoRow
                   label="GO annotations from all sources"
                   value={annotation?.gene}
-                  href={ENVIRONMENT.amigoGPUrl + annotation.gene}
+                  href={config.AMIGO_GP_URL + annotation.gene}
                 />
                 <InfoRow
                   label="PAN-GO evolutionary model for this family"
                   value={annotation.pantherFamily}
-                  href={ENVIRONMENT.pantreeUrl + annotation.pantherFamily}
+                  href={config.PANTREE_URL + annotation.pantherFamily}
                 />
               </div>
             </div>
@@ -192,6 +195,9 @@ const Gene: React.FC = () => {
             <StatBlock number={unknownTermTypes} label="Unknown function aspects" />
           </div>
         </div>
+
+
+        <FeedbackBanner geneSymbol={geneId || ''} />
         {annotations.length > 0 && (
           <div className="w-full bg-white">
             <GeneSummary groupedTerms={groupedTerms} />
@@ -210,6 +216,8 @@ const Gene: React.FC = () => {
           </div>
         )}
       </div>
+
+      <FloatingFeedback geneSymbol={annotation.geneSymbol} />
     </div>
   )
 }

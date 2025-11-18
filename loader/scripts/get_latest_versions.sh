@@ -1,0 +1,1 @@
+python src/get_latest_versions.py -i ../../pango_data -o downloads/input

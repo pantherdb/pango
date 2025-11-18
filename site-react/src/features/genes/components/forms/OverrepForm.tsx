@@ -1,4 +1,4 @@
-import { ENVIRONMENT } from '@/@pango.core/data/constants'
+import { useConfig } from '@/@pango.core/data/useConfig'
 import type React from 'react'
 import ontology from '@/@pango.core/data/ontologyOptions.json'
 import { useEffect, useRef } from 'react'
@@ -27,10 +27,11 @@ declare global {
   }
 }
 const OverrepForm = () => {
+  const config = useConfig()
   const formRef = useRef<any>(null)
   const ontologyOptions = ontology.ontology
   const exampleGenes = ontology.genes
-  const submitUrl = ENVIRONMENT.overrepApiUrl
+  const submitUrl = config.OVERREP_API_URL
 
   useEffect(() => {
     if (formRef.current) {
