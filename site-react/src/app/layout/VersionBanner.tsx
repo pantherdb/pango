@@ -16,8 +16,8 @@ const VersionBanner = () => {
     : 'Previous version available';
 
   const url = isPango1
-    ? 'http://3.92.69.173'
-    : 'http://3.92.69.173/?apiVersion=pango-1';
+    ? 'https://functionome.geneontology.org'
+    : 'https://functionome.geneontology.org/?apiVersion=pango-1';
 
   const linkText = isPango1
     ? 'Try PANGO 2.0'
