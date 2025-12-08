@@ -7,6 +7,7 @@ export const useSearchFilter = () => {
   const getQueryFilter = () => ({
     geneIds: search.genes.map(g => g.gene),
     slimTermIds: search.slimTerms.map(t => t.id),
+    termIds: search.terms.map(t => t.id),
   })
 
   return {

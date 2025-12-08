@@ -101,11 +101,17 @@ const CategoryStats: React.FC = () => {
     } else {
       dispatch(setExpandedCategory({ categoryId: item.id, terms: [] }))
     }
-    trackEvent('Search', 'Functionome Category Selection', item.label, item.id)
+    trackEvent('Search', 'Functionome Category Expanded', item.label, item.id)
   }
 
   const handleCategoryClick = (term: Term) => {
     dispatch(addItem({ type: SearchFilterType.SLIM_TERMS, item: term }))
+    trackEvent('Search', 'Functionome Category Selection', `${term.label} (${term.id})`)
+  }
+
+  const handleChildTermClick = (term: Term) => {
+    console.log('Child term clicked:', term)
+    dispatch(addItem({ type: SearchFilterType.TERMS, item: term }))
     trackEvent('Search', 'Child Term Selection', `${term.label} (${term.id})`)
   }
 
@@ -233,7 +239,10 @@ const CategoryStats: React.FC = () => {
                     <div
                       key={term.id}
                       className="flex cursor-pointer items-center border-b border-gray-200 py-1 hover:bg-gray-100"
-
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleChildTermClick(term)
+                      }}
                     >
                       <div
                         className="mr-2 flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold"
