@@ -77,6 +77,7 @@ class AnnotationStats:
 @strawberry.input
 class GeneFilterArgs:
     slim_term_ids: typing.Optional[typing.List[str]] = strawberry.UNSET
+    term_ids: typing.Optional[typing.List[str]] = strawberry.UNSET
     gene_ids: typing.Optional[typing.List[str]] = strawberry.UNSET,
     
 

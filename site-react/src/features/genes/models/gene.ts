@@ -18,10 +18,12 @@ export interface AutocompleteFilterArgs {
 export interface GeneFilterArgs {
   geneIds: string[]
   slimTermIds: string[]
+  termIds: string[]
 }
 
 export interface FilterArgs {
   slimTermIds: string[]
+  termIds: string[]
   geneIds: string[]
 }
 

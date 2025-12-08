@@ -112,6 +112,26 @@ async def get_genes_query(filter_args:GeneFilterArgs):
                   ]
               }
           })
+      
+    if is_valid_filter(filter_args.term_ids):
+        filters.append({
+            "bool": {
+                "must": [
+                    {
+                        "nested": {
+                            "path": "terms",
+                            "query": {
+                                "term": {
+                                    "terms.id.keyword": term_id
+                                }
+                            }
+                        }
+                    }
+                    for term_id in filter_args.term_ids
+                ]
+            }
+        })
+    
         
     if is_valid_filter(filter_args.gene_ids):
           filters.append(  

@@ -66,6 +66,7 @@ async def get_terms_stats(annotation_index:str, filter_args:GeneFilterArgs):
     
     annotation_filter = AnnotationFilterArgs(
         slim_term_ids=filter_args.slim_term_ids if filter_args else None,
+        term_ids=filter_args.term_ids if filter_args else None,
         gene_ids=filter_args.gene_ids if filter_args else None
     )
     
