@@ -93,42 +93,43 @@ async def get_genes_query(filter_args:GeneFilterArgs):
   filters = list()
 
   if filter_args != None:
-                
-    if is_valid_filter(filter_args.slim_term_ids):
-          filters.append({
-              "bool": {
-                  "must": [
-                      {
-                          "nested": {
-                              "path": "slim_terms",
-                              "query": {
-                                  "term": {
-                                      "slim_terms.id.keyword": term_id
-                                  }
-                              }
-                          }
-                      }
-                      for term_id in filter_args.slim_term_ids
-                  ]
-              }
-          })
-      
+    
+    term_queries = []
+    
     if is_valid_filter(filter_args.term_ids):
-        filters.append({
-            "bool": {
-                "must": [
-                    {
-                        "nested": {
-                            "path": "terms",
-                            "query": {
-                                "term": {
-                                    "terms.id.keyword": term_id
-                                }
-                            }
+        term_queries.extend([
+            {
+                "nested": {
+                    "path": "terms",
+                    "query": {
+                        "term": {
+                            "terms.id.keyword": term_id
                         }
                     }
-                    for term_id in filter_args.term_ids
-                ]
+                }
+            }
+            for term_id in filter_args.term_ids
+        ])
+    
+    if is_valid_filter(filter_args.slim_term_ids):
+        term_queries.extend([
+            {
+                "nested": {
+                    "path": "slim_terms",
+                    "query": {
+                        "term": {
+                            "slim_terms.id.keyword": term_id
+                        }
+                    }
+                }
+            }
+            for term_id in filter_args.slim_term_ids
+        ])
+    
+    if term_queries:
+        filters.append({
+            "bool": {
+                "must": term_queries
             }
         })
     

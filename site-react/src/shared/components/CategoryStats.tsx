@@ -6,6 +6,7 @@ import { SearchFilterType } from '@/features/search/search'
 import { addItem } from '@/features/search/searchSlice'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import TermFilterForm from '@/features/terms/components/TermFilterForm'
+import ChildTermFilterDisplay from '@/features/terms/components/ChildTermFilterDisplay'
 import { trackEvent } from '@/analytics'
 import Tooltip from '@mui/material/Tooltip'
 import Checkbox from '@mui/material/Checkbox'
@@ -119,6 +120,7 @@ const CategoryStats: React.FC = () => {
     <div className="w-full">
       <div className="w-full p-2 pb-4 pt-6">
         <TermFilterForm />
+        <ChildTermFilterDisplay />
       </div>
 
       <div className="border-b border-gray-200 p-2">
