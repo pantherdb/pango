@@ -236,7 +236,7 @@ const CategoryStats: React.FC = () => {
 
               {/* Render child terms when expanded */}
               {isExpanded && childTerms.length > 0 && (
-                <div className="ml-6 bg-gray-50">
+                <div className="ml-6 bg-gray-200">
                   {childTerms.map(term => (
                     <div
                       key={term.id}

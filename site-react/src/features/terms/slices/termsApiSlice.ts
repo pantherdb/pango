@@ -16,6 +16,7 @@ const termsApi = apiService
             filterArgs: {
               geneIds: filter?.geneIds,
               slimTermIds: filter?.slimTermIds,
+              termIds: filter?.termIds,
             },
           }),
         transformResponse: (response: { data?: { termStats: TermStats } }) =>
