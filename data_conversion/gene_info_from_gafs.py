@@ -45,27 +45,35 @@ class GeneInfoCollection:
                         continue
                     self.add_genes_from_row(r)
 
+    @staticmethod
+    def handle_gene_name(incoming_gene_name: str) -> str:
+        if incoming_gene_name == "Uncharacterized protein":
+            return "Unnamed gene"
+        return incoming_gene_name
+
     def add_genes_from_row(self, csv_row: List):
         gene_id = "{}:{}".format(csv_row[0], csv_row[1])
         gene_symbol = csv_row[2]
-        gene_name = csv_row[9]
+        gene_name = self.handle_gene_name(csv_row[9])
         gene_taxon = csv_row[12].replace("taxon:", "")
         self.gene_info_dict[gene_id] = {
             "gene": gene_id,
             "gene_symbol": gene_symbol,
             "gene_name": gene_name,
+            "unnamed_gene": gene_name == "Unnamed gene",
             "taxon_id": gene_taxon,
         }
         with_from_raw = csv_row[7]
         if "|" in with_from_raw:
             with_gene_id = with_from_raw.split("|", maxsplit=1)[1]
             with_gene_symbol = csv_row[18]
-            with_gene_name = csv_row[19]
+            with_gene_name = self.handle_gene_name(csv_row[19])
             with_gene_taxon_id = csv_row[20].replace("taxon:", "")
             self.gene_info_dict[with_gene_id] = {
                 "gene": with_gene_id,
                 "gene_symbol": with_gene_symbol,
                 "gene_name": with_gene_name,
+                "unnamed_gene": with_gene_name == "Unnamed gene",
                 "taxon_id": with_gene_taxon_id,
             }
 
@@ -91,13 +99,14 @@ class GeneInfoCollection:
                             "taxon_id": "9606",
                         }
                     gene_symbol = r[2]
-                    gene_name = r[1]
+                    gene_name = self.handle_gene_name(r[1])
                     if self.gene_info_dict[gene_id]["gene_symbol"] == "":
                         self.gene_info_dict[gene_id]["gene_symbol"] = gene_symbol
                     if self.gene_info_dict[gene_id]["gene_symbol"] == "":
                         # Duplicating symbol filling logic from createGAF.pl
                         self.gene_info_dict[gene_id]["gene_symbol"] = gene_id.split(":", maxsplit=1)[1]
                     self.gene_info_dict[gene_id]["gene_name"] = gene_name
+                    self.gene_info_dict[gene_id]["unnamed_gene"] = gene_name == "Unnamed gene"
                     self.gene_info_dict[gene_id]["long_id"] = long_id
                     # self.gene_info_dict[gene_id]["taxon_id"] = species_oscode_to_taxon_id[oscode]
 
@@ -137,6 +146,7 @@ class GeneInfoCollection:
                 "gene": gene,
                 "gene_symbol": gene_info["gene_symbol"],
                 "gene_name": gene_info["gene_name"],
+                "unnamed_gene": gene_info["unnamed_gene"],
                 "taxon_id": gene_info["taxon_id"],
                 "panther_family": gene_info.get("panther_family"),  # can be None
                 "long_id": gene_info.get("long_id"),  # can be None
