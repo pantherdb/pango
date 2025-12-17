@@ -3,7 +3,7 @@ SHELL := /bin/bash
 export PANTHER_VERSION ?= 15.0
 export DEBUG_INDENT ?= 0
 
-%/all: %/full_go_annotated.json %/human_iba_annotations.json %/human_iba_gene_info.json %/taxon_lkp.json %/export_annotations.touch
+%/all: %/full_go_annotated.json %/human_iba_annotations.json %/human_iba_gene_info.json %/taxon_lkp.json %/export_annotations.touch %/annotations.csv %/functionome_release.gaf.gz
 	echo "Done"
 
 .PRECIOUS: %/resources/gene_association.paint_human.gaf
@@ -129,10 +129,12 @@ export DEBUG_INDENT ?= 0
 %/annotations.csv: %/export_annotations.tsv
 	sed -E 's/UNKNOWN:[0-9]+//g' $*/export_annotations.tsv > $@
 
+.PRECIOUS: %/functionome_release.gaf
 %/functionome_release.gaf: %/resources/gene_association.paint_human.gaf
 	# Group by cols 1-7 + PTN (from col8) + cols 9-17, collapse gene IDs following the PTN into col8
 	python3 produce_functionome_release_gaf.py $< $@
 
+.PRECIOUS: %/functionome_release.gaf.gz
 %/functionome_release.gaf.gz: %/functionome_release.gaf
 	gzip -c $< > $@
 
