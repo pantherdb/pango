@@ -125,6 +125,10 @@ export DEBUG_INDENT ?= 0
 	python3 export_annotations.py -a $< -t $*/full_go_annotated.json -g $*/human_iba_gene_info.json -j $*/export_annotations.json -s $*/export_annotations.tsv -u $*/uniprot-functionome_xrefs.tsv
 	touch $@
 
+.PRECIOUS: %/annotations.csv
+%/annotations.csv: %/export_annotations.tsv
+	sed -E 's/UNKNOWN:[0-9]+//g' $*/export_annotations.tsv > $@
+
 %/functionome_release.gaf: %/resources/gene_association.paint_human.gaf
 	# Group by cols 1-7 + PTN (from col8) + cols 9-17, collapse gene IDs following the PTN into col8
 	python3 produce_functionome_release_gaf.py $< $@
