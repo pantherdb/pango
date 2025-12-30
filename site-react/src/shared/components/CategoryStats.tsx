@@ -40,8 +40,9 @@ const CategoryStats: React.FC = () => {
     return {
       geneIds: search.genes.map(g => g.gene),
       slimTermIds: [expandedCategoryId], // Only the expanded category
+      termIds: search.terms.map(t => t.id), // Include selected child terms
     }
-  }, [expandedCategoryId, search.genes])
+  }, [expandedCategoryId, search.genes, search.terms])
 
   // Fetch term stats when a category is expanded
   const { data: termStatsData } = useGetTermStatsQuery(
@@ -236,7 +237,7 @@ const CategoryStats: React.FC = () => {
 
               {/* Render child terms when expanded */}
               {isExpanded && childTerms.length > 0 && (
-                <div className="ml-6 bg-gray-200">
+                <div className="ml-6 bg-gray-200 opacity-60">
                   {childTerms.map(term => (
                     <div
                       key={term.id}
