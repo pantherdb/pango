@@ -136,6 +136,8 @@ def get_annos(annos_fp, terms_df, genes_df, articles_df):
     annos_df['evidence_type'] = annos_df['evidence_type'].replace(np.nan, 'n/a')
     annos_df['groups'] = annos_df['evidence'].apply(lambda x: get_groups(x))
     annos_df['evidence_count'] = annos_df['evidence'].apply(lambda x: count_evidence(x))
+    annos_df['named_gene'] = annos_df['gene'].str.replace('UniProtKB:', '') == annos_df['gene_symbol']
+    annos_df = annos_df.sort_values(by='named_gene', ascending=False)
 
     return annos_df
 

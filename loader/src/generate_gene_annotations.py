@@ -15,7 +15,8 @@ COLUMNS_TO_EXTRACT = [
     'long_id',
     'coordinates_chr_num',
     'coordinates_start',
-    'coordinates_end'   
+    'coordinates_end',
+    'named_gene'   
 ]
 
 def main():
@@ -86,7 +87,7 @@ def get_annos(annos_fp):
     annos_df = pd.read_json(annos_fp)
     annos_df = annos_df.drop(['evidence'], axis=1)
     genes_df = annos_df.groupby('gene').apply(group_terms).reset_index()
-    genes_df = genes_df.sort_values(by='term_count', ascending=False).reset_index(drop=True)
+    genes_df = genes_df.sort_values(by=['named_gene', 'term_count'], ascending=[False, False]).reset_index(drop=True)
 
     return genes_df
 
