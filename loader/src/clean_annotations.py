@@ -7,7 +7,7 @@ import pandas as pd
 from src.config.base import file_path
 from src.utils import get_pd_row, get_pd_row_key, write_to_json
 
-unknown_terms =['UNKNOWN:0001', 'UNKNOWN:0002', 'UNKNOWN:0003']
+UNKNOWN_TERMS =['UNKNOWN:0001', 'UNKNOWN:0002', 'UNKNOWN:0003']
 
 def main():
     parser = parse_arguments()
@@ -70,7 +70,7 @@ def get_evidence(df, genes_df, row):
 
 
 def term_type(term):
-    return  'unknown' if term['id'] in unknown_terms  else 'known'     
+    return  'unknown' if term['id'] in UNKNOWN_TERMS  else 'known'     
 
 
 # Terms

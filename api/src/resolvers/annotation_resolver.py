@@ -52,8 +52,8 @@ async def get_genes(gene_index:str, filter_args: GeneFilterArgs, page_args=PageA
         size=page_args.size,
         source=["_id"],
         sort=[{
-              "named_gene": {
-                  "order": "desc"
+              "sort_priority": {
+                  "order": "asc"
               }
           },          {
               "coordinates_chr_num.keyword": {

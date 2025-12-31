@@ -11,7 +11,7 @@
     "coordinates_chr_num": null,
     "coordinates_start": null,
     "coordinates_end": null,
-    "named_gene": false,
+    "named_gene": true,
     "terms": [
       {
         "id": "GO:0005847",
@@ -34,7 +34,8 @@
         "evidence_type": "homology"
       }
     ],
-    "term_count": 1
+    "term_count": 1,
+    "sort_priority": 1
   },
   {
     "gene": "UniProtKB:P01270",
@@ -48,7 +49,7 @@
     "coordinates_chr_num": 11.0,
     "coordinates_start": 13492055.0,
     "coordinates_end": 13496181.0,
-    "named_gene": false,
+    "named_gene": true,
     "terms": [
       {
         "id": "GO:0031856",
@@ -65,38 +66,8 @@
         "evidence_type": "direct"
       }
     ],
-    "term_count": 1
-  },
-  {
-    "gene": "UniProtKB:P56747",
-    "gene_symbol": "CLDN6",
-    "gene_name": "Claudin-6",
-    "taxon_id": 9606,
-    "taxon_label": "Homo sapiens",
-    "taxon_abbr": "Hsa",
-    "panther_family": "PTHR12002",
-    "long_id": "HUMAN|HGNC=2048|UniProtKB=P56747",
-    "coordinates_chr_num": 16.0,
-    "coordinates_start": 3014713.0,
-    "coordinates_end": 3018170.0,
-    "named_gene": false,
-    "terms": [
-      {
-        "id": "UNKNOWN:0001",
-        "label": "Unknown molecular function",
-        "aspect": "molecular function",
-        "evidence_type": "n/a"
-      }
-    ],
-    "slim_terms": [
-      {
-        "id": "UNKNOWN:0001",
-        "label": "Unknown molecular function",
-        "aspect": "molecular function",
-        "evidence_type": "n/a"
-      }
-    ],
-    "term_count": 1
+    "term_count": 1,
+    "sort_priority": 1
   },
   {
     "gene": "UniProtKB:Q68DQ2",
@@ -110,7 +81,7 @@
     "coordinates_chr_num": 3.0,
     "coordinates_start": 97924212.0,
     "coordinates_end": 97944963.0,
-    "named_gene": false,
+    "named_gene": true,
     "terms": [
       {
         "id": "GO:0002088",
@@ -127,7 +98,8 @@
         "evidence_type": "homology"
       }
     ],
-    "term_count": 1
+    "term_count": 1,
+    "sort_priority": 1
   },
   {
     "gene": "UniProtKB:Q8IXJ9",
@@ -141,7 +113,7 @@
     "coordinates_chr_num": 20.0,
     "coordinates_start": 32358811.0,
     "coordinates_end": 32372238.0,
-    "named_gene": false,
+    "named_gene": true,
     "terms": [
       {
         "id": "GO:0045944",
@@ -158,7 +130,8 @@
         "evidence_type": "homology"
       }
     ],
-    "term_count": 1
+    "term_count": 1,
+    "sort_priority": 1
   },
   {
     "gene": "UniProtKB:Q8IXM2",
@@ -172,7 +145,7 @@
     "coordinates_chr_num": 17.0,
     "coordinates_start": 7015040.0,
     "coordinates_end": 7017375.0,
-    "named_gene": false,
+    "named_gene": true,
     "terms": [
       {
         "id": "GO:0071339",
@@ -195,7 +168,8 @@
         "evidence_type": "direct"
       }
     ],
-    "term_count": 1
+    "term_count": 1,
+    "sort_priority": 1
   },
   {
     "gene": "UniProtKB:Q8TAC9",
@@ -209,7 +183,7 @@
     "coordinates_chr_num": 15.0,
     "coordinates_start": 75011658.0,
     "coordinates_end": 75016664.0,
-    "named_gene": false,
+    "named_gene": true,
     "terms": [
       {
         "id": "GO:0032588",
@@ -226,38 +200,8 @@
         "evidence_type": "direct"
       }
     ],
-    "term_count": 1
-  },
-  {
-    "gene": "UniProtKB:Q8TC94",
-    "gene_symbol": "ACTL9",
-    "gene_name": "Actin-like protein 9",
-    "taxon_id": 9606,
-    "taxon_label": "Homo sapiens",
-    "taxon_abbr": "Hsa",
-    "panther_family": "PTHR11937",
-    "long_id": "HUMAN|HGNC=28494|UniProtKB=Q8TC94",
-    "coordinates_chr_num": 19.0,
-    "coordinates_start": 8697454.0,
-    "coordinates_end": 8698822.0,
-    "named_gene": false,
-    "terms": [
-      {
-        "id": "UNKNOWN:0002",
-        "label": "Unknown biological process",
-        "aspect": "biological process",
-        "evidence_type": "n/a"
-      }
-    ],
-    "slim_terms": [
-      {
-        "id": "UNKNOWN:0002",
-        "label": "Unknown biological process",
-        "aspect": "biological process",
-        "evidence_type": "n/a"
-      }
-    ],
-    "term_count": 1
+    "term_count": 1,
+    "sort_priority": 1
   },
   {
     "gene": "UniProtKB:Q8TD07",
@@ -271,7 +215,7 @@
     "coordinates_chr_num": 6.0,
     "coordinates_start": 149889095.0,
     "coordinates_end": 149890932.0,
-    "named_gene": false,
+    "named_gene": true,
     "terms": [
       {
         "id": "GO:0006955",
@@ -288,7 +232,8 @@
         "evidence_type": "direct"
       }
     ],
-    "term_count": 1
+    "term_count": 1,
+    "sort_priority": 1
   },
   {
     "gene": "UniProtKB:Q9HAT0",
@@ -302,7 +247,7 @@
     "coordinates_chr_num": 3.0,
     "coordinates_start": 123978675.0,
     "coordinates_end": 123992109.0,
-    "named_gene": false,
+    "named_gene": true,
     "terms": [
       {
         "id": "GO:0005737",
@@ -319,6 +264,71 @@
         "evidence_type": "direct"
       }
     ],
-    "term_count": 1
+    "term_count": 1,
+    "sort_priority": 1
+  },
+  {
+    "gene": "UniProtKB:P56747",
+    "gene_symbol": "CLDN6",
+    "gene_name": "Claudin-6",
+    "taxon_id": 9606,
+    "taxon_label": "Homo sapiens",
+    "taxon_abbr": "Hsa",
+    "panther_family": "PTHR12002",
+    "long_id": "HUMAN|HGNC=2048|UniProtKB=P56747",
+    "coordinates_chr_num": 16.0,
+    "coordinates_start": 3014713.0,
+    "coordinates_end": 3018170.0,
+    "named_gene": true,
+    "terms": [
+      {
+        "id": "UNKNOWN:0001",
+        "label": "Unknown molecular function",
+        "aspect": "molecular function",
+        "evidence_type": "n/a"
+      }
+    ],
+    "slim_terms": [
+      {
+        "id": "UNKNOWN:0001",
+        "label": "Unknown molecular function",
+        "aspect": "molecular function",
+        "evidence_type": "n/a"
+      }
+    ],
+    "term_count": 1,
+    "sort_priority": 10
+  },
+  {
+    "gene": "UniProtKB:Q8TC94",
+    "gene_symbol": "ACTL9",
+    "gene_name": "Actin-like protein 9",
+    "taxon_id": 9606,
+    "taxon_label": "Homo sapiens",
+    "taxon_abbr": "Hsa",
+    "panther_family": "PTHR11937",
+    "long_id": "HUMAN|HGNC=28494|UniProtKB=Q8TC94",
+    "coordinates_chr_num": 19.0,
+    "coordinates_start": 8697454.0,
+    "coordinates_end": 8698822.0,
+    "named_gene": true,
+    "terms": [
+      {
+        "id": "UNKNOWN:0002",
+        "label": "Unknown biological process",
+        "aspect": "biological process",
+        "evidence_type": "n/a"
+      }
+    ],
+    "slim_terms": [
+      {
+        "id": "UNKNOWN:0002",
+        "label": "Unknown biological process",
+        "aspect": "biological process",
+        "evidence_type": "n/a"
+      }
+    ],
+    "term_count": 1,
+    "sort_priority": 10
   }
 ]
