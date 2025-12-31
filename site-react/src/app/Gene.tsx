@@ -28,15 +28,18 @@ import FloatingFeedback from '@/shared/components/FloatingFeedback'
 
 interface InfoRowProps {
   label: string
-  value: string
+  value: string | null
   href?: string
 }
 
 const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => {
+  const displayValue = value || 'N/A'
+  const hasValidLink = href && value
+
   return (
     <div className="flex flex-wrap items-center p-1">
       <span className="pr-2 font-semibold text-gray-600">{label}:</span>
-      {href ? (
+      {hasValidLink ? (
         <a
           href={href}
           target="_blank"
@@ -44,10 +47,10 @@ const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => {
           onClick={() => handleExternalLinkClick(href)}
           className="flex items-center break-all"
         >
-          {value} <FiExternalLink className="ml-1 h-3 w-3 flex-shrink-0" />
+          {displayValue} <FiExternalLink className="ml-1 h-3 w-3 flex-shrink-0" />
         </a>
       ) : (
-        <span className="break-all">{value}</span>
+        <span className="break-all">{displayValue}</span>
       )}
     </div>
   )
@@ -171,7 +174,7 @@ const Gene: React.FC = () => {
                 )}
                 <InfoRow
                   label="NCBI Gene"
-                  value={annotation.geneSymbol}
+                  value={annotation.namedGene ? annotation.geneSymbol : null}
                   href={getNCBIGeneLink(annotation.geneSymbol)}
                 />
               </div>
