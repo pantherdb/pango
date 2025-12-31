@@ -10,6 +10,7 @@ class Annotation:
     gene: str
     gene_symbol: typing.Optional[str]
     gene_name: typing.Optional[str]
+    named_gene: typing.Optional[bool] = None
     long_id: typing.Optional[str] =  None
     panther_family: typing.Optional[str] =  None
     taxon_abbr: typing.Optional[str] = None
@@ -26,6 +27,7 @@ class Annotation:
     evidence: typing.List[Evidence] 
     groups: typing.List[str]
     evidence_count: typing.Optional[int]
+    
 
     def __init__(self, **kwargs):
         for key, value in kwargs.items():

@@ -61,6 +61,7 @@ export interface Annotation {
   gene: string
   geneSymbol: string
   geneName: string
+  namedGene: boolean
   longId: string
   pantherFamily: string
   taxonAbbr: string

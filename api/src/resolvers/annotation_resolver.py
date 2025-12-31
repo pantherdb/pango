@@ -51,17 +51,20 @@ async def get_genes(gene_index:str, filter_args: GeneFilterArgs, page_args=PageA
         from_=page_args.page * page_args.size,
         size=page_args.size,
         source=["_id"],
-        sort=[
-          {
+        sort=[{
+              "named_gene": {
+                  "order": "desc"
+              }
+          },          {
               "coordinates_chr_num.keyword": {
                   "order": "asc"
               }
-          },
-          {
+          },     {
               "gene_symbol.keyword": {
                   "order": "asc"
               }
-          }
+          },
+        
         ]
     )
 

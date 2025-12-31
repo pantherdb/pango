@@ -7,6 +7,7 @@ export const GET_ANNOTATIONS_QUERY = print(gql`
       gene
       geneName
       geneSymbol
+      namedGene
       longId
       pantherFamily
       coordinatesChrNum
@@ -57,6 +58,7 @@ export const GET_GENES_QUERY = print(gql`
       gene
       geneName
       geneSymbol
+      namedGene
       longId
       pantherFamily
       coordinatesChrNum
