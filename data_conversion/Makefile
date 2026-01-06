@@ -126,7 +126,7 @@ export DEBUG_INDENT ?= 0
 	touch $@
 
 .PRECIOUS: %/annotations.csv
-%/annotations.csv: %/export_annotations.tsv
+%/annotations.csv: %/export_annotations.touch
 	sed -E 's/UNKNOWN:[0-9]+//g' $*/export_annotations.tsv > $@
 
 .PRECIOUS: %/functionome_release.gaf
