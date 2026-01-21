@@ -116,6 +116,14 @@ export DEBUG_INDENT ?= 0
 %/full_go.json: %/resources/go.obo %/bin/robot
 	$*/bin/robot export --input $*/resources/go.obo --header "ID|LABEL|hasOBONamespace" --format json --export $@
 
+.PRECIOUS: %/go_hierarchy_full.json
+%/go_hierarchy_full.json: %/resources/go.obo %/bin/robot
+	$*/bin/robot export --input $*/resources/go.obo --header "ID|SubClassOf [ID]" --format json --export $@
+
+.PRECIOUS: %/go_hierarchy.json
+%/go_hierarchy.json: %/go_hierarchy_full.json %/human_iba_annotations.json
+	python3 extract_go_hierarchy.py --debug_indent $(DEBUG_INDENT) -g $*/go_hierarchy_full.json -a $*/human_iba_annotations.json > $@
+
 .PRECIOUS: %/full_go_annotated.json
 %/full_go_annotated.json: %/goslim_generic.tsv %/full_go.json
 	python3 annotate_is_goslim_json_ontology.py --debug_indent $(DEBUG_INDENT) -g $*/goslim_generic.tsv -p $*/full_go.json > $@
