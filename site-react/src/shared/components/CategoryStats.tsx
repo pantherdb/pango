@@ -39,10 +39,10 @@ const CategoryStats: React.FC = () => {
     if (!expandedCategoryId) return null
     return {
       geneIds: search.genes.map(g => g.gene),
-      slimTermIds: [expandedCategoryId], // Only the expanded category
+      slimTermIds: [...search.slimTerms.map(t => t.id), expandedCategoryId], // Include all selected slim terms plus expanded category
       termIds: search.terms.map(t => t.id), // Include selected child terms
     }
-  }, [expandedCategoryId, search.genes, search.terms])
+  }, [expandedCategoryId, search.genes, search.slimTerms, search.terms])
 
   // Fetch term stats when a category is expanded
   const { data: termStatsData } = useGetTermStatsQuery(

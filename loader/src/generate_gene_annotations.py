@@ -81,9 +81,7 @@ def group_terms(group):
     # Calculate sort_priority
     named_gene = group['named_gene'].iloc[0]
     if not named_gene:
-        sort_priority = 50
-    elif unknown_count > 0:
-        sort_priority = unknown_count * 10
+        sort_priority = 20
     else:
         sort_priority = 1
     
