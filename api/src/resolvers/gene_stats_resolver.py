@@ -127,7 +127,7 @@ def get_annotation_terms_query():
     """Aggregation on term field in annotation index"""
     term_frequency = {
         "terms": {
-            "field": "term.label.keyword",
+            "field": "term.id.keyword",
             "order": {
                 "_count": "desc"
             },
@@ -191,7 +191,7 @@ def get_slim_terms_query():
         "aggs": {
             "distinct_slim_term_frequency": {
                 "terms": {
-                    "field": "slim_terms.label.keyword",
+                    "field": "slim_terms.id.keyword",
                     "order": {
                         "_count": "desc"
                     },
