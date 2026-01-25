@@ -70,3 +70,7 @@ Each dataset folder requires:
 
 ### Test Data
 Located in `test_data/input/pango-test/` and `test_data/output/pango-test/`
+
+## Git
+
+Do not add "Co-Authored-By" lines to commits.

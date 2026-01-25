@@ -60,21 +60,36 @@ async def get_genes_stats(gene_index:str, filter_args:GeneFilterArgs):
     return results
   
 
-async def get_terms_stats(annotation_index:str, filter_args:GeneFilterArgs):
+async def get_terms_stats(gene_index:str, annotation_index:str, filter_args:GeneFilterArgs):
     from src.resolvers.annotation_resolver import get_annotations_query
     from src.models.annotation_model import AnnotationFilterArgs
-    
+
+    # Step 1: Filter genes using the gene index (handles term_ids, slim_term_ids, gene_ids correctly)
+    genes_query = await get_genes_query(filter_args)
+    gene_resp = await es.search(
+        index=gene_index,
+        query=genes_query,
+        source=["gene"],
+        size=10000  # Get all matching gene IDs
+    )
+
+    gene_ids = [hit['_source']['gene'] for hit in gene_resp.get('hits', {}).get('hits', [])]
+
+    # If no genes match the filter, return empty stats
+    if not gene_ids:
+        return TermStats(term_frequency=Frequency(buckets=[]))
+
+    # Step 2: Query annotations for those genes, filtered by slim_term_ids for category expansion
     annotation_filter = AnnotationFilterArgs(
         slim_term_ids=filter_args.slim_term_ids if filter_args else None,
-        term_ids=filter_args.term_ids if filter_args else None,
-        gene_ids=filter_args.gene_ids if filter_args else None
+        gene_ids=gene_ids
     )
-    
+
     query = await get_annotations_query(annotation_filter)
-    aggs = {           
-        "term_frequency": get_terms_query()        
+    aggs = {
+        "term_frequency": get_terms_query()
     }
-    
+
     resp = await es.search(
           index=annotation_index,
           filter_path ='took,hits.total.value,aggregations',
@@ -84,10 +99,10 @@ async def get_terms_stats(annotation_index:str, filter_args:GeneFilterArgs):
     )
 
     stats = dict()
-    for k, freqs in resp['aggregations'].items():   
+    for k, freqs in resp['aggregations'].items():
         if k == 'term_frequency':
           buckets = list()
-          for freq_bucket in freqs['buckets']:     
+          for freq_bucket in freqs['buckets']:
               buckets.append(Bucket(
                   key=freq_bucket["key"],
                   doc_count=freq_bucket["distinct_genes"]["value"],
@@ -98,9 +113,9 @@ async def get_terms_stats(annotation_index:str, filter_args:GeneFilterArgs):
             buckets = [Bucket( key=bucket["key"], doc_count=bucket["doc_count"])
                         for bucket in freqs['buckets']]
             stats[k] = Frequency(buckets=buckets)
-                         
+
     results = TermStats(**stats)
-        
+
     return results
 
 
