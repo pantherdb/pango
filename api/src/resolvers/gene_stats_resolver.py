@@ -77,6 +77,8 @@ async def get_terms_stats(gene_index:str, annotation_index:str, filter_args:Gene
             size=10000
         )
         gene_ids = [hit['_source']['gene'] for hit in gene_resp.get('hits', {}).get('hits', [])]
+        
+        print(f"Filtered gene_ids count: {len(gene_ids)}")
 
         if not gene_ids:
             return TermStats(term_frequency=Frequency(buckets=[]))
@@ -119,60 +121,6 @@ async def get_terms_stats(gene_index:str, annotation_index:str, filter_args:Gene
     results = TermStats(**stats)
 
     return results
-
-
-def get_terms_by_parent_query(slim_term_ids=None):
-    """Nested aggregation on terms field with optional parent_ids filter"""
-
-    inner_aggs = {
-        "by_term": {
-            "terms": {
-                "field": "terms.label.keyword",
-                "order": {"_count": "desc"},
-                "size": 200
-            },
-            "aggs": {
-                "distinct_genes": {
-                    "reverse_nested": {},
-                    "aggs": {
-                        "gene_count": {
-                            "value_count": {"field": "gene.keyword"}
-                        }
-                    }
-                },
-                "docs": {
-                    "top_hits": {
-                        "_source": {
-                            "includes": ["terms.id", "terms.label", "terms.aspect"]
-                        },
-                        "size": 1
-                    }
-                }
-            }
-        }
-    }
-
-    # If slim_term_ids provided, filter terms by parent_ids
-    if slim_term_ids:
-        term_frequency = {
-            "nested": {"path": "terms"},
-            "aggs": {
-                "filtered_by_parent": {
-                    "filter": {
-                        "terms": {"terms.parent_ids": slim_term_ids}
-                    },
-                    "aggs": inner_aggs
-                }
-            }
-        }
-    else:
-        # No parent filter, aggregate all terms
-        term_frequency = {
-            "nested": {"path": "terms"},
-            "aggs": inner_aggs
-        }
-
-    return term_frequency
 
 
 def get_annotation_terms_query():
@@ -234,69 +182,6 @@ def get_annotation_term_response_meta(bucket):
     return None
 
 
-def get_nested_terms_query():
-    """Nested aggregation on terms field in gene index"""
-    term_frequency = {
-        "nested": {
-            "path": "terms"
-        },
-        "aggs": {
-            "distinct_term_frequency": {
-                "terms": {
-                    "field": "terms.label.keyword",
-                    "order": {
-                        "_count": "desc"
-                    },
-                    "size": 200
-                },
-                "aggs": {
-                    "distinct_genes": {
-                        "reverse_nested": {},
-                        "aggs": {
-                            "gene_count": {
-                                "value_count": {
-                                    "field": "gene.keyword"
-                                }
-                            }
-                        }
-                    },
-                    "docs": {
-                        "top_hits": {
-                            "_source": {
-                                "includes": [
-                                    "terms.id",
-                                    "terms.label",
-                                    "terms.aspect"
-                                ]
-                            },
-                            "size": 1
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    return term_frequency
-
-
-def get_nested_term_response_meta(bucket):
-    """Extract metadata from nested terms aggregation"""
-    results = [hit for hit in bucket.get('hits', {}).get('hits', [])]
-
-    if len(results) > 0:
-        source = results[0]["_source"]
-        idx = source.get("id", "")
-        return Entity(
-            id=idx,
-            label=source.get("label", ""),
-            aspect=source.get("aspect", ""),
-            display_id=idx if idx.startswith("GO") else ''
-        )
-
-    return None
-
-
 def get_slim_terms_query():
   
     slim_term_frequency = {
@@ -341,6 +226,7 @@ def get_slim_terms_query():
     }
     
     return slim_term_frequency 
+
 
 def get_response_meta(bucket):
    results = [hit for hit in bucket.get('hits', {}).get('hits', [])]

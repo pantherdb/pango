@@ -7,6 +7,26 @@ from src.utils import write_to_json
 
 unknown_terms = ['UNKNOWN:0001', 'UNKNOWN:0002', 'UNKNOWN:0003']
 
+# Global parent lookup dictionary (child_id -> [parent_ids])
+parent_lookup = {}
+
+
+def load_parent_lookup(hierarchy_fp):
+    """Load GO hierarchy file and build parent lookup dictionary."""
+    global parent_lookup
+    parent_lookup = {}
+
+    with open(hierarchy_fp, 'r') as f:
+        hierarchy_data = json.load(f)
+
+    for row in hierarchy_data:
+        child = row["child"]
+        parent = row["parent"]
+        if child not in parent_lookup:
+            parent_lookup[child] = []
+        parent_lookup[child].append(parent)
+
+
 COLUMNS_TO_EXTRACT = [
     'gene_symbol',
     'gene_name', 
@@ -23,6 +43,7 @@ COLUMNS_TO_EXTRACT = [
 
 def main():
     parser = parse_arguments()
+    load_parent_lookup(parser.hierarchy_fp)
     annos_df = get_annos(parser.annos_fp)
     anno_json = annos_df.to_json(orient="records", default_handler=None)
     json_str = json.loads(anno_json)
@@ -33,9 +54,11 @@ def main():
 def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('-a', dest='annos_fp', required=True,
-                        type=file_path, help='cealn annos Json')
+                        type=file_path, help='clean annos Json')
     parser.add_argument('-o', dest='genes_annos_fp', required=True,
                          help='Output of Clean anno')
+    parser.add_argument('-hi', dest='hierarchy_fp', required=True,
+                        type=file_path, help='GO hierarchy Json (child-parent relationships)')
 
     return parser.parse_args()
 
@@ -47,17 +70,18 @@ def uniquify_term(series, evidence_series):
     for idx, item in enumerate(series):
         if isinstance(item, dict):
             term_id = item['id']
-            term = item.copy()  
+            term = item.copy()
             term.pop('is_goslim', None)
-            term['evidence_type'] = evidence_series.iloc[idx] 
-            
+            term['evidence_type'] = evidence_series.iloc[idx]
+            term['parent_ids'] = parent_lookup.get(term_id, [])
+
             if term_id in term_counts:
                 raise ValueError(f"Duplicate term found: {term}")
             else:
                 term_counts[term_id] = 1
 
             unique_terms[term_id] = term
-            
+
     return list(unique_terms.values())
 
 def uniquify_slim_terms(series, evidence_series):

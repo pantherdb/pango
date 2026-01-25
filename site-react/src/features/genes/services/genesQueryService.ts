@@ -143,6 +143,7 @@ export const GET_TERM_STATS_QUERY = print(gql`
             aspect
             label
             displayId
+            parentIds
           }
         }
       }

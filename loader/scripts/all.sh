@@ -86,6 +86,7 @@ process_dataset() {
     local annotations_fp="$folder/human_iba_annotations.json"
     local genes_fp="$folder/human_iba_gene_info.json"
     local taxon_fp="$folder/taxon_lkp.json"
+    local hierarchy_fp="$folder/go_hierarchy.json"
     
     # Output files in the output subdirectory
     local clean_annotations_fp="$output_subdir/human_iba_annotations_clean.json"
@@ -96,6 +97,7 @@ process_dataset() {
     echo "Annotations: $annotations_fp"
     echo "Genes: $genes_fp"
     echo "Taxon: $taxon_fp"
+    echo "Hierarchy: $hierarchy_fp"
     echo "Clean Articles: $CLEAN_ARTICLES"
     
     # Verify required input files exist
@@ -115,7 +117,11 @@ process_dataset() {
         echo "Error: Taxon file not found: $taxon_fp"
         return 1
     fi
-    
+    if [[ ! -f "$hierarchy_fp" ]]; then
+        echo "Error: Hierarchy file not found: $hierarchy_fp"
+        return 1
+    fi
+
     echo "Starting processing pipeline for $prefix..."
     
     echo "Getting articles..."
@@ -136,7 +142,8 @@ process_dataset() {
     echo "Generating gene annotations..."
     python3 -m src.generate_gene_annotations \
         -a "$clean_annotations_fp" \
-        -o "$genes_annotations_fp"
+        -o "$genes_annotations_fp" \
+        -hi "$hierarchy_fp"
     
     echo "Indexing to Elasticsearch..."
     python3 -m src.index_es \

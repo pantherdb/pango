@@ -77,6 +77,9 @@
               "ignore_above": 256
             }
           }
+        },
+        "parent_ids": {
+          "type": "keyword"
         }
       }
     },

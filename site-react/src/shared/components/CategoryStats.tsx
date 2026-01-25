@@ -53,7 +53,10 @@ const CategoryStats: React.FC = () => {
   // Update child terms when term stats data arrives
   useEffect(() => {
     if (termStatsData && expandedCategoryId) {
-      const buckets = termStatsData.termFrequency?.buckets || []
+      // Filter buckets to only include terms that belong to the expanded category
+      const buckets = (termStatsData.termFrequency?.buckets || []).filter(
+        bucket => bucket.meta.parentIds?.includes(expandedCategoryId)
+      )
 
       // Find the highest count for ratio calculation
       const longest = buckets.reduce((max, bucket) => Math.max(max, bucket.docCount), 0)
