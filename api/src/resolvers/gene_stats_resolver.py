@@ -63,36 +63,38 @@ async def get_genes_stats(gene_index:str, filter_args:GeneFilterArgs):
 async def get_terms_stats(gene_index:str, annotation_index:str, filter_args:GeneFilterArgs):
     from src.resolvers.annotation_resolver import get_annotations_query
     from src.models.annotation_model import AnnotationFilterArgs
+    from src.utils import is_valid_filter
 
-    # Step 1: Filter genes using the gene index (handles term_ids, slim_term_ids, gene_ids correctly)
-    genes_query = await get_genes_query(filter_args)
-    gene_resp = await es.search(
-        index=gene_index,
-        query=genes_query,
-        source=["gene"],
-        size=10000  # Get all matching gene IDs
-    )
+    gene_ids = None
 
-    gene_ids = [hit['_source']['gene'] for hit in gene_resp.get('hits', {}).get('hits', [])]
+    # Only query gene index if we need to filter by term_ids or gene_ids
+    if filter_args and (is_valid_filter(filter_args.term_ids) or is_valid_filter(filter_args.gene_ids)):
+        genes_query = await get_genes_query(filter_args)
+        gene_resp = await es.search(
+            index=gene_index,
+            query=genes_query,
+            source=["gene"],
+            size=10000
+        )
+        gene_ids = [hit['_source']['gene'] for hit in gene_resp.get('hits', {}).get('hits', [])]
 
-    # If no genes match the filter, return empty stats
-    if not gene_ids:
-        return TermStats(term_frequency=Frequency(buckets=[]))
+        if not gene_ids:
+            return TermStats(term_frequency=Frequency(buckets=[]))
 
-    # Step 2: Query annotations for those genes, filtered by slim_term_ids for category expansion
+    # Query annotations - filter by slim_term_ids and the filtered gene_ids
     annotation_filter = AnnotationFilterArgs(
         slim_term_ids=filter_args.slim_term_ids if filter_args else None,
-        gene_ids=gene_ids
+        gene_ids=gene_ids  # Will be None if no gene filtering needed
     )
 
     query = await get_annotations_query(annotation_filter)
     aggs = {
-        "term_frequency": get_terms_query()
+        "term_frequency": get_annotation_terms_query()
     }
 
     resp = await es.search(
           index=annotation_index,
-          filter_path ='took,hits.total.value,aggregations',
+          filter_path='took,hits.total.value,aggregations',
           query=query,
           aggs=aggs,
           size=0,
@@ -101,16 +103,16 @@ async def get_terms_stats(gene_index:str, annotation_index:str, filter_args:Gene
     stats = dict()
     for k, freqs in resp['aggregations'].items():
         if k == 'term_frequency':
-          buckets = list()
-          for freq_bucket in freqs['buckets']:
-              buckets.append(Bucket(
-                  key=freq_bucket["key"],
-                  doc_count=freq_bucket["distinct_genes"]["value"],
-                  meta=get_term_response_meta(freq_bucket["docs"])
-              ))
-          stats[k] = Frequency(buckets=buckets)
+            buckets = list()
+            for freq_bucket in freqs['buckets']:
+                buckets.append(Bucket(
+                    key=freq_bucket["key"],
+                    doc_count=freq_bucket["distinct_genes"]["value"],
+                    meta=get_annotation_term_response_meta(freq_bucket["docs"])
+                ))
+            stats[k] = Frequency(buckets=buckets)
         else:
-            buckets = [Bucket( key=bucket["key"], doc_count=bucket["doc_count"])
+            buckets = [Bucket(key=bucket["key"], doc_count=bucket["doc_count"])
                         for bucket in freqs['buckets']]
             stats[k] = Frequency(buckets=buckets)
 
@@ -119,7 +121,62 @@ async def get_terms_stats(gene_index:str, annotation_index:str, filter_args:Gene
     return results
 
 
-def get_terms_query():
+def get_terms_by_parent_query(slim_term_ids=None):
+    """Nested aggregation on terms field with optional parent_ids filter"""
+
+    inner_aggs = {
+        "by_term": {
+            "terms": {
+                "field": "terms.label.keyword",
+                "order": {"_count": "desc"},
+                "size": 200
+            },
+            "aggs": {
+                "distinct_genes": {
+                    "reverse_nested": {},
+                    "aggs": {
+                        "gene_count": {
+                            "value_count": {"field": "gene.keyword"}
+                        }
+                    }
+                },
+                "docs": {
+                    "top_hits": {
+                        "_source": {
+                            "includes": ["terms.id", "terms.label", "terms.aspect"]
+                        },
+                        "size": 1
+                    }
+                }
+            }
+        }
+    }
+
+    # If slim_term_ids provided, filter terms by parent_ids
+    if slim_term_ids:
+        term_frequency = {
+            "nested": {"path": "terms"},
+            "aggs": {
+                "filtered_by_parent": {
+                    "filter": {
+                        "terms": {"terms.parent_ids": slim_term_ids}
+                    },
+                    "aggs": inner_aggs
+                }
+            }
+        }
+    else:
+        # No parent filter, aggregate all terms
+        term_frequency = {
+            "nested": {"path": "terms"},
+            "aggs": inner_aggs
+        }
+
+    return term_frequency
+
+
+def get_annotation_terms_query():
+    """Aggregation on term field in annotation index"""
     term_frequency = {
         "terms": {
             "field": "term.label.keyword",
@@ -140,7 +197,8 @@ def get_terms_query():
                         "includes": [
                             "term.id",
                             "term.label",
-                            "term.aspect"
+                            "term.aspect",
+                            "slim_terms.id"
                         ]
                     },
                     "size": 1
@@ -148,25 +206,95 @@ def get_terms_query():
             }
         }
     }
-    
+
     return term_frequency
 
 
-def get_term_response_meta(bucket):
-   results = [hit for hit in bucket.get('hits', {}).get('hits', [])]
+def get_annotation_term_response_meta(bucket):
+    """Extract metadata from annotation term aggregation"""
+    results = [hit for hit in bucket.get('hits', {}).get('hits', [])]
 
-   if len(results) > 0:
-      source = results[0]["_source"]
-      if "term" in source and source["term"]:
-          term = source["term"]
-          idx = term["id"]
-          return Entity(
-            id=idx, 
-            label=term["label"], 
-            aspect=term.get("aspect", ""),
-            display_id= idx if idx.startswith("GO") else '')
+    if len(results) > 0:
+        source = results[0]["_source"]
+        if "term" in source and source["term"]:
+            term = source["term"]
+            idx = term["id"]
+            # Extract parent_ids from slim_terms
+            parent_ids = []
+            if "slim_terms" in source and source["slim_terms"]:
+                parent_ids = [st.get("id") for st in source["slim_terms"] if st.get("id")]
+            return Entity(
+                id=idx,
+                label=term["label"],
+                aspect=term.get("aspect", ""),
+                display_id=idx if idx.startswith("GO") else '',
+                parent_ids=parent_ids
+            )
 
-   return None
+    return None
+
+
+def get_nested_terms_query():
+    """Nested aggregation on terms field in gene index"""
+    term_frequency = {
+        "nested": {
+            "path": "terms"
+        },
+        "aggs": {
+            "distinct_term_frequency": {
+                "terms": {
+                    "field": "terms.label.keyword",
+                    "order": {
+                        "_count": "desc"
+                    },
+                    "size": 200
+                },
+                "aggs": {
+                    "distinct_genes": {
+                        "reverse_nested": {},
+                        "aggs": {
+                            "gene_count": {
+                                "value_count": {
+                                    "field": "gene.keyword"
+                                }
+                            }
+                        }
+                    },
+                    "docs": {
+                        "top_hits": {
+                            "_source": {
+                                "includes": [
+                                    "terms.id",
+                                    "terms.label",
+                                    "terms.aspect"
+                                ]
+                            },
+                            "size": 1
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return term_frequency
+
+
+def get_nested_term_response_meta(bucket):
+    """Extract metadata from nested terms aggregation"""
+    results = [hit for hit in bucket.get('hits', {}).get('hits', [])]
+
+    if len(results) > 0:
+        source = results[0]["_source"]
+        idx = source.get("id", "")
+        return Entity(
+            id=idx,
+            label=source.get("label", ""),
+            aspect=source.get("aspect", ""),
+            display_id=idx if idx.startswith("GO") else ''
+        )
+
+    return None
 
 
 def get_slim_terms_query():

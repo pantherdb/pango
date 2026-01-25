@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 import strawberry
 from src.models.base_model import Frequency
 
@@ -10,7 +10,8 @@ class Term:
     aspect: Optional[str] = ""
     is_goslim: Optional[bool] = False
     count: Optional[int] = 0
-    evidence_type:Optional[str] = None
+    evidence_type: Optional[str] = None
+    parent_ids: Optional[List[str]] = None
 
 
 @strawberry.type

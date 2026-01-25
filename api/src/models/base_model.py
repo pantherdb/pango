@@ -9,11 +9,12 @@ class AutocompleteType(Enum):
     gene = 'gene'
 
 @strawberry.type
-class Entity :
+class Entity:
     id: str
     label: str
     aspect: str
-    display_id:str
+    display_id: str
+    parent_ids: typing.Optional[typing.List[str]] = None
 
 
 @strawberry.type
