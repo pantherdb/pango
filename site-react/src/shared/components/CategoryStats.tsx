@@ -14,7 +14,7 @@ import Button from '@mui/material/Button'
 import { useGetTermStatsQuery } from '@/features/terms/slices/termsApiSlice'
 import { setExpandedCategory, clearExpandedCategory } from '@/features/terms/slices/termsSlice'
 import type { Term } from '@/features/terms/models/term'
-import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
+import { FiChevronDown, FiChevronRight, FiLayers, FiX } from 'react-icons/fi'
 import type { RootState } from '@/app/store/store'
 
 const CategoryStats: React.FC = () => {
@@ -240,57 +240,100 @@ const CategoryStats: React.FC = () => {
 
               {/* Render child terms when expanded */}
               {isExpanded && childTerms.length > 0 && (
-                <div className="ml-6 bg-gray-200 opacity-60">
-                  {childTerms.map(term => (
-                    <div
-                      key={term.id}
-                      className="flex cursor-pointer items-center border-b border-gray-200 py-1 hover:bg-gray-100"
+                <div className="ml-4 my-2 overflow-hidden rounded-b-lg border border-gray-300 bg-white shadow-md border-l-4"
+                  style={{
+                    borderColor: item.color,
+                  }}>
+                  {/* Header with tooltip and close button */}
+                  <div
+                    className="flex items-center justify-between border-b px-3 py-3"
+                    style={{
+                      backgroundColor: `${item.color}50`,
+                      borderBottomColor: `${item.color}80`,
+                    }}
+                  >
+                    <Tooltip
+                      title="This category contains multiple levels of Gene Ontology (GO) terms. All descendant terms (children, grandchildren, etc.) are shown here in a flattened list, making it easy to see all related terms at once."
+                      placement="top"
+                      arrow
+                      enterDelay={2000}
+                    >
+                      <div className="flex items-center gap-2 cursor-help">
+                        <FiLayers className="h-5 w-5" style={{ color: item.color }} />
+                        <span className="text-sm font-semibold" >
+                          Child & Descendant Terms ({childTerms.length})
+                        </span>
+                      </div>
+                    </Tooltip>
+                    <button
                       onClick={(e) => {
                         e.stopPropagation()
-                        handleChildTermClick(term)
+                        dispatch(clearExpandedCategory())
                       }}
+                      className="flex items-center justify-center rounded-full p-1 transition-colors hover:opacity-80"
+                      aria-label="Collapse child terms"
                     >
+                      <FiX className="h-5 w-5" />
+                    </button>
+                  </div>
+
+                  {/* Child term items with left accent border */}
+                  <div
+                    style={{
+                      backgroundColor: `${item.color}10`,
+                    }}
+                  >
+                    {childTerms.map((term) => (
                       <div
-                        className="mr-2 flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold"
-                        style={{
-                          border: `1px solid ${term.color}50`,
-                          color: term.color,
-                          backgroundColor: `${term.color}20`,
+                        key={term.id}
+                        className="flex cursor-pointer items-center border-b border-gray-200 py-1 pl-2 transition-colors duration-150 hover:bg-primary-50"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleChildTermClick(term)
                         }}
                       >
-                        {term.aspectShorthand}
-                      </div>
-                      <Tooltip title={term.label} placement="top" enterDelay={1500} arrow>
-                        <div className="w-[120px] text-xs">
-                          <div className="line-clamp-2">{term.label}</div>
-                        </div>
-                      </Tooltip>
-                      <div className="relative h-6 flex-1">
                         <div
-                          className="absolute h-full"
+                          className="mr-2 flex h-6 w-6 items-center justify-center rounded border text-xs font-bold"
                           style={{
-                            backgroundColor: term.color,
-                            width: term.width,
-                          }}
-                        />
-
-                        <div
-                          className="absolute top-1/2 h-5 w-20 -translate-y-1/2 transform"
-                          style={{
-                            left: term.countPos,
+                            border: `1px solid ${term.color}50`,
+                            color: term.color,
+                            backgroundColor: `${term.color}20`,
                           }}
                         >
-                          <Button
-                            variant="outlined"
-                            size="small"
-                            className="!-mt-1.5 !h-full w-full rounded-md !bg-primary-50 !text-2xs hover:!bg-primary-100"
+                          {term.aspectShorthand}
+                        </div>
+                        <Tooltip title={term.label} placement="top" enterDelay={1500} arrow>
+                          <div className="w-[120px] text-xs text-gray-700">
+                            <div className="line-clamp-2">{term.label}</div>
+                          </div>
+                        </Tooltip>
+                        <div className="relative h-6 flex-1">
+                          <div
+                            className="absolute h-full opacity-60"
+                            style={{
+                              backgroundColor: term.color,
+                              width: term.width,
+                            }}
+                          />
+
+                          <div
+                            className="absolute top-1/2 h-5 w-20 -translate-y-1/2 transform"
+                            style={{
+                              left: term.countPos,
+                            }}
                           >
-                            {term.count} genes
-                          </Button>
+                            <Button
+                              variant="outlined"
+                              size="small"
+                              className="!-mt-1.5 !h-full w-full rounded-md !bg-primary-50 !text-2xs hover:!bg-primary-100"
+                            >
+                              {term.count} genes
+                            </Button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

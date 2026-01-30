@@ -46,9 +46,17 @@ ESLint enforces this rule.
 `@/` resolves to `src/` directory (configured in vite.config.ts and tsconfig).
 
 ### Styling
+
 - MUI (Material-UI) v5 for component library with custom theme at `@pango.core/theme/`
 - Tailwind CSS for utility classes
 - Both can be used together in components
+
+**MUI Usage Policy - IMPORTANT:**
+
+- **Use MUI ONLY for complex interactive components**: Button, Tooltip, Chip, TextField, Autocomplete, etc.
+- **DO NOT use MUI layout/container components**: Box, Paper, Typography, Container, Stack, Grid
+- **Always prefer**: Regular HTML elements (`<div>`, `<span>`, `<h1>`, etc.) styled with Tailwind CSS
+- **Pattern**: Use Tailwind for all layout, spacing, colors, and typography. Only reach for MUI when you need specialized component behavior (e.g., autocomplete logic, tooltip positioning)
 
 ### API Versioning
 The app supports multiple API versions via URL query parameter `?apiVersion=`. Current versions defined in apiService.ts. Default is `pango-2`.
@@ -85,3 +93,62 @@ npx vitest run src/test/__tests__/Home.test.tsx
 ## Git
 
 Do not add "Co-Authored-By" lines to commits.
+
+
+## Task Management
+
+### Always Create and Maintain Task Plans
+
+For EVERY non-trivial task you receive:
+
+**Before starting work**: Create `plans/[task-name].md` with:
+
+- Clear goal statement
+- Current state analysis (what works, what's broken)
+- Detailed implementation plan broken into phases/steps
+- Progress tracking table
+- Dependencies and blockers
+- Files to create/modify
+- Next steps
+
+**While working**: Update `plans/[task-name].md` after completing each step:
+
+- Mark completed steps with ✓ or DONE
+- Update progress tables
+- Add new findings or changes to approach
+- Note any issues encountered
+- Update next steps
+
+**After completing**: Final update to `plans/[task-name].md`:
+
+- Mark all steps complete
+- Summary of what was accomplished
+- Any remaining TODO items
+- Lessons learned or notes for future work
+
+### Format Guidelines
+
+**For simple tasks** (single file changes, quick fixes):
+
+```markdown
+# Task: [Brief description]
+
+## Steps
+- [ ] Step 1
+- [x] Step 2 (completed)
+
+## Current Status
+Working on: [step name]
+```
+
+**For complex tasks** (multi-file refactoring, feature additions):
+
+- Include progress summary tables
+- Organize into phases
+- Track files created/modified separately
+- Document API changes needed
+- List dependencies and blockers
+- Maintain current state diagnosis section
+
+See [plans/template.md](plans/template.md) for detailed examples and formats.
+
