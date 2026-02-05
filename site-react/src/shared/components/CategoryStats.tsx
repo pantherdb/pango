@@ -253,15 +253,15 @@ const CategoryStats: React.FC = () => {
                     }}
                   >
                     <Tooltip
-                      title="This category contains multiple levels of Gene Ontology (GO) terms. All descendant terms (children, grandchildren, etc.) are shown here in a flattened list, making it easy to see all related terms at once."
+                      title="Listed below are all GO terms in this category that are annotated to a human gene. The annotated term can be the same, but is usually more specific, than the category term. The numbers below count the genes annotated directly to a given term, whereas the counts above for the category include genes annotated either directly to that term or to one of its more specific descendant terms in GO."
                       placement="top"
                       arrow
                       enterDelay={2000}
                     >
                       <div className="flex items-center gap-2 cursor-help">
                         <FiLayers className="h-5 w-5" style={{ color: item.color }} />
-                        <span className="text-sm font-semibold" >
-                          Child & Descendant Terms ({childTerms.length})
+                        <span className="text-xs font-semibold" >
+                          Directly annotated terms in this category ({childTerms.length})
                         </span>
                       </div>
                     </Tooltip>
