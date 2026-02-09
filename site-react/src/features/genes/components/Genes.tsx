@@ -1,5 +1,6 @@
 import type React from 'react'
 import { FaCaretRight, FaCaretDown } from 'react-icons/fa'
+import { FiMoreVertical } from 'react-icons/fi'
 import { setPage, setPageSize } from '@/features/search/searchSlice'
 import { useMemo, useState } from 'react'
 import { useAppSelector, useAppDispatch } from '@/app/hooks'
@@ -22,12 +23,18 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import TablePagination from '@mui/material/TablePagination'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import RenameTabDialog from '@/shared/components/RenameTabDialog'
 
 const Genes: React.FC = () => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const isLeftDrawerOpen = useAppSelector((state: RootState) => selectLeftDrawerOpen(state))
   const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({})
+  const [renameDialogOpen, setRenameDialogOpen] = useState(false)
+  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null)
+  const [tabName, setTabName] = useState('PAN-GO Results')
 
   const { page, size } = useAppSelector((state: RootState) => state.search.pagination)
   const search = useAppSelector((state: RootState) => state.search)
@@ -82,6 +89,30 @@ const Genes: React.FC = () => {
           Results (<strong>{geneCount}</strong>) <small>genes</small>
         </h2>
 
+        <Tooltip title="Options" arrow>
+          <Button
+            variant="outlined"
+            className="!mr-2 w-9 h-9 rounded-md "
+            onClick={e => setMenuAnchor(e.currentTarget)}
+          >
+            <FiMoreVertical size={18} />
+          </Button>
+        </Tooltip>
+        <Menu
+          anchorEl={menuAnchor}
+          open={Boolean(menuAnchor)}
+          onClose={() => setMenuAnchor(null)}
+        >
+          <MenuItem
+            onClick={() => {
+              setMenuAnchor(null)
+              setRenameDialogOpen(true)
+            }}
+          >
+            Tab: {tabName}
+          </MenuItem>
+        </Menu>
+
         {!isLeftDrawerOpen && (
           <Button
             variant="outlined"
@@ -92,6 +123,13 @@ const Genes: React.FC = () => {
           </Button>
         )}
       </div>
+
+      <RenameTabDialog
+        open={renameDialogOpen}
+        onClose={() => setRenameDialogOpen(false)}
+        currentName={tabName}
+        onRename={setTabName}
+      />
 
       {isMobile ? (
         <div className="space-y-2">

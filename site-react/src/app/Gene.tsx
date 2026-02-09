@@ -25,6 +25,7 @@ import AnnotationCards from '@/features/annotations/components/AnnotationCards'
 import { handleExternalLinkClick } from '@/analytics'
 import FeedbackBanner from '@/shared/components/FeedbackBanner'
 import FloatingFeedback from '@/shared/components/FloatingFeedback'
+import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
 
 interface InfoRowProps {
   label: string
@@ -97,6 +98,8 @@ const Gene: React.FC = () => {
 
   const annotation = annotations && annotations.length > 0 ? annotations[0] : null
   const hgncId = getHGNC(annotation?.longId || '')
+
+  useDocumentTitle(annotation?.geneSymbol)
 
   if (!annotation) {
     return <div className="p-4">Loading...</div>
