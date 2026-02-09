@@ -1,6 +1,6 @@
 import type React from 'react'
 import { FaCaretRight, FaCaretDown } from 'react-icons/fa'
-import { FiMoreVertical } from 'react-icons/fi'
+import { FiMoreHorizontal, FiMoreVertical } from 'react-icons/fi'
 import { setPage, setPageSize } from '@/features/search/searchSlice'
 import { useMemo, useState } from 'react'
 import { useAppSelector, useAppDispatch } from '@/app/hooks'
@@ -95,7 +95,7 @@ const Genes: React.FC = () => {
             className="!mr-2 w-9 h-9 rounded-md "
             onClick={e => setMenuAnchor(e.currentTarget)}
           >
-            <FiMoreVertical size={18} />
+            <FiMoreHorizontal size={18} />
           </Button>
         </Tooltip>
         <Menu
@@ -109,7 +109,7 @@ const Genes: React.FC = () => {
               setRenameDialogOpen(true)
             }}
           >
-            Tab: {tabName}
+            Rename Tab: {tabName}
           </MenuItem>
         </Menu>
 
