@@ -1,8 +1,8 @@
 # import load_env
 # import asyncio
-import pprint
 from src.models.base_model import Bucket, Entity, ResultCount
 from src.models.gene_model import GeneStats
+from src.models.term_model import TermStats
 from src.models.annotation_model import  Frequency, GeneFilterArgs
 from src.resolvers.annotation_resolver import get_genes_query
 from src.config.es import  es
@@ -60,6 +60,128 @@ async def get_genes_stats(gene_index:str, filter_args:GeneFilterArgs):
     return results
   
 
+async def get_terms_stats(gene_index:str, annotation_index:str, filter_args:GeneFilterArgs):
+    from src.resolvers.annotation_resolver import get_annotations_query
+    from src.models.annotation_model import AnnotationFilterArgs
+    from src.utils import is_valid_filter
+
+    gene_ids = None
+
+    # Only query gene index if we need to filter by term_ids or gene_ids
+    if filter_args and (is_valid_filter(filter_args.term_ids) or is_valid_filter(filter_args.gene_ids)):
+        genes_query = await get_genes_query(filter_args)
+        gene_resp = await es.search(
+            index=gene_index,
+            query=genes_query,
+            source=["gene"],
+            size=10000
+        )
+        gene_ids = [hit['_source']['gene'] for hit in gene_resp.get('hits', {}).get('hits', [])]
+        
+        print(f"Filtered gene_ids count: {len(gene_ids)}")
+
+        if not gene_ids:
+            return TermStats(term_frequency=Frequency(buckets=[]))
+
+    # Query annotations - filter by slim_term_ids and the filtered gene_ids
+    annotation_filter = AnnotationFilterArgs(
+        slim_term_ids=filter_args.slim_term_ids if filter_args else None,
+        gene_ids=gene_ids  # Will be None if no gene filtering needed
+    )
+
+    query = await get_annotations_query(annotation_filter)
+    aggs = {
+        "term_frequency": get_annotation_terms_query()
+    }
+
+    resp = await es.search(
+          index=annotation_index,
+          filter_path='took,hits.total.value,aggregations',
+          query=query,
+          aggs=aggs,
+          size=0,
+    )
+
+    stats = dict()
+    for k, freqs in resp['aggregations'].items():
+        if k == 'term_frequency':
+            buckets = list()
+            for freq_bucket in freqs['buckets']:
+                buckets.append(Bucket(
+                    key=freq_bucket["key"],
+                    doc_count=freq_bucket["distinct_genes"]["value"],
+                    meta=get_annotation_term_response_meta(freq_bucket["docs"])
+                ))
+            stats[k] = Frequency(buckets=buckets)
+        else:
+            buckets = [Bucket(key=bucket["key"], doc_count=bucket["doc_count"])
+                        for bucket in freqs['buckets']]
+            stats[k] = Frequency(buckets=buckets)
+
+    results = TermStats(**stats)
+
+    return results
+
+
+def get_annotation_terms_query():
+    """Aggregation on term field in annotation index"""
+    term_frequency = {
+        "terms": {
+            "field": "term.id.keyword",
+            "order": {
+                "_count": "desc"
+            },
+            "size": 200
+        },
+        "aggs": {
+            "distinct_genes": {
+                "cardinality": {
+                    "field": "gene.keyword"
+                }
+            },
+            "docs": {
+                "top_hits": {
+                    "_source": {
+                        "includes": [
+                            "term.id",
+                            "term.label",
+                            "term.aspect",
+                            "slim_terms.id"
+                        ]
+                    },
+                    "size": 1
+                }
+            }
+        }
+    }
+
+    return term_frequency
+
+
+def get_annotation_term_response_meta(bucket):
+    """Extract metadata from annotation term aggregation"""
+    results = [hit for hit in bucket.get('hits', {}).get('hits', [])]
+
+    if len(results) > 0:
+        source = results[0]["_source"]
+        if "term" in source and source["term"]:
+            term = source["term"]
+            idx = term["id"]
+            # Extract parent_ids from slim_terms
+            parent_ids = []
+            if "slim_terms" in source and source["slim_terms"]:
+                parent_ids = [st.get("id") for st in source["slim_terms"] if st.get("id")]
+            return Entity(
+                id=idx,
+                label=term["label"],
+                aspect=term.get("aspect", ""),
+                display_id=idx if idx.startswith("GO") else '',
+                parent_ids=parent_ids
+            )
+
+    return None
+
+
 def get_slim_terms_query():
   
     slim_term_frequency = {
@@ -69,7 +191,7 @@ def get_slim_terms_query():
         "aggs": {
             "distinct_slim_term_frequency": {
                 "terms": {
-                    "field": "slim_terms.label.keyword",
+                    "field": "slim_terms.id.keyword",
                     "order": {
                         "_count": "desc"
                     },
@@ -104,6 +226,7 @@ def get_slim_terms_query():
     }
     
     return slim_term_frequency 
+
 
 def get_response_meta(bucket):
    results = [hit for hit in bucket.get('hits', {}).get('hits', [])]

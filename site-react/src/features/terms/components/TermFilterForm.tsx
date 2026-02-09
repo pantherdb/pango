@@ -91,34 +91,38 @@ const TermForm: React.FC<{ maxTerms?: number }> = ({ maxTerms = 10 }) => {
   }
 
   const renderTags = (tagValue: CategoryTerm[], getTagProps: any) =>
-    tagValue.map((option, index) => (
-      <Chip
-        {...getTagProps({ index })}
-        key={option.id}
-        label={
-          <Tooltip title={`${option.label} (${option.id})`} placement="top" enterDelay={2000}>
-            <span className="flex items-center gap-2">
-              <span
-                className="flex h-5 w-5 items-center justify-center rounded-full border text-xs font-bold"
-                style={{
-                  borderColor: option.color,
-                  color: option.color,
-                  backgroundColor: `${option.color}20`,
-                }}
-              >
-                {option.aspectShorthand}
+    tagValue.map((option, index) => {
+      const truncatedLabel = option.label.length > 20
+        ? `${option.label.substring(0, 20)}...`
+        : option.label
+      return (
+        <Chip
+          {...getTagProps({ index })}
+          key={option.id}
+          label={
+            <Tooltip title={option.label} placement="top" enterDelay={2000}>
+              <span className="flex items-center gap-2">
+                <span
+                  className="flex h-5 w-5 items-center justify-center rounded-full border text-xs font-bold"
+                  style={{
+                    borderColor: option.color,
+                    color: option.color,
+                    backgroundColor: `${option.color}20`,
+                  }}
+                >
+                  {option.aspectShorthand}
+                </span>
+                <span className="text-xs text-gray-600">{truncatedLabel}</span>
               </span>
-              {option.displayId && <span className="text-xs">{option.displayId}</span>}
-              <span className="text-xs text-gray-600">({option.label})</span>
-            </span>
-          </Tooltip>
-        }
-        onDelete={() => handleDelete(option)}
-        deleteIcon={<IoClose size={16} />}
-        size="small"
-        className="h-7"
-      />
-    ))
+            </Tooltip>
+          }
+          onDelete={() => handleDelete(option)}
+          deleteIcon={<IoClose size={16} />}
+          size="small"
+          className="h-7"
+        />
+      )
+    })
 
   return (
     <div className="w-full p-2">

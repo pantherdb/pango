@@ -7,6 +7,7 @@ export const GET_ANNOTATIONS_QUERY = print(gql`
       gene
       geneName
       geneSymbol
+      namedGene
       longId
       pantherFamily
       taxonAbbr

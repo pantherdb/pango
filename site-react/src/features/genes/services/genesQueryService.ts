@@ -7,6 +7,7 @@ export const GET_ANNOTATIONS_QUERY = print(gql`
       gene
       geneName
       geneSymbol
+      namedGene
       longId
       pantherFamily
       coordinatesChrNum
@@ -57,6 +58,7 @@ export const GET_GENES_QUERY = print(gql`
       gene
       geneName
       geneSymbol
+      namedGene
       longId
       pantherFamily
       coordinatesChrNum
@@ -122,6 +124,26 @@ export const GET_GENES_STATS_QUERY = print(gql`
             aspect
             label
             displayId
+          }
+        }
+      }
+    }
+  }
+`)
+
+export const GET_TERM_STATS_QUERY = print(gql`
+  query GetTermStats($filterArgs: GeneFilterArgs) {
+    termStats(filterArgs: $filterArgs) {
+      termFrequency {
+        buckets {
+          docCount
+          key
+          meta {
+            id
+            aspect
+            label
+            displayId
+            parentIds
           }
         }
       }

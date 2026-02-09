@@ -23,6 +23,7 @@ const genesApi = apiService
             filterArgs: {
               geneIds: filter?.geneIds || [],
               slimTermIds: filter?.slimTermIds || [],
+              termIds: filter?.termIds || [],
             },
             pageArgs: {
               page,
@@ -47,6 +48,7 @@ const genesApi = apiService
             filterArgs: {
               geneIds: filter?.geneIds,
               slimTermIds: filter?.slimTermIds,
+              termIds: filter?.termIds,
             },
           }),
         transformResponse: (response: { data?: { genesCount: { total: number } } }) =>
@@ -59,6 +61,7 @@ const genesApi = apiService
             filterArgs: {
               geneIds: filter?.geneIds,
               slimTermIds: filter?.slimTermIds,
+              termIds: filter?.termIds,
             },
           }),
         transformResponse: (response: { data?: { geneStats: GeneStats } }) =>
@@ -74,6 +77,7 @@ const genesApi = apiService
             filterArgs: {
               geneIds: [],
               slimTermIds: [],
+              termIds: [],
             },
           }),
         transformResponse: (response: {

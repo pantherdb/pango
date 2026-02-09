@@ -61,6 +61,16 @@ const FilterSummary = () => {
           />
         </Tooltip>
       )}
+      {search.terms.length > 0 && (
+        <Tooltip title={search.tooltips.terms} enterDelay={1500} placement="bottom" arrow>
+          <Chip
+            label={`Terms (${search.terms.length})`}
+            onDelete={() => removeFilter(SearchFilterType.TERMS)}
+            className="!h-6 !text-xs"
+            size="small"
+          />
+        </Tooltip>
+      )}
     </div>
   )
 }

@@ -9,6 +9,7 @@ class Gene:
     gene: str
     gene_symbol: Optional[str]
     gene_name: Optional[str]
+    named_gene: Optional[bool] = None
     long_id: Optional[str] =  None
     panther_family: Optional[str] =  None
     taxon_abbr: Optional[str] = None

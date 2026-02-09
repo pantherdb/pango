@@ -6,6 +6,7 @@ import type { CategoryTerm, Term } from '../terms/models/term'
 
 type SearchStateMap = {
   [SearchFilterType.SLIM_TERMS]: CategoryTerm[]
+  [SearchFilterType.TERMS]: Term[]
   [SearchFilterType.GENES]: Gene[]
 }
 
@@ -14,6 +15,7 @@ interface SearchState extends SearchStateMap {
   type: 'annotations' | 'annotations_group'
   tooltips: {
     slimTerms: string
+    terms: string
     genes: string
   }
   pagination: {
@@ -24,11 +26,13 @@ interface SearchState extends SearchStateMap {
 
 const initialState: SearchState = {
   slimTerms: [],
+  terms: [],
   genes: [],
   filtersCount: 0,
   type: 'annotations',
   tooltips: {
     slimTerms: '',
+    terms: '',
     genes: '',
   },
   pagination: {
@@ -62,7 +66,7 @@ export const searchSlice = createSlice({
       if (type === SearchFilterType.GENES) {
         state[type] = state[type].filter(item => item.gene !== id)
       } else {
-        state[type] = state[type].filter(item => item.id !== id)
+        state[type] = state[type].filter(item => item.id !== id) as any
       }
       state.pagination.page = 0
 
@@ -91,9 +95,10 @@ export const searchSlice = createSlice({
 const updateFiltersAndTooltips = (state: SearchState) => {
   state.tooltips = {
     slimTerms: state.slimTerms.map(term => `${term.label} (${term.displayId})`).join('\n'),
+    terms: state.terms.map(term => `${term.label} (${term.displayId})`).join('\n'),
     genes: state.genes.map(item => `${item.gene} (${item.geneSymbol})${item.geneName}`).join('\n'),
   }
-  state.filtersCount = state.slimTerms.length + state.genes.length
+  state.filtersCount = state.slimTerms.length + state.terms.length + state.genes.length
 }
 
 export const { addItem, removeItem, clearSearch, setSearchType, setPage, setPageSize } =

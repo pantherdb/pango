@@ -7,7 +7,7 @@ import pandas as pd
 from src.config.base import file_path
 from src.utils import get_pd_row, get_pd_row_key, write_to_json
 
-unknown_terms =['UNKNOWN:0001', 'UNKNOWN:0002', 'UNKNOWN:0003']
+UNKNOWN_TERMS =['UNKNOWN:0001', 'UNKNOWN:0002', 'UNKNOWN:0003']
 
 def main():
     parser = parse_arguments()
@@ -70,7 +70,7 @@ def get_evidence(df, genes_df, row):
 
 
 def term_type(term):
-    return  'unknown' if term['id'] in unknown_terms  else 'known'     
+    return  'unknown' if term['id'] in UNKNOWN_TERMS  else 'known'     
 
 
 # Terms
@@ -136,6 +136,8 @@ def get_annos(annos_fp, terms_df, genes_df, articles_df):
     annos_df['evidence_type'] = annos_df['evidence_type'].replace(np.nan, 'n/a')
     annos_df['groups'] = annos_df['evidence'].apply(lambda x: get_groups(x))
     annos_df['evidence_count'] = annos_df['evidence'].apply(lambda x: count_evidence(x))
+    annos_df['named_gene'] = annos_df['gene'].str.replace('UniProtKB:', '') != annos_df['gene_symbol']
+    annos_df = annos_df.sort_values(by='named_gene', ascending=False)
 
     return annos_df
 

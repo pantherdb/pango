@@ -33,22 +33,13 @@
         }
       }
     },
-    "coordinates_chr_num": {
-      "type": "text",
-      "analyzer": "ngram_analyzer",
-      "search_analyzer": "standard",
-      "fields": {
-        "keyword": {
-          "type": "keyword",
-          "ignore_above": 3
-        }
-      }
-    },
     "terms": {
-      "type": "object",
+      "type": "nested",
       "properties": {
         "id": {
           "type": "text",
+          "analyzer": "ngram_analyzer",
+          "search_analyzer": "standard",
           "fields": {
             "keyword": {
               "type": "keyword",
@@ -58,12 +49,7 @@
         },
         "label": {
           "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
+          "index": false
         },
         "aspect": {
           "type": "text",
@@ -92,14 +78,7 @@
         },
         "label": {
           "type": "text",
-          "analyzer": "ngram_analyzer",
-          "search_analyzer": "standard",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
+          "index": false
         },
         "aspect": {
           "type": "text",

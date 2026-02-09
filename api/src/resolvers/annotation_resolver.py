@@ -51,17 +51,16 @@ async def get_genes(gene_index:str, filter_args: GeneFilterArgs, page_args=PageA
         from_=page_args.page * page_args.size,
         size=page_args.size,
         source=["_id"],
-        sort=[
-          {
-              "coordinates_chr_num.keyword": {
+        sort=[{
+              "sort_priority": {
                   "order": "asc"
               }
-          },
-          {
+          },  {
               "gene_symbol.keyword": {
                   "order": "asc"
               }
-          }
+          },
+        
         ]
     )
 
@@ -85,6 +84,14 @@ async def get_genes(gene_index:str, filter_args: GeneFilterArgs, page_args=PageA
 
     results = [Gene(id=hit['_id'], **hit['_source']) for hit in gene_resp.get('hits', {}).get('hits', [])]
 
+    print("=" * 80)
+    print("GET pango-2-pango-annotations/_search")
+    print(json.dumps({
+        "query": genes_query,
+        "size": 0
+    }, indent=2))
+    print("=" * 80)
+    
     return results
 
   
@@ -93,25 +100,46 @@ async def get_genes_query(filter_args:GeneFilterArgs):
   filters = list()
 
   if filter_args != None:
-                
+    
+    term_queries = []
+    
+    if is_valid_filter(filter_args.term_ids):
+        term_queries.extend([
+            {
+                "nested": {
+                    "path": "terms",
+                    "query": {
+                        "term": {
+                            "terms.id.keyword": term_id
+                        }
+                    }
+                }
+            }
+            for term_id in filter_args.term_ids
+        ])
+    
     if is_valid_filter(filter_args.slim_term_ids):
-          filters.append({
-              "bool": {
-                  "must": [
-                      {
-                          "nested": {
-                              "path": "slim_terms",
-                              "query": {
-                                  "term": {
-                                      "slim_terms.id.keyword": term_id
-                                  }
-                              }
-                          }
-                      }
-                      for term_id in filter_args.slim_term_ids
-                  ]
-              }
-          })
+        term_queries.extend([
+            {
+                "nested": {
+                    "path": "slim_terms",
+                    "query": {
+                        "term": {
+                            "slim_terms.id.keyword": term_id
+                        }
+                    }
+                }
+            }
+            for term_id in filter_args.slim_term_ids
+        ])
+    
+    if term_queries:
+        filters.append({
+            "bool": {
+                "must": term_queries
+            }
+        })
+    
         
     if is_valid_filter(filter_args.gene_ids):
           filters.append(  
@@ -129,6 +157,8 @@ async def get_genes_query(filter_args:GeneFilterArgs):
     }
     
     return query 
+  
+  
 
 async def get_annotations_export(annotation_index:str, filter_args:AnnotationFilterArgs, page_args=PageArgs):
 
@@ -155,8 +185,6 @@ async def get_annotations_query(filter_args:AnnotationFilterArgs):
   
     filters = list()
     
-    print ('filter_args', filter_args)
-
     if filter_args is not None:
         if is_valid_filter(filter_args.term_ids):
             filters.append(  

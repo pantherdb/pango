@@ -5,6 +5,28 @@ import pandas as pd
 from src.config.base import file_path
 from src.utils import write_to_json
 
+unknown_terms = ['UNKNOWN:0001', 'UNKNOWN:0002', 'UNKNOWN:0003']
+
+# Global parent lookup dictionary (child_id -> [parent_ids])
+parent_lookup = {}
+
+
+def load_parent_lookup(hierarchy_fp):
+    """Load GO hierarchy file and build parent lookup dictionary."""
+    global parent_lookup
+    parent_lookup = {}
+
+    with open(hierarchy_fp, 'r') as f:
+        hierarchy_data = json.load(f)
+
+    for row in hierarchy_data:
+        child = row["child"]
+        parent = row["parent"]
+        if child not in parent_lookup:
+            parent_lookup[child] = []
+        parent_lookup[child].append(parent)
+
+
 COLUMNS_TO_EXTRACT = [
     'gene_symbol',
     'gene_name', 
@@ -15,11 +37,13 @@ COLUMNS_TO_EXTRACT = [
     'long_id',
     'coordinates_chr_num',
     'coordinates_start',
-    'coordinates_end'   
+    'coordinates_end',
+    'named_gene'   
 ]
 
 def main():
     parser = parse_arguments()
+    load_parent_lookup(parser.hierarchy_fp)
     annos_df = get_annos(parser.annos_fp)
     anno_json = annos_df.to_json(orient="records", default_handler=None)
     json_str = json.loads(anno_json)
@@ -30,9 +54,11 @@ def main():
 def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('-a', dest='annos_fp', required=True,
-                        type=file_path, help='cealn annos Json')
+                        type=file_path, help='clean annos Json')
     parser.add_argument('-o', dest='genes_annos_fp', required=True,
                          help='Output of Clean anno')
+    parser.add_argument('-hi', dest='hierarchy_fp', required=True,
+                        type=file_path, help='GO hierarchy Json (child-parent relationships)')
 
     return parser.parse_args()
 
@@ -44,17 +70,18 @@ def uniquify_term(series, evidence_series):
     for idx, item in enumerate(series):
         if isinstance(item, dict):
             term_id = item['id']
-            term = item.copy()  
+            term = item.copy()
             term.pop('is_goslim', None)
-            term['evidence_type'] = evidence_series.iloc[idx] 
-            
+            term['evidence_type'] = evidence_series.iloc[idx]
+            term['parent_ids'] = parent_lookup.get(term_id, [])
+
             if term_id in term_counts:
                 raise ValueError(f"Duplicate term found: {term}")
             else:
                 term_counts[term_id] = 1
 
             unique_terms[term_id] = term
-            
+
     return list(unique_terms.values())
 
 def uniquify_slim_terms(series, evidence_series):
@@ -71,11 +98,23 @@ def uniquify_slim_terms(series, evidence_series):
 def group_terms(group):
     unique_terms = uniquify_term(group['term'], group['evidence_type'])
     slim_terms = uniquify_slim_terms(group['slim_terms'], group['evidence_type'])
+    
+    # Count unknown terms for this gene
+    unknown_count = sum(1 for term in unique_terms if term['id'] in unknown_terms)
+    
+    # Calculate sort_priority
+    named_gene = group['named_gene'].iloc[0]
+    if not named_gene:
+        sort_priority = 20
+    else:
+        sort_priority = 1
+    
     return pd.Series({
         **{col: group[col].iloc[0] for col in COLUMNS_TO_EXTRACT},
         'terms': unique_terms,
         'slim_terms': slim_terms,
-        'term_count': len(unique_terms)
+        'term_count': len(unique_terms),
+        'sort_priority': sort_priority
     })
 
 
@@ -86,7 +125,7 @@ def get_annos(annos_fp):
     annos_df = pd.read_json(annos_fp)
     annos_df = annos_df.drop(['evidence'], axis=1)
     genes_df = annos_df.groupby('gene').apply(group_terms).reset_index()
-    genes_df = genes_df.sort_values(by='term_count', ascending=False).reset_index(drop=True)
+    genes_df = genes_df.sort_values(by=['sort_priority', 'term_count'], ascending=[True, False]).reset_index(drop=True)
 
     return genes_df
 

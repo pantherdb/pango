@@ -29,8 +29,9 @@ const Home: React.FC = () => {
     () => ({
       geneIds: search.genes.map(g => g.gene),
       slimTermIds: search.slimTerms.map(t => t.id),
+      termIds: search.terms.map(t => t.id),
     }),
-    [search.genes, search.slimTerms]
+    [search.genes, search.slimTerms, search.terms]
   )
 
   const { data: statsData, isSuccess } = useGetGenesStatsQuery({ filter })

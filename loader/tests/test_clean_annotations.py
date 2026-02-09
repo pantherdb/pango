@@ -10,7 +10,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.clean_annotations import (
     main, parse_arguments, spread_terms, get_aspect, get_evidence, 
     term_type, get_terms_map, get_articles_map, get_taxon_map, 
-    get_genes_map, count_evidence, get_groups, get_annos, unknown_terms
+    get_genes_map, count_evidence, get_groups, get_annos, UNKNOWN_TERMS
 )
 from src.utils import get_pd_row, get_pd_row_key
 

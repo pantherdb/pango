@@ -25,18 +25,22 @@ import AnnotationCards from '@/features/annotations/components/AnnotationCards'
 import { handleExternalLinkClick } from '@/analytics'
 import FeedbackBanner from '@/shared/components/FeedbackBanner'
 import FloatingFeedback from '@/shared/components/FloatingFeedback'
+import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
 
 interface InfoRowProps {
   label: string
-  value: string
+  value: string | null
   href?: string
 }
 
 const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => {
+  const displayValue = value || 'N/A'
+  const hasValidLink = href && value
+
   return (
     <div className="flex flex-wrap items-center p-1">
       <span className="pr-2 font-semibold text-gray-600">{label}:</span>
-      {href ? (
+      {hasValidLink ? (
         <a
           href={href}
           target="_blank"
@@ -44,10 +48,10 @@ const InfoRow: React.FC<InfoRowProps> = ({ label, value, href }) => {
           onClick={() => handleExternalLinkClick(href)}
           className="flex items-center break-all"
         >
-          {value} <FiExternalLink className="ml-1 h-3 w-3 flex-shrink-0" />
+          {displayValue} <FiExternalLink className="ml-1 h-3 w-3 flex-shrink-0" />
         </a>
       ) : (
-        <span className="break-all">{value}</span>
+        <span className="break-all">{displayValue}</span>
       )}
     </div>
   )
@@ -94,6 +98,8 @@ const Gene: React.FC = () => {
 
   const annotation = annotations && annotations.length > 0 ? annotations[0] : null
   const hgncId = getHGNC(annotation?.longId || '')
+
+  useDocumentTitle(annotation?.geneSymbol)
 
   if (!annotation) {
     return <div className="p-4">Loading...</div>
@@ -171,7 +177,7 @@ const Gene: React.FC = () => {
                 )}
                 <InfoRow
                   label="NCBI Gene"
-                  value={annotation.geneSymbol}
+                  value={annotation.namedGene ? annotation.geneSymbol : null}
                   href={getNCBIGeneLink(annotation.geneSymbol)}
                 />
               </div>
