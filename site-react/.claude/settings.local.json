@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(gh issue view:*)",
-      "Bash(gh label list:*)"
+      "Bash(gh label list:*)",
+      "Bash(npx tsc:*)"
     ]
   }
 }

@@ -15,13 +15,12 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import useTheme from '@mui/material/styles/useTheme'
 import Box from '@mui/material/Box'
 import Drawer from '@mui/material/Drawer'
+import { Group, Panel, Separator, useDefaultLayout } from 'react-resizable-panels'
 
 interface LayoutProps {
   leftDrawerContent?: React.ReactNode
   rightDrawerContent?: React.ReactNode
 }
-
-const drawerWidth = 420
 
 const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }) => {
   const location = useLocation()
@@ -31,6 +30,11 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
 
   const leftDrawerOpen = useAppSelector(selectLeftDrawerOpen)
   const rightDrawerOpen = useAppSelector(selectRightDrawerOpen)
+
+  const { defaultLayout, onLayoutChanged } = useDefaultLayout({
+    id: 'left-panel',
+    storage: localStorage,
+  })
 
   const handleRightDrawerClose = () => {
     dispatch(setRightDrawerOpen(false))
@@ -54,42 +58,60 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
       </div>
 
       <Box className="fixed flex w-full flex-1" style={{ top: 89, bottom: 0 }}>
-        {leftDrawerContent && (
-          <Box
-            sx={{
-              width: leftDrawerOpen ? (isMobile ? '100%' : drawerWidth) : 0,
-              height: '100%',
-              transition: theme =>
-                theme.transitions.create('width', {
-                  easing: theme.transitions.easing.sharp,
-                  duration: theme.transitions.duration.enteringScreen,
-                }),
-              overflow: 'hidden',
-            }}
-          >
-            <Drawer
-              variant="persistent"
-              anchor="left"
-              open={leftDrawerOpen}
-              sx={{
-                height: '100%',
-                '& .MuiDrawer-paper': {
-                  position: 'static',
-                  width: isMobile ? '100%' : drawerWidth,
+        {leftDrawerContent && !isMobile && leftDrawerOpen ? (
+          <Group orientation="horizontal" defaultLayout={defaultLayout} onLayoutChanged={onLayoutChanged}>
+            <Panel id="left" defaultSize="25%" minSize="15%" maxSize="45%">
+              <div className="h-full overflow-auto bg-white">{leftDrawerContent}</div>
+            </Panel>
+            <Separator className="group flex w-1.5 items-center justify-center bg-gray-300 transition-colors hover:bg-blue-300">
+              <div className="h-8 w-0.5 rounded-full bg-gray-400 transition-colors group-hover:bg-blue-600" />
+            </Separator>
+            <Panel id="main">
+              <div className="h-full overflow-auto">
+                <Outlet />
+                <Footer />
+              </div>
+            </Panel>
+          </Group>
+        ) : (
+          <>
+            {leftDrawerContent && isMobile && (
+              <Box
+                sx={{
+                  width: leftDrawerOpen ? '100%' : 0,
                   height: '100%',
-                  overflow: 'auto',
-                },
-              }}
-            >
-              {leftDrawerContent}
-            </Drawer>
-          </Box>
+                  transition: theme =>
+                    theme.transitions.create('width', {
+                      easing: theme.transitions.easing.sharp,
+                      duration: theme.transitions.duration.enteringScreen,
+                    }),
+                  overflow: 'hidden',
+                }}
+              >
+                <Drawer
+                  variant="persistent"
+                  anchor="left"
+                  open={leftDrawerOpen}
+                  sx={{
+                    height: '100%',
+                    '& .MuiDrawer-paper': {
+                      position: 'static',
+                      width: '100%',
+                      height: '100%',
+                      overflow: 'auto',
+                    },
+                  }}
+                >
+                  {leftDrawerContent}
+                </Drawer>
+              </Box>
+            )}
+            <div className="flex-1 overflow-auto">
+              <Outlet />
+              <Footer />
+            </div>
+          </>
         )}
-
-        <div className="flex-1 overflow-auto">
-          <Outlet />
-          <Footer />
-        </div>
 
         {rightDrawerContent && (
           <Drawer
