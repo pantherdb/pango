@@ -1,0 +1,626 @@
+[
+  {
+    "child": "GO:0000002",
+    "parent": "GO:0007005"
+  },
+  {
+    "child": "GO:0000253",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0000266",
+    "parent": "GO:0007005"
+  },
+  {
+    "child": "GO:0000422",
+    "parent": "GO:0006914"
+  },
+  {
+    "child": "GO:0000423",
+    "parent": "GO:0000422"
+  },
+  {
+    "child": "GO:0002155",
+    "parent": "GO:0009966"
+  },
+  {
+    "child": "GO:0003755",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0003756",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0003857",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0003858",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0003938",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0003939",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0004033",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0004090",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0004149",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0004169",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0004345",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0004408",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0004420",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0004459",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0004473",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0004616",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0004617",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0004653",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0004672",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0004720",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0004721",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0004742",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0004745",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0004757",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0004835",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0005768",
+    "parent": "GO:0031410"
+  },
+  {
+    "child": "GO:0005769",
+    "parent": "GO:0005768"
+  },
+  {
+    "child": "GO:0005798",
+    "parent": "GO:0031410"
+  },
+  {
+    "child": "GO:0005938",
+    "parent": "GO:0005737"
+  },
+  {
+    "child": "GO:0006811",
+    "parent": "GO:0006810"
+  },
+  {
+    "child": "GO:0006886",
+    "parent": "GO:0015031"
+  },
+  {
+    "child": "GO:0006887",
+    "parent": "GO:0016192"
+  },
+  {
+    "child": "GO:0006897",
+    "parent": "GO:0016192"
+  },
+  {
+    "child": "GO:0006909",
+    "parent": "GO:0016192"
+  },
+  {
+    "child": "GO:0007005",
+    "parent": "GO:0006996"
+  },
+  {
+    "child": "GO:0008053",
+    "parent": "GO:0007005"
+  },
+  {
+    "child": "GO:0008138",
+    "parent": "GO:0004721"
+  },
+  {
+    "child": "GO:0008233",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0008276",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0008277",
+    "parent": "GO:0009966"
+  },
+  {
+    "child": "GO:0008333",
+    "parent": "GO:0016192"
+  },
+  {
+    "child": "GO:0008442",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0008465",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0008474",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0008476",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0008568",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0008579",
+    "parent": "GO:0008138"
+  },
+  {
+    "child": "GO:0008593",
+    "parent": "GO:0009966"
+  },
+  {
+    "child": "GO:0008637",
+    "parent": "GO:0007005"
+  },
+  {
+    "child": "GO:0008720",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0008743",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0009306",
+    "parent": "GO:0015031"
+  },
+  {
+    "child": "GO:0009966",
+    "parent": "GO:0023051"
+  },
+  {
+    "child": "GO:0009968",
+    "parent": "GO:0009966"
+  },
+  {
+    "child": "GO:0010469",
+    "parent": "GO:0009966"
+  },
+  {
+    "child": "GO:0015031",
+    "parent": "GO:0045184"
+  },
+  {
+    "child": "GO:0015031",
+    "parent": "GO:0071702"
+  },
+  {
+    "child": "GO:0015035",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0016192",
+    "parent": "GO:0006810"
+  },
+  {
+    "child": "GO:0016197",
+    "parent": "GO:0016192"
+  },
+  {
+    "child": "GO:0016229",
+    "parent": "GO:0016491"
+  },
+  {
+    "child": "GO:0016236",
+    "parent": "GO:0006914"
+  },
+  {
+    "child": "GO:0016262",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0016404",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0016491",
+    "parent": "GO:0003824"
+  },
+  {
+    "child": "GO:0016618",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0016787",
+    "parent": "GO:0003824"
+  },
+  {
+    "child": "GO:0016853",
+    "parent": "GO:0003824"
+  },
+  {
+    "child": "GO:0017017",
+    "parent": "GO:0008138"
+  },
+  {
+    "child": "GO:0017017",
+    "parent": "GO:0033549"
+  },
+  {
+    "child": "GO:0019135",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0030060",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0030111",
+    "parent": "GO:0009966"
+  },
+  {
+    "child": "GO:0030133",
+    "parent": "GO:0031410"
+  },
+  {
+    "child": "GO:0030139",
+    "parent": "GO:0031410"
+  },
+  {
+    "child": "GO:0030158",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0030242",
+    "parent": "GO:0006914"
+  },
+  {
+    "child": "GO:0030947",
+    "parent": "GO:0009966"
+  },
+  {
+    "child": "GO:0031410",
+    "parent": "GO:0097708"
+  },
+  {
+    "child": "GO:0031543",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0032451",
+    "parent": "GO:0003824"
+  },
+  {
+    "child": "GO:0032456",
+    "parent": "GO:0016197"
+  },
+  {
+    "child": "GO:0033549",
+    "parent": "GO:0004721"
+  },
+  {
+    "child": "GO:0033558",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0033572",
+    "parent": "GO:0015031"
+  },
+  {
+    "child": "GO:0033823",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0035459",
+    "parent": "GO:0006810"
+  },
+  {
+    "child": "GO:0035695",
+    "parent": "GO:0000422"
+  },
+  {
+    "child": "GO:0036132",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0036139",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0036140",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0036465",
+    "parent": "GO:0006810"
+  },
+  {
+    "child": "GO:0042908",
+    "parent": "GO:0006810"
+  },
+  {
+    "child": "GO:0042953",
+    "parent": "GO:0015031"
+  },
+  {
+    "child": "GO:0043001",
+    "parent": "GO:0015031"
+  },
+  {
+    "child": "GO:0043227",
+    "parent": "GO:0043226"
+  },
+  {
+    "child": "GO:0043407",
+    "parent": "GO:0043409"
+  },
+  {
+    "child": "GO:0043409",
+    "parent": "GO:0043408"
+  },
+  {
+    "child": "GO:0043567",
+    "parent": "GO:0009966"
+  },
+  {
+    "child": "GO:0044804",
+    "parent": "GO:0006914"
+  },
+  {
+    "child": "GO:0045056",
+    "parent": "GO:0016192"
+  },
+  {
+    "child": "GO:0045324",
+    "parent": "GO:0016192"
+  },
+  {
+    "child": "GO:0046903",
+    "parent": "GO:0006810"
+  },
+  {
+    "child": "GO:0046907",
+    "parent": "GO:0006810"
+  },
+  {
+    "child": "GO:0046922",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0047402",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0047560",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0047837",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0048193",
+    "parent": "GO:0016192"
+  },
+  {
+    "child": "GO:0048311",
+    "parent": "GO:0007005"
+  },
+  {
+    "child": "GO:0048385",
+    "parent": "GO:0009966"
+  },
+  {
+    "child": "GO:0048489",
+    "parent": "GO:0006810"
+  },
+  {
+    "child": "GO:0050038",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0050104",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0050211",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0050577",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0050892",
+    "parent": "GO:0006810"
+  },
+  {
+    "child": "GO:0051180",
+    "parent": "GO:0006810"
+  },
+  {
+    "child": "GO:0051723",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0051903",
+    "parent": "GO:0016616"
+  },
+  {
+    "child": "GO:0055085",
+    "parent": "GO:0006810"
+  },
+  {
+    "child": "GO:0060159",
+    "parent": "GO:0009966"
+  },
+  {
+    "child": "GO:0060368",
+    "parent": "GO:0009966"
+  },
+  {
+    "child": "GO:0061733",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0061738",
+    "parent": "GO:0006914"
+  },
+  {
+    "child": "GO:0061863",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0070086",
+    "parent": "GO:0015031"
+  },
+  {
+    "child": "GO:0070373",
+    "parent": "GO:0043409"
+  },
+  {
+    "child": "GO:0070584",
+    "parent": "GO:0007005"
+  },
+  {
+    "child": "GO:0071693",
+    "parent": "GO:0015031"
+  },
+  {
+    "child": "GO:0071702",
+    "parent": "GO:0006810"
+  },
+  {
+    "child": "GO:0071985",
+    "parent": "GO:0016192"
+  },
+  {
+    "child": "GO:0097250",
+    "parent": "GO:0007005"
+  },
+  {
+    "child": "GO:0097363",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:0098842",
+    "parent": "GO:0005769"
+  },
+  {
+    "child": "GO:0098968",
+    "parent": "GO:0016192"
+  },
+  {
+    "child": "GO:0099111",
+    "parent": "GO:0006810"
+  },
+  {
+    "child": "GO:0099503",
+    "parent": "GO:0031410"
+  },
+  {
+    "child": "GO:0099572",
+    "parent": "GO:0043226"
+  },
+  {
+    "child": "GO:0140096",
+    "parent": "GO:0003824"
+  },
+  {
+    "child": "GO:1900449",
+    "parent": "GO:0009966"
+  },
+  {
+    "child": "GO:1900746",
+    "parent": "GO:0009966"
+  },
+  {
+    "child": "GO:1901184",
+    "parent": "GO:0009966"
+  },
+  {
+    "child": "GO:1901998",
+    "parent": "GO:0006810"
+  },
+  {
+    "child": "GO:1902531",
+    "parent": "GO:0009966"
+  },
+  {
+    "child": "GO:1990404",
+    "parent": "GO:0140096"
+  },
+  {
+    "child": "GO:2000786",
+    "parent": "GO:0016239"
+  },
+  {
+    "child": "GO:2000786",
+    "parent": "GO:0044090"
+  },
+  {
+    "child": "GO:2000786",
+    "parent": "GO:2000785"
+  },
+  {
+    "child": "GO:2001044",
+    "parent": "GO:0009966"
+  }
+]

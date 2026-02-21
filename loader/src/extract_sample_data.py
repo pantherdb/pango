@@ -17,6 +17,7 @@ def parse_arguments():
     parser.add_argument('-art', dest='articles_fp', required=True, type=file_path)
     parser.add_argument('-tax', dest='taxon_fp', required=True, type=file_path)
     parser.add_argument('-g', dest='genes_fp', required=True, type=file_path)
+    parser.add_argument('-hi', dest='hierarchy_fp', type=file_path, default=None)
     parser.add_argument('-o', dest='output_folder', required=True)
     parser.add_argument('-n', dest='sample_size', type=int, default=5)
     return parser.parse_args()
@@ -134,7 +135,17 @@ def main():
     save_json_file(filtered_data['articles'], output_files['articles'])
     save_json_file(filtered_data['taxons'], output_files['taxons'])
     save_json_file(filtered_data['genes'], output_files['genes'])
-    
+
+    if args.hierarchy_fp:
+        hierarchy_data = load_json_file(args.hierarchy_fp)
+        filtered_hierarchy = [
+            h for h in hierarchy_data
+            if h['child'] in references['terms'] or h['parent'] in references['terms']
+        ]
+        hierarchy_out = str(Path(args.output_folder) / Path(args.hierarchy_fp).name)
+        save_json_file(filtered_hierarchy, hierarchy_out)
+        print(f"- {Path(hierarchy_out).name}: {len(filtered_hierarchy)} entries")
+
     print(f"Successfully sampled data for {len(sampled_genes)} genes")
     for k, v in output_files.items():
         data_len = len(filtered_data[k]) if k != 'annotations' else len(sampled_annotations)
