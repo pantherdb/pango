@@ -89,7 +89,7 @@ const Genes: React.FC = () => {
           Results (<strong>{geneCount}</strong>) <small>genes</small>
         </h2>
 
-        <Tooltip title="Options" arrow>
+        {/*    <Tooltip title="Options" arrow>
           <Button
             variant="outlined"
             className="!mr-2 w-9 h-9 rounded-md "
@@ -111,7 +111,7 @@ const Genes: React.FC = () => {
           >
             Rename Tab: {tabName}
           </MenuItem>
-        </Menu>
+        </Menu> */}
 
         {!isLeftDrawerOpen && (
           <Button
