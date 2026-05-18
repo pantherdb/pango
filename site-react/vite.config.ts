@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
 import tsChecker from 'vite-plugin-checker'
 import { loadEnv } from 'vite'
@@ -17,6 +18,7 @@ export default defineConfig(({ command, mode }) => {
     logLevel: 'info',
     plugins: [
       react(),
+      tailwindcss(),
       tsChecker({ typescript: true }),
       visualizer({
         filename: 'dist/stats-treemap.html',

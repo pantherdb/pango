@@ -1,6 +1,31 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-primary-50: #e4e7ec;
+  --color-primary-100: #bbc3d0;
+  --color-primary-200: #8e9bb0;
+  --color-primary-300: #627491;
+  --color-primary-400: #3f567b;
+  --color-primary-500: #173672;
+  --color-primary-600: #132f64;
+  --color-primary-700: #102653;
+  --color-primary-800: #0c1d42;
+  --color-primary-900: #08142f;
+
+  --color-accent-50: #fdf8e7;
+  --color-accent-100: #f9edc3;
+  --color-accent-200: #f5e19b;
+  --color-accent-300: #f1d572;
+  --color-accent-400: #eecc54;
+  --color-accent-500: #ebc336;
+  --color-accent-600: #e9bd30;
+  --color-accent-700: #e5b529;
+  --color-accent-800: #e2ae22;
+  --color-accent-900: #dda116;
+
+  --text-2xs: 0.625rem;
+  --text-2xs--line-height: 0.875rem;
+}
 
 html {
   font-size: 16px;
@@ -22,9 +47,6 @@ code {
   a {
     @apply text-blue-800 hover:text-primary-800;
   }
-  /*   a:visited {
-    @apply text-purple-900 hover:text-primary-800 ;
-  } */
 
   thead tr {
     @apply border-b border-t border-accent-700;

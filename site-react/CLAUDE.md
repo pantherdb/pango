@@ -86,69 +86,14 @@ npx vitest run src/test/__tests__/Home.test.tsx
 
 ## Code Style
 
-- Prettier: no semicolons, single quotes, 2-space indent, trailing commas (es5)
-- TypeScript: use `type` imports for type-only imports (`@typescript-eslint/consistent-type-imports`)
-- Unused variables: prefix with underscore (e.g., `_unused`)
-
-## Git
-
-Do not add "Co-Authored-By" lines to commits.
-
+docs/dev-guide-react.md
 
 ## Task Management
 
 ### Always Create and Maintain Task Plans
 
-For EVERY non-trivial task you receive:
+See [.plans/template.md](plans/template.md) for detailed examples and formats.
 
-**Before starting work**: Create `plans/[task-name].md` with:
+## Git Commits
 
-- Clear goal statement
-- Current state analysis (what works, what's broken)
-- Detailed implementation plan broken into phases/steps
-- Progress tracking table
-- Dependencies and blockers
-- Files to create/modify
-- Next steps
-
-**While working**: Update `plans/[task-name].md` after completing each step:
-
-- Mark completed steps with ✓ or DONE
-- Update progress tables
-- Add new findings or changes to approach
-- Note any issues encountered
-- Update next steps
-
-**After completing**: Final update to `plans/[task-name].md`:
-
-- Mark all steps complete
-- Summary of what was accomplished
-- Any remaining TODO items
-- Lessons learned or notes for future work
-
-### Format Guidelines
-
-**For simple tasks** (single file changes, quick fixes):
-
-```markdown
-# Task: [Brief description]
-
-## Steps
-- [ ] Step 1
-- [x] Step 2 (completed)
-
-## Current Status
-Working on: [step name]
-```
-
-**For complex tasks** (multi-file refactoring, feature additions):
-
-- Include progress summary tables
-- Organize into phases
-- Track files created/modified separately
-- Document API changes needed
-- List dependencies and blockers
-- Maintain current state diagnosis section
-
-See [plans/template.md](plans/template.md) for detailed examples and formats.
-
+- **Never** add `Co-Authored-By: Claude ...` trailers (or any Claude attribution) to commit messages.
