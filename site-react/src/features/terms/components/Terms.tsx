@@ -5,7 +5,7 @@ import type { Term } from '../models/term'
 import TermLink from './TermLink'
 import { PiEmptyLight } from 'react-icons/pi'
 import { TbBinaryTreeFilled } from 'react-icons/tb'
-import Tooltip from '@mui/material/Tooltip'
+import { Tooltip } from '@mantine/core'
 
 interface TermsProps {
   terms: Term[]
@@ -25,7 +25,7 @@ export const Terms: React.FC<TermsProps> = ({ terms, maxTerms, onToggleExpand })
           }}
         >
           <div className="w-8">
-            <Tooltip title={EVIDENCE_TYPE_MAP[term.evidenceType]?.iconTooltip}>
+            <Tooltip label={EVIDENCE_TYPE_MAP[term.evidenceType]?.iconTooltip}>
               <div className="flex h-8 w-8 items-center justify-center text-gray-600">
                 {term.evidenceType === EvidenceType.DIRECT && <FaFlask className={`text-xl`} />}
 

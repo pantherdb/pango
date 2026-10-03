@@ -3,16 +3,13 @@ import { useAppDispatch, useAppSelector } from '../hooks'
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
 import { clearSearch } from '@/features/search/searchSlice'
 import CategoryStats from '@/shared/components/CategoryStats'
-import theme from '@/@pango.core/theme/theme'
-import useMediaQuery from '@mui/system/useMediaQuery'
-import Button from '@mui/material/Button'
-import Tooltip from '@mui/material/Tooltip'
+import { Button, Tooltip } from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks'
 
-// TODO clear filter so aspect selection
 const LeftDrawerContent: React.FC = () => {
   const dispatch = useAppDispatch()
   const search = useAppSelector(state => state.search)
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const isMobile = useMediaQuery('(max-width: 599.99px)')
 
   return (
     <div className="flex h-full flex-col">
@@ -21,7 +18,8 @@ const LeftDrawerContent: React.FC = () => {
         <div className="ml-auto flex gap-1">
           {search.filtersCount > 0 && (
             <Button
-              variant="outlined"
+              variant="outline"
+              size="xs"
               className="rounded-md !bg-accent-200 !text-xs !px-2"
               onClick={() => dispatch(clearSearch())}
             >
@@ -29,14 +27,15 @@ const LeftDrawerContent: React.FC = () => {
             </Button>
           )}
           <Tooltip
-            title="Expand your viewing space by hiding the filter panel and focus on the results. To bring back the panel, simply click the menu icon [hamburger icon] located at the top left corner."
-            placement="top"
-            enterDelay={2000}
-            arrow
+            label="Expand your viewing space by hiding the filter panel and focus on the results. To bring back the panel, simply click the menu icon [hamburger icon] located at the top left corner."
+            position="top"
+            openDelay={2000}
+            withArrow
           >
             <Button
-              variant="outlined"
+              variant="outline"
               color="primary"
+              size="xs"
               className="rounded-md !text-xs !px-2"
               onClick={() => dispatch(setLeftDrawerOpen(false))}
               aria-label="Close dialog"

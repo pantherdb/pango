@@ -6,7 +6,7 @@ import { useAppDispatch } from '@/app/hooks'
 import type { Annotation } from '../models/annotation'
 import { setSelectedAnnotation } from '../slices/selectedAnnotationSlice'
 import TermLink from '@/features/terms/components/TermLink'
-import Tooltip from '@mui/material/Tooltip'
+import { Tooltip } from '@mantine/core'
 import { getPubmedArticleUrl } from '@/@pango.core/services/linksService'
 import { FaFlask } from 'react-icons/fa'
 import { PiEmptyLight } from 'react-icons/pi'
@@ -40,10 +40,10 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
             <th className="w-64">
               <div className="flex items-center">
                 <Tooltip
-                  title="The annotated functional characteristic of the gene. These are as specific as possible."
-                  placement="top"
-                  enterDelay={1500}
-                  arrow
+                  label="The annotated functional characteristic of the gene. These are as specific as possible."
+                  position="top"
+                  openDelay={1500}
+                  withArrow
                 >
                   <span>Term</span>
                 </Tooltip>
@@ -52,10 +52,10 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
             <th className="">
               <div className="flex items-center">
                 <Tooltip
-                  title="The high-level category(ies) of the annotated GO term."
-                  placement="top"
-                  enterDelay={1500}
-                  arrow
+                  label="The high-level category(ies) of the annotated GO term."
+                  position="top"
+                  openDelay={1500}
+                  withArrow
                 >
                   <span>GO Function Category</span>
                 </Tooltip>
@@ -64,10 +64,10 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
             <th className="">
               <div className="flex items-center">
                 <Tooltip
-                  title="The evidence for the annotated GO term"
-                  placement="top"
-                  enterDelay={1500}
-                  arrow
+                  label="The evidence for the annotated GO term"
+                  position="top"
+                  openDelay={1500}
+                  withArrow
                 >
                   <span>Evidence</span>
                 </Tooltip>
@@ -76,10 +76,10 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
             <th className="w-40">
               <div className="flex items-center">
                 <Tooltip
-                  title="The GO Consortium groups that created the annotations."
-                  placement="top"
-                  enterDelay={1500}
-                  arrow
+                  label="The GO Consortium groups that created the annotations."
+                  position="top"
+                  openDelay={1500}
+                  withArrow
                 >
                   <span>Contributors</span>
                 </Tooltip>
@@ -95,7 +95,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
               className="cursor-pointer hover:bg-gray-50"
             >
               <td className="w-10 px-2 py-4">
-                <Tooltip title={EVIDENCE_TYPE_MAP[row.evidenceType]?.iconTooltip}>
+                <Tooltip label={EVIDENCE_TYPE_MAP[row.evidenceType]?.iconTooltip}>
                   <div className="flex h-8 w-8 items-center justify-center text-gray-600">
                     {row.evidenceType === EvidenceType.DIRECT && <FaFlask className={`text-2xl`} />}
 

@@ -1,5 +1,5 @@
 import type React from 'react'
-import { Button } from '@mui/material'
+import { Button } from '@mantine/core'
 import { Link } from 'react-router-dom'
 
 interface VersionedButtonProps {
@@ -32,7 +32,7 @@ export const VersionedButton: React.FC<VersionedButtonProps> = ({
 
   if (href) {
     return (
-      <Button href={addVersionParam(href)} {...props}>
+      <Button component="a" href={addVersionParam(href)} {...props}>
         {children}
       </Button>
     )

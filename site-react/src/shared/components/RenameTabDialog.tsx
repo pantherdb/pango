@@ -1,10 +1,5 @@
 import { useState, useEffect } from 'react'
-import Button from '@mui/material/Button'
-import Dialog from '@mui/material/Dialog'
-import DialogTitle from '@mui/material/DialogTitle'
-import DialogContent from '@mui/material/DialogContent'
-import DialogActions from '@mui/material/DialogActions'
-import TextField from '@mui/material/TextField'
+import { Button, Modal, TextInput } from '@mantine/core'
 
 interface RenameTabDialogProps {
   open: boolean
@@ -37,31 +32,29 @@ const RenameTabDialog: React.FC<RenameTabDialogProps> = ({
   }
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Rename Browser Tab</DialogTitle>
-      <DialogContent>
-        <p className="mb-3 text-sm text-gray-500">
-          Set a custom name for this browser tab to help distinguish it from other open PAN-GO tabs.
-        </p>
-        <TextField
-          autoFocus
-          fullWidth
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          onKeyDown={e => {
-            if (e.key === 'Enter') handleRename()
-          }}
-          placeholder="Enter tab name..."
-          size="small"
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={handleRename} variant="contained">
+    <Modal opened={open} onClose={onClose} title="Rename Browser Tab" size="md" centered>
+      <p className="mb-3 text-sm text-gray-500">
+        Set a custom name for this browser tab to help distinguish it from other open PAN-GO tabs.
+      </p>
+      <TextInput
+        autoFocus
+        value={value}
+        onChange={e => setValue(e.currentTarget.value)}
+        onKeyDown={e => {
+          if (e.key === 'Enter') handleRename()
+        }}
+        placeholder="Enter tab name..."
+        size="sm"
+      />
+      <div className="mt-4 flex justify-end gap-2">
+        <Button variant="subtle" onClick={onClose}>
+          Cancel
+        </Button>
+        <Button variant="filled" onClick={handleRename}>
           Rename
         </Button>
-      </DialogActions>
-    </Dialog>
+      </div>
+    </Modal>
   )
 }
 

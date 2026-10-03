@@ -1,7 +1,6 @@
 import type React from 'react'
 import { useEffect, useMemo, useState } from 'react'
-import Box from '@mui/material/Box'
-import useMediaQuery from '@mui/material/useMediaQuery'
+import { useMediaQuery } from '@mantine/hooks'
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
 import OverrepForm from '@/features/genes/components/forms/OverrepForm'
 import Genes from '@/features/genes/components/Genes'
@@ -11,10 +10,8 @@ import type { RootState } from './store/store'
 import { useGetGenesStatsQuery } from '@/features/genes/slices/genesApiSlice'
 import { transformCategoryTerms } from '@/features/terms/services/termsService'
 import { setFunctionCategories } from '@/features/terms/slices/termsSlice'
-import { Link } from 'react-router-dom'
 import { useConfig } from '@/@pango.core/data/useConfig'
 import { FiInfo, FiX } from 'react-icons/fi'
-import theme from '@/@pango.core/theme/theme'
 import GeneSearch from '@/features/genes/components/GeneSearch'
 import { VersionedLink } from '@/shared/components/VersionedLink'
 
@@ -22,7 +19,7 @@ const Home: React.FC = () => {
   const config = useConfig()
   const dispatch = useAppDispatch()
   const [isFormOpen, setIsFormOpen] = useState(false)
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const isMobile = useMediaQuery('(max-width: 599.99px)')
 
   const search = useAppSelector((state: RootState) => state.search)
   const filter = useMemo(
@@ -48,7 +45,7 @@ const Home: React.FC = () => {
   }, [dispatch, isMobile])
 
   return (
-    <Box className="flex w-full flex-col">
+    <div className="flex w-full flex-col">
       <div
         className="relative h-auto min-w-0 bg-gradient-to-r from-[#00174f] to-[rgba(0,23,79,0.5)] bg-cover bg-top p-3 py-4 md:p-5 md:pt-10"
         style={{
@@ -143,10 +140,10 @@ const Home: React.FC = () => {
         <FilterSummary />
       </div>
 
-      <Box className="mb-[200px] min-h-[500px] px-2 md:px-0">
+      <div className="mb-[200px] min-h-[500px] px-2 md:px-0">
         <Genes />
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 }
 

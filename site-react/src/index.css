@@ -1,3 +1,5 @@
+@import '@mantine/core/styles.css';
+@import '@mantine/notifications/styles.css';
 @import 'tailwindcss';
 
 @theme {

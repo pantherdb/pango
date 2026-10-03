@@ -1,6 +1,5 @@
 import type React from 'react'
 import { useState, useEffect } from 'react'
-import { IoClose } from 'react-icons/io5'
 import { SearchFilterType } from '@/features/search/search'
 import { addItem, removeItem } from '@/features/search/searchSlice'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
@@ -8,17 +7,23 @@ import type { RootState } from '@/app/store/store'
 import type { Gene } from '../../models/gene'
 import { AutocompleteType } from '../../models/gene'
 import { useGetAutocompleteQuery } from '../../slices/genesApiSlice'
-import Tooltip from '@mui/material/Tooltip'
-import Chip from '@mui/material/Chip'
-import Autocomplete from '@mui/material/Autocomplete'
-import TextField from '@mui/material/TextField'
+import {
+  Combobox,
+  Loader,
+  Pill,
+  PillsInput,
+  Tooltip,
+  useCombobox,
+} from '@mantine/core'
 
 const GeneForm: React.FC<{ maxGenes?: number }> = ({ maxGenes = 10 }) => {
   const dispatch = useAppDispatch()
   const selectedGenes = useAppSelector((state: RootState) => state.search.genes)
-  const [open, setOpen] = useState(false)
   const [inputValue, setInputValue] = useState('')
   const [debouncedValue, setDebouncedValue] = useState('')
+  const combobox = useCombobox({
+    onDropdownClose: () => combobox.resetSelectedOption(),
+  })
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -37,13 +42,15 @@ const GeneForm: React.FC<{ maxGenes?: number }> = ({ maxGenes = 10 }) => {
     }
   )
 
-  const suggestions = geneData?.genes ?? []
+  const suggestions: Gene[] = geneData?.genes ?? []
+  const disabled = selectedGenes.length >= maxGenes
 
-  const handleSelect = (_: unknown, newValue: Gene | null) => {
-    if (newValue && selectedGenes.length < maxGenes) {
-      dispatch(addItem({ type: SearchFilterType.GENES, item: newValue }))
+  const handleSelect = (geneId: string) => {
+    const gene = suggestions.find(g => g.gene === geneId)
+    if (gene && selectedGenes.length < maxGenes) {
+      dispatch(addItem({ type: SearchFilterType.GENES, item: gene }))
       setInputValue('')
-      setOpen(false)
+      combobox.closeDropdown()
     }
   }
 
@@ -51,39 +58,35 @@ const GeneForm: React.FC<{ maxGenes?: number }> = ({ maxGenes = 10 }) => {
     dispatch(removeItem({ type: SearchFilterType.GENES, id: geneToDelete.gene }))
   }
 
-  const renderTags = (tagValue: Gene[], getTagProps: any) =>
-    tagValue.map((option, index) => (
-      <Chip
-        {...getTagProps({ index })}
-        key={option.gene}
-        label={
-          <Tooltip
-            title={`${option.gene} (${option.geneName})`}
-            placement="top"
-            enterDelay={2000}
-            arrow
-          >
-            <div className="flex w-full flex-col items-start text-xs">
-              <div className="flex w-full items-center">
-                <div className="mr-1 text-xs">{option.gene}</div>
-                <div className="font-bold">
-                  <strong>({option.geneSymbol})</strong>
-                </div>
-              </div>
-              <div className="w-full text-gray-500">{option.geneName}</div>
-            </div>
-          </Tooltip>
-        }
-        onDelete={() => handleDelete(option)}
-        deleteIcon={<IoClose size={16} />}
-        size="small"
-        className="h-7"
-      />
-    ))
+  const pills = selectedGenes.map(option => (
+    <Tooltip
+      key={option.gene}
+      label={`${option.gene} (${option.geneName})`}
+      position="top"
+      openDelay={2000}
+      withArrow
+    >
+      <Pill
+        withRemoveButton
+        onRemove={() => handleDelete(option)}
+        className="!h-7"
+      >
+        <span className="flex w-full flex-col items-start text-xs">
+          <span className="flex w-full items-center">
+            <span className="mr-1 text-xs">{option.gene}</span>
+            <span className="font-bold">
+              <strong>({option.geneSymbol})</strong>
+            </span>
+          </span>
+          <span className="w-full text-gray-500">{option.geneName}</span>
+        </span>
+      </Pill>
+    </Tooltip>
+  ))
 
-  const renderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: Gene) => (
-    <li
-      {...props}
+  const options = suggestions.map(option => (
+    <Combobox.Option
+      value={option.gene}
       key={option.gene}
       className="flex cursor-pointer flex-col border-b border-primary-300 p-4 hover:bg-primary-100 hover:font-bold"
     >
@@ -92,56 +95,51 @@ const GeneForm: React.FC<{ maxGenes?: number }> = ({ maxGenes = 10 }) => {
         <span className="text-sm text-gray-600">({option.geneSymbol})</span>
       </div>
       <div className="text-sm text-gray-500">{option.geneName}</div>
-    </li>
-  )
+    </Combobox.Option>
+  ))
 
   return (
     <div className="w-full p-2">
-      <Autocomplete
-        open={open}
-        onOpen={() => setOpen(true)}
-        onClose={() => setOpen(false)}
-        multiple
-        freeSolo
-        clearIcon={null}
-        options={suggestions}
-        value={selectedGenes}
-        inputValue={inputValue}
-        onInputChange={(_, newValue) => {
-          setInputValue(newValue)
-          if (newValue.length >= 2) setOpen(true)
-        }}
-        onChange={(_, __, reason, details) => {
-          if (reason === 'selectOption' && details?.option) {
-            handleSelect(null, details.option as Gene)
-          }
-        }}
-        getOptionLabel={option => {
-          if (typeof option === 'string') return option
-          return option.gene || ''
-        }}
-        loading={isFetching}
-        filterOptions={x => x}
-        disabled={selectedGenes.length >= maxGenes}
-        renderTags={renderTags}
-        renderOption={renderOption}
-        noOptionsText="Type to search genes..."
-        ListboxProps={{
-          className: 'bg-accent-50 max-h-[300px] overflow-y-auto',
-        }}
-        renderInput={params => (
-          <TextField
-            {...params}
+      <Combobox store={combobox} onOptionSubmit={handleSelect} width="target" position="bottom-start">
+        <Combobox.DropdownTarget>
+          <PillsInput
             label="Filter by Gene"
-            placeholder="Type to search genes..."
-            variant="outlined"
-            InputProps={{
-              ...params.InputProps,
-              sx: { bgcolor: 'white' },
-            }}
-          />
-        )}
-      />
+            onClick={() => combobox.openDropdown()}
+            classNames={{ input: 'bg-white' }}
+            disabled={disabled}
+            rightSection={isFetching ? <Loader size="xs" /> : null}
+          >
+            <Pill.Group>
+              {pills}
+              <Combobox.EventsTarget>
+                <PillsInput.Field
+                  onFocus={() => combobox.openDropdown()}
+                  onBlur={() => combobox.closeDropdown()}
+                  value={inputValue}
+                  placeholder={
+                    disabled ? `Max ${maxGenes} genes selected` : 'Type to search genes...'
+                  }
+                  onChange={e => {
+                    setInputValue(e.currentTarget.value)
+                    if (e.currentTarget.value.length >= 2) combobox.openDropdown()
+                  }}
+                  disabled={disabled}
+                />
+              </Combobox.EventsTarget>
+            </Pill.Group>
+          </PillsInput>
+        </Combobox.DropdownTarget>
+
+        <Combobox.Dropdown className="!bg-accent-50 !max-h-[300px] overflow-y-auto">
+          <Combobox.Options>
+            {options.length === 0 ? (
+              <Combobox.Empty>Type to search genes...</Combobox.Empty>
+            ) : (
+              options
+            )}
+          </Combobox.Options>
+        </Combobox.Dropdown>
+      </Combobox>
     </div>
   )
 }

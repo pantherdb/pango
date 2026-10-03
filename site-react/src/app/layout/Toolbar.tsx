@@ -9,16 +9,8 @@ import { VersionedLink } from '@/shared/components/VersionedLink'
 import { useConfig } from '@/@pango.core/data/useConfig'
 import GeneSearch from '@/features/genes/components/GeneSearch'
 import { handleExternalLinkClick } from '@/analytics'
-import useTheme from '@mui/material/styles/useTheme'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import ClickAwayListener from '@mui/material/ClickAwayListener'
-import Popper from '@mui/material/Popper'
-import Paper from '@mui/material/Paper'
-import IconButton from '@mui/material/IconButton'
-import Button from '@mui/material/Button'
-import LinearProgress from '@mui/material/LinearProgress'
-import MenuItem from '@mui/material/MenuItem'
-import Menu from '@mui/material/Menu'
+import { ActionIcon, Button, Menu, Popover } from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks'
 import { VersionedButton } from '@/shared/components/VersionedButton'
 
 interface ToolbarProps {
@@ -27,22 +19,15 @@ interface ToolbarProps {
 
 const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
   const config = useConfig()
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-  const [exportMenuAnchor, setExportMenuAnchor] = useState<null | HTMLElement>(null)
+  const isMobile = useMediaQuery('(max-width: 599.99px)')
   const [showSearch, setShowSearch] = useState(false)
   const [showLogos, setShowLogos] = useState(false)
-  const [logosAnchorEl, setLogosAnchorEl] = useState<null | HTMLElement>(null)
   const searchRef = useRef<HTMLDivElement>(null)
   const popoverRef = useRef<HTMLDivElement>(null)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
-        //setShowSearch(false)
-      }
-
       if (popoverRef?.current && !popoverRef?.current.contains(event.target as Node)) {
         setShowSearch(false)
       }
@@ -51,58 +36,87 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  const handleExportMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setExportMenuAnchor(event.currentTarget)
-  }
-
-  const handleCloseExportMenu = () => {
-    setExportMenuAnchor(null)
-  }
-
-  const handleLogosClick = (event: React.MouseEvent<HTMLElement>) => {
-    setLogosAnchorEl(event.currentTarget)
-    setShowLogos(!showLogos)
-  }
-
-  const handleLogosClose = () => {
-    setLogosAnchorEl(null)
-    setShowLogos(false)
-  }
+  const downloadItems = (
+    <>
+      <Menu.Item
+        component="a"
+        href={config.DOWNLOAD_ALL_DATA_CSV_URL}
+        onClick={() => handleExternalLinkClick(config.DOWNLOAD_ALL_DATA_CSV_URL)}
+      >
+        All data as CSV
+      </Menu.Item>
+      <Menu.Item
+        component="a"
+        href={config.DOWNLOAD_ALL_DATA_JSON_URL}
+        onClick={() => handleExternalLinkClick(config.DOWNLOAD_ALL_DATA_JSON_URL)}
+      >
+        All data as JSON
+      </Menu.Item>
+      <Menu.Item
+        component="a"
+        href={config.DOWNLOAD_ANNOTATIONS_GAF_URL}
+        onClick={() => handleExternalLinkClick(config.DOWNLOAD_ANNOTATIONS_GAF_URL)}
+      >
+        Annotations as GAF
+      </Menu.Item>
+      <Menu.Item
+        component="a"
+        href={config.DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL}
+        onClick={() => handleExternalLinkClick(config.DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Evolutionary models as GAF
+      </Menu.Item>
+      <Menu.Item
+        component="a"
+        href={config.DOWNLOAD_ONTOLOGY_FILES_URL}
+        onClick={() => handleExternalLinkClick(config.DOWNLOAD_ONTOLOGY_FILES_URL)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Ontology Files
+      </Menu.Item>
+    </>
+  )
 
   const renderLogos = () => (
     <div className="flex items-center">
       {isMobile ? (
-        <>
-          <button className="!w-8 !p-0" onClick={handleLogosClick}>
-            <img
-              src="/assets/images/logos/go-logo-yellow-icon.png"
-              alt="GO Logo"
-              className="!h-6"
-            />
-          </button>
-          <Popper open={showLogos} anchorEl={logosAnchorEl} placement="bottom-end">
-            <ClickAwayListener onClickAway={handleLogosClose}>
-              <Paper className="bg-primary-600 p-4">
-                <div className="flex flex-col gap-2">
-                  <a href="http://geneontology.org/" target="_blank" rel="noopener noreferrer">
-                    <img
-                      src="/assets/images/logos/go-logo-yellow.png"
-                      alt="GO Logo"
-                      className="h-8"
-                    />
-                  </a>
-                  <a href="http://pantherdb.org" target="_blank" rel="noopener noreferrer">
-                    <img
-                      src="/assets/images/logos/panther-logo-yellow.png"
-                      alt="Panther Logo"
-                      className="h-8"
-                    />
-                  </a>
-                </div>
-              </Paper>
-            </ClickAwayListener>
-          </Popper>
-        </>
+        <Popover
+          opened={showLogos}
+          onChange={setShowLogos}
+          position="bottom-end"
+          withinPortal
+        >
+          <Popover.Target>
+            <button className="!w-8 !p-0" onClick={() => setShowLogos(o => !o)}>
+              <img
+                src="/assets/images/logos/go-logo-yellow-icon.png"
+                alt="GO Logo"
+                className="!h-6"
+              />
+            </button>
+          </Popover.Target>
+          <Popover.Dropdown className="!bg-primary-600 !p-4">
+            <div className="flex flex-col gap-2">
+              <a href="http://geneontology.org/" target="_blank" rel="noopener noreferrer">
+                <img
+                  src="/assets/images/logos/go-logo-yellow.png"
+                  alt="GO Logo"
+                  className="h-8"
+                />
+              </a>
+              <a href="http://pantherdb.org" target="_blank" rel="noopener noreferrer">
+                <img
+                  src="/assets/images/logos/panther-logo-yellow.png"
+                  alt="Panther Logo"
+                  className="h-8"
+                />
+              </a>
+            </div>
+          </Popover.Dropdown>
+        </Popover>
       ) : (
         <>
           <div className="flex items-center border-l border-accent-200 px-2">
@@ -127,14 +141,15 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
   const renderSearch = () => (
     <div className="flex items-center text-accent-500 md:pr-2">
       {isMobile ? (
-        <IconButton
-          color="inherit"
-          className="!w-5 !p-0 !mx-1.5"
+        <ActionIcon
+          variant="subtle"
+          color="gray"
+          className="!w-5 !p-0 !mx-1.5 !text-accent-500"
           onClick={() => setShowSearch(true)}
-          size="medium"
+          size="md"
         >
           <FaSearch />
-        </IconButton>
+        </ActionIcon>
       ) : (
         <div className="relative mr-1 flex items-center">
           <input
@@ -153,53 +168,59 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
     <div className="flex items-center border-l-0 border-accent-200 md:border-l md:px-2">
       {isMobile ? (
         <>
-          <IconButton
-            color="inherit"
-            className="!w-5 !p-0 !mx-1.5"
-            onClick={handleExportMenu}
-            size="medium"
-          >
-            <FaDownload />
-          </IconButton>
-          <IconButton
-            color="inherit"
-            className="!w-5 !p-0 !mx-1.5"
+          <Menu>
+            <Menu.Target>
+              <ActionIcon
+                variant="subtle"
+                color="gray"
+                className="!w-5 !p-0 !mx-1.5 !text-accent-500"
+                size="md"
+              >
+                <FaDownload />
+              </ActionIcon>
+            </Menu.Target>
+            <Menu.Dropdown>{downloadItems}</Menu.Dropdown>
+          </Menu>
+          <ActionIcon
+            variant="subtle"
+            color="gray"
+            className="!w-5 !p-0 !mx-1.5 !text-accent-500"
             component={Link}
             to="/about"
-            size="medium"
+            size="md"
           >
             <FaInfoCircle />
-          </IconButton>
-          <IconButton
-            color="inherit"
-            className="!w-5 !p-0 !mx-1.5"
+          </ActionIcon>
+          <ActionIcon
+            variant="subtle"
+            color="gray"
+            className="!w-5 !p-0 !mx-1.5 !text-accent-500"
             component={Link}
             to="/help"
-            size="medium"
+            size="md"
           >
             <FaQuestion />
-          </IconButton>
+          </ActionIcon>
         </>
       ) : (
         <>
-          <Button
-            color="inherit"
-            className="!text-accent-500 hover:text-accent-200"
-            onClick={handleExportMenu}
-          >
-            Download
-          </Button>
+          <Menu>
+            <Menu.Target>
+              <Button variant="subtle" className="!text-accent-500 hover:text-accent-200">
+                Download
+              </Button>
+            </Menu.Target>
+            <Menu.Dropdown>{downloadItems}</Menu.Dropdown>
+          </Menu>
           <VersionedButton
-            color="inherit"
-            component={Link}
+            variant="subtle"
             className="!text-accent-500 hover:text-accent-200"
             to="/about"
           >
             About
           </VersionedButton>
           <VersionedButton
-            color="inherit"
-            component={Link}
+            variant="subtle"
             className="!text-accent-500 hover:text-accent-200"
             to="/help"
           >
@@ -214,21 +235,25 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
     <div className="fixed left-0 top-0 z-50 h-[50px] w-full bg-primary-500 text-accent-500">
       <div className="relative flex h-full items-center px-1 md:px-2">
         {showLoadingBar && (
-          <div className="absolute left-0 right-0 top-0 w-full">
-            <LinearProgress color="secondary" />
+          <div
+            role="progressbar"
+            className="absolute left-0 right-0 top-0 h-1 w-full overflow-hidden bg-accent-100"
+          >
+            <div className="h-full w-1/3 animate-[loadingBar_1.5s_ease-in-out_infinite] bg-accent-500" />
           </div>
         )}
         {!showSearch ? (
           <>
-            <IconButton
-              color="inherit"
+            <ActionIcon
+              variant="subtle"
+              color="gray"
               onClick={() => dispatch(toggleLeftDrawer())}
-              className="mr-2 md:mr-1"
-              size="medium"
+              className="mr-2 md:mr-1 !text-accent-500"
+              size="md"
               aria-label="open menu"
             >
               <FaBars />
-            </IconButton>
+            </ActionIcon>
             <div className="flex flex-col items-start justify-center md:flex-row md:items-center">
               <VersionedLink
                 to="/"
@@ -246,67 +271,20 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
 
             <div className="flex flex-1 items-center justify-end">
               {renderSearch()}
-              <IconButton
-                color="inherit"
-                className="!w-5 !p-0 !mx-1.5 md:!mr-2"
+              <ActionIcon
+                variant="subtle"
+                color="gray"
+                className="!w-5 !p-0 !mx-1.5 md:!mr-2 !text-accent-500"
                 onClick={() => handleExternalLinkClick('https://github.com/pantherdb/pango')}
+                component="a"
                 href="https://github.com/pantherdb/pango"
                 target="_blank"
-                size="medium"
+                size="md"
               >
                 <FaGithub />
-              </IconButton>
+              </ActionIcon>
 
               {renderNavigation()}
-
-              <Menu
-                anchorEl={exportMenuAnchor}
-                open={Boolean(exportMenuAnchor)}
-                onClose={handleCloseExportMenu}
-              >
-                <MenuItem
-                  component="a"
-                  href={config.DOWNLOAD_ALL_DATA_CSV_URL}
-                  onClick={() => handleExternalLinkClick(config.DOWNLOAD_ALL_DATA_CSV_URL)}
-                >
-                  All data as CSV
-                </MenuItem>
-                <MenuItem
-                  component="a"
-                  href={config.DOWNLOAD_ALL_DATA_JSON_URL}
-                  onClick={() => handleExternalLinkClick(config.DOWNLOAD_ALL_DATA_JSON_URL)}
-                >
-                  All data as JSON
-                </MenuItem>
-                <MenuItem
-                  component="a"
-                  href={config.DOWNLOAD_ANNOTATIONS_GAF_URL}
-                  onClick={() => handleExternalLinkClick(config.DOWNLOAD_ANNOTATIONS_GAF_URL)}
-                >
-                  Annotations as GAF
-                </MenuItem>
-                <MenuItem
-                  component="a"
-                  href={config.DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL}
-                  onClick={() =>
-                    handleExternalLinkClick(config.DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL)
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Evolutionary models as GAF
-                </MenuItem>
-                <MenuItem
-                  component="a"
-                  href={config.DOWNLOAD_ONTOLOGY_FILES_URL}
-                  onClick={() => handleExternalLinkClick(config.DOWNLOAD_ONTOLOGY_FILES_URL)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Ontology Files
-                </MenuItem>
-              </Menu>
-
               {renderLogos()}
             </div>
           </>
@@ -323,9 +301,15 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
                   onClose={() => setShowSearch(false)}
                 />
               </div>
-              <IconButton onClick={() => setShowSearch(false)} color="inherit" size="medium">
+              <ActionIcon
+                variant="subtle"
+                color="gray"
+                onClick={() => setShowSearch(false)}
+                className="!text-accent-500"
+                size="md"
+              >
                 <IoMdClose />
-              </IconButton>
+              </ActionIcon>
             </div>
           </div>
         )}

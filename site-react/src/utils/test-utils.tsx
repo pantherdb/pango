@@ -1,10 +1,12 @@
 import type { RenderOptions } from '@testing-library/react'
 import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { MantineProvider } from '@mantine/core'
 import type { PropsWithChildren, ReactElement } from 'react'
 import { Provider } from 'react-redux'
 import type { AppStore, RootState } from '../app/store/store'
 import { makeStore } from '../app/store/store'
+import mantineTheme from '../@pango.core/theme/mantineTheme'
 
 /**
  * This type extends the default options for
@@ -52,7 +54,11 @@ export const renderWithProviders = (
     ...renderOptions
   } = extendedRenderOptions
 
-  const Wrapper = ({ children }: PropsWithChildren) => <Provider store={store}>{children}</Provider>
+  const Wrapper = ({ children }: PropsWithChildren) => (
+    <Provider store={store}>
+      <MantineProvider theme={mantineTheme}>{children}</MantineProvider>
+    </Provider>
+  )
 
   // Return an object with the store and all of RTL's query functions
   return {

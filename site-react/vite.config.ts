@@ -44,11 +44,14 @@ export default defineConfig(({ command, mode }) => {
       rollupOptions: {
         output: {
           manualChunks(id) {
-            if (id.includes('@mui')) return 'mui'
+            if (id.includes('@mantine')) return 'mantine'
             if (id.includes('framer-motion')) return 'framer-motion'
           },
         },
       },
+    },
+    optimizeDeps: {
+      include: ['@mantine/core', '@mantine/hooks', '@mantine/notifications'],
     },
     resolve: {
       alias: {

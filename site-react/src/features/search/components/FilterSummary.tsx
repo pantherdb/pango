@@ -1,8 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import { SearchFilterType } from '../search'
 import { clearSearch, removeItem } from '../searchSlice'
-import Chip from '@mui/material/Chip'
-import Tooltip from '@mui/material/Tooltip'
+import { Badge, Pill, Tooltip } from '@mantine/core'
 
 const FilterSummary = () => {
   const dispatch = useAppDispatch()
@@ -35,40 +34,48 @@ const FilterSummary = () => {
   return (
     <div className="flex items-center gap-2">
       <small className="mr-2 text-xs md:text-sm">Filtered By:</small>
-      <Chip
+      <Badge
         onClick={clearAllFilters}
-        label="Clear All Filters"
-        className="!h-6 !bg-accent-200 !text-xs"
-        size="small"
-      />
+        className="!h-6 !cursor-pointer !bg-accent-200 !text-xs"
+        size="sm"
+        variant="filled"
+      >
+        Clear All Filters
+      </Badge>
       {search.genes.length > 0 && (
-        <Tooltip title={search.tooltips.genes} enterDelay={1500} placement="bottom" arrow>
-          <Chip
-            label={`Genes (${search.genes.length})`}
-            onDelete={() => removeFilter(SearchFilterType.GENES)}
+        <Tooltip label={search.tooltips.genes} openDelay={1500} position="bottom" withArrow>
+          <Pill
+            size="sm"
+            withRemoveButton
+            onRemove={() => removeFilter(SearchFilterType.GENES)}
             className="!h-6 !text-xs"
-            size="small"
-          />
+          >
+            {`Genes (${search.genes.length})`}
+          </Pill>
         </Tooltip>
       )}
       {search.slimTerms.length > 0 && (
-        <Tooltip title={search.tooltips.slimTerms} enterDelay={1500} placement="bottom" arrow>
-          <Chip
-            label={`Function Categories (${search.slimTerms.length})`}
-            onDelete={() => removeFilter(SearchFilterType.SLIM_TERMS)}
+        <Tooltip label={search.tooltips.slimTerms} openDelay={1500} position="bottom" withArrow>
+          <Pill
+            size="sm"
+            withRemoveButton
+            onRemove={() => removeFilter(SearchFilterType.SLIM_TERMS)}
             className="!h-6 !text-xs"
-            size="small"
-          />
+          >
+            {`Function Categories (${search.slimTerms.length})`}
+          </Pill>
         </Tooltip>
       )}
       {search.terms.length > 0 && (
-        <Tooltip title={search.tooltips.terms} enterDelay={1500} placement="bottom" arrow>
-          <Chip
-            label={`Terms (${search.terms.length})`}
-            onDelete={() => removeFilter(SearchFilterType.TERMS)}
+        <Tooltip label={search.tooltips.terms} openDelay={1500} position="bottom" withArrow>
+          <Pill
+            size="sm"
+            withRemoveButton
+            onRemove={() => removeFilter(SearchFilterType.TERMS)}
             className="!h-6 !text-xs"
-            size="small"
-          />
+          >
+            {`Terms (${search.terms.length})`}
+          </Pill>
         </Tooltip>
       )}
     </div>

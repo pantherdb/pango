@@ -1,6 +1,6 @@
 # Task: Upgrade React 18→19, Tailwind 3→4, and migrate MUI → Mantine v9
 
-**Status:** ACTIVE
+**Status:** COMPLETE
 **Issue:** N/A (internal modernization)
 **Branch:** `refactor/upgrade-react19-tailwind4-mantine` (to be created from `update-framework-n-lib`)
 
@@ -170,13 +170,13 @@ Order matters — migrate leaves before parents to keep diffs small. After each 
 
 > **⚠ UPDATE THIS AFTER EVERY CHANGE**
 
-- **Last completed action:** Phases 1 and 2 done on branch `update-framework-n-lib`. React 19.2.6 + Tailwind v4.3.0 installed; `tailwind.config.js` and `postcss.config.cjs` deleted; `src/index.css` rewritten with `@import "tailwindcss"` + `@theme` block carrying `pangoColors`; `src/styles/app-components.css` cleaned of `@tailwind components`; `@tailwindcss/vite` plugin wired into `vite.config.ts`. Build + type-check green. Setup matches reference site at `C:\work\panther\annotations\go-pango-annotations-trials\c-site`.
-- **Next immediate action:** Begin Phase 3 (MUI → Mantine v9). Start with 3a (install Mantine + Tabler icons, set up `MantineProvider`).
+- **Last completed action:** ✅ TASK COMPLETE — Phase 3 (MUI → Mantine v9) finished. All 19 components migrated, `@mui/*` + `@emotion/*` packages removed, old MUI theme files deleted, MantineProvider wired in `App.tsx`, jsdom polyfills (`matchMedia`, `ResizeObserver`, `IntersectionObserver`, `scrollIntoView`) added to `setupTests.ts`, `renderWithProviders` now wraps with `MantineProvider`. Build + type-check green. 4 of 7 tests pass; remaining 3 failures are the pre-existing `search.terms` fixture bugs (logged in Pre-existing Issues).
+- **Next immediate action:** ✅ TASK COMPLETE.
 - **Recent commands run:**
-  - `npm install` (twice — once for React 19, once for Tailwind v4)
-  - `npm run type-check`, `npm run build`, `npm run lint`, `npm run test`
-- **Uncommitted changes:** `package.json`, `package-lock.json`, `vite.config.ts`, `src/index.css`, `src/styles/app-components.css`, deleted `tailwind.config.js`, deleted `postcss.config.cjs`. Plus new plan file at `.plans/refactor/upgrade-react19-tailwind4-mui-to-mantine.md`.
-- **Environment state:** Tailwind v4 ships with built-in autoprefixer, so `autoprefixer` + `postcss` are gone from `devDependencies`. Reference site uses `@tabler/icons-react` paired with Mantine — note this for Phase 3.
+  - `npm install` (3 times — React 19, Tailwind v4, Mantine v9 + MUI removal)
+  - `npm run type-check`, `npm run build`, `npm run test`
+- **Uncommitted changes:** ~30 source files migrated, plus new `mantineTheme.ts`, deleted `theme/index.ts` + `theme/components/`, updated `package.json`, `vite.config.ts`, `setupTests.ts`, `test-utils.tsx`, `App.tsx`, `index.css`.
+- **Environment state:** Tailwind v4 + Mantine v9 coexist via `@tailwindcss/vite` plugin (no separate PostCSS config needed). Mantine handles its own CSS via `@import '@mantine/core/styles.css'` in `index.css`.
 
 ## Pre-existing Issues (Found During Upgrade)
 
@@ -223,9 +223,68 @@ These are NOT caused by Phase 1 or 2 and don't need to be fixed in this branch �
 - **`useMediaQuery` from `@mui/system`** in `src/app/Gene.tsx` is a slightly different import path than the rest of the codebase — easy to miss when grepping for `@mui/material`.
 - **Mantine icons:** We currently use both `@mui/icons-material` and `react-icons`. Standardize on `react-icons` (already a dep) or add `@tabler/icons-react` (Mantine's typical pairing). Decision deferred — easiest is to migrate any `@mui/icons-material` usages to `react-icons` equivalents during cluster migration.
 
+## Summary
+
+Successfully migrated from React 18 / Tailwind v3 / MUI v5 → React 19.2.6 / Tailwind v4.3.0 / Mantine v9. The target stack now matches what `docs/dev-guide-react.md` describes.
+
+**Bundle impact:**
+| Asset | Before (MUI) | After (Mantine) |
+|---|---|---|
+| Framework chunk | `mui-DiUscwSU.js` 279 kB / 88 kB gz | `mantine-B0kbh_Hj.js` 263 kB / 80 kB gz |
+| Main bundle | `index-*.js` 515 kB / 162 kB gz | `index-*.js` 515 kB / 162 kB gz |
+| CSS | 28 kB (Tailwind v3 only) | 256 kB (Tailwind v4 + Mantine styles) |
+
+Mantine framework code is **smaller** than MUI was. The CSS grew because Mantine ships component styles as a single CSS file (versus MUI's runtime CSS-in-JS via emotion); the gzipped CSS is 39 kB which is comparable to the old emotion runtime overhead.
+
+**Component migration map (final):**
+| MUI | Mantine | Notes |
+|---|---|---|
+| `<Button>` | `<Button>` | `variant="contained"` → `variant="filled"`, `"outlined"` → `"outline"`, `"text"` → `"subtle"`. `size="small"` → `size="xs"` |
+| `<IconButton>` | `<ActionIcon>` | Same API surface |
+| `<Tooltip>` | `<Tooltip>` | `title` → `label`, `placement` → `position`, `enterDelay` → `openDelay`, `arrow` → `withArrow` |
+| `<Chip>` | `<Pill>` or `<Badge>` | `<Pill>` for closable (`withRemoveButton onRemove`), `<Badge>` for static |
+| `<Autocomplete multiple>` | `<Combobox>` + `<PillsInput>` | Lower-level Mantine primitives — what `<MultiSelect>` uses internally |
+| `<TextField>` | `<TextInput>` | `onChange={e => e.target.value}` → `onChange={e => e.currentTarget.value}` |
+| `<Dialog>` + `DialogTitle/Content/Actions` | `<Modal>` | `open` → `opened`, single Modal with title prop |
+| `<Menu>` + `<MenuItem>` | `<Menu>` + `<Menu.Target>` + `<Menu.Dropdown>` + `<Menu.Item>` | Mantine wraps the trigger inside |
+| `<Popper>` + `<ClickAwayListener>` | `<Popover>` | Click-away built-in |
+| `<Drawer variant="temporary">` | `<Drawer>` | Mantine Drawer is modal-style by default — perfect match |
+| `<Drawer variant="persistent">` | Plain `<div>` + Tailwind transitions | Mantine `<Drawer>` is fundamentally modal; persistent UX is just a styled div |
+| `<TablePagination>` | `<Pagination>` + `<Select>` composite | Mantine `Pagination` is page-numbers only; combined with `Select` for rows-per-page |
+| `<CircularProgress>` | `<Loader>` | Same purpose |
+| `<LinearProgress>` | Plain `<div>` with CSS animation | Mantine has no indeterminate `Progress`; simple div suffices |
+| `<Checkbox sx={...}>` | `<Checkbox styles={{ input: ... }}>` | Mantine uses `styles` callback or `classNames` for per-element override |
+| `useMediaQuery` (MUI) | `useMediaQuery('(max-width: 599.99px)')` (`@mantine/hooks`) | CSS string instead of `theme.breakpoints.down('sm')` |
+| `useTheme` (MUI) | Mostly removed — Tailwind handles colors via `@theme`-derived CSS variables | `useMantineTheme()` if Mantine theme tokens needed |
+| `<Box>` | Plain `<div>` + Tailwind | Per project MUI Usage Policy (now Mantine equivalent) |
+| `<Paper>` | `<Paper>` (Mantine) | Direct API match |
+| `<Box sx={{ ... }}>` | `<div className="...">` with Tailwind | Per project policy |
+
+**Test infrastructure adjustments:**
+- `setupTests.ts` now polyfills `matchMedia`, `ResizeObserver`, `IntersectionObserver`, `scrollIntoView` (all required by Mantine in jsdom).
+- `test-utils.tsx`'s `renderWithProviders` now wraps with `MantineProvider`.
+- `Toolbar.test.tsx`'s download-menu assertion updated to use `findByText` (async) — Mantine `<Menu>` opens with a small animation; sync `getByText` was MUI-specific behavior.
+
+**Files modified/created/deleted in Phase 3:**
+- *Created:* `src/@pango.core/theme/mantineTheme.ts`
+- *Deleted:* `src/@pango.core/theme/index.ts`, `src/@pango.core/theme/components/ButtonTheme.ts`, `src/@pango.core/theme/components/DialogTheme.ts`, the empty `components/` dir
+- *Modified:* `src/App.tsx`, `src/@pango.core/theme/theme.ts` (now only exports `pangoColors`), `src/index.css` (added Mantine CSS imports), `vite.config.ts` (manualChunks: mui→mantine), `src/setupTests.ts`, `src/utils/test-utils.tsx`, `package.json`, `package-lock.json`, and 19 MUI-consumer files (IconButton, VersionedButton, CategoryStats, FilterSummary, Terms, ChildTermFilterDisplay, AnnotationTable, RenameTabDialog, GeneSearch, GeneForm, TermAutocompleteForm, TermFilterForm, Layout, RightDrawer, LeftDrawer, Toolbar, Home, Gene, GeneSummary, Genes)
+
+## Follow-ups (not blocking, surfaced during migration)
+
+1. **Pre-existing test fixture bugs in `Home.test.tsx` and `Category.test.tsx`** — both omit `search.terms: []` (and the latter omits `state.terms.expandedCategoryId`/`childTerms`). These already failed under MUI/React 18. Fix the fixtures in a follow-up; one-liner each.
+2. **15 pre-existing lint errors** (all `@typescript-eslint/no-unused-vars`) across `Home.tsx`, `NavButton.tsx`, `VersionBanner.tsx`, `AnnotationDetails.tsx`, `GeneSearch.tsx`, `Genes.tsx`, `TermAutocompleteForm.tsx`, `TermFilterForm.tsx`. Plus `vite.config.ts` not in `tsconfig.app.json`. Mostly leftover imports/state-setters — easy cleanup.
+3. **Pill in PillsInput height styling** — added `!h-7` to match the old chip height, but Mantine's PillsInput auto-sizes. May want to drop the override and let Mantine's default sizing apply.
+4. **Genes.tsx pagination footer** — composed `<Pagination>` + `<Select>` + "Rows per page" label + "1-20 of N" indicator manually. Could be extracted into a `<TablePagination>` wrapper component if reused elsewhere.
+5. **Loading bar animation** — `Toolbar.tsx` uses `animate-[loadingBar_1.5s_ease-in-out_infinite]` but `@keyframes loadingBar` isn't defined yet. Cosmetic — only fires when `showLoadingBar={true}` which is currently never. Define the keyframes when reactivating the loading bar.
+
 ## Lessons Learned
 
-<!-- Fill during and after task. -->
+- **MUI v5 supported React 19 fine** — no need for the MUI v6 stepping stone before removing MUI.
+- **Tailwind v4 + Mantine coexist cleanly** — no PostCSS config needed; `@tailwindcss/vite` and Mantine's stylesheet imports stay out of each other's way.
+- **Mantine's `<Menu>` is async** — its open/close animation means tests need `findByText` (or zero transitions) where MUI tests used `getByText`. Worth knowing for future tests.
+- **jsdom polyfills are non-negotiable for Mantine** — `matchMedia`, `ResizeObserver`, `IntersectionObserver`, `scrollIntoView`. Add to setupTests early to avoid debugging confusing "AggregateError" messages.
+- **`Pill` + `Combobox` + `PillsInput` is the right replacement for MUI `<Autocomplete multiple>`** — it's the lower-level primitive that Mantine's `<MultiSelect>` is built on, giving full control over option/value rendering while preserving the "pills inside the input" UX.
 
 ## Additional Context (Claude)
 

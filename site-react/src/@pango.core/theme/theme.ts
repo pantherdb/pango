@@ -1,6 +1,3 @@
-import { createTheme } from '@mui/material/styles'
-import { componentThemes } from '.'
-
 export const pangoColors = {
   pangodark: {
     50: '#e4e7ec',
@@ -27,30 +24,3 @@ export const pangoColors = {
     900: '#dda116',
   },
 }
-
-const baseTheme = createTheme({
-  palette: {
-    primary: {
-      main: pangoColors.pangodark[500],
-      light: pangoColors.pangodark[300],
-      dark: pangoColors.pangodark[700],
-    },
-    secondary: {
-      main: pangoColors.pangoAccent[600],
-      light: pangoColors.pangoAccent[400],
-      dark: pangoColors.pangoAccent[800],
-    },
-  },
-  typography: {
-    fontSize: 14,
-    fontWeightRegular: 400,
-    fontWeightMedium: 500,
-    fontWeightBold: 700,
-  },
-})
-
-const theme = createTheme(baseTheme, {
-  components: componentThemes(baseTheme),
-})
-
-export default theme

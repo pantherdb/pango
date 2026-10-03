@@ -3,8 +3,7 @@ import { useState } from 'react'
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
 import TermCells from '@/features/terms/components/TermCells'
 import Terms from '@/features/terms/components/Terms'
-import useTheme from '@mui/material/styles/useTheme'
-import useMediaQuery from '@mui/material/useMediaQuery'
+import { useMediaQuery } from '@mantine/hooks'
 
 interface GeneSummaryProps {
   groupedTerms: GroupedTerms
@@ -55,8 +54,7 @@ const MobileSection: React.FC<MobileSectionProps> = ({
 }
 
 const GeneSummary: React.FC<GeneSummaryProps> = ({ groupedTerms }) => {
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const isMobile = useMediaQuery('(max-width: 599.99px)')
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     'Molecular Function': true,
     'Biological Process': true,

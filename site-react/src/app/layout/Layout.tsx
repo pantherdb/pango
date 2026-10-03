@@ -11,10 +11,8 @@ import {
 import { useAppDispatch, useAppSelector } from '../hooks'
 import { initGA, trackPageView } from '@/analytics'
 import { useEffect } from 'react'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import useTheme from '@mui/material/styles/useTheme'
-import Box from '@mui/material/Box'
-import Drawer from '@mui/material/Drawer'
+import { Drawer } from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks'
 
 interface LayoutProps {
   leftDrawerContent?: React.ReactNode
@@ -25,8 +23,7 @@ const drawerWidth = 420
 
 const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }) => {
   const location = useLocation()
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const isMobile = useMediaQuery('(max-width: 599.99px)')
   const dispatch = useAppDispatch()
 
   const leftDrawerOpen = useAppSelector(selectLeftDrawerOpen)
@@ -44,8 +41,10 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
     trackPageView(location.pathname + location.search)
   }, [location])
 
+  const leftWidth = leftDrawerOpen ? (isMobile ? '100%' : `${drawerWidth}px`) : '0'
+
   return (
-    <Box className="flex h-screen w-full flex-col bg-gray-300">
+    <div className="flex h-screen w-full flex-col bg-gray-300">
       <div className="fixed left-0 top-0 z-50 w-full">
         <Toolbar showLoadingBar={false} />
       </div>
@@ -53,37 +52,16 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
         <VersionBanner />
       </div>
 
-      <Box className="fixed flex w-full flex-1" style={{ top: 89, bottom: 0 }}>
+      <div className="fixed flex w-full flex-1" style={{ top: 89, bottom: 0 }}>
         {leftDrawerContent && (
-          <Box
-            sx={{
-              width: leftDrawerOpen ? (isMobile ? '100%' : drawerWidth) : 0,
-              height: '100%',
-              transition: theme =>
-                theme.transitions.create('width', {
-                  easing: theme.transitions.easing.sharp,
-                  duration: theme.transitions.duration.enteringScreen,
-                }),
-              overflow: 'hidden',
-            }}
+          <div
+            className="h-full overflow-hidden border-r border-gray-300 bg-white transition-[width] duration-225 ease-out"
+            style={{ width: leftWidth }}
           >
-            <Drawer
-              variant="persistent"
-              anchor="left"
-              open={leftDrawerOpen}
-              sx={{
-                height: '100%',
-                '& .MuiDrawer-paper': {
-                  position: 'static',
-                  width: isMobile ? '100%' : drawerWidth,
-                  height: '100%',
-                  overflow: 'auto',
-                },
-              }}
-            >
+            <div className="h-full overflow-auto" style={{ width: isMobile ? '100%' : drawerWidth }}>
               {leftDrawerContent}
-            </Drawer>
-          </Box>
+            </div>
+          </div>
         )}
 
         <div className="flex-1 overflow-auto">
@@ -93,31 +71,18 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
 
         {rightDrawerContent && (
           <Drawer
-            variant="temporary"
-            anchor="right"
-            open={rightDrawerOpen}
+            opened={rightDrawerOpen}
             onClose={handleRightDrawerClose}
-            ModalProps={{
-              keepMounted: true,
-            }}
-            sx={{
-              '& .MuiDrawer-paper': {
-                width: isMobile ? '100%' : 500,
-                height: '100%',
-                overflow: 'auto',
-                transition: theme =>
-                  theme.transitions.create('transform', {
-                    easing: theme.transitions.easing.sharp,
-                    duration: theme.transitions.duration.enteringScreen,
-                  }),
-              },
-            }}
+            position="right"
+            size={isMobile ? '100%' : 500}
+            withCloseButton={false}
+            keepMounted
           >
             {rightDrawerContent}
           </Drawer>
         )}
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 }
 

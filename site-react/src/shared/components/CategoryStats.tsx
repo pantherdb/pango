@@ -8,9 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import TermFilterForm from '@/features/terms/components/TermFilterForm'
 import ChildTermFilterDisplay from '@/features/terms/components/ChildTermFilterDisplay'
 import { trackEvent } from '@/analytics'
-import Tooltip from '@mui/material/Tooltip'
-import Checkbox from '@mui/material/Checkbox'
-import Button from '@mui/material/Button'
+import { Button, Checkbox, Tooltip } from '@mantine/core'
 import { useGetTermStatsQuery } from '@/features/terms/slices/termsApiSlice'
 import { setExpandedCategory, clearExpandedCategory } from '@/features/terms/slices/termsSlice'
 import type { Term } from '@/features/terms/models/term'
@@ -34,31 +32,26 @@ const CategoryStats: React.FC = () => {
     [categories, selectedAspects]
   )
 
-  // Build filter for term_stats query - only when a category is expanded
   const termStatsFilter = useMemo(() => {
     if (!expandedCategoryId) return null
     return {
       geneIds: search.genes.map(g => g.gene),
-      slimTermIds: [...search.slimTerms.map(t => t.id), expandedCategoryId], // Include all selected slim terms plus expanded category
-      termIds: search.terms.map(t => t.id), // Include selected child terms
+      slimTermIds: [...search.slimTerms.map(t => t.id), expandedCategoryId],
+      termIds: search.terms.map(t => t.id),
     }
   }, [expandedCategoryId, search.genes, search.slimTerms, search.terms])
 
-  // Fetch term stats when a category is expanded
   const { data: termStatsData } = useGetTermStatsQuery(
     { filter: termStatsFilter },
     { skip: !termStatsFilter }
   )
 
-  // Update child terms when term stats data arrives
   useEffect(() => {
     if (termStatsData && expandedCategoryId) {
-      // Filter buckets to only include terms that belong to the expanded category
-      const buckets = (termStatsData.termFrequency?.buckets || []).filter(
-        bucket => bucket.meta.parentIds?.includes(expandedCategoryId)
+      const buckets = (termStatsData.termFrequency?.buckets || []).filter(bucket =>
+        bucket.meta.parentIds?.includes(expandedCategoryId)
       )
 
-      // Find the highest count for ratio calculation
       const longest = buckets.reduce((max, bucket) => Math.max(max, bucket.docCount), 0)
 
       const terms: Term[] = buckets.map(bucket => {
@@ -115,7 +108,6 @@ const CategoryStats: React.FC = () => {
   }
 
   const handleChildTermClick = (term: Term) => {
-    console.log('Child term clicked:', term)
     dispatch(addItem({ type: SearchFilterType.TERMS, item: term }))
     trackEvent('Search', 'Child Term Selection', `${term.label} (${term.id})`)
   }
@@ -138,10 +130,10 @@ const CategoryStats: React.FC = () => {
           {Object.values(ASPECT_MAP).map((aspect: AspectMapType) => (
             <Tooltip
               key={aspect.id}
-              title={aspect.description}
-              placement="top"
-              enterDelay={1500}
-              arrow
+              label={aspect.description}
+              position="top"
+              openDelay={1500}
+              withArrow
               className="flex-grow"
             >
               <div
@@ -157,11 +149,13 @@ const CategoryStats: React.FC = () => {
                   checked={selectedAspects.includes(aspect.id)}
                   onChange={() => toggleAspect(aspect.id)}
                   onClick={e => e.stopPropagation()}
-                  size="small"
-                  sx={{
-                    color: `${aspect.color}50`,
-                    '&.Mui-checked': {
-                      color: aspect.color,
+                  size="xs"
+                  styles={{
+                    input: {
+                      backgroundColor: selectedAspects.includes(aspect.id)
+                        ? aspect.color
+                        : undefined,
+                      borderColor: aspect.color,
                     },
                   }}
                 />
@@ -178,13 +172,11 @@ const CategoryStats: React.FC = () => {
             <div key={item.id}>
               <div
                 className="flex cursor-pointer items-center border-b border-gray-300 py-1 hover:bg-gray-50"
-
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation()
                   handleCategoryClick(item)
                 }}
               >
-
                 <div
                   className="mr-2 flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold"
                   style={{
@@ -195,17 +187,18 @@ const CategoryStats: React.FC = () => {
                 >
                   {item.aspectShorthand}
                 </div>
-                <Tooltip title={item.label} placement="top" enterDelay={1500} arrow>
+                <Tooltip label={item.label} position="top" openDelay={1500} withArrow>
                   <div className="w-[120px] text-xs">
                     <div className="line-clamp-2">{item.label}</div>
-
                   </div>
                 </Tooltip>
-                <div className="mr-1 flex items-center"
-                  onClick={(e) => {
+                <div
+                  className="mr-1 flex items-center"
+                  onClick={e => {
                     e.stopPropagation()
-                    handleCategoryExpand(item);
-                  }}>
+                    handleCategoryExpand(item)
+                  }}
+                >
                   {isExpanded ? (
                     <FiChevronDown className="h-4 w-4 text-gray-600" />
                   ) : (
@@ -228,8 +221,8 @@ const CategoryStats: React.FC = () => {
                     }}
                   >
                     <Button
-                      variant="outlined"
-                      size="small"
+                      variant="outline"
+                      size="xs"
                       className="!-mt-1.5 !h-full w-full rounded-md !bg-primary-50 !text-2xs hover:!bg-primary-100"
                     >
                       {item.count} genes
@@ -238,13 +231,13 @@ const CategoryStats: React.FC = () => {
                 </div>
               </div>
 
-              {/* Render child terms when expanded */}
               {isExpanded && childTerms.length > 0 && (
-                <div className="ml-4 my-2 overflow-hidden rounded-b-lg border border-gray-300 bg-white shadow-md border-l-4"
+                <div
+                  className="ml-4 my-2 overflow-hidden rounded-b-lg border border-gray-300 bg-white shadow-md border-l-4"
                   style={{
                     borderColor: item.color,
-                  }}>
-                  {/* Header with tooltip and close button */}
+                  }}
+                >
                   <div
                     className="flex items-center justify-between border-b px-3 py-3"
                     style={{
@@ -253,20 +246,20 @@ const CategoryStats: React.FC = () => {
                     }}
                   >
                     <Tooltip
-                      title="Listed below are all GO terms in this category that are annotated to a human gene. The annotated term can be the same, but is usually more specific, than the category term. The numbers below count the genes annotated directly to a given term, whereas the counts above for the category include genes annotated either directly to that term or to one of its more specific descendant terms in GO."
-                      placement="top"
-                      arrow
-                      enterDelay={2000}
+                      label="Listed below are all GO terms in this category that are annotated to a human gene. The annotated term can be the same, but is usually more specific, than the category term. The numbers below count the genes annotated directly to a given term, whereas the counts above for the category include genes annotated either directly to that term or to one of its more specific descendant terms in GO."
+                      position="top"
+                      withArrow
+                      openDelay={2000}
                     >
                       <div className="flex items-center gap-2 cursor-help">
                         <FiLayers className="h-5 w-5" style={{ color: item.color }} />
-                        <span className="text-xs font-semibold" >
+                        <span className="text-xs font-semibold">
                           Directly annotated terms in this category ({childTerms.length})
                         </span>
                       </div>
                     </Tooltip>
                     <button
-                      onClick={(e) => {
+                      onClick={e => {
                         e.stopPropagation()
                         dispatch(clearExpandedCategory())
                       }}
@@ -277,17 +270,16 @@ const CategoryStats: React.FC = () => {
                     </button>
                   </div>
 
-                  {/* Child term items with left accent border */}
                   <div
                     style={{
                       backgroundColor: `${item.color}10`,
                     }}
                   >
-                    {childTerms.map((term) => (
+                    {childTerms.map(term => (
                       <div
                         key={term.id}
                         className="flex cursor-pointer items-center border-b border-gray-200 py-1 pl-2 transition-colors duration-150 hover:bg-primary-50"
-                        onClick={(e) => {
+                        onClick={e => {
                           e.stopPropagation()
                           handleChildTermClick(term)
                         }}
@@ -302,7 +294,7 @@ const CategoryStats: React.FC = () => {
                         >
                           {term.aspectShorthand}
                         </div>
-                        <Tooltip title={term.label} placement="top" enterDelay={1500} arrow>
+                        <Tooltip label={term.label} position="top" openDelay={1500} withArrow>
                           <div className="w-[120px] text-xs text-gray-700">
                             <div className="line-clamp-2">{term.label}</div>
                           </div>
@@ -323,8 +315,8 @@ const CategoryStats: React.FC = () => {
                             }}
                           >
                             <Button
-                              variant="outlined"
-                              size="small"
+                              variant="outline"
+                              size="xs"
                               className="!-mt-1.5 !h-full w-full rounded-md !bg-primary-50 !text-2xs hover:!bg-primary-100"
                             >
                               {term.count} genes

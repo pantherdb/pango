@@ -19,8 +19,7 @@ import {
   getUCSCBrowserLink,
   getUniprotLink,
 } from '@/@pango.core/services/linksService'
-import theme from '@/@pango.core/theme/theme'
-import { useMediaQuery } from '@mui/system'
+import { useMediaQuery } from '@mantine/hooks'
 import AnnotationCards from '@/features/annotations/components/AnnotationCards'
 import { handleExternalLinkClick } from '@/analytics'
 import FeedbackBanner from '@/shared/components/FeedbackBanner'
@@ -77,7 +76,7 @@ const Gene: React.FC = () => {
   const config = useConfig()
   const dispatch = useAppDispatch()
   const { id: geneId } = useParams<{ id: string }>()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const isMobile = useMediaQuery('(max-width: 599.99px)')
 
   useEffect(() => {
     dispatch(setLeftDrawerOpen(false))

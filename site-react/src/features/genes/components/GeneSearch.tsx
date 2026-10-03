@@ -1,13 +1,9 @@
 import type React from 'react'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { AutocompleteType } from '../models/gene'
 import { useGetAutocompleteQuery } from '../slices/genesApiSlice'
 import GeneResults from './GeneResults'
-import ClickAwayListener from '@mui/material/ClickAwayListener'
-import TextField from '@mui/material/TextField'
-import CircularProgress from '@mui/material/CircularProgress'
-import Paper from '@mui/material/Paper'
-import Popper from '@mui/material/Popper'
+import { Combobox, Loader, TextInput, useCombobox } from '@mantine/core'
 
 interface GeneSearchProps {
   isOpen: boolean
@@ -15,15 +11,15 @@ interface GeneSearchProps {
   popoverRef?: React.RefObject<HTMLDivElement>
 }
 
-const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen, onClose, popoverRef }) => {
+const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedValue, setDebouncedValue] = useState('')
-  const [showResults, setShowResults] = useState(false)
-  const anchorRef = useRef<HTMLDivElement>(null)
+  const combobox = useCombobox()
 
   useEffect(() => {
-    setShowResults(searchQuery.length >= 2)
-  }, [searchQuery])
+    if (searchQuery.length >= 2) combobox.openDropdown()
+    else combobox.closeDropdown()
+  }, [searchQuery, combobox])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -44,49 +40,32 @@ const GeneSearch: React.FC<GeneSearchProps> = ({ isOpen, onClose, popoverRef }) 
 
   const genes = geneData?.genes ?? []
 
-  const handleClickAway = () => {
-    setShowResults(false)
-    // onClose?.()
-  }
-
   if (!isOpen) return null
 
   return (
-    <ClickAwayListener onClickAway={handleClickAway}>
-      <div className="w-full animate-[fadeIn_0.3s_ease-in-out] flex-col transition-all duration-300">
-        <div ref={anchorRef}>
-          <TextField
+    <div className="w-full animate-[fadeIn_0.3s_ease-in-out] flex-col transition-all duration-300">
+      <Combobox store={combobox} width="target" position="bottom-start">
+        <Combobox.Target>
+          <TextInput
             autoComplete="off"
             value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
+            onChange={e => setSearchQuery(e.currentTarget.value)}
             placeholder="Enter gene name..."
-            variant="outlined"
-            fullWidth
             autoFocus
-            InputProps={{
-              endAdornment: isFetching && <CircularProgress size={20} />,
-              sx: { bgcolor: 'white' },
-            }}
+            classNames={{ input: 'bg-white' }}
+            rightSection={isFetching ? <Loader size="xs" /> : null}
           />
-        </div>
+        </Combobox.Target>
 
-        <Popper
-          ref={popoverRef}
-          open={showResults}
-          anchorEl={anchorRef.current}
-          placement="bottom-start"
-          style={{ width: anchorRef.current?.offsetWidth }}
-        >
-          <Paper className="mt-1 max-h-[400px] overflow-y-auto !bg-accent-50 shadow-lg">
-            {genes.length > 0 ? (
-              <GeneResults genes={genes} />
-            ) : (
-              <div className="p-4 text-center text-gray-500">No genes found</div>
-            )}
-          </Paper>
-        </Popper>
-      </div>
-    </ClickAwayListener>
+        <Combobox.Dropdown className="!max-h-[400px] overflow-y-auto !bg-accent-50 shadow-lg">
+          {genes.length > 0 ? (
+            <GeneResults genes={genes} />
+          ) : (
+            <div className="p-4 text-center text-gray-500">No genes found</div>
+          )}
+        </Combobox.Dropdown>
+      </Combobox>
+    </div>
   )
 }
 

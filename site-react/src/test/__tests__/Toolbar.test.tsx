@@ -33,8 +33,8 @@ describe('Toolbar Component', () => {
     )
 
     await user.click(screen.getByText('Download'))
-    expect(screen.getByText('All data as CSV')).toBeInTheDocument()
-    expect(screen.getByText('All data as JSON')).toBeInTheDocument()
+    expect(await screen.findByText('All data as CSV')).toBeInTheDocument()
+    expect(await screen.findByText('All data as JSON')).toBeInTheDocument()
   })
 
   it('toggles left drawer on menu icon click', async () => {

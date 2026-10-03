@@ -1,6 +1,5 @@
 import type React from 'react'
 import { FaCaretRight, FaCaretDown } from 'react-icons/fa'
-import { FiMoreHorizontal, FiMoreVertical } from 'react-icons/fi'
 import { setPage, setPageSize } from '@/features/search/searchSlice'
 import { useMemo, useState } from 'react'
 import { useAppSelector, useAppDispatch } from '@/app/hooks'
@@ -17,23 +16,16 @@ import {
   setLeftDrawerOpen,
 } from '@/@pango.core/components/drawer/drawerSlice'
 import { handleExternalLinkClick } from '@/analytics'
-import useTheme from '@mui/material/styles/useTheme'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import CircularProgress from '@mui/material/CircularProgress'
-import Button from '@mui/material/Button'
-import Tooltip from '@mui/material/Tooltip'
-import TablePagination from '@mui/material/TablePagination'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
+import { ActionIcon, Button, Loader, Select, Tooltip } from '@mantine/core'
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+import { useMediaQuery } from '@mantine/hooks'
 import RenameTabDialog from '@/shared/components/RenameTabDialog'
 
 const Genes: React.FC = () => {
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const isMobile = useMediaQuery('(max-width: 599.99px)')
   const isLeftDrawerOpen = useAppSelector((state: RootState) => selectLeftDrawerOpen(state))
   const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({})
   const [renameDialogOpen, setRenameDialogOpen] = useState(false)
-  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null)
   const [tabName, setTabName] = useState('PAN-GO Results')
 
   const { page, size } = useAppSelector((state: RootState) => state.search.pagination)
@@ -54,6 +46,7 @@ const Genes: React.FC = () => {
 
   const genes = geneData?.genes ?? []
   const geneCount = countData?.total || 0
+  const totalPages = Math.max(1, Math.ceil(geneCount / size))
 
   const handleExpandClick = (gene: Gene) => {
     setExpandedRows(prev => ({
@@ -62,25 +55,29 @@ const Genes: React.FC = () => {
     }))
   }
 
-  const handlePageChange = (_: unknown, newPage: number) => {
-    dispatch(setPage(newPage))
+  const handlePageChange = (newPage: number) => {
+    dispatch(setPage(newPage - 1))
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const handleRowsPerPageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setPageSize(parseInt(event.target.value, 10)))
+  const handleRowsPerPageChange = (value: string | null) => {
+    if (!value) return
+    dispatch(setPageSize(parseInt(value, 10)))
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   if (isLoading) {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-gray-600/40">
-        <CircularProgress />
+        <Loader />
       </div>
     )
   }
 
   if (error) return <div>Error loading genes</div>
+
+  const pageStart = page * size + 1
+  const pageEnd = Math.min((page + 1) * size, geneCount)
 
   return (
     <div className="w-full pt-3 p-1 md:p-3">
@@ -89,33 +86,10 @@ const Genes: React.FC = () => {
           Results (<strong>{geneCount}</strong>) <small>genes</small>
         </h2>
 
-        {/*    <Tooltip title="Options" arrow>
-          <Button
-            variant="outlined"
-            className="!mr-2 w-9 h-9 rounded-md "
-            onClick={e => setMenuAnchor(e.currentTarget)}
-          >
-            <FiMoreHorizontal size={18} />
-          </Button>
-        </Tooltip>
-        <Menu
-          anchorEl={menuAnchor}
-          open={Boolean(menuAnchor)}
-          onClose={() => setMenuAnchor(null)}
-        >
-          <MenuItem
-            onClick={() => {
-              setMenuAnchor(null)
-              setRenameDialogOpen(true)
-            }}
-          >
-            Rename Tab: {tabName}
-          </MenuItem>
-        </Menu> */}
-
         {!isLeftDrawerOpen && (
           <Button
-            variant="outlined"
+            variant="outline"
+            size="sm"
             className="min-w-[100px] rounded-md !bg-accent-200"
             onClick={() => dispatch(setLeftDrawerOpen(true))}
           >
@@ -146,7 +120,7 @@ const Genes: React.FC = () => {
                   <th className="w-10 p-3"></th>
                   {ANNOTATION_COLS.map(col => (
                     <th key={col.id} className="p-3 text-left">
-                      <Tooltip enterDelay={1500} placement="top" title={col.tooltip} arrow>
+                      <Tooltip openDelay={1500} position="top" label={col.tooltip} withArrow>
                         <span>{col.label}</span>
                       </Tooltip>
                     </th>
@@ -240,15 +214,40 @@ const Genes: React.FC = () => {
       )}
 
       {geneCount > 0 && (
-        <TablePagination
-          component="div"
-          count={geneCount}
-          page={page}
-          rowsPerPage={size}
-          onPageChange={handlePageChange}
-          onRowsPerPageChange={handleRowsPerPageChange}
-          rowsPerPageOptions={[10, 20, 50, 100]}
-        />
+        <div className="mt-2 flex items-center justify-end gap-3 px-3 py-2 text-sm text-gray-700">
+          <span>Rows per page:</span>
+          <Select
+            size="xs"
+            w={72}
+            data={['10', '20', '50', '100']}
+            value={String(size)}
+            onChange={handleRowsPerPageChange}
+            allowDeselect={false}
+          />
+          <span className="ml-2">
+            {pageStart}–{pageEnd} of {geneCount}
+          </span>
+          <div className="flex items-center gap-1">
+            <ActionIcon
+              variant="subtle"
+              color="gray"
+              disabled={page === 0}
+              onClick={() => handlePageChange(page)}
+              aria-label="Previous page"
+            >
+              <FiChevronLeft />
+            </ActionIcon>
+            <ActionIcon
+              variant="subtle"
+              color="gray"
+              disabled={page + 1 >= totalPages}
+              onClick={() => handlePageChange(page + 2)}
+              aria-label="Next page"
+            >
+              <FiChevronRight />
+            </ActionIcon>
+          </div>
+        </div>
       )}
     </div>
   )

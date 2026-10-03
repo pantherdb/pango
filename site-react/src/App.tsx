@@ -1,9 +1,9 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { MantineProvider } from '@mantine/core'
+import { Notifications } from '@mantine/notifications'
 import Layout from './app/layout/Layout'
-import { ThemeProvider } from '@emotion/react'
-import CssBaseline from '@mui/material/CssBaseline'
-import theme from './@pango.core/theme/theme'
+import mantineTheme from './@pango.core/theme/mantineTheme'
 
 import { defineCustomElements } from 'panther-overrep-form/loader'
 import Gene from './app/Gene'
@@ -37,24 +37,15 @@ const routes = [
   },
 ]
 
-const router = createBrowserRouter(routes, {
-  future: {
-    // v7_startTransition: true,
-    // v7_relativeSplatPath: true,
-    // v7_fetcherPersist: true,
-    // v7_normalizeFormMethod: true,
-    // v7_partialHydration: true,
-    // v7_skipActionErrorRevalidation: true,
-  },
-})
+const router = createBrowserRouter(routes)
 
 const App: React.FC = () => {
   return (
     <React.StrictMode>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <MantineProvider theme={mantineTheme} defaultColorScheme="light">
+        <Notifications position="top-right" />
         <RouterProvider router={router} />
-      </ThemeProvider>
+      </MantineProvider>
     </React.StrictMode>
   )
 }
