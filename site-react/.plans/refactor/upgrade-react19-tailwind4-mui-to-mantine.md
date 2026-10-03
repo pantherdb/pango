@@ -272,6 +272,10 @@ Mantine framework code is **smaller** than MUI was. The CSS grew because Mantine
 
 ## Follow-ups (not blocking, surfaced during migration)
 
+> All five were addressed, along with a post-migration review, in
+> [mantine-migration-hardening.md](mantine-migration-hardening.md) (2026-10-02). Note the "type-check
+> green" claims above: `tsc --noEmit` against the solution `tsconfig.json` checked nothing at the time.
+
 1. **Pre-existing test fixture bugs in `Home.test.tsx` and `Category.test.tsx`** — both omit `search.terms: []` (and the latter omits `state.terms.expandedCategoryId`/`childTerms`). These already failed under MUI/React 18. Fix the fixtures in a follow-up; one-liner each.
 2. **15 pre-existing lint errors** (all `@typescript-eslint/no-unused-vars`) across `Home.tsx`, `NavButton.tsx`, `VersionBanner.tsx`, `AnnotationDetails.tsx`, `GeneSearch.tsx`, `Genes.tsx`, `TermAutocompleteForm.tsx`, `TermFilterForm.tsx`. Plus `vite.config.ts` not in `tsconfig.app.json`. Mostly leftover imports/state-setters — easy cleanup.
 3. **Pill in PillsInput height styling** — added `!h-7` to match the old chip height, but Mantine's PillsInput auto-sizes. May want to drop the override and let Mantine's default sizing apply.

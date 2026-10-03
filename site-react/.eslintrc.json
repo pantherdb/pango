@@ -2,7 +2,7 @@
   "extends": ["eslint:recommended", "react-app", "plugin:react/jsx-runtime", "prettier"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig.app.json",
+    "project": ["./tsconfig.app.json", "./tsconfig.node.json"],
     "tsconfigRootDir": "./"
   },
   "plugins": ["@typescript-eslint"],

@@ -34,3 +34,5 @@ dist-ssr
 
 # Misc
 nul
+# TypeScript build info (tsc -b)
+*.tsbuildinfo

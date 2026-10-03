@@ -19,12 +19,12 @@ import {
   getUCSCBrowserLink,
   getUniprotLink,
 } from '@/@pango.core/services/linksService'
-import { useMediaQuery } from '@mantine/hooks'
 import AnnotationCards from '@/features/annotations/components/AnnotationCards'
 import { handleExternalLinkClick } from '@/analytics'
 import FeedbackBanner from '@/shared/components/FeedbackBanner'
 import FloatingFeedback from '@/shared/components/FloatingFeedback'
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle'
+import { useIsMobile } from '@/shared/hooks/useIsMobile'
 
 interface InfoRowProps {
   label: string
@@ -76,7 +76,7 @@ const Gene: React.FC = () => {
   const config = useConfig()
   const dispatch = useAppDispatch()
   const { id: geneId } = useParams<{ id: string }>()
-  const isMobile = useMediaQuery('(max-width: 599.99px)')
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     dispatch(setLeftDrawerOpen(false))
@@ -200,7 +200,6 @@ const Gene: React.FC = () => {
             <StatBlock number={unknownTermTypes} label="Unknown function aspects" />
           </div>
         </div>
-
 
         <FeedbackBanner geneSymbol={geneId || ''} />
         {annotations.length > 0 && (

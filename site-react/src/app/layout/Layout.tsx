@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '../hooks'
 import { initGA, trackPageView } from '@/analytics'
 import { useEffect } from 'react'
 import { Drawer } from '@mantine/core'
-import { useMediaQuery } from '@mantine/hooks'
+import { useIsMobile } from '@/shared/hooks/useIsMobile'
 
 interface LayoutProps {
   leftDrawerContent?: React.ReactNode
@@ -23,7 +23,7 @@ const drawerWidth = 420
 
 const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }) => {
   const location = useLocation()
-  const isMobile = useMediaQuery('(max-width: 599.99px)')
+  const isMobile = useIsMobile()
   const dispatch = useAppDispatch()
 
   const leftDrawerOpen = useAppSelector(selectLeftDrawerOpen)
@@ -45,20 +45,23 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
 
   return (
     <div className="flex h-screen w-full flex-col bg-gray-300">
-      <div className="fixed left-0 top-0 z-50 w-full">
+      <div className="fixed top-0 left-0 z-50 w-full">
         <Toolbar showLoadingBar={false} />
       </div>
-      <div className="fixed left-0 top-12 z-50 w-full">
+      <div className="fixed top-12 left-0 z-50 w-full">
         <VersionBanner />
       </div>
 
-      <div className="fixed flex w-full flex-1" style={{ top: 89, bottom: 0 }}>
+      <div className="fixed top-[89px] bottom-0 flex w-full flex-1">
         {leftDrawerContent && (
           <div
             className="h-full overflow-hidden border-r border-gray-300 bg-white transition-[width] duration-225 ease-out"
             style={{ width: leftWidth }}
           >
-            <div className="h-full overflow-auto" style={{ width: isMobile ? '100%' : drawerWidth }}>
+            <div
+              className="h-full overflow-auto"
+              style={{ width: isMobile ? '100%' : drawerWidth }}
+            >
               {leftDrawerContent}
             </div>
           </div>

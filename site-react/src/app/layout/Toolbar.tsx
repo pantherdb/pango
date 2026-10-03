@@ -1,111 +1,93 @@
 import type React from 'react'
-import { useState, useRef, useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FaBars, FaGithub, FaSearch, FaDownload, FaInfoCircle, FaQuestion } from 'react-icons/fa'
 import { IoMdClose } from 'react-icons/io'
 import { Link } from 'react-router-dom'
+import { ActionIcon, Button, Menu, Popover } from '@mantine/core'
 import { useAppDispatch } from '../hooks'
 import { toggleLeftDrawer } from '@/@pango.core/components/drawer/drawerSlice'
 import { VersionedLink } from '@/shared/components/VersionedLink'
+import { VersionedButton } from '@/shared/components/VersionedButton'
 import { useConfig } from '@/@pango.core/data/useConfig'
 import GeneSearch from '@/features/genes/components/GeneSearch'
+import type { GeneSearchCloseReason } from '@/features/genes/components/GeneSearch'
 import { handleExternalLinkClick } from '@/analytics'
-import { ActionIcon, Button, Menu, Popover } from '@mantine/core'
-import { useMediaQuery } from '@mantine/hooks'
-import { VersionedButton } from '@/shared/components/VersionedButton'
+import { useIsMobile } from '@/shared/hooks/useIsMobile'
+import { withApiVersion } from '@/shared/utils/withApiVersion'
 
 interface ToolbarProps {
   showLoadingBar?: boolean
 }
 
+const ICON_BUTTON_CLASS = 'mx-1.5 text-accent-500'
+const NAV_BUTTON_CLASS = 'text-accent-500 hover:text-accent-200'
+
 const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
   const config = useConfig()
-  const isMobile = useMediaQuery('(max-width: 599.99px)')
+  const isMobile = useIsMobile()
   const [showSearch, setShowSearch] = useState(false)
   const [showLogos, setShowLogos] = useState(false)
-  const searchRef = useRef<HTMLDivElement>(null)
-  const popoverRef = useRef<HTMLDivElement>(null)
+  // The search row (title, field, close button): presses inside it never dismiss the search.
+  const [searchArea, setSearchArea] = useState<HTMLDivElement | null>(null)
+  const searchTrigger = useRef<HTMLButtonElement>(null)
+  const restoreTriggerFocus = useRef(false)
   const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (popoverRef?.current && !popoverRef?.current.contains(event.target as Node)) {
-        setShowSearch(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
+  const openSearch = () => setShowSearch(true)
+  const closeSearch = (reason: GeneSearchCloseReason | 'button') => {
+    // Escape and the close button hand focus back to the trigger; after a press elsewhere the
+    // pressed element keeps it.
+    restoreTriggerFocus.current = reason !== 'outside'
+    setShowSearch(false)
+  }
 
-  const downloadItems = (
-    <>
-      <Menu.Item
-        component="a"
-        href={config.DOWNLOAD_ALL_DATA_CSV_URL}
-        onClick={() => handleExternalLinkClick(config.DOWNLOAD_ALL_DATA_CSV_URL)}
-      >
-        All data as CSV
-      </Menu.Item>
-      <Menu.Item
-        component="a"
-        href={config.DOWNLOAD_ALL_DATA_JSON_URL}
-        onClick={() => handleExternalLinkClick(config.DOWNLOAD_ALL_DATA_JSON_URL)}
-      >
-        All data as JSON
-      </Menu.Item>
-      <Menu.Item
-        component="a"
-        href={config.DOWNLOAD_ANNOTATIONS_GAF_URL}
-        onClick={() => handleExternalLinkClick(config.DOWNLOAD_ANNOTATIONS_GAF_URL)}
-      >
-        Annotations as GAF
-      </Menu.Item>
-      <Menu.Item
-        component="a"
-        href={config.DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL}
-        onClick={() => handleExternalLinkClick(config.DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL)}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Evolutionary models as GAF
-      </Menu.Item>
-      <Menu.Item
-        component="a"
-        href={config.DOWNLOAD_ONTOLOGY_FILES_URL}
-        onClick={() => handleExternalLinkClick(config.DOWNLOAD_ONTOLOGY_FILES_URL)}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Ontology Files
-      </Menu.Item>
-    </>
-  )
+  useEffect(() => {
+    if (showSearch || !restoreTriggerFocus.current) return
+    restoreTriggerFocus.current = false
+    searchTrigger.current?.focus()
+  }, [showSearch])
+
+  const downloads = [
+    { label: 'All data as CSV', href: config.DOWNLOAD_ALL_DATA_CSV_URL },
+    { label: 'All data as JSON', href: config.DOWNLOAD_ALL_DATA_JSON_URL },
+    { label: 'Annotations as GAF', href: config.DOWNLOAD_ANNOTATIONS_GAF_URL },
+    {
+      label: 'Evolutionary models as GAF',
+      href: config.DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL,
+      newTab: true,
+    },
+    { label: 'Ontology Files', href: config.DOWNLOAD_ONTOLOGY_FILES_URL, newTab: true },
+  ]
+
+  const downloadItems = downloads.map(({ label, href, newTab }) => (
+    <Menu.Item
+      key={label}
+      component="a"
+      href={href}
+      onClick={() => handleExternalLinkClick(href)}
+      {...(newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+    >
+      {label}
+    </Menu.Item>
+  ))
 
   const renderLogos = () => (
     <div className="flex items-center">
       {isMobile ? (
-        <Popover
-          opened={showLogos}
-          onChange={setShowLogos}
-          position="bottom-end"
-          withinPortal
-        >
+        <Popover opened={showLogos} onChange={setShowLogos} position="bottom-end">
           <Popover.Target>
-            <button className="!w-8 !p-0" onClick={() => setShowLogos(o => !o)}>
+            <button type="button" className="w-8 p-0" onClick={() => setShowLogos(o => !o)}>
               <img
                 src="/assets/images/logos/go-logo-yellow-icon.png"
-                alt="GO Logo"
-                className="!h-6"
+                alt="GO and PANTHER sites"
+                className="h-6"
               />
             </button>
           </Popover.Target>
-          <Popover.Dropdown className="!bg-primary-600 !p-4">
+          <Popover.Dropdown className="bg-primary-600 p-4">
             <div className="flex flex-col gap-2">
               <a href="http://geneontology.org/" target="_blank" rel="noopener noreferrer">
-                <img
-                  src="/assets/images/logos/go-logo-yellow.png"
-                  alt="GO Logo"
-                  className="h-8"
-                />
+                <img src="/assets/images/logos/go-logo-yellow.png" alt="GO Logo" className="h-8" />
               </a>
               <a href="http://pantherdb.org" target="_blank" rel="noopener noreferrer">
                 <img
@@ -142,23 +124,26 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
     <div className="flex items-center text-accent-500 md:pr-2">
       {isMobile ? (
         <ActionIcon
-          variant="subtle"
-          color="gray"
-          className="!w-5 !p-0 !mx-1.5 !text-accent-500"
-          onClick={() => setShowSearch(true)}
-          size="md"
+          ref={searchTrigger}
+          className={ICON_BUTTON_CLASS}
+          onClick={openSearch}
+          aria-label="Search genes"
         >
           <FaSearch />
         </ActionIcon>
       ) : (
         <div className="relative mr-1 flex items-center">
-          <input
-            type="text"
-            placeholder="Search Gene..."
-            className="h-8 rounded-full bg-white py-2 pl-8 pr-4"
-            onClick={() => setShowSearch(true)}
-          />
-          <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-500" />
+          {/* Looks like a field, but it is the button that opens the gene search. */}
+          <button
+            ref={searchTrigger}
+            type="button"
+            onClick={openSearch}
+            aria-label="Search genes"
+            className="h-8 w-56 rounded-full bg-white py-2 pr-4 pl-8 text-left text-gray-500"
+          >
+            Search Gene...
+          </button>
+          <FaSearch className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 transform text-gray-500" />
         </div>
       )}
     </div>
@@ -170,34 +155,25 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
         <>
           <Menu>
             <Menu.Target>
-              <ActionIcon
-                variant="subtle"
-                color="gray"
-                className="!w-5 !p-0 !mx-1.5 !text-accent-500"
-                size="md"
-              >
+              <ActionIcon className={ICON_BUTTON_CLASS} aria-label="Downloads">
                 <FaDownload />
               </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown>{downloadItems}</Menu.Dropdown>
           </Menu>
           <ActionIcon
-            variant="subtle"
-            color="gray"
-            className="!w-5 !p-0 !mx-1.5 !text-accent-500"
+            className={ICON_BUTTON_CLASS}
             component={Link}
-            to="/about"
-            size="md"
+            to={withApiVersion('/about')}
+            aria-label="About"
           >
             <FaInfoCircle />
           </ActionIcon>
           <ActionIcon
-            variant="subtle"
-            color="gray"
-            className="!w-5 !p-0 !mx-1.5 !text-accent-500"
+            className={ICON_BUTTON_CLASS}
             component={Link}
-            to="/help"
-            size="md"
+            to={withApiVersion('/help')}
+            aria-label="Help"
           >
             <FaQuestion />
           </ActionIcon>
@@ -206,24 +182,16 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
         <>
           <Menu>
             <Menu.Target>
-              <Button variant="subtle" className="!text-accent-500 hover:text-accent-200">
+              <Button variant="subtle" className={NAV_BUTTON_CLASS}>
                 Download
               </Button>
             </Menu.Target>
             <Menu.Dropdown>{downloadItems}</Menu.Dropdown>
           </Menu>
-          <VersionedButton
-            variant="subtle"
-            className="!text-accent-500 hover:text-accent-200"
-            to="/about"
-          >
+          <VersionedButton variant="subtle" className={NAV_BUTTON_CLASS} to="/about">
             About
           </VersionedButton>
-          <VersionedButton
-            variant="subtle"
-            className="!text-accent-500 hover:text-accent-200"
-            to="/help"
-          >
+          <VersionedButton variant="subtle" className={NAV_BUTTON_CLASS} to="/help">
             Help
           </VersionedButton>
         </>
@@ -232,25 +200,23 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
   )
 
   return (
-    <div className="fixed left-0 top-0 z-50 h-[50px] w-full bg-primary-500 text-accent-500">
+    <div className="fixed top-0 left-0 z-50 h-[50px] w-full bg-primary-500 text-accent-500">
       <div className="relative flex h-full items-center px-1 md:px-2">
         {showLoadingBar && (
           <div
             role="progressbar"
-            className="absolute left-0 right-0 top-0 h-1 w-full overflow-hidden bg-accent-100"
+            aria-label="Loading"
+            className="absolute inset-x-0 top-0 h-1 overflow-hidden bg-accent-100"
           >
-            <div className="h-full w-1/3 animate-[loadingBar_1.5s_ease-in-out_infinite] bg-accent-500" />
+            <div className="h-full w-1/3 animate-loading-bar bg-accent-500" />
           </div>
         )}
         {!showSearch ? (
           <>
             <ActionIcon
-              variant="subtle"
-              color="gray"
               onClick={() => dispatch(toggleLeftDrawer())}
-              className="mr-2 md:mr-1 !text-accent-500"
-              size="md"
-              aria-label="open menu"
+              className="mr-2 text-accent-500 md:mr-1"
+              aria-label="Toggle filter panel"
             >
               <FaBars />
             </ActionIcon>
@@ -272,14 +238,13 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
             <div className="flex flex-1 items-center justify-end">
               {renderSearch()}
               <ActionIcon
-                variant="subtle"
-                color="gray"
-                className="!w-5 !p-0 !mx-1.5 md:!mr-2 !text-accent-500"
+                className={`${ICON_BUTTON_CLASS} md:mr-2`}
                 onClick={() => handleExternalLinkClick('https://github.com/pantherdb/pango')}
                 component="a"
                 href="https://github.com/pantherdb/pango"
                 target="_blank"
-                size="md"
+                rel="noopener noreferrer"
+                aria-label="PAN-GO on GitHub"
               >
                 <FaGithub />
               </ActionIcon>
@@ -289,24 +254,18 @@ const Toolbar: React.FC<ToolbarProps> = ({ showLoadingBar }) => {
             </div>
           </>
         ) : (
-          <div ref={searchRef} className="flex w-full items-center justify-center space-x-4">
+          <div ref={setSearchArea} className="flex w-full items-center justify-center space-x-4">
             <div className="hidden text-lg font-semibold text-accent-500 sm:block">
               Search Genes
             </div>
             <div className="flex w-full md:w-3/5">
               <div className="relative flex-1">
-                <GeneSearch
-                  popoverRef={popoverRef}
-                  isOpen={showSearch}
-                  onClose={() => setShowSearch(false)}
-                />
+                <GeneSearch onClose={closeSearch} area={searchArea} />
               </div>
               <ActionIcon
-                variant="subtle"
-                color="gray"
-                onClick={() => setShowSearch(false)}
-                className="!text-accent-500"
-                size="md"
+                onClick={() => closeSearch('button')}
+                className="text-accent-500"
+                aria-label="Close search"
               >
                 <IoMdClose />
               </ActionIcon>

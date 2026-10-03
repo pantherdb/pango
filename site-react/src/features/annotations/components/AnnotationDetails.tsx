@@ -1,22 +1,11 @@
 import type React from 'react'
-import { BsBookmark, BsInfoCircle } from 'react-icons/bs'
-import { MdCategory, MdGroups } from 'react-icons/md'
 import type { Annotation } from '../models/annotation'
 import { ASPECT_MAP } from '@/@pango.core/data/config'
-import { FaDna } from 'react-icons/fa'
 import TermLink from '@/features/terms/components/TermLink'
 import { useConfig } from '@/@pango.core/data/useConfig'
 import { getPubmedArticleUrl } from '@/@pango.core/services/linksService'
 
-const Section = ({
-  title,
-  icon,
-  children,
-}: {
-  title: string
-  icon: React.ReactNode
-  children: React.ReactNode
-}) => (
+const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="mb-10">
     <div className="mb-3 flex items-center gap-2">
       <h2 className="text-2xl font-semibold text-gray-700">{title}</h2>
@@ -40,7 +29,7 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
         <h1 className="text-xl font-bold text-gray-800">Annotation Details</h1>
       </div>
       <div className="p-6">
-        <Section title="Gene" icon={<FaDna className="h-5 w-5" />}>
+        <Section title="Gene">
           <div className="space-y-2">
             <a
               href={`/gene/${annotation.gene}`}
@@ -55,10 +44,10 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
           </div>
         </Section>
 
-        <Section title="Term" icon={<BsBookmark className="h-5 w-5 text-green-500" />}>
+        <Section title="Term">
           <div className="flex items-center">
             <span
-              className="inline-flex !h-8 !w-8 items-center justify-center rounded-full border text-xs font-bold"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-bold"
               style={{
                 borderColor: ASPECT_MAP[annotation.term.aspect]?.color,
                 color: ASPECT_MAP[annotation.term.aspect]?.color,
@@ -75,15 +64,12 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
           </div>
         </Section>
 
-        <Section
-          title="GO Function Categories"
-          icon={<MdCategory className="h-5 w-5 text-purple-500" />}
-        >
+        <Section title="GO Function Categories">
           <div className="space-y-3">
             {annotation.slimTerms.map((term, termIdx) => (
               <div key={termIdx} className="mb-1 flex items-center last:mb-0">
                 <span
-                  className="inline-flex !h-8 !w-8 items-center justify-center rounded-full border font-bold"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full border font-bold"
                   style={{
                     borderColor: ASPECT_MAP[term.aspect]?.color,
                     color: ASPECT_MAP[term.aspect]?.color,
@@ -100,7 +86,7 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
           </div>
         </Section>
 
-        <Section title="Group" icon={<MdGroups className="h-5 w-5 text-amber-500" />}>
+        <Section title="Group">
           <div className="flex flex-col space-y-2">
             {annotation.detailedGroups.map(
               (group, index) =>
@@ -118,10 +104,7 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
             )}
           </div>
         </Section>
-        <Section
-          title={`Evidence (${annotation.evidence?.length})`}
-          icon={<BsInfoCircle className="h-5 w-5 text-indigo-500" />}
-        >
+        <Section title={`Evidence (${annotation.evidence?.length})`}>
           <div className="space-y-4">
             {annotation.evidence.map((evidence, evidenceIdx) => (
               <div
@@ -145,7 +128,7 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
                 {evidence.references.map((reference, refIdx) => (
                   <div
                     key={refIdx}
-                    className="ml-4 mt-3 rounded-lg border border-gray-200 bg-white p-3 shadow-sm"
+                    className="mt-3 ml-4 rounded-lg border border-gray-200 bg-white p-3 shadow-sm"
                   >
                     <a
                       href={getPubmedArticleUrl(reference.pmid)}

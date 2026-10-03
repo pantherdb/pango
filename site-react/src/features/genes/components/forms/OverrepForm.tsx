@@ -1,13 +1,20 @@
-import { useConfig } from '@/@pango.core/data/useConfig'
 import type React from 'react'
-import ontology from '@/@pango.core/data/ontologyOptions.json'
 import { useEffect, useRef } from 'react'
+import { useConfig } from '@/@pango.core/data/useConfig'
+import ontology from '@/@pango.core/data/ontologyOptions.json'
 
-declare global {
+/** The `<overrep-form>` web component (panther-overrep-form); list data is set as DOM properties. */
+interface OverrepFormElement extends HTMLElement {
+  ontologyOptions: typeof ontology.ontology
+  exampleGenes: typeof ontology.genes
+}
+
+// React 19 looks intrinsic elements up on React.JSX, so the custom element is declared there.
+declare module 'react' {
   namespace JSX {
     interface IntrinsicElements {
       'overrep-form': React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement> & {
+        React.HTMLAttributes<OverrepFormElement> & {
           'submit-url'?: string
           species?: string
           'test-type'?: string
@@ -18,17 +25,16 @@ declare global {
           'ontology-label'?: string
           hint?: string
           'show-hint'?: boolean
-          ontologyOptions?: any
-          exampleGenes?: any
         },
-        HTMLElement
+        OverrepFormElement
       >
     }
   }
 }
+
 const OverrepForm = () => {
   const config = useConfig()
-  const formRef = useRef<any>(null)
+  const formRef = useRef<OverrepFormElement>(null)
   const ontologyOptions = ontology.ontology
   const exampleGenes = ontology.genes
   const submitUrl = config.OVERREP_API_URL
@@ -58,7 +64,6 @@ const OverrepForm = () => {
           '--overrep-button-height': '35px',
           '--overrep-button-border': '1px solid #BBBBBB',
           '--overrep-select-height': '36px',
-          //'--overrep-primary-color': theme.palette.primary.main,
           '--overrep-hint-font-size': '10px',
           '--overrep-input-padding': '6px',
         } as React.CSSProperties

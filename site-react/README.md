@@ -8,7 +8,7 @@ A modern web application built with React, TypeScript, and Vite.
 - [TypeScript](https://www.typescriptlang.org/) - JavaScript with syntax for types
 - [Vite](https://vitejs.dev/) - Next Generation Frontend Tooling
 - [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework
-- [Material-UI](https://mui.com/) - React UI component library
+- [Mantine](https://mantine.dev/) - React component library
 - [Redux Toolkit](https://redux-toolkit.js.org/) - State management
 - [React Router](https://reactrouter.com/) - Application routing
 - [GraphQL](https://graphql.org/) - API query language
@@ -18,7 +18,7 @@ A modern web application built with React, TypeScript, and Vite.
 
 ### Prerequisites
 
-- Node.js (version 14 or higher)
+- Node.js (version 20 or higher)
 - npm
 
 ### Installation
@@ -63,34 +63,33 @@ The application will be available at `http://localhost:5173` (default Vite port)
 
 ### Environment Variables
 
-Create a `.env` file in the root directory for environment variables:
+Copy `.env.example` to `.env` and set:
 
 ```env
-VITE_API_URL=your_api_url_here
+VITE_PANGO_API_URL=your_api_url_here
+VITE_PANGO_API_VERSION=pango-2
 ```
 
 Access variables in your code:
 
 ```typescript
-const apiUrl = import.meta.env.VITE_API_URL
+const apiUrl = import.meta.env.VITE_PANGO_API_URL
 ```
 
-### Tailwind CSS
+### Styling (Mantine + Tailwind CSS v4)
 
-Tailwind is configured in `tailwind.config.js`. Make sure your global CSS file includes:
+There is no `tailwind.config.js`: Tailwind v4 is configured in `src/index.css`, which also loads
+Mantine's styles into a `mantine` cascade layer below Tailwind's utilities. Brand colours live in
+`src/@pango.core/theme/palette.ts` and the Mantine theme in `src/@pango.core/theme/mantineTheme.ts`.
+See `CLAUDE.md` for the conventions.
 
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
+## 🧪 Testing
 
-## 🧪 Testing (Writing tests soon)
-
-This project uses Vitest with React Testing Library. Run tests with:
+This project uses Vitest with React Testing Library. Specs live in `tests/`, mirroring `src/`.
 
 ```bash
-npm run test
+npm run test         # run once
+npm run test:watch   # watch mode
 ```
 
 ## 📝 Code Quality

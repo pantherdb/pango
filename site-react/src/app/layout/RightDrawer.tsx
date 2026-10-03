@@ -16,9 +16,7 @@ const RightDrawerContent: React.FC = () => {
         <div className="ml-auto flex gap-2">
           <Button
             variant="outline"
-            color="primary"
             size="xs"
-            className="rounded-md"
             onClick={() => {
               dispatch(setRightDrawerOpen(false))
               dispatch(setSelectedAnnotation(null))

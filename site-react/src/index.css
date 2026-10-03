@@ -1,32 +1,58 @@
-@import '@mantine/core/styles.css';
-@import '@mantine/notifications/styles.css';
+/* Cascade order: Mantine's component styles sit above Tailwind's preflight and below its utilities,
+   so utility classes on Mantine components apply without `!important`. */
+@layer theme, base, mantine, components, utilities;
+
+@import '@mantine/core/styles.layer.css';
 @import 'tailwindcss';
 
+/* Brand colours come from the Mantine theme (src/@pango.core/theme/palette.ts) through the CSS
+   variables MantineProvider emits, so the hex values are defined in one place. */
+@theme inline {
+  --color-primary-50: var(--mantine-color-primary-0);
+  --color-primary-100: var(--mantine-color-primary-1);
+  --color-primary-200: var(--mantine-color-primary-2);
+  --color-primary-300: var(--mantine-color-primary-3);
+  --color-primary-400: var(--mantine-color-primary-4);
+  --color-primary-500: var(--mantine-color-primary-5);
+  --color-primary-600: var(--mantine-color-primary-6);
+  --color-primary-700: var(--mantine-color-primary-7);
+  --color-primary-800: var(--mantine-color-primary-8);
+  --color-primary-900: var(--mantine-color-primary-9);
+
+  --color-accent-50: var(--mantine-color-accent-0);
+  --color-accent-100: var(--mantine-color-accent-1);
+  --color-accent-200: var(--mantine-color-accent-2);
+  --color-accent-300: var(--mantine-color-accent-3);
+  --color-accent-400: var(--mantine-color-accent-4);
+  --color-accent-500: var(--mantine-color-accent-5);
+  --color-accent-600: var(--mantine-color-accent-6);
+  --color-accent-700: var(--mantine-color-accent-7);
+  --color-accent-800: var(--mantine-color-accent-8);
+  --color-accent-900: var(--mantine-color-accent-9);
+}
+
 @theme {
-  --color-primary-50: #e4e7ec;
-  --color-primary-100: #bbc3d0;
-  --color-primary-200: #8e9bb0;
-  --color-primary-300: #627491;
-  --color-primary-400: #3f567b;
-  --color-primary-500: #173672;
-  --color-primary-600: #132f64;
-  --color-primary-700: #102653;
-  --color-primary-800: #0c1d42;
-  --color-primary-900: #08142f;
-
-  --color-accent-50: #fdf8e7;
-  --color-accent-100: #f9edc3;
-  --color-accent-200: #f5e19b;
-  --color-accent-300: #f1d572;
-  --color-accent-400: #eecc54;
-  --color-accent-500: #ebc336;
-  --color-accent-600: #e9bd30;
-  --color-accent-700: #e5b529;
-  --color-accent-800: #e2ae22;
-  --color-accent-900: #dda116;
-
   --text-2xs: 0.625rem;
   --text-2xs--line-height: 0.875rem;
+
+  --animate-fade-in: fade-in 300ms ease-in-out;
+  --animate-loading-bar: loading-bar 1.5s ease-in-out infinite;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  /* Slides a one-third-width bar across its track. */
+  @keyframes loading-bar {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(300%);
+    }
+  }
 }
 
 html {
@@ -51,11 +77,11 @@ code {
   }
 
   thead tr {
-    @apply border-b border-t border-accent-700;
+    @apply border-t border-b border-accent-700;
   }
 
   th {
-    @apply h-10 border-r border-gray-300 p-3 text-left text-xs font-bold uppercase text-primary-300;
+    @apply h-10 border-r border-gray-300 p-3 text-left text-xs font-bold text-primary-300 uppercase;
   }
 
   td {

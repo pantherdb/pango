@@ -1,22 +1,19 @@
 import type React from 'react'
+import { Tooltip } from '@mantine/core'
 import { SearchFilterType } from '@/features/search/search'
 import { removeItem } from '@/features/search/searchSlice'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
-import type { RootState } from '@/app/store/store'
+import { FilterPill } from '@/shared/components/FilterPill'
 import type { Term } from '../models/term'
-import { Pill, Tooltip } from '@mantine/core'
+
+const PILL_LABEL_LENGTH = 20
 
 const ChildTermFilterDisplay: React.FC = () => {
   const dispatch = useAppDispatch()
-  const selectedTerms = useAppSelector((state: RootState) => state.search.terms)
+  const selectedTerms = useAppSelector(state => state.search.terms)
 
   const handleDelete = (termToDelete: Term) => {
-    dispatch(
-      removeItem({
-        type: SearchFilterType.TERMS,
-        id: termToDelete.id,
-      })
-    )
+    dispatch(removeItem({ type: SearchFilterType.TERMS, id: termToDelete.id }))
   }
 
   if (selectedTerms.length === 0) return null
@@ -26,14 +23,15 @@ const ChildTermFilterDisplay: React.FC = () => {
       <div className="flex flex-wrap gap-2">
         {selectedTerms.map(option => {
           const truncatedLabel =
-            option.label.length > 20 ? `${option.label.substring(0, 20)}...` : option.label
+            option.label.length > PILL_LABEL_LENGTH
+              ? `${option.label.substring(0, PILL_LABEL_LENGTH)}...`
+              : option.label
           return (
-            <Tooltip key={option.id} label={option.label} position="top" openDelay={2000}>
-              <Pill
-                size="sm"
-                withRemoveButton
+            <Tooltip key={option.id} label={option.label} openDelay={2000}>
+              <FilterPill
+                className="h-6"
                 onRemove={() => handleDelete(option)}
-                className="h-7"
+                removeLabel={`Remove ${option.label}`}
               >
                 <span className="flex items-center gap-2">
                   <span
@@ -48,7 +46,7 @@ const ChildTermFilterDisplay: React.FC = () => {
                   </span>
                   <span className="text-xs text-gray-600">{truncatedLabel}</span>
                 </span>
-              </Pill>
+              </FilterPill>
             </Tooltip>
           )
         })}

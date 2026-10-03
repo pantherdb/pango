@@ -1,31 +1,30 @@
+import { Button, Tooltip } from '@mantine/core'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
+import { FilterPill } from '@/shared/components/FilterPill'
 import { SearchFilterType } from '../search'
 import { clearSearch, removeItem } from '../searchSlice'
-import { Badge, Pill, Tooltip } from '@mantine/core'
+
+const FILTER_GROUPS = [
+  { type: SearchFilterType.GENES, label: 'Genes' },
+  { type: SearchFilterType.SLIM_TERMS, label: 'Function Categories' },
+  { type: SearchFilterType.TERMS, label: 'Terms' },
+]
 
 const FilterSummary = () => {
   const dispatch = useAppDispatch()
   const search = useAppSelector(state => state.search)
 
-  const clearAllFilters = () => {
-    dispatch(clearSearch())
-  }
-
-  const removeFilter = (filterType: SearchFilterType) => {
-    const items = search[filterType]
-    items.forEach(item => {
-      dispatch(
-        removeItem({
-          type: filterType,
-          id: filterType === SearchFilterType.GENES ? item.gene : item.id,
-        })
-      )
-    })
+  const removeFilterGroup = (type: SearchFilterType) => {
+    const ids =
+      type === SearchFilterType.GENES
+        ? search.genes.map(gene => gene.gene)
+        : search[type].map(term => term.id)
+    ids.forEach(id => dispatch(removeItem({ type, id })))
   }
 
   if (search.filtersCount === 0) {
     return (
-      <span className="text-2xs italic text-gray-500 md:text-base">
+      <span className="text-2xs text-gray-500 italic md:text-base">
         No Filters selected: You can filter the list to find a specific function category.
       </span>
     )
@@ -34,50 +33,36 @@ const FilterSummary = () => {
   return (
     <div className="flex items-center gap-2">
       <small className="mr-2 text-xs md:text-sm">Filtered By:</small>
-      <Badge
-        onClick={clearAllFilters}
-        className="!h-6 !cursor-pointer !bg-accent-200 !text-xs"
-        size="sm"
-        variant="filled"
+      <Button
+        size="compact-xs"
+        color="accent.2"
+        autoContrast
+        onClick={() => dispatch(clearSearch())}
       >
         Clear All Filters
-      </Badge>
-      {search.genes.length > 0 && (
-        <Tooltip label={search.tooltips.genes} openDelay={1500} position="bottom" withArrow>
-          <Pill
-            size="sm"
-            withRemoveButton
-            onRemove={() => removeFilter(SearchFilterType.GENES)}
-            className="!h-6 !text-xs"
+      </Button>
+      {FILTER_GROUPS.map(({ type, label }) => {
+        const count = search[type].length
+        if (count === 0) return null
+        return (
+          <Tooltip
+            key={type}
+            label={search.tooltips[type]}
+            openDelay={1500}
+            position="bottom"
+            // Each selected filter is on its own line.
+            classNames={{ tooltip: 'whitespace-pre-line' }}
           >
-            {`Genes (${search.genes.length})`}
-          </Pill>
-        </Tooltip>
-      )}
-      {search.slimTerms.length > 0 && (
-        <Tooltip label={search.tooltips.slimTerms} openDelay={1500} position="bottom" withArrow>
-          <Pill
-            size="sm"
-            withRemoveButton
-            onRemove={() => removeFilter(SearchFilterType.SLIM_TERMS)}
-            className="!h-6 !text-xs"
-          >
-            {`Function Categories (${search.slimTerms.length})`}
-          </Pill>
-        </Tooltip>
-      )}
-      {search.terms.length > 0 && (
-        <Tooltip label={search.tooltips.terms} openDelay={1500} position="bottom" withArrow>
-          <Pill
-            size="sm"
-            withRemoveButton
-            onRemove={() => removeFilter(SearchFilterType.TERMS)}
-            className="!h-6 !text-xs"
-          >
-            {`Terms (${search.terms.length})`}
-          </Pill>
-        </Tooltip>
-      )}
+            <FilterPill
+              className="h-6"
+              onRemove={() => removeFilterGroup(type)}
+              removeLabel={`Remove ${label.toLowerCase()} filters`}
+            >
+              {`${label} (${count})`}
+            </FilterPill>
+          </Tooltip>
+        )
+      })}
     </div>
   )
 }

@@ -1,6 +1,5 @@
 import type React from 'react'
 import { useEffect, useMemo, useState } from 'react'
-import { useMediaQuery } from '@mantine/hooks'
 import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
 import OverrepForm from '@/features/genes/components/forms/OverrepForm'
 import Genes from '@/features/genes/components/Genes'
@@ -14,12 +13,13 @@ import { useConfig } from '@/@pango.core/data/useConfig'
 import { FiInfo, FiX } from 'react-icons/fi'
 import GeneSearch from '@/features/genes/components/GeneSearch'
 import { VersionedLink } from '@/shared/components/VersionedLink'
+import { useIsMobile } from '@/shared/hooks/useIsMobile'
 
 const Home: React.FC = () => {
   const config = useConfig()
   const dispatch = useAppDispatch()
   const [isFormOpen, setIsFormOpen] = useState(false)
-  const isMobile = useMediaQuery('(max-width: 599.99px)')
+  const isMobile = useIsMobile()
 
   const search = useAppSelector((state: RootState) => state.search)
   const filter = useMemo(
@@ -54,10 +54,10 @@ const Home: React.FC = () => {
       >
         <div className="flex flex-col gap-6 md:flex-row md:gap-0">
           <div className="w-full flex-col md:w-3/5">
-            <h1 className="mb-2 text-xl font-bold leading-5 tracking-wider text-white md:text-4xl">
+            <h1 className="mb-2 text-xl leading-5 font-bold tracking-wider text-white md:text-4xl">
               Functions of Human Genes
             </h1>
-            <h2 className="mb-2 max-w-2xl pr-4 text-sm font-medium tracking-wider text-white md:text-sm md:mb-10 md:leading-6">
+            <h2 className="mb-2 max-w-2xl pr-4 text-sm font-medium tracking-wider text-white md:mb-10 md:text-sm md:leading-6">
               The functionome describes the known functions of all human protein-coding genes, using
               terms from the Gene Ontology to describe each functional characteristic (
               <VersionedLink to="/about" className="text-accent-500 hover:text-accent-200">
@@ -73,8 +73,8 @@ const Home: React.FC = () => {
               ).
             </h2>
             <div className="flex flex-wrap items-center gap-2">
-              <div className="mb-1 mt-4 w-full md:hidden">
-                <GeneSearch isOpen={true} />
+              <div className="mt-4 mb-1 w-full md:hidden">
+                <GeneSearch />
               </div>
               <h3 className="text-xs text-white md:text-base">
                 See any missing or incorrect functions?
@@ -91,7 +91,7 @@ const Home: React.FC = () => {
           </div>
           <div className="mt-1 w-full md:w-2/5">
             <div className="flex items-center justify-between">
-              <h2 className="text-sm mb-2 flex items-center font-medium text-white md:text-base">
+              <h2 className="mb-2 flex items-center text-sm font-medium text-white md:text-base">
                 PAN-GO Enrichment Analysis
                 <a
                   href={config.OVERREP_DOCS_API_URL}

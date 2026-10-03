@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
 import TermCells from '@/features/terms/components/TermCells'
 import Terms from '@/features/terms/components/Terms'
-import { useMediaQuery } from '@mantine/hooks'
+import { useIsMobile } from '@/shared/hooks/useIsMobile'
 
 interface GeneSummaryProps {
   groupedTerms: GroupedTerms
@@ -54,7 +54,7 @@ const MobileSection: React.FC<MobileSectionProps> = ({
 }
 
 const GeneSummary: React.FC<GeneSummaryProps> = ({ groupedTerms }) => {
-  const isMobile = useMediaQuery('(max-width: 599.99px)')
+  const isMobile = useIsMobile()
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     'Molecular Function': true,
     'Biological Process': true,
@@ -109,7 +109,7 @@ const GeneSummary: React.FC<GeneSummaryProps> = ({ groupedTerms }) => {
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-t border-accent-700">
+            <tr className="border-t border-b border-accent-700">
               <th className="">Molecular Functions</th>
               <th className="">Biological Processes</th>
               <th className="">Cellular Components</th>

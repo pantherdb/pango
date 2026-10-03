@@ -4,12 +4,12 @@ import { setLeftDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
 import { clearSearch } from '@/features/search/searchSlice'
 import CategoryStats from '@/shared/components/CategoryStats'
 import { Button, Tooltip } from '@mantine/core'
-import { useMediaQuery } from '@mantine/hooks'
+import { useIsMobile } from '@/shared/hooks/useIsMobile'
 
 const LeftDrawerContent: React.FC = () => {
   const dispatch = useAppDispatch()
   const search = useAppSelector(state => state.search)
-  const isMobile = useMediaQuery('(max-width: 599.99px)')
+  const isMobile = useIsMobile()
 
   return (
     <div className="flex h-full flex-col">
@@ -20,7 +20,7 @@ const LeftDrawerContent: React.FC = () => {
             <Button
               variant="outline"
               size="xs"
-              className="rounded-md !bg-accent-200 !text-xs !px-2"
+              className="bg-accent-200 px-2 hover:bg-accent-300"
               onClick={() => dispatch(clearSearch())}
             >
               Clear Filters
@@ -28,17 +28,13 @@ const LeftDrawerContent: React.FC = () => {
           )}
           <Tooltip
             label="Expand your viewing space by hiding the filter panel and focus on the results. To bring back the panel, simply click the menu icon [hamburger icon] located at the top left corner."
-            position="top"
             openDelay={2000}
-            withArrow
           >
             <Button
               variant="outline"
-              color="primary"
               size="xs"
-              className="rounded-md !text-xs !px-2"
+              className="px-2"
               onClick={() => dispatch(setLeftDrawerOpen(false))}
-              aria-label="Close dialog"
             >
               {isMobile ? 'View Results' : 'Close'}
             </Button>

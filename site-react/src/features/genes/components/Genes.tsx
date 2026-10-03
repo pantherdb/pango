@@ -18,15 +18,14 @@ import {
 import { handleExternalLinkClick } from '@/analytics'
 import { ActionIcon, Button, Loader, Select, Tooltip } from '@mantine/core'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
-import { useMediaQuery } from '@mantine/hooks'
-import RenameTabDialog from '@/shared/components/RenameTabDialog'
+import { useIsMobile } from '@/shared/hooks/useIsMobile'
+
+const ROWS_PER_PAGE_OPTIONS = ['10', '20', '50', '100']
 
 const Genes: React.FC = () => {
-  const isMobile = useMediaQuery('(max-width: 599.99px)')
-  const isLeftDrawerOpen = useAppSelector((state: RootState) => selectLeftDrawerOpen(state))
+  const isMobile = useIsMobile()
+  const isLeftDrawerOpen = useAppSelector(selectLeftDrawerOpen)
   const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({})
-  const [renameDialogOpen, setRenameDialogOpen] = useState(false)
-  const [tabName, setTabName] = useState('PAN-GO Results')
 
   const { page, size } = useAppSelector((state: RootState) => state.search.pagination)
   const search = useAppSelector((state: RootState) => state.search)
@@ -46,7 +45,7 @@ const Genes: React.FC = () => {
 
   const genes = geneData?.genes ?? []
   const geneCount = countData?.total || 0
-  const totalPages = Math.max(1, Math.ceil(geneCount / size))
+  const lastPage = Math.max(0, Math.ceil(geneCount / size) - 1)
 
   const handleExpandClick = (gene: Gene) => {
     setExpandedRows(prev => ({
@@ -55,8 +54,9 @@ const Genes: React.FC = () => {
     }))
   }
 
-  const handlePageChange = (newPage: number) => {
-    dispatch(setPage(newPage - 1))
+  // `page` is zero-based, as stored in the search slice.
+  const goToPage = (nextPage: number) => {
+    dispatch(setPage(nextPage))
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -80,8 +80,8 @@ const Genes: React.FC = () => {
   const pageEnd = Math.min((page + 1) * size, geneCount)
 
   return (
-    <div className="w-full pt-3 p-1 md:p-3">
-      <div className="w-fill mb-6 flex h-20 items-center rounded-t-2xl bg-white pr-3">
+    <div className="w-full p-1 pt-3 md:p-3">
+      <div className="mb-6 flex h-20 w-full items-center rounded-t-2xl bg-white pr-3">
         <h2 className="flex-1 pl-3 text-xl font-medium text-gray-600 sm:text-3xl">
           Results (<strong>{geneCount}</strong>) <small>genes</small>
         </h2>
@@ -90,20 +90,13 @@ const Genes: React.FC = () => {
           <Button
             variant="outline"
             size="sm"
-            className="min-w-[100px] rounded-md !bg-accent-200"
+            className="min-w-[100px] bg-accent-200 hover:bg-accent-300"
             onClick={() => dispatch(setLeftDrawerOpen(true))}
           >
             Open Filter
           </Button>
         )}
       </div>
-
-      <RenameTabDialog
-        open={renameDialogOpen}
-        onClose={() => setRenameDialogOpen(false)}
-        currentName={tabName}
-        onRename={setTabName}
-      />
 
       {isMobile ? (
         <div className="space-y-2">
@@ -120,7 +113,7 @@ const Genes: React.FC = () => {
                   <th className="w-10 p-3"></th>
                   {ANNOTATION_COLS.map(col => (
                     <th key={col.id} className="p-3 text-left">
-                      <Tooltip openDelay={1500} position="top" label={col.tooltip} withArrow>
+                      <Tooltip openDelay={1500} label={col.tooltip}>
                         <span>{col.label}</span>
                       </Tooltip>
                     </th>
@@ -132,8 +125,11 @@ const Genes: React.FC = () => {
                   <tr key={gene.gene} className="border-b border-gray-300">
                     <td className="p-3 pt-6">
                       <button
+                        type="button"
                         onClick={() => handleExpandClick(gene)}
                         className="text-lg text-gray-700"
+                        aria-label={`${expandedRows[gene.gene] ? 'Collapse' : 'Expand'} ${gene.geneSymbol} terms`}
+                        aria-expanded={!!expandedRows[gene.gene]}
                       >
                         {expandedRows[gene.gene] ? <FaCaretDown /> : <FaCaretRight />}
                       </button>
@@ -141,12 +137,7 @@ const Genes: React.FC = () => {
                     <td className="p-2">
                       <div className="space-y-1 text-sm">
                         <div className="text-lg font-bold">
-                          <VersionedLink
-                            to={`/gene/${gene.gene}`}
-                            className=""
-                            target="_blank"
-                            rel="noreferrer"
-                          >
+                          <VersionedLink to={`/gene/${gene.gene}`} target="_blank" rel="noreferrer">
                             {gene.geneSymbol}
                           </VersionedLink>
                         </div>
@@ -155,7 +146,6 @@ const Genes: React.FC = () => {
                           <a
                             href={getUniprotLink(gene.gene)}
                             onClick={() => handleExternalLinkClick(getUniprotLink(gene.gene))}
-                            className=""
                             target="_blank"
                             rel="noopener noreferrer"
                           >
@@ -177,7 +167,7 @@ const Genes: React.FC = () => {
                             </a>
                           </div>
                         )}
-                        <div className="">
+                        <div>
                           <VersionedLink to={`/gene/${gene.gene}`} target="_blank" rel="noreferrer">
                             View all functions and evidence
                           </VersionedLink>
@@ -219,29 +209,25 @@ const Genes: React.FC = () => {
           <Select
             size="xs"
             w={72}
-            data={['10', '20', '50', '100']}
+            data={ROWS_PER_PAGE_OPTIONS}
             value={String(size)}
             onChange={handleRowsPerPageChange}
-            allowDeselect={false}
+            aria-label="Rows per page"
           />
           <span className="ml-2">
             {pageStart}–{pageEnd} of {geneCount}
           </span>
           <div className="flex items-center gap-1">
             <ActionIcon
-              variant="subtle"
-              color="gray"
               disabled={page === 0}
-              onClick={() => handlePageChange(page)}
+              onClick={() => goToPage(page - 1)}
               aria-label="Previous page"
             >
               <FiChevronLeft />
             </ActionIcon>
             <ActionIcon
-              variant="subtle"
-              color="gray"
-              disabled={page + 1 >= totalPages}
-              onClick={() => handlePageChange(page + 2)}
+              disabled={page >= lastPage}
+              onClick={() => goToPage(page + 1)}
               aria-label="Next page"
             >
               <FiChevronRight />

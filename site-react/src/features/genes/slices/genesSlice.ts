@@ -12,6 +12,7 @@ const initialState: GeneState = {
   filterArgs: {
     geneIds: [],
     slimTermIds: [],
+    termIds: [],
   },
   loading: false,
   error: null,

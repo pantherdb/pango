@@ -1,42 +1,20 @@
 import type React from 'react'
+import type { ButtonProps } from '@mantine/core'
 import { Button } from '@mantine/core'
 import { Link } from 'react-router-dom'
+import { withApiVersion } from '@/shared/utils/withApiVersion'
 
-interface VersionedButtonProps {
+type VersionedButtonProps = ButtonProps & {
+  /** In-app route, rendered as a router link. */
   to?: string
+  /** URL rendered as a plain anchor. */
   href?: string
-  children: React.ReactNode
-  [key: string]: any
+  onClick?: React.MouseEventHandler<HTMLElement>
 }
 
-export const VersionedButton: React.FC<VersionedButtonProps> = ({
-  to,
-  href,
-  children,
-  ...props
-}) => {
-  const apiVersion = new URLSearchParams(window.location.search).get('apiVersion')
-
-  const addVersionParam = (url: string) => {
-    if (!apiVersion) return url
-    return `${url}${url.includes('?') ? '&' : '?'}apiVersion=${apiVersion}`
-  }
-
-  if (to) {
-    return (
-      <Button component={Link} to={addVersionParam(to)} {...props}>
-        {children}
-      </Button>
-    )
-  }
-
-  if (href) {
-    return (
-      <Button component="a" href={addVersionParam(href)} {...props}>
-        {children}
-      </Button>
-    )
-  }
-
-  return <Button {...props}>{children}</Button>
+/** Mantine `Button` that links somewhere while keeping the current `?apiVersion=`. */
+export const VersionedButton: React.FC<VersionedButtonProps> = ({ to, href, ...props }) => {
+  if (to) return <Button component={Link} to={withApiVersion(to)} {...props} />
+  if (href) return <Button component="a" href={withApiVersion(href)} {...props} />
+  return <Button {...props} />
 }

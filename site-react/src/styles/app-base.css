@@ -8,10 +8,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-* :focus {
-  outline: none !important;
-}
-
 body {
   overflow-x: hidden;
   font-feature-settings: 'salt';
@@ -41,23 +37,6 @@ body {
   height: 100%;
 }
 
-.ps > .ps__rail-y,
-.ps > .ps__rail-x {
-  z-index: 99;
-}
-
-a[role='button'] {
-  text-decoration: none;
-}
-
-[role='tooltip'] {
-  z-index: 9999;
-}
-
-.MuiModal-root {
-  z-index: 9999;
-}
-
 @media only screen and (min-width: 992px) {
   ::-webkit-scrollbar {
     width: 8px;
@@ -81,19 +60,11 @@ a[role='button'] {
   }
 }
 
-form label {
-  z-index: 99;
-}
-
 body.no-animate *,
 body.no-animate *::before,
 body.no-animate *::after {
   transition: none !important;
   animation: none !important;
-}
-
-button:focus {
-  outline: none;
 }
 
 input:-webkit-autofill,
@@ -102,8 +73,4 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition-delay: 9999s;
   transition-property: background-color, color;
-}
-
-:focus {
-  outline-color: transparent;
 }

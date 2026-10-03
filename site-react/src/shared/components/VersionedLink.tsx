@@ -1,18 +1,14 @@
 import type React from 'react'
 import { Link } from 'react-router-dom'
+import { withApiVersion } from '@/shared/utils/withApiVersion'
 
-interface VersionedLinkProps {
+type VersionedLinkProps = Omit<React.ComponentPropsWithoutRef<'a'>, 'href'> & {
   to: string
-  children: React.ReactNode
-  target?: string
-  [key: string]: any
 }
 
+/** In-app link that keeps the current `?apiVersion=`. With a `target` it renders a plain anchor. */
 export const VersionedLink: React.FC<VersionedLinkProps> = ({ to, target, children, ...props }) => {
-  const apiVersion = new URLSearchParams(window.location.search).get('apiVersion')
-  const versionedTo = apiVersion
-    ? `${to}${to.includes('?') ? '&' : '?'}apiVersion=${apiVersion}`
-    : to
+  const versionedTo = withApiVersion(to)
 
   return target ? (
     <a href={versionedTo} target={target} {...props}>

@@ -41,9 +41,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
               <div className="flex items-center">
                 <Tooltip
                   label="The annotated functional characteristic of the gene. These are as specific as possible."
-                  position="top"
                   openDelay={1500}
-                  withArrow
                 >
                   <span>Term</span>
                 </Tooltip>
@@ -53,9 +51,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
               <div className="flex items-center">
                 <Tooltip
                   label="The high-level category(ies) of the annotated GO term."
-                  position="top"
                   openDelay={1500}
-                  withArrow
                 >
                   <span>GO Function Category</span>
                 </Tooltip>
@@ -63,12 +59,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
             </th>
             <th className="">
               <div className="flex items-center">
-                <Tooltip
-                  label="The evidence for the annotated GO term"
-                  position="top"
-                  openDelay={1500}
-                  withArrow
-                >
+                <Tooltip label="The evidence for the annotated GO term" openDelay={1500}>
                   <span>Evidence</span>
                 </Tooltip>
               </div>
@@ -77,9 +68,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
               <div className="flex items-center">
                 <Tooltip
                   label="The GO Consortium groups that created the annotations."
-                  position="top"
                   openDelay={1500}
-                  withArrow
                 >
                   <span>Contributors</span>
                 </Tooltip>
@@ -116,7 +105,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
               <td className="min-w-[250px] p-3">
                 <div className="flex items-center">
                   <span
-                    className="inline-flex !h-8 !w-8 items-center justify-center rounded-full border text-sm font-bold"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border text-sm font-bold"
                     style={{
                       borderColor: ASPECT_MAP[row.term.aspect]?.color,
                       color: ASPECT_MAP[row.term.aspect]?.color,
@@ -136,7 +125,7 @@ const AnnotationTable: React.FC<AnnotationTableProps> = ({
                 {row.slimTerms.map((term, termIdx) => (
                   <div key={termIdx} className="mb-1 flex items-center last:mb-0">
                     <span
-                      className="inline-flex !h-8 !w-8 items-center justify-center rounded-full border text-sm font-bold"
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border text-sm font-bold"
                       style={{
                         borderColor: ASPECT_MAP[term.aspect]?.color,
                         color: ASPECT_MAP[term.aspect]?.color,

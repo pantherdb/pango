@@ -1,21 +1,31 @@
 import type React from 'react'
-import { useState, useMemo } from 'react'
+import { useMemo, useState } from 'react'
+import { Combobox, Pill, PillsInput, Tooltip, useCombobox } from '@mantine/core'
 import { SearchFilterType } from '@/features/search/search'
 import { addItem, removeItem } from '@/features/search/searchSlice'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
-import type { RootState } from '@/app/store/store'
-import type { CategoryTerm, Term } from '../models/term'
-import {
-  Combobox,
-  Pill,
-  PillsInput,
-  Tooltip,
-  useCombobox,
-} from '@mantine/core'
+import { FilterPill } from '@/shared/components/FilterPill'
+import type { CategoryTerm } from '../models/term'
 
-const TermForm: React.FC<{ maxTerms?: number }> = ({ maxTerms = 10 }) => {
+const MIN_QUERY_LENGTH = 2
+const MAX_OPTIONS = 10
+const PILL_LABEL_LENGTH = 20
+
+const truncate = (label: string) =>
+  label.length > PILL_LABEL_LENGTH ? `${label.substring(0, PILL_LABEL_LENGTH)}...` : label
+
+const AspectCircle = ({ term, className }: { term: CategoryTerm; className: string }) => (
+  <span
+    className={`flex items-center justify-center rounded-full border text-xs font-bold ${className}`}
+    style={{ borderColor: term.color, color: term.color, backgroundColor: `${term.color}20` }}
+  >
+    {term.aspectShorthand}
+  </span>
+)
+
+const TermFilterForm: React.FC<{ maxTerms?: number }> = ({ maxTerms = 10 }) => {
   const dispatch = useAppDispatch()
-  const selectedTerms = useAppSelector((state: RootState) => state.search.slimTerms)
+  const selectedTerms = useAppSelector(state => state.search.slimTerms)
   const categories = useAppSelector(state => state.terms.functionCategories)
   const [inputValue, setInputValue] = useState('')
   const combobox = useCombobox({
@@ -23,92 +33,72 @@ const TermForm: React.FC<{ maxTerms?: number }> = ({ maxTerms = 10 }) => {
   })
 
   const filteredTerms = useMemo(() => {
-    if (!inputValue || inputValue.length < 2) return []
-    const searchValue = inputValue.toLowerCase()
+    const searchValue = inputValue.trim().toLowerCase()
+    if (searchValue.length < MIN_QUERY_LENGTH) return []
     return categories
-      ?.filter(
+      .filter(
         term =>
           !selectedTerms.some(selected => selected.id === term.id) &&
           (term.id.toLowerCase().includes(searchValue) ||
             term.label.toLowerCase().includes(searchValue))
       )
-      .slice(0, 10)
+      .slice(0, MAX_OPTIONS)
   }, [inputValue, categories, selectedTerms])
 
-  const disabled = selectedTerms.length >= maxTerms
+  const isFull = selectedTerms.length >= maxTerms
 
   const handleSelect = (termId: string) => {
     const term = filteredTerms.find(t => t.id === termId)
-    if (term && selectedTerms.length < maxTerms) {
+    if (term && !isFull) {
       dispatch(addItem({ type: SearchFilterType.SLIM_TERMS, item: term }))
       setInputValue('')
       combobox.closeDropdown()
     }
   }
 
-  const handleDelete = (termToDelete: Term) => {
-    dispatch(
-      removeItem({
-        type: SearchFilterType.SLIM_TERMS,
-        id: termToDelete.id,
-      })
-    )
+  const handleRemove = (term: CategoryTerm) => {
+    dispatch(removeItem({ type: SearchFilterType.SLIM_TERMS, id: term.id }))
   }
 
-  const pills = selectedTerms.map(option => {
-    const term = option as CategoryTerm
-    const truncatedLabel =
-      term.label.length > 20 ? `${term.label.substring(0, 20)}...` : term.label
-    return (
-      <Tooltip key={term.id} label={term.label} position="top" openDelay={2000}>
-        <Pill
-          withRemoveButton
-          onRemove={() => handleDelete(term)}
-          className="!h-7"
-        >
-          <span className="flex items-center gap-2">
-            <span
-              className="flex h-5 w-5 items-center justify-center rounded-full border text-xs font-bold"
-              style={{
-                borderColor: term.color,
-                color: term.color,
-                backgroundColor: `${term.color}20`,
-              }}
-            >
-              {term.aspectShorthand}
-            </span>
-            <span className="text-xs text-gray-600">{truncatedLabel}</span>
-          </span>
-        </Pill>
-      </Tooltip>
-    )
-  })
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    // Backspace in an empty field removes the last category, as in Mantine's MultiSelect.
+    if (event.key === 'Backspace' && inputValue.length === 0 && selectedTerms.length > 0) {
+      event.preventDefault()
+      handleRemove(selectedTerms[selectedTerms.length - 1])
+    }
+  }
 
-  const options = filteredTerms.map(option => (
+  const pills = selectedTerms.map(term => (
+    <Tooltip key={term.id} label={term.label} openDelay={2000}>
+      <FilterPill
+        className="h-7"
+        onRemove={() => handleRemove(term)}
+        removeLabel={`Remove ${term.label}`}
+      >
+        <span className="flex items-center gap-2">
+          <AspectCircle term={term} className="h-5 w-5" />
+          <span className="text-xs text-gray-600">{truncate(term.label)}</span>
+        </span>
+      </FilterPill>
+    </Tooltip>
+  ))
+
+  const options = filteredTerms.map(term => (
     <Combobox.Option
-      key={option.id}
-      value={option.id}
-      className="flex cursor-pointer items-center justify-between border-b border-primary-300 p-4 hover:bg-primary-100 hover:font-bold"
+      key={term.id}
+      value={term.id}
+      className="flex items-center justify-between border-b border-primary-300 px-4 py-1.5 hover:bg-primary-100 hover:font-bold data-[combobox-selected]:bg-primary-100 data-[combobox-selected]:text-inherit"
     >
       <div className="flex items-center gap-2">
-        <span
-          className="flex h-6 w-6 items-center justify-center rounded-full border text-xs font-bold"
-          style={{
-            borderColor: option.color,
-            color: option.color,
-            backgroundColor: `${option.color}20`,
-          }}
-        >
-          {option.aspectShorthand}
-        </span>
+        <AspectCircle term={term} className="h-6 w-6" />
         <div>
-          <span className="text-sm">{option.label}</span>
-          {option.displayId && (
-            <span className="ml-2 text-xs italic text-gray-500">{option.displayId}</span>
+          <span className="text-sm">{term.label}</span>
+          {term.displayId && (
+            <span className="ml-2 text-xs text-gray-500 italic">{term.displayId}</span>
           )}
         </div>
       </div>
-      <span className="text-xs text-gray-500">{option.count} genes</span>
+      <span className="text-xs text-gray-500">{term.count} genes</span>
     </Combobox.Option>
   ))
 
@@ -123,36 +113,37 @@ const TermForm: React.FC<{ maxTerms?: number }> = ({ maxTerms = 10 }) => {
         <Combobox.DropdownTarget>
           <PillsInput
             label="Add filter(s) by typing category here, or clicking a category below"
-            placeholder="Type to Search..."
-            onClick={() => combobox.openDropdown()}
-            classNames={{ input: 'bg-white' }}
-            disabled={disabled}
+            onClick={() => {
+              if (!isFull) combobox.openDropdown()
+            }}
           >
             <Pill.Group>
               {pills}
               <Combobox.EventsTarget>
                 <PillsInput.Field
+                  value={inputValue}
+                  placeholder={isFull ? `Max ${maxTerms} categories selected` : 'Type to Search...'}
+                  disabled={isFull}
                   onFocus={() => combobox.openDropdown()}
                   onBlur={() => combobox.closeDropdown()}
-                  value={inputValue}
-                  placeholder={disabled ? `Max ${maxTerms} categories selected` : 'Type to Search...'}
-                  onChange={e => {
-                    setInputValue(e.currentTarget.value)
-                    if (e.currentTarget.value.length >= 2) combobox.openDropdown()
+                  onKeyDown={handleKeyDown}
+                  onChange={event => {
+                    setInputValue(event.currentTarget.value)
+                    combobox.openDropdown()
+                    combobox.updateSelectedOptionIndex()
                   }}
-                  disabled={disabled}
                 />
               </Combobox.EventsTarget>
             </Pill.Group>
           </PillsInput>
         </Combobox.DropdownTarget>
 
-        <Combobox.Dropdown className="!bg-accent-50 !max-h-[300px] overflow-y-auto">
+        <Combobox.Dropdown className="max-h-[300px] overflow-y-auto bg-accent-50">
           <Combobox.Options>
-            {options.length === 0 ? (
-              <Combobox.Empty>Type to search categories...</Combobox.Empty>
-            ) : (
+            {options.length > 0 ? (
               options
+            ) : (
+              <Combobox.Empty>Type to search categories...</Combobox.Empty>
             )}
           </Combobox.Options>
         </Combobox.Dropdown>
@@ -161,4 +152,4 @@ const TermForm: React.FC<{ maxTerms?: number }> = ({ maxTerms = 10 }) => {
   )
 }
 
-export default TermForm
+export default TermFilterForm

@@ -65,8 +65,8 @@ that's what `shared/components/` is for.
 ```tsx
 // features/view-config/StylingControls.tsx
 export function StylingControls() {
-  const dispatch = useAppDispatch();
-  const sizeByDegree = useAppSelector(selectSizeByDegree);
+  const dispatch = useAppDispatch()
+  const sizeByDegree = useAppSelector(selectSizeByDegree)
   // ...
 }
 ```
@@ -103,8 +103,10 @@ uses it (e.g. `features/graph/useElkLayout.ts`). Hooks follow the same
   - Typography: `Text`, `Title`, `Code` — anything where you want
     Mantine's color / size / weight props.
   - Structure: `AppShell`, `Modal`, `Drawer`, `Menu`, `Popover`, `Tabs`,
-    `Accordion`, `Divider`, `Paper`, `Card`.
-  - Forms & feedback: `useForm`, `notifications`, `Loader`.
+    `Accordion`, `Divider`. Plain elements + Tailwind for boxes and surfaces
+    (no `Box` / `Paper` / `Card` wrappers just for padding or a border).
+  - Feedback: `Loader`. (`@mantine/form` and `@mantine/notifications` aren't
+    installed; add them when a feature needs them.)
 - **Tailwind** for:
   - Layout: `flex`, `grid`, `items-center`, `justify-between`, `gap-2`, `w-full`.
   - Spacing: `p-4`, `px-2`, `mt-3`.
@@ -159,6 +161,8 @@ top for layout/spacing:
 </Stack>
 ```
 
+Mantine's CSS is loaded into a cascade layer below Tailwind's utilities
+(see `src/index.css`), so plain utility classes on Mantine components win.
 Don't fight Mantine's internal styles — if you need a deep override, prefer
 Mantine's `styles` / theme overrides, not `!important` Tailwind classes.
 
@@ -181,7 +185,7 @@ Mantine's `styles` / theme overrides, not `!important` Tailwind classes.
 
 ```ts
 // features/view-config/LayoutPicker.tsx
-import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks'
 ```
 
 Never `import { useDispatch, useSelector } from 'react-redux'` directly —
@@ -237,11 +241,11 @@ reducers: {
 
 ```tsx
 // inside a renderer
-const fitNonce = useAppSelector((s) => s.ui.fitViewNonce);
+const fitNonce = useAppSelector(s => s.ui.fitViewNonce)
 useEffect(() => {
   // skip first render if you don't want an initial fire
-  rfInstance?.fitView();
-}, [fitNonce]);
+  rfInstance?.fitView()
+}, [fitNonce])
 ```
 
 **Use this pattern** for new imperative commands. Don't pass refs down
@@ -263,14 +267,14 @@ hand-rolled `fetch`/`axios` calls in components.
 // Adding a new endpoint
 export const graphApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
-  endpoints: (build) => ({
+  endpoints: build => ({
     getGraphs: build.query<GraphSummary[], void>({ query: () => '/graphs' }),
-    getGraph:  build.query<Graph, string>({ query: (id) => `/graphs/${id}` }),
+    getGraph: build.query<Graph, string>({ query: id => `/graphs/${id}` }),
     // ...add here
   }),
-});
+})
 
-export const { useGetGraphsQuery, useGetGraphQuery } = graphApi;
+export const { useGetGraphsQuery, useGetGraphQuery } = graphApi
 ```
 
 - Types on the request and response are mandatory. These are the **wire
@@ -287,9 +291,9 @@ Show a real loading state and a real error state. Don't silently render
 is a dev tool, devs want detail.
 
 ```tsx
-if (isLoading) return <Loader />;
-if (error)     return <Text c="red">Failed to load: {JSON.stringify(error)}</Text>;
-if (!data)     return <Text c="dimmed">No graph selected.</Text>;
+if (isLoading) return <Loader />
+if (error) return <Text c="red">Failed to load: {JSON.stringify(error)}</Text>
+if (!data) return <Text c="dimmed">No graph selected.</Text>
 ```
 
 ---
@@ -329,7 +333,7 @@ Strict mode is on: `noUnusedLocals`, `noUnusedParameters`,
 
 - **Use `import type`** for type-only imports:
   ```ts
-  import { setRenderer, type GraphRenderer } from '@/features/graph';
+  import { setRenderer, type GraphRenderer } from '@/features/graph'
   ```
 - Don't use `any` without a comment explaining why. Prefer `unknown` at
   boundaries, then narrow.
@@ -365,7 +369,10 @@ and `ResizeObserver`).
 - **Slices**: reducers are pure functions — test them directly, no mounting
   needed.
   ```ts
-  expect(uiReducer(state, toggleLeftPanel())).toEqual({ ...state, leftPanelOpen: !state.leftPanelOpen });
+  expect(uiReducer(state, toggleLeftPanel())).toEqual({
+    ...state,
+    leftPanelOpen: !state.leftPanelOpen,
+  })
   ```
 - **Selectors**: test shape-changing derivations.
 - **Components**: render with Testing Library, interact with user events,
