@@ -1,6 +1,8 @@
 import json
 import pytest
 
+import src.extract_sample_data as extract_sample_data
+from src import clean_annotations, generate_gene_annotations
 from src.extract_sample_data import (
     collect_referenced_entities, validate_references,
     filter_lookup_data, load_json_file, save_json_file,
@@ -92,6 +94,15 @@ def test_validate_references_empty():
     assert validate_references(refs, lookup) is True
 
 
+@pytest.mark.xfail(reason=(
+    "BUG: with_gene_ids are not validated, yet clean_annotations.get_evidence raises "
+    "KeyError for any with_gene_id missing from the gene info"))
+def test_validate_references_missing_with_genes():
+    refs = {'genes': {'G1'}, 'terms': {'T1'}, 'articles': set(), 'with_genes': {'G_MISSING'}}
+    lookup = {'genes': [{'gene': 'G1'}], 'terms': [{'ID': 'T1'}], 'articles': []}
+    assert validate_references(refs, lookup) is False
+
+
 # --- filter_lookup_data ---
 
 def test_filter_lookup_data():
@@ -155,3 +166,73 @@ def test_collect_and_filter_with_sample_data(sample_annotations):
     assert len(refs['genes']) > 0
     assert len(refs['terms']) > 0
     assert len(refs['articles']) > 0
+
+
+# --- main ---
+
+@pytest.fixture
+def run_extract(tmp_path, run_main, annos_fp, terms_fp, articles_fp, taxon_fp, genes_fp):
+    """Run extract_sample_data on the test input and return the output folder."""
+    def _run(*extra_args, annos=annos_fp):
+        out = tmp_path / 'sample'
+        run_main(extract_sample_data, '-a', annos, '-t', terms_fp, '-art', articles_fp,
+                 '-tax', taxon_fp, '-g', genes_fp, '-o', out, *extra_args)
+        return out
+    return _run
+
+
+@pytest.fixture
+def first_genes(monkeypatch):
+    """Make sampling deterministic: take the first k genes in sorted order."""
+    monkeypatch.setattr(extract_sample_data.random, 'sample', lambda population, k: sorted(population)[:k])
+
+
+def test_main_extracts_self_consistent_subset(run_extract, first_genes, hierarchy_fp):
+    out = run_extract('-n', '2', '-hi', hierarchy_fp)
+
+    refs = collect_referenced_entities(load_json_file(out / 'human_iba_annotations.json'))
+    genes = load_json_file(out / 'human_iba_gene_info.json')
+    terms = {t['ID'] for t in load_json_file(out / 'full_go_annotated.json')}
+
+    assert refs['genes'] == {'UniProtKB:Q5VZP5', 'UniProtKB:Q7Z4T9'}
+    assert {g['gene'] for g in genes} == refs['genes'] | refs['with_genes']
+    assert terms == refs['terms']
+    assert {a['pmid'] for a in load_json_file(out / 'clean-articles.json')} == refs['articles']
+    assert {t['taxon_id'] for t in load_json_file(out / 'taxon_lkp.json')} == {g['taxon_id'] for g in genes}
+    assert load_json_file(out / 'go_hierarchy.json') == [
+        h for h in load_json_file(hierarchy_fp) if h['child'] in terms or h['parent'] in terms
+    ]
+
+
+def test_main_caps_sample_size_at_gene_count(run_extract, sample_annotations):
+    out = run_extract('-n', '100')
+
+    assert load_json_file(out / 'human_iba_annotations.json') == sample_annotations
+
+
+def test_main_without_hierarchy_writes_no_hierarchy_file(run_extract):
+    out = run_extract()
+
+    assert not (out / 'go_hierarchy.json').exists()
+
+
+def test_main_writes_nothing_when_validation_fails(run_extract, write_json, sample_annotations):
+    unknown_term = [dict(sample_annotations[0], term='GO:9999999')]
+
+    out = run_extract(annos=write_json('annos.json', unknown_term))
+
+    assert list(out.iterdir()) == []
+
+
+def test_sample_runs_through_pipeline(tmp_path, run_extract, first_genes, run_main, hierarchy_fp):
+    """The point of a sample: the pipeline steps accept it as input."""
+    sample = run_extract('-n', '2', '-hi', hierarchy_fp)
+    clean_fp, genes_out_fp = tmp_path / 'clean.json', tmp_path / 'genes.json'
+
+    run_main(clean_annotations, '-a', sample / 'human_iba_annotations.json',
+             '-t', sample / 'full_go_annotated.json', '-art', sample / 'clean-articles.json',
+             '-tax', sample / 'taxon_lkp.json', '-g', sample / 'human_iba_gene_info.json', '-o', clean_fp)
+    run_main(generate_gene_annotations, '-a', clean_fp, '-o', genes_out_fp, '-hi', sample / 'go_hierarchy.json')
+
+    genes = load_json_file(genes_out_fp)
+    assert sorted(g['gene'] for g in genes) == ['UniProtKB:Q5VZP5', 'UniProtKB:Q7Z4T9']

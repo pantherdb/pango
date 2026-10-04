@@ -1,6 +1,5 @@
 import json
 import os
-import shutil
 import pytest
 from unittest.mock import patch
 
@@ -78,13 +77,10 @@ def test_parse_article_empty_authors():
     assert result['authors'] == []
 
 
-def test_parse_article_malformed_data():
-    malformed = {"uid": "12345"}
-    try:
-        result = parse_article(malformed)
-        assert result['pmid'] == 'PMID:12345'
-    except KeyError:
-        pass  # acceptable for missing required fields
+def test_parse_article_requires_title_and_pubdate():
+    # Unlike get_articles.parse_article, this parser has no defaults for missing fields.
+    with pytest.raises(KeyError):
+        parse_article({"uid": "12345", "authors": None})
 
 
 # --- write_to_json ---
@@ -163,29 +159,3 @@ def test_parse_arguments(tmp_path):
         args = parse_arguments()
         assert args.in_dir == in_dir
         assert args.out_fp == 'output.json'
-
-
-# --- Integration ---
-
-def test_integration_with_downloads_articles(tmp_path):
-    downloads_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'downloads', 'articles')
-    if not os.path.exists(downloads_dir):
-        pytest.skip("Downloads articles directory not found")
-
-    json_files = [f for f in os.listdir(downloads_dir) if f.endswith('.json')][:3]
-    if not json_files:
-        pytest.skip("No article JSON files found")
-
-    in_dir = tmp_path / 'articles'
-    in_dir.mkdir()
-    for name in json_files:
-        shutil.copy2(os.path.join(downloads_dir, name), str(in_dir / name))
-
-    out_fp = str(tmp_path / 'out.json')
-    parse_articles(str(in_dir), out_fp)
-
-    with open(out_fp, encoding='utf-8') as f:
-        result = json.load(f)
-    assert isinstance(result, list)
-    if result:
-        assert result[0]['pmid'].startswith('PMID:')

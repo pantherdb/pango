@@ -6,20 +6,11 @@ from unittest.mock import patch
 from src.generate_gene_annotations import (
     parse_arguments, uniquify_term, uniquify_slim_terms,
     group_terms, get_annos, load_parent_lookup,
-    COLUMNS_TO_EXTRACT, parent_lookup
+    COLUMNS_TO_EXTRACT,
 )
 
 
 # --- Fixtures ---
-
-@pytest.fixture(autouse=True)
-def _clear_parent_lookup():
-    """Reset parent_lookup global before each test."""
-    import src.generate_gene_annotations as mod
-    mod.parent_lookup = {}
-    yield
-    mod.parent_lookup = {}
-
 
 @pytest.fixture
 def _load_hierarchy(hierarchy_fp):
@@ -228,6 +219,30 @@ def test_get_annos_multiple_genes(tmp_path, sample_clean_annos):
     result_df = get_annos(fp)
     assert len(result_df) == 2
     assert set(result_df['gene_symbol']) == {'RAET1E', 'CLDN6'}
+
+
+def test_get_annos_orders_named_genes_first_then_by_term_count(write_json, sample_clean_annos):
+    base = sample_clean_annos[0]
+
+    def anno(gene, term_id, named_gene):
+        return {**base, 'gene': gene, 'term': {**base['term'], 'id': term_id}, 'named_gene': named_gene}
+
+    fp = write_json('clean.json', [
+        anno('UniProtKB:UNNAMED', 'GO:0000001', False),
+        anno('UniProtKB:UNNAMED', 'GO:0000002', False),
+        anno('UniProtKB:UNNAMED', 'GO:0000003', False),
+        anno('UniProtKB:FEW', 'GO:0000001', True),
+        anno('UniProtKB:MANY', 'GO:0000001', True),
+        anno('UniProtKB:MANY', 'GO:0000002', True),
+    ])
+
+    result = get_annos(fp)
+
+    assert list(zip(result['gene'], result['sort_priority'], result['term_count'])) == [
+        ('UniProtKB:MANY', 1, 2),
+        ('UniProtKB:FEW', 1, 1),
+        ('UniProtKB:UNNAMED', 20, 3),
+    ]
 
 
 # --- parse_arguments ---

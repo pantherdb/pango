@@ -22,6 +22,14 @@ pytest = "^7.0"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# -ra lists skipped/xfailed tests with their reasons (known bugs are xfail).
+addopts = "-ra"
+# A known bug that gets fixed turns its xfail into a failure, so the marker gets removed.
+xfail_strict = true
+filterwarnings = [
+    # pandas 1.5 calls a numpy API deprecated in numpy 1.25; noise from the pinned versions.
+    "ignore:np.find_common_type is deprecated:DeprecationWarning",
+]
 
 [build-system]
 requires = ["poetry-core"]

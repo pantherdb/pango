@@ -28,7 +28,7 @@ python3 -m src.get_articles -a <annotations.json> -o <output.json> -e <existing_
 python3 -m src.clean_annotations -a <annotations.json> -t <terms.json> -tax <taxon.json> -art <articles.json> -g <genes.json> -o <output.json>
 
 # Generate gene-level aggregations
-python3 -m src.generate_gene_annotations -a <clean_annotations.json> -o <output.json>
+python3 -m src.generate_gene_annotations -a <clean_annotations.json> -o <output.json> -hi <go_hierarchy.json>
 
 # Index to Elasticsearch
 python3 -m src.index_es -a <annotations.json> -g <genes.json> -p <index_prefix>
@@ -36,12 +36,12 @@ python3 -m src.index_es -a <annotations.json> -g <genes.json> -p <index_prefix>
 
 ### Run Tests
 ```bash
-./tests/run_tests.sh                    # Run all tests
-./tests/run_tests.sh utils              # Run specific module (utils, articles, annotations, genes)
-python -m unittest discover tests -v    # Using unittest directly
-pytest tests/ -v                        # Using pytest
-python -m unittest tests.test_utils.TestUtils.test_write_to_json_regular -v  # Single test method
+poetry run pytest                                 # Run all tests (pytest; no ES or network needed)
+./tests/run_tests.sh                              # Same, via the .venv wrapper
+./tests/run_tests.sh articles                     # One area (see ./tests/run_tests.sh help)
+poetry run pytest tests/test_utils.py::test_load_json  # Single test
 ```
+Known bugs are strict `xfail` tests with a `BUG:` reason; see `tests/README.md`.
 
 ## Architecture
 

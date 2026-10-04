@@ -1,5 +1,9 @@
 import os
+import sys
 import json
+import types
+from unittest.mock import MagicMock, patch
+
 import pytest
 import pandas as pd
 
@@ -10,59 +14,110 @@ INPUT_DIR = os.path.join(TEST_DATA_DIR, 'input', 'pango-test')
 OUTPUT_DIR = os.path.join(TEST_DATA_DIR, 'output', 'pango-test')
 
 
-# --- Path fixtures ---
+# --- Import-time configuration ---
+
+# src.config.settings fails validation at import unless these are set
+# (index_es normally loads them from .env first).
+os.environ.update({
+    'PANGO_ES_URL': 'http://localhost:9200',
+    'PANGO_ANNOTATIONS_INDEX': 'annotations-index',
+    'PANGO_GENES_INDEX': 'genes-index',
+})
+
+# src.config.es builds a live Elasticsearch client at import time. Stub it so no
+# test can reach a real cluster (create_index deletes indices); tests that need
+# the client patch the module-level `es` with their own mock.
+_es_module = types.ModuleType('src.config.es')
+_es_module.es = MagicMock(name='es')
+sys.modules['src.config.es'] = _es_module
+
+
+# --- Global state ---
+
+@pytest.fixture(autouse=True)
+def _reset_parent_lookup():
+    """generate_gene_annotations keeps the GO hierarchy in a module global."""
+    import src.generate_gene_annotations as mod
+    mod.parent_lookup = {}
+    yield
+    mod.parent_lookup = {}
+
+
+# --- Helpers ---
 
 @pytest.fixture
+def write_json(tmp_path):
+    """Return a function that writes data as JSON under tmp_path and returns the path."""
+    def _write(name, data):
+        fp = tmp_path / name
+        fp.parent.mkdir(parents=True, exist_ok=True)
+        fp.write_text(json.dumps(data), encoding='utf-8')
+        return str(fp)
+    return _write
+
+
+@pytest.fixture(scope='session')
+def run_main():
+    """Return a function that runs a module's main() with the given CLI arguments."""
+    def _run(module, *args):
+        with patch.object(sys, 'argv', [f'{module.__name__}.py', *map(str, args)]):
+            module.main()
+    return _run
+
+
+# --- Path fixtures ---
+
+@pytest.fixture(scope='session')
 def test_data_dir():
     return TEST_DATA_DIR
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def input_dir():
     return INPUT_DIR
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def output_dir():
     return OUTPUT_DIR
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def annos_fp():
     return os.path.join(INPUT_DIR, 'human_iba_annotations.json')
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def terms_fp():
     return os.path.join(INPUT_DIR, 'full_go_annotated.json')
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def articles_fp():
     return os.path.join(INPUT_DIR, 'clean-articles.json')
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def taxon_fp():
     return os.path.join(INPUT_DIR, 'taxon_lkp.json')
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def genes_fp():
     return os.path.join(INPUT_DIR, 'human_iba_gene_info.json')
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def hierarchy_fp():
     return os.path.join(INPUT_DIR, 'go_hierarchy.json')
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def clean_annos_fp():
     return os.path.join(OUTPUT_DIR, 'human_iba_annotations_clean.json')
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def clean_genes_fp():
     return os.path.join(OUTPUT_DIR, 'human_iba_genes_clean.json')
 
@@ -104,4 +159,10 @@ def sample_annotations(annos_fp):
 @pytest.fixture
 def clean_annotations_data(clean_annos_fp):
     with open(clean_annos_fp, encoding='utf-8') as f:
+        return json.load(f)
+
+
+@pytest.fixture
+def clean_genes_data(clean_genes_fp):
+    with open(clean_genes_fp, encoding='utf-8') as f:
         return json.load(f)

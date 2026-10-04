@@ -308,9 +308,103 @@ def test_get_annos_named_gene_flag(terms_df, genes_df, articles_df, annos_fp):
     assert result['named_gene'].dtype == bool
 
 
-def test_get_annos_sorted_by_named_gene(terms_df, genes_df, articles_df, annos_fp):
-    result = get_annos(annos_fp, terms_df, genes_df, articles_df)
-    named = result['named_gene'].tolist()
-    # Named genes (True) should come first
-    first_false = next((i for i, v in enumerate(named) if not v), len(named))
-    assert all(named[:first_false])  # all True before first False
+# --- get_annos on cases the sampled test data lacks ---
+
+def gene_info(gene, symbol, taxon_id="9606"):
+    return {"gene": gene, "gene_symbol": symbol, "gene_name": f"{symbol} protein", "taxon_id": taxon_id,
+            "panther_family": "PTHR10000", "long_id": f"HUMAN|UniProtKB={gene}",
+            "coordinates_chr_num": "1", "coordinates_start": "100", "coordinates_end": "200"}
+
+
+def annotation(gene, term, slim_terms, evidence_type, evidence=()):
+    return {"gene": gene, "term": term, "slim_terms": slim_terms, "evidence": list(evidence),
+            "group": "GO_Central", "evidence_type": evidence_type}
+
+
+@pytest.fixture
+def mini_annos(write_json):
+    """get_annos output, as written to JSON, for a hand-made dataset with an
+    unnamed gene (its symbol is just the accession), a null evidence_type, a
+    mouse with-gene and a reference that has no article metadata."""
+    terms_fp = write_json('terms.json', [
+        {"ID": "GO:0000001", "LABEL": "process one", "hasOBONamespace": "biological_process", "is_goslim": False},
+        {"ID": "GO:0000002", "LABEL": "slim two", "hasOBONamespace": "molecular_function", "is_goslim": True},
+        {"ID": "UNKNOWN:0001", "LABEL": "unknown", "hasOBONamespace": "biological_process", "is_goslim": False},
+    ])
+    genes_fp = write_json('genes.json', [
+        gene_info("UniProtKB:P00001", "ABC1"),
+        gene_info("UniProtKB:Q00002", "Q00002"),
+        gene_info("MGI:MGI:1", "Abc1", taxon_id="10090"),
+    ])
+    taxon_fp = write_json('taxon.json', [
+        {"taxon_id": "9606", "taxon_label": "Homo sapiens", "taxon_abbr": "Hsa"},
+        {"taxon_id": "10090", "taxon_label": "Mus musculus", "taxon_abbr": "Mmu"},
+    ])
+    articles_fp = write_json('articles.json', [
+        {"pmid": "PMID:1", "title": "Known article", "date": "2020", "authors": ["Doe A"]},
+    ])
+    annos_fp = write_json('annos.json', [
+        annotation("UniProtKB:Q00002", "GO:0000001", ["GO:0000002"], "homology", [
+            {"with_gene_id": "MGI:MGI:1", "references": ["PMID:1", "PMID:404"], "groups": ["MGI"]},
+        ]),
+        annotation("UniProtKB:P00001", "UNKNOWN:0001", [], None),
+        annotation("UniProtKB:P00001", "GO:0000001", ["GO:0000002"], "direct", [
+            {"with_gene_id": "MGI:MGI:1", "references": ["PMID:1"], "groups": ["MGI", "GO_Central"]},
+        ]),
+    ])
+
+    result = get_annos(annos_fp, get_terms_map(terms_fp), get_genes_map(genes_fp, get_taxon_map(taxon_fp)),
+                       get_articles_map(articles_fp))
+    return json.loads(result.to_json(orient="records"))
+
+
+def find(records, gene, term_id):
+    return next(r for r in records if r['gene'] == gene and r['term']['id'] == term_id)
+
+
+def test_get_annos_flags_unnamed_genes(mini_annos):
+    assert {r['gene']: r['named_gene'] for r in mini_annos} == {
+        'UniProtKB:P00001': True,
+        'UniProtKB:Q00002': False,  # gene_symbol is just the accession
+    }
+
+
+def test_get_annos_sorts_named_genes_first(mini_annos):
+    assert [r['named_gene'] for r in mini_annos] == [True, True, False]
+
+
+def test_get_annos_fills_missing_evidence_type(mini_annos):
+    assert find(mini_annos, 'UniProtKB:P00001', 'UNKNOWN:0001')['evidence_type'] == 'n/a'
+
+
+def test_get_annos_marks_unknown_terms(mini_annos):
+    assert find(mini_annos, 'UniProtKB:P00001', 'UNKNOWN:0001')['term_type'] == 'unknown'
+    assert find(mini_annos, 'UniProtKB:P00001', 'GO:0000001')['term_type'] == 'known'
+
+
+def test_get_annos_expands_terms(mini_annos):
+    record = find(mini_annos, 'UniProtKB:P00001', 'GO:0000001')
+
+    assert record['term'] == {"id": "GO:0000001", "label": "process one", "aspect": "biological process",
+                              "is_goslim": False}
+    assert record['aspect'] == 'biological process'
+    assert record['slim_terms'] == [{"id": "GO:0000002", "label": "slim two", "aspect": "molecular function",
+                                     "is_goslim": True}]
+
+
+def test_get_annos_resolves_evidence(mini_annos):
+    [evidence] = find(mini_annos, 'UniProtKB:Q00002', 'GO:0000001')['evidence']
+
+    assert evidence['with_gene_id']['gene_symbol'] == 'Abc1'
+    assert evidence['with_gene_id']['taxon_label'] == 'Mus musculus'
+    known, unresolved = evidence['references']
+    assert known['title'] == 'Known article'
+    assert unresolved is None  # PMID:404 has no article metadata
+
+
+def test_get_annos_counts_evidence_and_groups(mini_annos):
+    with_evidence = find(mini_annos, 'UniProtKB:P00001', 'GO:0000001')
+    without = find(mini_annos, 'UniProtKB:P00001', 'UNKNOWN:0001')
+
+    assert (with_evidence['evidence_count'], sorted(with_evidence['groups'])) == (1, ['GO_Central', 'MGI'])
+    assert (without['evidence_count'], without['groups']) == (0, [])

@@ -1,151 +1,81 @@
 # Panther Pango Loader Tests
 
-## Running Tests
+pytest suite for the loader. Nothing in it needs network access or a running
+Elasticsearch.
 
-### Option 1: Using Test Runner Scripts
+## Running
+
+From the loader root:
 
 ```bash
-
-# Run all tests
-./tests/run_tests.sh
-
-# Run specific test modules
-./tests/run_tests.sh utils
-./tests/run_tests.sh articles
-./tests/run_tests.sh annotations
-./tests/run_tests.sh genes
-
-# Show help
-./tests/run_tests.sh help
+poetry run pytest                        # everything
+poetry run pytest tests/test_pipeline.py # one file
+./tests/run_tests.sh                     # same as above, using .venv
+./tests/run_tests.sh articles -x         # one area; extra args go to pytest
+./tests/run_tests.sh help                # list areas
 ```
 
-### Option 2: Using Python unittest directly
+`run_tests.sh` picks the first Python that has the loader's dependencies
+(`.venv`, then `python`). Override it with `PYTHON=/path/to/python`.
 
-#### Run all tests
+Known bugs show up in the summary as `XFAIL` with the bug in the reason (see
+[Conventions](#conventions)).
+
+## What is covered
+
+| Test file | Module | Covers |
+| --- | --- | --- |
+| `test_get_articles.py` | `get_articles` | PMID extraction, article parsing, incremental fetch (only new PMIDs, batches of 100, rate-limit pause, failed batch refetched next run), atomic output write, CLI |
+| `test_clean_annotations.py` | `clean_annotations` | term/gene/article/taxon lookups, evidence resolution, plus a hand-made dataset for cases the sample data lacks: unnamed genes, null `evidence_type`, unresolved PMIDs, cross-species with-genes |
+| `test_generate_gene_annotations.py` | `generate_gene_annotations` | term de-duplication, `parent_ids`, `sort_priority`, gene ordering |
+| `test_pipeline.py` | both of the above | golden-file test: runs the CLIs on `test_data/input` and compares with `test_data/output` |
+| `test_es_mappings.py` | `data/es_settings` | every field a mapping declares appears in the pipeline output |
+| `test_create_index.py` | `create_index` | index naming/prefix, drop-and-recreate, settings and mapping per index type |
+| `test_index_es.py` | `index_es` | streaming JSON load, bulk load and error handling, CLI orchestration |
+| `test_extract_sample_data.py` | `extract_sample_data` | reference collection/validation/filtering, CLI, and that a sample runs through the pipeline |
+| `test_get_latest_versions.py` | `get_latest_versions` | picking the latest release per major version |
+| `test_clean_articles.py` | `clean_articles` | legacy parser for raw esummary files |
+| `test_check_unresolved_symbols.py`, `test_config_base.py`, `test_utils.py` | | small helpers |
+
+Not covered: `get_articles_everything.py` (superseded by `get_articles.py`, not used
+by any script) and `src/analysis/` (one-off analysis scripts).
+
+## Test data
+
+- `test_data/input/pango-test/`: a self-consistent 5-gene sample of a real
+  release, made with `src/extract_sample_data.py` (`-hi` adds the hierarchy).
+- `test_data/output/pango-test/`: the expected pipeline output for that input.
+
+After an intended change to the pipeline output, regenerate the expected files
+from the loader root and review the diff before committing:
+
 ```bash
-python -m unittest discover tests -v
+python -m src.clean_annotations \
+  -a test_data/input/pango-test/human_iba_annotations.json \
+  -t test_data/input/pango-test/full_go_annotated.json \
+  -art test_data/input/pango-test/clean-articles.json \
+  -tax test_data/input/pango-test/taxon_lkp.json \
+  -g test_data/input/pango-test/human_iba_gene_info.json \
+  -o test_data/output/pango-test/human_iba_annotations_clean.json
+
+python -m src.generate_gene_annotations \
+  -a test_data/output/pango-test/human_iba_annotations_clean.json \
+  -hi test_data/input/pango-test/go_hierarchy.json \
+  -o test_data/output/pango-test/human_iba_genes_clean.json
 ```
 
-#### Run specific test modules
-```bash
-python -m unittest tests.test_utils -v
-python -m unittest tests.test_clean_articles -v
-```
+## Conventions
 
-#### Run specific test classes
-```bash
-python -m unittest tests.test_utils.TestUtils -v
-python -m unittest tests.test_clean_articles.TestCleanArticles -v
-```
-
-#### Run specific test methods
-```bash
-python -m unittest tests.test_utils.TestUtils.test_write_to_json_regular -v
-```
-
-### Option 3: Using pytest
-```bash
-# Install pytest
-pip install pytest
-
-# Run all tests
-pytest tests/ -v
-
-# Run specific modules
-pytest tests/test_utils.py -v
-pytest tests/test_clean_articles.py -v
-```
-
-## Test Data
-
-Tests use sample data located in the `test_data/` directory:
-
-- `test_data/input/pango-test/` - Sample input files
-  - `full_go_annotated.json` - GO terms data
-  - `human_iba_annotations.json` - Sample annotations
-  - `human_iba_gene_info.json` - Gene information
-  - `taxon_lkp.json` - Taxon lookup data
-- `test_data/output/pango-test/` - Expected output files
-- `test_data/clean-articles.json` - Sample clean articles
-
-## Test Coverage
-
-### test_clean_annotations.py
-Tests for the clean_annotations module:
-
-- ✅ **Term processing**: `term_type()`, `spread_terms()`, `get_aspect()`
-- ✅ **Data loading**: `get_terms_map()`, `get_articles_map()`, `get_taxon_map()`, `get_genes_map()`
-- ✅ **Evidence processing**: `get_evidence()`, `count_evidence()`, `get_groups()`
-- ✅ **Main workflow**: `get_annos()` with sample and real test data
-- ✅ **Argument parsing**: Command line argument validation
-- ✅ **Integration tests**: End-to-end testing with real test data
-
-### test_generate_gene_annotations.py
-
-Tests for the generate_gene_annotations module:
-
-- ✅ **Term uniquification**: `uniquify_term()`, `uniquify_slim_terms()`
-- ✅ **Data grouping**: `group_terms()` for gene-level aggregation
-- ✅ **Main workflow**: `get_annos()` with sample and multiple gene data
-- ✅ **Duplicate handling**: Error handling for duplicate terms
-- ✅ **Column extraction**: Verification of required columns
-- ✅ **Integration tests**: Testing with real clean annotation data
-
-### test_clean_articles.py
-
-Tests for the clean_articles module:
-
-- ✅ **Article parsing**: `parse_article()` with various input formats
-- ✅ **Batch processing**: `parse_articles()` for directory processing
-- ✅ **File handling**: JSON file processing and subdirectory traversal
-- ✅ **Error handling**: Malformed data, missing files, invalid JSON
-- ✅ **Author processing**: Handling of missing/null/empty authors
-- ✅ **Unicode support**: Proper handling of international characters
-- ✅ **Integration tests**: Testing with real article data structure
-
-### test_utils.py
-
-Tests for the utils module:
-
-- ✅ **JSON I/O**: `write_to_json()`, `load_json()` with various options
-- ✅ **Compression**: Gzip compression support
-- ✅ **Unicode handling**: International character support
-- ✅ **Pandas utilities**: `get_pd_row()`, `get_pd_row_key()` with DataFrames
-- ✅ **NaN handling**: Proper handling of missing/null values
-- ✅ **Error handling**: File not found, invalid JSON, invalid paths
-- ✅ **Complex data types**: Nested objects, lists, numeric data
-
-## Test Patterns
-
-### Mocking and Isolation
-
-Tests use Python's `unittest.mock` for:
-
-- File system operations
-- Command line argument parsing
-- External dependencies
-
-### Temporary Files
-
-Tests use `tempfile` module for:
-
-- Creating temporary test files
-- Avoiding pollution of file system
-- Clean up after test execution
-
-### Real Data Integration
-
-Tests include integration tests that use:
-
-- Real test data files from `test_data/`
-- Subset sampling for performance
-- Optional skipping if test data not available
-
-### Error Scenarios
-
-Tests cover error conditions including:
-
-- Missing files
-- Invalid JSON
-- Malformed data
-- Edge cases (empty data, null values)
+- **No real Elasticsearch.** `conftest.py` replaces `src.config.es` with a mock
+  before anything imports it, so no test can reach a cluster (`create_index`
+  deletes indices). It also sets the `PANGO_*` variables `src.config.settings`
+  needs at import time.
+- **`index_es` is imported from a temp directory.** On import it reads `./.env`
+  and truncates `./logfile.log`, so `test_index_es.py` imports it through a
+  fixture instead of at the top of the file.
+- **Known bugs are strict `xfail`s** whose reason starts with `BUG:`. The test
+  describes the correct behavior. When a fix lands the test passes, strict mode
+  reports it as a failure (`XPASS(strict)`), and the marker should be removed.
+- Shared fixtures in `conftest.py`: input/output paths, `write_json` (write a
+  JSON file under `tmp_path`), `run_main` (run a module's `main()` with CLI
+  arguments). `generate_gene_annotations.parent_lookup` is reset before each test.

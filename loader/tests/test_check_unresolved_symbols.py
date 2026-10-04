@@ -1,6 +1,7 @@
 import json
 import pytest
 
+from src import check_unresolved_symbols
 from src.check_unresolved_symbols import process_gene_entry, process_file
 
 
@@ -99,3 +100,16 @@ def test_process_file_preserves_other_fields(tmp_path):
         result = json.load(f)
     assert result[0]["extra"] == "keep"
     assert "named_gene" in result[0]
+
+
+# --- main ---
+
+def test_main(tmp_path, run_main, write_json):
+    inp = write_json('input.json', [{"gene": "UniProtKB:Q1", "gene_symbol": "Q1"}])
+    out = tmp_path / 'output.json'
+
+    run_main(check_unresolved_symbols, '-i', inp, '-o', out)
+
+    assert json.loads(out.read_text(encoding='utf-8')) == [
+        {"gene": "UniProtKB:Q1", "gene_symbol": "Q1", "named_gene": False},
+    ]
