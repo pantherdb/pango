@@ -15,18 +15,23 @@ poetry install
 # Run development server (localhost:5000)
 poetry run python main.py
 
-# Run all tests
+# Run all tests (integration tests skip when Elasticsearch is unreachable)
 poetry run pytest
 
-# Run specific test file
-poetry run pytest tests/test_graphql_api.py -v
+# Offline tests only
+poetry run pytest -m "not integration"
 
-# Run single test
-poetry run pytest tests/test_graphql_api.py::TestAnnotationResolver::test_get_annotation -v
+# Run specific test file / single test
+poetry run pytest tests/test_graphql_queries.py
+poetry run pytest tests/test_graphql_queries.py::TestGenes::test_full_document
 
-# Run with coverage
-poetry run pytest --cov=src
+# Integration tests against a throwaway Elasticsearch (see tests/README.md)
+PANGO_TEST_ES_URL=http://localhost:19200 poetry run pytest tests/integration
 ```
+
+Tests mock Elasticsearch through the `es_mock` fixture (the resolvers' module-level `es`), never by
+patching resolver functions. Confirmed bugs are `xfail(strict=True)` tests marked `BUG:`; see
+`tests/README.md`.
 
 ## Architecture
 

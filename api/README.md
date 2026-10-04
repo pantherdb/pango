@@ -104,14 +104,14 @@ Once the server is running, access the GraphQL playground:
 ### Running Tests
 
 ```bash
-# Run all tests
+# Run all tests (integration tests skip when Elasticsearch is unreachable)
 poetry run pytest
 
-# Run with coverage
-poetry run pytest --cov=src
+# Offline tests only
+poetry run pytest -m "not integration"
 
 # Run specific test file
-poetry run pytest tests/test_graphql_api.py
+poetry run pytest tests/test_graphql_queries.py
 ```
 
 ### Adding Dependencies
