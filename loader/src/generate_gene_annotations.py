@@ -2,6 +2,7 @@ import argparse
 import json
 from os import path as ospath
 import pandas as pd
+from src.build_record import current_run, record_run
 from src.config.base import file_path
 from src.utils import write_to_json
 
@@ -43,12 +44,21 @@ COLUMNS_TO_EXTRACT = [
 
 def main():
     parser = parse_arguments()
-    load_parent_lookup(parser.hierarchy_fp)
-    annos_df = get_annos(parser.annos_fp)
-    anno_json = annos_df.to_json(orient="records", default_handler=None)
-    json_str = json.loads(anno_json)
+    run = current_run()
+    run.set_config(vars(parser))
+    with run.phase('load_hierarchy') as phase:
+        load_parent_lookup(parser.hierarchy_fp)
+        phase.count('hierarchy_terms', len(parent_lookup))
+        phase.count('hierarchy_edges', sum(len(parents) for parents in parent_lookup.values()))
+    with run.phase('group') as phase:
+        annos_df = get_annos(parser.annos_fp)
+        phase.count('genes', len(annos_df))
+    with run.phase('write'):
+        anno_json = annos_df.to_json(orient="records", default_handler=None)
+        json_str = json.loads(anno_json)
 
-    write_to_json(json_str, ospath.join('.', parser.genes_annos_fp))
+        write_to_json(json_str, ospath.join('.', parser.genes_annos_fp))
+        run.artifact(parser.genes_annos_fp, role='clean_genes', records=len(annos_df))
 
 
 def parse_arguments():
@@ -131,4 +141,5 @@ def get_annos(annos_fp):
 
 
 if __name__ == "__main__":
-    main()
+    with record_run(step='generate_gene_annotations'):
+        main()

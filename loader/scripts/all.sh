@@ -80,7 +80,9 @@ process_dataset() {
     mkdir -p "$output_subdir"
     
     echo "Processing dataset in folder: $prefix"
-    
+    # The steps' build records name the dataset from this.
+    export PANGO_DATASET="$prefix"
+
     # Input files - located within each folder
     local terms_fp="$folder/full_go_annotated.json"
     local annotations_fp="$folder/human_iba_annotations.json"
@@ -144,13 +146,25 @@ process_dataset() {
         -a "$clean_annotations_fp" \
         -o "$genes_annotations_fp" \
         -hi "$hierarchy_fp"
-    
+
+    echo "Reporting on the data..."
+    python -m src.data_report \
+        -i "$folder" \
+        -o "$output_subdir" \
+        -art "$CLEAN_ARTICLES"
+
     echo "Indexing to Elasticsearch..."
     python -m src.index_es \
         -a "$clean_annotations_fp" \
         -g "$genes_annotations_fp" \
         -p "${prefix}"
-    
+
+    echo "Checking Elasticsearch..."
+    python -m src.verify_es \
+        -a "$clean_annotations_fp" \
+        -g "$genes_annotations_fp" \
+        -p "${prefix}"
+
     echo "Completed processing for $prefix"
     echo "----------------------------------------"
 }
@@ -164,6 +178,18 @@ fi
 
 echo "Contents of $INPUT_BASE:"
 ls -la "$INPUT_BASE"
+
+# Build record (src/build_record, read by build-dashboard/): build.json now, closed by the
+# trap however the script ends. PANGO_RECORD=0 turns it off; it never stops the build.
+PANGO_BUILD_ID="$(python -m src.build_record begin --script all -i "$INPUT_BASE" -a "$CLEAN_ARTICLES" -o "$OUTPUT_DIR" || true)"
+export PANGO_BUILD_ID
+end_build() {
+    local status=$?
+    python -m src.build_record end --build-id "$PANGO_BUILD_ID" --exit-code "$status" || true
+    exit "$status"
+}
+trap end_build EXIT
+trap 'exit 130' INT TERM
 
 # Process each folder
 found_folders=false

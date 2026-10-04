@@ -1,10 +1,12 @@
 import load_env
+import os
 import sys
 import time
 import logging
 from elasticsearch import helpers
 import ijson
 import argparse
+from src.build_record import current_run, record_run
 from src.config.es import es
 from src.config.base import TableAggType, file_path
 from src.create_index import create_index
@@ -22,6 +24,8 @@ logger = logging.getLogger(__name__)
 
 # Every failed document is counted; this many are also logged one by one.
 MAX_LOGGED_ERRORS = 20
+# How often (in documents) load_json reports how far through its file it is.
+PROGRESS_EVERY = 1000
 
 def parse_arguments() -> argparse.Namespace:
     """Parse command line arguments."""
@@ -61,12 +65,16 @@ def load_json(j_file: str) -> Generator[dict, None, None]:
         Dictionary containing each JSON item
     """
     start_time = time.time()
+    run = current_run()
 
     try:
         # Binary mode: ijson reads bytes, and text mode is deprecated (it warns it will become an error).
         with open(j_file, 'rb') as open_file:
-            for value in ijson.items(open_file, 'item'):
+            for count, value in enumerate(ijson.items(open_file, 'item'), 1):
                 yield value
+                if count % PROGRESS_EVERY == 0:
+                    run.progress(open_file.tell())
+            run.progress(open_file.tell())
 
     except Exception as e:
         logger.error(f"Error loading JSON file {j_file}: {str(e)}")
@@ -124,28 +132,57 @@ def describe_error(item: Any) -> str:
     return f"document {action.get('_id', '?')} (status {action.get('status', '?')}): {reason}"
 
 
-def load_index(index_type: str, j_file: str, prefix: str, name: str) -> int:
+def record_server(run) -> None:
+    """The cluster this run writes to, for the build record."""
+    if not run.enabled:
+        return
+    try:
+        info = es.info()
+        run.es_server({
+            'name': info.get('name'),
+            'cluster': info.get('cluster_name'),
+            'version': (info.get('version') or {}).get('number'),
+        })
+    except Exception as e:
+        logger.warning(f"Could not read the Elasticsearch server info: {e}")
+
+
+def load_index(run, index_type: str, j_file: str, prefix: str, name: str) -> int:
     """Recreate one index and load a file into it. Returns how many documents failed."""
-    index_name = create_index(index_type, prefix)
-    success, errors = bulk_load(j_file, index_name)
-    if errors:
-        logger.warning(f"{name} loading had {len(errors)} errors")
-        for item in errors[:MAX_LOGGED_ERRORS]:
-            logger.error(f"{index_name}: {describe_error(item)}")
+    with run.phase(index_type) as phase:
+        started = time.perf_counter()
+        index_name = create_index(index_type, prefix)
+        run.es_op('recreate_index', index=index_name, duration_s=time.perf_counter() - started)
+
+        run.progress(0, os.path.getsize(j_file), label=index_type, unit='bytes')
+        started = time.perf_counter()
+        success, errors = bulk_load(j_file, index_name)
+        run.es_op('bulk', index=index_name, status='failed' if errors else 'ok', count=success,
+                  errors=len(errors), duration_s=time.perf_counter() - started)
+        phase.count('docs_indexed', success, by=index_type)
+        phase.count('bulk_errors', len(errors), by=index_type)
+        if errors:
+            logger.warning(f"{name} loading had {len(errors)} errors")
+            for item in errors[:MAX_LOGGED_ERRORS]:
+                logger.error(f"{index_name}: {describe_error(item)}")
+            phase.fail(f"{len(errors)} documents failed to load")
     return len(errors)
 
 
 def main() -> None:
+    run = current_run()
 
     try:
         args = parse_arguments()
+        run.set_config(vars(args), dataset=args.index_prefix or None)
+        record_server(run)
 
         # Create and load annotations index
-        failed = load_index(TableAggType.ANNOTATIONS.value, args.annotations_file,
+        failed = load_index(run, TableAggType.ANNOTATIONS.value, args.annotations_file,
                             args.index_prefix, 'Annotations')
 
         # Create and load genes index
-        failed += load_index(TableAggType.GENES.value, args.genes_file,
+        failed += load_index(run, TableAggType.GENES.value, args.genes_file,
                              args.index_prefix, 'Genes')
 
     except Exception as e:
@@ -157,4 +194,5 @@ def main() -> None:
         sys.exit(f"{failed} documents failed to load, so the indexes are incomplete; see logfile.log")
 
 if __name__ == "__main__":
-    main()
+    with record_run(step='index_es'):
+        main()

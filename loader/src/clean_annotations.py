@@ -4,6 +4,7 @@ from os import path as ospath
 import time
 import numpy as np
 import pandas as pd
+from src.build_record import current_run, record_run
 from src.config.base import file_path
 from src.utils import get_pd_row, get_pd_row_key, write_to_json
 
@@ -11,15 +12,29 @@ UNKNOWN_TERMS =['UNKNOWN:0001', 'UNKNOWN:0002', 'UNKNOWN:0003']
 
 def main():
     parser = parse_arguments()
-    terms_df = get_terms_map(parser.terms_fp)
-    articles_df = get_articles_map(parser.articles_fp)
-    taxon_df = get_taxon_map(parser.taxon_fp)
-    genes_df = get_genes_map(parser.genes_fp, taxon_df)
-    annos_df = get_annos(parser.annos_fp, terms_df, genes_df, articles_df)
-    anno_json = annos_df.to_json(orient="records", default_handler=None)
-    json_str = json.loads(anno_json)
+    run = current_run()
+    run.set_config(vars(parser))
+    with run.phase('load_terms') as phase:
+        terms_df = get_terms_map(parser.terms_fp)
+        phase.count('terms', len(terms_df))
+    with run.phase('load_articles') as phase:
+        articles_df = get_articles_map(parser.articles_fp)
+        phase.count('articles', len(articles_df))
+    with run.phase('load_taxa') as phase:
+        taxon_df = get_taxon_map(parser.taxon_fp)
+        phase.count('taxa', len(taxon_df))
+    with run.phase('load_genes') as phase:
+        genes_df = get_genes_map(parser.genes_fp, taxon_df)
+        phase.count('genes', len(genes_df))
+    with run.phase('join') as phase:
+        annos_df = get_annos(parser.annos_fp, terms_df, genes_df, articles_df)
+        phase.count('annotations', len(annos_df))
+    with run.phase('write'):
+        anno_json = annos_df.to_json(orient="records", default_handler=None)
+        json_str = json.loads(anno_json)
 
-    write_to_json(json_str, ospath.join('.', parser.clean_annos_fp))
+        write_to_json(json_str, ospath.join('.', parser.clean_annos_fp))
+        run.artifact(parser.clean_annos_fp, role='clean_annotations', records=len(annos_df))
 
 
 def parse_arguments():
@@ -143,4 +158,5 @@ def get_annos(annos_fp, terms_df, genes_df, articles_df):
 
 
 if __name__ == "__main__":
-    main()
+    with record_run(step='clean_annotations'):
+        main()

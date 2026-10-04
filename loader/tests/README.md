@@ -31,7 +31,11 @@ Known bugs show up in the summary as `XFAIL` with the bug in the reason (see
 | `test_pipeline.py` | both of the above | golden-file test: runs the CLIs on `test_data/input` and compares with `test_data/output` |
 | `test_es_mappings.py` | `data/es_settings` | every field a mapping declares appears in the pipeline output |
 | `test_create_index.py` | `create_index` | index naming/prefix, drop-and-recreate, settings and mapping per index type |
-| `test_index_es.py` | `index_es` | streaming JSON load, bulk load and error handling, CLI orchestration |
+| `test_index_es.py` | `index_es` | streaming JSON load, bulk load and error handling (every chunk sent when documents fail, with the real `helpers.bulk`), non-zero exit on failed documents, CLI orchestration |
+| `test_build_record.py` | `build_record` | ids and env, atomic writes, the run lifecycle (phases, counters, progress, logs, exit codes), heartbeat, never fatal, `begin`/`end` and the CLI |
+| `test_build_record_steps.py` | the instrumented steps | what `get_articles`, `clean_annotations`, `generate_gene_annotations` and `index_es` write into their run records, validated against `docs/build-record.schema.json` |
+| `test_data_report.py` | `data_report` | report figures against a plain reading of the fixture, group counts against `src/analysis/analyze_groups.py`, a dataset with every problem, backfill |
+| `test_verify_es.py` | `verify_es` | each check against a fake cluster (counts, mappings, samples, creation time), `--strict` |
 | `test_extract_sample_data.py` | `extract_sample_data` | reference collection/validation/filtering, CLI, and that a sample runs through the pipeline |
 | `test_get_latest_versions.py` | `get_latest_versions` | picking the latest release per major version |
 | `test_clean_articles.py` | `clean_articles` | legacy parser for raw esummary files |

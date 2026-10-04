@@ -82,9 +82,25 @@ uv run python -m src.clean_annotations
 
 ## Creating Index
 
-src/index_es.py will take 1 argument
-  -a ANNOTATIONS_FP  processed human iba annotations.json filepath
+src/index_es.py takes the clean annotations and genes and an index prefix (the dataset name):
 
 ```bash
-uv run python -m src.index_es -a $clean_annotations
+uv run python -m src.index_es -a $clean_annotations -g $clean_genes -p pango-2
+```
+
+Every document is sent. If any fail to load, their errors are logged and the script exits 1:
+until 2026-10 the first failed chunk stopped the load and the script still exited 0.
+
+## Build records and the dashboard
+
+`scripts/all.sh` records each build as it runs into `builds/` (gitignored): every step's timings,
+the inputs with checksums, data figures and consistency checks (`src/data_report.py`), NCBI calls,
+Elasticsearch operations, and a check of the live indexes after loading (`src/verify_es.py`).
+`../build-dashboard/` shows them. Name a build with `PANGO_BUILD_LABEL`; turn recording off with
+`PANGO_RECORD=0`. The format is [docs/build-record.md](docs/build-record.md).
+
+To compare a first new build with outputs made before recording existed, report on them once:
+
+```bash
+uv run python -m src.data_report -i downloads/input/pango-2 -o downloads/output/pango-2 -art downloads/clean-articles.json --backfill
 ```

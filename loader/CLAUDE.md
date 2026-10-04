@@ -37,9 +37,28 @@ uv run python -m src.clean_annotations -a <annotations.json> -t <terms.json> -ta
 # Generate gene-level aggregations
 uv run python -m src.generate_gene_annotations -a <clean_annotations.json> -o <output.json> -hi <go_hierarchy.json>
 
-# Index to Elasticsearch
+# Index to Elasticsearch (exits 1 if any document failed to load)
 uv run python -m src.index_es -a <annotations.json> -g <genes.json> -p <index_prefix>
+
+# Data figures and consistency checks for one dataset (build record only; --backfill for old outputs)
+uv run python -m src.data_report -i <dataset input dir> -o <dataset output dir> -art <articles.json>
+
+# Check the two indexes against the files (read-only but for a _refresh; --strict exits 1 on a failed check)
+uv run python -m src.verify_es -a <clean_annotations.json> -g <genes.json> -p <index_prefix>
 ```
+
+### Build Records
+Every step records what it did into `builds/<build id>/` (gitignored), which `build-dashboard/` reads.
+`all.sh` and `run_index_es.sh` open a build with `python -m src.build_record begin` and close it from
+an exit trap; a step run on its own is a build of its own. The format is `docs/build-record.md`
+(schema in `docs/build-record.schema.json`); the code is `src/build_record/`.
+- Env: `PANGO_BUILDS_DIR`, `PANGO_BUILD_LABEL`, `PANGO_RECORD=0` (off). The scripts set
+  `PANGO_BUILD_ID` and `PANGO_DATASET`.
+- Instrument through `current_run()` (a no-op when nothing records); never let recording fail a step.
+- Counter names are part of the contract: the dashboard compares builds by them.
+- Captures for testing go to a throwaway Elasticsearch (`docker run ... -p 19200:9200`, as in
+  `api/tests/README.md`) with `PANGO_ES_URL` set, on copies of the inputs: `create_index` deletes the
+  index, `all.sh` empties its output dir, and `get_articles` rewrites the articles file.
 
 ### Run Tests
 ```bash
@@ -48,7 +67,9 @@ uv run pytest                                     # Run all tests (pytest; no ES
 ./tests/run_tests.sh articles                     # One area (see ./tests/run_tests.sh help)
 uv run pytest tests/test_utils.py::test_load_json # Single test
 ```
-Known bugs are strict `xfail` tests with a `BUG:` reason; see `tests/README.md`.
+Known bugs are strict `xfail` tests with a `BUG:` reason; see `tests/README.md`. Build records are
+off in tests unless a test asks for the `recording` fixture; `assert_valid_record` checks a record
+against `docs/build-record.schema.json`.
 
 ## Architecture
 
@@ -56,7 +77,9 @@ Known bugs are strict `xfail` tests with a `BUG:` reason; see `tests/README.md`.
 1. **get_articles.py** - Extracts PMIDs from annotations, fetches metadata from NCBI eUtils API (batches of 100 with rate limiting)
 2. **clean_annotations.py** - Joins annotations with terms, genes, articles, and taxon data; computes evidence counts and groups
 3. **generate_gene_annotations.py** - Groups annotations by gene, aggregates terms and slim_terms, calculates sort_priority
-4. **index_es.py** - Bulk loads processed data into Elasticsearch using streaming JSON parser (ijson)
+4. **data_report.py** - Data figures and consistency checks over the inputs and outputs (streamed), for the build record
+5. **index_es.py** - Bulk loads processed data into Elasticsearch using streaming JSON parser (ijson); sends every document and exits 1 if any failed
+6. **verify_es.py** - Checks the live indexes against the files: counts, declared mappings, analyzer, sampled genes, creation time
 
 ### Key Data Structures
 - **UNKNOWN_TERMS**: `['UNKNOWN:0001', 'UNKNOWN:0002', 'UNKNOWN:0003']` - Special term IDs handled separately
