@@ -36,3 +36,9 @@ dist-ssr
 nul
 # TypeScript build info (tsc -b)
 *.tsbuildinfo
+# Test output
+dist-e2e
+coverage
+playwright-report
+test-results
+blob-report

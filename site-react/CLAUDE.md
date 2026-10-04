@@ -8,12 +8,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run dev              # Start Vite dev server (opens browser automatically)
 npm run start            # Start on port 4208 (development mode)
 npm run build            # Type-check (tsc -b) + Vite build
-npm run test             # Run tests with Vitest
+npm run test             # Unit/component tests (Vitest)
 npm run test:watch       # Vitest in watch mode
+npm run test:coverage    # Vitest with coverage (report in coverage/, thresholds enforced)
+npm run test:e2e         # Playwright e2e on a production build (test:e2e:ui, test:e2e:headed)
 npm run lint             # ESLint check
 npm run lint:fix         # ESLint auto-fix
 npm run format           # Prettier format
-npm run type-check       # tsc -b: app code, tests and vite.config.ts
+npm run type-check       # tsc -b: app code, unit tests, e2e and config files
 ```
 
 ## Architecture
@@ -31,6 +33,7 @@ npm run type-check       # tsc -b: app code, tests and vite.config.ts
 - **`src/app/`** - Application shell (pages, layout, Redux store, routing)
 - **`src/shared/`** - Components, hooks (`useIsMobile`, `useDocumentTitle`) and utils used across features
 - **`tests/`** - Vitest specs mirroring `src/` (see Testing)
+- **`e2e/`** - Playwright specs and their mocked API (see Testing)
 
 ### State Management
 
@@ -103,11 +106,29 @@ Vitest + React Testing Library + jsdom. Specs live in `tests/`, mirroring `src/`
 - `mockReset: true` resets every `vi.fn()` before each test, so set return values inside the test or a
   `beforeEach`, and keep the global stubs in `tests/setup.ts` as plain functions.
 
+- Route-level tests render the real route table (`src/app/routes.tsx`) in a `createMemoryRouter`, with
+  `renderWithProviders(..., { withRouter: false })`.
+
 Run a single test file:
 
 ```bash
 npx vitest run tests/app/Home.test.tsx
 ```
+
+### End-to-end (Playwright)
+
+Specs in `e2e/` run a production build (`dist-e2e/`, served on port 4319) in Chromium, on a desktop and a
+Pixel 7 project. First run on a new machine: `npx playwright install chromium`.
+
+- Import `test`/`expect` from `e2e/fixtures/test`, not `@playwright/test`. Its auto fixtures answer every
+  GraphQL request from `e2e/fixtures/mockApi.ts` (canned data; `api.lastVariables('GetGenes')` and
+  `api.calls` show what the app sent), keep third-party requests offline, and fail any test that logs a
+  console error.
+- The build points the app at a same-origin `/api/` (`VITE_PANGO_API_URL` in playwright.config.ts), so
+  there's no CORS and no dependency on local `.env` files.
+- Split layout-specific tests with `test.skip(({ isMobile }) => isMobile, ...)`.
+- Assert layout with geometry and computed styles (`boundingBox`, `toHaveCSS`), not pixel snapshots, so
+  results don't depend on the machine.
 
 ## Code Style
 

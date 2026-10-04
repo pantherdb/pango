@@ -1,11 +1,12 @@
 import type { ApiVersion } from '@/app/store/apiService'
-import { ApiVersions } from '@/app/store/apiService'
+import { ApiVersions, resolveApiVersion } from '@/app/store/apiService'
 
 // Base configuration - shared across all versions
 export const BASE_CONFIG = {
   CONTACT_URL:
     'https://docs.google.com/forms/d/e/1FAIpQLScX_caoY-mqsyK5Y6M2bof7EXVG0UY5DhOQ67zBMoAKKlRF4Q/viewform?usp=sharing',
-  CONTACT_PREFILL_URL: 'https://docs.google.com/forms/d/e/1FAIpQLScX_caoY-mqsyK5Y6M2bof7EXVG0UY5DhOQ67zBMoAKKlRF4Q/viewform?usp=pp_url',
+  CONTACT_PREFILL_URL:
+    'https://docs.google.com/forms/d/e/1FAIpQLScX_caoY-mqsyK5Y6M2bof7EXVG0UY5DhOQ67zBMoAKKlRF4Q/viewform?usp=pp_url',
   AMIGO_TERM_URL: 'http://amigo.geneontology.org/amigo/term/',
   AMIGO_GP_URL: 'http://amigo.geneontology.org/amigo/gene_product/',
   PUBMED_URL: 'https://www.ncbi.nlm.nih.gov/pubmed/',
@@ -27,12 +28,14 @@ const VERSION_CONFIGS = {
     PANTHER_FAMILY_URL: 'https://enrichment-v1.functionome.org/treeViewer/treeViewer.jsp?',
     OVERREP_API_URL: 'https://enrichment-v1.functionome.org/webservices/go/overrep.jsp',
     // Downloads
-    DOWNLOAD_ALL_DATA_CSV_URL: 'https://functionome.geneontology.org/download/v1/export_annotations.zip',
+    DOWNLOAD_ALL_DATA_CSV_URL:
+      'https://functionome.geneontology.org/download/v1/export_annotations.zip',
     DOWNLOAD_ALL_DATA_JSON_URL:
       'https://functionome.geneontology.org/download/v1/export_annotations.json.gz',
     DOWNLOAD_ANNOTATIONS_GAF_URL:
       'https://functionome.geneontology.org/download/v1/functionome_release.gaf.gz',
-    DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL: 'https://functionome.geneontology.org/download/v1/IBD.gaf',
+    DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL:
+      'https://functionome.geneontology.org/download/v1/IBD.gaf',
     DOWNLOAD_ONTOLOGY_FILES_URL: 'https://release.geneontology.org/2022-03-22/ontology/index.html',
 
     // Version metadata
@@ -46,13 +49,15 @@ const VERSION_CONFIGS = {
     PANTHER_FAMILY_URL: 'https://enrichment.functionome.org/treeViewer/treeViewer.jsp?',
     OVERREP_API_URL: 'https://enrichment.functionome.org/webservices/go/overrep.jsp',
     // Downloads
-    DOWNLOAD_ALL_DATA_CSV_URL: 'https://functionome.geneontology.org/download/export_annotations.zip',
+    DOWNLOAD_ALL_DATA_CSV_URL:
+      'https://functionome.geneontology.org/download/export_annotations.zip',
     DOWNLOAD_ALL_DATA_JSON_URL:
       'https://functionome.geneontology.org/download/export_annotations.json.gz',
     DOWNLOAD_ANNOTATIONS_GAF_URL:
       'https://functionome.geneontology.org/download/functionome_release.gaf.gz',
     DOWNLOAD_EVOLUTIONARY_MODELS_GAF_URL: 'https://functionome.geneontology.org/download/IBD.gaf',
-    DOWNLOAD_ONTOLOGY_FILES_URL: 'https://ftp.ebi.ac.uk/pub/contrib/goa/goex/releases/2025-10-06/ontology/',
+    DOWNLOAD_ONTOLOGY_FILES_URL:
+      'https://ftp.ebi.ac.uk/pub/contrib/goa/goex/releases/2025-10-06/ontology/',
 
     // Version metadata
     APP_VERSION: '2.0',
@@ -69,11 +74,8 @@ export const getConfig = (version: ApiVersion = DEFAULT_VERSION) => ({
   ...VERSION_CONFIGS[version],
 })
 
-export const getCurrentConfig = () => {
-  const searchParams = new URLSearchParams(window.location.search)
-  const version = (searchParams.get('apiVersion') as ApiVersion) || DEFAULT_VERSION
-  return getConfig(version)
-}
+export const getCurrentConfig = () =>
+  getConfig(resolveApiVersion(new URLSearchParams(window.location.search).get('apiVersion')))
 
 // Backward compatibility - default export for current version
 export const ENVIRONMENT = getCurrentConfig()

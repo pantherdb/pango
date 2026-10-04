@@ -15,6 +15,7 @@ interface MobileSectionProps {
   maxTerms: number
   isExpanded: boolean
   onToggle: () => void
+  onShowAll: () => void
 }
 
 const MobileSection: React.FC<MobileSectionProps> = ({
@@ -23,6 +24,7 @@ const MobileSection: React.FC<MobileSectionProps> = ({
   maxTerms,
   isExpanded,
   onToggle,
+  onShowAll,
 }) => {
   if (!terms || terms.length === 0) return null
 
@@ -46,7 +48,7 @@ const MobileSection: React.FC<MobileSectionProps> = ({
       </button>
       {isExpanded && (
         <div className="bg-gray-50 px-4 py-3">
-          <Terms terms={terms} maxTerms={maxTerms} onToggleExpand={onToggle} />
+          <Terms terms={terms} maxTerms={maxTerms} onToggleExpand={onShowAll} />
         </div>
       )}
     </div>
@@ -68,7 +70,10 @@ const GeneSummary: React.FC<GeneSummaryProps> = ({ groupedTerms }) => {
     }))
   }
 
-  function handleExpandClick(): void {}
+  // "View N more terms" lifts the per-aspect limit for the whole summary.
+  const [showAllTerms, setShowAllTerms] = useState(false)
+  const maxTerms = showAllTerms ? Number.POSITIVE_INFINITY : groupedTerms.maxTerms || 500
+  const showAll = () => setShowAllTerms(true)
 
   if (isMobile) {
     const sections = [
@@ -94,9 +99,10 @@ const GeneSummary: React.FC<GeneSummaryProps> = ({ groupedTerms }) => {
               key={title}
               title={title}
               terms={terms || []}
-              maxTerms={groupedTerms.maxTerms || 500}
+              maxTerms={maxTerms}
               isExpanded={!!expandedSections[title]}
               onToggle={() => toggleSection(title)}
+              onShowAll={showAll}
             />
           ))}
         </div>
@@ -117,7 +123,7 @@ const GeneSummary: React.FC<GeneSummaryProps> = ({ groupedTerms }) => {
           </thead>
           <tbody>
             <tr className="border-b border-gray-300">
-              <TermCells groupedTerms={groupedTerms} onToggleExpand={handleExpandClick} />
+              <TermCells groupedTerms={{ ...groupedTerms, maxTerms }} onToggleExpand={showAll} />
             </tr>
           </tbody>
         </table>

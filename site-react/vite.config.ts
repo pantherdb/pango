@@ -15,8 +15,9 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       tailwindcss(),
-      // Build mode follows tsconfig.json's references, so app code, tests and this file are checked.
-      tsChecker({ typescript: { buildMode: true } }),
+      // Dev-server overlay for type errors. Build mode follows tsconfig.json's references, so app code,
+      // tests and config are checked; `vite build` skips it because the build scripts run `tsc -b` first.
+      tsChecker({ typescript: { buildMode: true }, enableBuild: false }),
       visualizer({
         filename: 'dist/stats-treemap.html',
         template: 'treemap',
@@ -72,6 +73,18 @@ export default defineConfig(({ mode }) => {
       setupFiles: './tests/setup.ts',
       include: ['tests/**/*.test.{ts,tsx}'],
       mockReset: true,
+      // Full-page renders (Mantine + Redux + router in jsdom) can take several seconds under a
+      // parallel run; 5s, the default, is too tight for CI machines.
+      testTimeout: 15_000,
+      coverage: {
+        provider: 'v8',
+        include: ['src/**/*.{ts,tsx}'],
+        exclude: ['src/main.tsx', 'src/vite-env.d.ts', 'src/polyfills/**'],
+        reporter: ['text-summary', 'html', 'json-summary'],
+        reportsDirectory: 'coverage',
+        // Just under the current numbers, so a change that drops tests fails `npm run test:coverage`.
+        thresholds: { lines: 98, statements: 98, branches: 90, functions: 90 },
+      },
     },
     // Make env variables available
     define: {

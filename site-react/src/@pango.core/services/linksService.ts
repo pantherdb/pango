@@ -60,6 +60,7 @@ export const getNCBIGeneLink = (geneSymbol: string) => {
 
 export const getPubmedArticleUrl = (pmid: string): string => {
   if (!pmid) return ''
-  const id = pmid?.split(':')
-  return id.length > 0 ? ENVIRONMENT.PUBMED_URL + id[1] : ''
+  // References come as "PMID:20959462"; a bare "20959462" works too.
+  const id = pmid.includes(':') ? pmid.slice(pmid.indexOf(':') + 1) : pmid
+  return ENVIRONMENT.PUBMED_URL + id
 }

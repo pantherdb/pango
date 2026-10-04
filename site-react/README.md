@@ -85,11 +85,16 @@ See `CLAUDE.md` for the conventions.
 
 ## 🧪 Testing
 
-This project uses Vitest with React Testing Library. Specs live in `tests/`, mirroring `src/`.
+Unit and component tests use Vitest with React Testing Library; specs live in `tests/`, mirroring
+`src/`. End-to-end tests use Playwright; specs live in `e2e/` and run against a production build with a
+mocked API, on desktop and phone viewports.
 
 ```bash
-npm run test         # run once
-npm run test:watch   # watch mode
+npm run test            # unit and component tests
+npm run test:watch      # watch mode
+npm run test:coverage   # with coverage report (coverage/index.html)
+npx playwright install chromium   # once per machine, for e2e
+npm run test:e2e        # end-to-end tests
 ```
 
 ## 📝 Code Quality

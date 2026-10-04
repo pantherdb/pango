@@ -34,10 +34,8 @@ export const transformTerms = (annotations: Annotation[], maxTerms = 2): Grouped
 
 export const transformGenes = (genes: any[]): Gene[] => {
   return genes.map(gene => {
-    if (!gene.terms) {
-      gene.terms = []
-    }
-    const grouped = groupTermsByAspect(gene.terms)
+    const terms = gene.terms ?? []
+    const grouped = groupTermsByAspect(terms)
 
     const groupedTerms: GroupedTerms = {
       mfs: grouped[GOAspect.MOLECULAR_FUNCTION] || [],
@@ -48,6 +46,7 @@ export const transformGenes = (genes: any[]): Gene[] => {
     }
     return {
       ...gene,
+      terms,
       groupedTerms,
     }
   })

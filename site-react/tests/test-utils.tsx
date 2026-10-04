@@ -16,6 +16,8 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   store?: AppStore
   /** Initial router location. */
   route?: string
+  /** Set to false when `ui` brings its own router (e.g. `RouterProvider` with the route table). */
+  withRouter?: boolean
   /**
    * `test` (default) renders Mantine overlays inline and without transitions, so menus and
    * dropdowns are in the DOM synchronously. Use `default` to exercise real portals.
@@ -35,14 +37,22 @@ export const renderWithProviders = (
     preloadedState = {},
     store = makeStore(preloadedState),
     route = '/',
+    withRouter = true,
     mantineEnv = 'test',
     ...renderOptions
   } = extendedRenderOptions
 
+  // jsdom loads no CSS, so Mantine's injected variables and global classes only slow down
+  // getComputedStyle (and with it every role query); leave them out.
   const Wrapper = ({ children }: PropsWithChildren) => (
     <Provider store={store}>
-      <MantineProvider theme={mantineTheme} env={mantineEnv}>
-        <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>
+      <MantineProvider
+        theme={mantineTheme}
+        env={mantineEnv}
+        withCssVariables={false}
+        withGlobalClasses={false}
+      >
+        {withRouter ? <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter> : children}
       </MantineProvider>
     </Provider>
   )

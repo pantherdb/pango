@@ -104,7 +104,9 @@ const Home: React.FC = () => {
               </h2>
               {isFormOpen && (
                 <button
+                  type="button"
                   onClick={() => setIsFormOpen(false)}
+                  aria-label="Close enrichment analysis"
                   className="text-white hover:text-accent-200 md:hidden"
                 >
                   <FiX size={20} />

@@ -6,7 +6,7 @@ import type { Annotation } from '../models/annotation'
 import { setRightDrawerOpen } from '@/@pango.core/components/drawer/drawerSlice'
 import { useAppDispatch } from '@/app/hooks'
 import { setSelectedAnnotation } from '../slices/selectedAnnotationSlice'
-import { useConfig } from '@/@pango.core/data/useConfig'
+import { getPubmedArticleUrl } from '@/@pango.core/services/linksService'
 
 interface AnnotationCardsProps {
   annotations: Annotation[]
@@ -19,18 +19,11 @@ const AnnotationCards: React.FC<AnnotationCardsProps> = ({
   maxReferences = 2,
   maxEvidences = 2,
 }) => {
-  const config = useConfig()
   const dispatch = useAppDispatch()
 
   const handleRowClick = (annotation: Annotation) => {
     dispatch(setSelectedAnnotation(annotation))
     dispatch(setRightDrawerOpen(true))
-  }
-
-  const getPubmedArticleUrl = (pmid: string): string => {
-    if (!pmid) return ''
-    const id = pmid?.split(':')
-    return id.length > 0 ? config.PUBMED_URL + id[1] : ''
   }
 
   return (

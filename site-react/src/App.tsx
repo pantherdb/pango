@@ -1,40 +1,11 @@
 import type React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { MantineProvider } from '@mantine/core'
-import Layout from './app/layout/Layout'
-import { mantineTheme } from './@pango.core/theme/mantineTheme'
-
 import { defineCustomElements } from 'panther-overrep-form/loader'
-import Gene from './app/Gene'
-import LeftDrawerContent from './app/layout/LeftDrawer'
-import RightDrawerContent from './app/layout/RightDrawer'
-import Home from './app/Home'
-import About from './app/About'
-import Help from './app/Help'
-defineCustomElements(window)
+import { mantineTheme } from './@pango.core/theme/mantineTheme'
+import { routes } from './app/routes'
 
-const routes = [
-  {
-    path: '/',
-    element: <Layout leftDrawerContent={<LeftDrawerContent />} />,
-    children: [{ path: '', element: <Home /> }],
-  },
-  {
-    path: 'gene/:id',
-    element: <Layout rightDrawerContent={<RightDrawerContent />} />,
-    children: [{ path: '', element: <Gene /> }],
-  },
-  {
-    path: 'about',
-    element: <Layout />,
-    children: [{ path: '', element: <About /> }],
-  },
-  {
-    path: 'help',
-    element: <Layout />,
-    children: [{ path: '', element: <Help /> }],
-  },
-]
+defineCustomElements(window)
 
 const router = createBrowserRouter(routes)
 

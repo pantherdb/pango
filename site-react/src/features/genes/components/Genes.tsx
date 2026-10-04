@@ -68,7 +68,11 @@ const Genes: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-gray-600/40">
+      <div
+        role="status"
+        aria-label="Loading genes"
+        className="fixed inset-0 flex items-center justify-center bg-gray-600/40"
+      >
         <Loader />
       </div>
     )

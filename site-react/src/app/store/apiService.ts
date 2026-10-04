@@ -8,15 +8,20 @@ export const ApiVersions = {
   V2: import.meta.env.VITE_PANGO_API_VERSION_2 || 'pango-2',
 } as const
 
-export type ApiVersion = typeof ApiVersions[keyof typeof ApiVersions]
+export type ApiVersion = (typeof ApiVersions)[keyof typeof ApiVersions]
 
 const LATEST_VERSION = (import.meta.env.VITE_PANGO_API_VERSION as ApiVersion) || ApiVersions.V2
 const VERSION_PARAM = 'apiVersion'
+const KNOWN_VERSIONS: readonly string[] = Object.values(ApiVersions)
+
+/** The API version an `?apiVersion=` value selects; unknown or missing values mean the latest. */
+export const resolveApiVersion = (value: string | null): ApiVersion =>
+  value !== null && KNOWN_VERSIONS.includes(value) ? (value as ApiVersion) : LATEST_VERSION
 
 export const useApiVersion = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const currentVersion = (searchParams.get(VERSION_PARAM) as ApiVersion) || LATEST_VERSION
+  const currentVersion = resolveApiVersion(searchParams.get(VERSION_PARAM))
 
   const setVersion = useCallback(
     (version: ApiVersion) => {
@@ -39,8 +44,7 @@ export const useApiVersion = () => {
 }
 
 const baseQueryWithVersion: BaseQueryFn = async (args, api, extraOptions) => {
-  const searchParams = new URLSearchParams(window.location.search)
-  const version = (searchParams.get(VERSION_PARAM) as ApiVersion) || LATEST_VERSION
+  const version = resolveApiVersion(new URLSearchParams(window.location.search).get(VERSION_PARAM))
 
   const baseQuery = fetchBaseQuery({
     baseUrl: import.meta.env.VITE_PANGO_API_URL,

@@ -62,13 +62,13 @@ const annotationsApi = apiService
       getAnnotationsCount: builder.query({
         query: () => createGraphQLRequest(GET_ANNOTATIONS_COUNT_QUERY),
         transformResponse: (response: {
-          data?: { genesCount: { total: number } }
+          data?: { annotationsCount: { total: number } }
           errors?: ApiResponseError[]
         }) => {
           const transformedResponse = transformResponse<{
-            genesCount: { total: number }
+            annotationsCount: { total: number }
           }>(response)
-          return transformedResponse.genesCount || { total: 0 }
+          return transformedResponse.annotationsCount || { total: 0 }
         },
       }),
 

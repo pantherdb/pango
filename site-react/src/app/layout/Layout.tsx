@@ -58,8 +58,10 @@ const Layout: React.FC<LayoutProps> = ({ leftDrawerContent, rightDrawerContent }
             className="h-full overflow-hidden border-r border-gray-300 bg-white transition-[width] duration-225 ease-out"
             style={{ width: leftWidth }}
           >
+            {/* A closed panel is only 0px wide; `invisible` also takes its controls out of the
+                tab order and the accessibility tree. */}
             <div
-              className="h-full overflow-auto"
+              className={`h-full overflow-auto ${leftDrawerOpen ? '' : 'invisible'}`}
               style={{ width: isMobile ? '100%' : drawerWidth }}
             >
               {leftDrawerContent}

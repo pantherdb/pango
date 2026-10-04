@@ -201,7 +201,7 @@ const Gene: React.FC = () => {
           </div>
         </div>
 
-        <FeedbackBanner geneSymbol={geneId || ''} />
+        <FeedbackBanner geneSymbol={annotation.geneSymbol} />
         {annotations.length > 0 && (
           <div className="w-full bg-white">
             <GeneSummary groupedTerms={groupedTerms} />

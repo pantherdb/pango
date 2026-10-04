@@ -4,6 +4,7 @@ import { ASPECT_MAP } from '@/@pango.core/data/config'
 import TermLink from '@/features/terms/components/TermLink'
 import { useConfig } from '@/@pango.core/data/useConfig'
 import { getPubmedArticleUrl } from '@/@pango.core/services/linksService'
+import { VersionedLink } from '@/shared/components/VersionedLink'
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="mb-10">
@@ -31,14 +32,13 @@ export const AnnotationDetails: React.FC<Props> = ({ annotation }) => {
       <div className="p-6">
         <Section title="Gene">
           <div className="space-y-2">
-            <a
-              href={`/gene/${annotation.gene}`}
+            <VersionedLink
+              to={`/gene/${annotation.gene}`}
               target="_blank"
               rel="noopener noreferrer"
-              className=""
             >
               {annotation.gene}
-            </a>
+            </VersionedLink>
             <div className="text-gray-600">{annotation.geneSymbol}</div>
             <div className="">{annotation.geneName}</div>
           </div>
