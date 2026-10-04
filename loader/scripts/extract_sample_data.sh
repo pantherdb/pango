@@ -42,7 +42,7 @@ done
 
 [[ ! -f "$CLEAN_ARTICLES" ]] && echo "[]" > "$CLEAN_ARTICLES"
 
-python3 -m src.extract_sample_data \
+python -m src.extract_sample_data \
     -a "$ANNOTATIONS_FP" \
     -t "$TERMS_FP" \
     -art "$CLEAN_ARTICLES" \

@@ -8,6 +8,13 @@ Elasticsearch data loader for the PAN-GO Humana Functionome site. Processes gene
 
 ## Common Commands
 
+### Setup
+```bash
+uv sync                    # .venv with Python 3.13 (.python-version) and the locked dependencies (uv.lock)
+```
+Run commands through `uv run` (or with `.venv` activated). Scripts call `python`, not `python3`:
+on Windows the venv has no `python3.exe`.
+
 ### Start/Stop Elasticsearch
 ```bash
 docker-compose up -d       # Start Elasticsearch (localhost:9200)
@@ -16,30 +23,30 @@ docker-compose down        # Stop Elasticsearch
 
 ### Run Full Pipeline
 ```bash
-bash scripts/all.sh -i ./downloads/input -a ./downloads/clean-articles.json -o ./downloads/output
+uv run bash scripts/all.sh -i ./downloads/input -a ./downloads/clean-articles.json -o ./downloads/output
 ```
 
 ### Run Individual Modules
 ```bash
 # Fetch PubMed article metadata
-python3 -m src.get_articles -a <annotations.json> -o <output.json> -e <existing_articles.json>
+uv run python -m src.get_articles -a <annotations.json> -o <output.json> -e <existing_articles.json>
 
 # Clean and process annotations
-python3 -m src.clean_annotations -a <annotations.json> -t <terms.json> -tax <taxon.json> -art <articles.json> -g <genes.json> -o <output.json>
+uv run python -m src.clean_annotations -a <annotations.json> -t <terms.json> -tax <taxon.json> -art <articles.json> -g <genes.json> -o <output.json>
 
 # Generate gene-level aggregations
-python3 -m src.generate_gene_annotations -a <clean_annotations.json> -o <output.json> -hi <go_hierarchy.json>
+uv run python -m src.generate_gene_annotations -a <clean_annotations.json> -o <output.json> -hi <go_hierarchy.json>
 
 # Index to Elasticsearch
-python3 -m src.index_es -a <annotations.json> -g <genes.json> -p <index_prefix>
+uv run python -m src.index_es -a <annotations.json> -g <genes.json> -p <index_prefix>
 ```
 
 ### Run Tests
 ```bash
-poetry run pytest                                 # Run all tests (pytest; no ES or network needed)
+uv run pytest                                     # Run all tests (pytest; no ES or network needed)
 ./tests/run_tests.sh                              # Same, via the .venv wrapper
 ./tests/run_tests.sh articles                     # One area (see ./tests/run_tests.sh help)
-poetry run pytest tests/test_utils.py::test_load_json  # Single test
+uv run pytest tests/test_utils.py::test_load_json # Single test
 ```
 Known bugs are strict `xfail` tests with a `BUG:` reason; see `tests/README.md`.
 

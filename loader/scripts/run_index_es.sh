@@ -58,7 +58,7 @@ process_dataset() {
     
     echo "Starting ES indexing for $prefix..."
     
-    python3 -m src.index_es \
+    python -m src.index_es \
         -a "$clean_annotations_fp" \
         -g "$genes_annotations_fp" \
         -p "${prefix}"

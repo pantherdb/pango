@@ -19,7 +19,16 @@ docker-compose down
 
 ## Setup
 
-install requirements.tx
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then create `.venv` with
+Python 3.13 (pinned in `.python-version`) and the locked dependencies:
+
+```bash
+uv sync
+```
+
+Run the commands below through uv (`uv run python -m src...`, `uv run bash scripts/all.sh ...`)
+or with `.venv` activated.
+
 Add .env as given in shown in .env-example
 
 ```bash
@@ -48,7 +57,7 @@ get_articles.py will take 2 arguments
 ex
 
 ```bash
-python3 -m src.get_articles -a ./data/test_data/sample_human_iba_annotations.json -o /download/articles.json
+uv run python -m src.get_articles -a ./data/test_data/sample_human_iba_annotations.json -o /download/articles.json
 ```
 
 ## Pre-process Annotations data before indexing to Elasticsearch
@@ -62,7 +71,7 @@ This will :
 - ...
 
 
-python3 -m src.clean_annotations 
+uv run python -m src.clean_annotations 
   -a ANNOTATIONS_FP     Annotations Json
   -t TERMS_FP           Terms Json
   -art ARTICLES_FP      Articles Json
@@ -77,5 +86,5 @@ src/index_es.py will take 1 argument
   -a ANNOTATIONS_FP  processed human iba annotations.json filepath
 
 ```bash
-python3 -m src.index_es -a $clean_annotations
+uv run python -m src.index_es -a $clean_annotations
 ```

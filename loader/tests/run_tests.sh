@@ -8,7 +8,7 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$(dirname "$SCRIPT_DIR")"
 
-# Prefer the Poetry in-project virtualenv; override with PYTHON=/path/to/python.
+# Prefer the project virtualenv (uv sync); override with PYTHON=/path/to/python.
 if [ -z "$PYTHON" ]; then
     for candidate in .venv/Scripts/python.exe .venv/bin/python python; do
         if "$candidate" -c 'import pytest, pandas' 2>/dev/null; then
@@ -18,7 +18,7 @@ if [ -z "$PYTHON" ]; then
     done
 fi
 if [ -z "$PYTHON" ]; then
-    echo "No Python with the loader's dependencies found: run 'poetry install' or set PYTHON=..." >&2
+    echo "No Python with the loader's dependencies found: run 'uv sync' or set PYTHON=..." >&2
     exit 1
 fi
 

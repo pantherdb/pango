@@ -1,5 +1,5 @@
 #!/bin/bash
-python3 -m src.clean_annotations \
+python -m src.clean_annotations \
 -a ./downloads/input/human_iba_annotations.json \
 -t ./downloads/terms.json \
 -art ./downloads/input/clean-articles.json \

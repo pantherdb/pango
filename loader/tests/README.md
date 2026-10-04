@@ -8,8 +8,8 @@ Elasticsearch.
 From the loader root:
 
 ```bash
-poetry run pytest                        # everything
-poetry run pytest tests/test_pipeline.py # one file
+uv run pytest                            # everything
+uv run pytest tests/test_pipeline.py     # one file
 ./tests/run_tests.sh                     # same as above, using .venv
 ./tests/run_tests.sh articles -x         # one area; extra args go to pytest
 ./tests/run_tests.sh help                # list areas
@@ -50,7 +50,7 @@ After an intended change to the pipeline output, regenerate the expected files
 from the loader root and review the diff before committing:
 
 ```bash
-python -m src.clean_annotations \
+uv run python -m src.clean_annotations \
   -a test_data/input/pango-test/human_iba_annotations.json \
   -t test_data/input/pango-test/full_go_annotated.json \
   -art test_data/input/pango-test/clean-articles.json \
@@ -58,7 +58,7 @@ python -m src.clean_annotations \
   -g test_data/input/pango-test/human_iba_gene_info.json \
   -o test_data/output/pango-test/human_iba_annotations_clean.json
 
-python -m src.generate_gene_annotations \
+uv run python -m src.generate_gene_annotations \
   -a test_data/output/pango-test/human_iba_annotations_clean.json \
   -hi test_data/input/pango-test/go_hierarchy.json \
   -o test_data/output/pango-test/human_iba_genes_clean.json

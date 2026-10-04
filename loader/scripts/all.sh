@@ -125,13 +125,13 @@ process_dataset() {
     echo "Starting processing pipeline for $prefix..."
     
     echo "Getting articles..."
-    python3 -m src.get_articles \
+    python -m src.get_articles \
         -a "$annotations_fp" \
         -o "$CLEAN_ARTICLES" \
         -e "$CLEAN_ARTICLES"
     
     echo "Cleaning annotations..."
-    python3 -m src.clean_annotations \
+    python -m src.clean_annotations \
         -a "$annotations_fp" \
         -t "$terms_fp" \
         -tax "$taxon_fp" \
@@ -140,13 +140,13 @@ process_dataset() {
         -o "$clean_annotations_fp"
        
     echo "Generating gene annotations..."
-    python3 -m src.generate_gene_annotations \
+    python -m src.generate_gene_annotations \
         -a "$clean_annotations_fp" \
         -o "$genes_annotations_fp" \
         -hi "$hierarchy_fp"
     
     echo "Indexing to Elasticsearch..."
-    python3 -m src.index_es \
+    python -m src.index_es \
         -a "$clean_annotations_fp" \
         -g "$genes_annotations_fp" \
         -p "${prefix}"
