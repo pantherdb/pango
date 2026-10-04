@@ -1,0 +1,18 @@
+{"seq": 1, "at": "2026-10-04T09:01:52.647Z", "type": "run.start", "step": "report", "dataset": "pango-test", "build_id": "20261004T090148Z-all-6000"}
+{"seq": 2, "at": "2026-10-04T09:01:52.659Z", "type": "phase.start", "phase": "p1", "name": "inputs"}
+{"seq": 3, "at": "2026-10-04T09:01:52.667Z", "type": "phase.end", "phase": "p1", "name": "inputs", "status": "ok", "duration_s": 0.008, "counters": {}, "error": null}
+{"seq": 4, "at": "2026-10-04T09:01:52.668Z", "type": "phase.start", "phase": "p2", "name": "evidence"}
+{"seq": 5, "at": "2026-10-04T09:01:52.670Z", "type": "progress", "label": "annotations in", "done": 12637, "total": 12637, "unit": "bytes"}
+{"seq": 6, "at": "2026-10-04T09:01:52.671Z", "type": "phase.end", "phase": "p2", "name": "evidence", "status": "ok", "duration_s": 0.002, "counters": {}, "error": null}
+{"seq": 7, "at": "2026-10-04T09:01:52.672Z", "type": "phase.start", "phase": "p3", "name": "annotations"}
+{"seq": 8, "at": "2026-10-04T09:01:52.675Z", "type": "progress", "label": "annotations", "done": 47196, "total": 47196, "unit": "bytes"}
+{"seq": 9, "at": "2026-10-04T09:01:52.675Z", "type": "phase.end", "phase": "p3", "name": "annotations", "status": "ok", "duration_s": 0.003, "counters": {}, "error": null}
+{"seq": 10, "at": "2026-10-04T09:01:52.677Z", "type": "phase.start", "phase": "p4", "name": "genes"}
+{"seq": 11, "at": "2026-10-04T09:01:52.678Z", "type": "progress", "label": "genes", "done": 7848, "total": 7848, "unit": "bytes"}
+{"seq": 12, "at": "2026-10-04T09:01:52.678Z", "type": "phase.end", "phase": "p4", "name": "genes", "status": "ok", "duration_s": 0.002, "counters": {}, "error": null}
+{"seq": 13, "at": "2026-10-04T09:01:52.680Z", "type": "section", "id": "inputs", "title": "Inputs", "status": "ok"}
+{"seq": 14, "at": "2026-10-04T09:01:52.682Z", "type": "section", "id": "annotations", "title": "Annotations", "status": "ok"}
+{"seq": 15, "at": "2026-10-04T09:01:52.685Z", "type": "section", "id": "evidence", "title": "Evidence and references", "status": "ok"}
+{"seq": 16, "at": "2026-10-04T09:01:52.687Z", "type": "section", "id": "genes", "title": "Genes", "status": "ok"}
+{"seq": 17, "at": "2026-10-04T09:01:52.690Z", "type": "section", "id": "consistency", "title": "Consistency between the files", "status": "ok"}
+{"seq": 18, "at": "2026-10-04T09:01:52.693Z", "type": "run.end", "status": "ok", "reason": null, "exit_code": 0, "duration_s": 0.124}

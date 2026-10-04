@@ -1,0 +1,15 @@
+{"seq": 1, "at": "2026-10-04T12:30:09.688Z", "type": "run.start", "step": "clean_annotations", "dataset": "pango-1", "build_id": "20261004T123000Z-all-9c2e"}
+{"seq": 2, "at": "2026-10-04T12:30:09.695Z", "type": "phase.start", "phase": "p1", "name": "load_terms"}
+{"seq": 3, "at": "2026-10-04T12:30:09.818Z", "type": "phase.end", "phase": "p1", "name": "load_terms", "status": "ok", "duration_s": 0.123, "counters": {"terms": 47279}, "error": null}
+{"seq": 4, "at": "2026-10-04T12:30:09.820Z", "type": "phase.start", "phase": "p2", "name": "load_articles"}
+{"seq": 5, "at": "2026-10-04T12:30:10.239Z", "type": "phase.end", "phase": "p2", "name": "load_articles", "status": "ok", "duration_s": 0.42, "counters": {"articles": 70233}, "error": null}
+{"seq": 6, "at": "2026-10-04T12:30:10.253Z", "type": "phase.start", "phase": "p3", "name": "load_taxa"}
+{"seq": 7, "at": "2026-10-04T12:30:10.258Z", "type": "phase.end", "phase": "p3", "name": "load_taxa", "status": "ok", "duration_s": 0.005, "counters": {"taxa": 73}, "error": null}
+{"seq": 8, "at": "2026-10-04T12:30:10.259Z", "type": "phase.start", "phase": "p4", "name": "load_genes"}
+{"seq": 9, "at": "2026-10-04T12:30:10.519Z", "type": "phase.end", "phase": "p4", "name": "load_genes", "status": "ok", "duration_s": 0.259, "counters": {"genes": 49189}, "error": null}
+{"seq": 10, "at": "2026-10-04T12:30:10.521Z", "type": "phase.start", "phase": "p5", "name": "join"}
+{"seq": 11, "at": "2026-10-04T12:33:59.847Z", "type": "phase.end", "phase": "p5", "name": "join", "status": "ok", "duration_s": 229.323, "counters": {"annotations": 90961}, "error": null}
+{"seq": 12, "at": "2026-10-04T12:33:59.849Z", "type": "phase.start", "phase": "p6", "name": "write"}
+{"seq": 13, "at": "2026-10-04T12:34:31.195Z", "type": "artifact", "role": "clean_annotations", "path": "/scratch/capture-full/output/pango-1/human_iba_annotations_clean.json", "bytes": 423570874, "modified_at": "2026-10-04T09:07:24.834Z", "sha256": "371c73f75bd3dbc88326ee11b2340bb39925834cea87e8ee3ed5ad3b41c9bb43", "records": 90961, "phase": "write"}
+{"seq": 14, "at": "2026-10-04T12:34:31.740Z", "type": "phase.end", "phase": "p6", "name": "write", "status": "ok", "duration_s": 31.89, "counters": {}, "error": null}
+{"seq": 15, "at": "2026-10-04T12:34:33.110Z", "type": "run.end", "status": "ok", "reason": null, "exit_code": 0, "duration_s": 263.42}

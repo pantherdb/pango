@@ -1,0 +1,138 @@
+{
+ "schema_version": 1,
+ "run_id": "20261004T090150Z-get_articles-pango-test-58788-637c",
+ "build_id": "20261004T090148Z-all-6000",
+ "step": "get_articles",
+ "dataset": "pango-test",
+ "title": "get_articles · pango-test",
+ "status": "ok",
+ "status_reason": null,
+ "exit_code": 0,
+ "started_at": "2026-10-04T09:01:50.375Z",
+ "updated_at": "2026-10-04T09:01:50.414Z",
+ "finished_at": "2026-10-04T09:01:50.414Z",
+ "duration_s": 0.04,
+ "heartbeat_s": 10,
+ "process": {
+  "pid": 58788,
+  "ppid": 80376,
+  "executable": "C:/work/panther/pango/loader/.venv/Scripts/python.exe",
+  "argv": [
+   "C:/work/panther/pango/loader/src/get_articles.py",
+   "-a",
+   "/scratch/capture-test/input/pango-test/human_iba_annotations.json",
+   "-o",
+   "/scratch/capture-test/clean-articles.json",
+   "-e",
+   "/scratch/capture-test/clean-articles.json"
+  ],
+  "cwd": "C:/work/panther/pango/loader"
+ },
+ "host": {
+  "name": "build-host",
+  "platform": "win32",
+  "python": "3.13.13"
+ },
+ "config": {
+  "annotations_fp": "/scratch/capture-test/input/pango-test/human_iba_annotations.json",
+  "out_fp": "/scratch/capture-test/clean-articles.json",
+  "existing_articles": "/scratch/capture-test/clean-articles.json"
+ },
+ "progress": {
+  "label": "NCBI batches",
+  "done": 0,
+  "total": 0,
+  "unit": "batches",
+  "updated_at": "2026-10-04T09:01:50.403Z"
+ },
+ "phases": [
+  {
+   "id": "p1",
+   "name": "read_references",
+   "status": "ok",
+   "started_at": "2026-10-04T09:01:50.390Z",
+   "finished_at": "2026-10-04T09:01:50.398Z",
+   "duration_s": 0.008,
+   "counters": {
+    "references": 37,
+    "references_non_pmid": 0,
+    "articles_cached": 37,
+    "pmids_cached": 37,
+    "pmids_requested": 0
+   },
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p2",
+   "name": "fetch",
+   "status": "ok",
+   "started_at": "2026-10-04T09:01:50.400Z",
+   "finished_at": "2026-10-04T09:01:50.403Z",
+   "duration_s": 0.003,
+   "counters": {},
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p3",
+   "name": "write",
+   "status": "ok",
+   "started_at": "2026-10-04T09:01:50.404Z",
+   "finished_at": "2026-10-04T09:01:50.413Z",
+   "duration_s": 0.008,
+   "counters": {},
+   "error": null,
+   "note": null
+  }
+ ],
+ "counters": {
+  "references": 37,
+  "references_non_pmid": 0,
+  "articles_cached": 37,
+  "pmids_cached": 37,
+  "pmids_requested": 0,
+  "articles_out": 37
+ },
+ "breakdowns": {},
+ "logs": {
+  "warning": {
+   "total": 0,
+   "keys": 0,
+   "overflow": 0,
+   "entries": []
+  },
+  "error": {
+   "total": 0,
+   "keys": 0,
+   "overflow": 0,
+   "entries": []
+  }
+ },
+ "http": null,
+ "es": null,
+ "artifacts": [
+  {
+   "at": "2026-10-04T09:01:50.410Z",
+   "role": "articles",
+   "path": "/scratch/capture-test/clean-articles.json",
+   "bytes": 13329,
+   "modified_at": "2026-10-04T09:01:50.409Z",
+   "sha256": "419491768eea3edb40e94d50a27cdfd6209e31eb454ca28e10fa602faa636592",
+   "records": 37,
+   "phase": "write"
+  }
+ ],
+ "sections": [],
+ "dropped": {
+  "artifacts": 0,
+  "es_ops": 0,
+  "http_events": 0,
+  "log_events": 0
+ },
+ "exception": null,
+ "events": {
+  "file": "events.jsonl",
+  "count": 9
+ }
+}

@@ -1,0 +1,68 @@
+{
+ "schema_version": 1,
+ "build_id": "20261004T093209Z-report-bae4",
+ "label": "pango-2 as built in January 2026 (backfill)",
+ "script": "backfill",
+ "status": "ok",
+ "status_reason": null,
+ "exit_code": 0,
+ "started_at": "2026-10-04T09:32:09.726Z",
+ "updated_at": "2026-10-04T09:32:20.194Z",
+ "finished_at": "2026-10-04T09:32:20.189Z",
+ "duration_s": 10.463,
+ "as_of": "2026-01-25T03:10:08.984Z",
+ "host": {
+  "name": "build-host",
+  "platform": "win32",
+  "python": "3.13.13"
+ },
+ "process": {
+  "pid": 77804,
+  "ppid": 49292,
+  "executable": "C:/work/panther/pango/loader/.venv/Scripts/python.exe",
+  "argv": [
+   "C:/work/panther/pango/loader/src/data_report.py",
+   "-i",
+   "downloads/input/pango-2",
+   "-o",
+   "downloads/output/pango-2",
+   "-art",
+   "downloads/clean-articles.json",
+   "--backfill"
+  ],
+  "cwd": "C:/work/panther/pango/loader"
+ },
+ "git": {
+  "commit": "c7a8fcf316c3c73777b39b0ef1551de7b446937a",
+  "short": "c7a8fcf",
+  "branch": "update-framework-n-lib",
+  "dirty": true
+ },
+ "packages": {
+  "pandas": "3.0.6",
+  "numpy": "2.5.3",
+  "elasticsearch": "8.19.3",
+  "ijson": "3.4.0.post0",
+  "requests": "2.32.5",
+  "pydantic": "2.12.5"
+ },
+ "config": {
+  "es_url": "http://localhost:9200",
+  "annotations_index": "pango-annotations",
+  "genes_index": "pango-genes"
+ },
+ "shared_inputs": [],
+ "datasets": [
+  {
+   "id": "pango-2",
+   "input_dir": "downloads/input/pango-2",
+   "output_dir": "downloads/output/pango-2",
+   "release": null,
+   "inputs": [],
+   "steps": [
+    "report"
+   ],
+   "indexes": null
+  }
+ ]
+}

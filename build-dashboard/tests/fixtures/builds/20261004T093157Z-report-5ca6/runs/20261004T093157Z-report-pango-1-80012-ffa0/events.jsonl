@@ -1,0 +1,64 @@
+{"seq": 1, "at": "2026-10-04T09:31:57.664Z", "type": "run.start", "step": "report", "dataset": "pango-1", "build_id": "20261004T093157Z-report-5ca6"}
+{"seq": 2, "at": "2026-10-04T09:31:57.668Z", "type": "phase.start", "phase": "p1", "name": "inputs"}
+{"seq": 3, "at": "2026-10-04T09:31:58.316Z", "type": "phase.end", "phase": "p1", "name": "inputs", "status": "ok", "duration_s": 0.649, "counters": {}, "error": null}
+{"seq": 4, "at": "2026-10-04T09:31:58.318Z", "type": "phase.start", "phase": "p2", "name": "evidence"}
+{"seq": 5, "at": "2026-10-04T09:31:58.482Z", "type": "progress", "label": "annotations in", "done": 3211264, "total": 56461507, "unit": "bytes"}
+{"seq": 6, "at": "2026-10-04T09:31:58.785Z", "type": "progress", "label": "annotations in", "done": 6488064, "total": 56461507, "unit": "bytes"}
+{"seq": 7, "at": "2026-10-04T09:31:59.037Z", "type": "progress", "label": "annotations in", "done": 10682368, "total": 56461507, "unit": "bytes"}
+{"seq": 8, "at": "2026-10-04T09:31:59.195Z", "type": "progress", "label": "annotations in", "done": 14417920, "total": 56461507, "unit": "bytes"}
+{"seq": 9, "at": "2026-10-04T09:31:59.350Z", "type": "progress", "label": "annotations in", "done": 18350080, "total": 56461507, "unit": "bytes"}
+{"seq": 10, "at": "2026-10-04T09:31:59.497Z", "type": "progress", "label": "annotations in", "done": 21561344, "total": 56461507, "unit": "bytes"}
+{"seq": 11, "at": "2026-10-04T09:31:59.631Z", "type": "progress", "label": "annotations in", "done": 24510464, "total": 56461507, "unit": "bytes"}
+{"seq": 12, "at": "2026-10-04T09:31:59.814Z", "type": "progress", "label": "annotations in", "done": 27983872, "total": 56461507, "unit": "bytes"}
+{"seq": 13, "at": "2026-10-04T09:31:59.953Z", "type": "progress", "label": "annotations in", "done": 31260672, "total": 56461507, "unit": "bytes"}
+{"seq": 14, "at": "2026-10-04T09:32:00.071Z", "type": "progress", "label": "annotations in", "done": 34340864, "total": 56461507, "unit": "bytes"}
+{"seq": 15, "at": "2026-10-04T09:32:00.203Z", "type": "progress", "label": "annotations in", "done": 37879808, "total": 56461507, "unit": "bytes"}
+{"seq": 16, "at": "2026-10-04T09:32:00.321Z", "type": "progress", "label": "annotations in", "done": 40894464, "total": 56461507, "unit": "bytes"}
+{"seq": 17, "at": "2026-10-04T09:32:00.432Z", "type": "progress", "label": "annotations in", "done": 43974656, "total": 56461507, "unit": "bytes"}
+{"seq": 18, "at": "2026-10-04T09:32:00.545Z", "type": "progress", "label": "annotations in", "done": 47185920, "total": 56461507, "unit": "bytes"}
+{"seq": 19, "at": "2026-10-04T09:32:00.661Z", "type": "progress", "label": "annotations in", "done": 50200576, "total": 56461507, "unit": "bytes"}
+{"seq": 20, "at": "2026-10-04T09:32:00.785Z", "type": "progress", "label": "annotations in", "done": 53215232, "total": 56461507, "unit": "bytes"}
+{"seq": 21, "at": "2026-10-04T09:32:00.892Z", "type": "progress", "label": "annotations in", "done": 56098816, "total": 56461507, "unit": "bytes"}
+{"seq": 22, "at": "2026-10-04T09:32:00.905Z", "type": "progress", "label": "annotations in", "done": 56461507, "total": 56461507, "unit": "bytes"}
+{"seq": 23, "at": "2026-10-04T09:32:00.929Z", "type": "phase.end", "phase": "p2", "name": "evidence", "status": "ok", "duration_s": 2.61, "counters": {}, "error": null}
+{"seq": 24, "at": "2026-10-04T09:32:00.931Z", "type": "phase.start", "phase": "p3", "name": "annotations"}
+{"seq": 25, "at": "2026-10-04T09:32:01.397Z", "type": "progress", "label": "annotations", "done": 21626880, "total": 423570874, "unit": "bytes"}
+{"seq": 26, "at": "2026-10-04T09:32:01.792Z", "type": "progress", "label": "annotations", "done": 43843584, "total": 423570874, "unit": "bytes"}
+{"seq": 27, "at": "2026-10-04T09:32:02.180Z", "type": "progress", "label": "annotations", "done": 65732608, "total": 423570874, "unit": "bytes"}
+{"seq": 28, "at": "2026-10-04T09:32:02.592Z", "type": "progress", "label": "annotations", "done": 88211456, "total": 423570874, "unit": "bytes"}
+{"seq": 29, "at": "2026-10-04T09:32:03.111Z", "type": "progress", "label": "annotations", "done": 117243904, "total": 423570874, "unit": "bytes"}
+{"seq": 30, "at": "2026-10-04T09:32:03.568Z", "type": "progress", "label": "annotations", "done": 143523840, "total": 423570874, "unit": "bytes"}
+{"seq": 31, "at": "2026-10-04T09:32:04.020Z", "type": "progress", "label": "annotations", "done": 170655744, "total": 423570874, "unit": "bytes"}
+{"seq": 32, "at": "2026-10-04T09:32:04.559Z", "type": "progress", "label": "annotations", "done": 202375168, "total": 423570874, "unit": "bytes"}
+{"seq": 33, "at": "2026-10-04T09:32:04.937Z", "type": "progress", "label": "annotations", "done": 227147776, "total": 423570874, "unit": "bytes"}
+{"seq": 34, "at": "2026-10-04T09:32:05.443Z", "type": "progress", "label": "annotations", "done": 252182528, "total": 423570874, "unit": "bytes"}
+{"seq": 35, "at": "2026-10-04T09:32:05.808Z", "type": "progress", "label": "annotations", "done": 274071552, "total": 423570874, "unit": "bytes"}
+{"seq": 36, "at": "2026-10-04T09:32:06.390Z", "type": "progress", "label": "annotations", "done": 303366144, "total": 423570874, "unit": "bytes"}
+{"seq": 37, "at": "2026-10-04T09:32:06.830Z", "type": "progress", "label": "annotations", "done": 328859648, "total": 423570874, "unit": "bytes"}
+{"seq": 38, "at": "2026-10-04T09:32:07.302Z", "type": "progress", "label": "annotations", "done": 353697792, "total": 423570874, "unit": "bytes"}
+{"seq": 39, "at": "2026-10-04T09:32:07.741Z", "type": "progress", "label": "annotations", "done": 377028608, "total": 423570874, "unit": "bytes"}
+{"seq": 40, "at": "2026-10-04T09:32:08.207Z", "type": "progress", "label": "annotations", "done": 400883712, "total": 423570874, "unit": "bytes"}
+{"seq": 41, "at": "2026-10-04T09:32:08.593Z", "type": "progress", "label": "annotations", "done": 423570874, "total": 423570874, "unit": "bytes"}
+{"seq": 42, "at": "2026-10-04T09:32:08.593Z", "type": "phase.end", "phase": "p3", "name": "annotations", "status": "ok", "duration_s": 7.662, "counters": {}, "error": null}
+{"seq": 43, "at": "2026-10-04T09:32:08.595Z", "type": "phase.start", "phase": "p4", "name": "genes"}
+{"seq": 44, "at": "2026-10-04T09:32:08.660Z", "type": "progress", "label": "genes", "done": 3276800, "total": 33106649, "unit": "bytes"}
+{"seq": 45, "at": "2026-10-04T09:32:08.729Z", "type": "progress", "label": "genes", "done": 5701632, "total": 33106649, "unit": "bytes"}
+{"seq": 46, "at": "2026-10-04T09:32:08.776Z", "type": "progress", "label": "genes", "done": 7798784, "total": 33106649, "unit": "bytes"}
+{"seq": 47, "at": "2026-10-04T09:32:08.815Z", "type": "progress", "label": "genes", "done": 9764864, "total": 33106649, "unit": "bytes"}
+{"seq": 48, "at": "2026-10-04T09:32:08.846Z", "type": "progress", "label": "genes", "done": 11534336, "total": 33106649, "unit": "bytes"}
+{"seq": 49, "at": "2026-10-04T09:32:08.878Z", "type": "progress", "label": "genes", "done": 13303808, "total": 33106649, "unit": "bytes"}
+{"seq": 50, "at": "2026-10-04T09:32:08.937Z", "type": "progress", "label": "genes", "done": 16449536, "total": 33106649, "unit": "bytes"}
+{"seq": 51, "at": "2026-10-04T09:32:08.994Z", "type": "progress", "label": "genes", "done": 19529728, "total": 33106649, "unit": "bytes"}
+{"seq": 52, "at": "2026-10-04T09:32:09.039Z", "type": "progress", "label": "genes", "done": 22151168, "total": 33106649, "unit": "bytes"}
+{"seq": 53, "at": "2026-10-04T09:32:09.092Z", "type": "progress", "label": "genes", "done": 24641536, "total": 33106649, "unit": "bytes"}
+{"seq": 54, "at": "2026-10-04T09:32:09.143Z", "type": "progress", "label": "genes", "done": 27066368, "total": 33106649, "unit": "bytes"}
+{"seq": 55, "at": "2026-10-04T09:32:09.189Z", "type": "progress", "label": "genes", "done": 29556736, "total": 33106649, "unit": "bytes"}
+{"seq": 56, "at": "2026-10-04T09:32:09.237Z", "type": "progress", "label": "genes", "done": 31981568, "total": 33106649, "unit": "bytes"}
+{"seq": 57, "at": "2026-10-04T09:32:09.260Z", "type": "progress", "label": "genes", "done": 33106649, "total": 33106649, "unit": "bytes"}
+{"seq": 58, "at": "2026-10-04T09:32:09.260Z", "type": "phase.end", "phase": "p4", "name": "genes", "status": "ok", "duration_s": 0.665, "counters": {}, "error": null}
+{"seq": 59, "at": "2026-10-04T09:32:09.284Z", "type": "section", "id": "inputs", "title": "Inputs", "status": "ok"}
+{"seq": 60, "at": "2026-10-04T09:32:09.287Z", "type": "section", "id": "annotations", "title": "Annotations", "status": "ok"}
+{"seq": 61, "at": "2026-10-04T09:32:09.290Z", "type": "section", "id": "evidence", "title": "Evidence and references", "status": "ok"}
+{"seq": 62, "at": "2026-10-04T09:32:09.295Z", "type": "section", "id": "genes", "title": "Genes", "status": "ok"}
+{"seq": 63, "at": "2026-10-04T09:32:09.300Z", "type": "section", "id": "consistency", "title": "Consistency between the files", "status": "ok"}
+{"seq": 64, "at": "2026-10-04T09:32:09.306Z", "type": "run.end", "status": "ok", "reason": null, "exit_code": 0, "duration_s": 11.979}

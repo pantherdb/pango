@@ -1,0 +1,30 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.sw?
+
+# Local settings (see .env.example)
+.env
+.env.local
+
+# TypeScript build info (tsc -b)
+*.tsbuildinfo
+# Test output
+dist-e2e
+coverage
+playwright-report
+test-results
+blob-report

@@ -1,0 +1,128 @@
+{
+ "schema_version": 1,
+ "run_id": "20261004T091322Z-generate_gene_annotations-pango-2-3168-aadb",
+ "build_id": "20261004T090254Z-all-3002",
+ "step": "generate_gene_annotations",
+ "dataset": "pango-2",
+ "title": "generate_gene_annotations · pango-2",
+ "status": "ok",
+ "status_reason": null,
+ "exit_code": 0,
+ "started_at": "2026-10-04T09:13:22.579Z",
+ "updated_at": "2026-10-04T09:13:54.050Z",
+ "finished_at": "2026-10-04T09:13:54.050Z",
+ "duration_s": 31.471,
+ "heartbeat_s": 10,
+ "process": {
+  "pid": 3168,
+  "ppid": 70956,
+  "executable": "C:/work/panther/pango/loader/.venv/Scripts/python.exe",
+  "argv": [
+   "C:/work/panther/pango/loader/src/generate_gene_annotations.py",
+   "-a",
+   "/scratch/capture-full/output/pango-2/human_iba_annotations_clean.json",
+   "-o",
+   "/scratch/capture-full/output/pango-2/human_iba_genes_clean.json",
+   "-hi",
+   "/scratch/capture-full/input/pango-2/go_hierarchy.json"
+  ],
+  "cwd": "C:/work/panther/pango/loader"
+ },
+ "host": {
+  "name": "build-host",
+  "platform": "win32",
+  "python": "3.13.13"
+ },
+ "config": {
+  "annos_fp": "/scratch/capture-full/output/pango-2/human_iba_annotations_clean.json",
+  "genes_annos_fp": "/scratch/capture-full/output/pango-2/human_iba_genes_clean.json",
+  "hierarchy_fp": "/scratch/capture-full/input/pango-2/go_hierarchy.json"
+ },
+ "progress": null,
+ "phases": [
+  {
+   "id": "p1",
+   "name": "load_hierarchy",
+   "status": "ok",
+   "started_at": "2026-10-04T09:13:22.587Z",
+   "finished_at": "2026-10-04T09:13:22.596Z",
+   "duration_s": 0.009,
+   "counters": {
+    "hierarchy_terms": 4784,
+    "hierarchy_edges": 5561
+   },
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p2",
+   "name": "group",
+   "status": "ok",
+   "started_at": "2026-10-04T09:13:22.598Z",
+   "finished_at": "2026-10-04T09:13:51.038Z",
+   "duration_s": 28.44,
+   "counters": {
+    "genes": 20580
+   },
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p3",
+   "name": "write",
+   "status": "ok",
+   "started_at": "2026-10-04T09:13:51.041Z",
+   "finished_at": "2026-10-04T09:13:53.706Z",
+   "duration_s": 2.665,
+   "counters": {},
+   "error": null,
+   "note": null
+  }
+ ],
+ "counters": {
+  "hierarchy_terms": 4784,
+  "hierarchy_edges": 5561,
+  "genes": 20580
+ },
+ "breakdowns": {},
+ "logs": {
+  "warning": {
+   "total": 0,
+   "keys": 0,
+   "overflow": 0,
+   "entries": []
+  },
+  "error": {
+   "total": 0,
+   "keys": 0,
+   "overflow": 0,
+   "entries": []
+  }
+ },
+ "http": null,
+ "es": null,
+ "artifacts": [
+  {
+   "at": "2026-10-04T09:13:53.659Z",
+   "role": "clean_genes",
+   "path": "/scratch/capture-full/output/pango-2/human_iba_genes_clean.json",
+   "bytes": 31864667,
+   "modified_at": "2026-10-04T09:13:53.659Z",
+   "sha256": "d52eb6f924dda20a91cb7114d57e866898bc56ac63ee17befbdb11ae1a31eee9",
+   "records": 20580,
+   "phase": "write"
+  }
+ ],
+ "sections": [],
+ "dropped": {
+  "artifacts": 0,
+  "es_ops": 0,
+  "http_events": 0,
+  "log_events": 0
+ },
+ "exception": null,
+ "events": {
+  "file": "events.jsonl",
+  "count": 9
+ }
+}

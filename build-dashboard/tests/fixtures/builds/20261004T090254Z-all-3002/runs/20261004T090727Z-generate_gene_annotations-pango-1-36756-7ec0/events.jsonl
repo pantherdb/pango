@@ -1,0 +1,9 @@
+{"seq": 1, "at": "2026-10-04T09:07:27.929Z", "type": "run.start", "step": "generate_gene_annotations", "dataset": "pango-1", "build_id": "20261004T090254Z-all-3002"}
+{"seq": 2, "at": "2026-10-04T09:07:27.937Z", "type": "phase.start", "phase": "p1", "name": "load_hierarchy"}
+{"seq": 3, "at": "2026-10-04T09:07:27.946Z", "type": "phase.end", "phase": "p1", "name": "load_hierarchy", "status": "ok", "duration_s": 0.009, "counters": {"hierarchy_terms": 5117, "hierarchy_edges": 5987}, "error": null}
+{"seq": 4, "at": "2026-10-04T09:07:27.949Z", "type": "phase.start", "phase": "p2", "name": "group"}
+{"seq": 5, "at": "2026-10-04T09:07:52.705Z", "type": "phase.end", "phase": "p2", "name": "group", "status": "ok", "duration_s": 24.756, "counters": {"genes": 20851}, "error": null}
+{"seq": 6, "at": "2026-10-04T09:07:52.718Z", "type": "phase.start", "phase": "p3", "name": "write"}
+{"seq": 7, "at": "2026-10-04T09:07:54.981Z", "type": "artifact", "role": "clean_genes", "path": "/scratch/capture-full/output/pango-1/human_iba_genes_clean.json", "bytes": 33106649, "modified_at": "2026-10-04T09:07:54.979Z", "sha256": "c45e41bced27809e0fc27aa011590617c327a626e9b001f0886157005c16161c", "records": 20851, "phase": "write"}
+{"seq": 8, "at": "2026-10-04T09:07:55.028Z", "type": "phase.end", "phase": "p3", "name": "write", "status": "ok", "duration_s": 2.31, "counters": {}, "error": null}
+{"seq": 9, "at": "2026-10-04T09:07:55.369Z", "type": "run.end", "status": "ok", "reason": null, "exit_code": 0, "duration_s": 27.441}

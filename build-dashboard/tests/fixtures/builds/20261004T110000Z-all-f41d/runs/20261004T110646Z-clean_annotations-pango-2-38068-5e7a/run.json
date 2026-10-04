@@ -1,0 +1,177 @@
+{
+ "schema_version": 1,
+ "run_id": "20261004T110646Z-clean_annotations-pango-2-38068-5e7a",
+ "build_id": "20261004T110000Z-all-f41d",
+ "step": "clean_annotations",
+ "dataset": "pango-2",
+ "title": "clean_annotations · pango-2",
+ "status": "ok",
+ "status_reason": null,
+ "exit_code": 0,
+ "started_at": "2026-10-04T11:06:46.018Z",
+ "updated_at": "2026-10-04T11:10:34.364Z",
+ "finished_at": "2026-10-04T11:10:34.363Z",
+ "duration_s": 228.345,
+ "heartbeat_s": 10,
+ "process": {
+  "pid": 38068,
+  "ppid": 4188,
+  "executable": "C:/work/panther/pango/loader/.venv/Scripts/python.exe",
+  "argv": [
+   "C:/work/panther/pango/loader/src/clean_annotations.py",
+   "-a",
+   "/scratch/capture-full/input/pango-2/human_iba_annotations.json",
+   "-t",
+   "/scratch/capture-full/input/pango-2/full_go_annotated.json",
+   "-tax",
+   "/scratch/capture-full/input/pango-2/taxon_lkp.json",
+   "-art",
+   "/scratch/capture-full/clean-articles.json",
+   "-g",
+   "/scratch/capture-full/input/pango-2/human_iba_gene_info.json",
+   "-o",
+   "/scratch/capture-full/output/pango-2/human_iba_annotations_clean.json"
+  ],
+  "cwd": "C:/work/panther/pango/loader"
+ },
+ "host": {
+  "name": "build-host",
+  "platform": "win32",
+  "python": "3.13.13"
+ },
+ "config": {
+  "annos_fp": "/scratch/capture-full/input/pango-2/human_iba_annotations.json",
+  "terms_fp": "/scratch/capture-full/input/pango-2/full_go_annotated.json",
+  "articles_fp": "/scratch/capture-full/clean-articles.json",
+  "taxon_fp": "/scratch/capture-full/input/pango-2/taxon_lkp.json",
+  "genes_fp": "/scratch/capture-full/input/pango-2/human_iba_gene_info.json",
+  "clean_annos_fp": "/scratch/capture-full/output/pango-2/human_iba_annotations_clean.json"
+ },
+ "progress": null,
+ "phases": [
+  {
+   "id": "p1",
+   "name": "load_terms",
+   "status": "ok",
+   "started_at": "2026-10-04T11:06:46.029Z",
+   "finished_at": "2026-10-04T11:06:46.155Z",
+   "duration_s": 0.125,
+   "counters": {
+    "terms": 48202
+   },
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p2",
+   "name": "load_articles",
+   "status": "ok",
+   "started_at": "2026-10-04T11:06:46.157Z",
+   "finished_at": "2026-10-04T11:06:46.563Z",
+   "duration_s": 0.405,
+   "counters": {
+    "articles": 70233
+   },
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p3",
+   "name": "load_taxa",
+   "status": "ok",
+   "started_at": "2026-10-04T11:06:46.576Z",
+   "finished_at": "2026-10-04T11:06:46.580Z",
+   "duration_s": 0.005,
+   "counters": {
+    "taxa": 82
+   },
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p4",
+   "name": "load_genes",
+   "status": "ok",
+   "started_at": "2026-10-04T11:06:46.582Z",
+   "finished_at": "2026-10-04T11:06:46.875Z",
+   "duration_s": 0.293,
+   "counters": {
+    "genes": 52489
+   },
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p5",
+   "name": "join",
+   "status": "ok",
+   "started_at": "2026-10-04T11:06:46.878Z",
+   "finished_at": "2026-10-04T11:09:55.352Z",
+   "duration_s": 188.472,
+   "counters": {
+    "annotations": 86886
+   },
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p6",
+   "name": "write",
+   "status": "ok",
+   "started_at": "2026-10-04T11:09:55.355Z",
+   "finished_at": "2026-10-04T11:10:33.108Z",
+   "duration_s": 37.753,
+   "counters": {},
+   "error": null,
+   "note": null
+  }
+ ],
+ "counters": {
+  "terms": 48202,
+  "articles": 70233,
+  "taxa": 82,
+  "genes": 52489,
+  "annotations": 86886
+ },
+ "breakdowns": {},
+ "logs": {
+  "warning": {
+   "total": 0,
+   "keys": 0,
+   "overflow": 0,
+   "entries": []
+  },
+  "error": {
+   "total": 0,
+   "keys": 0,
+   "overflow": 0,
+   "entries": []
+  }
+ },
+ "http": null,
+ "es": null,
+ "artifacts": [
+  {
+   "at": "2026-10-04T11:10:32.513Z",
+   "role": "clean_annotations",
+   "path": "/scratch/capture-full/output/pango-2/human_iba_annotations_clean.json",
+   "bytes": 366451736,
+   "modified_at": "2026-10-04T09:13:19.369Z",
+   "sha256": "790530129616e5751253195339e54b66b7e87f95b79c8b20aab60c154541c85d",
+   "records": 86886,
+   "phase": "write"
+  }
+ ],
+ "sections": [],
+ "dropped": {
+  "artifacts": 0,
+  "es_ops": 0,
+  "http_events": 0,
+  "log_events": 0
+ },
+ "exception": null,
+ "events": {
+  "file": "events.jsonl",
+  "count": 15
+ }
+}

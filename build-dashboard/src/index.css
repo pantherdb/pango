@@ -1,0 +1,64 @@
+/* Cascade order: Mantine's component styles sit above Tailwind's preflight and below its utilities,
+   so utility classes on Mantine components apply without `!important` (as in site-react). */
+@layer theme, base, mantine, components, utilities;
+
+@import '@mantine/core/styles.layer.css';
+@import 'tailwindcss';
+
+/* Brand colours come from the Mantine theme (src/@pango.core/theme/palette.ts) through the CSS
+   variables MantineProvider emits, so the hex values are defined in one place. */
+@theme inline {
+  --color-primary-50: var(--mantine-color-primary-0);
+  --color-primary-100: var(--mantine-color-primary-1);
+  --color-primary-200: var(--mantine-color-primary-2);
+  --color-primary-300: var(--mantine-color-primary-3);
+  --color-primary-400: var(--mantine-color-primary-4);
+  --color-primary-500: var(--mantine-color-primary-5);
+  --color-primary-600: var(--mantine-color-primary-6);
+  --color-primary-700: var(--mantine-color-primary-7);
+  --color-primary-800: var(--mantine-color-primary-8);
+  --color-primary-900: var(--mantine-color-primary-9);
+
+  --color-accent-50: var(--mantine-color-accent-0);
+  --color-accent-100: var(--mantine-color-accent-1);
+  --color-accent-200: var(--mantine-color-accent-2);
+  --color-accent-300: var(--mantine-color-accent-3);
+  --color-accent-400: var(--mantine-color-accent-4);
+  --color-accent-500: var(--mantine-color-accent-5);
+  --color-accent-600: var(--mantine-color-accent-6);
+  --color-accent-700: var(--mantine-color-accent-7);
+  --color-accent-800: var(--mantine-color-accent-8);
+  --color-accent-900: var(--mantine-color-accent-9);
+}
+
+@theme {
+  --font-mono: ui-monospace, 'Cascadia Code', 'SFMono-Regular', Menlo, Consolas, monospace;
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  background: #f4f5f8;
+  color: #1f2430;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  a {
+    @apply text-blue-800 hover:text-primary-800;
+  }
+}
+
+/* Figures line up in columns. */
+.figures {
+  font-variant-numeric: tabular-nums;
+}

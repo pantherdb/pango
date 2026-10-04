@@ -1,0 +1,191 @@
+{
+ "schema_version": 1,
+ "build_id": "20261004T110000Z-all-f41d",
+ "label": "Failed build (synthetic)",
+ "script": "all",
+ "status": "failed",
+ "status_reason": "index_es (pango-2): 3 documents failed to load, so the indexes are incomplete; see logfile.log",
+ "exit_code": 1,
+ "started_at": "2026-10-04T11:00:00.000Z",
+ "updated_at": "2026-10-04T11:12:31.204Z",
+ "finished_at": "2026-10-04T11:12:31.204Z",
+ "duration_s": 751.204,
+ "as_of": "2026-10-04T11:00:00.000Z",
+ "host": {
+  "name": "build-host",
+  "platform": "win32",
+  "python": "3.13.13"
+ },
+ "process": {
+  "pid": 75780,
+  "ppid": 76320,
+  "executable": "C:/work/panther/pango/loader/.venv/Scripts/python.exe",
+  "argv": [
+   "C:/work/panther/pango/loader/src/build_record/__main__.py",
+   "begin",
+   "--script",
+   "all",
+   "-i",
+   "/scratch/capture-full/input",
+   "-a",
+   "/scratch/capture-full/clean-articles.json",
+   "-o",
+   "/scratch/capture-full/output"
+  ],
+  "cwd": "C:/work/panther/pango/loader"
+ },
+ "git": {
+  "commit": "c7a8fcf316c3c73777b39b0ef1551de7b446937a",
+  "short": "c7a8fcf",
+  "branch": "update-framework-n-lib",
+  "dirty": true
+ },
+ "packages": {
+  "pandas": "3.0.6",
+  "numpy": "2.5.3",
+  "elasticsearch": "8.19.3",
+  "ijson": "3.4.0.post0",
+  "requests": "2.32.5",
+  "pydantic": "2.12.5"
+ },
+ "config": {
+  "input_base": "/scratch/capture-full/input",
+  "articles": "/scratch/capture-full/clean-articles.json",
+  "output_dir": "/scratch/capture-full/output",
+  "es_url": "http://localhost:19200",
+  "annotations_index": "pango-annotations",
+  "genes_index": "pango-genes"
+ },
+ "shared_inputs": [
+  {
+   "role": "articles",
+   "path": "/scratch/capture-full/clean-articles.json",
+   "bytes": 24747814,
+   "modified_at": "2026-10-04T09:02:54.000Z",
+   "sha256": "d7069ec05eb061404fcfebd1a9a84ecc5fbc5a52939a952083d71579cebefaae",
+   "records": null
+  }
+ ],
+ "datasets": [
+  {
+   "id": "pango-1",
+   "input_dir": "/scratch/capture-full/input/pango-1",
+   "output_dir": "/scratch/capture-full/output/pango-1",
+   "release": null,
+   "inputs": [
+    {
+     "role": "terms",
+     "path": "/scratch/capture-full/input/pango-1/full_go_annotated.json",
+     "bytes": 6179134,
+     "modified_at": "2026-10-04T09:02:53.734Z",
+     "sha256": "b4bc69ae3899d38c8c03bef20d517de0890ab22bed08b1f539fb1f883baae809",
+     "records": null
+    },
+    {
+     "role": "annotations",
+     "path": "/scratch/capture-full/input/pango-1/human_iba_annotations.json",
+     "bytes": 56461507,
+     "modified_at": "2026-10-04T09:02:53.785Z",
+     "sha256": "d742ae88fe821e509cb249ef9dd0c1bb06c44d0e7f33eb22e8b9b87966cf0d7e",
+     "records": null
+    },
+    {
+     "role": "genes",
+     "path": "/scratch/capture-full/input/pango-1/human_iba_gene_info.json",
+     "bytes": 11380779,
+     "modified_at": "2026-10-04T09:02:53.796Z",
+     "sha256": "49b5981acf721b0cfb643c69b52b046f5664159e1d91b83b890182c6b6112862",
+     "records": null
+    },
+    {
+     "role": "taxon",
+     "path": "/scratch/capture-full/input/pango-1/taxon_lkp.json",
+     "bytes": 5521,
+     "modified_at": "2026-10-04T09:02:53.735Z",
+     "sha256": "cd9de7b46cf0d98988a317a2a879cd44f4c5af609ac5dc2f2377cd829f350f19",
+     "records": null
+    },
+    {
+     "role": "hierarchy",
+     "path": "/scratch/capture-full/input/pango-1/go_hierarchy.json",
+     "bytes": 269417,
+     "modified_at": "2026-10-04T09:02:53.716Z",
+     "sha256": "bab882bf0c65036a1555a4f59b3330c9341c96f79e5df0709170919d6fea5abf",
+     "records": null
+    }
+   ],
+   "steps": [
+    "get_articles",
+    "clean_annotations",
+    "generate_gene_annotations",
+    "report",
+    "index_es",
+    "verify"
+   ],
+   "indexes": {
+    "annotations": "pango-1-pango-annotations",
+    "genes": "pango-1-pango-genes"
+   }
+  },
+  {
+   "id": "pango-2",
+   "input_dir": "/scratch/capture-full/input/pango-2",
+   "output_dir": "/scratch/capture-full/output/pango-2",
+   "release": null,
+   "inputs": [
+    {
+     "role": "terms",
+     "path": "/scratch/capture-full/input/pango-2/full_go_annotated.json",
+     "bytes": 6349614,
+     "modified_at": "2026-10-04T09:02:53.875Z",
+     "sha256": "0bba7c40951fb5c4f5085286114ef9495a4be3c2ab0319d949c7a262695004dc",
+     "records": null
+    },
+    {
+     "role": "annotations",
+     "path": "/scratch/capture-full/input/pango-2/human_iba_annotations.json",
+     "bytes": 52138337,
+     "modified_at": "2026-10-04T09:02:53.846Z",
+     "sha256": "2568077f57974bc3be9da3d13dd4ac00ba605c1c683c567cba1eaf1ad66e6dff",
+     "records": null
+    },
+    {
+     "role": "genes",
+     "path": "/scratch/capture-full/input/pango-2/human_iba_gene_info.json",
+     "bytes": 16212876,
+     "modified_at": "2026-10-04T09:02:53.866Z",
+     "sha256": "eb794e40cb1edc142dce08c6812b984d51fffdd24ca2bbaaa795f1b4f4af9b93",
+     "records": null
+    },
+    {
+     "role": "taxon",
+     "path": "/scratch/capture-full/input/pango-2/taxon_lkp.json",
+     "bytes": 6239,
+     "modified_at": "2026-10-04T09:02:53.848Z",
+     "sha256": "0faf51edbaefce6a53a123e8aff2713e0dfd236cc193bac610db9df250485c96",
+     "records": null
+    },
+    {
+     "role": "hierarchy",
+     "path": "/scratch/capture-full/input/pango-2/go_hierarchy.json",
+     "bytes": 250247,
+     "modified_at": "2026-10-04T09:02:53.868Z",
+     "sha256": "2f5f01eecf7d4a67baceeccc7db6e1b3c47072f9bf510d891255d93ef7b20dde",
+     "records": null
+    }
+   ],
+   "steps": [
+    "get_articles",
+    "clean_annotations",
+    "generate_gene_annotations",
+    "report",
+    "index_es",
+    "verify"
+   ],
+   "indexes": {
+    "annotations": "pango-2-pango-annotations",
+    "genes": "pango-2-pango-genes"
+   }
+  }
+ ]
+}

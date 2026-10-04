@@ -1,0 +1,41 @@
+{"seq": 1, "at": "2026-10-04T11:05:17.124Z", "type": "run.start", "step": "index_es", "dataset": "pango-1", "build_id": "20261004T110000Z-all-f41d"}
+{"seq": 2, "at": "2026-10-04T11:05:17.157Z", "type": "phase.start", "phase": "p1", "name": "annotations"}
+{"seq": 3, "at": "2026-10-04T11:05:17.387Z", "type": "es", "op": "recreate_index", "index": "pango-1-pango-annotations", "status": "ok", "count": null, "errors": null, "duration_s": 0.229, "detail": null, "phase": "annotations"}
+{"seq": 4, "at": "2026-10-04T11:05:23.271Z", "type": "progress", "label": "annotations", "done": 21626880, "total": 423570874, "unit": "bytes"}
+{"seq": 5, "at": "2026-10-04T11:05:27.528Z", "type": "progress", "label": "annotations", "done": 43843584, "total": 423570874, "unit": "bytes"}
+{"seq": 6, "at": "2026-10-04T11:05:33.086Z", "type": "progress", "label": "annotations", "done": 65732608, "total": 423570874, "unit": "bytes"}
+{"seq": 7, "at": "2026-10-04T11:05:38.851Z", "type": "progress", "label": "annotations", "done": 88211456, "total": 423570874, "unit": "bytes"}
+{"seq": 8, "at": "2026-10-04T11:05:42.608Z", "type": "progress", "label": "annotations", "done": 117243904, "total": 423570874, "unit": "bytes"}
+{"seq": 9, "at": "2026-10-04T11:05:45.758Z", "type": "progress", "label": "annotations", "done": 143523840, "total": 423570874, "unit": "bytes"}
+{"seq": 10, "at": "2026-10-04T11:05:48.686Z", "type": "progress", "label": "annotations", "done": 170655744, "total": 423570874, "unit": "bytes"}
+{"seq": 11, "at": "2026-10-04T11:05:51.638Z", "type": "progress", "label": "annotations", "done": 202375168, "total": 423570874, "unit": "bytes"}
+{"seq": 12, "at": "2026-10-04T11:05:53.993Z", "type": "progress", "label": "annotations", "done": 227147776, "total": 423570874, "unit": "bytes"}
+{"seq": 13, "at": "2026-10-04T11:05:56.315Z", "type": "progress", "label": "annotations", "done": 252182528, "total": 423570874, "unit": "bytes"}
+{"seq": 14, "at": "2026-10-04T11:05:58.432Z", "type": "progress", "label": "annotations", "done": 274071552, "total": 423570874, "unit": "bytes"}
+{"seq": 15, "at": "2026-10-04T11:06:01.197Z", "type": "progress", "label": "annotations", "done": 303366144, "total": 423570874, "unit": "bytes"}
+{"seq": 16, "at": "2026-10-04T11:06:04.244Z", "type": "progress", "label": "annotations", "done": 328859648, "total": 423570874, "unit": "bytes"}
+{"seq": 17, "at": "2026-10-04T11:06:07.752Z", "type": "progress", "label": "annotations", "done": 353697792, "total": 423570874, "unit": "bytes"}
+{"seq": 18, "at": "2026-10-04T11:06:10.188Z", "type": "progress", "label": "annotations", "done": 377028608, "total": 423570874, "unit": "bytes"}
+{"seq": 19, "at": "2026-10-04T11:06:12.805Z", "type": "progress", "label": "annotations", "done": 400883712, "total": 423570874, "unit": "bytes"}
+{"seq": 20, "at": "2026-10-04T11:06:15.517Z", "type": "progress", "label": "annotations", "done": 423570874, "total": 423570874, "unit": "bytes"}
+{"seq": 21, "at": "2026-10-04T11:06:15.707Z", "type": "es", "op": "bulk", "index": "pango-1-pango-annotations", "status": "ok", "count": 90961, "errors": 0, "duration_s": 58.318, "detail": null, "phase": "annotations"}
+{"seq": 22, "at": "2026-10-04T11:06:15.711Z", "type": "phase.end", "phase": "p1", "name": "annotations", "status": "ok", "duration_s": 58.553, "counters": {"docs_indexed": 90961, "bulk_errors": 0}, "error": null}
+{"seq": 23, "at": "2026-10-04T11:06:15.715Z", "type": "phase.start", "phase": "p2", "name": "genes"}
+{"seq": 24, "at": "2026-10-04T11:06:15.915Z", "type": "es", "op": "recreate_index", "index": "pango-1-pango-genes", "status": "ok", "count": null, "errors": null, "duration_s": 0.197, "detail": null, "phase": "genes"}
+{"seq": 25, "at": "2026-10-04T11:06:16.809Z", "type": "progress", "label": "genes", "done": 3276800, "total": 33106649, "unit": "bytes"}
+{"seq": 26, "at": "2026-10-04T11:06:17.658Z", "type": "progress", "label": "genes", "done": 5701632, "total": 33106649, "unit": "bytes"}
+{"seq": 27, "at": "2026-10-04T11:06:18.261Z", "type": "progress", "label": "genes", "done": 7798784, "total": 33106649, "unit": "bytes"}
+{"seq": 28, "at": "2026-10-04T11:06:18.929Z", "type": "progress", "label": "genes", "done": 9764864, "total": 33106649, "unit": "bytes"}
+{"seq": 29, "at": "2026-10-04T11:06:19.342Z", "type": "progress", "label": "genes", "done": 11534336, "total": 33106649, "unit": "bytes"}
+{"seq": 30, "at": "2026-10-04T11:06:19.900Z", "type": "progress", "label": "genes", "done": 13303808, "total": 33106649, "unit": "bytes"}
+{"seq": 31, "at": "2026-10-04T11:06:20.726Z", "type": "progress", "label": "genes", "done": 16449536, "total": 33106649, "unit": "bytes"}
+{"seq": 32, "at": "2026-10-04T11:06:21.763Z", "type": "progress", "label": "genes", "done": 19529728, "total": 33106649, "unit": "bytes"}
+{"seq": 33, "at": "2026-10-04T11:06:22.676Z", "type": "progress", "label": "genes", "done": 22151168, "total": 33106649, "unit": "bytes"}
+{"seq": 34, "at": "2026-10-04T11:06:23.771Z", "type": "progress", "label": "genes", "done": 24641536, "total": 33106649, "unit": "bytes"}
+{"seq": 35, "at": "2026-10-04T11:06:24.473Z", "type": "progress", "label": "genes", "done": 27066368, "total": 33106649, "unit": "bytes"}
+{"seq": 36, "at": "2026-10-04T11:06:25.286Z", "type": "progress", "label": "genes", "done": 29556736, "total": 33106649, "unit": "bytes"}
+{"seq": 37, "at": "2026-10-04T11:06:26.102Z", "type": "progress", "label": "genes", "done": 31981568, "total": 33106649, "unit": "bytes"}
+{"seq": 38, "at": "2026-10-04T11:06:26.532Z", "type": "progress", "label": "genes", "done": 33106649, "total": 33106649, "unit": "bytes"}
+{"seq": 39, "at": "2026-10-04T11:06:26.607Z", "type": "es", "op": "bulk", "index": "pango-1-pango-genes", "status": "ok", "count": 20851, "errors": 0, "duration_s": 10.689, "detail": null, "phase": "genes"}
+{"seq": 40, "at": "2026-10-04T11:06:26.612Z", "type": "phase.end", "phase": "p2", "name": "genes", "status": "ok", "duration_s": 10.897, "counters": {"docs_indexed": 20851, "bulk_errors": 0}, "error": null}
+{"seq": 41, "at": "2026-10-04T11:06:26.615Z", "type": "run.end", "status": "ok", "reason": null, "exit_code": 0, "duration_s": 69.58}

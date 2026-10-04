@@ -1,0 +1,15 @@
+{"seq": 1, "at": "2026-10-04T09:09:32.876Z", "type": "run.start", "step": "clean_annotations", "dataset": "pango-2", "build_id": "20261004T090254Z-all-3002"}
+{"seq": 2, "at": "2026-10-04T09:09:32.886Z", "type": "phase.start", "phase": "p1", "name": "load_terms"}
+{"seq": 3, "at": "2026-10-04T09:09:33.012Z", "type": "phase.end", "phase": "p1", "name": "load_terms", "status": "ok", "duration_s": 0.125, "counters": {"terms": 48202}, "error": null}
+{"seq": 4, "at": "2026-10-04T09:09:33.014Z", "type": "phase.start", "phase": "p2", "name": "load_articles"}
+{"seq": 5, "at": "2026-10-04T09:09:33.420Z", "type": "phase.end", "phase": "p2", "name": "load_articles", "status": "ok", "duration_s": 0.405, "counters": {"articles": 70233}, "error": null}
+{"seq": 6, "at": "2026-10-04T09:09:33.433Z", "type": "phase.start", "phase": "p3", "name": "load_taxa"}
+{"seq": 7, "at": "2026-10-04T09:09:33.437Z", "type": "phase.end", "phase": "p3", "name": "load_taxa", "status": "ok", "duration_s": 0.005, "counters": {"taxa": 82}, "error": null}
+{"seq": 8, "at": "2026-10-04T09:09:33.439Z", "type": "phase.start", "phase": "p4", "name": "load_genes"}
+{"seq": 9, "at": "2026-10-04T09:09:33.732Z", "type": "phase.end", "phase": "p4", "name": "load_genes", "status": "ok", "duration_s": 0.293, "counters": {"genes": 52489}, "error": null}
+{"seq": 10, "at": "2026-10-04T09:09:33.735Z", "type": "phase.start", "phase": "p5", "name": "join"}
+{"seq": 11, "at": "2026-10-04T09:12:42.209Z", "type": "phase.end", "phase": "p5", "name": "join", "status": "ok", "duration_s": 188.472, "counters": {"annotations": 86886}, "error": null}
+{"seq": 12, "at": "2026-10-04T09:12:42.212Z", "type": "phase.start", "phase": "p6", "name": "write"}
+{"seq": 13, "at": "2026-10-04T09:13:19.370Z", "type": "artifact", "role": "clean_annotations", "path": "/scratch/capture-full/output/pango-2/human_iba_annotations_clean.json", "bytes": 366451736, "modified_at": "2026-10-04T09:13:19.369Z", "sha256": "790530129616e5751253195339e54b66b7e87f95b79c8b20aab60c154541c85d", "records": 86886, "phase": "write"}
+{"seq": 14, "at": "2026-10-04T09:13:19.965Z", "type": "phase.end", "phase": "p6", "name": "write", "status": "ok", "duration_s": 37.753, "counters": {}, "error": null}
+{"seq": 15, "at": "2026-10-04T09:13:21.220Z", "type": "run.end", "status": "ok", "reason": null, "exit_code": 0, "duration_s": 228.343}

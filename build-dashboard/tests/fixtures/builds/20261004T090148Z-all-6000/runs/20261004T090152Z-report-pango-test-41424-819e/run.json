@@ -1,0 +1,1032 @@
+{
+ "schema_version": 1,
+ "run_id": "20261004T090152Z-report-pango-test-41424-819e",
+ "build_id": "20261004T090148Z-all-6000",
+ "step": "report",
+ "dataset": "pango-test",
+ "title": "report · pango-test",
+ "status": "ok",
+ "status_reason": null,
+ "exit_code": 0,
+ "started_at": "2026-10-04T09:01:52.569Z",
+ "updated_at": "2026-10-04T09:01:52.693Z",
+ "finished_at": "2026-10-04T09:01:52.693Z",
+ "duration_s": 0.124,
+ "heartbeat_s": 10,
+ "process": {
+  "pid": 41424,
+  "ppid": 65452,
+  "executable": "C:/work/panther/pango/loader/.venv/Scripts/python.exe",
+  "argv": [
+   "C:/work/panther/pango/loader/src/data_report.py",
+   "-i",
+   "/scratch/capture-test/input/pango-test",
+   "-o",
+   "/scratch/capture-test/output/pango-test",
+   "-art",
+   "/scratch/capture-test/clean-articles.json"
+  ],
+  "cwd": "C:/work/panther/pango/loader"
+ },
+ "host": {
+  "name": "build-host",
+  "platform": "win32",
+  "python": "3.13.13"
+ },
+ "config": {
+  "input_dir": "/scratch/capture-test/input/pango-test",
+  "output_dir": "/scratch/capture-test/output/pango-test",
+  "articles_fp": "/scratch/capture-test/clean-articles.json",
+  "dataset": null,
+  "backfill": false
+ },
+ "progress": {
+  "label": "genes",
+  "done": 7848,
+  "total": 7848,
+  "unit": "bytes",
+  "updated_at": "2026-10-04T09:01:52.678Z"
+ },
+ "phases": [
+  {
+   "id": "p1",
+   "name": "inputs",
+   "status": "ok",
+   "started_at": "2026-10-04T09:01:52.659Z",
+   "finished_at": "2026-10-04T09:01:52.667Z",
+   "duration_s": 0.008,
+   "counters": {},
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p2",
+   "name": "evidence",
+   "status": "ok",
+   "started_at": "2026-10-04T09:01:52.668Z",
+   "finished_at": "2026-10-04T09:01:52.671Z",
+   "duration_s": 0.002,
+   "counters": {},
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p3",
+   "name": "annotations",
+   "status": "ok",
+   "started_at": "2026-10-04T09:01:52.672Z",
+   "finished_at": "2026-10-04T09:01:52.675Z",
+   "duration_s": 0.003,
+   "counters": {},
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p4",
+   "name": "genes",
+   "status": "ok",
+   "started_at": "2026-10-04T09:01:52.677Z",
+   "finished_at": "2026-10-04T09:01:52.678Z",
+   "duration_s": 0.002,
+   "counters": {},
+   "error": null,
+   "note": null
+  }
+ ],
+ "counters": {
+  "input_terms": 28,
+  "input_goslim_terms": 12,
+  "input_genes": 24,
+  "input_genes_duplicated": 0,
+  "input_taxa": 6,
+  "input_hierarchy_edges": 156,
+  "input_articles": 37,
+  "input_annotations": 22,
+  "evidence": 43,
+  "references": 37,
+  "references_non_pmid": 0,
+  "references_unresolved": 0,
+  "with_genes": 21,
+  "with_genes_unresolved": 0,
+  "groups": 8,
+  "annotations": 22,
+  "annotations_known_term": 14,
+  "references_null": 0,
+  "annotations_unknown_term": 8,
+  "genes_annotated": 5,
+  "go_terms": 14,
+  "genes": 5,
+  "genes_named": 5,
+  "gene_terms": 22,
+  "genes_with_unknown_terms": 4,
+  "slim_terms": 15,
+  "consistency_checks": 5,
+  "consistency_failed": 0,
+  "taxon_id_types_differ": 1
+ },
+ "breakdowns": {
+  "annotations_by_aspect": {
+   "biological process": 9,
+   "cellular component": 6,
+   "molecular function": 7
+  },
+  "annotations_by_evidence_type": {
+   "homology": 10,
+   "direct": 4,
+   "n/a": 8
+  },
+  "annotations_by_term_type": {
+   "known": 14,
+   "unknown": 8
+  },
+  "annotations_by_evidence": {
+   "0": 8,
+   "1": 1,
+   "2": 4,
+   "3": 4,
+   "4-5": 5,
+   "6-10": 0,
+   "11+": 0
+  },
+  "evidence_by_group": {
+   "PomBase": 8,
+   "SGD": 5,
+   "UniProt": 21,
+   "MGI": 6,
+   "FlyBase": 1,
+   "WB": 1,
+   "HGNC-UCL": 1,
+   "GO_Central": 1
+  },
+  "annotations_by_group": {
+   "SGD": 5,
+   "PomBase": 5,
+   "UniProt": 9,
+   "WB": 1,
+   "FlyBase": 1,
+   "MGI": 3,
+   "HGNC-UCL": 1,
+   "GO_Central": 1
+  },
+  "with_genes_by_taxon": {
+   "Schizosaccharomyces pombe": 2,
+   "Saccharomyces cerevisiae": 1,
+   "Homo sapiens": 10,
+   "Mus musculus": 6,
+   "Drosophila melanogaster": 1,
+   "Caenorhabditis elegans": 1
+  },
+  "genes_by_terms": {
+   "1": 0,
+   "2-5": 4,
+   "6-10": 1,
+   "11-20": 0,
+   "21-50": 0,
+   "51-100": 0,
+   "101+": 0
+  }
+ },
+ "logs": {
+  "warning": {
+   "total": 0,
+   "keys": 0,
+   "overflow": 0,
+   "entries": []
+  },
+  "error": {
+   "total": 0,
+   "keys": 0,
+   "overflow": 0,
+   "entries": []
+  }
+ },
+ "http": null,
+ "es": null,
+ "artifacts": [],
+ "sections": [
+  {
+   "id": "inputs",
+   "title": "Inputs",
+   "status": "ok",
+   "message": null,
+   "headline": {
+    "GO terms": 28,
+    "GO slim terms": 12,
+    "Genes in gene info": 24,
+    "Taxa": 6,
+    "Hierarchy edges": 156,
+    "Annotations in": 22,
+    "Articles": 37
+   },
+   "tables": [
+    {
+     "id": "files",
+     "title": "Files",
+     "columns": [
+      {
+       "key": "role",
+       "label": "Role"
+      },
+      {
+       "key": "path",
+       "label": "File"
+      },
+      {
+       "key": "bytes",
+       "label": "Bytes",
+       "kind": "number"
+      },
+      {
+       "key": "modified_at",
+       "label": "Modified"
+      },
+      {
+       "key": "sha256",
+       "label": "SHA-256"
+      }
+     ],
+     "rows": [
+      {
+       "role": "terms",
+       "path": "/scratch/capture-test/input/pango-test/full_go_annotated.json",
+       "bytes": 4219,
+       "modified_at": "2026-10-04T09:01:47.983Z",
+       "sha256": "d827cf975802",
+       "records": null
+      },
+      {
+       "role": "annotations",
+       "path": "/scratch/capture-test/input/pango-test/human_iba_annotations.json",
+       "bytes": 12637,
+       "modified_at": "2026-10-04T09:01:47.994Z",
+       "sha256": "5f5a6f641b25",
+       "records": null
+      },
+      {
+       "role": "genes",
+       "path": "/scratch/capture-test/input/pango-test/human_iba_gene_info.json",
+       "bytes": 7494,
+       "modified_at": "2026-10-04T09:01:47.995Z",
+       "sha256": "dcbc09703521",
+       "records": null
+      },
+      {
+       "role": "taxon",
+       "path": "/scratch/capture-test/input/pango-test/taxon_lkp.json",
+       "bytes": 636,
+       "modified_at": "2026-10-04T09:01:47.981Z",
+       "sha256": "b7429b9542ac",
+       "records": null
+      },
+      {
+       "role": "hierarchy",
+       "path": "/scratch/capture-test/input/pango-test/go_hierarchy.json",
+       "bytes": 10455,
+       "modified_at": "2026-10-04T09:01:47.993Z",
+       "sha256": "793333b12b85",
+       "records": null
+      },
+      {
+       "role": "articles",
+       "path": "/scratch/capture-test/clean-articles.json",
+       "bytes": 13329,
+       "modified_at": "2026-10-04T09:01:50.409Z",
+       "sha256": "419491768eea",
+       "records": null
+      },
+      {
+       "role": "clean_annotations",
+       "path": "/scratch/capture-test/output/pango-test/human_iba_annotations_clean.json",
+       "bytes": 47196,
+       "modified_at": "2026-10-04T09:01:51.325Z",
+       "sha256": null,
+       "records": null
+      },
+      {
+       "role": "clean_genes",
+       "path": "/scratch/capture-test/output/pango-test/human_iba_genes_clean.json",
+       "bytes": 7848,
+       "modified_at": "2026-10-04T09:01:52.212Z",
+       "sha256": null,
+       "records": null
+      }
+     ],
+     "total_rows": 8
+    }
+   ],
+   "text": null
+  },
+  {
+   "id": "annotations",
+   "title": "Annotations",
+   "status": "ok",
+   "message": null,
+   "headline": {
+    "Annotations": 22,
+    "Genes annotated": 5,
+    "GO terms": 14,
+    "Unknown-term annotations": 8,
+    "Genes not in gene info": 0
+   },
+   "tables": [
+    {
+     "id": "by_aspect",
+     "title": "By aspect",
+     "columns": [
+      {
+       "key": "aspect",
+       "label": "Aspect"
+      },
+      {
+       "key": "annotations",
+       "label": "Annotations",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "aspect": "biological process",
+       "annotations": 9
+      },
+      {
+       "aspect": "molecular function",
+       "annotations": 7
+      },
+      {
+       "aspect": "cellular component",
+       "annotations": 6
+      }
+     ],
+     "total_rows": 3
+    },
+    {
+     "id": "by_evidence_type",
+     "title": "By evidence type",
+     "columns": [
+      {
+       "key": "evidence_type",
+       "label": "Evidence type"
+      },
+      {
+       "key": "annotations",
+       "label": "Annotations",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "evidence_type": "homology",
+       "annotations": 10
+      },
+      {
+       "evidence_type": "n/a",
+       "annotations": 8
+      },
+      {
+       "evidence_type": "direct",
+       "annotations": 4
+      }
+     ],
+     "total_rows": 3
+    },
+    {
+     "id": "top_terms",
+     "title": "Top 25 GO terms",
+     "columns": [
+      {
+       "key": "id",
+       "label": "Term"
+      },
+      {
+       "key": "label",
+       "label": "Label"
+      },
+      {
+       "key": "aspect",
+       "label": "Aspect"
+      },
+      {
+       "key": "annotations",
+       "label": "Annotations",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "id": "GO:0000422",
+       "label": "autophagy of mitochondrion",
+       "aspect": "biological process",
+       "annotations": 1
+      },
+      {
+       "id": "GO:0005769",
+       "label": "early endosome",
+       "aspect": "cellular component",
+       "annotations": 1
+      },
+      {
+       "id": "GO:0008138",
+       "label": "protein tyrosine/serine/threonine phosphatase activity",
+       "aspect": "molecular function",
+       "annotations": 1
+      },
+      {
+       "id": "GO:0033549",
+       "label": "MAP kinase phosphatase activity",
+       "aspect": "molecular function",
+       "annotations": 1
+      },
+      {
+       "id": "GO:0005737",
+       "label": "cytoplasm",
+       "aspect": "cellular component",
+       "annotations": 1
+      },
+      {
+       "id": "GO:0043409",
+       "label": "negative regulation of MAPK cascade",
+       "aspect": "biological process",
+       "annotations": 1
+      },
+      {
+       "id": "GO:0016229",
+       "label": "steroid dehydrogenase activity",
+       "aspect": "molecular function",
+       "annotations": 1
+      },
+      {
+       "id": "GO:0016616",
+       "label": "oxidoreductase activity, acting on the CH-OH group of donors, NAD or NADP as acceptor",
+       "aspect": "molecular function",
+       "annotations": 1
+      },
+      {
+       "id": "GO:0005811",
+       "label": "lipid droplet",
+       "aspect": "cellular component",
+       "annotations": 1
+      },
+      {
+       "id": "GO:0061709",
+       "label": "reticulophagy",
+       "aspect": "biological process",
+       "annotations": 1
+      },
+      {
+       "id": "GO:0015031",
+       "label": "protein transport",
+       "aspect": "biological process",
+       "annotations": 1
+      },
+      {
+       "id": "GO:2000786",
+       "label": "positive regulation of autophagosome assembly",
+       "aspect": "biological process",
+       "annotations": 1
+      },
+      {
+       "id": "GO:0000407",
+       "label": "phagophore assembly site",
+       "aspect": "cellular component",
+       "annotations": 1
+      },
+      {
+       "id": "GO:0032456",
+       "label": "endocytic recycling",
+       "aspect": "biological process",
+       "annotations": 1
+      }
+     ],
+     "total_rows": 14
+    }
+   ],
+   "text": null
+  },
+  {
+   "id": "evidence",
+   "title": "Evidence and references",
+   "status": "ok",
+   "message": null,
+   "headline": {
+    "Evidence lines": 43,
+    "References": 37,
+    "PMIDs without an article": 0,
+    "Non-PMID references": 0,
+    "With-genes": 21,
+    "With-genes not in gene info": 0,
+    "Contributing groups": 8
+   },
+   "tables": [
+    {
+     "id": "groups",
+     "title": "Contributing groups",
+     "columns": [
+      {
+       "key": "group",
+       "label": "Group"
+      },
+      {
+       "key": "evidence",
+       "label": "Evidence lines",
+       "kind": "number"
+      },
+      {
+       "key": "annotations",
+       "label": "Annotations",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "group": "UniProt",
+       "evidence": 21,
+       "annotations": 9
+      },
+      {
+       "group": "PomBase",
+       "evidence": 8,
+       "annotations": 5
+      },
+      {
+       "group": "MGI",
+       "evidence": 6,
+       "annotations": 3
+      },
+      {
+       "group": "SGD",
+       "evidence": 5,
+       "annotations": 5
+      },
+      {
+       "group": "FlyBase",
+       "evidence": 1,
+       "annotations": 1
+      },
+      {
+       "group": "GO_Central",
+       "evidence": 1,
+       "annotations": 1
+      },
+      {
+       "group": "HGNC-UCL",
+       "evidence": 1,
+       "annotations": 1
+      },
+      {
+       "group": "WB",
+       "evidence": 1,
+       "annotations": 1
+      }
+     ],
+     "total_rows": 8
+    },
+    {
+     "id": "with_gene_taxa",
+     "title": "With-genes by taxon",
+     "columns": [
+      {
+       "key": "taxon",
+       "label": "Taxon"
+      },
+      {
+       "key": "with_genes",
+       "label": "With-genes",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "taxon": "Homo sapiens",
+       "with_genes": 10
+      },
+      {
+       "taxon": "Mus musculus",
+       "with_genes": 6
+      },
+      {
+       "taxon": "Schizosaccharomyces pombe",
+       "with_genes": 2
+      },
+      {
+       "taxon": "Caenorhabditis elegans",
+       "with_genes": 1
+      },
+      {
+       "taxon": "Drosophila melanogaster",
+       "with_genes": 1
+      },
+      {
+       "taxon": "Saccharomyces cerevisiae",
+       "with_genes": 1
+      }
+     ],
+     "total_rows": 6
+    },
+    {
+     "id": "evidence_per_annotation",
+     "title": "Evidence lines per annotation",
+     "columns": [
+      {
+       "key": "evidence",
+       "label": "Evidence lines"
+      },
+      {
+       "key": "annotations",
+       "label": "Annotations",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "evidence": "0",
+       "annotations": 8
+      },
+      {
+       "evidence": "1",
+       "annotations": 1
+      },
+      {
+       "evidence": "2",
+       "annotations": 4
+      },
+      {
+       "evidence": "3",
+       "annotations": 4
+      },
+      {
+       "evidence": "4-5",
+       "annotations": 5
+      },
+      {
+       "evidence": "6-10",
+       "annotations": 0
+      },
+      {
+       "evidence": "11+",
+       "annotations": 0
+      }
+     ],
+     "total_rows": 7
+    }
+   ],
+   "text": null
+  },
+  {
+   "id": "genes",
+   "title": "Genes",
+   "status": "ok",
+   "message": null,
+   "headline": {
+    "Genes": 5,
+    "Named": 5,
+    "Unnamed": 0,
+    "With unknown terms": 4,
+    "Terms per gene (mean)": 4.4,
+    "Slim terms": 15
+   },
+   "tables": [
+    {
+     "id": "terms_per_gene",
+     "title": "Terms per gene",
+     "columns": [
+      {
+       "key": "terms",
+       "label": "Terms"
+      },
+      {
+       "key": "genes",
+       "label": "Genes",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "terms": "1",
+       "genes": 0
+      },
+      {
+       "terms": "2-5",
+       "genes": 4
+      },
+      {
+       "terms": "6-10",
+       "genes": 1
+      },
+      {
+       "terms": "11-20",
+       "genes": 0
+      },
+      {
+       "terms": "21-50",
+       "genes": 0
+      },
+      {
+       "terms": "51-100",
+       "genes": 0
+      },
+      {
+       "terms": "101+",
+       "genes": 0
+      }
+     ],
+     "total_rows": 7
+    },
+    {
+     "id": "top_slim_terms",
+     "title": "Top 25 slim terms by genes",
+     "columns": [
+      {
+       "key": "id",
+       "label": "Slim term"
+      },
+      {
+       "key": "label",
+       "label": "Label"
+      },
+      {
+       "key": "aspect",
+       "label": "Aspect"
+      },
+      {
+       "key": "genes",
+       "label": "Genes",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "id": "UNKNOWN:0001",
+       "label": "Unknown molecular function",
+       "aspect": "molecular function",
+       "genes": 3
+      },
+      {
+       "id": "UNKNOWN:0002",
+       "label": "Unknown biological process",
+       "aspect": "biological process",
+       "genes": 3
+      },
+      {
+       "id": "GO:0005737",
+       "label": "cytoplasm",
+       "aspect": "cellular component",
+       "genes": 2
+      },
+      {
+       "id": "UNKNOWN:0003",
+       "label": "Unknown cellular component",
+       "aspect": "cellular component",
+       "genes": 2
+      },
+      {
+       "id": "GO:0007005",
+       "label": "mitochondrion organization",
+       "aspect": "biological process",
+       "genes": 1
+      },
+      {
+       "id": "GO:0006914",
+       "label": "autophagy",
+       "aspect": "biological process",
+       "genes": 1
+      },
+      {
+       "id": "GO:0031410",
+       "label": "cytoplasmic vesicle",
+       "aspect": "cellular component",
+       "genes": 1
+      },
+      {
+       "id": "GO:0071840",
+       "label": "cellular component organization or biogenesis",
+       "aspect": "biological process",
+       "genes": 1
+      },
+      {
+       "id": "GO:0006810",
+       "label": "transport",
+       "aspect": "biological process",
+       "genes": 1
+      },
+      {
+       "id": "OTHER:0002",
+       "label": "Other biological process",
+       "aspect": "biological process",
+       "genes": 1
+      },
+      {
+       "id": "GO:0016192",
+       "label": "vesicle-mediated transport",
+       "aspect": "biological process",
+       "genes": 1
+      },
+      {
+       "id": "GO:0140096",
+       "label": "catalytic activity, acting on a protein",
+       "aspect": "molecular function",
+       "genes": 1
+      },
+      {
+       "id": "GO:0009966",
+       "label": "regulation of signal transduction",
+       "aspect": "biological process",
+       "genes": 1
+      },
+      {
+       "id": "GO:0003824",
+       "label": "catalytic activity",
+       "aspect": "molecular function",
+       "genes": 1
+      },
+      {
+       "id": "GO:0043226",
+       "label": "organelle",
+       "aspect": "cellular component",
+       "genes": 1
+      }
+     ],
+     "total_rows": 15
+    },
+    {
+     "id": "top_genes",
+     "title": "Top 25 genes by terms",
+     "columns": [
+      {
+       "key": "gene",
+       "label": "Gene"
+      },
+      {
+       "key": "symbol",
+       "label": "Symbol"
+      },
+      {
+       "key": "name",
+       "label": "Name"
+      },
+      {
+       "key": "terms",
+       "label": "Terms",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "gene": "UniProtKB:Q9UNH6",
+       "symbol": "SNX7",
+       "name": "Sorting nexin-7",
+       "terms": 8
+      },
+      {
+       "gene": "UniProtKB:Q7Z5P4",
+       "symbol": "HSD17B13",
+       "name": "17-beta-hydroxysteroid dehydrogenase 13",
+       "terms": 4
+      },
+      {
+       "gene": "UniProtKB:Q5VZP5",
+       "symbol": "DUSP27",
+       "name": "Inactive dual specificity phosphatase 27",
+       "terms": 4
+      },
+      {
+       "gene": "UniProtKB:Q96NU0",
+       "symbol": "CNTNAP3B",
+       "name": "Contactin-associated protein-like 3B",
+       "terms": 3
+      },
+      {
+       "gene": "UniProtKB:Q7Z4T9",
+       "symbol": "MAATS1",
+       "name": "Cilia- and flagella-associated protein 91",
+       "terms": 3
+      }
+     ],
+     "total_rows": 5
+    },
+    {
+     "id": "unknown_term_genes",
+     "title": "Genes with unknown terms",
+     "columns": [
+      {
+       "key": "gene",
+       "label": "Gene"
+      },
+      {
+       "key": "symbol",
+       "label": "Symbol"
+      },
+      {
+       "key": "unknown_terms",
+       "label": "Unknown terms"
+      }
+     ],
+     "rows": [
+      {
+       "gene": "UniProtKB:Q9UNH6",
+       "symbol": "SNX7",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q7Z5P4",
+       "symbol": "HSD17B13",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:Q7Z4T9",
+       "symbol": "MAATS1",
+       "unknown_terms": "UNKNOWN:0003, UNKNOWN:0002, UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q96NU0",
+       "symbol": "CNTNAP3B",
+       "unknown_terms": "UNKNOWN:0002, UNKNOWN:0001, UNKNOWN:0003"
+      }
+     ],
+     "total_rows": 4
+    }
+   ],
+   "text": null
+  },
+  {
+   "id": "consistency",
+   "title": "Consistency between the files",
+   "status": "ok",
+   "message": null,
+   "headline": {
+    "Checks": 5,
+    "Failed": 0
+   },
+   "tables": [
+    {
+     "id": "checks",
+     "title": "Checks",
+     "columns": [
+      {
+       "key": "check",
+       "label": "Check"
+      },
+      {
+       "key": "expected",
+       "label": "Expected",
+       "kind": "number"
+      },
+      {
+       "key": "actual",
+       "label": "Actual",
+       "kind": "number"
+      },
+      {
+       "key": "ok",
+       "label": "OK"
+      }
+     ],
+     "rows": [
+      {
+       "check": "Every input annotation is in the clean output, once",
+       "expected": 22,
+       "actual": 22,
+       "ok": true
+      },
+      {
+       "check": "Every annotated gene has a gene record",
+       "expected": 5,
+       "actual": 5,
+       "ok": true
+      },
+      {
+       "check": "Gene ids are unique in the gene info",
+       "expected": 0,
+       "actual": 0,
+       "ok": true
+      },
+      {
+       "check": "Every annotated gene is in the gene info",
+       "expected": 0,
+       "actual": 0,
+       "ok": true
+      },
+      {
+       "check": "Every with-gene is in the gene info",
+       "expected": 0,
+       "actual": 0,
+       "ok": true
+      }
+     ],
+     "total_rows": 5
+    }
+   ],
+   "text": "taxon_id is a str in the annotations and a int in the genes (pd.read_json re-infers it), a known issue."
+  }
+ ],
+ "dropped": {
+  "artifacts": 0,
+  "es_ops": 0,
+  "http_events": 0,
+  "log_events": 0
+ },
+ "exception": null,
+ "events": {
+  "file": "events.jsonl",
+  "count": 18
+ }
+}

@@ -1,0 +1,373 @@
+{
+ "schema_version": 1,
+ "run_id": "20261004T123628Z-verify-pango-1-50844-5e7a",
+ "build_id": "20261004T123000Z-all-9c2e",
+ "step": "verify",
+ "dataset": "pango-1",
+ "title": "verify · pango-1",
+ "status": "ok",
+ "status_reason": null,
+ "exit_code": 0,
+ "started_at": "2026-10-04T12:36:28.614Z",
+ "updated_at": "2026-10-04T12:36:36.684Z",
+ "finished_at": "2026-10-04T12:36:36.684Z",
+ "duration_s": 8.071,
+ "heartbeat_s": 10,
+ "process": {
+  "pid": 50844,
+  "ppid": 57112,
+  "executable": "C:/work/panther/pango/loader/.venv/Scripts/python.exe",
+  "argv": [
+   "C:/work/panther/pango/loader/src/verify_es.py",
+   "-a",
+   "/scratch/capture-full/output/pango-1/human_iba_annotations_clean.json",
+   "-g",
+   "/scratch/capture-full/output/pango-1/human_iba_genes_clean.json",
+   "-p",
+   "pango-1"
+  ],
+  "cwd": "C:/work/panther/pango/loader"
+ },
+ "host": {
+  "name": "build-host",
+  "platform": "win32",
+  "python": "3.13.13"
+ },
+ "config": {
+  "annotations_file": "/scratch/capture-full/output/pango-1/human_iba_annotations_clean.json",
+  "genes_file": "/scratch/capture-full/output/pango-1/human_iba_genes_clean.json",
+  "index_prefix": "pango-1",
+  "sample": 20,
+  "strict": false
+ },
+ "progress": null,
+ "phases": [
+  {
+   "id": "p1",
+   "name": "cluster",
+   "status": "ok",
+   "started_at": "2026-10-04T12:36:28.691Z",
+   "finished_at": "2026-10-04T12:36:28.709Z",
+   "duration_s": 0.017,
+   "counters": {},
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p2",
+   "name": "files",
+   "status": "ok",
+   "started_at": "2026-10-04T12:36:28.711Z",
+   "finished_at": "2026-10-04T12:36:34.151Z",
+   "duration_s": 5.44,
+   "counters": {},
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p3",
+   "name": "annotations",
+   "status": "ok",
+   "started_at": "2026-10-04T12:36:34.167Z",
+   "finished_at": "2026-10-04T12:36:34.750Z",
+   "duration_s": 0.584,
+   "counters": {},
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p4",
+   "name": "genes",
+   "status": "ok",
+   "started_at": "2026-10-04T12:36:34.752Z",
+   "finished_at": "2026-10-04T12:36:34.767Z",
+   "duration_s": 0.015,
+   "counters": {},
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p5",
+   "name": "samples",
+   "status": "ok",
+   "started_at": "2026-10-04T12:36:34.769Z",
+   "finished_at": "2026-10-04T12:36:36.679Z",
+   "duration_s": 1.91,
+   "counters": {},
+   "error": null,
+   "note": null
+  }
+ ],
+ "counters": {
+  "annotations_expected": 77317,
+  "genes_expected": 20851,
+  "annotations_in_index": 77317,
+  "genes_in_index": 20851,
+  "checks": 13,
+  "checks_failed": 0
+ },
+ "breakdowns": {
+  "checks_failed": {}
+ },
+ "logs": {
+  "warning": {
+   "total": 0,
+   "keys": 0,
+   "overflow": 0,
+   "entries": []
+  },
+  "error": {
+   "total": 0,
+   "keys": 0,
+   "overflow": 0,
+   "entries": []
+  }
+ },
+ "http": null,
+ "es": {
+  "server": {
+   "name": "434951769df4",
+   "cluster": "docker-cluster",
+   "version": "8.5.0"
+  },
+  "ops": [
+   {
+    "at": "2026-10-04T12:36:34.731Z",
+    "op": "refresh",
+    "index": "pango-1-pango-annotations",
+    "status": "ok",
+    "count": null,
+    "errors": null,
+    "duration_s": null,
+    "detail": null,
+    "phase": "annotations"
+   },
+   {
+    "at": "2026-10-04T12:36:34.744Z",
+    "op": "count",
+    "index": "pango-1-pango-annotations",
+    "status": "ok",
+    "count": 90961,
+    "errors": null,
+    "duration_s": null,
+    "detail": null,
+    "phase": "annotations"
+   },
+   {
+    "at": "2026-10-04T12:36:34.757Z",
+    "op": "refresh",
+    "index": "pango-1-pango-genes",
+    "status": "ok",
+    "count": null,
+    "errors": null,
+    "duration_s": null,
+    "detail": null,
+    "phase": "genes"
+   },
+   {
+    "at": "2026-10-04T12:36:34.762Z",
+    "op": "count",
+    "index": "pango-1-pango-genes",
+    "status": "ok",
+    "count": 20851,
+    "errors": null,
+    "duration_s": null,
+    "detail": null,
+    "phase": "genes"
+   },
+   {
+    "at": "2026-10-04T12:36:36.677Z",
+    "op": "sample_lookups",
+    "index": "pango-1-pango-genes",
+    "status": "ok",
+    "count": 40,
+    "errors": null,
+    "duration_s": null,
+    "detail": null,
+    "phase": "samples"
+   }
+  ]
+ },
+ "artifacts": [],
+ "sections": [
+  {
+   "id": "verification",
+   "title": "Elasticsearch check",
+   "status": "ok",
+   "message": null,
+   "headline": {
+    "Checks": 13,
+    "Failed": 0,
+    "Annotations in index": 90961,
+    "Genes in index": 20851
+   },
+   "tables": [
+    {
+     "id": "checks",
+     "title": "Checks",
+     "columns": [
+      {
+       "key": "index",
+       "label": "Index"
+      },
+      {
+       "key": "check",
+       "label": "Check"
+      },
+      {
+       "key": "expected",
+       "label": "Expected"
+      },
+      {
+       "key": "actual",
+       "label": "Actual"
+      },
+      {
+       "key": "ok",
+       "label": "OK"
+      },
+      {
+       "key": "detail",
+       "label": "Detail"
+      }
+     ],
+     "rows": [
+      {
+       "index": null,
+       "check": "Elasticsearch answers",
+       "expected": true,
+       "actual": true,
+       "ok": true,
+       "detail": "version 8.5.0"
+      },
+      {
+       "index": "pango-1-pango-annotations",
+       "check": "Index exists",
+       "expected": true,
+       "actual": true,
+       "ok": true,
+       "detail": null
+      },
+      {
+       "index": "pango-1-pango-annotations",
+       "check": "Documents match the output file",
+       "expected": 90961,
+       "actual": 90961,
+       "ok": true,
+       "detail": null
+      },
+      {
+       "index": "pango-1-pango-annotations",
+       "check": "Declared fields are mapped as declared",
+       "expected": 0,
+       "actual": 0,
+       "ok": true,
+       "detail": null
+      },
+      {
+       "index": "pango-1-pango-annotations",
+       "check": "Fields added by dynamic mapping",
+       "expected": null,
+       "actual": 28,
+       "ok": null,
+       "detail": "aspect, aspect.keyword, coordinates_chr_num, coordinates_chr_num.keyword, coordinates_end, coordinates_start, evidence_count, evidence_type, evidence_type.keyword, group, group.keyword, groups, groups.keyword, long_id, long_id.keyword, named_gene, panther_family, panther_family.keyword, slim_terms.is_goslim, taxon_abbr, taxon_abbr.keyword, taxon_id, taxon_id.keyword, taxon_label, taxon_label.keyword, term.is_goslim, term_type, term_type.keyword"
+      },
+      {
+       "index": "pango-1-pango-annotations",
+       "check": "ngram_analyzer is defined",
+       "expected": true,
+       "actual": true,
+       "ok": true,
+       "detail": null
+      },
+      {
+       "index": "pango-1-pango-annotations",
+       "check": "Created by this build's index_es run",
+       "expected": true,
+       "actual": true,
+       "ok": true,
+       "detail": "created 2026-10-04T09:08:07.028Z; index_es ran 2026-10-04T09:08:06.854Z to 2026-10-04T09:09:16.434Z"
+      },
+      {
+       "index": "pango-1-pango-genes",
+       "check": "Index exists",
+       "expected": true,
+       "actual": true,
+       "ok": true,
+       "detail": null
+      },
+      {
+       "index": "pango-1-pango-genes",
+       "check": "Documents match the output file",
+       "expected": 20851,
+       "actual": 20851,
+       "ok": true,
+       "detail": null
+      },
+      {
+       "index": "pango-1-pango-genes",
+       "check": "Declared fields are mapped as declared",
+       "expected": 0,
+       "actual": 0,
+       "ok": true,
+       "detail": null
+      },
+      {
+       "index": "pango-1-pango-genes",
+       "check": "Fields added by dynamic mapping",
+       "expected": null,
+       "actual": 22,
+       "ok": null,
+       "detail": "coordinates_chr_num, coordinates_chr_num.keyword, coordinates_end, coordinates_start, long_id, long_id.keyword, named_gene, panther_family, panther_family.keyword, slim_terms.evidence_type, slim_terms.evidence_type.keyword, sort_priority, taxon_abbr, taxon_abbr.keyword, taxon_id, taxon_label, taxon_label.keyword, term_count, terms.evidence_type, terms.evidence_type.keyword, terms.parent_ids, terms.parent_ids.keyword"
+      },
+      {
+       "index": "pango-1-pango-genes",
+       "check": "ngram_analyzer is defined",
+       "expected": true,
+       "actual": true,
+       "ok": true,
+       "detail": null
+      },
+      {
+       "index": "pango-1-pango-genes",
+       "check": "Created by this build's index_es run",
+       "expected": true,
+       "actual": true,
+       "ok": true,
+       "detail": "created 2026-10-04T09:09:05.587Z; index_es ran 2026-10-04T09:08:06.854Z to 2026-10-04T09:09:16.434Z"
+      },
+      {
+       "index": "pango-1-pango-genes",
+       "check": "Sampled genes match (20)",
+       "expected": 20,
+       "actual": 20,
+       "ok": true,
+       "detail": null
+      },
+      {
+       "index": "pango-1-pango-annotations",
+       "check": "Sampled genes' annotation counts match (20)",
+       "expected": 20,
+       "actual": 20,
+       "ok": true,
+       "detail": null
+      }
+     ],
+     "total_rows": 15
+    }
+   ],
+   "text": null
+  }
+ ],
+ "dropped": {
+  "artifacts": 0,
+  "es_ops": 0,
+  "http_events": 0,
+  "log_events": 0
+ },
+ "exception": null,
+ "events": {
+  "file": "events.jsonl",
+  "count": 18
+ }
+}

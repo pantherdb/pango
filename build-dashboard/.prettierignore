@@ -1,0 +1,8 @@
+dist
+dist-e2e
+coverage
+playwright-report
+test-results
+package-lock.json
+# Build records are written by the loader; the fixtures are kept as it wrote them.
+tests/fixtures

@@ -1,0 +1,2921 @@
+{
+ "schema_version": 1,
+ "run_id": "20261004T111109Z-report-pango-2-24336-5e7a",
+ "build_id": "20261004T110000Z-all-f41d",
+ "step": "report",
+ "dataset": "pango-2",
+ "title": "report · pango-2",
+ "status": "ok",
+ "status_reason": null,
+ "exit_code": 0,
+ "started_at": "2026-10-04T11:11:09.834Z",
+ "updated_at": "2026-10-04T11:11:22.676Z",
+ "finished_at": "2026-10-04T11:11:22.675Z",
+ "duration_s": 12.841,
+ "heartbeat_s": 10,
+ "process": {
+  "pid": 24336,
+  "ppid": 80852,
+  "executable": "C:/work/panther/pango/loader/.venv/Scripts/python.exe",
+  "argv": [
+   "C:/work/panther/pango/loader/src/data_report.py",
+   "-i",
+   "/scratch/capture-full/input/pango-2",
+   "-o",
+   "/scratch/capture-full/output/pango-2",
+   "-art",
+   "/scratch/capture-full/clean-articles.json"
+  ],
+  "cwd": "C:/work/panther/pango/loader"
+ },
+ "host": {
+  "name": "build-host",
+  "platform": "win32",
+  "python": "3.13.13"
+ },
+ "config": {
+  "input_dir": "/scratch/capture-full/input/pango-2",
+  "output_dir": "/scratch/capture-full/output/pango-2",
+  "articles_fp": "/scratch/capture-full/clean-articles.json",
+  "dataset": null,
+  "backfill": false
+ },
+ "progress": {
+  "label": "genes",
+  "done": 31864667,
+  "total": 31864667,
+  "unit": "bytes",
+  "updated_at": "2026-10-04T11:11:22.621Z"
+ },
+ "phases": [
+  {
+   "id": "p1",
+   "name": "inputs",
+   "status": "ok",
+   "started_at": "2026-10-04T11:11:09.996Z",
+   "finished_at": "2026-10-04T11:11:11.031Z",
+   "duration_s": 1.035,
+   "counters": {},
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p2",
+   "name": "evidence",
+   "status": "ok",
+   "started_at": "2026-10-04T11:11:11.034Z",
+   "finished_at": "2026-10-04T11:11:13.837Z",
+   "duration_s": 2.803,
+   "counters": {},
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p3",
+   "name": "annotations",
+   "status": "ok",
+   "started_at": "2026-10-04T11:11:13.840Z",
+   "finished_at": "2026-10-04T11:11:21.972Z",
+   "duration_s": 8.132,
+   "counters": {},
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p4",
+   "name": "genes",
+   "status": "ok",
+   "started_at": "2026-10-04T11:11:21.976Z",
+   "finished_at": "2026-10-04T11:11:22.621Z",
+   "duration_s": 0.645,
+   "counters": {},
+   "error": null,
+   "note": null
+  }
+ ],
+ "counters": {
+  "input_terms": 48202,
+  "input_goslim_terms": 133,
+  "input_genes": 52489,
+  "input_genes_duplicated": 0,
+  "input_taxa": 82,
+  "input_hierarchy_edges": 5561,
+  "input_annotations": 86886,
+  "evidence": 448780,
+  "references": 50045,
+  "references_non_pmid": 2,
+  "with_genes": 43040,
+  "with_genes_unresolved": 0,
+  "groups": 48,
+  "annotations": 86886,
+  "annotations_known_term": 66838,
+  "annotations_unknown_term": 20048,
+  "annotations_gene_unresolved": 0,
+  "annotations_without_symbol": 0,
+  "references_null": 5,
+  "genes_annotated": 20580,
+  "go_terms": 7620,
+  "genes": 20580,
+  "genes_named": 20376,
+  "genes_unnamed": 204,
+  "genes_with_unknown_terms": 10938,
+  "gene_terms": 86886,
+  "slim_terms": 130,
+  "consistency_checks": 5,
+  "consistency_failed": 0,
+  "input_articles": 70233,
+  "references_unresolved": 0,
+  "taxon_id_types_differ": 1
+ },
+ "breakdowns": {
+  "annotations_by_aspect": {
+   "molecular function": 26267,
+   "cellular component": 28323,
+   "biological process": 32296
+  },
+  "annotations_by_evidence_type": {
+   "homology": 38591,
+   "direct": 28247,
+   "n/a": 20048
+  },
+  "annotations_by_term_type": {
+   "known": 66838,
+   "unknown": 20048
+  },
+  "annotations_by_evidence": {
+   "0": 20048,
+   "1": 15745,
+   "2": 12019,
+   "3": 7646,
+   "4-5": 9337,
+   "6-10": 10218,
+   "11+": 11873
+  },
+  "evidence_by_group": {
+   "UniProt": 176597,
+   "SGD": 20461,
+   "FlyBase": 35864,
+   "MGI": 81409,
+   "PomBase": 10847,
+   "HPA": 21790,
+   "TAIR": 12061,
+   "GO_Central": 3366,
+   "RGD": 30515,
+   "ZFIN": 12189,
+   "GeneDB": 7167,
+   "Reactome": 1877,
+   "WB": 14912,
+   "EcoCyc": 1389,
+   "BHF-UCL": 31457,
+   "CGD": 3024,
+   "CACAO": 2184,
+   "AgBase": 4184,
+   "ParkinsonsUK-UCL": 4507,
+   "dictyBase": 6403,
+   "NTNU_SB": 13853,
+   "ARUK-UCL": 9287,
+   "LIFEdb": 1114,
+   "ComplexPortal": 10851,
+   "CAFA": 4844,
+   "HGNC-UCL": 2756,
+   "SynGO": 8996,
+   "AspGD": 2032,
+   "GDB": 18,
+   "Xenbase": 335,
+   "DisProt": 269,
+   "MTBBASE": 323,
+   "TIGR": 411,
+   "EcoliWiki": 285,
+   "PseudoCAP": 79,
+   "SynGO-UCL": 214,
+   "SYSCILIA_CCNET": 213,
+   "HGNC": 135,
+   "JaponicusDB": 214,
+   "GR": 68,
+   "UOS_MCB": 32,
+   "DFLAT": 119,
+   "PINC": 66,
+   "Alzheimers_University_of_Toronto": 85,
+   "IntAct": 8,
+   "Roslin_Institute": 5,
+   "PHI-base": 3,
+   "YuBioLab": 4
+  },
+  "annotations_by_group": {
+   "UniProt": 47224,
+   "SGD": 11864,
+   "MGI": 31002,
+   "PomBase": 6688,
+   "FlyBase": 18311,
+   "HPA": 7521,
+   "TAIR": 5090,
+   "GO_Central": 2233,
+   "ZFIN": 6352,
+   "RGD": 15344,
+   "Reactome": 962,
+   "GeneDB": 3428,
+   "WB": 8679,
+   "BHF-UCL": 13170,
+   "EcoCyc": 1155,
+   "AgBase": 2736,
+   "CACAO": 1847,
+   "CGD": 2190,
+   "ParkinsonsUK-UCL": 2635,
+   "dictyBase": 3430,
+   "NTNU_SB": 3506,
+   "ARUK-UCL": 4953,
+   "LIFEdb": 828,
+   "ComplexPortal": 5029,
+   "CAFA": 3302,
+   "HGNC-UCL": 2091,
+   "SynGO": 2569,
+   "AspGD": 1550,
+   "GDB": 18,
+   "Xenbase": 242,
+   "DisProt": 262,
+   "MTBBASE": 266,
+   "TIGR": 205,
+   "EcoliWiki": 267,
+   "PseudoCAP": 76,
+   "SynGO-UCL": 155,
+   "SYSCILIA_CCNET": 131,
+   "HGNC": 118,
+   "JaponicusDB": 165,
+   "GR": 60,
+   "UOS_MCB": 32,
+   "DFLAT": 112,
+   "PINC": 66,
+   "Alzheimers_University_of_Toronto": 80,
+   "IntAct": 5,
+   "Roslin_Institute": 5,
+   "PHI-base": 3,
+   "YuBioLab": 4
+  },
+  "with_genes_by_taxon": {
+   "Rattus norvegicus": 3884,
+   "Saccharomyces cerevisiae": 2840,
+   "Homo sapiens": 11131,
+   "Xenopus laevis": 314,
+   "Dictyostelium discoideum": 584,
+   "Drosophila melanogaster": 3419,
+   "Mus musculus": 8633,
+   "Oryza sativa": 173,
+   "Danio rerio": 1771,
+   "Caenorhabditis elegans": 1689,
+   "Plasmodium falciparum": 291,
+   "Schizosaccharomyces pombe": 1527,
+   "Arabidopsis thaliana": 2751,
+   "Emericella nidulans": 233,
+   "Trypanosoma brucei": 1023,
+   "Macaca mulatta": 19,
+   "Gallus gallus": 340,
+   "Zea mays": 30,
+   "Canis lupus familiaris": 86,
+   "Bos taurus": 527,
+   "Candida albicans": 476,
+   "Leishmania major": 70,
+   "Bacillus subtilis": 29,
+   "Mycobacterium tuberculosis": 130,
+   "Pseudomonas aeruginosa": 42,
+   "Neosartorya fumigata": 53,
+   "Sus scrofa": 166,
+   "Entamoeba histolytica": 14,
+   "Escherichia coli": 486,
+   "Equus caballus": 10,
+   "Oryzias latipes": 10,
+   "Anopheles gambiae": 14,
+   "Giardia intestinalis": 21,
+   "Neurospora crassa": 11,
+   "Glycine max": 15,
+   "Cryptococcus neoformans": 3,
+   "Triticum aestivum": 3,
+   "Schizosaccharomyces japonicus": 24,
+   "Solanum lycopersicum": 20,
+   "Marchantia polymorpha": 2,
+   "Aquifex aeolicus": 2,
+   "Nematostella vectensis": 3,
+   "Xenopus tropicalis": 37,
+   "Branchiostoma floridae": 1,
+   "Methanocaldococcus jannaschii": 14,
+   "Spinacia oleracea": 6,
+   "Strongylocentrotus purpuratus": 3,
+   "Chlamydomonas reinhardtii": 15,
+   "Physcomitrella patens": 5,
+   "Thermococcus kodakaraensis": 5,
+   "Pan troglodytes": 2,
+   "Gossypium hirsutum": 8,
+   "Medicago truncatula": 7,
+   "Monodelphis domestica": 1,
+   "Streptomyces coelicolor": 3,
+   "Salmonella typhimurium": 10,
+   "Sulfolobus solfataricus": 3,
+   "Shewanella oneidensis": 1,
+   "Tribolium castaneum": 3,
+   "Synechocystis": 7,
+   "Xanthomonas campestris": 3,
+   "Bacteroides thetaiotaomicron": 3,
+   "Deinococcus radiodurans": 3,
+   "Yarrowia lipolytica": 1,
+   "Thalassiosira pseudonana": 1,
+   "Nicotiana tabacum": 2,
+   "Haemophilus influenzae": 1,
+   "Gorilla gorilla gorilla": 2,
+   "Paramecium tetraurelia": 1,
+   "Ciona intestinalis": 1,
+   "Ustilago maydis": 1,
+   "Ixodes scapularis": 3,
+   "Pyrobaculum aerophilum": 1,
+   "Listeria monocytogenes": 3,
+   "Sorghum bicolor": 3,
+   "Felis catus": 2,
+   "Bacillus cereus": 1,
+   "Helicobacter pylori": 2,
+   "Thermotoga maritima": 2,
+   "Bradyrhizobium diazoefficiens": 1,
+   "Daphnia pulex": 1,
+   "Populus trichocarpa": 2
+  },
+  "genes_by_terms": {
+   "1": 0,
+   "2-5": 17013,
+   "6-10": 3346,
+   "11-20": 221,
+   "21-50": 0,
+   "51-100": 0,
+   "101+": 0
+  }
+ },
+ "logs": {
+  "warning": {
+   "total": 0,
+   "keys": 0,
+   "overflow": 0,
+   "entries": []
+  },
+  "error": {
+   "total": 0,
+   "keys": 0,
+   "overflow": 0,
+   "entries": []
+  }
+ },
+ "http": null,
+ "es": null,
+ "artifacts": [],
+ "sections": [
+  {
+   "id": "inputs",
+   "title": "Inputs",
+   "status": "ok",
+   "message": null,
+   "headline": {
+    "GO terms": 48202,
+    "GO slim terms": 133,
+    "Genes in gene info": 52489,
+    "Taxa": 82,
+    "Hierarchy edges": 5561,
+    "Annotations in": 86886,
+    "Articles": 70233
+   },
+   "tables": [
+    {
+     "id": "files",
+     "title": "Files",
+     "columns": [
+      {
+       "key": "role",
+       "label": "Role"
+      },
+      {
+       "key": "path",
+       "label": "File"
+      },
+      {
+       "key": "bytes",
+       "label": "Bytes",
+       "kind": "number"
+      },
+      {
+       "key": "modified_at",
+       "label": "Modified"
+      },
+      {
+       "key": "sha256",
+       "label": "SHA-256"
+      }
+     ],
+     "rows": [
+      {
+       "role": "terms",
+       "path": "/scratch/capture-full/input/pango-2/full_go_annotated.json",
+       "bytes": 6349614,
+       "modified_at": "2026-10-04T09:02:53.875Z",
+       "sha256": "0bba7c40951f",
+       "records": null
+      },
+      {
+       "role": "annotations",
+       "path": "/scratch/capture-full/input/pango-2/human_iba_annotations.json",
+       "bytes": 52138337,
+       "modified_at": "2026-10-04T09:02:53.846Z",
+       "sha256": "2568077f5797",
+       "records": null
+      },
+      {
+       "role": "genes",
+       "path": "/scratch/capture-full/input/pango-2/human_iba_gene_info.json",
+       "bytes": 16212876,
+       "modified_at": "2026-10-04T09:02:53.866Z",
+       "sha256": "eb794e40cb1e",
+       "records": null
+      },
+      {
+       "role": "taxon",
+       "path": "/scratch/capture-full/input/pango-2/taxon_lkp.json",
+       "bytes": 6239,
+       "modified_at": "2026-10-04T09:02:53.848Z",
+       "sha256": "0faf51edbaef",
+       "records": null
+      },
+      {
+       "role": "hierarchy",
+       "path": "/scratch/capture-full/input/pango-2/go_hierarchy.json",
+       "bytes": 250247,
+       "modified_at": "2026-10-04T09:02:53.868Z",
+       "sha256": "2f5f01eecf7d",
+       "records": null
+      },
+      {
+       "role": "articles",
+       "path": "/scratch/capture-full/clean-articles.json",
+       "bytes": 24747814,
+       "modified_at": "2026-10-04T09:09:31.693Z",
+       "sha256": "d7069ec05eb0",
+       "records": null
+      },
+      {
+       "role": "clean_annotations",
+       "path": "/scratch/capture-full/output/pango-2/human_iba_annotations_clean.json",
+       "bytes": 366451736,
+       "modified_at": "2026-10-04T09:13:19.369Z",
+       "sha256": null,
+       "records": null
+      },
+      {
+       "role": "clean_genes",
+       "path": "/scratch/capture-full/output/pango-2/human_iba_genes_clean.json",
+       "bytes": 31864667,
+       "modified_at": "2026-10-04T09:13:53.659Z",
+       "sha256": null,
+       "records": null
+      }
+     ],
+     "total_rows": 8
+    }
+   ],
+   "text": null
+  },
+  {
+   "id": "annotations",
+   "title": "Annotations",
+   "status": "ok",
+   "message": null,
+   "headline": {
+    "Annotations": 86886,
+    "Genes annotated": 20580,
+    "GO terms": 7620,
+    "Unknown-term annotations": 20048,
+    "Genes not in gene info": 0
+   },
+   "tables": [
+    {
+     "id": "by_aspect",
+     "title": "By aspect",
+     "columns": [
+      {
+       "key": "aspect",
+       "label": "Aspect"
+      },
+      {
+       "key": "annotations",
+       "label": "Annotations",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "aspect": "biological process",
+       "annotations": 32296
+      },
+      {
+       "aspect": "cellular component",
+       "annotations": 28323
+      },
+      {
+       "aspect": "molecular function",
+       "annotations": 26267
+      }
+     ],
+     "total_rows": 3
+    },
+    {
+     "id": "by_evidence_type",
+     "title": "By evidence type",
+     "columns": [
+      {
+       "key": "evidence_type",
+       "label": "Evidence type"
+      },
+      {
+       "key": "annotations",
+       "label": "Annotations",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "evidence_type": "homology",
+       "annotations": 38591
+      },
+      {
+       "evidence_type": "direct",
+       "annotations": 28247
+      },
+      {
+       "evidence_type": "n/a",
+       "annotations": 20048
+      }
+     ],
+     "total_rows": 3
+    },
+    {
+     "id": "top_terms",
+     "title": "Top 25 GO terms",
+     "columns": [
+      {
+       "key": "id",
+       "label": "Term"
+      },
+      {
+       "key": "label",
+       "label": "Label"
+      },
+      {
+       "key": "aspect",
+       "label": "Aspect"
+      },
+      {
+       "key": "annotations",
+       "label": "Annotations",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "id": "GO:0005634",
+       "label": "nucleus",
+       "aspect": "cellular component",
+       "annotations": 3033
+      },
+      {
+       "id": "GO:0005886",
+       "label": "plasma membrane",
+       "aspect": "cellular component",
+       "annotations": 2633
+      },
+      {
+       "id": "GO:0005737",
+       "label": "cytoplasm",
+       "aspect": "cellular component",
+       "annotations": 2333
+      },
+      {
+       "id": "GO:0006357",
+       "label": "regulation of transcription by RNA polymerase II",
+       "aspect": "biological process",
+       "annotations": 1208
+      },
+      {
+       "id": "GO:0000981",
+       "label": "DNA-binding transcription factor activity, RNA polymerase II-specific",
+       "aspect": "molecular function",
+       "annotations": 1068
+      },
+      {
+       "id": "GO:0005615",
+       "label": "extracellular space",
+       "aspect": "cellular component",
+       "annotations": 1005
+      },
+      {
+       "id": "GO:0000978",
+       "label": "RNA polymerase II cis-regulatory region sequence-specific DNA binding",
+       "aspect": "molecular function",
+       "annotations": 977
+      },
+      {
+       "id": "GO:0005829",
+       "label": "cytosol",
+       "aspect": "cellular component",
+       "annotations": 843
+      },
+      {
+       "id": "GO:0005739",
+       "label": "mitochondrion",
+       "aspect": "cellular component",
+       "annotations": 548
+      },
+      {
+       "id": "GO:0016020",
+       "label": "membrane",
+       "aspect": "cellular component",
+       "annotations": 460
+      },
+      {
+       "id": "GO:0004984",
+       "label": "olfactory receptor activity",
+       "aspect": "molecular function",
+       "annotations": 408
+      },
+      {
+       "id": "GO:0005783",
+       "label": "endoplasmic reticulum",
+       "aspect": "cellular component",
+       "annotations": 303
+      },
+      {
+       "id": "GO:0007165",
+       "label": "signal transduction",
+       "aspect": "biological process",
+       "annotations": 278
+      },
+      {
+       "id": "GO:0061630",
+       "label": "ubiquitin protein ligase activity",
+       "aspect": "molecular function",
+       "annotations": 261
+      },
+      {
+       "id": "GO:0005794",
+       "label": "Golgi apparatus",
+       "aspect": "cellular component",
+       "annotations": 256
+      },
+      {
+       "id": "GO:0005789",
+       "label": "endoplasmic reticulum membrane",
+       "aspect": "cellular component",
+       "annotations": 245
+      },
+      {
+       "id": "GO:0003723",
+       "label": "RNA binding",
+       "aspect": "molecular function",
+       "annotations": 241
+      },
+      {
+       "id": "GO:0045944",
+       "label": "positive regulation of transcription by RNA polymerase II",
+       "aspect": "biological process",
+       "annotations": 238
+      },
+      {
+       "id": "GO:0000122",
+       "label": "negative regulation of transcription by RNA polymerase II",
+       "aspect": "biological process",
+       "annotations": 236
+      },
+      {
+       "id": "GO:0004674",
+       "label": "protein serine/threonine kinase activity",
+       "aspect": "molecular function",
+       "annotations": 221
+      },
+      {
+       "id": "GO:0007186",
+       "label": "G protein-coupled receptor signaling pathway",
+       "aspect": "biological process",
+       "annotations": 221
+      },
+      {
+       "id": "GO:0000977",
+       "label": "RNA polymerase II transcription regulatory region sequence-specific DNA binding",
+       "aspect": "molecular function",
+       "annotations": 216
+      },
+      {
+       "id": "GO:0009897",
+       "label": "external side of plasma membrane",
+       "aspect": "cellular component",
+       "annotations": 215
+      },
+      {
+       "id": "GO:0003924",
+       "label": "GTPase activity",
+       "aspect": "molecular function",
+       "annotations": 213
+      },
+      {
+       "id": "GO:0006955",
+       "label": "immune response",
+       "aspect": "biological process",
+       "annotations": 207
+      }
+     ],
+     "total_rows": 7620
+    }
+   ],
+   "text": null
+  },
+  {
+   "id": "evidence",
+   "title": "Evidence and references",
+   "status": "ok",
+   "message": null,
+   "headline": {
+    "Evidence lines": 448780,
+    "References": 50045,
+    "PMIDs without an article": 0,
+    "Non-PMID references": 2,
+    "With-genes": 43040,
+    "With-genes not in gene info": 0,
+    "Contributing groups": 48
+   },
+   "tables": [
+    {
+     "id": "groups",
+     "title": "Contributing groups",
+     "columns": [
+      {
+       "key": "group",
+       "label": "Group"
+      },
+      {
+       "key": "evidence",
+       "label": "Evidence lines",
+       "kind": "number"
+      },
+      {
+       "key": "annotations",
+       "label": "Annotations",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "group": "UniProt",
+       "evidence": 176597,
+       "annotations": 47224
+      },
+      {
+       "group": "MGI",
+       "evidence": 81409,
+       "annotations": 31002
+      },
+      {
+       "group": "FlyBase",
+       "evidence": 35864,
+       "annotations": 18311
+      },
+      {
+       "group": "BHF-UCL",
+       "evidence": 31457,
+       "annotations": 13170
+      },
+      {
+       "group": "RGD",
+       "evidence": 30515,
+       "annotations": 15344
+      },
+      {
+       "group": "HPA",
+       "evidence": 21790,
+       "annotations": 7521
+      },
+      {
+       "group": "SGD",
+       "evidence": 20461,
+       "annotations": 11864
+      },
+      {
+       "group": "WB",
+       "evidence": 14912,
+       "annotations": 8679
+      },
+      {
+       "group": "NTNU_SB",
+       "evidence": 13853,
+       "annotations": 3506
+      },
+      {
+       "group": "ZFIN",
+       "evidence": 12189,
+       "annotations": 6352
+      },
+      {
+       "group": "TAIR",
+       "evidence": 12061,
+       "annotations": 5090
+      },
+      {
+       "group": "ComplexPortal",
+       "evidence": 10851,
+       "annotations": 5029
+      },
+      {
+       "group": "PomBase",
+       "evidence": 10847,
+       "annotations": 6688
+      },
+      {
+       "group": "ARUK-UCL",
+       "evidence": 9287,
+       "annotations": 4953
+      },
+      {
+       "group": "SynGO",
+       "evidence": 8996,
+       "annotations": 2569
+      },
+      {
+       "group": "GeneDB",
+       "evidence": 7167,
+       "annotations": 3428
+      },
+      {
+       "group": "dictyBase",
+       "evidence": 6403,
+       "annotations": 3430
+      },
+      {
+       "group": "CAFA",
+       "evidence": 4844,
+       "annotations": 3302
+      },
+      {
+       "group": "ParkinsonsUK-UCL",
+       "evidence": 4507,
+       "annotations": 2635
+      },
+      {
+       "group": "AgBase",
+       "evidence": 4184,
+       "annotations": 2736
+      },
+      {
+       "group": "GO_Central",
+       "evidence": 3366,
+       "annotations": 2233
+      },
+      {
+       "group": "CGD",
+       "evidence": 3024,
+       "annotations": 2190
+      },
+      {
+       "group": "HGNC-UCL",
+       "evidence": 2756,
+       "annotations": 2091
+      },
+      {
+       "group": "CACAO",
+       "evidence": 2184,
+       "annotations": 1847
+      },
+      {
+       "group": "AspGD",
+       "evidence": 2032,
+       "annotations": 1550
+      },
+      {
+       "group": "Reactome",
+       "evidence": 1877,
+       "annotations": 962
+      },
+      {
+       "group": "EcoCyc",
+       "evidence": 1389,
+       "annotations": 1155
+      },
+      {
+       "group": "LIFEdb",
+       "evidence": 1114,
+       "annotations": 828
+      },
+      {
+       "group": "TIGR",
+       "evidence": 411,
+       "annotations": 205
+      },
+      {
+       "group": "Xenbase",
+       "evidence": 335,
+       "annotations": 242
+      },
+      {
+       "group": "MTBBASE",
+       "evidence": 323,
+       "annotations": 266
+      },
+      {
+       "group": "EcoliWiki",
+       "evidence": 285,
+       "annotations": 267
+      },
+      {
+       "group": "DisProt",
+       "evidence": 269,
+       "annotations": 262
+      },
+      {
+       "group": "JaponicusDB",
+       "evidence": 214,
+       "annotations": 165
+      },
+      {
+       "group": "SynGO-UCL",
+       "evidence": 214,
+       "annotations": 155
+      },
+      {
+       "group": "SYSCILIA_CCNET",
+       "evidence": 213,
+       "annotations": 131
+      },
+      {
+       "group": "HGNC",
+       "evidence": 135,
+       "annotations": 118
+      },
+      {
+       "group": "DFLAT",
+       "evidence": 119,
+       "annotations": 112
+      },
+      {
+       "group": "Alzheimers_University_of_Toronto",
+       "evidence": 85,
+       "annotations": 80
+      },
+      {
+       "group": "PseudoCAP",
+       "evidence": 79,
+       "annotations": 76
+      },
+      {
+       "group": "GR",
+       "evidence": 68,
+       "annotations": 60
+      },
+      {
+       "group": "PINC",
+       "evidence": 66,
+       "annotations": 66
+      },
+      {
+       "group": "UOS_MCB",
+       "evidence": 32,
+       "annotations": 32
+      },
+      {
+       "group": "GDB",
+       "evidence": 18,
+       "annotations": 18
+      },
+      {
+       "group": "IntAct",
+       "evidence": 8,
+       "annotations": 5
+      },
+      {
+       "group": "Roslin_Institute",
+       "evidence": 5,
+       "annotations": 5
+      },
+      {
+       "group": "YuBioLab",
+       "evidence": 4,
+       "annotations": 4
+      },
+      {
+       "group": "PHI-base",
+       "evidence": 3,
+       "annotations": 3
+      }
+     ],
+     "total_rows": 48
+    },
+    {
+     "id": "with_gene_taxa",
+     "title": "With-genes by taxon",
+     "columns": [
+      {
+       "key": "taxon",
+       "label": "Taxon"
+      },
+      {
+       "key": "with_genes",
+       "label": "With-genes",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "taxon": "Homo sapiens",
+       "with_genes": 11131
+      },
+      {
+       "taxon": "Mus musculus",
+       "with_genes": 8633
+      },
+      {
+       "taxon": "Rattus norvegicus",
+       "with_genes": 3884
+      },
+      {
+       "taxon": "Drosophila melanogaster",
+       "with_genes": 3419
+      },
+      {
+       "taxon": "Saccharomyces cerevisiae",
+       "with_genes": 2840
+      },
+      {
+       "taxon": "Arabidopsis thaliana",
+       "with_genes": 2751
+      },
+      {
+       "taxon": "Danio rerio",
+       "with_genes": 1771
+      },
+      {
+       "taxon": "Caenorhabditis elegans",
+       "with_genes": 1689
+      },
+      {
+       "taxon": "Schizosaccharomyces pombe",
+       "with_genes": 1527
+      },
+      {
+       "taxon": "Trypanosoma brucei",
+       "with_genes": 1023
+      },
+      {
+       "taxon": "Dictyostelium discoideum",
+       "with_genes": 584
+      },
+      {
+       "taxon": "Bos taurus",
+       "with_genes": 527
+      },
+      {
+       "taxon": "Escherichia coli",
+       "with_genes": 486
+      },
+      {
+       "taxon": "Candida albicans",
+       "with_genes": 476
+      },
+      {
+       "taxon": "Gallus gallus",
+       "with_genes": 340
+      },
+      {
+       "taxon": "Xenopus laevis",
+       "with_genes": 314
+      },
+      {
+       "taxon": "Plasmodium falciparum",
+       "with_genes": 291
+      },
+      {
+       "taxon": "Emericella nidulans",
+       "with_genes": 233
+      },
+      {
+       "taxon": "Oryza sativa",
+       "with_genes": 173
+      },
+      {
+       "taxon": "Sus scrofa",
+       "with_genes": 166
+      },
+      {
+       "taxon": "Mycobacterium tuberculosis",
+       "with_genes": 130
+      },
+      {
+       "taxon": "Canis lupus familiaris",
+       "with_genes": 86
+      },
+      {
+       "taxon": "Leishmania major",
+       "with_genes": 70
+      },
+      {
+       "taxon": "Neosartorya fumigata",
+       "with_genes": 53
+      },
+      {
+       "taxon": "Pseudomonas aeruginosa",
+       "with_genes": 42
+      },
+      {
+       "taxon": "Xenopus tropicalis",
+       "with_genes": 37
+      },
+      {
+       "taxon": "Zea mays",
+       "with_genes": 30
+      },
+      {
+       "taxon": "Bacillus subtilis",
+       "with_genes": 29
+      },
+      {
+       "taxon": "Schizosaccharomyces japonicus",
+       "with_genes": 24
+      },
+      {
+       "taxon": "Giardia intestinalis",
+       "with_genes": 21
+      },
+      {
+       "taxon": "Solanum lycopersicum",
+       "with_genes": 20
+      },
+      {
+       "taxon": "Macaca mulatta",
+       "with_genes": 19
+      },
+      {
+       "taxon": "Chlamydomonas reinhardtii",
+       "with_genes": 15
+      },
+      {
+       "taxon": "Glycine max",
+       "with_genes": 15
+      },
+      {
+       "taxon": "Anopheles gambiae",
+       "with_genes": 14
+      },
+      {
+       "taxon": "Entamoeba histolytica",
+       "with_genes": 14
+      },
+      {
+       "taxon": "Methanocaldococcus jannaschii",
+       "with_genes": 14
+      },
+      {
+       "taxon": "Neurospora crassa",
+       "with_genes": 11
+      },
+      {
+       "taxon": "Equus caballus",
+       "with_genes": 10
+      },
+      {
+       "taxon": "Oryzias latipes",
+       "with_genes": 10
+      },
+      {
+       "taxon": "Salmonella typhimurium",
+       "with_genes": 10
+      },
+      {
+       "taxon": "Gossypium hirsutum",
+       "with_genes": 8
+      },
+      {
+       "taxon": "Medicago truncatula",
+       "with_genes": 7
+      },
+      {
+       "taxon": "Synechocystis",
+       "with_genes": 7
+      },
+      {
+       "taxon": "Spinacia oleracea",
+       "with_genes": 6
+      },
+      {
+       "taxon": "Physcomitrella patens",
+       "with_genes": 5
+      },
+      {
+       "taxon": "Thermococcus kodakaraensis",
+       "with_genes": 5
+      },
+      {
+       "taxon": "Bacteroides thetaiotaomicron",
+       "with_genes": 3
+      },
+      {
+       "taxon": "Cryptococcus neoformans",
+       "with_genes": 3
+      },
+      {
+       "taxon": "Deinococcus radiodurans",
+       "with_genes": 3
+      },
+      {
+       "taxon": "Ixodes scapularis",
+       "with_genes": 3
+      },
+      {
+       "taxon": "Listeria monocytogenes",
+       "with_genes": 3
+      },
+      {
+       "taxon": "Nematostella vectensis",
+       "with_genes": 3
+      },
+      {
+       "taxon": "Sorghum bicolor",
+       "with_genes": 3
+      },
+      {
+       "taxon": "Streptomyces coelicolor",
+       "with_genes": 3
+      },
+      {
+       "taxon": "Strongylocentrotus purpuratus",
+       "with_genes": 3
+      },
+      {
+       "taxon": "Sulfolobus solfataricus",
+       "with_genes": 3
+      },
+      {
+       "taxon": "Tribolium castaneum",
+       "with_genes": 3
+      },
+      {
+       "taxon": "Triticum aestivum",
+       "with_genes": 3
+      },
+      {
+       "taxon": "Xanthomonas campestris",
+       "with_genes": 3
+      },
+      {
+       "taxon": "Aquifex aeolicus",
+       "with_genes": 2
+      },
+      {
+       "taxon": "Felis catus",
+       "with_genes": 2
+      },
+      {
+       "taxon": "Gorilla gorilla gorilla",
+       "with_genes": 2
+      },
+      {
+       "taxon": "Helicobacter pylori",
+       "with_genes": 2
+      },
+      {
+       "taxon": "Marchantia polymorpha",
+       "with_genes": 2
+      },
+      {
+       "taxon": "Nicotiana tabacum",
+       "with_genes": 2
+      },
+      {
+       "taxon": "Pan troglodytes",
+       "with_genes": 2
+      },
+      {
+       "taxon": "Populus trichocarpa",
+       "with_genes": 2
+      },
+      {
+       "taxon": "Thermotoga maritima",
+       "with_genes": 2
+      },
+      {
+       "taxon": "Bacillus cereus",
+       "with_genes": 1
+      },
+      {
+       "taxon": "Bradyrhizobium diazoefficiens",
+       "with_genes": 1
+      },
+      {
+       "taxon": "Branchiostoma floridae",
+       "with_genes": 1
+      },
+      {
+       "taxon": "Ciona intestinalis",
+       "with_genes": 1
+      },
+      {
+       "taxon": "Daphnia pulex",
+       "with_genes": 1
+      },
+      {
+       "taxon": "Haemophilus influenzae",
+       "with_genes": 1
+      },
+      {
+       "taxon": "Monodelphis domestica",
+       "with_genes": 1
+      },
+      {
+       "taxon": "Paramecium tetraurelia",
+       "with_genes": 1
+      },
+      {
+       "taxon": "Pyrobaculum aerophilum",
+       "with_genes": 1
+      },
+      {
+       "taxon": "Shewanella oneidensis",
+       "with_genes": 1
+      },
+      {
+       "taxon": "Thalassiosira pseudonana",
+       "with_genes": 1
+      },
+      {
+       "taxon": "Ustilago maydis",
+       "with_genes": 1
+      },
+      {
+       "taxon": "Yarrowia lipolytica",
+       "with_genes": 1
+      }
+     ],
+     "total_rows": 82
+    },
+    {
+     "id": "evidence_per_annotation",
+     "title": "Evidence lines per annotation",
+     "columns": [
+      {
+       "key": "evidence",
+       "label": "Evidence lines"
+      },
+      {
+       "key": "annotations",
+       "label": "Annotations",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "evidence": "0",
+       "annotations": 20048
+      },
+      {
+       "evidence": "1",
+       "annotations": 15745
+      },
+      {
+       "evidence": "2",
+       "annotations": 12019
+      },
+      {
+       "evidence": "3",
+       "annotations": 7646
+      },
+      {
+       "evidence": "4-5",
+       "annotations": 9337
+      },
+      {
+       "evidence": "6-10",
+       "annotations": 10218
+      },
+      {
+       "evidence": "11+",
+       "annotations": 11873
+      }
+     ],
+     "total_rows": 7
+    }
+   ],
+   "text": null
+  },
+  {
+   "id": "genes",
+   "title": "Genes",
+   "status": "ok",
+   "message": null,
+   "headline": {
+    "Genes": 20580,
+    "Named": 20376,
+    "Unnamed": 204,
+    "With unknown terms": 10938,
+    "Terms per gene (mean)": 4.2,
+    "Slim terms": 130
+   },
+   "tables": [
+    {
+     "id": "terms_per_gene",
+     "title": "Terms per gene",
+     "columns": [
+      {
+       "key": "terms",
+       "label": "Terms"
+      },
+      {
+       "key": "genes",
+       "label": "Genes",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "terms": "1",
+       "genes": 0
+      },
+      {
+       "terms": "2-5",
+       "genes": 17013
+      },
+      {
+       "terms": "6-10",
+       "genes": 3346
+      },
+      {
+       "terms": "11-20",
+       "genes": 221
+      },
+      {
+       "terms": "21-50",
+       "genes": 0
+      },
+      {
+       "terms": "51-100",
+       "genes": 0
+      },
+      {
+       "terms": "101+",
+       "genes": 0
+      }
+     ],
+     "total_rows": 7
+    },
+    {
+     "id": "top_slim_terms",
+     "title": "Top 25 slim terms by genes",
+     "columns": [
+      {
+       "key": "id",
+       "label": "Slim term"
+      },
+      {
+       "key": "label",
+       "label": "Label"
+      },
+      {
+       "key": "aspect",
+       "label": "Aspect"
+      },
+      {
+       "key": "genes",
+       "label": "Genes",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "id": "UNKNOWN:0001",
+       "label": "Unknown molecular function",
+       "aspect": "molecular function",
+       "genes": 7617
+      },
+      {
+       "id": "UNKNOWN:0002",
+       "label": "Unknown biological process",
+       "aspect": "biological process",
+       "genes": 6458
+      },
+      {
+       "id": "UNKNOWN:0003",
+       "label": "Unknown cellular component",
+       "aspect": "cellular component",
+       "genes": 5973
+      },
+      {
+       "id": "GO:0005634",
+       "label": "nucleus",
+       "aspect": "cellular component",
+       "genes": 3497
+      },
+      {
+       "id": "GO:0032991",
+       "label": "protein-containing complex",
+       "aspect": "cellular component",
+       "genes": 3408
+      },
+      {
+       "id": "GO:0005886",
+       "label": "plasma membrane",
+       "aspect": "cellular component",
+       "genes": 3393
+      },
+      {
+       "id": "GO:0005737",
+       "label": "cytoplasm",
+       "aspect": "cellular component",
+       "genes": 2982
+      },
+      {
+       "id": "OTHER:0002",
+       "label": "Other biological process",
+       "aspect": "biological process",
+       "genes": 2981
+      },
+      {
+       "id": "OTHER:0001",
+       "label": "Other molecular function",
+       "aspect": "molecular function",
+       "genes": 2384
+      },
+      {
+       "id": "GO:0007165",
+       "label": "signal transduction",
+       "aspect": "biological process",
+       "genes": 2282
+      },
+      {
+       "id": "GO:0003824",
+       "label": "catalytic activity",
+       "aspect": "molecular function",
+       "genes": 2024
+      },
+      {
+       "id": "GO:0006355",
+       "label": "regulation of DNA-templated transcription",
+       "aspect": "biological process",
+       "genes": 1983
+      },
+      {
+       "id": "GO:0003677",
+       "label": "DNA binding",
+       "aspect": "molecular function",
+       "genes": 1645
+      },
+      {
+       "id": "GO:0003700",
+       "label": "DNA-binding transcription factor activity",
+       "aspect": "molecular function",
+       "genes": 1328
+      },
+      {
+       "id": "GO:0038023",
+       "label": "signaling receptor activity",
+       "aspect": "molecular function",
+       "genes": 1282
+      },
+      {
+       "id": "GO:0005576",
+       "label": "extracellular region",
+       "aspect": "cellular component",
+       "genes": 1110
+      },
+      {
+       "id": "GO:0048856",
+       "label": "anatomical structure development",
+       "aspect": "biological process",
+       "genes": 1044
+      },
+      {
+       "id": "GO:0071840",
+       "label": "cellular component organization or biogenesis",
+       "aspect": "biological process",
+       "genes": 1034
+      },
+      {
+       "id": "GO:0005829",
+       "label": "cytosol",
+       "aspect": "cellular component",
+       "genes": 989
+      },
+      {
+       "id": "GO:0005856",
+       "label": "cytoskeleton",
+       "aspect": "cellular component",
+       "genes": 920
+      },
+      {
+       "id": "GO:0098772",
+       "label": "molecular function regulator activity",
+       "aspect": "molecular function",
+       "genes": 913
+      },
+      {
+       "id": "GO:0005215",
+       "label": "transporter activity",
+       "aspect": "molecular function",
+       "genes": 912
+      },
+      {
+       "id": "OTHER:0003",
+       "label": "Other cellular component",
+       "aspect": "cellular component",
+       "genes": 894
+      },
+      {
+       "id": "GO:0002376",
+       "label": "immune system process",
+       "aspect": "biological process",
+       "genes": 879
+      },
+      {
+       "id": "GO:0005739",
+       "label": "mitochondrion",
+       "aspect": "cellular component",
+       "genes": 871
+      }
+     ],
+     "total_rows": 130
+    },
+    {
+     "id": "top_genes",
+     "title": "Top 25 genes by terms",
+     "columns": [
+      {
+       "key": "gene",
+       "label": "Gene"
+      },
+      {
+       "key": "symbol",
+       "label": "Symbol"
+      },
+      {
+       "key": "name",
+       "label": "Name"
+      },
+      {
+       "key": "terms",
+       "label": "Terms",
+       "kind": "number"
+      }
+     ],
+     "rows": [
+      {
+       "gene": "UniProtKB:P63000",
+       "symbol": "RAC1",
+       "name": "Ras-related C3 botulinum toxin substrate 1",
+       "terms": 17
+      },
+      {
+       "gene": "UniProtKB:P60763",
+       "symbol": "RAC3",
+       "name": "Ras-related C3 botulinum toxin substrate 3",
+       "terms": 17
+      },
+      {
+       "gene": "UniProtKB:P49841",
+       "symbol": "GSK3B",
+       "name": "Glycogen synthase kinase-3 beta",
+       "terms": 17
+      },
+      {
+       "gene": "UniProtKB:Q03181",
+       "symbol": "PPARD",
+       "name": "Peroxisome proliferator-activated receptor delta",
+       "terms": 16
+      },
+      {
+       "gene": "UniProtKB:P30273",
+       "symbol": "FCER1G",
+       "name": "High affinity immunoglobulin epsilon receptor subunit gamma",
+       "terms": 16
+      },
+      {
+       "gene": "UniProtKB:P19022",
+       "symbol": "CDH2",
+       "name": "Cadherin-2",
+       "terms": 16
+      },
+      {
+       "gene": "UniProtKB:P17931",
+       "symbol": "LGALS3",
+       "name": "Galectin-3",
+       "terms": 16
+      },
+      {
+       "gene": "UniProtKB:P15153",
+       "symbol": "RAC2",
+       "name": "Ras-related C3 botulinum toxin substrate 2",
+       "terms": 16
+      },
+      {
+       "gene": "UniProtKB:O00408",
+       "symbol": "PDE2A",
+       "name": "cGMP-dependent 3',5'-cyclic phosphodiesterase",
+       "terms": 16
+      },
+      {
+       "gene": "UniProtKB:Q9UKB1",
+       "symbol": "FBXW11",
+       "name": "F-box_WD repeat-containing protein 11",
+       "terms": 15
+      },
+      {
+       "gene": "UniProtKB:P43034",
+       "symbol": "PAFAH1B1",
+       "name": "Platelet-activating factor acetylhydrolase IB subunit beta",
+       "terms": 15
+      },
+      {
+       "gene": "UniProtKB:P11597",
+       "symbol": "CETP",
+       "name": "Cholesteryl ester transfer protein",
+       "terms": 15
+      },
+      {
+       "gene": "UniProtKB:P06748",
+       "symbol": "NPM1",
+       "name": "Nucleophosmin",
+       "terms": 15
+      },
+      {
+       "gene": "UniProtKB:P05556",
+       "symbol": "ITGB1",
+       "name": "Integrin beta-1",
+       "terms": 15
+      },
+      {
+       "gene": "UniProtKB:O14786",
+       "symbol": "NRP1",
+       "name": "Neuropilin-1",
+       "terms": 15
+      },
+      {
+       "gene": "UniProtKB:Q9P2D1",
+       "symbol": "CHD7",
+       "name": "Chromodomain-helicase-DNA-binding protein 7",
+       "terms": 14
+      },
+      {
+       "gene": "UniProtKB:Q92796",
+       "symbol": "DLG3",
+       "name": "Disks large homolog 3",
+       "terms": 14
+      },
+      {
+       "gene": "UniProtKB:Q8IYT8",
+       "symbol": "ULK2",
+       "name": "Serine_threonine-protein kinase ULK2",
+       "terms": 14
+      },
+      {
+       "gene": "UniProtKB:Q53H47",
+       "symbol": "SETMAR",
+       "name": "Histone-lysine N-methyltransferase SETMAR",
+       "terms": 14
+      },
+      {
+       "gene": "UniProtKB:Q15700",
+       "symbol": "DLG2",
+       "name": "Disks large homolog 2",
+       "terms": 14
+      },
+      {
+       "gene": "UniProtKB:Q12959",
+       "symbol": "DLG1",
+       "name": "Disks large homolog 1",
+       "terms": 14
+      },
+      {
+       "gene": "UniProtKB:Q07869",
+       "symbol": "PPARA",
+       "name": "Peroxisome proliferator-activated receptor alpha",
+       "terms": 14
+      },
+      {
+       "gene": "UniProtKB:P84095",
+       "symbol": "RHOG",
+       "name": "Rho-related GTP-binding protein RhoG",
+       "terms": 14
+      },
+      {
+       "gene": "UniProtKB:P49840",
+       "symbol": "GSK3A",
+       "name": "Glycogen synthase kinase-3 alpha",
+       "terms": 14
+      },
+      {
+       "gene": "UniProtKB:P37231",
+       "symbol": "PPARG",
+       "name": "Peroxisome proliferator-activated receptor gamma",
+       "terms": 14
+      }
+     ],
+     "total_rows": 20580
+    },
+    {
+     "id": "unknown_term_genes",
+     "title": "Genes with unknown terms",
+     "columns": [
+      {
+       "key": "gene",
+       "label": "Gene"
+      },
+      {
+       "key": "symbol",
+       "label": "Symbol"
+      },
+      {
+       "key": "unknown_terms",
+       "label": "Unknown terms"
+      }
+     ],
+     "rows": [
+      {
+       "gene": "UniProtKB:P51617",
+       "symbol": "IRAK1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O14617",
+       "symbol": "AP3D1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P20333",
+       "symbol": "TNFRSF1B",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:P24588",
+       "symbol": "AKAP5",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:Q96GD4",
+       "symbol": "AURKB",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9UQB9",
+       "symbol": "AURKC",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q8IY31",
+       "symbol": "IFT20",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q96EV8",
+       "symbol": "DTNBP1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9H1Y0",
+       "symbol": "ATG5",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9Y6H6",
+       "symbol": "KCNE3",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:Q9Y6N9",
+       "symbol": "USH1C",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:H3BV60",
+       "symbol": "TGFBR3L",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:O14965",
+       "symbol": "AURKA",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O15392",
+       "symbol": "BIRC5",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O43187",
+       "symbol": "IRAK2",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O43316",
+       "symbol": "PAX4",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:O43808",
+       "symbol": "SLC25A17",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:O60763",
+       "symbol": "USO1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O60921",
+       "symbol": "HUS1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O75509",
+       "symbol": "TNFRSF21",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P13164",
+       "symbol": "IFITM1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P26367",
+       "symbol": "PAX6",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:P42858",
+       "symbol": "HTT",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P49755",
+       "symbol": "TMED10",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P62304",
+       "symbol": "SNRPE",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P62316",
+       "symbol": "SNRPD2",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q01196",
+       "symbol": "RUNX1",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:Q01628",
+       "symbol": "IFITM3",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q01629",
+       "symbol": "IFITM2",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q03167",
+       "symbol": "TGFBR3",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:Q13761",
+       "symbol": "RUNX3",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:Q13950",
+       "symbol": "RUNX2",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:Q496M5",
+       "symbol": "PLK5",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q5T4F4",
+       "symbol": "ZFYVE27",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q8IWB6",
+       "symbol": "TEX14",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q8IY63",
+       "symbol": "AMOTL1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q8N4C6",
+       "symbol": "NIN",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q8NHY5",
+       "symbol": "HUS1B",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q96C92",
+       "symbol": "ENTR1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q96JI7",
+       "symbol": "SPG11",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9BVK6",
+       "symbol": "TMED9",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9NWZ3",
+       "symbol": "IRAK4",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9NXA8",
+       "symbol": "SIRT5",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:Q9UBF2",
+       "symbol": "COPG2",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9UHG0",
+       "symbol": "DCDC2",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9UID3",
+       "symbol": "VPS51",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9Y2J4",
+       "symbol": "AMOTL2",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9Y3Q3",
+       "symbol": "TMED3",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9Y616",
+       "symbol": "IRAK3",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9Y678",
+       "symbol": "COPG1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:A6NGB9",
+       "symbol": "WIPF3",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:A8K0Z3",
+       "symbol": "WASHC1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:A8MWX3",
+       "symbol": "WASH4P",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:C4AMC7",
+       "symbol": "WASH3P",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O15078",
+       "symbol": "CEP290",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O60238",
+       "symbol": "BNIP3L",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O60711",
+       "symbol": "LPXN",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O60861",
+       "symbol": "GAS7",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O75298",
+       "symbol": "RTN2",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O75487",
+       "symbol": "GPC4",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O75781",
+       "symbol": "PALM",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O95197",
+       "symbol": "RTN3",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O95229",
+       "symbol": "ZWINT",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O95995",
+       "symbol": "GAS8",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P0CB38",
+       "symbol": "PABPC4L",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:P11940",
+       "symbol": "PABPC1",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:P13473",
+       "symbol": "LAMP2",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P29972",
+       "symbol": "AQP1",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:P33681",
+       "symbol": "CD80",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P42081",
+       "symbol": "CD86",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P59074",
+       "symbol": "CHMP4BP1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P78325",
+       "symbol": "ADAM8",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:Q02928",
+       "symbol": "CYP4A11",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:Q0JRZ9",
+       "symbol": "FCHO2",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q13310",
+       "symbol": "PABPC4",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:Q13445",
+       "symbol": "TMED1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q15124",
+       "symbol": "PGM5",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q15363",
+       "symbol": "TMED2",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q16799",
+       "symbol": "RTN1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q2TAC2",
+       "symbol": "CCDC57",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q4VXU2",
+       "symbol": "PABPC1L",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:Q5JQF8",
+       "symbol": "PABPC1L2A",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:Q5TCH4",
+       "symbol": "CYP4A22",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:Q5VWJ9",
+       "symbol": "SNX30",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q6UXF1",
+       "symbol": "TMEM108",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q6VEQ5",
+       "symbol": "WASH2P",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q7Z7H5",
+       "symbol": "TMED4",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q86VW0",
+       "symbol": "SESTD1",
+       "unknown_terms": "UNKNOWN:0003, UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:Q86YL7",
+       "symbol": "PDPN",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q8IWZ6",
+       "symbol": "BBS7",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q8N3R9",
+       "symbol": "PALS1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q8N895",
+       "symbol": "ZNF366",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:Q8WU67",
+       "symbol": "ABHD3",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:Q8WUX9",
+       "symbol": "CHMP7",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q8WW62",
+       "symbol": "TMED6",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q96CF2",
+       "symbol": "CHMP4C",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q96DU9",
+       "symbol": "PABPC5",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:Q96EY5",
+       "symbol": "MVB12A",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9BQ51",
+       "symbol": "PDCD1LG2",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9BY43",
+       "symbol": "CHMP4A",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9H361",
+       "symbol": "PABPC3",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:Q9H444",
+       "symbol": "CHMP4B",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9HB63",
+       "symbol": "NTN4",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9NP55",
+       "symbol": "BPIFA1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9NQA3",
+       "symbol": "WASH6P",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9NQC3",
+       "symbol": "RTN4",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9NZQ7",
+       "symbol": "CD274",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9UK45",
+       "symbol": "LSM7",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:Q9UNH6",
+       "symbol": "SNX7",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9Y3A6",
+       "symbol": "TMED5",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9Y3B3",
+       "symbol": "TMED7",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q9Y448",
+       "symbol": "KNSTRN",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:A0A087WXM9",
+       "symbol": "MEIKIN",
+       "unknown_terms": "UNKNOWN:0003, UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:A0A1B0GTQ4",
+       "symbol": "MYMX",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:A0AV02",
+       "symbol": "SLC12A8",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:A0FGR8",
+       "symbol": "ESYT2",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:A0FGR9",
+       "symbol": "ESYT3",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:A6PVL3",
+       "symbol": "KNCN",
+       "unknown_terms": "UNKNOWN:0001, UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:A8MXK1",
+       "symbol": "VSTM5",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O00592",
+       "symbol": "PODXL",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O15296",
+       "symbol": "ALOX15B",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:O15503",
+       "symbol": "INSIG1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O43159",
+       "symbol": "RRP8",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O43379",
+       "symbol": "WDR62",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O43490",
+       "symbol": "PROM1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O60477",
+       "symbol": "BRINP1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O75154",
+       "symbol": "RAB11FIP3",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O75161",
+       "symbol": "NPHP4",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O75995",
+       "symbol": "SASH3",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:O76038",
+       "symbol": "SCGN",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:O94763",
+       "symbol": "URI1",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:O95990",
+       "symbol": "FAM107A",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P02751",
+       "symbol": "FN1",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:P02787",
+       "symbol": "TF",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P02788",
+       "symbol": "LTF",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P04054",
+       "symbol": "PLA2G1B",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:P05937",
+       "symbol": "CALB1",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:P07602",
+       "symbol": "PSAP",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P09525",
+       "symbol": "ANXA4",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:P11532",
+       "symbol": "DMD",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P12429",
+       "symbol": "ANXA3",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:P13349",
+       "symbol": "MYF5",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:P14555",
+       "symbol": "PLA2G2A",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:P15172",
+       "symbol": "MYOD1",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:P15173",
+       "symbol": "MYOG",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:P20073",
+       "symbol": "ANXA7",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:P22676",
+       "symbol": "CALB2",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:P23409",
+       "symbol": "MYF6",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:P24468",
+       "symbol": "NR2F2",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:P25311",
+       "symbol": "AZGP1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P27216",
+       "symbol": "ANXA13",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:P29558",
+       "symbol": "RBMS1",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:P32019",
+       "symbol": "INPP5B",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:P34925",
+       "symbol": "RYK",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P39748",
+       "symbol": "FEN1",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:P39877",
+       "symbol": "PLA2G5",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:P46937",
+       "symbol": "YAP1",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:P48059",
+       "symbol": "LIMS1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P51674",
+       "symbol": "GPM6A",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P54315",
+       "symbol": "PNLIPRP1",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:P55160",
+       "symbol": "NCKAP1L",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P55957",
+       "symbol": "BID",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P56715",
+       "symbol": "RP1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P58004",
+       "symbol": "SESN2",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:P58005",
+       "symbol": "SESN3",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:P59047",
+       "symbol": "NLRP5",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:P78357",
+       "symbol": "CNTNAP1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q02080",
+       "symbol": "MEF2B",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:Q06413",
+       "symbol": "MEF2C",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:Q08AG7",
+       "symbol": "MZT1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q12768",
+       "symbol": "WASHC5",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q12983",
+       "symbol": "BNIP3",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q13322",
+       "symbol": "GRB10",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:Q13435",
+       "symbol": "SF3B2",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q14203",
+       "symbol": "DCTN1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q15111",
+       "symbol": "PLCL1",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:Q15434",
+       "symbol": "RBMS2",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:Q17RR3",
+       "symbol": "PNLIPRP3",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:Q4AC94",
+       "symbol": "C2CD3",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q4G0S4",
+       "symbol": "CYP27C1",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:Q53EL9",
+       "symbol": "SEZ6",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q5FBB7",
+       "symbol": "SGO1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q5R387",
+       "symbol": "PLA2G2C",
+       "unknown_terms": "UNKNOWN:0003"
+      },
+      {
+       "gene": "UniProtKB:Q5VZ46",
+       "symbol": "KIAA1614",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q63ZY3",
+       "symbol": "KANK2",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q658L1",
+       "symbol": "SAXO2",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:Q6ICB4",
+       "symbol": "PHETA2",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q6IQ23",
+       "symbol": "PLEKHA7",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q6P9F7",
+       "symbol": "LRRC8B",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q6PJG9",
+       "symbol": "LRFN4",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q6UXB2",
+       "symbol": "CXCL17",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q6UXG2",
+       "symbol": "ELAPOR1",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q6XE24",
+       "symbol": "RBMS3",
+       "unknown_terms": "UNKNOWN:0002"
+      },
+      {
+       "gene": "UniProtKB:Q76B58",
+       "symbol": "BRINP3",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q7Z406",
+       "symbol": "MYH14",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q7Z494",
+       "symbol": "NPHP3",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q7Z4I7",
+       "symbol": "LIMS2",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q7Z7K6",
+       "symbol": "CENPV",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q86SQ7",
+       "symbol": "SDCCAG8",
+       "unknown_terms": "UNKNOWN:0001"
+      },
+      {
+       "gene": "UniProtKB:Q86TU7",
+       "symbol": "SETD3",
+       "unknown_terms": "UNKNOWN:0003"
+      }
+     ],
+     "total_rows": 10938
+    }
+   ],
+   "text": null
+  },
+  {
+   "id": "consistency",
+   "title": "Consistency between the files",
+   "status": "ok",
+   "message": null,
+   "headline": {
+    "Checks": 5,
+    "Failed": 0
+   },
+   "tables": [
+    {
+     "id": "checks",
+     "title": "Checks",
+     "columns": [
+      {
+       "key": "check",
+       "label": "Check"
+      },
+      {
+       "key": "expected",
+       "label": "Expected",
+       "kind": "number"
+      },
+      {
+       "key": "actual",
+       "label": "Actual",
+       "kind": "number"
+      },
+      {
+       "key": "ok",
+       "label": "OK"
+      }
+     ],
+     "rows": [
+      {
+       "check": "Every input annotation is in the clean output, once",
+       "expected": 86886,
+       "actual": 86886,
+       "ok": true
+      },
+      {
+       "check": "Every annotated gene has a gene record",
+       "expected": 20580,
+       "actual": 20580,
+       "ok": true
+      },
+      {
+       "check": "Gene ids are unique in the gene info",
+       "expected": 0,
+       "actual": 0,
+       "ok": true
+      },
+      {
+       "check": "Every annotated gene is in the gene info",
+       "expected": 0,
+       "actual": 0,
+       "ok": true
+      },
+      {
+       "check": "Every with-gene is in the gene info",
+       "expected": 0,
+       "actual": 0,
+       "ok": true
+      }
+     ],
+     "total_rows": 5
+    }
+   ],
+   "text": "taxon_id is a str in the annotations and a int in the genes (pd.read_json re-infers it), a known issue."
+  }
+ ],
+ "dropped": {
+  "artifacts": 0,
+  "es_ops": 0,
+  "http_events": 0,
+  "log_events": 0
+ },
+ "exception": null,
+ "events": {
+  "file": "events.jsonl",
+  "count": 65
+ }
+}

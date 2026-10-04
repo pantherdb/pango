@@ -1,0 +1,7 @@
+// The one place the untyped Redux hooks are imported; everywhere else uses these (ESLint enforces it).
+/* eslint-disable @typescript-eslint/no-restricted-imports */
+import { useDispatch, useSelector } from 'react-redux'
+import type { AppDispatch, RootState } from './store/store'
+
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
+export const useAppSelector = useSelector.withTypes<RootState>()

@@ -1,0 +1,177 @@
+{
+ "schema_version": 1,
+ "run_id": "20261004T090151Z-clean_annotations-pango-test-80032-be35",
+ "build_id": "20261004T090148Z-all-6000",
+ "step": "clean_annotations",
+ "dataset": "pango-test",
+ "title": "clean_annotations · pango-test",
+ "status": "ok",
+ "status_reason": null,
+ "exit_code": 0,
+ "started_at": "2026-10-04T09:01:51.237Z",
+ "updated_at": "2026-10-04T09:01:51.331Z",
+ "finished_at": "2026-10-04T09:01:51.330Z",
+ "duration_s": 0.093,
+ "heartbeat_s": 10,
+ "process": {
+  "pid": 80032,
+  "ppid": 40600,
+  "executable": "C:/work/panther/pango/loader/.venv/Scripts/python.exe",
+  "argv": [
+   "C:/work/panther/pango/loader/src/clean_annotations.py",
+   "-a",
+   "/scratch/capture-test/input/pango-test/human_iba_annotations.json",
+   "-t",
+   "/scratch/capture-test/input/pango-test/full_go_annotated.json",
+   "-tax",
+   "/scratch/capture-test/input/pango-test/taxon_lkp.json",
+   "-art",
+   "/scratch/capture-test/clean-articles.json",
+   "-g",
+   "/scratch/capture-test/input/pango-test/human_iba_gene_info.json",
+   "-o",
+   "/scratch/capture-test/output/pango-test/human_iba_annotations_clean.json"
+  ],
+  "cwd": "C:/work/panther/pango/loader"
+ },
+ "host": {
+  "name": "build-host",
+  "platform": "win32",
+  "python": "3.13.13"
+ },
+ "config": {
+  "annos_fp": "/scratch/capture-test/input/pango-test/human_iba_annotations.json",
+  "terms_fp": "/scratch/capture-test/input/pango-test/full_go_annotated.json",
+  "articles_fp": "/scratch/capture-test/clean-articles.json",
+  "taxon_fp": "/scratch/capture-test/input/pango-test/taxon_lkp.json",
+  "genes_fp": "/scratch/capture-test/input/pango-test/human_iba_gene_info.json",
+  "clean_annos_fp": "/scratch/capture-test/output/pango-test/human_iba_annotations_clean.json"
+ },
+ "progress": null,
+ "phases": [
+  {
+   "id": "p1",
+   "name": "load_terms",
+   "status": "ok",
+   "started_at": "2026-10-04T09:01:51.254Z",
+   "finished_at": "2026-10-04T09:01:51.262Z",
+   "duration_s": 0.008,
+   "counters": {
+    "terms": 28
+   },
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p2",
+   "name": "load_articles",
+   "status": "ok",
+   "started_at": "2026-10-04T09:01:51.264Z",
+   "finished_at": "2026-10-04T09:01:51.271Z",
+   "duration_s": 0.008,
+   "counters": {
+    "articles": 37
+   },
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p3",
+   "name": "load_taxa",
+   "status": "ok",
+   "started_at": "2026-10-04T09:01:51.273Z",
+   "finished_at": "2026-10-04T09:01:51.276Z",
+   "duration_s": 0.003,
+   "counters": {
+    "taxa": 6
+   },
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p4",
+   "name": "load_genes",
+   "status": "ok",
+   "started_at": "2026-10-04T09:01:51.278Z",
+   "finished_at": "2026-10-04T09:01:51.285Z",
+   "duration_s": 0.007,
+   "counters": {
+    "genes": 24
+   },
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p5",
+   "name": "join",
+   "status": "ok",
+   "started_at": "2026-10-04T09:01:51.286Z",
+   "finished_at": "2026-10-04T09:01:51.318Z",
+   "duration_s": 0.032,
+   "counters": {
+    "annotations": 22
+   },
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p6",
+   "name": "write",
+   "status": "ok",
+   "started_at": "2026-10-04T09:01:51.320Z",
+   "finished_at": "2026-10-04T09:01:51.329Z",
+   "duration_s": 0.009,
+   "counters": {},
+   "error": null,
+   "note": null
+  }
+ ],
+ "counters": {
+  "terms": 28,
+  "articles": 37,
+  "taxa": 6,
+  "genes": 24,
+  "annotations": 22
+ },
+ "breakdowns": {},
+ "logs": {
+  "warning": {
+   "total": 0,
+   "keys": 0,
+   "overflow": 0,
+   "entries": []
+  },
+  "error": {
+   "total": 0,
+   "keys": 0,
+   "overflow": 0,
+   "entries": []
+  }
+ },
+ "http": null,
+ "es": null,
+ "artifacts": [
+  {
+   "at": "2026-10-04T09:01:51.326Z",
+   "role": "clean_annotations",
+   "path": "/scratch/capture-test/output/pango-test/human_iba_annotations_clean.json",
+   "bytes": 47196,
+   "modified_at": "2026-10-04T09:01:51.325Z",
+   "sha256": "1c78101af55e6ee54a0effcfc075e645d594aa35d5db1fb0fb2fc6838524a88b",
+   "records": 22,
+   "phase": "write"
+  }
+ ],
+ "sections": [],
+ "dropped": {
+  "artifacts": 0,
+  "es_ops": 0,
+  "http_events": 0,
+  "log_events": 0
+ },
+ "exception": null,
+ "events": {
+  "file": "events.jsonl",
+  "count": 15
+ }
+}

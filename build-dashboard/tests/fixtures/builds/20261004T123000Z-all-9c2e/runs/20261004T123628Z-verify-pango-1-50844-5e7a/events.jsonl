@@ -1,0 +1,18 @@
+{"seq": 1, "at": "2026-10-04T12:36:28.682Z", "type": "run.start", "step": "verify", "dataset": "pango-1", "build_id": "20261004T123000Z-all-9c2e"}
+{"seq": 2, "at": "2026-10-04T12:36:28.691Z", "type": "phase.start", "phase": "p1", "name": "cluster"}
+{"seq": 3, "at": "2026-10-04T12:36:28.709Z", "type": "phase.end", "phase": "p1", "name": "cluster", "status": "ok", "duration_s": 0.017, "counters": {}, "error": null}
+{"seq": 4, "at": "2026-10-04T12:36:28.711Z", "type": "phase.start", "phase": "p2", "name": "files"}
+{"seq": 5, "at": "2026-10-04T12:36:34.151Z", "type": "phase.end", "phase": "p2", "name": "files", "status": "ok", "duration_s": 5.44, "counters": {}, "error": null}
+{"seq": 6, "at": "2026-10-04T12:36:34.167Z", "type": "phase.start", "phase": "p3", "name": "annotations"}
+{"seq": 7, "at": "2026-10-04T12:36:34.731Z", "type": "es", "op": "refresh", "index": "pango-1-pango-annotations", "status": "ok", "count": null, "errors": null, "duration_s": null, "detail": null, "phase": "annotations"}
+{"seq": 8, "at": "2026-10-04T12:36:34.744Z", "type": "es", "op": "count", "index": "pango-1-pango-annotations", "status": "ok", "count": 90961, "errors": null, "duration_s": null, "detail": null, "phase": "annotations"}
+{"seq": 9, "at": "2026-10-04T12:36:34.750Z", "type": "phase.end", "phase": "p3", "name": "annotations", "status": "ok", "duration_s": 0.584, "counters": {}, "error": null}
+{"seq": 10, "at": "2026-10-04T12:36:34.752Z", "type": "phase.start", "phase": "p4", "name": "genes"}
+{"seq": 11, "at": "2026-10-04T12:36:34.757Z", "type": "es", "op": "refresh", "index": "pango-1-pango-genes", "status": "ok", "count": null, "errors": null, "duration_s": null, "detail": null, "phase": "genes"}
+{"seq": 12, "at": "2026-10-04T12:36:34.762Z", "type": "es", "op": "count", "index": "pango-1-pango-genes", "status": "ok", "count": 20851, "errors": null, "duration_s": null, "detail": null, "phase": "genes"}
+{"seq": 13, "at": "2026-10-04T12:36:34.767Z", "type": "phase.end", "phase": "p4", "name": "genes", "status": "ok", "duration_s": 0.015, "counters": {}, "error": null}
+{"seq": 14, "at": "2026-10-04T12:36:34.769Z", "type": "phase.start", "phase": "p5", "name": "samples"}
+{"seq": 15, "at": "2026-10-04T12:36:36.677Z", "type": "es", "op": "sample_lookups", "index": "pango-1-pango-genes", "status": "ok", "count": 40, "errors": null, "duration_s": null, "detail": null, "phase": "samples"}
+{"seq": 16, "at": "2026-10-04T12:36:36.679Z", "type": "phase.end", "phase": "p5", "name": "samples", "status": "ok", "duration_s": 1.91, "counters": {}, "error": null}
+{"seq": 17, "at": "2026-10-04T12:36:36.682Z", "type": "section", "id": "verification", "title": "Elasticsearch check", "status": "ok"}
+{"seq": 18, "at": "2026-10-04T12:36:36.684Z", "type": "run.end", "status": "ok", "reason": null, "exit_code": 0, "duration_s": 8.07}

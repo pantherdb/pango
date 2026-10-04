@@ -1,0 +1,4 @@
+{"seq": 1, "at": "2026-10-04T10:04:48.078Z", "type": "run.start", "step": "index_es", "dataset": "pango-2", "build_id": "20261004T100000Z-all-5e0b"}
+{"seq": 2, "at": "2026-10-04T10:04:48.115Z", "type": "phase.start", "phase": "p1", "name": "annotations"}
+{"seq": 3, "at": "2026-10-04T10:04:48.349Z", "type": "es", "op": "recreate_index", "index": "pango-2-pango-annotations", "status": "ok", "count": null, "errors": null, "duration_s": 0.232, "detail": null, "phase": "annotations"}
+{"seq": 4, "at": "2026-10-04T10:04:51.409Z", "type": "progress", "label": "annotations", "done": 20774912, "total": 366451736, "unit": "bytes"}

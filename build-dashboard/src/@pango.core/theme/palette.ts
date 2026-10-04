@@ -1,0 +1,31 @@
+/**
+ * Brand palettes, shade → hex. This is the only place the colour values live: the Mantine theme
+ * builds its `primary` / `accent` colours from them, and Tailwind's `primary-*` / `accent-*`
+ * utilities read the CSS variables Mantine emits for those colours (see `src/index.css`).
+ */
+export const pangoColors = {
+  pangodark: {
+    50: '#e4e7ec',
+    100: '#bbc3d0',
+    200: '#8e9bb0',
+    300: '#627491',
+    400: '#3f567b',
+    500: '#173672',
+    600: '#132f64',
+    700: '#102653',
+    800: '#0c1d42',
+    900: '#08142f',
+  },
+  pangoAccent: {
+    50: '#fdf8e7',
+    100: '#f9edc3',
+    200: '#f5e19b',
+    300: '#f1d572',
+    400: '#eecc54',
+    500: '#ebc336',
+    600: '#e9bd30',
+    700: '#e5b529',
+    800: '#e2ae22',
+    900: '#dda116',
+  },
+}

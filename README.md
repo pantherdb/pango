@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This project streamlines the process of converting specific PAINT IBA release data into a JSON format that can be indexed into Elasticsearch. It comprises four main components: data conversion, data loading, API setup, and front-end site development. Below, you will find a high-level overview of each component, setup instructions, and links to detailed documentation for each part.
+This project streamlines the process of converting specific PAINT IBA release data into a JSON format that can be indexed into Elasticsearch. It comprises five main components: data conversion, data loading, API setup, front-end site development, and a dashboard of the loader's builds. Below, you will find a high-level overview of each component, setup instructions, and links to detailed documentation for each part.
 
 ## Prerequisites
 
@@ -78,6 +78,17 @@ A modern web application built with React, TypeScript, and Vite provides a user-
 - Node.js environment setup.
 
 Front-end development guidelines and setup instructions are detailed at [Site's README](site-react).
+
+
+### 5. Build Dashboard
+
+Every loader build records what it did as it runs (`loader/builds/`): each step's timings, the inputs with checksums, data figures and consistency checks, NCBI calls, Elasticsearch operations, and a check of the live indexes after loading. The build dashboard, a separate React app on the site's stack, shows those records live and afterwards, compares each dataset with its previous build, and checks on request what the live Elasticsearch and API hold.
+
+```bash
+cd build-dashboard && npm install && npm run dev   # http://localhost:4210
+```
+
+Details are in the [Build Dashboard README](build-dashboard) and the record format in [loader/docs/build-record.md](loader/docs/build-record.md).
 
 ## Getting Started
 

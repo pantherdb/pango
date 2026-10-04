@@ -1,0 +1,167 @@
+{
+ "schema_version": 1,
+ "run_id": "20261004T110638Z-get_articles-pango-2-74756-5e7a",
+ "build_id": "20261004T110000Z-all-f41d",
+ "step": "get_articles",
+ "dataset": "pango-2",
+ "title": "get_articles · pango-2",
+ "status": "ok",
+ "status_reason": null,
+ "exit_code": 0,
+ "started_at": "2026-10-04T11:06:38.684Z",
+ "updated_at": "2026-10-04T11:06:44.018Z",
+ "finished_at": "2026-10-04T11:06:44.018Z",
+ "duration_s": 5.334,
+ "heartbeat_s": 10,
+ "process": {
+  "pid": 74756,
+  "ppid": 49304,
+  "executable": "C:/work/panther/pango/loader/.venv/Scripts/python.exe",
+  "argv": [
+   "C:/work/panther/pango/loader/src/get_articles.py",
+   "-a",
+   "/scratch/capture-full/input/pango-2/human_iba_annotations.json",
+   "-o",
+   "/scratch/capture-full/clean-articles.json",
+   "-e",
+   "/scratch/capture-full/clean-articles.json"
+  ],
+  "cwd": "C:/work/panther/pango/loader"
+ },
+ "host": {
+  "name": "build-host",
+  "platform": "win32",
+  "python": "3.13.13"
+ },
+ "config": {
+  "annotations_fp": "/scratch/capture-full/input/pango-2/human_iba_annotations.json",
+  "out_fp": "/scratch/capture-full/clean-articles.json",
+  "existing_articles": "/scratch/capture-full/clean-articles.json"
+ },
+ "progress": {
+  "label": "NCBI batches",
+  "done": 1,
+  "total": 1,
+  "unit": "batches",
+  "updated_at": "2026-10-04T11:06:42.719Z"
+ },
+ "phases": [
+  {
+   "id": "p1",
+   "name": "read_references",
+   "status": "ok",
+   "started_at": "2026-10-04T11:06:38.703Z",
+   "finished_at": "2026-10-04T11:06:40.319Z",
+   "duration_s": 1.617,
+   "counters": {
+    "references": 50045,
+    "references_non_pmid": 2,
+    "articles_cached": 70233,
+    "pmids_cached": 50043,
+    "pmids_requested": 2
+   },
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p2",
+   "name": "fetch",
+   "status": "ok",
+   "started_at": "2026-10-04T11:06:40.322Z",
+   "finished_at": "2026-10-04T11:06:42.719Z",
+   "duration_s": 2.397,
+   "counters": {
+    "batches": 1,
+    "articles_fetched": 0,
+    "pmids_unknown": 0
+   },
+   "error": null,
+   "note": null
+  },
+  {
+   "id": "p3",
+   "name": "write",
+   "status": "ok",
+   "started_at": "2026-10-04T11:06:42.722Z",
+   "finished_at": "2026-10-04T11:06:43.924Z",
+   "duration_s": 1.202,
+   "counters": {},
+   "error": null,
+   "note": null
+  }
+ ],
+ "counters": {
+  "references": 50045,
+  "references_non_pmid": 2,
+  "articles_cached": 70233,
+  "pmids_cached": 50043,
+  "pmids_requested": 2,
+  "batches": 1,
+  "articles_fetched": 0,
+  "pmids_unknown": 0,
+  "articles_out": 70233
+ },
+ "breakdowns": {},
+ "logs": {
+  "warning": {
+   "total": 0,
+   "keys": 0,
+   "overflow": 0,
+   "entries": []
+  },
+  "error": {
+   "total": 0,
+   "keys": 0,
+   "overflow": 0,
+   "entries": []
+  }
+ },
+ "http": {
+  "calls": 1,
+  "ok": 1,
+  "failed": 0,
+  "items": 2,
+  "unknown": 0,
+  "statuses": {
+   "200": 1
+  },
+  "services": {
+   "ncbi-esummary": 1
+  },
+  "errors": {},
+  "latency_ms": {
+   "count": 1,
+   "mean": 393.5,
+   "p50": 393.5,
+   "p90": 393.5,
+   "max": 393.5
+  },
+  "first_at": "2026-10-04T11:06:42.719Z",
+  "last_at": "2026-10-04T11:06:42.719Z"
+ },
+ "es": null,
+ "artifacts": [
+  {
+   "at": "2026-10-04T11:06:43.893Z",
+   "role": "articles",
+   "path": "/scratch/capture-full/clean-articles.json",
+   "bytes": 24747814,
+   "modified_at": "2026-10-04T09:09:31.693Z",
+   "sha256": "d7069ec05eb061404fcfebd1a9a84ecc5fbc5a52939a952083d71579cebefaae",
+   "records": 70233,
+   "phase": "write"
+  }
+ ],
+ "sections": [],
+ "dropped": {
+  "artifacts": 0,
+  "es_ops": 0,
+  "http_events": 0,
+  "log_events": 0
+ },
+ "exception": null,
+ "events": {
+  "file": "events.jsonl",
+  "count": 11
+ }
+}
