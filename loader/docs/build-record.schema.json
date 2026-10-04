@@ -1,0 +1,294 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/pantherdb/pango/blob/main/loader/docs/build-record.schema.json",
+  "title": "PAN-GO loader build records, schema 1",
+  "description": "build.json and run.json as loader/src/build_record writes them; the contract is loader/docs/build-record.md. Fields may be added without a version bump, so objects allow properties not listed here.",
+  "oneOf": [{ "$ref": "#/$defs/build" }, { "$ref": "#/$defs/run" }],
+  "$defs": {
+    "timestamp": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+    },
+    "maybeTimestamp": { "anyOf": [{ "$ref": "#/$defs/timestamp" }, { "type": "null" }] },
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "maybeText": { "type": ["string", "null"] },
+    "maybeNumber": { "type": ["number", "null"] },
+    "counters": { "type": "object", "additionalProperties": { "type": "number" } },
+    "breakdowns": { "type": "object", "additionalProperties": { "$ref": "#/$defs/counters" } },
+    "runStatus": { "enum": ["running", "ok", "failed", "interrupted", "unknown"] },
+    "phaseStatus": { "enum": ["running", "ok", "failed", "skipped", "interrupted"] },
+    "fingerprint": {
+      "type": "object",
+      "required": ["role", "path", "bytes", "modified_at", "sha256", "records"],
+      "properties": {
+        "role": { "$ref": "#/$defs/maybeText" },
+        "path": { "type": "string" },
+        "bytes": { "type": ["integer", "null"] },
+        "modified_at": { "$ref": "#/$defs/maybeTimestamp" },
+        "sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+        "records": { "type": ["integer", "null"] }
+      }
+    },
+    "git": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "required": ["commit", "short", "branch", "dirty"],
+          "properties": {
+            "commit": { "type": "string" },
+            "short": { "type": "string" },
+            "branch": { "$ref": "#/$defs/maybeText" },
+            "dirty": { "type": ["boolean", "null"] }
+          }
+        }
+      ]
+    },
+    "dataset": {
+      "type": "object",
+      "required": ["id", "input_dir", "output_dir", "release", "inputs", "steps", "indexes"],
+      "properties": {
+        "id": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+        "input_dir": { "$ref": "#/$defs/maybeText" },
+        "output_dir": { "$ref": "#/$defs/maybeText" },
+        "release": { "type": ["object", "null"] },
+        "inputs": { "type": "array", "items": { "$ref": "#/$defs/fingerprint" } },
+        "steps": { "type": "array", "items": { "type": "string" } },
+        "indexes": {
+          "anyOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["annotations", "genes"],
+              "properties": {
+                "annotations": { "$ref": "#/$defs/maybeText" },
+                "genes": { "$ref": "#/$defs/maybeText" }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "build": {
+      "type": "object",
+      "required": [
+        "schema_version", "build_id", "label", "script", "status", "status_reason", "exit_code",
+        "started_at", "updated_at", "finished_at", "duration_s", "as_of", "host", "process", "git",
+        "packages", "config", "shared_inputs", "datasets"
+      ],
+      "properties": {
+        "schema_version": { "const": 1 },
+        "build_id": { "$ref": "#/$defs/id" },
+        "label": { "$ref": "#/$defs/maybeText" },
+        "script": { "enum": ["all", "index_only", "adhoc", "backfill"] },
+        "status": { "$ref": "#/$defs/runStatus" },
+        "status_reason": { "$ref": "#/$defs/maybeText" },
+        "exit_code": { "type": ["integer", "null"] },
+        "started_at": { "$ref": "#/$defs/timestamp" },
+        "updated_at": { "$ref": "#/$defs/timestamp" },
+        "finished_at": { "$ref": "#/$defs/maybeTimestamp" },
+        "duration_s": { "$ref": "#/$defs/maybeNumber" },
+        "as_of": { "$ref": "#/$defs/timestamp" },
+        "host": { "type": "object", "required": ["name", "platform", "python"] },
+        "process": { "type": "object", "required": ["pid", "argv", "cwd"] },
+        "git": { "$ref": "#/$defs/git" },
+        "packages": { "type": "object", "additionalProperties": { "$ref": "#/$defs/maybeText" } },
+        "config": { "type": "object" },
+        "shared_inputs": { "type": "array", "items": { "$ref": "#/$defs/fingerprint" } },
+        "datasets": { "type": "array", "items": { "$ref": "#/$defs/dataset" } }
+      }
+    },
+    "phase": {
+      "type": "object",
+      "required": ["id", "name", "status", "started_at", "finished_at", "duration_s", "counters", "error", "note"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "status": { "$ref": "#/$defs/phaseStatus" },
+        "started_at": { "$ref": "#/$defs/timestamp" },
+        "finished_at": { "$ref": "#/$defs/maybeTimestamp" },
+        "duration_s": { "$ref": "#/$defs/maybeNumber" },
+        "counters": { "$ref": "#/$defs/counters" },
+        "error": { "$ref": "#/$defs/maybeText" },
+        "note": { "$ref": "#/$defs/maybeText" }
+      }
+    },
+    "ledger": {
+      "type": "object",
+      "required": ["total", "keys", "overflow", "entries"],
+      "properties": {
+        "total": { "type": "integer" },
+        "keys": { "type": "integer" },
+        "overflow": { "type": "integer" },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["key", "level", "logger", "template", "message", "count", "first_at", "last_at", "samples"],
+            "properties": {
+              "count": { "type": "integer" },
+              "samples": {
+                "type": "array",
+                "items": { "type": "object", "required": ["at", "message", "phase"] }
+              }
+            }
+          }
+        }
+      }
+    },
+    "http": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "required": ["calls", "ok", "failed", "items", "unknown", "statuses", "services", "errors", "latency_ms", "first_at", "last_at"],
+          "properties": {
+            "calls": { "type": "integer" },
+            "ok": { "type": "integer" },
+            "failed": { "type": "integer" },
+            "latency_ms": {
+              "anyOf": [
+                { "type": "null" },
+                { "type": "object", "required": ["count", "mean", "p50", "p90", "max"] }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "esOp": {
+      "type": "object",
+      "required": ["at", "op", "index", "status", "count", "errors", "duration_s", "detail", "phase"],
+      "properties": {
+        "at": { "$ref": "#/$defs/timestamp" },
+        "op": { "type": "string" },
+        "status": { "type": "string" },
+        "count": { "type": ["integer", "null"] },
+        "errors": { "type": ["integer", "null"] },
+        "duration_s": { "$ref": "#/$defs/maybeNumber" }
+      }
+    },
+    "table": {
+      "type": "object",
+      "required": ["id", "title", "columns", "rows", "total_rows"],
+      "properties": {
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["key", "label"],
+            "properties": { "kind": { "enum": ["number", "text"] } }
+          }
+        },
+        "rows": { "type": "array", "items": { "type": "object" } },
+        "total_rows": { "type": "integer" }
+      }
+    },
+    "section": {
+      "type": "object",
+      "required": ["id", "title", "status", "message", "headline", "tables", "text"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "status": { "enum": ["ok", "absent", "error"] },
+        "headline": {
+          "anyOf": [
+            { "type": "null" },
+            { "type": "object", "additionalProperties": { "type": ["number", "string", "null"] } }
+          ]
+        },
+        "tables": { "type": "array", "items": { "$ref": "#/$defs/table" } },
+        "text": { "$ref": "#/$defs/maybeText" }
+      }
+    },
+    "run": {
+      "type": "object",
+      "required": [
+        "schema_version", "run_id", "build_id", "step", "dataset", "title", "status", "status_reason",
+        "exit_code", "started_at", "updated_at", "finished_at", "duration_s", "heartbeat_s", "process",
+        "host", "config", "progress", "phases", "counters", "breakdowns", "logs", "http", "es",
+        "artifacts", "sections", "dropped", "exception", "events"
+      ],
+      "properties": {
+        "schema_version": { "const": 1 },
+        "run_id": { "$ref": "#/$defs/id" },
+        "build_id": { "$ref": "#/$defs/id" },
+        "step": { "type": "string" },
+        "dataset": { "$ref": "#/$defs/maybeText" },
+        "title": { "type": "string" },
+        "status": { "$ref": "#/$defs/runStatus" },
+        "status_reason": { "$ref": "#/$defs/maybeText" },
+        "exit_code": { "type": ["integer", "null"] },
+        "started_at": { "$ref": "#/$defs/timestamp" },
+        "updated_at": { "$ref": "#/$defs/timestamp" },
+        "finished_at": { "$ref": "#/$defs/maybeTimestamp" },
+        "duration_s": { "type": "number" },
+        "heartbeat_s": { "type": "number" },
+        "process": { "type": "object", "required": ["pid", "argv", "cwd"] },
+        "host": { "type": "object" },
+        "config": { "type": "object" },
+        "progress": {
+          "anyOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["label", "done", "total", "unit"],
+              "properties": {
+                "done": { "type": "number" },
+                "total": { "type": ["number", "null"] }
+              }
+            }
+          ]
+        },
+        "phases": { "type": "array", "items": { "$ref": "#/$defs/phase" } },
+        "counters": { "$ref": "#/$defs/counters" },
+        "breakdowns": { "$ref": "#/$defs/breakdowns" },
+        "logs": {
+          "type": "object",
+          "required": ["warning", "error"],
+          "properties": { "warning": { "$ref": "#/$defs/ledger" }, "error": { "$ref": "#/$defs/ledger" } }
+        },
+        "http": { "$ref": "#/$defs/http" },
+        "es": {
+          "anyOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["server", "ops"],
+              "properties": {
+                "server": { "type": ["object", "null"] },
+                "ops": { "type": "array", "items": { "$ref": "#/$defs/esOp" } }
+              }
+            }
+          ]
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/$defs/fingerprint" },
+              { "type": "object", "required": ["at", "phase"] }
+            ]
+          }
+        },
+        "sections": { "type": "array", "items": { "$ref": "#/$defs/section" } },
+        "dropped": {
+          "type": "object",
+          "required": ["artifacts", "es_ops", "http_events", "log_events"],
+          "additionalProperties": { "type": "integer" }
+        },
+        "exception": {
+          "anyOf": [
+            { "type": "null" },
+            { "type": "object", "required": ["type", "message", "traceback"] }
+          ]
+        },
+        "events": {
+          "type": "object",
+          "required": ["file", "count"],
+          "properties": { "file": { "const": "events.jsonl" }, "count": { "type": "integer" } }
+        }
+      }
+    }
+  }
+}

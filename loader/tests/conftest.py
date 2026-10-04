@@ -31,6 +31,14 @@ _es_module = types.ModuleType('src.config.es')
 _es_module.es = MagicMock(name='es')
 sys.modules['src.config.es'] = _es_module
 
+# Build records are off unless a test asks for the `recording` fixture, and a developer's
+# shell can't point a test at their builds dir or into one of their builds.
+os.environ['PANGO_RECORD'] = '0'
+for _name in ('PANGO_BUILD_ID', 'PANGO_BUILDS_DIR', 'PANGO_DATASET', 'PANGO_BUILD_LABEL'):
+    os.environ.pop(_name, None)
+
+SCHEMA_PATH = os.path.join(ROOT_DIR, 'docs', 'build-record.schema.json')
+
 
 # --- Global state ---
 
@@ -41,6 +49,34 @@ def _reset_parent_lookup():
     mod.parent_lookup = {}
     yield
     mod.parent_lookup = {}
+
+
+# --- Build records ---
+
+@pytest.fixture
+def recording(tmp_path, monkeypatch):
+    """Turn build records on, into tmp_path/builds; returns that directory."""
+    builds = tmp_path / 'builds'
+    monkeypatch.setenv('PANGO_RECORD', '1')
+    monkeypatch.setenv('PANGO_BUILDS_DIR', str(builds))
+    return builds
+
+
+@pytest.fixture(scope='session')
+def assert_valid_record():
+    """Return a function that checks a build.json ('build') or run.json ('run') against
+    docs/build-record.schema.json."""
+    from jsonschema import Draft202012Validator
+
+    with open(SCHEMA_PATH, encoding='utf-8') as f:
+        schema = json.load(f)
+    validators = {kind: Draft202012Validator({'$ref': f'#/$defs/{kind}', '$defs': schema['$defs']})
+                  for kind in ('build', 'run')}
+
+    def _assert(record, kind):
+        errors = sorted(validators[kind].iter_errors(record), key=lambda e: list(e.path))
+        assert not errors, '\n'.join(f"{'/'.join(map(str, e.path))}: {e.message}" for e in errors[:10])
+    return _assert
 
 
 # --- Helpers ---

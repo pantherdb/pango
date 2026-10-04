@@ -136,3 +136,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# Build records (src/build_record), read by build-dashboard/
+builds/
