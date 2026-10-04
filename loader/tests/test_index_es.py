@@ -2,8 +2,9 @@ import importlib
 import json
 import pytest
 import ijson
+from types import SimpleNamespace
 from unittest.mock import ANY, Mock, call
-from elasticsearch import helpers
+from elasticsearch import Elasticsearch, helpers
 from elasticsearch.serializer import JSONSerializer
 
 
@@ -87,7 +88,34 @@ def test_bulk_load_streams_file_into_index(index_es, bulk, monkeypatch, write_js
     assert index_es.bulk_load(write_json('docs.json', docs), 'pango-2-genes') == (2, [])
 
     assert bulk.documents == docs
-    bulk.assert_called_once_with(es, ANY, index='pango-2-genes', chunk_size=100, request_timeout=200)
+    bulk.assert_called_once_with(es, ANY, index='pango-2-genes', chunk_size=100, request_timeout=200,
+                                 raise_on_error=False)
+
+
+def test_bulk_load_sends_every_chunk_when_documents_fail(index_es, monkeypatch, write_json):
+    """A failed document used to stop the load at its chunk (raise_on_error defaulted to True)
+    and the rest of the file was never sent. Real helpers.bulk, fake cluster: the first
+    document of the first chunk fails."""
+    sent = []
+
+    def fake_bulk(self, *args, operations=None, **kwargs):
+        docs = [json.loads(line) for line in operations[1::2]]
+        sent.extend(docs)
+        items = [{'index': {'_id': str(doc['n']), 'status': 201}} if doc['n'] else
+                 {'index': {'_id': '0', 'status': 400,
+                            'error': {'type': 'mapper_parsing_exception', 'reason': 'bad'}}}
+                 for doc in docs]
+        return SimpleNamespace(body={'errors': any(doc['n'] == 0 for doc in docs), 'items': items})
+
+    monkeypatch.setattr(Elasticsearch, 'bulk', fake_bulk)
+    monkeypatch.setattr(index_es, 'es', Elasticsearch('http://localhost:9'))
+    docs = [{'n': n} for n in range(250)]  # three chunks of up to 100
+
+    success, errors = index_es.bulk_load(write_json('docs.json', docs), 'idx')
+
+    assert len(sent) == 250
+    assert success == 249
+    assert [error['index']['_id'] for error in errors] == ['0']
 
 
 def test_bulk_load_returns_errors_from_bulk_index_error(index_es, bulk, write_json):
@@ -123,16 +151,29 @@ def test_main_creates_and_loads_both_indices(index_es, monkeypatch, run_main, cl
     ]
 
 
-def test_main_logs_bulk_errors_and_still_loads_genes(
+def test_main_loads_genes_after_bulk_errors_then_exits_non_zero(
         index_es, monkeypatch, caplog, run_main, clean_annos_fp, clean_genes_fp):
+    """Failed documents used to leave exit code 0, so all.sh reported success."""
     monkeypatch.setattr(index_es, 'create_index', lambda index_type, prefix: index_type)
-    bulk_load = Mock(side_effect=[(8, [{'index': {}}, {'index': {}}]), (5, [])])
+    failed = {'index': {'_id': 'G9', 'status': 400,
+                        'error': {'type': 'mapper_parsing_exception', 'reason': 'bad field'}}}
+    bulk_load = Mock(side_effect=[(8, [failed, failed]), (5, [])])
     monkeypatch.setattr(index_es, 'bulk_load', bulk_load)
 
-    run_main(index_es, *cli_args(clean_annos_fp, clean_genes_fp))
+    with pytest.raises(SystemExit) as exit_info:
+        run_main(index_es, *cli_args(clean_annos_fp, clean_genes_fp))
 
     assert [c.args[1] for c in bulk_load.call_args_list] == ['annotations', 'genes']
+    assert '2 documents failed to load' in str(exit_info.value.code)
     assert 'Annotations loading had 2 errors' in caplog.text
+    assert 'annotations: document G9 (status 400): mapper_parsing_exception: bad field' in caplog.text
+
+
+def test_describe_error_tolerates_partial_items(index_es):
+    assert index_es.describe_error({'index': {}}) == 'document ? (status ?): error'
+    assert index_es.describe_error({}) == 'document ? (status ?): error'
+    assert index_es.describe_error({'create': {'_id': '1', 'status': 409, 'error': 'conflict'}}) == \
+        'document 1 (status 409): conflict'
 
 
 def test_main_propagates_fatal_errors(index_es, monkeypatch, caplog, run_main, clean_annos_fp, clean_genes_fp):
