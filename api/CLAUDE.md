@@ -9,24 +9,28 @@ PAN-GO API is a FastAPI application providing a GraphQL API (via Strawberry Grap
 ## Common Commands
 
 ```bash
-# Install dependencies
-poetry install
+# Install dependencies (uv, Python 3.13 from .python-version, versions from uv.lock)
+uv sync
 
 # Run development server (localhost:5000)
-poetry run python main.py
+uv run python main.py
 
 # Run all tests (integration tests skip when Elasticsearch is unreachable)
-poetry run pytest
+uv run pytest
 
 # Offline tests only
-poetry run pytest -m "not integration"
+uv run pytest -m "not integration"
 
 # Run specific test file / single test
-poetry run pytest tests/test_graphql_queries.py
-poetry run pytest tests/test_graphql_queries.py::TestGenes::test_full_document
+uv run pytest tests/test_graphql_queries.py
+uv run pytest tests/test_graphql_queries.py::TestGenes::test_full_document
 
 # Integration tests against a throwaway Elasticsearch (see tests/README.md)
-PANGO_TEST_ES_URL=http://localhost:19200 poetry run pytest tests/integration
+PANGO_TEST_ES_URL=http://localhost:19200 uv run pytest tests/integration
+
+# Add or upgrade dependencies (updates pyproject.toml and uv.lock)
+uv add package-name            # or: uv add --dev package-name
+uv lock --upgrade-package package-name
 ```
 
 Tests mock Elasticsearch through the `es_mock` fixture (the resolvers' module-level `es`), never by

@@ -47,7 +47,7 @@ but flips the moment a bug is fixed.
 | 5 | same | `GeneFilterArgs` passed to `get_annotations_query` → `AttributeError: term_type_ids` | Unit + real ES |
 | 6 | Gene autocomplete | `standard` search analyzer keeps `uniprotkb:q9unh6` whole; ngram index analyzer splits on `:` → full ids never match | Real ES `_analyze` |
 | 7 | `get_annotations_export` | `from_=page*size`, `size=10000` → any page ≥ 1 exceeds `max_result_window` → ES 400 | Real ES |
-| 8 | `settings.get_versioned_index` (unused) | f-string of a `str` Enum renders `ApiVersion.V2-…` on Python ≥ 3.11 | xfail only on ≥ 3.11 |
+| 8 | `settings.get_versioned_index` (unused) | f-string of a `str` Enum renders `ApiVersion.V2-…` on Python ≥ 3.11 | **Fixed** in the uv/3.13 switch (`.plans/config/uv-python-313.md`) |
 | 9 | `annotation_model.py` | Trailing commas → `gene_ids`/`aspect_ids`/`with_gene_ids` default to `(UNSET,)`; SDL publishes `= [""]` | `schema.as_str()` |
 | 10 | `get_annotations` | `pageArgs: {page: null}` (legal GraphQL) → `TypeError` leaked to client | HTTP |
 | 11 | `Evidence.withGeneId: Gene!` | `terms`/`slimTerms`/`termCount` never present on evidence genes → error, whole response nulled | HTTP |
@@ -154,6 +154,6 @@ an `annotationsCount` response (always 0; hook unused).
 ## Follow-ups (not done)
 - Fix the bugs above (each has a failing-when-fixed test). Highest value: #1 genes order,
   #2/#3 slim-term autocomplete (if the UI still uses it), #6 full-id gene search.
-- Recreate `api/.venv` (`poetry env use 3.10 && poetry install`); add `pytest-cov` as a dev
-  dependency if coverage is wanted (`--cov` was documented but never installed).
+- ~~Recreate `api/.venv`~~ done by the uv/3.13 switch. Add `pytest-cov` if coverage is wanted:
+  `uv add --dev pytest-cov` (`--cov` was documented but never installed).
 - Optionally run `-m "not integration"` in CI, plus integration with an ES service container.

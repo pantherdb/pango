@@ -1,6 +1,4 @@
 """API versioning and settings: ApiVersion, Settings, GraphQLContext and VersionManager."""
-import sys
-
 import pytest
 from starlette.requests import Request
 
@@ -51,9 +49,6 @@ class TestSettings:
         configured = Settings(HOST_HTTP="https://", HOST_URL="pango.example.org", HOST_PORT=8443)
         assert configured.BASE_URL == "https://pango.example.org:8443"
 
-    @pytest.mark.xfail(sys.version_info >= (3, 11), strict=True, raises=AssertionError,
-                       reason="BUG: f'{version}' renders 'ApiVersion.V2' for str Enums on Python >= 3.11; "
-                              "use version.value like GraphQLContext.get_index")
     @pytest.mark.parametrize("version, expected", [
         (None, "pango-1-genes"),
         (ApiVersion.LATEST, "pango-1-genes"),

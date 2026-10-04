@@ -1,33 +1,34 @@
-[tool.poetry]
+[project]
 name = "api"
 version = "0.1.0"
 description = ""
-authors = ["PANTHERDB.org <pantherfeedback@yahoo.com>"]
+authors = [{ name = "PANTHERDB.org", email = "pantherfeedback@yahoo.com" }]
 readme = "README.md"
-package-mode = false
+requires-python = ">=3.13"
+dependencies = [
+    "elasticsearch==8.5.0",
+    "fastapi>=0.115.5,<0.116",
+    "jupyterlab>=4.3.1,<5",
+    "notebook>=7.2.2,<8",
+    "pydantic>=2.10.1,<3",
+    "pydantic-settings>=2.6.1,<3",
+    "python-dotenv>=1.0.1,<2",
+    "requests>=2.32.3,<3",
+    "uvicorn>=0.32.1,<0.33",
+    "aiohttp>=3.11.7,<4",
+    "gunicorn>=23.0.0,<24",
+    "pytest>=8.4.1,<9",
+    "strawberry-graphql[cli]>=0.284.1,<0.285",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-elasticsearch = "8.5.0"
-fastapi = "^0.115.5"
-jupyterlab = "^4.3.1"
-notebook = "^7.2.2"
-pydantic = "^2.10.1"
-pydantic-settings = "^2.6.1"
-python-dotenv = "^1.0.1"
-requests = "^2.32.3"
-uvicorn = "^0.32.1"
-aiohttp = "^3.11.7"
-gunicorn = "^23.0.0"
-pytest = "^8.4.1"
-strawberry-graphql = {extras = ["cli"], version = "^0.284.1"}
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0,<9",
+    "pytest-asyncio>=0.23.0,<0.24",
+    "httpx>=0.27.0,<0.28",
+    "pytest-mock>=3.12.0,<4",
+]
 
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.0.0"
-pytest-asyncio = "^0.23.0"
-httpx = "^0.27.0"
-pytest-mock = "^3.12.0"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.uv]
+# An application, not a library: install its dependencies only.
+package = false

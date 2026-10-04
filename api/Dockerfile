@@ -1,26 +1,26 @@
 # Dockerfile
-FROM python:3.10-slim
+FROM python:3.13-slim
 
 # (Optional) create a non-root user 'fastapiuser'
 RUN groupadd -r fastapiuser && useradd -r -g fastapiuser fastapiuser
 
-# Install system dependencies if needed
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  build-essential \
-  && rm -rf /var/lib/apt/lists/*
+# uv, pinned like any other build tool
+COPY --from=ghcr.io/astral-sh/uv:0.11.7 /uv /uvx /bin/
 
 WORKDIR /app
 
-COPY pyproject.toml poetry.lock /app/
+# Use the image's Python, and compile bytecode now since the app runs as a non-root user
+ENV UV_PYTHON_DOWNLOADS=never \
+    UV_COMPILE_BYTECODE=1
 
-RUN pip install --no-cache-dir poetry
-
-# Disable Poetry's virtualenv creation inside container
-RUN poetry config virtualenvs.create false
-
-RUN poetry install --no-ansi --no-interaction --no-root
+# Install the locked dependencies (without the dev group) into /app/.venv; this layer is
+# rebuilt only when the lock changes
+COPY pyproject.toml uv.lock .python-version /app/
+RUN uv sync --locked --no-dev --no-cache
 
 COPY . /app
+
+ENV PATH="/app/.venv/bin:$PATH"
 
 # Switch to non-root user
 USER fastapiuser

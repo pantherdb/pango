@@ -3,9 +3,9 @@
 ## Running
 
 ```bash
-poetry run pytest                        # everything; integration tests skip without Elasticsearch
-poetry run pytest -m "not integration"   # offline only, a few seconds
-poetry run pytest tests/test_http.py     # one module
+uv run pytest                        # everything; integration tests skip without Elasticsearch
+uv run pytest -m "not integration"   # offline only, a few seconds
+uv run pytest tests/test_http.py     # one module
 ```
 
 The integration tests need an Elasticsearch 8.x. They only ever talk to `PANGO_TEST_ES_URL`
@@ -15,11 +15,11 @@ The integration tests need an Elasticsearch 8.x. They only ever talk to `PANGO_T
 docker run --rm -d --name pango-api-pytest-es -p 19200:9200 \
   -e discovery.type=single-node -e xpack.security.enabled=false \
   docker.elastic.co/elasticsearch/elasticsearch:8.5.0
-PANGO_TEST_ES_URL=http://localhost:19200 poetry run pytest
+PANGO_TEST_ES_URL=http://localhost:19200 uv run pytest
 docker stop pango-api-pytest-es
 ```
 
-PowerShell: `$env:PANGO_TEST_ES_URL = "http://localhost:19200"; poetry run pytest`
+PowerShell: `$env:PANGO_TEST_ES_URL = "http://localhost:19200"; uv run pytest`
 
 They create `pango-test-pytest-annotations` and `pango-test-pytest-genes` with the loader's index
 settings and mappings (`loader/data/es_settings`), load the loader's fixture output
@@ -76,6 +76,5 @@ the shapes Elasticsearch 8.5 returns), `helpers.py` (paths, `GraphQLClient`, fie
 - `pageArgs: {page: null}` raises `TypeError`.
 - `evidence { withGeneId { terms | slimTerms | termCount } }` errors.
 - `slimTermsAutocomplete` never sets `displayId`.
-- `settings.get_versioned_index` renders `ApiVersion.V2-…` on Python ≥ 3.11 (unused).
 - Annotation documents carry `coordinates_chr_num` as a float (`"1.0"`); a loader issue.
 - Frontend: `GET_ANNOTATION_STATS_QUERY` and genes' `GET_ANNOTATIONS_QUERY` don't match the schema (unused).

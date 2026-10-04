@@ -1,6 +1,6 @@
 # PAN-GO API
 
-A FastAPI application with GraphQL API powered by Strawberry GraphQL, Elasticsearch, and Poetry for dependency management.
+A FastAPI application with GraphQL API powered by Strawberry GraphQL, Elasticsearch, and uv for dependency management.
 
 ## Overview
 
@@ -13,21 +13,21 @@ This GraphQL API provides access to gene annotation data, supporting queries for
 
 ## Prerequisites
 
-- Python 3.10+
-- Poetry (for dependency management)
+- [uv](https://docs.astral.sh/uv/) (installs Python 3.13 itself if it's missing)
 - Docker & Docker Compose (for containerized deployment)
 - Elasticsearch 8.5.0
 
 ## Setup
 
-### 1. Install Dependencies with Poetry
+### 1. Install Dependencies with uv
 
 ```bash
-# Install Poetry if not already installed
-curl -sSL https://install.python-poetry.org | python3 -
+# Install uv if not already installed
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# Windows: powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 
-# Install project dependencies
-poetry install
+# Create .venv with Python 3.13 (.python-version) and the locked dependencies (uv.lock)
+uv sync
 ```
 
 ### 2. Environment Configuration
@@ -35,7 +35,7 @@ poetry install
 Copy the example environment file and configure your settings:
 
 ```bash
-cp .env-example .env
+cp .env.example .env
 ```
 
 Edit `.env` with your specific configuration (Elasticsearch host, ports, etc.)
@@ -44,17 +44,10 @@ Edit `.env` with your specific configuration (Elasticsearch host, ports, etc.)
 
 ### Option 1: Local Development (without Docker)
 
-Activate the Poetry virtual environment and run the server:
+Run the server in the project environment:
 
 ```bash
-# Activate Poetry shell
-poetry shell
-
-# Run with Python
-python main.py
-
-# Or run with Poetry
-poetry run python main.py
+uv run python main.py
 ```
 
 The API will be available at `http://localhost:5000` (or your configured `HOST_PORT`)
@@ -105,23 +98,27 @@ Once the server is running, access the GraphQL playground:
 
 ```bash
 # Run all tests (integration tests skip when Elasticsearch is unreachable)
-poetry run pytest
+uv run pytest
 
 # Offline tests only
-poetry run pytest -m "not integration"
+uv run pytest -m "not integration"
 
 # Run specific test file
-poetry run pytest tests/test_graphql_queries.py
+uv run pytest tests/test_graphql_queries.py
 ```
 
 ### Adding Dependencies
 
 ```bash
 # Add a production dependency
-poetry add package-name
+uv add package-name
 
 # Add a development dependency
-poetry add --group dev package-name
+uv add --dev package-name
+
+# Upgrade locked versions (all, or one package)
+uv lock --upgrade
+uv lock --upgrade-package package-name
 ```
 
 ### Code Quality
@@ -138,7 +135,9 @@ The project uses:
 - `log.local.ini` - Logging configuration for local development
 - `log.docker.ini` - Logging configuration for Docker containers
 - `pytest.ini` - Pytest configuration
-- `pyproject.toml` - Poetry dependencies and project metadata
+- `pyproject.toml` - Dependencies and project metadata
+- `uv.lock` - Locked dependency versions (commit it; Docker builds with `--locked`)
+- `.python-version` - Python version uv uses (3.13)
 
 ## Contact
 

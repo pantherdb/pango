@@ -31,6 +31,6 @@ class Settings(BaseSettings):
         if version == ApiVersion.LATEST:
             version = ApiVersion.V1 
         
-        return f"{version}-{index_name}"
+        return f"{version.value}-{index_name}"
 
 settings = Settings()

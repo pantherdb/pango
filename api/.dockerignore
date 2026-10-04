@@ -1,0 +1,11 @@
+# Build from what a fresh clone has: the image creates its own .venv from uv.lock,
+# and the local (gitignored) environment, caches and logs must not overwrite or bloat it.
+.venv
+__pycache__
+*.py[cod]
+.pytest_cache
+.coverage
+.ipynb_checkpoints
+logs
+*.log
+.env
