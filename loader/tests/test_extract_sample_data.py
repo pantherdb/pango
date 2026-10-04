@@ -94,9 +94,6 @@ def test_validate_references_empty():
     assert validate_references(refs, lookup) is True
 
 
-@pytest.mark.xfail(reason=(
-    "BUG: with_gene_ids are not validated, yet clean_annotations.get_evidence raises "
-    "KeyError for any with_gene_id missing from the gene info"))
 def test_validate_references_missing_with_genes():
     refs = {'genes': {'G1'}, 'terms': {'T1'}, 'articles': set(), 'with_genes': {'G_MISSING'}}
     lookup = {'genes': [{'gene': 'G1'}], 'terms': [{'ID': 'T1'}], 'articles': []}

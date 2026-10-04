@@ -70,6 +70,12 @@ def validate_references(references: Dict[str, Set], lookup_data: Dict[str, List[
         print(f"Missing terms: {missing_terms}")
         return False
         
+    # clean_annotations looks every with_gene_id up in the gene info and fails on a miss.
+    missing_with_genes = references['with_genes'] - genes_lookup
+    if missing_with_genes:
+        print(f"Missing with_gene_ids: {missing_with_genes}")
+        return False
+
     return True
 
 def filter_lookup_data(references: Dict[str, Set], lookup_data: Dict[str, List[Dict]]) -> Dict[str, List[Dict]]:

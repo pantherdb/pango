@@ -41,6 +41,9 @@ filters by membership, so it is equivalent.
 - **pytest config:** `-ra`, `xfail_strict = true`, filter the pandas 1.5/numpy 1.26 warning.
 
 ## Bugs found (strict xfail with `BUG:` reason; verified each flips to XPASS(strict) with a fix)
+
+> All four fixed in `.plans/bugfix/loader-known-bugs.md`; xfail markers removed. Bug 2 was fixed
+> by skipping unknown PMIDs instead of `res.get('authors')` (a stub would break the API).
 1. get_articles: bare `-o articles.json` -> os.makedirs('') FileNotFoundError after fetching.
    Fix: `os.makedirs(os.path.dirname(out_fp) or '.', exist_ok=True)`.
 2. get_articles: PubMed returns `{"uid", "error"}` for unknown PMIDs (checked against the live
@@ -62,7 +65,7 @@ filters by membership, so it is equivalent.
 | Write tool on CRLF files | Rewrote conftest.py/test_pipeline.py as LF (whole-file diff); converted back to CRLF | 2026-10-02 |
 
 ## Follow-ups (not done)
-- Fix the four bugs above, then drop their xfail markers.
+- ~~Fix the four bugs above, then drop their xfail markers.~~ Done (.plans/bugfix/loader-known-bugs.md).
 - index_es.load_json opens the file in text mode; ijson warns this will become an error
   (open with 'rb').
 - Recreate the .venv (`poetry env remove --all && poetry install`).

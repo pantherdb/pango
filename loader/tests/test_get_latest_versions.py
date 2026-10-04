@@ -1,5 +1,3 @@
-import pytest
-
 from src import get_latest_versions
 from src.get_latest_versions import copy_latest_versions
 
@@ -69,9 +67,6 @@ def test_main(tmp_path, run_main):
     assert copied(tmp_path / 'input') == {'pango-2': '2024-11-22_2.0'}
 
 
-@pytest.mark.xfail(raises=FileExistsError, reason=(
-    "BUG: releases are grouped by major.minor but the output folder is named by major "
-    "only, so the latest 2.0.x and the latest 2.1.x both get copied to pango-2"))
 def test_minor_release_supersedes_older_minor_of_same_major(tmp_path):
     src = tmp_path / 'pango_data'
     for name in ['2025-10-12_2.0.5', '2026-03-01_2.1.0']:

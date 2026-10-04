@@ -10,18 +10,18 @@ def copy_latest_versions(src_dir, dest_dir, prefix='pango'):
    
    dirs = [d for d in Path(src_dir).iterdir() if d.is_dir() and re.match(r'\d{4}-\d{2}-\d{2}_\d+\.\d+(\.\d+)?$', d.name)]
    
+   # One folder per major version (pango-2 = latest 2.x); its name becomes the index prefix.
    version_groups = {}
    for dir_path in dirs:
        version_str = dir_path.name.split('_')[1]
-       major_version = '.'.join(version_str.split('.')[:2])
+       major_version = version_str.split('.')[0]
        if major_version not in version_groups:
            version_groups[major_version] = []
        version_groups[major_version].append(dir_path)
    
-   for versions in version_groups.values():
+   for major_version, versions in version_groups.items():
        latest = max(versions, key=lambda x: version.parse(x.name.split('_')[1]))
-       major = latest.name.split('_')[1].split('.')[0]
-       new_name = f"{prefix}-{major}"
+       new_name = f"{prefix}-{major_version}"
        dest_path = Path(dest_dir) / new_name
        print(f"Copying {latest} -> {dest_path}")
        shutil.copytree(latest, dest_path)

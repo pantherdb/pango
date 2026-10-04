@@ -262,9 +262,6 @@ def test_get_pubmed_metadata_keeps_previous_output_when_write_fails(
     assert not os.path.exists(out_fp + '.tmp')
 
 
-@pytest.mark.xfail(raises=FileNotFoundError, reason=(
-    "BUG: os.makedirs(os.path.dirname(out_fp)) gets '' for a bare filename and raises, "
-    "after every batch has already been fetched"))
 def test_get_pubmed_metadata_accepts_bare_output_filename(tmp_path, monkeypatch, pubmed, annotations_citing):
     annos_fp = annotations_citing([1])
     monkeypatch.chdir(tmp_path)
@@ -274,16 +271,22 @@ def test_get_pubmed_metadata_accepts_bare_output_filename(tmp_path, monkeypatch,
     assert [a['pmid'] for a in read_json(tmp_path / 'articles.json')] == ['PMID:1']
 
 
-@pytest.mark.xfail(reason=(
-    "BUG: PubMed answers an unknown PMID with {'uid', 'error'}; parse_article reads "
-    "res['authors'] and the KeyError makes the whole batch of up to 100 PMIDs get skipped"))
-def test_get_pubmed_metadata_keeps_rest_of_batch_when_a_pmid_is_unknown(tmp_path, pubmed, annotations_citing):
-    pubmed.unknown_ids = {'2'}
+def test_get_pubmed_metadata_skips_pmids_without_summary(tmp_path, pubmed, annotations_citing, capsys):
+    pubmed.unknown_ids = {'99999999'}
+    annos_fp = annotations_citing([1, 99999999, 3])
     out_fp = str(tmp_path / 'articles.json')
 
-    get_pubmed_metadata(annotations_citing([1, 2, 3]), out_fp, None)
+    get_pubmed_metadata(annos_fp, out_fp, out_fp)
 
-    assert {'PMID:1', 'PMID:3'} <= {a['pmid'] for a in read_json(out_fp)}
+    # The rest of the batch is kept. The unknown PMID gets no stub article (the API's
+    # Reference type needs title, authors and date), so its reference stays null.
+    assert sorted(a['pmid'] for a in read_json(out_fp)) == ['PMID:1', 'PMID:3']
+    assert '99999999' in capsys.readouterr().out
+
+    # Nothing was cached for it, so the next run asks PubMed again.
+    pubmed.requests.clear()
+    get_pubmed_metadata(annos_fp, out_fp, out_fp)
+    assert pubmed.requested_ids == ['99999999']
 
 
 # --- main ---

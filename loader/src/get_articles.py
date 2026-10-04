@@ -93,7 +93,12 @@ def get_pubmed_metadata(annotations_fp, out_fp, existing_articles_fp):
                 response = requests.get(pubmed_api + ",".join(batch))
                 response.raise_for_status()  # Raise an exception for bad status codes
                 res = response.json()['result']
-                new_articles = [parse_article(res[uid]) for uid in res['uids']]
+                # Unknown or withdrawn PMIDs come back as {'uid', 'error'}. Skip them rather than
+                # save a stub: the API's Reference type requires title, authors and date.
+                unknown = [uid for uid in res['uids'] if 'error' in res[uid]]
+                if unknown:
+                    print(f"No PubMed summary for PMIDs {', '.join(unknown)}, skipping them")
+                new_articles = [parse_article(res[uid]) for uid in res['uids'] if 'error' not in res[uid]]
                 pubmed_json.extend(new_articles)
                 print(f"Processed {min(x+step, end)}/{end} new articles")
             except Exception as e:
@@ -102,7 +107,7 @@ def get_pubmed_metadata(annotations_fp, out_fp, existing_articles_fp):
                 continue
     
     # Create directory if it doesn't exist
-    os.makedirs(os.path.dirname(out_fp), exist_ok=True)
+    os.makedirs(os.path.dirname(out_fp) or '.', exist_ok=True)
     
     # Write to temporary file first to avoid corruption
     temp_file = out_fp + '.tmp'
